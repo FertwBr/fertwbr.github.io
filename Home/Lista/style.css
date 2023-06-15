@@ -1,0 +1,50 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}  
+h1 {
+    font-size: 36px;
+    margin: 0;
+}  
+#itemInput,
+#positionInput {
+    border: 2px solid #273b72;
+    font-size: 18px;
+    padding: 10px;
+    width: calc(50% - 22px);
+}  
+#addButton,
+.removeButton {
+    background-color: #273b72;
+    border: none;
+    color: white;
+    font-size: 18px;
+    margin-top: 10px;
+    padding: 10px;
+}  
+#addButton:hover,
+.removeButton:hover {
+    background-color: #273b72;
+}  
+#items {
+    list-style: none;
+    margin: 20px 0;
+    padding: 0;
+}  
+#items li {
+  align-items: center;
+  background-color: #f2f2f2;
+  display: flex;
+  font-size: 18px;
+  justify-content: space-between;
+  margin: 5px 0;
+  padding: 10px;
+}
+#items li span {
+  font-weight: bold;
+}
+.removeButton {
+  font-size: 14px;
+  padding: 5px;
+}
