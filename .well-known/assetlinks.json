@@ -1,14 +1,21 @@
 [
   {
-    "relation": [
-      "delegate_permission/common.handle_all_urls",
-      "delegate_permission/common.get_login_creds"
-    ],
+    "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
       "namespace": "android_app",
       "package_name": "io.github.fertwbr.pixelcompass",
       "sha256_cert_fingerprints": [
         "63:D7:46:52:14:9E:A3:50:9D:79:45:E6:97:0D:8E:1D:BE:D0:F3:4A:DE:DE:DF:B2:35:F3:E0:09:8D:BF:BB:93"
+      ]
+    }
+  },
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "io.github.fertwbr.pixelcompass",
+      "sha256_cert_fingerprints": [
+        "EA:35:36:A0:67:20:93:5E:4F:D4:6B:FB:1C:DA:58:F2:F0:9C:C8:48:60:4F:7A:53:08:CE:82:56:75:8D:48:45"
       ]
     }
   }
