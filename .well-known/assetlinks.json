@@ -1,0 +1,15 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "io.github.fertwbr.pixelcompass",
+      "sha256_cert_fingerprints": [
+        "63:D7:46:52:14:9E:A3:50:9D:79:45:E6:97:0D:8E:1D:BE:D0:F3:4A:DE:DE:DF:B2:35:F3:E0:09:8D:BF:BB:93"
+      ]
+    }
+  }
+]
