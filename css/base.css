@@ -6,12 +6,10 @@
     --page-gap: 24px;
     --transition-speed-fast: 200ms;
     --transition-speed-medium: 300ms;
-    --transition-speed-slow: 600ms;
     --mobile-nav-height: 64px; 
     --mobile-nav-bottom-padding: 16px;
     --wave-height: 20px;
     --md-sys-motion-easing-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
-    --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0.0, 0, 1.0);
     --md-sys-motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1.0);
     --md-sys-motion-easing-emphasized-accelerate: cubic-bezier(0.3, 0.0, 0.8, 0.15);
 }
@@ -30,8 +28,6 @@ body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding-top: 64px;
-    overflow-x: hidden;
-    transition: background-color var(--transition-speed-medium) ease;
 }
 
 h1 {
@@ -39,7 +35,7 @@ h1 {
     margin: 24px 0;
 }
 
-@keyframes fadeInUp {
+@keyframes element-fade-in-up {
     from {
         opacity: 0;
         transform: translateY(20px);
@@ -50,28 +46,7 @@ h1 {
     }
 }
 
-@keyframes fadeInScale {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
 @keyframes shimmer { 
     0% { background-position: -1000px 0; } 
     100% { background-position: 1000px 0; } 
-}
-
-.animate-entry {
-    animation: fadeInUp var(--transition-speed-medium) var(--md-sys-motion-easing-emphasized-decelerate) forwards;
-    opacity: 0; 
-}
-
-md-icon {
-    font-variation-settings: 'FILL' 0;
-    transition: font-variation-settings var(--transition-speed-fast) var(--md-sys-motion-easing-standard);
 }
