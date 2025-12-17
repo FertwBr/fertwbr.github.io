@@ -413,7 +413,7 @@ export async function injectRoadmapSummary() {
 
 export function populateStaticContent() {
     const appName = window.config.appName;
-    const iconPath = "art/icon.svg";
+    const iconPath = window.config.appIcon || "art/icon.svg"; 
     
     const iconHeader = document.getElementById('app-icon-header');
     if (iconHeader) {
