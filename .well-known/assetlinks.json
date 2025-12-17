@@ -18,5 +18,25 @@
         "EA:35:36:A0:67:20:93:5E:4F:D4:6B:FB:1C:DA:58:F2:F0:9C:C8:48:60:4F:7A:53:08:CE:82:56:75:8D:48:45"
       ]
     }
+  },
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "io.github.fertwbr.pixelpulse",
+      "sha256_cert_fingerprints": [
+        "EA:35:36:A0:67:20:93:5E:4F:D4:6B:FB:1C:DA:58:F2:F0:9C:C8:48:60:4F:7A:53:08:CE:82:56:75:8D:48:45"
+      ]
+    }
+  },
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "io.github.fertwbr.pixelpulse",
+      "sha256_cert_fingerprints": [
+        "D4:F1:C0:A7:C2:69:31:99:23:45:BF:6D:69:36:6D:49:C8:05:8F:90:61:4A:26:A5:4B:5D:D9:3F:CD:E6:98:97"
+      ]
+    }
   }
 ]
