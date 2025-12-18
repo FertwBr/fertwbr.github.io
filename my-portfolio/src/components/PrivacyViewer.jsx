@@ -4,7 +4,7 @@ import rehypeRaw from 'rehype-raw';
 import { motion, AnimatePresence } from 'framer-motion';
 import { parsePrivacyPolicy } from '../utils/privacyParser';
 
-export default function PrivacyViewer({ markdownContent, seedColor, strings }) {
+export default function PrivacyViewer({ markdownContent, seedColor, appConfig, strings }) {
   const [data, setData] = useState({ lastUpdated: '', sections: [] });
   const [activeSection, setActiveSection] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -58,16 +58,18 @@ export default function PrivacyViewer({ markdownContent, seedColor, strings }) {
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column', minHeight: 0 }}>
       
-      <div style={{ marginBottom: '30px', paddingBottom: '20px', borderBottom: '1px solid var(--md-sys-color-outline-variant)', flexShrink: 0 }}>
+<div style={{ marginBottom: '30px', paddingBottom: '20px', borderBottom: '1px solid var(--md-sys-color-outline-variant)', flexShrink: 0 }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px', color: seedColor, fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 700 }}>
-              <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>verified_user</span>
-              <span>Legal</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px', color: 'var(--md-sys-color-on-surface-variant)', fontSize: '0.95rem', fontWeight: 500 }}>
+               <span>{appConfig?.appName}</span>
+               <span className="material-symbols-outlined" style={{ fontSize: '16px', color: seedColor }}>chevron_right</span>
+               <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: seedColor, fontWeight: 700 }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>verified_user</span>
+                  <span>{strings.privacy_page.page_title}</span>
+               </div>
             </div>
-            <h1 style={{ fontSize: '3rem', fontWeight: 800, margin: 0, lineHeight: 1.1 }}>
-              {strings.privacy_page.page_title}
-            </h1>
+            
             {data.lastUpdated && (
               <p style={{ fontSize: '1rem', color: 'var(--md-sys-color-on-surface-variant)', marginTop: '8px' }}>
                 {strings.privacy_page.last_updated} <strong>{data.lastUpdated}</strong>
@@ -133,20 +135,6 @@ export default function PrivacyViewer({ markdownContent, seedColor, strings }) {
                                     </button>
                                 ))}
                             </div>
-                            
-                            <div style={{ padding: '16px', background: 'rgba(255,255,255,0.05)', borderTop: '1px solid var(--md-sys-color-outline-variant)' }}>
-                                <h4 style={{ margin: '0 0 8px 0', fontSize: '0.9rem' }}>{strings.privacy_page.contact_title}</h4>
-                                <p style={{ fontSize: '0.8rem', color: 'var(--md-sys-color-on-surface-variant)', marginBottom: '12px' }}>
-                                    {strings.privacy_page.contact_desc}
-                                </p>
-                                <a 
-                                    href="mailto:fertwbr@gmail.com"
-                                    className="btn-outline"
-                                    style={{ width: '100%', justifyContent: 'center', padding: '8px', fontSize: '0.85rem' }}
-                                >
-                                    {strings.privacy_page.contact_btn}
-                                </a>
-                            </div>
                         </motion.div>
                     )}
                 </AnimatePresence>
@@ -191,6 +179,28 @@ export default function PrivacyViewer({ markdownContent, seedColor, strings }) {
                         </div>
                     </motion.div>
                 ))}
+
+                {/* Mobile Only Contact Card */}
+                <div className="mobile-contact-card" style={{ marginBottom: '60px', display: 'none' }}>
+                    <div className="glass-card" style={{ padding: '24px', background: `linear-gradient(135deg, ${seedColor}15, rgba(255,255,255,0.02))` }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+                           <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: seedColor, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
+                              <span className="material-symbols-outlined">mail</span>
+                           </div>
+                           <h4 style={{ margin: 0, fontSize: '1rem' }}>{strings.privacy_page.contact_title}</h4>
+                        </div>
+                        <p style={{ fontSize: '0.9rem', color: 'var(--md-sys-color-on-surface-variant)', marginBottom: '16px', lineHeight: 1.5 }}>
+                          {strings.privacy_page.contact_desc}
+                        </p>
+                        <a 
+                          href="mailto:fertwbr@gmail.com"
+                          className="btn-outline"
+                          style={{ width: '100%', justifyContent: 'center', background: 'rgba(255,255,255,0.05)', border: 'none' }}
+                        >
+                          {strings.privacy_page.contact_btn}
+                        </a>
+                    </div>
+                </div>
 
                 <div style={{ height: '100px' }}></div>
             </div>
@@ -269,62 +279,19 @@ export default function PrivacyViewer({ markdownContent, seedColor, strings }) {
             .desktop-toc { display: none !important; }
             .privacy-layout { display: block !important; }
             .mobile-toc-trigger { display: block !important; }
+            .mobile-contact-card { display: block !important; } /* Mostra card no mobile */
             .privacy-content-scroll { overflow: visible !important; height: auto !important; }
           }
 
           @media print {
-            body, html, #root, .app-layout, main { 
-                height: auto !important; 
-                overflow: visible !important; 
-                background: white !important;
-                color: black !important;
-                display: block !important;
-            }
-            
-            .app-navbar-container, 
-            .desktop-toc, 
-            .app-footer, 
-            .header-action, 
-            .mobile-toc-trigger,
-            .btn-outline,
-            .material-symbols-outlined { 
-                display: none !important; 
-            }
-
-            .privacy-layout { 
-                display: block !important; 
-                height: auto !important; 
-                overflow: visible !important; 
-            }
-            
-            .privacy-content-scroll { 
-                height: auto !important; 
-                overflow: visible !important; 
-                padding: 0 !important;
-                display: block !important;
-            }
-
-            .glass-card { 
-                box-shadow: none !important; 
-                border: none !important; 
-                background: none !important; 
-                padding: 0 !important;
-                margin-bottom: 20px !important;
-                color: black !important;
-            }
-
-            h1, h2, h3 { 
-                color: black !important; 
-                page-break-after: avoid; 
-            }
-            p, li { 
-                color: #222 !important; 
-                page-break-inside: avoid;
-            }
-            a { 
-                text-decoration: underline; 
-                color: black !important; 
-            }
+            body, html, #root, .app-layout, main { height: auto !important; overflow: visible !important; background: white !important; color: black !important; display: block !important; }
+            .app-navbar-container, .desktop-toc, .app-footer, .header-action, .mobile-toc-trigger, .btn-outline, .material-symbols-outlined, .mobile-contact-card { display: none !important; }
+            .privacy-layout { display: block !important; height: auto !important; overflow: visible !important; }
+            .privacy-content-scroll { height: auto !important; overflow: visible !important; padding: 0 !important; display: block !important; }
+            .glass-card { box-shadow: none !important; border: none !important; background: none !important; padding: 0 !important; margin-bottom: 20px !important; color: black !important; }
+            h1, h2, h3 { color: black !important; page-break-after: avoid; }
+            p, li { color: #222 !important; page-break-inside: avoid; }
+            a { text-decoration: underline; color: black !important; }
           }
         `}</style>
       </div>
