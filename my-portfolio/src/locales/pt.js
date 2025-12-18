@@ -1,8 +1,8 @@
 export default {
   hero: {
-    greeting: "Olá, eu sou",
+    greeting: "Olá, sou",
     role_prefix: "Eu crio",
-    roles: ["Apps Android", "Sistemas Backend", "Experiências UX", "Soluções Digitais"],
+    roles: ["Apps Android", "Sistemas Backend", "Experiências", "Soluções Digitais"],
     cta_primary: "Ver Projetos",
     cta_secondary: "Contato"
   },
@@ -17,14 +17,14 @@ export default {
       clients: "Clientes Felizes"
     },
     cards: {
-      education: { title: "Formação", value: "Engenharia de Software", sub: "UniCesumar" },
-      location: { title: "Localização", value: "Salvador, Bahia", sub: "GMT-3" },
+      education: { title: "Educação", value: "Engenharia de Software", sub: "UniCesumar" },
+      location: { title: "Localização", value: "Salvador, Brasil", sub: "GMT-3" },
       stack: { title: "Stack Principal", value: "Kotlin & Java", sub: "Full Cycle Dev" }
     }
   },
   projects: {
     title: "Trabalhos Selecionados",
-    subtitle: "Um showcase de profundidade técnica e resolução criativa.",
+    subtitle: "Uma vitrine de profundidade técnica e resolução criativa de problemas.",
     view_project: "Ver Estudo de Caso",
     source_code: "Código Fonte",
     items: [
@@ -32,10 +32,10 @@ export default {
         id: "pixel_pulse",
         title: "Pixel Pulse",
         category: "Engenharia Android",
-        desc: "Medidor de som avançado com análise FFT em tempo real, persistência Room Database e serviços em segundo plano otimizados via WorkManager.",
+        desc: "Medidor de nível sonoro avançado com análise FFT em tempo real, persistência Room Database e serviços em segundo plano otimizados via WorkManager.",
         tags: ["Kotlin", "Compose", "FFT", "Room"],
         icon_url: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Pulse/art/icon.svg",
-        link: "/PixelPulse",
+        link: "/PixelPulse?page=index",
         repo: "https://github.com/fertwbr/PixelPulse",
         color: "primary",
         icon: "equalizer"
@@ -44,10 +44,10 @@ export default {
         id: "pixel_compass",
         title: "Pixel Compass",
         category: "Wear OS & Mobile",
-        desc: "Ferramenta de navegação premium com fusão de sensores, widgets Jetpack Glance e arquitetura multi-módulo para separação limpa de responsabilidades.",
-        tags: ["Wear OS", "Sensors", "Glance", "Retrofit"],
+        desc: "Ferramenta de navegação premium com algoritmos de fusão de sensores, widgets Jetpack Glance e arquitetura multi-módulo para separação limpa de responsabilidades.",
+        tags: ["Wear OS", "Sensores", "Glance", "Retrofit"],
         icon_url: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/icon.svg",
-        link: "/PixelCompass",
+        link: "/PixelCompass?page=index",
         repo: "https://github.com/fertwbr/PixelCompass",
         color: "secondary",
         icon: "explore"
@@ -56,7 +56,7 @@ export default {
         id: "box_idea",
         title: "boxIdea",
         category: "Full Stack Web",
-        desc: "Plataforma de inovação corporativa permitindo times submeter, votar e rastrear ideias. Construído com Spring Boot Security e PostgreSQL.",
+        desc: "Plataforma de inovação corporativa permitindo que equipes enviem, votem e acompanhem ideias. Construído com Spring Boot Security e PostgreSQL.",
         tags: ["Spring Boot", "Java", "PostgreSQL", "JWT"],
         link: "https://github.com/FertwBr/boxIdea",
         repo: "https://github.com/FertwBr/boxIdea",
@@ -70,21 +70,118 @@ export default {
     subtitle: "Ferramentas que uso para dar vida às ideias"
   },
   github: {
-    title: "Open Source",
+    title: "Código Aberto",
     stats: {
-      contributions: "Contribuições (Ano)",
+      contributions: "Contribuições no Ano",
       repos: "Repositórios",
-      stars: "Estrelas Totais"
+      stars: "Total de Estrelas"
     }
   },
   contact: {
     title: "Vamos Trabalhar Juntos",
-    desc: "Tem um projeto em mente ou quer discutir as novidades do Android?",
+    desc: "Tem uma ideia de projeto ou quer discutir as novidades em tecnologia Android?",
     email: "Enviar Email",
     linkedin: "Conectar no LinkedIn"
   },
   footer: {
     rights: "Todos os direitos reservados.",
-    built: "Design & Código por Fernando Vaz"
+    built: "Design & Construção por Fernando Vaz"
+  },
+  pixel_pulse: {
+    nav: {
+      index: "Visão Geral",
+      plus: "Pixel Pulse+",
+      changelog: "Atualizações",
+      roadmap: "Futuro",
+      privacy: "Privacidade",
+      help: "Ajuda",
+      overview: "Docs",
+      back: "Voltar ao Portfólio"
+    },
+    hero: {
+      title: "Seu Treinador Auditivo Inteligente",
+      subtitle: "Meça seu mundo com estilo e precisão. Design lindo, feito para Android.",
+      download: "Baixar na Play Store"
+    },
+    new_features: {
+      label: "Novo na v1.17",
+      title: "Personalização Profunda",
+      view_history: "Ver Histórico Completo",
+      items: [
+        {
+          icon: "edit_attributes",
+          title: "Editor de Toolbar",
+          desc: "Arraste e solte para personalizar seu espaço. Coloque suas ferramentas onde precisar."
+        },
+        {
+          icon: "palette",
+          title: "9 Novos Temas",
+          desc: "Do Esmeralda ao Pôr do Sol. Mais um modo AMOLED preto puro para economizar bateria."
+        },
+        {
+          icon: "share",
+          title: "Exportar Imagens",
+          desc: "Compartilhe seus gráficos e estatísticas como belas imagens diretamente nas redes sociais."
+        }
+      ]
+    },
+    features: {
+      title: "Ferramentas Poderosas, Grátis para Todos",
+      cta_project: "Explorar Visão Técnica",
+      items: [
+        {
+          title: "Medidor em Tempo Real",
+          desc: "Medidor animado com mudança dinâmica de cores baseada no nível de ruído."
+        },
+        {
+          title: "Histórico de Sessões",
+          desc: "Salve medições e analise detalhes com gráficos interativos."
+        },
+        {
+          title: "Calibração Precisa",
+          desc: "Ajuste o sensor comparando com um dispositivo de referência."
+        },
+        {
+          title: "Material You",
+          desc: "Adapta-se à paleta de cores do seu papel de parede automaticamente."
+        }
+      ]
+    },
+    plus: {
+      title: "Desbloqueie a Experiência Suprema",
+      desc: "Vá de reativo a proativo com análise automatizada.",
+      cta: "Descubra o Pixel Pulse+"
+    },
+    privacy_section: {
+      title: "Privacidade Primeiro",
+      cta_policy: "Ler Política de Privacidade",
+      cta_tech: "Detalhes Técnicos",
+      cards: [
+        {
+          icon: "mic_off",
+          title: "Sem Gravação de Áudio",
+          desc: "O áudio bruto é processado instantaneamente e descartado. Nunca salvamos suas conversas."
+        },
+        {
+          icon: "phonelink_lock",
+          title: "Apenas no Dispositivo",
+          desc: "Toda análise acontece no seu celular. Seus dados nunca saem do dispositivo."
+        },
+        {
+          icon: "block",
+          title: "Sem Anúncios ou Rastreio",
+          desc: "Uma experiência limpa e focada, sem rastreadores de terceiros ou publicidade invasiva."
+        },
+        {
+          icon: "visibility",
+          title: "Armazenamento Transparente",
+          desc: "Você tem o controle total. Exporte ou apague seu histórico de sessões a qualquer momento."
+        }
+      ]
+    },
+    footer: {
+      rights: "© 2025 Pixel Pulse. Desenvolvido por Fernando Vaz.",
+      links: "Links Úteis"
+    }
   }
 };

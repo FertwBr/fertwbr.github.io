@@ -35,7 +35,7 @@ export default {
         desc: "Advanced sound level meter featuring real-time FFT analysis, Room Database persistence, and battery-optimized background services via WorkManager.",
         tags: ["Kotlin", "Compose", "FFT", "Room"],
         icon_url: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Pulse/art/icon.svg",
-        link: "/PixelPulse",
+        link: "/PixelPulse?page=index",
         repo: "https://github.com/fertwbr/PixelPulse",
         color: "primary",
         icon: "equalizer"
@@ -47,7 +47,7 @@ export default {
         desc: "Premium navigation tool with sensor fusion algorithms, Jetpack Glance widgets, and multi-module architecture for clean separation of concerns.",
         tags: ["Wear OS", "Sensors", "Glance", "Retrofit"],
         icon_url: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/icon.svg",
-        link: "/PixelCompass",
+        link: "/PixelCompass?page=index",
         repo: "https://github.com/fertwbr/PixelCompass",
         color: "secondary",
         icon: "explore"
@@ -86,5 +86,102 @@ export default {
   footer: {
     rights: "All rights reserved.",
     built: "Designed & Built by Fernando Vaz"
+  },
+  pixel_pulse: {
+    nav: {
+      index: "Overview",
+      plus: "Pixel Pulse+",
+      changelog: "Updates",
+      roadmap: "Roadmap",
+      privacy: "Privacy",
+      help: "Help",
+      overview: "Docs",
+      back: "Back to Portfolio"
+    },
+    hero: {
+      title: "Your Smart Sound & Hearing Coach",
+      subtitle: "Measure your world with style and precision. Beautifully designed for Android.",
+      download: "Download on Play Store"
+    },
+    new_features: {
+      label: "New in v1.17",
+      title: "Deep Customization",
+      view_history: "View Full History",
+      items: [
+        {
+          icon: "edit_attributes",
+          title: "Toolbar Editor",
+          desc: "Drag and drop to customize your workspace. Put your most used tools exactly where you need them."
+        },
+        {
+          icon: "palette",
+          title: "9 New Themes",
+          desc: "From Emerald to Sunset. Plus a true black AMOLED mode to save battery while you measure."
+        },
+        {
+          icon: "share",
+          title: "Image Export",
+          desc: "Share your charts and session stats as beautiful images directly to social media."
+        }
+      ]
+    },
+    features: {
+      title: "A Powerful Toolkit, Free for Everyone",
+      cta_project: "Explore Technical Overview",
+      items: [
+        {
+          title: "Expressive Real-Time Meter",
+          desc: "Animated gauge with dynamic color shifts from calm blues to warning reds."
+        },
+        {
+          title: "Session History",
+          desc: "Save measurements and analyze details with interactive charts."
+        },
+        {
+          title: "Precision Calibration",
+          desc: "Tune the sensor against a reference device for professional accuracy."
+        },
+        {
+          title: "Material You",
+          desc: "Adapts to your wallpaper's color palette for a unique look."
+        }
+      ]
+    },
+    plus: {
+      title: "Unlock the Ultimate Experience",
+      desc: "Go from reactive to proactive with automated analysis.",
+      cta: "Discover Pixel Pulse+"
+    },
+    privacy_section: {
+      title: "Privacy First",
+      cta_policy: "Read Privacy Policy",
+      cta_tech: "Technical Details",
+      cards: [
+        {
+          icon: "mic_off",
+          title: "No Audio Recorded",
+          desc: "Raw audio is processed instantly and discarded. We never save your conversations."
+        },
+        {
+          icon: "phonelink_lock",
+          title: "On-Device Only",
+          desc: "All analysis happens on your phone. Your data never leaves your device."
+        },
+        {
+          icon: "block",
+          title: "No Ads or Trackers",
+          desc: "A clean experience without third-party tracking or invasive advertising."
+        },
+        {
+          icon: "visibility",
+          title: "Transparent Storage",
+          desc: "You have full control. Export or delete your session history at any time."
+        }
+      ]
+    },
+    footer: {
+      rights: "© 2025 Pixel Pulse. Developed by Fernando Vaz.",
+      links: "Useful Links"
+    }
   }
 };
