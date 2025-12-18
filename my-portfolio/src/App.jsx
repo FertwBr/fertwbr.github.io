@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { LanguageProvider, useLanguage } from './context/LanguageContext';
 import { setupTheme } from './utils/themeUtils';
 import Hero from './components/Hero';
@@ -8,12 +9,11 @@ import TechStack from './components/TechStack';
 import GitHubStats from './components/GitHubStats';
 import Footer from './components/Footer';
 
-function AppContent() {
-  const { content } = useLanguage();
+import PixelPulsePage from './pages/pixel-pulse/PixelPulsePage'; 
+import RedirectToStore from './pages/RedirectToStore';
 
-  useEffect(() => {
-    setupTheme();
-  }, []);
+function PortfolioHome() {
+  const { content } = useLanguage();
 
   return (
     <div style={{ position: 'relative', width: '100%', maxWidth: '100vw', overflow: 'hidden' }}>
@@ -40,13 +40,9 @@ function AppContent() {
 
       <main>
         <Hero t={content.hero} />
-        
         <About t={content.about} />
-        
         <Projects t={content.projects} />
-        
         <TechStack t={content.tech} />
-
         <GitHubStats t={content.github} />
         
         <section style={{ textAlign: 'center', padding: '100px 24px', maxWidth: '800px', margin: '0 auto' }}>
@@ -66,10 +62,30 @@ function AppContent() {
   );
 }
 
+function AppContent() {
+  useEffect(() => {
+    setupTheme();
+  }, []);
+
+  return (
+    <Routes>
+      <Route path="/" element={<PortfolioHome />} />
+
+      <Route path="/pixelpulse" element={<PixelPulsePage />} />
+      <Route path="/PixelPulse" element={<PixelPulsePage />} />
+
+      <Route path="/pixelpulse/open" element={<RedirectToStore type="open" />} />
+      <Route path="/pixelpulse/open/buy" element={<RedirectToStore type="buy" />} />
+    </Routes>
+  );
+}
+
 export default function App() {
   return (
-    <LanguageProvider>
-      <AppContent />
-    </LanguageProvider>
+    <BrowserRouter>
+      <LanguageProvider>
+        <AppContent />
+      </LanguageProvider>
+    </BrowserRouter>
   );
 }

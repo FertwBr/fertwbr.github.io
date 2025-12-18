@@ -60,6 +60,33 @@ export function updateTheme() {
         console.error(error);
     }
 }
+
+export function applyMaterialTheme(hexColor, isDark = true) {
+    try {
+        const theme = themeFromSourceColor(parseInt(hexColor.replace('#', ''), 16));
+        const scheme = isDark ? theme.schemes.dark : theme.schemes.light;
+        
+        const root = document.documentElement;
+
+        for (const [key, value] of Object.entries(scheme.toJSON())) {
+            const token = key.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
+            const hexValue = hexFromArgb(value);
+            root.style.setProperty(`--md-sys-color-${token}`, hexValue);
+        }
+
+        const surface = hexFromArgb(scheme.surface);
+        const surfaceContainer = hexFromArgb(scheme.surfaceContainer);
+        const primary = hexFromArgb(scheme.primary);
+        
+        root.style.setProperty('--md-sys-color-surface-rgb', hexToRgb(surface));
+        root.style.setProperty('--md-sys-color-surface-container-rgb', hexToRgb(surfaceContainer));
+        root.style.setProperty('--md-sys-color-primary-rgb', hexToRgb(primary));
+
+    } catch (error) {
+        console.error("Failed to generate theme", error);
+    }
+}
+
 export function getSeedColor() {
     const urlParams = new URLSearchParams(window.location.search);
     const urlTheme = urlParams.get('theme');
