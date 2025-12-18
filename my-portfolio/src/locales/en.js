@@ -222,5 +222,17 @@ export default {
       contact_btn: "Contact Support",
       no_results: "No topics found matching your search."
     },
+    roadmap_page: {
+      title: "Product Roadmap",
+      subtitle: "See what we've built and where we're heading next.",
+      suggest_btn: "Suggest a Feature",
+      toc_title: "Timeline"
+    },
+    overview_page: {
+      title: "Technical Overview",
+      subtitle: "Deep dive into the architecture, tech stack, and privacy engineering.",
+      github_btn: "View on GitHub",
+      toc_title: "On This Page"
+    },
   }
 };

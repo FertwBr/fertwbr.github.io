@@ -222,5 +222,17 @@ export default {
       contact_btn: "Contatar Suporte",
       no_results: "Nenhum tópico encontrado para sua busca."
     },
+    roadmap_page: {
+      title: "Roadmap do Produto",
+      subtitle: "Veja o que construímos e para onde vamos a seguir.",
+      suggest_btn: "Sugerir Recurso",
+      toc_title: "Linha do Tempo"
+    },
+    overview_page: {
+      title: "Visão Técnica",
+      subtitle: "Mergulhe na arquitetura, stack tecnológica e engenharia de privacidade.",
+      github_btn: "Ver no GitHub",
+      toc_title: "Nesta Página"
+    },
   }
 };
