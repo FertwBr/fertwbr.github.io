@@ -33,10 +33,10 @@ With Pixel Compass+, you're in control. Dive into the new Customization menu to 
 Place the world at your fingertips. Our customizable widgets are designed to integrate beautifully with your home screen, providing the data you need, when you need it.
 
 <div class="gallery-thumbnails" style="grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 16px; margin-top: 16px;">
-    <img src="art/phone-widget-compass.png" alt="Pixel Compass+ Compass Widget" class="thumbnail">
-    <img src="art/phone-widget-weather.png" alt="Pixel Compass+ Weather Widget" class="thumbnail">
-    <img src="art/phone-widget-location.png" alt="Pixel Compass+ Location Widget" class="thumbnail">
-    <img src="art/phone-widget-altitude.png" alt="Pixel Compass+ Altitude Widget" class="thumbnail">
+    <img src="https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/phone-widget-compass.png" alt="Pixel Compass+ Compass Widget" class="thumbnail">
+    <img src="https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/phone-widget-weather.png" alt="Pixel Compass+ Weather Widget" class="thumbnail">
+    <img src="https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/phone-widget-location.png" alt="Pixel Compass+ Location Widget" class="thumbnail">
+    <img src="https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/phone-widget-altitude.png" alt="Pixel Compass+ Altitude Widget" class="thumbnail">
 </div>
 
 - **Compass Widget:** A sleek, real-time compass with accuracy information, always pointing you in the right direction.
