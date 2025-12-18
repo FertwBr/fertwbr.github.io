@@ -203,5 +203,14 @@ export default {
         cta: "Get Pixel Pulse+"
       },
     },
+    privacy_page: {
+      page_title: "Privacy Policy",
+      last_updated: "Last Updated:",
+      table_of_contents: "Table of Contents",
+      contact_title: "Have Questions?",
+      contact_desc: "If you have any concerns about your data, please contact us.",
+      contact_btn: "Contact Support",
+      print_btn: "Print Policy"
+    },
   }
 };

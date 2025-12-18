@@ -202,6 +202,15 @@ export default {
         subtitle: "Desbloqueie o monitoramento automático e ajude a criar novos recursos.",
         cta: "Obter Pixel Pulse+"
       },
-    }
+    },
+    privacy_page: {
+      page_title: "Política de Privacidade",
+      last_updated: "Atualizado em:",
+      table_of_contents: "Índice",
+      contact_title: "Dúvidas?",
+      contact_desc: "Se tiver qualquer preocupação sobre seus dados, entre em contato.",
+      contact_btn: "Contatar Suporte",
+      print_btn: "Imprimir"
+    },
   }
 };
