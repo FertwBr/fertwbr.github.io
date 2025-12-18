@@ -4,7 +4,7 @@ import rehypeRaw from 'rehype-raw';
 import { motion, AnimatePresence } from 'framer-motion';
 import { parseHelpFAQ } from '../utils/helpParser';
 
-export default function HelpViewer({ markdownContent, seedColor, strings }) {
+export default function HelpViewer({ markdownContent, seedColor, strings, appConfig }) {
   const [data, setData] = useState({ sections: [] });
   const [searchQuery, setSearchQuery] = useState('');
   const [activeSection, setActiveSection] = useState('');
@@ -31,43 +31,45 @@ export default function HelpViewer({ markdownContent, seedColor, strings }) {
   }, [data, searchQuery]);
 
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveId(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: '-100px 0px -80% 0px' }
+    );
 
-    const handleScroll = () => {
-      const scrollPosition = container.scrollTop + 150; 
-      
-      for (const section of filteredSections) {
-        const element = document.getElementById(section.id);
-        if (element && element.offsetTop <= scrollPosition) {
-          setActiveSection(section.id);
-        }
-      }
-    };
+    filteredSections.forEach((s) => {
+      const el = document.getElementById(s.id);
+      if (el) observer.observe(el);
+    });
 
-    container.addEventListener('scroll', handleScroll);
-    return () => container.removeEventListener('scroll', handleScroll);
+    return () => observer.disconnect();
   }, [filteredSections]);
 
   const scrollToSection = (id) => {
     setIsMobileMenuOpen(false);
     const element = document.getElementById(id);
-    if (element && containerRef.current) {
-      containerRef.current.scrollTo({
-        top: element.offsetTop - 40,
-        behavior: 'smooth'
-      });
-      setActiveSection(id);
+    if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setActiveSection(id);
     }
   };
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: 0 }}>
       
       <div style={{ marginBottom: '30px', paddingBottom: '20px', borderBottom: '1px solid var(--md-sys-color-outline-variant)', flexShrink: 0 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px', color: seedColor, fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 700 }}>
-            <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>help</span>
-            <span>Support</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px', color: 'var(--md-sys-color-on-surface-variant)', fontSize: '0.95rem', fontWeight: 500 }}>
+           <span>{appConfig?.appName}</span>
+           <span className="material-symbols-outlined" style={{ fontSize: '16px', color: seedColor }}>chevron_right</span>
+           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: seedColor, fontWeight: 700 }}>
+              <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>help</span>
+              <span>{strings.help_page.page_title}</span>
+           </div>
         </div>
         <h1 style={{ fontSize: '3rem', fontWeight: 800, margin: 0, lineHeight: 1.1 }}>
             {strings.help_page.page_title}
@@ -77,11 +79,11 @@ export default function HelpViewer({ markdownContent, seedColor, strings }) {
         </p>
       </div>
 
-      <div className="help-layout" style={{ display: 'flex', gap: '60px', flex: 1, overflow: 'hidden', minHeight: 0 }}>
+      <div className="help-layout" style={{ display: 'flex', gap: '60px', flex: 1, alignItems: 'flex-start' }}>
         
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, height: '100%' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
             
-            <div style={{ marginBottom: '24px', position: 'relative', flexShrink: 0 }}>
+            <div style={{ marginBottom: '24px', position: 'relative' }}>
                 <span className="material-symbols-outlined" style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: 'var(--md-sys-color-on-surface-variant)' }}>search</span>
                 <input 
                     type="text" 
@@ -99,7 +101,7 @@ export default function HelpViewer({ markdownContent, seedColor, strings }) {
                 />
             </div>
 
-            <div className="mobile-toc-trigger" style={{ display: 'none', marginBottom: '24px', flexShrink: 0 }}>
+            <div className="mobile-toc-trigger" style={{ display: 'none', marginBottom: '24px' }}>
                 <button 
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                     className="glass-card"
@@ -147,17 +149,7 @@ export default function HelpViewer({ markdownContent, seedColor, strings }) {
                 </AnimatePresence>
             </div>
 
-            <div 
-                ref={containerRef}
-                className="help-content-scroll"
-                style={{ 
-                    flex: 1, 
-                    overflowY: 'auto', 
-                    paddingRight: '16px', 
-                    scrollBehavior: 'smooth',
-                    height: '100%' 
-                }}
-            >
+            <div className="help-content-scroll">
                 {filteredSections.length > 0 ? (
                     filteredSections.map((section, index) => (
                         <motion.div
@@ -193,8 +185,23 @@ export default function HelpViewer({ markdownContent, seedColor, strings }) {
                         <p>{strings.help_page.no_results}</p>
                     </div>
                 )}
-
-                <div style={{ height: '100px' }}></div>
+                
+                <div className="mobile-contact-card" style={{ display: 'none', marginBottom: '60px' }}>
+                    <div className="glass-card" style={{ padding: '24px', background: `linear-gradient(135deg, ${seedColor}15, rgba(255,255,255,0.02))` }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+                            <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: seedColor, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
+                                <span className="material-symbols-outlined">support_agent</span>
+                            </div>
+                            <h4 style={{ margin: 0, fontSize: '1rem' }}>{strings.help_page.contact_title}</h4>
+                        </div>
+                        <p style={{ fontSize: '0.9rem', color: 'var(--md-sys-color-on-surface-variant)', marginBottom: '16px', lineHeight: 1.5 }}>
+                            {strings.help_page.contact_desc}
+                        </p>
+                        <a href="mailto:fertwbr@gmail.com" className="btn-outline" style={{ width: '100%', justifyContent: 'center', background: 'rgba(255,255,255,0.05)', border: 'none' }}>
+                            {strings.help_page.contact_btn}
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -202,11 +209,13 @@ export default function HelpViewer({ markdownContent, seedColor, strings }) {
           className="desktop-toc"
           style={{ 
             width: '300px', 
-            height: '100%',
+            position: 'sticky',
+            top: '120px',
             display: 'flex',
             flexDirection: 'column',
             gap: '24px',
-            flexShrink: 0
+            flexShrink: 0,
+            maxHeight: 'calc(100vh - 140px)'
           }}
         >
           <div className="glass-card" style={{ padding: '24px', display: 'flex', flexDirection: 'column', flex: 1, overflow: 'hidden' }}>
@@ -260,20 +269,18 @@ export default function HelpViewer({ markdownContent, seedColor, strings }) {
         </aside>
 
         <style>{`
-          /* Markdown Styles for FAQ */
           .rich-text h1 { display: none; }
           .rich-text h3 { font-size: 1.3rem; margin-top: 1.5em; margin-bottom: 0.8em; color: var(--md-sys-color-on-surface); font-weight: 600; }
           .rich-text p { margin-bottom: 1.5em; line-height: 1.8; color: var(--md-sys-color-on-surface-variant); }
           .rich-text ul, .rich-text ol { margin-bottom: 1.5em; padding-left: 1.5em; }
           .rich-text li { margin-bottom: 0.5em; color: var(--md-sys-color-on-surface-variant); }
           .rich-text strong { color: var(--md-sys-color-primary); font-weight: 600; }
-          .rich-text code { background: rgba(255,255,255,0.1); padding: 2px 6px; borderRadius: 4px; font-family: monospace; font-size: 0.9em; }
           
           @media (max-width: 1000px) {
             .desktop-toc { display: none !important; }
             .help-layout { display: block !important; }
             .mobile-toc-trigger { display: block !important; }
-            .help-content-scroll { overflow: visible !important; height: auto !important; }
+            .mobile-contact-card { display: block !important; }
           }
         `}</style>
       </div>
