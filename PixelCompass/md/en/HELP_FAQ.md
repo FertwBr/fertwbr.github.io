@@ -2,13 +2,14 @@
 
 Welcome to the Pixel Compass Help & FAQ page! Our goal is to help you navigate your world with precision and style — and make the most of your experience.
 
-## Getting Started
+## Getting Started {: data-toc-key="getting_started" }
 
 ### 1. What permissions does Pixel Compass need and why?
 Pixel Compass requires **Precise Location** permission to enable its best features:
 -   **True North Accuracy:** To calculate the local magnetic declination for a precise geographic North reading.
 -   **Weather & Environmental Data:** To fetch local weather, your location's name, and elevation data for the Dynamic Info Cards.
 -   **Pixel Compass+ Widgets:** Location is required for the widgets to update with accurate, relevant data in the background.
+-   **Notification Access:** (Optional but recommended) Required for reliable background service updates on Android 13+ and for the new "Smart Notifications" feature.
 
 > Your location is only used when the app is active or for periodic widget updates. We never store or track your location history. You can manage permissions at any time in your device settings.
 
@@ -17,93 +18,81 @@ Pixel Compass requires **Precise Location** permission to enable its best featur
 -   **Azimuth & Cardinal Direction:** The large number is your heading in degrees, and the text below (e.g., "NW") is the cardinal direction.
 -   **Circular Info Ring:** Displays your Latitude, Longitude, Altitude, and the device's Incline at a glance.
 -   **Dynamic Info Cards:** (Optional, enable in Settings) A scrollable area below the compass showing real-time location, weather, and more.
+-   **At a Glance Interaction:** (v1.13.0+) Tapping certain areas of the screen reveals the "Split" layout, showing weather alerts and smart insights side-by-side.
 -   **Quick Actions Bar (FAB):** The floating buttons for quick access to True North, Calibration, and Theme toggles.
 
-## Using the Level Screen
+## Using the Level Screen {: data-toc-key="level" }
 
 ### 1. How does the redesigned Level Screen work?
-The Level screen (v1.6.0+) is a powerful tool that uses expressive animations and adapts to how you hold your device.
--   **Flat Mode (Bullseye):** When your device is lying face-up on a surface, it shows a "bullseye" level. The goal is to center the morphing, fluid bubble.
--   **Linear Mode (Upright):** When your device is held upright (either vertically or horizontally), it shows a linear "bubble tube" level. The goal is to center the bubble on the `0°` mark. The UI intelligently adapts to portrait and landscape orientations.
+The Level screen is a powerful tool that uses expressive animations and adapts to how you hold your device.
+-   **Flat Mode (Bullseye):** When your device is lying face-up on a surface, it shows a "bullseye" level with a ripple effect. The goal is to center the morphing, fluid bubble.
+-   **Linear Mode (Upright):** When your device is held upright (either vertically or horizontally), it shows a linear "bubble tube" level with a fluid, wave-like background. The goal is to center the bubble on the `0°` mark.
 
 ### 2. How do I ensure the Level is accurate?
 The Level tool uses the same motion sensors as the compass. For best results, place your phone on a known flat surface and use the **Calibrate** button on the main Compass screen. Performing the figure-eight motion will reset and improve the accuracy of all motion-based features.
 
-## Pixel Compass on Wear OS
+## Pixel Compass on Wear OS {: data-toc-key="wearos" }
 
 - **A Standalone Experience:** The Wear OS app is fully independent and uses your watch's own sensors.
-- **Features:** It includes our signature Compass Rose, the Info Ring (Altitude, Incline, Lat/Lon), and a True North toggle.
-- **Installation:** You can install it on your watch via your paired phone's Play Store app or directly from the Play Store on your watch.
+- **Compass Tile:** (v1.8.0+) Add the Compass Tile to your watch carousel for a quick "snapshot" of your last known heading and current altitude without opening the full app.
+- **Customization:** Choose from **9 New Color Themes** (v1.14.0+), including AMOLED Black, Emerald, and Sunset.
+- **Precision Tools:** You can manually calibrate altitude directly on your watch and toggle **Compass Inversion** if you wear your watch on your right wrist.
+- **Installation:** Install it via your paired phone's Play Store app or directly from the Play Store on your watch.
 
-## Pixel Compass+ & Widgets
+## Pixel Compass+ & Widgets {: data-toc-key="plus" }
 
 ### 1. What is Pixel Compass+?
-Pixel Compass+ is our premium feature set, available via a flexible subscription or a lifetime license for early supporters. It unlocks the app's full potential and supports its future development.
+Pixel Compass+ is our premium feature set, available via a flexible subscription or a lifetime license. It unlocks the app's full potential and supports its future development.
 
 ### 2. What are the key Plus features?
--   **Deep Customization:** Unlock a powerful set of tools to change the look and feel of your compass and dynamic cards. Choose from exclusive compass styles (`Sunny`, `Cookie`, `Flower`), advanced card shapes (`Bubbly`, `Crystal`), and control details like cardinal points and degree marks.
--   **Advanced Dynamic Info Cards:** Get deeper insights with exclusive data cards like "Feels Like" temperature, Air Pressure, and a detailed Weather Condition description.
--   **Interactive Wind Indicator:** A toggleable wind direction arrow on the compass rose.
--   **All Home Screen Widgets:** A suite of powerful, configurable, and beautifully themed widgets for Altitude, Compass, Location, and 6 different Weather types.
--   **Ad-Free Experience:** Removes all advertising from the application.
+-   **Insight Engine 4.0:** Proactive alerts like "Picnic Day", "Strong Winds", or "Pressure Dropping" alerts (v1.12.0+).
+-   **Deep Customization:** Unlock premium compass styles (`Sunny`, `Cookie`, `Flower`), advanced card pack shapes, and the **AMOLED Black** app theme.
+-   **Forecast Charts:** Tap any weather card to see interactive hourly charts for Temperature, Precipitation, and the **Sun Path**.
+-   **Ultimate Widget Suite:** Access exclusive shapes (Modern, Pill, Arch, Cookie) and the **Clock Widget** with native battery efficiency (v1.14.0+).
+-   **Interactive Wind Indicator:** A real-time wind vane on the compass rose.
+-   **Ad-Free Experience:** Removes all advertising for a focused experience.
+-   **Settings Backup:** Your Plus preferences are automatically backed up to the cloud and can be restored with one tap (v1.9.5+).
 
-### 3. How does the new Subscription work? What if I already paid?
-We've moved to a flexible subscription model for new users to support ongoing development.
--   **New Users (v1.5.4+):** Pixel Compass+ is available via a low-cost monthly subscription.
--   **Legacy Users (You're a VIP!):** If you made the one-time purchase **before version 1.5.4**, you have **Pixel Compass+ Legacy status**. This means you get **free, lifetime access** to all premium features. Thank you for your early support!
+### 3. How does the Subscription work? What if I already paid?
+-   **New Users:** Pixel Compass+ is available via a low-cost monthly subscription.
+-   **Legacy Users:** If you made the one-time purchase **before version 1.7.2**, you have **Legacy status**. You get **free, lifetime access** to all Plus features.
+-   **Lifetime Option:** A "Buy for life" one-time purchase is available for those who prefer not to have a subscription.
 
 ### 4. How do I add and configure widgets?
 1.  **Add:** Long-press your home screen, select "Widgets", and find Pixel Compass.
-2.  **Configure:** After placing a widget, a configuration screen will open, allowing you to choose the data type for that widget (e.g., Altitude, Temperature, Wind).
-3.  **Updates:** To save battery, widgets update periodically. For best results, grant "Allow all the time" location permission and disable battery restrictions for Pixel Compass.
+2.  **Configure:** A modern setup screen will open. You can choose the **Type** (Altitude, Compass, Weather, etc.) and the **Shape**.
+3.  **Real-Time Updates:** High-frequency updates (v1.12.0+) provide smooth needle animations directly on the home screen.
+4.  **Best Practices:** For reliability, ensure Pixel Compass is set to "Unrestricted" in your device's Battery settings and that notifications are enabled.
 
-## Compass Calibration – Ensuring Accuracy
+## Altitude & Calibration {: data-toc-key="altitude" }
 
-### 1. When should I calibrate?
--   When the compass seems to be pointing in the wrong direction.
--   After first installing the app.
--   If you are near large metal objects or magnetic fields (e.g., in a car, near speakers).
--   If you've recently dropped your device.
+### 1. How is altitude calculated?
+Pixel Compass uses a multi-source engine:
+- **Barometer:** (If available) Uses air pressure for relative changes and high precision.
+- **Elevation API:** Calibrates the barometer using Google's topographical data.
+- **GPS Fallback:** Used when network or barometer data is unavailable.
 
-### 2. How do I calibrate?
-1.  On the main compass screen, tap the **Calibrate** button (`~` icon) in the floating action bar.
-2.  A dialog will appear. While it's visible, move your device smoothly in a large **figure-eight (∞)** pattern.
-3.  Rotate the device along all three of its axes. The dialog will close automatically after a few seconds.
+### 2. When and how should I calibrate?
+- **Manual Calibration:** If you know your exact altitude, you can enter it manually in **Settings > Altitude** for professional-grade precision.
+- **Compass Calibration:** If the needle is jumpy, tap the **Calibrate** button and move your device in a **figure-eight (∞)** pattern while rotating it along all three axes.
 
-## Troubleshooting & FAQ
+## Troubleshooting & FAQ {: data-toc-key="troubleshooting" }
 
 -   **My compass is stuck or inaccurate.**
-    -   First, try the calibration steps above. Ensure you are away from sources of magnetic interference. Also, check that your phone case does not contain magnets.
-
--   **What's the difference between True North and Magnetic North?**
-    -   **Magnetic North:** The direction a physical compass needle points.
-    -   **True North:** The direction to the geographic North Pole. This is the standard for most maps and requires location permission for best accuracy.
-
+    -   Ensure your phone case doesn't have magnets. Perform the figure-eight calibration away from large metal objects.
+-   **The weather says "Location Not Supported".**
+    -   Some regions might not have data coverage from the Weather API. You can disable weather features in Settings to hide the error.
 -   **My widgets are not updating.**
-    -   Ensure the app has "Allow all the time" location permission and is exempted from battery optimization in your device settings. Opening the main app will force a refresh.
+    -   Check if "Battery Optimization" is killing the app. Set Pixel Compass to "Unrestricted" and ensure you have given "Allow all the time" location permission.
 
--   **Where does the app get its data from?**
-    -   **Weather:** Google Weather API.
-    -   **Elevation:** Google Elevation API, supplemented by your device's barometer and GPS.
-    -   **Location Name:** Your device's native Geocoder service.
+## Support & Feedback {: data-toc-key="support" }
 
-## Purchase, Subscription & Refunds
-
-- **How do I manage my purchase or subscription?**
-    - All purchases and subscriptions are managed securely through your **Google Play Store account**. You can view, cancel, or manage your subscription in the "Payments & subscriptions" section of the Play Store app.
-- **How do I request a refund?**
-    - **Within 48 hours:** You can request a refund directly through your Google Play order history.
-    - **After 48 hours:** Please contact us at our support email with your Google Play Order ID (starts with "GPA.") and the reason for your request.
-
-## Support & Feedback
-
-- **In-App Feedback:** The best way to reach us is via **Settings > About, Help & Support > Send Feedback**.
+- **In-App Feedback:** The best way to reach us! Use the redesigned Feedback sheet (**Settings > Help & Support**) which includes draft autosaving and diagnostic info options.
 - **Contact Email:** **fertwbr@programmer.net**
 - **Project Page:** [fertwbr.github.io/PixelCompass/](https://fertwbr.github.io/PixelCompass/)
 
-## Privacy Policy
-
-We take your privacy seriously. Read our full policy for details.
+## Privacy Policy {: data-toc-key="privacy" }
+We take your privacy seriously. We do not collect or store your location data. Read our full policy:
 [fertwbr.github.io/PixelCompass/privacy](https://fertwbr.github.io/PixelCompass/privacy)
 
 Thank you for choosing **Pixel Compass**!

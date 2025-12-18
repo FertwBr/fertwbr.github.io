@@ -1,6 +1,8 @@
 # Elevate Your Experience with Pixel Compass+
 
-Upgrade to Pixel Compass+ and unlock a suite of professional-grade tools designed for precision and convenience. Get exclusive access to powerful home screen widgets, detailed environmental data cards, an ad-free interface, and advanced customization. It's the ultimate toolkit for adventurers, professionals, and anyone who demands the best from their devices.
+Upgrade to **Pixel Compass+** and unlock a suite of professional-grade tools designed for precision, convenience, and deep personalization. Get exclusive access to powerful home screen widgets, advanced environmental data, interactive charts, and an ad-free interface.
+
+It's the ultimate toolkit for adventurers, photographers, outdoor professionals, and anyone who demands the best from their devices.
 
 <a href="https://play.google.com/store/apps/details?id=io.github.fertwbr.pixelcompass" target="_blank" class="cta-link">
     <md-filled-button>
@@ -9,71 +11,80 @@ Upgrade to Pixel Compass+ and unlock a suite of professional-grade tools designe
     </md-filled-button>
 </a>
 
-## Your Compass, Reimagined
+## 💎 The Plus Advantage: What You Unlock {: data-toc-key="unlock" }
 
-Pixel Compass+ transforms your device into a smarter navigation instrument. It's more than just an upgrade; it's a new way to interact with your surroundings. Built for those who want deeper insights and seamless access to information, it enhances every aspect of the app with powerful, exclusive features.
+Pixel Compass+ transforms your device into a professional-grade instrument. Here is everything you get when you go Plus:
 
-### The Plus Advantage: What You Unlock
-
+### 🎨 Deep Customization & UI
 | Feature | Description |
 | :--- | :--- |
-| <md-icon>palette</md-icon> **Deep Customization** | Personalize your experience with exclusive compass styles, advanced card shapes, and detailed display options. |
-| <md-icon>widgets</md-icon> **Powerful Home Screen Widgets** | Get instant, glanceable access to real-time data directly from your home screen. |
-| <md-icon>layers</md-icon> **Advanced Dynamic Cards** | Go beyond standard data with exclusive info cards like Feels Like temperature, Air Pressure, and Dew Point. |
-| <md-icon>air</md-icon> **Interactive Wind Indicator** | Visualize wind direction directly on the compass rose, perfect for outdoor activities. |
-| <md-icon>verified_user</md-icon> **Ad-Free Experience** | Enjoy a clean, focused, and uninterrupted navigation experience without any ads. |
-| <md-icon>rocket_launch</md-icon> **Support Future Development** | Your subscription directly funds ongoing improvements and the creation of new features. |
+| <md-icon>palette</md-icon> **Exclusive Styles** | Access premium compass shapes (Sunny, Cookie, Flower, and more) and card styles (Bubbly, Wavy, Crystal). |
+| <md-icon>contrast</md-icon> **AMOLED Mode** | Pure black backgrounds to save battery on OLED screens and provide a sleek look. |
+| <md-icon>vibration</md-icon> **Advanced Haptics** | Fine-tune haptic intensity for a more tactile navigation experience. |
+| <md-icon>label_off</md-icon> **Minimalist Mode** | Hide card labels and secondary units for a cleaner, data-only interface. |
 
-## Your Compass, Your Style
+### 📊 Advanced Data & Insights
+| Feature | Description |
+| :--- | :--- |
+| <md-icon>insights</md-icon> **Smart Insights Engine** | Proactive alerts like "Rain starting soon", "High UV Index", or "Breezy Relief" notifications. |
+| <md-icon>query_stats</md-icon> **Forecast Charts** | Interactive hourly trends for temperature, humidity, precipitation, and UV index. |
+| <md-icon>wb_sunny</md-icon> **Sun & Moon Details** | Precise times for sunrise, sunset, moonrise, and moonset, including a beautiful Sun Path chart. |
+| <md-icon>air</md-icon> **Wind on Compass** | A real-time wind direction indicator integrated directly onto your compass rose. |
+| <md-icon>speed</md-icon> **Premium Data Frequency** | Weather and elevation data updates up to 4x faster than the free version. |
 
-With Pixel Compass+, you're in control. Dive into the new Customization menu to change the shape of your compass, from the classic star to modern and expressive designs. Personalize the dynamic info cards to match your aesthetic with unique style packs. You can even fine-tune details like cardinal points and degree marks for a truly bespoke navigation tool.
+### 📱 Powerful Home Screen Widgets
+| Feature | Description |
+| :--- | :--- |
+| <md-icon>auto_awesome</md-icon> **At a Glance** | A sophisticated widget showing date, weather alerts, and smart insights side-by-side. |
+| <md-icon>schedule</md-icon> **Clock Widget Suite** | Deeply customizable Analog and Digital clocks with multiple hand styles and tick marks. |
+| <md-icon>grid_view</md-icon> **Custom Shapes** | Use Modern, Cookie, Pill, and Arch shapes for your widgets with 1:1 aspect ratio options. |
+| <md-icon>texture</md-icon> **Transparency Control** | Toggle between solid and transparent backgrounds to match any wallpaper perfectly. |
 
-## A Widget for Every Need
+## 🛠️ Precision Professional Tools {: data-toc-key="tools" }
 
-Place the world at your fingertips. Our customizable widgets are designed to integrate beautifully with your home screen, providing the data you need, when you need it.
+### 🏔️ Barometer & Altitude
+Go beyond basic GPS altitude. Pixel Compass+ uses your device's **internal barometer** combined with high-precision API data to provide:
+- **Sea Level Pressure (MSLP):** Standardized weather service pressure.
+- **Absolute Pressure:** Real-time sensor data from your exact location.
 
-<div class="gallery-thumbnails" style="grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 16px; margin-top: 16px;">
-    <img src="https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/phone-widget-compass.png" alt="Pixel Compass+ Compass Widget" class="thumbnail">
-    <img src="https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/phone-widget-weather.png" alt="Pixel Compass+ Weather Widget" class="thumbnail">
-    <img src="https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/phone-widget-location.png" alt="Pixel Compass+ Location Widget" class="thumbnail">
-    <img src="https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/phone-widget-altitude.png" alt="Pixel Compass+ Altitude Widget" class="thumbnail">
+### 🛰️ Advanced Environmental Metrics
+Unlock a full range of dynamic cards:
+- **Feels Like Temperature:** Understand the actual impact of wind and humidity.
+- **Dew Point:** A better way to measure comfort and air moisture.
+- **Visibility & Cloud Cover:** Essential data for photographers and aviators.
+- **UV Risk Monitor:** Safe exposure times and protection recommendations.
+
+## 🖼️ Visual Gallery {: data-toc-key="gallery" }
+
+<div class="gallery-thumbnails" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; margin-top: 16px;">
+    <img src="https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/phone-widget-compass.png" alt="Compass Widget" class="thumbnail">
+    <img src="https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/phone-widget-weather.png" alt="Weather Widget" class="thumbnail">
+    <img src="https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/phone-widget-location.png" alt="Location Widget" class="thumbnail">
+    <img src="https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/phone-widget-altitude.png" alt="Altitude Widget" class="thumbnail">
 </div>
 
-- **Compass Widget:** A sleek, real-time compass with accuracy information, always pointing you in the right direction.
-- **Altitude Widget:** Track your elevation above sea level, essential for hiking, aviation, and outdoor sports.
-- **Location Widget:** Instantly see your current city and region, or tap to view precise coordinates.
-- **Weather Widgets:** Choose from a wide variety of dedicated weather data points:
-    - **Temperature:** Current temperature and weather condition.
-    - **Humidity:** Real-time relative humidity.
-    - **Wind:** Speed and cardinal direction.
-    - **Precipitation:** Amount and chance of rain or snow.
-    - **UV Index:** Current UV index with a helpful description (Low, Moderate, etc.).
-    - **Local Time:** The current time at the widget's location.
+## 🛡️ Licensing: Fair and Flexible {: data-toc-key="licensing" }
 
+We believe in supporting our users while ensuring the app's sustainable growth.
 
-## Licensing Model: Our Commitment to You
+### <md-icon>new_releases</md-icon> Plus Subscription
+The best way to stay on the cutting edge.
+- Unlocks **all current and future** premium features.
+- Covers ongoing costs for high-precision Weather and Elevation APIs.
 
-To ensure the continuous improvement and sustainable development of Pixel Compass, we offer two ways to access premium features. We deeply appreciate all our supporters, both early and new, and have structured our model to be fair and flexible.
+### <md-icon>military_tech</md-icon> Legacy & Lifetime
+- **Lifetime Purchase:** Buy once, enjoy Plus features forever. No recurring payments.
+- **Legacy Users:** If you supported us before version 1.7.2, you have been automatically upgraded to a lifetime license. Thank you for being a pioneer!
 
-### <md-icon>military_tech</md-icon> Pixel Compass+ Legacy (One-Time Purchase)
-
-For users who prefer a single purchase, we offer a **lifetime license**. This option grants permanent access to all premium features available at the time of purchase, as well as future updates to those features.
-
-Users who purchased the app **before version 1.7.2** (when the subscription was introduced) have been automatically upgraded to this lifetime license. Thank you for being a pioneer and believing in our project!
-
-### <md-icon>new_releases</md-icon> Pixel Compass+ Subscription
-
-For the most flexible access, Pixel Compass+ is available as a low-cost monthly subscription. This model ensures you receive **all current and future premium features** developed for the app. It's the best way to stay on the cutting edge and continuously support the project's evolution.
-
-## Why a Subscription?
+## 💡 Why a Subscription? {: data-toc-key="why" }
 
 Adopting a subscription model is a decision we made to ensure the long-term health and innovation of Pixel Compass. Here’s why it benefits everyone:
 
 | Reason | The Impact |
 | :--- | :--- |
 | <md-icon>update</md-icon> **Continuous Development** | A predictable revenue stream allows us to dedicate consistent development time to the app, meaning more frequent updates, new features, and bug fixes for you. |
-| <md-icon>dns</md-icon> **Covers Ongoing Costs** | Features like high-precision altitude and real-time weather rely on third-party APIs (like Google Maps & Weather). These services have ongoing costs that a subscription model helps us cover sustainably. |
-| <md-icon>support_agent</md-icon> **Dedicated Support** | A healthy development cycle means we can also afford to spend time providing quality user support and responding to feedback. |
+| <md-icon>dns</md-icon> **Covers Ongoing Costs** | Features like high-precision altitude and real-time weather rely on third-party APIs (like Google Maps & Weather). These services have monthly costs that your subscription helps cover sustainably. |
+| <md-icon>support_agent</md-icon> **Dedicated Support** | A healthy development cycle means we can afford to spend time providing quality user support and responding to feedback. |
 | <md-icon>trending_up</md-icon> **Future-Proofing** | Subscriptions allow us to adapt to new Android versions, support new devices (like foldables and next-gen watches), and invest in more ambitious features down the road. |
 
-By choosing to subscribe, you’re not just buying a product; you're investing in the continuous evolution of Pixel Compass. We believe this is the fairest way to build a high-quality tool that grows and improves with you.
+**Ready to upgrade?** Open the app and tap the **Plus** badge in the settings or main screen to supercharge your experience!

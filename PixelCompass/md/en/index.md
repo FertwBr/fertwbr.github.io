@@ -11,8 +11,7 @@ Navigate your world from your phone and your wrist with style, precision, and a 
     </a>
 </div>
 
-
-## Features Designed for You
+## Features Designed for You {: data-toc-key="features" }
 
 We blend beautiful design with powerful functionality to deliver a first-class navigation experience that is both simple for beginners and powerful for professionals.
 
@@ -22,41 +21,47 @@ We blend beautiful design with powerful functionality to deliver a first-class n
             <md-icon>explore</md-icon>
             <h5>Precision Navigation Engine</h5>
             <p>Easily toggle between Magnetic North and True North for professional-grade accuracy. Crystal-clear readings and haptic feedback ensure you always find your way.</p>
-    </div> 
-    <div class="highlight-item">
-        <md-icon>palette</md-icon>
-        <h5>Design & Customization</h5>
-        <p>Experience an interface that dynamically adapts to your wallpaper, and dive deeper with Pixel Compass+ to unlock exclusive styles for your compass and info cards.</p>
-    </div>
-    <div class="highlight-item">
-        <md-icon>thermostat</md-icon>
-        <h5>Environmental Data</h5>
-        <p>Go beyond direction. Get real-time altitude, temperature, humidity, wind, and the local UV index, all seamlessly integrated into the compass interface.</p>
-    </div>
-    <div class="highlight-item">
-        <md-icon>palette</md-icon>
-        <h5>Stunning Material You Design</h5>
-        <p>Experience an interface that dynamically adapts to your wallpaper's color palette, on both your phone and watch, for a look that's uniquely yours.</p>
-    </div>
-    <div class="highlight-item">
-        <md-icon>layers</md-icon>
-        <h5>Innovative Level Tool (Beta)</h5>
-        <p>Check surface levels with our brand-new Level tool, built with expressive Material 3 animations that intelligently adapt to your phone's orientation.</p>
+        </div> 
+        <div class="highlight-item">
+            <md-icon>palette</md-icon>
+            <h5>Material You & AMOLED</h5>
+            <p>Experience an interface that dynamically adapts to your wallpaper. Plus users can enjoy the <strong>Pure Black AMOLED</strong> theme for maximum battery saving and style.</p>
+        </div>
+        <div class="highlight-item">
+            <md-icon>thermostat</md-icon>
+            <h5>Smart Environmental Data</h5>
+            <p>Go beyond direction. Get real-time altitude, temperature, and UV index. Our new <strong>Insight Engine 4.0</strong> provides proactive alerts like "Rain starting soon" or "Picnic Day".</p>
+        </div>
+        <div class="highlight-item">
+            <md-icon>auto_awesome</md-icon>
+            <h5>At a Glance Interaction</h5>
+            <p>The new "Split" layout for contextual info keeps you informed without clutter. See weather alerts, sun events, and GPS data in a unified, scrolling pager.</p>
+        </div>
+        <div class="highlight-item">
+            <md-icon>layers</md-icon>
+            <h5>Innovative Level Tool</h5>
+            <p>Check surface levels with expressive Material 3 animations. Features a ripple effect for flat surfaces and fluid wave-like backgrounds for linear leveling.</p>
+        </div>
+        <div class="highlight-item">
+            <md-icon>widgets</md-icon>
+            <h5>Adaptive Home Widgets</h5>
+            <p>Beautifully designed widgets that resize intelligently. From 1x1 minimalist icons to "Giant" information hubs with high-frequency real-time updates.</p>
+        </div>
     </div>
 </div>
 
-
-## Pixel Compass on Your Wrist with Wear OS!
+## Pixel Compass on Your Wrist with Wear OS! {: data-toc-key="wearos" }
 
 The complete Pixel Compass experience, reimagined for your wrist. Our standalone Wear OS app is designed for quick glances and reliable navigation, giving you:
 
 <div class="wear-feature-layout">
     <div class="wear-feature-text">
         <ul>
-            <li><strong>Signature Compass Rose:</strong> Our beautiful and unique compass dial, perfectly adapted for round displays.</li>
-            <li><strong>Fluid & Responsive Animation:</strong> A high-performance animation engine that feels like a real instrument.</li>
-            <li><strong>Essential Data at a Glance:</strong> Get real-time altitude, incline, latitude, and longitude right on the compass face.</li>
-            <li><strong>Standalone Functionality:</strong> Works independently using your watch's own sensors and GPS.</li>
+            <li><strong>9 New Color Themes:</strong> Personalize your watch with themes like Pixel Blue, Emerald, Sunset, and AMOLED Black.</li>
+            <li><strong>Interactive Compass Tile:</strong> Access your last known heading and current altitude instantly from your watch face carousel.</li>
+            <li><strong>Fluid Spring Animations:</strong> A high-performance engine for ultra-smooth needle rotation that feels like a real instrument.</li>
+            <li><strong>Manual Calibration:</strong> Precise control with the ability to manually enter altitude or calibrate sensors directly on the wrist.</li>
+            <li><strong>Right/Left Wrist Support:</strong> Invert the compass UI to perfectly match your watch's physical orientation.</li>
         </ul>
     </div>
     <div class="wear-feature-image">
@@ -64,20 +69,20 @@ The complete Pixel Compass experience, reimagined for your wrist. Our standalone
     </div>
 </div>
 
+## Unlock the Ultimate Experience with Pixel Compass+ {: data-toc-key="plus" }
 
-## Unlock the Ultimate Experience with Pixel Compass+
+Elevate your navigation toolkit with a flexible subscription or lifetime license. Support future development and unlock the full potential of your sensors.
 
-Elevate your navigation toolkit with a flexible subscription. Support future development and get exclusive access to powerful tools.
-
-- **Powerful Home Screen Widgets:** A suite of beautiful, Material You-themed, and resizable widgets for Altitude, Compass, Location, and 6 different Weather types.
-- **Advanced Dynamic Cards:** Get deeper insights with exclusive cards for "Feels Like" temperature, Dew Point, Air Pressure, and a detailed Weather Condition description.
-- **Interactive Wind Indicator:** An elegant wind direction indicator that can be toggled directly on the main compass dial.
-- **Ad-Free Experience.**
+* **Ultimate Widget Suite:** Access exclusive shapes (Modern, Cookie, Pill, Arch) and the customizable <strong>Clock Widget</strong> with native battery efficiency.
+* **Advanced Forecast Charts:** Tap any card to reveal beautiful hourly charts for Temperature, Wind, Precipitation, and the <strong>Sun Path</strong>.
+* **Cloud Wallpapers:** Get exclusive high-quality wallpapers that match the app's aesthetic, downloadable directly to your gallery.
+* **Wind & Barometer Tools:** Real-time wind vane on the compass rose and detailed Sea Level Pressure (MSLP) vs Absolute Pressure tracking.
+* **Settings Backup:** Your Plus preferences are automatically backed up and can be restored with one tap if you reinstall the app.
+* **Ad-Free Experience & Support:** Remove all distractions and directly fund the next generation of features.
 
 <a href="#" data-page-id="plus" class="cta-link-secondary">Learn More about Plus <md-icon>arrow_forward</md-icon></a>
 
-
-## What Our Users Are Saying
+## What Our Users Are Saying {: data-toc-key="testimonials" }
 
 <div class="testimonials">
     <div class="testimonial-item">
@@ -89,16 +94,18 @@ Elevate your navigation toolkit with a flexible subscription. Support future dev
         <p class="author">— An Android User</p>
     </div>
     <div class="testimonial-item">
+        <p class="quote">"The level tool animations are top-notch. Very useful for my DIY projects!"</p>
+        <p class="author">— A Professional Maker</p>
+    </div>
+    <div class="testimonial-item">
         <p class="quote">"What a beautiful app, I love it!"</p>
         <p class="author">— A Happy User</p>
     </div>
 </div>
 
+## What's Next? {: data-toc-key="roadmap" }
 
-
-## What's Next?
-
-We are constantly working to make Pixel Compass more powerful and delightful. Here's a look at what's coming up.
+We are constantly working to make Pixel Compass more powerful and delightful. Here's a look at our current development focus.
 
 <div id="roadmap-summary-container">
 </div>
