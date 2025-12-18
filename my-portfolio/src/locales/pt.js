@@ -182,6 +182,26 @@ export default {
     footer: {
       rights: "© 2025 Pixel Pulse. Desenvolvido por Fernando Vaz.",
       links: "Links Úteis"
+    },
+    changelog: {
+      title: "Histórico de Versões",
+      subtitle: "Acompanhe a evolução do Pixel Pulse. Cada recurso, melhoria e correção detalhada abaixo.",
+      search_placeholder: "Buscar recursos, versões (ex: 1.15, Beta)...",
+      latest_release: "Última Versão",
+      released: "Lançado em",
+      update_now: "Atualizar Agora",
+      on_this_page: "Nesta Página",
+      load_more: "Carregar Versões Antigas",
+      no_results: "Nenhuma versão encontrada com esses filtros.",
+      jump_to: "Ir para Versão",
+      read_more: "Ler Notas da Versão",
+      collapse: "Recolher",
+      back_to_top: "Voltar ao Topo",
+      plus_promo: {
+        title: "Apoie o Desenvolvimento",
+        subtitle: "Desbloqueie o monitoramento automático e ajude a criar novos recursos.",
+        cta: "Obter Pixel Pulse+"
+      },
     }
   }
 };

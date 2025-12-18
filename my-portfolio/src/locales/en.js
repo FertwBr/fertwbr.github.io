@@ -182,6 +182,26 @@ export default {
     footer: {
       rights: "© 2025 Pixel Pulse. Developed by Fernando Vaz.",
       links: "Useful Links"
-    }
+    },
+    changelog: {
+      title: "Version History",
+      subtitle: "Track the evolution of Pixel Pulse. Every feature, improvement, and fix detailed below.",
+      search_placeholder: "Search features, versions (e.g. 1.15, Beta)...",
+      latest_release: "Latest Release",
+      released: "Released",
+      update_now: "Update Now",
+      on_this_page: "On This Page",
+      load_more: "Load Older Versions",
+      no_results: "No versions found matching your filters.",
+      jump_to: "Jump to Version",
+      read_more: "Read Release Notes",
+      collapse: "Collapse",
+      back_to_top: "Back to Top",
+      plus_promo: {
+        title: "Support Development",
+        subtitle: "Unlock auto-monitoring and help us build new features.",
+        cta: "Get Pixel Pulse+"
+      },
+    },
   }
 };
