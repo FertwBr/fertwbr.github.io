@@ -2,15 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
-export default function AppNavbar({ config, onNavigate, strings }) {
+export default function AppNavbar({ config, activePage, onNavigate, strings }) {
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
+
+  const isSubPage = activePage !== 'index';
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleBackClick = () => {
+    if (isSubPage) {
+      onNavigate('index');
+    } else {
+      navigate('/');
+    }
+  };
 
   return (
     <div style={{ 
@@ -43,23 +53,35 @@ export default function AppNavbar({ config, onNavigate, strings }) {
         }}
       >
         <button 
-          onClick={() => navigate('/')} 
+          onClick={handleBackClick} 
           style={{ 
             background: 'rgba(255,255,255,0.1)', 
             border: 'none', 
             borderRadius: '50%', 
             width: 40, height: 40, 
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            cursor: 'pointer', color: 'var(--md-sys-color-on-surface)' 
+            cursor: 'pointer', color: 'var(--md-sys-color-on-surface)',
+            transition: 'background 0.2s'
           }}
-          title={strings.nav?.back}
+          title={isSubPage ? strings.nav?.back_home : strings.nav?.back_portfolio}
+          onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.2)'}
+          onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
         >
-          <span className="material-symbols-outlined">arrow_back</span>
+          <span className="material-symbols-outlined">
+            {isSubPage ? 'arrow_back' : 'close'}
+          </span>
         </button>
 
         <div 
-          onClick={() => onNavigate('index')}
-          style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer', borderLeft: '1px solid rgba(255,255,255,0.1)', paddingLeft: 24 }}
+          onClick={() => isSubPage ? onNavigate('index') : null}
+          style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: 12, 
+            cursor: isSubPage ? 'pointer' : 'default', 
+            borderLeft: '1px solid rgba(255,255,255,0.1)', 
+            paddingLeft: 24 
+          }}
         >
           <img src={config.appIcon} alt="" style={{ width: 32, height: 32, borderRadius: 8 }} />
           <span style={{ fontWeight: 700, fontSize: '1.1rem' }}>{config.appName}</span>
