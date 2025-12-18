@@ -14,6 +14,7 @@ import ChangelogViewer from '../../components/ChangelogViewer';
 import { pixelPulseConfig } from './PixelPulseConfig';
 import PixelPulseHome from './PixelPulseHome';
 import PrivacyViewer from '../../components/PrivacyViewer';
+import HelpViewer from '../../components/HelpViewer';
 
 export default function PixelPulsePage() {
   const [activeTab, setActiveTab] = useState(pixelPulseConfig.defaultPage);
@@ -93,6 +94,16 @@ export default function PixelPulsePage() {
     if (activeTab === 'privacy') {
       return (
         <PrivacyViewer 
+            markdownContent={markdownContent} 
+            seedColor={pixelPulseConfig.seedColor} 
+            strings={t}
+        />
+      );
+    }
+
+    if (activeTab === 'help') {
+      return (
+        <HelpViewer 
             markdownContent={markdownContent} 
             seedColor={pixelPulseConfig.seedColor} 
             strings={t}

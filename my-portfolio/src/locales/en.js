@@ -212,5 +212,15 @@ export default {
       contact_btn: "Contact Support",
       print_btn: "Print Policy"
     },
+    help_page: {
+      page_title: "Help & FAQ",
+      subtitle: "Find answers and learn how to get the most out of Pixel Pulse.",
+      search_placeholder: "Search for answers (e.g. Calibration, Export)...",
+      table_of_contents: "Topics",
+      contact_title: "Still stuck?",
+      contact_desc: "Can't find what you're looking for? Our team is here to help.",
+      contact_btn: "Contact Support",
+      no_results: "No topics found matching your search."
+    },
   }
 };
