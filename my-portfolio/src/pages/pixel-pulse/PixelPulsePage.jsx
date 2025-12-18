@@ -13,6 +13,7 @@ import AppFooter from '../../components/AppFooter';
 import ChangelogViewer from '../../components/ChangelogViewer';
 import { pixelPulseConfig } from './PixelPulseConfig';
 import PixelPulseHome from './PixelPulseHome';
+import PrivacyViewer from '../../components/PrivacyViewer';
 
 export default function PixelPulsePage() {
   const [activeTab, setActiveTab] = useState(pixelPulseConfig.defaultPage);
@@ -77,12 +78,23 @@ export default function PixelPulsePage() {
       );
     }
 
-if (activeTab === 'changelog') {
+    if (activeTab === 'changelog') {
       return (
         <ChangelogViewer 
             markdownContent={markdownContent} 
             seedColor={pixelPulseConfig.seedColor} 
             appConfig={pixelPulseConfig}
+            strings={t}
+            onNavigate={handleNavigation}
+        />
+      );
+    }
+
+    if (activeTab === 'privacy') {
+      return (
+        <PrivacyViewer 
+            markdownContent={markdownContent} 
+            seedColor={pixelPulseConfig.seedColor} 
             strings={t}
         />
       );
