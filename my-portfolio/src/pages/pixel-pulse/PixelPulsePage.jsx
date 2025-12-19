@@ -13,7 +13,7 @@ import AppNavbar from '../../components/layout/AppNavbar';
 import AppFooter from '../../components/layout/AppFooter';
 import ChangelogViewer from '../../components/viewers/ChangelogViewer';
 import PrivacyViewer from '../../components/viewers/PrivacyViewer';
-import HelpViewer from '../../components/HelpViewer';
+import HelpViewer from '../../components/viewers/HelpViewer';
 import RoadmapViewer from '../../components/viewers/RoadmapViewer';
 import OverviewViewer from '../../components/viewers/OverviewViewer';
 import PlusViewer from '../../components/PlusViewer';
