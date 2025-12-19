@@ -121,6 +121,7 @@ export default function PixelPulsePage() {
           <RoadmapViewer 
               markdownContent={markdownContent}
               seedColor={pixelPulseConfig.seedColor} 
+              appConfig={pixelPulseConfig}
               strings={t}
           />
         );
