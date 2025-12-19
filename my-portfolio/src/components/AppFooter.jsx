@@ -3,11 +3,11 @@ import { getThemeOptions, setThemeColor } from '../utils/themeUtils';
 import { useLanguage } from '../context/LanguageContext';
 
 export default function AppFooter({ strings, onNavigate, activePage }) {
-  const { toggleLanguage, language } = useLanguage();
+  const { toggleLanguage, language, content } = useLanguage();
   const themes = getThemeOptions();
 
   const t = strings?.pixel_pulse || strings || {};
-  const f = strings?.footer || {};
+  const f = content?.footer || {};
 
   const usefulLinks = [
     { key: 'changelog', icon: 'update' },
@@ -46,7 +46,6 @@ export default function AppFooter({ strings, onNavigate, activePage }) {
                 <button
                   key={link.key}
                   onClick={() => onNavigate(link.key)}
-                  className={isSelected ? "" : "btn-outline"}
                   style={{
                     borderRadius: '100px',
                     padding: '10px 20px',
@@ -58,7 +57,8 @@ export default function AppFooter({ strings, onNavigate, activePage }) {
                     cursor: 'pointer',
                     background: isSelected ? 'var(--md-sys-color-primary-container)' : 'transparent',
                     color: isSelected ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface)',
-                    transition: 'all 0.2s ease'
+                    transition: 'all 0.2s ease',
+                    fontWeight: isSelected ? 700 : 500
                   }}
                 >
                   <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>{link.icon}</span>
@@ -72,29 +72,21 @@ export default function AppFooter({ strings, onNavigate, activePage }) {
         <div style={{ width: '100%', height: '1px', background: 'var(--md-sys-color-outline-variant)', opacity: 0.3 }}></div>
 
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '24px' }}>
-          <h3 style={{
-            fontSize: '0.85rem',
-            textTransform: 'uppercase',
-            letterSpacing: '1px',
-            color: 'var(--md-sys-color-on-surface-variant)',
-            fontWeight: 600
-          }}>
-            {f?.appearance?.title || "Theme & Appearance"}
+          <h3 style={{ fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 600 }}>
+            {t?.footer?.theme_title || f?.theme_title || f?.appearance?.title || "Theme & Appearance"}
           </h3>
-
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
             {themes.map((theme) => (
               <button
                 key={theme.value}
                 onClick={() => setThemeColor(theme.value)}
-                title={theme.name}
                 style={{
                   width: '44px', height: '44px',
                   borderRadius: '50%',
                   border: '2px solid var(--md-sys-color-outline-variant)',
                   background: `linear-gradient(135deg, ${theme.palette.primary} 50%, ${theme.palette.secondary} 50%)`,
                   cursor: 'pointer',
-                  transition: 'transform 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                  transition: 'transform 0.2s',
                   boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
                 }}
               />
@@ -112,12 +104,8 @@ export default function AppFooter({ strings, onNavigate, activePage }) {
           gap: '24px',
           textAlign: 'center'
         }}>
-          <p style={{
-            color: 'var(--md-sys-color-on-surface-variant)',
-            fontSize: '0.9rem',
-            flex: '1 1 300px'
-          }}>
-            &copy; {new Date().getFullYear()} Fernando Vaz. {f?.rights}
+          <p style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: '0.9rem', flex: '1 1 300px' }}>
+            &copy; {new Date().getFullYear()} {t?.footer?.rights || f?.rights || "Fernando Vaz"}
           </p>
 
           <button
@@ -129,12 +117,8 @@ export default function AppFooter({ strings, onNavigate, activePage }) {
               padding: '10px 24px',
               borderRadius: '100px',
               cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              fontSize: '0.9rem',
-              fontWeight: 600,
-              margin: '0 auto'
+              display: 'flex', alignItems: 'center', gap: '8px',
+              fontSize: '0.9rem', fontWeight: 600, margin: '0 auto'
             }}
           >
             <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>translate</span>

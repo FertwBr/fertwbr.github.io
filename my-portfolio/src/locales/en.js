@@ -81,11 +81,17 @@ export default {
     title: "Let's Work Together",
     desc: "Have a project in mind or want to discuss the latest in Android tech?",
     email: "Send Email",
-    linkedin: "Connect on LinkedIn"
+    linkedin: "LinkedIn"
   },
   footer: {
     rights: "All rights reserved.",
-    built: "Designed & Built by Fernando Vaz"
+    built: "Designed & Built by Fernando Vaz 🇧🇷",
+    useful_links: "Useful Links",
+    appearance: {
+      title: "Theme & Appearance",
+      en: "English",
+      pt: "Português"
+    }
   },
   pixel_pulse: {
     nav: {
@@ -180,8 +186,9 @@ export default {
       ]
     },
     footer: {
-      rights: "© 2025 Pixel Pulse. Developed by Fernando Vaz.",
-      links: "Useful Links"
+      rights: "Pixel Pulse. All rights reserved.",
+      links: "Useful Links",
+      theme_title: "Theme & Appearance"
     },
     changelog: {
       title: "Version History",
