@@ -9,9 +9,9 @@ import { useLanguage } from '../../context/LanguageContext';
 import { applyMaterialTheme, getSurfaceColor } from '../../utils/themeUtils';
 import { usePageMetadata } from '../../hooks/usePageMetadata';
 
-import AppNavbar from '../../components/AppNavbar';
-import AppFooter from '../../components/AppFooter';
-import ChangelogViewer from '../../components/ChangelogViewer';
+import AppNavbar from '../../components/layout/AppNavbar';
+import AppFooter from '../../components/layout/AppFooter';
+import ChangelogViewer from '../../components/viewers/ChangelogViewer';
 import PrivacyViewer from '../../components/viewers/PrivacyViewer';
 import HelpViewer from '../../components/HelpViewer';
 import RoadmapViewer from '../../components/viewers/RoadmapViewer';

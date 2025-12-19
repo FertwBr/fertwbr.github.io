@@ -6,8 +6,8 @@ import { getSurfaceColor } from '../utils/themeUtils';
 import { useLanguage } from '../context/LanguageContext';
 import { config } from '../config';
 
-import AppNavbar from '../components/AppNavbar';
-import Footer from '../components/Footer';
+import AppNavbar from '../components/layout/AppNavbar';
+import Footer from '../components/layout/Footer';
 
 const SITE_MAP = [
   { keywords: ['pulse', 'sound', 'meter', 'decibel', 'audio'], path: '/pixelpulse', name: 'Pixel Pulse' },

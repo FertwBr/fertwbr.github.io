@@ -1,6 +1,6 @@
 import React from 'react';
-import { getThemeOptions, setThemeColor } from '../utils/themeUtils';
-import { useLanguage } from '../context/LanguageContext';
+import { getThemeOptions, setThemeColor } from '../../utils/themeUtils';
+import { useLanguage } from '../../context/LanguageContext';
 
 export default function AppFooter({ strings, onNavigate, activePage }) {
   const { toggleLanguage, language, content } = useLanguage();

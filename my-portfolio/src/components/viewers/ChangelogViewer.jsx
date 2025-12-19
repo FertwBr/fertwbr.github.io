@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import { motion, AnimatePresence } from 'framer-motion';
-import { parseChangelog } from '../utils/changelogParser';
+import { parseChangelog } from '../../utils/changelogParser';
 
 const VersionBadge = ({ type, text }) => {
   const config = {

@@ -1,5 +1,5 @@
-import { getThemeOptions, setThemeColor } from '../utils/themeUtils';
-import { useLanguage } from '../context/LanguageContext';
+import { getThemeOptions, setThemeColor } from '../../utils/themeUtils';
+import { useLanguage } from '../../context/LanguageContext';
 
 export default function Footer({ t }) {
   const { toggleLanguage, language } = useLanguage();

@@ -12,7 +12,7 @@ import About from './components/About';
 import Projects from './components/Projects';
 import TechStack from './components/TechStack';
 import GitHubStats from './components/GitHubStats';
-import Footer from './components/Footer';
+import Footer from './components/layout/Footer';
 
 import PixelPulsePage from './pages/pixel-pulse/PixelPulsePage';
 import RedirectToStore from './pages/RedirectToStore';
