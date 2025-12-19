@@ -6,6 +6,7 @@ import { setupTheme, applyMaterialTheme, getSurfaceColor } from './utils/themeUt
 import { usePageMetadata } from './hooks/usePageMetadata';
 import { config } from './config';
 import NotFound from './pages/NotFound';
+import PixelCompassPage from './pages/pixel-compass/PixelCompassPage';
 
 import Hero from './components/sections/Hero';
 import About from './components/sections/About';
@@ -101,7 +102,13 @@ function AppContent() {
       <Route path="/PixelPulse" element={<PixelPulsePage />} />
       <Route path="/pixelpulse/open" element={<RedirectToStore type="open" appKey="pixelpulse" />} />
       <Route path="/pixelpulse/open/buy" element={<RedirectToStore type="buy" appKey="pixelpulse" />} />
-      
+
+
+      <Route path="/pixelcompass" element={<PixelCompassPage />} />
+      <Route path="/PixelCompass" element={<PixelCompassPage />} />
+      <Route path="/pixelcompass/open" element={<RedirectToStore type="open" appKey="pixelcompass" />} />
+      <Route path="/pixelcompass/open/buy" element={<RedirectToStore type="buy" appKey="pixelcompass" />} />
+
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
