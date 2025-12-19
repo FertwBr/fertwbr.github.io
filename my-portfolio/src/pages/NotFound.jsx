@@ -7,7 +7,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { config } from '../config';
 
 import AppNavbar from '../components/AppNavbar';
-import AppFooter from '../components/AppFooter';
+import Footer from '../components/Footer';
 
 const SITE_MAP = [
   { keywords: ['pulse', 'sound', 'meter', 'decibel', 'audio'], path: '/pixelpulse', name: 'Pixel Pulse' },
@@ -26,6 +26,7 @@ export default function NotFound() {
   const [suggestion, setSuggestion] = useState(null);
   
   const t = content.not_found || {};
+  const tFooter = content.footer || {};
 
   const surfaceColor = getSurfaceColor(config.seedColor, true);
   
@@ -160,7 +161,7 @@ export default function NotFound() {
         </div>
       </main>
 
-      <AppFooter strings={{}} onNavigate={() => {}} activePage="" />
+      <Footer t={tFooter} />
     </div>
   );
 }
