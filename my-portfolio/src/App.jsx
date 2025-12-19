@@ -1,8 +1,8 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Lenis from 'lenis';
 import { LanguageProvider, useLanguage } from './context/LanguageContext';
-import { setupTheme, applyMaterialTheme, getSurfaceColor } from './utils/themeUtils'; applyMaterialTheme
+import { setupTheme, applyMaterialTheme, getSurfaceColor } from './utils/themeUtils';
 import { usePageMetadata } from './hooks/usePageMetadata';
 import { config } from './config';
 
@@ -20,17 +20,24 @@ function PortfolioHome() {
   const { content } = useLanguage();
   const location = useLocation();
 
-  const effectiveColor = useMemo(() => {
+  const [activeColor, setActiveColor] = useState(() => {
     const params = new URLSearchParams(location.search);
     const colorParam = params.get('color');
     return colorParam ? `#${colorParam.replace('#', '')}` : config.seedColor;
-  }, [location.search]);
-
-  const surfaceColor = getSurfaceColor(effectiveColor, true);
+  });
 
   useEffect(() => {
-    applyMaterialTheme(effectiveColor, true);
-  }, [effectiveColor]);
+    const params = new URLSearchParams(location.search);
+    if (params.has('color')) {
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+  }, []);
+
+  const surfaceColor = getSurfaceColor(activeColor, true);
+
+  useEffect(() => {
+    applyMaterialTheme(activeColor, true);
+  }, [activeColor]);
 
   usePageMetadata({
     title: "Fernando Vaz | Software Engineer",

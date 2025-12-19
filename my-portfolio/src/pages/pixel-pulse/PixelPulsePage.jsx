@@ -22,54 +22,59 @@ import { pixelPulseConfig } from './PixelPulseConfig';
 import PixelPulseHome from './PixelPulseHome';
 
 export default function PixelPulsePage() {
-  const [activeTab, setActiveTab] = useState(pixelPulseConfig.defaultPage);
+  const location = useLocation();
+
+  const [activeTab, setActiveTab] = useState(() => {
+    const params = new URLSearchParams(location.search);
+    return params.get('page') && pixelPulseConfig.pages[params.get('page')]
+      ? params.get('page')
+      : pixelPulseConfig.defaultPage;
+  });
+
+  const [activeColor, setActiveColor] = useState(() => {
+    const params = new URLSearchParams(location.search);
+    const colorParam = params.get('color');
+    return colorParam ? `#${colorParam.replace('#', '')}` : pixelPulseConfig.seedColor;
+  });
+
   const [markdownContent, setMarkdownContent] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const location = useLocation();
   const { content } = useLanguage();
   const t = content.pixel_pulse;
 
-  const params = new URLSearchParams(location.search);
-  const urlColorParam = params.get('color');
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
 
-  const effectiveSeedColor = urlColorParam ? `#${urlColorParam}` : pixelPulseConfig.seedColor;
+    if (params.has('page') || params.has('color') || location.hash) {
 
-  const surfaceColor = getSurfaceColor(effectiveSeedColor, true);
+      const targetHash = location.hash;
 
-  const getPageTitle = (tab) => {
-    const baseTitle = pixelPulseConfig.appName;
-    const tabNames = {
-      index: 'Home',
-      plus: 'Plus',
-      changelog: 'Version History',
-      roadmap: 'Roadmap',
-      privacy: 'Privacy Policy',
-      help: 'Help & FAQ',
-      overview: 'Overview'
-    };
-    const subPage = tabNames[tab] || 'Home';
-    return `${baseTitle} - ${subPage}`;
-  };
+      window.history.replaceState({}, '', window.location.pathname);
+
+      if (targetHash) {
+        setTimeout(() => {
+          const id = targetHash.replace('#', '');
+          const element = document.getElementById(id);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 500);
+      }
+    }
+  }, []);
+
+  const surfaceColor = getSurfaceColor(activeColor, true);
 
   usePageMetadata({
-    title: getPageTitle(activeTab),
+    title: `${pixelPulseConfig.appName} - ${activeTab === 'index' ? 'Home' : activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}`,
     themeColor: surfaceColor,
     favicon: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Pulse/art/favicon/favicon.ico"
   });
 
   useEffect(() => {
-    applyMaterialTheme(effectiveSeedColor, true);
-  }, [effectiveSeedColor]);
-
-  useEffect(() => {
-    const page = params.get('page');
-    if (page && pixelPulseConfig.pages[page]) {
-      setActiveTab(page);
-    } else {
-      if (!page) setActiveTab('index');
-    }
-  }, [location.search]);
+    applyMaterialTheme(activeColor, true);
+  }, [activeColor]);
 
   useEffect(() => {
     const pageConfig = pixelPulseConfig.pages[activeTab];
@@ -104,6 +109,7 @@ export default function PixelPulsePage() {
         const element = document.getElementById(id);
         if (element) {
           element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          window.history.replaceState({}, '', window.location.pathname);
         }
       }, 300);
     }
@@ -112,15 +118,6 @@ export default function PixelPulsePage() {
   const handleNavigation = (pageId) => {
     setActiveTab(pageId);
     window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    const newUrl = new URL(window.location);
-    newUrl.searchParams.set('page', pageId);
-
-    if (urlColorParam) {
-      newUrl.searchParams.set('color', urlColorParam);
-    }
-
-    window.history.pushState({}, '', newUrl);
   };
 
   const renderContent = () => {
@@ -135,7 +132,7 @@ export default function PixelPulsePage() {
     const commonProps = {
       markdownContent,
       appConfig: pixelPulseConfig,
-      seedColor: effectiveSeedColor,
+      seedColor: activeColor,
       strings: t,
       onNavigate: handleNavigation
     };
@@ -160,12 +157,7 @@ export default function PixelPulsePage() {
   };
 
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      minHeight: '100vh',
-      overflowX: 'hidden'
-    }}>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', overflowX: 'hidden' }}>
       <div className="bg-fixed"></div>
       <div className="grid-overlay"></div>
 
