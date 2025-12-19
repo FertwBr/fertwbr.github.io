@@ -31,7 +31,6 @@ export default function ProjectCard({ project, t }) {
         boxShadow: '0 20px 40px -10px rgba(0,0,0,0.1)'
       }}>
         
-        {/* Visual Content */}
         <div style={{
           height: '350px',
           background: `linear-gradient(135deg, var(--md-sys-color-${project.color}-container), var(--md-sys-color-surface))`,
@@ -57,7 +56,6 @@ export default function ProjectCard({ project, t }) {
            }
         </div>
 
-        {/* Text Content */}
         <div>
           <h3 style={{ fontSize: '2.5rem', marginBottom: '16px', fontWeight: 700 }}>{project.title}</h3>
           <p style={{ fontSize: '1.1rem', lineHeight: 1.7, color: 'var(--md-sys-color-on-surface-variant)', marginBottom: '32px' }}>
