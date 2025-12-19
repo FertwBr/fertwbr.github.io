@@ -120,3 +120,17 @@ export function setupTheme() {
     updateTheme(mediaQuery.matches);
     mediaQuery.addEventListener('change', e => updateTheme(e.matches));
 }
+
+const argbToHex = (argb) => {
+  return `#${(argb & 0x00ffffff).toString(16).padStart(6, '0')}`;
+};
+
+export function getSurfaceColor(hexColor, isDark = true) {
+  try {
+    const theme = themeFromSourceColor(parseInt(hexColor.replace('#', ''), 16));
+    const scheme = isDark ? theme.schemes.dark : theme.schemes.light;
+    return argbToHex(scheme.surface);
+  } catch (error) {
+    return '#0f1115';
+  }
+}

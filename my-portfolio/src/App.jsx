@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { LanguageProvider, useLanguage } from './context/LanguageContext';
-import { setupTheme } from './utils/themeUtils';
+import { setupTheme, getSurfaceColor } from './utils/themeUtils';
+import { usePageMetadata } from './hooks/usePageMetadata';
+import { config } from './config';
+
 import Hero from './components/Hero';
 import About from './components/About';
 import Projects from './components/Projects';
@@ -14,6 +17,14 @@ import RedirectToStore from './pages/RedirectToStore';
 
 function PortfolioHome() {
   const { content } = useLanguage();
+
+  const surfaceColor = getSurfaceColor(config.seedColor, true);
+
+  usePageMetadata({
+    title: "Fernando Vaz | Software Engineer",
+    themeColor: surfaceColor,
+    favicon: "https://github.com/fertwbr.png"
+  });
 
   return (
     <div style={{ position: 'relative', width: '100%', maxWidth: '100vw', overflow: 'hidden' }}>

@@ -6,7 +6,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 import { loadPageContent } from '../../utils/contentLoader';
 import { useLanguage } from '../../context/LanguageContext';
-import { applyMaterialTheme } from '../../utils/themeUtils';
+import { applyMaterialTheme, getSurfaceColor } from '../../utils/themeUtils';
+import { usePageMetadata } from '../../hooks/usePageMetadata';
 
 import AppNavbar from '../../components/AppNavbar';
 import AppFooter from '../../components/AppFooter';
@@ -24,10 +25,34 @@ export default function PixelPulsePage() {
   const [activeTab, setActiveTab] = useState(pixelPulseConfig.defaultPage);
   const [markdownContent, setMarkdownContent] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const surfaceColor = getSurfaceColor(pixelPulseConfig.seedColor, true);
   
   const location = useLocation();
   const { content } = useLanguage();
   const t = content.pixel_pulse;
+
+  const getPageTitle = (tab) => {
+    const baseTitle = pixelPulseConfig.appName;
+
+    const tabNames = {
+      index: 'Home',
+      plus: 'Plus',
+      changelog: 'Version History',
+      roadmap: 'Roadmap',
+      privacy: 'Privacy Policy',
+      help: 'Help & FAQ',
+      overview: 'Overview'
+    };
+
+    const subPage = tabNames[tab] || 'Home';
+    return `${baseTitle} - ${subPage}`;
+  };
+
+usePageMetadata({
+    title: getPageTitle(activeTab),
+    themeColor: surfaceColor, 
+    favicon: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Pulse/art/favicon/favicon.ico"
+  });
 
   useEffect(() => {
     applyMaterialTheme(pixelPulseConfig.seedColor, true); 
@@ -35,11 +60,11 @@ export default function PixelPulsePage() {
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
-    const page = params.get('page'); 
+    const page = params.get('page');
     if (page && pixelPulseConfig.pages[page]) {
-        setActiveTab(page);
+      setActiveTab(page);
     } else {
-        setActiveTab('index');
+      setActiveTab('index');
     }
   }, [location]);
 
@@ -68,7 +93,7 @@ export default function PixelPulsePage() {
   const handleNavigation = (pageId) => {
     setActiveTab(pageId);
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    
+
     const newUrl = new URL(window.location);
     newUrl.searchParams.set('page', pageId);
     window.history.pushState({}, '', newUrl);
@@ -78,73 +103,73 @@ export default function PixelPulsePage() {
     if (isLoading) {
       return (
         <div style={{ textAlign: 'center', padding: '100px' }}>
-          <span className="material-symbols-outlined spin-anim" style={{ fontSize: '48px', color: 'var(--md-sys-color-primary)'}}>sync</span>
+          <span className="material-symbols-outlined spin-anim" style={{ fontSize: '48px', color: 'var(--md-sys-color-primary)' }}>sync</span>
         </div>
       );
     }
 
     if (activeTab === 'changelog') {
       return (
-        <ChangelogViewer 
-            markdownContent={markdownContent} 
-            seedColor={pixelPulseConfig.seedColor} 
-            appConfig={pixelPulseConfig}
-            strings={t}
-            onNavigate={handleNavigation}
+        <ChangelogViewer
+          markdownContent={markdownContent}
+          seedColor={pixelPulseConfig.seedColor}
+          appConfig={pixelPulseConfig}
+          strings={t}
+          onNavigate={handleNavigation}
         />
       );
     }
 
     if (activeTab === 'privacy') {
-        return (
-          <PrivacyViewer 
-              markdownContent={markdownContent} 
-              appConfig={pixelPulseConfig}
-              seedColor={pixelPulseConfig.seedColor} 
-              strings={t}
-          />
-        );
+      return (
+        <PrivacyViewer
+          markdownContent={markdownContent}
+          appConfig={pixelPulseConfig}
+          seedColor={pixelPulseConfig.seedColor}
+          strings={t}
+        />
+      );
     }
 
     if (activeTab === 'help') {
-        return (
-          <HelpViewer 
-              markdownContent={markdownContent}
-              appConfig={pixelPulseConfig}
-              seedColor={pixelPulseConfig.seedColor} 
-              strings={t}
-          />
-        );
+      return (
+        <HelpViewer
+          markdownContent={markdownContent}
+          appConfig={pixelPulseConfig}
+          seedColor={pixelPulseConfig.seedColor}
+          strings={t}
+        />
+      );
     }
 
     if (activeTab === 'roadmap') {
-        return (
-          <RoadmapViewer 
-              markdownContent={markdownContent}
-              seedColor={pixelPulseConfig.seedColor} 
-              appConfig={pixelPulseConfig}
-              strings={t}
-          />
-        );
+      return (
+        <RoadmapViewer
+          markdownContent={markdownContent}
+          seedColor={pixelPulseConfig.seedColor}
+          appConfig={pixelPulseConfig}
+          strings={t}
+        />
+      );
     }
 
     if (activeTab === 'overview') {
-        return (
-          <OverviewViewer 
-              markdownContent={markdownContent} 
-              seedColor={pixelPulseConfig.seedColor} 
-               appConfig={pixelPulseConfig}
-              strings={t}
-          />
-        );
+      return (
+        <OverviewViewer
+          markdownContent={markdownContent}
+          seedColor={pixelPulseConfig.seedColor}
+          appConfig={pixelPulseConfig}
+          strings={t}
+        />
+      );
     }
 
     if (activeTab === 'plus') {
       return (
-        <PlusViewer 
-            markdownContent={markdownContent} 
-            appConfig={pixelPulseConfig}
-            strings={t}
+        <PlusViewer
+          markdownContent={markdownContent}
+          appConfig={pixelPulseConfig}
+          strings={t}
         />
       );
     }
@@ -152,27 +177,27 @@ export default function PixelPulsePage() {
     return (
       <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 20px 60px 20px', boxSizing: 'border-box' }}>
         <div className="glass-card" style={{ padding: 'clamp(24px, 5vw, 40px)', borderRadius: '24px' }}>
-            <div className="markdown-body">
-                <ReactMarkdown rehypePlugins={[rehypeRaw]}>{markdownContent}</ReactMarkdown>
-            </div>
+          <div className="markdown-body">
+            <ReactMarkdown rehypePlugins={[rehypeRaw]}>{markdownContent}</ReactMarkdown>
+          </div>
         </div>
       </div>
     );
   };
 
   return (
-    <div style={{ 
-      display: 'flex', 
-      flexDirection: 'column', 
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
       minHeight: '100vh',
       overflowX: 'hidden'
     }}>
       <div className="bg-fixed"></div>
       <div className="grid-overlay"></div>
 
-      <AppNavbar 
+      <AppNavbar
         config={pixelPulseConfig}
-        activePage={activeTab} 
+        activePage={activeTab}
         onNavigate={handleNavigation}
         strings={t.nav}
       />
@@ -180,23 +205,23 @@ export default function PixelPulsePage() {
       <main style={{ flex: 1, width: '100%', overflowX: 'hidden' }}>
         <AnimatePresence mode="wait">
           {activeTab === 'index' ? (
-             <PixelPulseHome key="home" onNavigate={handleNavigation} strings={t} />
+            <PixelPulseHome key="home" onNavigate={handleNavigation} strings={t} />
           ) : (
-            <motion.div 
+            <motion.div
               key="content"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              style={{ 
-                maxWidth: ['changelog', 'privacy', 'help', 'roadmap', 'overview'].includes(activeTab) ? '1600px' : '100%', 
-                margin: '0 auto', 
+              style={{
+                maxWidth: ['changelog', 'privacy', 'help', 'roadmap', 'overview'].includes(activeTab) ? '1600px' : '100%',
+                margin: '0 auto',
                 padding: 'clamp(100px, 15vh, 140px) 20px 0 20px',
                 width: '100%',
                 height: 'auto',
                 boxSizing: 'border-box'
               }}
             >
-               {renderContent()}
+              {renderContent()}
             </motion.div>
           )}
         </AnimatePresence>
