@@ -8,6 +8,7 @@ export default function AppNavbar({ config, activePage, onNavigate, strings }) {
   const [lastScrollY, setLastScrollY] = useState(0);
 
   const navigate = useNavigate();
+  
   const isSubPage = activePage !== 'index';
 
   useEffect(() => {
@@ -28,7 +29,11 @@ export default function AppNavbar({ config, activePage, onNavigate, strings }) {
   }, [lastScrollY]);
 
   const handleBackClick = () => {
-    onNavigate ? onNavigate('index') : navigate('/');
+    if (isSubPage) {
+      if (onNavigate) onNavigate('index');
+    } else {
+      navigate('/');
+    }
   };
 
   return (
