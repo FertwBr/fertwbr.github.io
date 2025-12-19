@@ -12,6 +12,8 @@
   --md-sys-color-secondary-container: #4a4458;
   --md-sys-color-surface-container: #1b1b1f;
   --md-sys-color-surface-container-high: #2b2930;
+  --md-sys-color-surface-container-low: #1b1b1f;
+  --md-sys-color-surface-container-highest: #36343b;
   --md-sys-color-outline: #938f99;
   --md-sys-color-outline-variant: #49454f;
   --md-sys-color-tertiary: #efb8c8;
@@ -23,7 +25,13 @@
   transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+  -webkit-tap-highlight-color: transparent; 
+}
+
 html { scroll-behavior: smooth; overflow-x: hidden; }
 
 body { 
@@ -31,7 +39,9 @@ body {
   color: var(--md-sys-color-on-surface);
   overflow-x: hidden;
   width: 100%;
-  min-height: 100vh;
+  min-height: 100dvh; 
+  margin: 0;
+  padding: 0;
 }
 
 ::-webkit-scrollbar { width: 6px; }
@@ -95,6 +105,7 @@ body {
   text-decoration: none;
   font-size: 1rem;
   transition: transform 0.2s, box-shadow 0.2s;
+  outline: none;
 }
 
 .btn-glow:hover {
@@ -116,6 +127,7 @@ body {
   font-size: 1rem;
   transition: all 0.3s ease;
   cursor: pointer;
+  outline: none;
 }
 
 .btn-outline:hover {
@@ -179,6 +191,7 @@ body {
   font-size: 0.95rem;
   cursor: pointer;
   white-space: nowrap;
+  outline: none;
 }
 
 .nav-link:hover {
@@ -199,6 +212,7 @@ body {
   color: var(--md-sys-color-on-surface);
   padding: 12px;
   cursor: pointer;
+  outline: none;
 }
 
 .app-page-container {
