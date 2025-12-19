@@ -7,11 +7,11 @@ import { usePageMetadata } from './hooks/usePageMetadata';
 import { config } from './config';
 import NotFound from './pages/NotFound';
 
-import Hero from './components/Hero';
-import About from './components/About';
-import Projects from './components/Projects';
-import TechStack from './components/TechStack';
-import GitHubStats from './components/GitHubStats';
+import Hero from './components/sections/Hero';
+import About from './components/sections/About';
+import Projects from './components/sections/Projects';
+import TechStack from './components/sections/TechStack';
+import GitHubStats from './components/sections/GitHubStats';
 import Footer from './components/layout/Footer';
 
 import PixelPulsePage from './pages/pixel-pulse/PixelPulsePage';

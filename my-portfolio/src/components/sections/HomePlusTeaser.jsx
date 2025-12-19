@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { loadPageContent } from '../utils/contentLoader';
+import { loadPageContent } from '../../utils/contentLoader';
 
 const parsePlusTeaserData = (markdown) => {
   if (!markdown) return null;

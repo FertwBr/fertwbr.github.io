@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
-import { loadPageContent } from '../utils/contentLoader';
-import { parseChangelog } from '../utils/changelogParser';
+import { loadPageContent } from '../../utils/contentLoader';
+import { parseChangelog } from '../../utils/changelogParser';
 
 const getIconForText = (text) => {
   const lower = text.toLowerCase();

@@ -1,10 +1,10 @@
 import React from 'react';
 import { pixelPulseConfig } from './PixelPulseConfig';
-import HomeHero from '../../components/HomeHero';
-import HomeNewFeatures from '../../components/HomeNewFeatures';
-import HomeFeaturesGrid from '../../components/HomeFeaturesGrid';
-import HomePlusTeaser from '../../components/HomePlusTeaser';
-import HomePrivacy from '../../components/HomePrivacy';
+import HomeHero from '../../components/sections/HomeHero';
+import HomeNewFeatures from '../../components/sections/HomeNewFeatures';
+import HomeFeaturesGrid from '../../components/sections/HomeFeaturesGrid';
+import HomePlusTeaser from '../../components/sections/HomePlusTeaser';
+import HomePrivacy from '../../components/sections/HomePrivacy';
 
 export default function PixelPulseHome({ onNavigate, strings }) {
   return (
