@@ -158,6 +158,16 @@ export default {
       desc: "Go from reactive to proactive with automated analysis.",
       cta: "Discover Pixel Pulse+"
     },
+    plus_page: {
+      title: "Elevate Your Experience",
+      badge: "One-Time Purchase",
+      cta: "Unlock Lifetime Access",
+      disclaimer: "No subscriptions. No hidden fees.",
+      why_title: "Why a One-Time Purchase?",
+      features_title: "The Plus Advantage",
+      features_subtitle: "Visualizing the power you get instantly.",
+      faq_title: "Common Questions"
+    },
     privacy_section: {
       title: "Privacy First",
       cta_policy: "Read Privacy Policy",
