@@ -35,7 +35,7 @@ const VersionBadge = ({ type, text }) => {
   );
 };
 
-const BackToTop = ({ strings, seedColor }) => {
+const BackToTop = ({ strings }) => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -55,9 +55,9 @@ const BackToTop = ({ strings, seedColor }) => {
           style={{
             position: 'fixed', bottom: '30px', right: '30px', zIndex: 99,
             width: '56px', height: '56px', borderRadius: '16px',
-            background: seedColor, border: 'none',
+            background: 'var(--md-sys-color-primary)', border: 'none',
             boxShadow: '0 8px 24px rgba(0,0,0,0.3)',
-            color: '#fff', cursor: 'pointer',
+            color: 'var(--md-sys-color-on-primary)', cursor: 'pointer',
             display: 'flex', alignItems: 'center', justifyContent: 'center'
           }}
           title={strings.back_to_top}
@@ -69,7 +69,7 @@ const BackToTop = ({ strings, seedColor }) => {
   );
 };
 
-const ChangelogItem = ({ v, index, isActive, seedColor, strings }) => {
+const ChangelogItem = ({ v, index, isActive, strings }) => {
   const [isOpen, setIsOpen] = useState(index === 0);
 
   return (
@@ -83,8 +83,8 @@ const ChangelogItem = ({ v, index, isActive, seedColor, strings }) => {
       <div style={{
         position: 'absolute', left: '-46px', top: '24px',
         width: '14px', height: '14px', borderRadius: '50%',
-        background: v.type === 'stable' ? seedColor : 'var(--md-sys-color-surface)',
-        border: `3px solid ${v.type === 'stable' ? seedColor : v.type === 'beta' ? '#FFB74D' : v.type === 'alpha' ? '#EF5350' : '#AB47BC'}`,
+        background: v.type === 'stable' ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface)',
+        border: `3px solid ${v.type === 'stable' ? 'var(--md-sys-color-primary)' : v.type === 'beta' ? '#FFB74D' : v.type === 'alpha' ? '#EF5350' : '#AB47BC'}`,
         zIndex: 2,
         boxShadow: `0 0 0 4px var(--md-sys-color-surface)`
       }} />
@@ -93,7 +93,7 @@ const ChangelogItem = ({ v, index, isActive, seedColor, strings }) => {
         className="glass-card"
         style={{
           borderRadius: '24px',
-          border: isActive ? `1px solid ${seedColor}80` : '1px solid var(--md-sys-color-outline-variant)',
+          border: isActive ? `1px solid var(--md-sys-color-primary)` : '1px solid var(--md-sys-color-outline-variant)',
           overflow: 'hidden',
           transition: 'border-color 0.3s'
         }}
@@ -114,7 +114,7 @@ const ChangelogItem = ({ v, index, isActive, seedColor, strings }) => {
               </h2>
               <div style={{ display: 'flex', gap: '6px' }}>
                 <VersionBadge type={v.type} />
-                {v.tags.filter(t => t === 'Wear OS' || t === 'Android XR').map(tag => (
+                {v.tags.filter(tag => tag === 'Wear OS' || tag === 'Android XR').map(tag => (
                   <VersionBadge key={tag} type="stable" text={tag} />
                 ))}
               </div>
@@ -174,7 +174,7 @@ const ChangelogItem = ({ v, index, isActive, seedColor, strings }) => {
   );
 };
 
-export default function ChangelogViewer({ markdownContent, seedColor, appConfig, strings, onNavigate }) {
+export default function ChangelogViewer({ markdownContent, appConfig, strings, onNavigate }) {
   const [versions, setVersions] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [visibleCount, setVisibleCount] = useState(10);
@@ -231,13 +231,10 @@ export default function ChangelogViewer({ markdownContent, seedColor, appConfig,
 
   const scrollToVersion = (id) => {
     setIsMobileTocOpen(false);
-
     const targetIndex = filteredVersions.findIndex(v => v.id === id);
-
     if (targetIndex !== -1) {
       if (targetIndex >= visibleCount) {
         setVisibleCount(targetIndex + 5);
-
         setTimeout(() => {
           const element = document.getElementById(`ver-${id}`);
           if (element) {
@@ -265,12 +262,11 @@ export default function ChangelogViewer({ markdownContent, seedColor, appConfig,
 
   return (
     <div style={{ minHeight: '100vh' }}>
-
       <div style={{ marginBottom: '60px', paddingBottom: '30px', borderBottom: '1px solid var(--md-sys-color-outline-variant)', flexShrink: 0 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px', color: 'var(--md-sys-color-on-surface-variant)', fontSize: '0.95rem', fontWeight: 500 }}>
           <span>{appConfig?.appName}</span>
           <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>chevron_right</span>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: seedColor, fontWeight: 700 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--md-sys-color-primary)', fontWeight: 700 }}>
             <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>history</span>
             <span>Changelog</span>
           </div>
@@ -284,9 +280,7 @@ export default function ChangelogViewer({ markdownContent, seedColor, appConfig,
       </div>
 
       <div className="changelog-layout" style={{ display: 'flex', gap: '60px', alignItems: 'flex-start' }}>
-
         <div style={{ flex: 1, minWidth: 0 }}>
-
           <div style={{ marginBottom: '40px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ position: 'relative' }}>
               <span className="material-symbols-outlined" style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: 'var(--md-sys-color-on-surface-variant)' }}>search</span>
@@ -313,9 +307,9 @@ export default function ChangelogViewer({ markdownContent, seedColor, appConfig,
                   onClick={() => toggleTag(tag)}
                   style={{
                     padding: '6px 12px', borderRadius: '8px', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 500,
-                    background: selectedTags.includes(tag) ? `${seedColor}20` : 'transparent',
-                    color: selectedTags.includes(tag) ? seedColor : 'var(--md-sys-color-on-surface-variant)',
-                    border: `1px solid ${selectedTags.includes(tag) ? seedColor : 'var(--md-sys-color-outline-variant)'}`,
+                    background: selectedTags.includes(tag) ? 'var(--md-sys-color-primary-container)' : 'transparent',
+                    color: selectedTags.includes(tag) ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface-variant)',
+                    border: `1px solid ${selectedTags.includes(tag) ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
                     transition: 'all 0.2s'
                   }}
                 >
@@ -388,7 +382,6 @@ export default function ChangelogViewer({ markdownContent, seedColor, appConfig,
                   v={v}
                   index={index}
                   isActive={activeId === v.id}
-                  seedColor={seedColor}
                   strings={strings.changelog}
                 />
               ))
@@ -428,9 +421,9 @@ export default function ChangelogViewer({ markdownContent, seedColor, appConfig,
           }}
         >
           {latestVersion && !searchQuery && (
-            <div className="glass-card" style={{ padding: '24px', background: `linear-gradient(135deg, ${seedColor}15, rgba(255,255,255,0.02))`, flexShrink: 0 }}>
+            <div className="glass-card" style={{ padding: '24px', background: `linear-gradient(135deg, var(--md-sys-color-primary-container), rgba(255,255,255,0.02))`, flexShrink: 0 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', color: seedColor, fontWeight: 800 }}>{strings.changelog.latest_release}</span>
+                <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--md-sys-color-primary)', fontWeight: 800 }}>{strings.changelog.latest_release}</span>
                 <VersionBadge type={latestVersion.type} />
               </div>
 
@@ -440,8 +433,9 @@ export default function ChangelogViewer({ markdownContent, seedColor, appConfig,
               <a
                 href={appConfig?.playStoreLink}
                 target="_blank"
+                rel="noreferrer"
                 className="btn-glow"
-                style={{ width: '100%', justifyContent: 'center', background: seedColor }}
+                style={{ width: '100%', justifyContent: 'center', background: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)' }}
               >
                 {strings.changelog.update_now} <span className="material-symbols-outlined">system_update</span>
               </a>
@@ -468,14 +462,14 @@ export default function ChangelogViewer({ markdownContent, seedColor, appConfig,
                       padding: '10px 16px',
                       borderRadius: '8px',
                       cursor: 'pointer',
-                      color: activeId === v.id ? seedColor : 'var(--md-sys-color-on-surface-variant)',
+                      color: activeId === v.id ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface-variant)',
                       fontSize: '0.9rem',
                       transition: 'all 0.2s',
                       fontWeight: activeId === v.id ? 600 : 400,
                       display: 'flex',
                       justifyContent: 'space-between',
                       alignItems: 'center',
-                      borderLeft: activeId === v.id ? `3px solid ${seedColor}` : '3px solid transparent'
+                      borderLeft: activeId === v.id ? `3px solid var(--md-sys-color-primary)` : '3px solid transparent'
                     }}
                   >
                     <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '180px' }}>
@@ -511,10 +505,9 @@ export default function ChangelogViewer({ markdownContent, seedColor, appConfig,
               {strings.changelog.plus_promo.cta}
             </button>
           </div>
-
         </aside>
 
-        <BackToTop strings={strings.changelog} seedColor={seedColor} />
+        <BackToTop strings={strings.changelog} />
 
         <style>{`
           @media (max-width: 1000px) {
@@ -522,7 +515,7 @@ export default function ChangelogViewer({ markdownContent, seedColor, appConfig,
             .changelog-layout { display: block !important; }
             .mobile-toc-trigger { display: block !important; }
           }
-          .markdown-body h4 { font-size: 1.2rem; margin-top: 1.5em; margin-bottom: 0.8em; color: var(--md-sys-color-on-surface); display: flex; alignItems: center; gap: 8px; }
+          .markdown-body h4 { font-size: 1.2rem; margin-top: 1.5em; margin-bottom: 0.8em; color: var(--md-sys-color-on-surface); display: flex; align-items: center; gap: 8px; }
           .markdown-body ul { padding-left: 1.2em; list-style-type: disc; color: var(--md-sys-color-on-surface-variant); }
           .markdown-body li { margin-bottom: 0.8em; }
           .markdown-body li strong { color: var(--md-sys-color-on-surface); font-weight: 600; }
