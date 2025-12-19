@@ -25,6 +25,26 @@
   transition: background-color 0.5s ease, color 0.5s ease;
 }
 
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
 * { 
   box-sizing: border-box; 
   margin: 0; 
@@ -32,7 +52,9 @@
   -webkit-tap-highlight-color: transparent; 
 }
 
-html { scroll-behavior: smooth; overflow-x: hidden; }
+html { 
+  overflow-x: hidden; 
+}
 
 body { 
   background-color: var(--md-sys-color-surface);
@@ -242,4 +264,3 @@ body {
   .mobile-nav-links { padding: 0 16px 16px 16px; display: flex; flex-direction: column; gap: 4px; }
   .app-page-container { padding-top: 100px; }
 }
-
