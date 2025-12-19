@@ -74,8 +74,8 @@ function AppContent() {
       <Route path="/pixelpulse" element={<PixelPulsePage />} />
       <Route path="/PixelPulse" element={<PixelPulsePage />} />
 
-      <Route path="/pixelpulse/open" element={<RedirectToStore type="open" />} />
-      <Route path="/pixelpulse/open/buy" element={<RedirectToStore type="buy" />} />
+      <Route path="/pixelpulse/open" element={<RedirectToStore type="open" appKey="pixelpulse" />} />
+      <Route path="/pixelpulse/open/buy" element={<RedirectToStore type="buy" appKey="pixelpulse" />} />
     </Routes>
   );
 }
