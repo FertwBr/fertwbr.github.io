@@ -1,5 +1,7 @@
 export const pixelPulseConfig = {
   appName: "Pixel Pulse",
+  appId: "io.github.fertwbr.pixelpulse",
+  scheme: "pixelpulse",
   seedColor: "#3BA174",
   appIcon: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Pulse/art/icon.svg",
   playStoreLink: "https://play.google.com/store/apps/details?id=io.github.fertwbr.pixelpulse",

@@ -15,6 +15,7 @@ import PrivacyViewer from '../../components/PrivacyViewer';
 import HelpViewer from '../../components/HelpViewer';
 import RoadmapViewer from '../../components/RoadmapViewer';
 import OverviewViewer from '../../components/OverviewViewer';
+import PlusViewer from '../../components/PlusViewer';
 
 import { pixelPulseConfig } from './PixelPulseConfig';
 import PixelPulseHome from './PixelPulseHome';
@@ -136,6 +137,16 @@ export default function PixelPulsePage() {
               strings={t}
           />
         );
+    }
+
+    if (activeTab === 'plus') {
+      return (
+        <PlusViewer 
+            markdownContent={markdownContent} 
+            appConfig={pixelPulseConfig}
+            strings={t}
+        />
+      );
     }
 
     return (
