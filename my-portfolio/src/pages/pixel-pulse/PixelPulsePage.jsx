@@ -25,15 +25,20 @@ export default function PixelPulsePage() {
   const [activeTab, setActiveTab] = useState(pixelPulseConfig.defaultPage);
   const [markdownContent, setMarkdownContent] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const surfaceColor = getSurfaceColor(pixelPulseConfig.seedColor, true);
-  
+
   const location = useLocation();
   const { content } = useLanguage();
   const t = content.pixel_pulse;
 
+  const params = new URLSearchParams(location.search);
+  const urlColorParam = params.get('color');
+
+  const effectiveSeedColor = urlColorParam ? `#${urlColorParam}` : pixelPulseConfig.seedColor;
+
+  const surfaceColor = getSurfaceColor(effectiveSeedColor, true);
+
   const getPageTitle = (tab) => {
     const baseTitle = pixelPulseConfig.appName;
-
     const tabNames = {
       index: 'Home',
       plus: 'Plus',
@@ -43,34 +48,36 @@ export default function PixelPulsePage() {
       help: 'Help & FAQ',
       overview: 'Overview'
     };
-
     const subPage = tabNames[tab] || 'Home';
     return `${baseTitle} - ${subPage}`;
   };
 
-usePageMetadata({
+  usePageMetadata({
     title: getPageTitle(activeTab),
-    themeColor: surfaceColor, 
+    themeColor: surfaceColor,
     favicon: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Pulse/art/favicon/favicon.ico"
   });
 
   useEffect(() => {
-    applyMaterialTheme(pixelPulseConfig.seedColor, true); 
-  }, []);
+    applyMaterialTheme(effectiveSeedColor, true);
+  }, [effectiveSeedColor]);
 
   useEffect(() => {
-    const params = new URLSearchParams(location.search);
     const page = params.get('page');
     if (page && pixelPulseConfig.pages[page]) {
       setActiveTab(page);
     } else {
-      setActiveTab('index');
+      if (!page) setActiveTab('index');
     }
-  }, [location]);
+  }, [location.search]);
 
   useEffect(() => {
     const pageConfig = pixelPulseConfig.pages[activeTab];
-    if (pageConfig.type === 'react') return;
+
+    if (pageConfig.type === 'react') {
+      setMarkdownContent(null);
+      return;
+    }
 
     let isMounted = true;
     setIsLoading(true);
@@ -90,12 +97,29 @@ usePageMetadata({
     return () => { isMounted = false; };
   }, [activeTab]);
 
+  useEffect(() => {
+    if (location.hash && !isLoading && markdownContent) {
+      setTimeout(() => {
+        const id = location.hash.replace('#', '');
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 300);
+    }
+  }, [location.hash, isLoading, markdownContent]);
+
   const handleNavigation = (pageId) => {
     setActiveTab(pageId);
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
     const newUrl = new URL(window.location);
     newUrl.searchParams.set('page', pageId);
+
+    if (urlColorParam) {
+      newUrl.searchParams.set('color', urlColorParam);
+    }
+
     window.history.pushState({}, '', newUrl);
   };
 
@@ -108,81 +132,31 @@ usePageMetadata({
       );
     }
 
-    if (activeTab === 'changelog') {
-      return (
-        <ChangelogViewer
-          markdownContent={markdownContent}
-          seedColor={pixelPulseConfig.seedColor}
-          appConfig={pixelPulseConfig}
-          strings={t}
-          onNavigate={handleNavigation}
-        />
-      );
-    }
+    const commonProps = {
+      markdownContent,
+      appConfig: pixelPulseConfig,
+      seedColor: effectiveSeedColor,
+      strings: t,
+      onNavigate: handleNavigation
+    };
 
-    if (activeTab === 'privacy') {
-      return (
-        <PrivacyViewer
-          markdownContent={markdownContent}
-          appConfig={pixelPulseConfig}
-          seedColor={pixelPulseConfig.seedColor}
-          strings={t}
-        />
-      );
-    }
-
-    if (activeTab === 'help') {
-      return (
-        <HelpViewer
-          markdownContent={markdownContent}
-          appConfig={pixelPulseConfig}
-          seedColor={pixelPulseConfig.seedColor}
-          strings={t}
-        />
-      );
-    }
-
-    if (activeTab === 'roadmap') {
-      return (
-        <RoadmapViewer
-          markdownContent={markdownContent}
-          seedColor={pixelPulseConfig.seedColor}
-          appConfig={pixelPulseConfig}
-          strings={t}
-        />
-      );
-    }
-
-    if (activeTab === 'overview') {
-      return (
-        <OverviewViewer
-          markdownContent={markdownContent}
-          seedColor={pixelPulseConfig.seedColor}
-          appConfig={pixelPulseConfig}
-          strings={t}
-        />
-      );
-    }
-
-    if (activeTab === 'plus') {
-      return (
-        <PlusViewer
-          markdownContent={markdownContent}
-          appConfig={pixelPulseConfig}
-          strings={t}
-        />
-      );
-    }
-
-    return (
-      <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 20px 60px 20px', boxSizing: 'border-box' }}>
-        <div className="glass-card" style={{ padding: 'clamp(24px, 5vw, 40px)', borderRadius: '24px' }}>
-          <div className="markdown-body">
-            <ReactMarkdown rehypePlugins={[rehypeRaw]}>{markdownContent}</ReactMarkdown>
+    switch (activeTab) {
+      case 'changelog': return <ChangelogViewer {...commonProps} />;
+      case 'privacy': return <PrivacyViewer {...commonProps} />;
+      case 'help': return <HelpViewer {...commonProps} />;
+      case 'roadmap': return <RoadmapViewer {...commonProps} />;
+      case 'overview': return <OverviewViewer {...commonProps} />;
+      case 'plus': return <PlusViewer {...commonProps} />;
+      default: return (
+        <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 20px 60px 20px', boxSizing: 'border-box' }}>
+          <div className="glass-card" style={{ padding: 'clamp(24px, 5vw, 40px)', borderRadius: '24px' }}>
+            <div className="markdown-body">
+              <ReactMarkdown rehypePlugins={[rehypeRaw]}>{markdownContent}</ReactMarkdown>
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    }
   };
 
   return (
@@ -217,7 +191,6 @@ usePageMetadata({
                 margin: '0 auto',
                 padding: 'clamp(100px, 15vh, 140px) 20px 0 20px',
                 width: '100%',
-                height: 'auto',
                 boxSizing: 'border-box'
               }}
             >
