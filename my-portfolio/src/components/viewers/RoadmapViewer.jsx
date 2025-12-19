@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { parseRoadmap } from '../utils/roadmapParser';
+import { parseRoadmap } from '../../utils/roadmapParser';
 
 const StatusBadge = ({ status }) => {
     const styles = {

@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
-import { parsePrivacyPolicy } from '../utils/privacyParser';
+import { parsePrivacyPolicy } from '../../utils/privacyParser';
 
 const BackToTop = ({ strings }) => {
   const [visible, setVisible] = useState(false);

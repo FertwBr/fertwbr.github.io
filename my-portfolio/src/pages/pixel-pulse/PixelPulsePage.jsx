@@ -12,10 +12,10 @@ import { usePageMetadata } from '../../hooks/usePageMetadata';
 import AppNavbar from '../../components/AppNavbar';
 import AppFooter from '../../components/AppFooter';
 import ChangelogViewer from '../../components/ChangelogViewer';
-import PrivacyViewer from '../../components/PrivacyViewer';
+import PrivacyViewer from '../../components/viewers/PrivacyViewer';
 import HelpViewer from '../../components/HelpViewer';
-import RoadmapViewer from '../../components/RoadmapViewer';
-import OverviewViewer from '../../components/OverviewViewer';
+import RoadmapViewer from '../../components/viewers/RoadmapViewer';
+import OverviewViewer from '../../components/viewers/OverviewViewer';
 import PlusViewer from '../../components/PlusViewer';
 
 import { pixelPulseConfig } from './PixelPulseConfig';
