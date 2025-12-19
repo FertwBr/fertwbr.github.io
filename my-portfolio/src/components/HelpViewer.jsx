@@ -4,12 +4,45 @@ import rehypeRaw from 'rehype-raw';
 import { motion, AnimatePresence } from 'framer-motion';
 import { parseHelpFAQ } from '../utils/helpParser';
 
-export default function HelpViewer({ markdownContent, seedColor, strings, appConfig }) {
+const BackToTop = ({ strings }) => {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const toggleVisibility = () => setVisible(window.scrollY > 300);
+    window.addEventListener("scroll", toggleVisibility);
+    return () => window.removeEventListener("scroll", toggleVisibility);
+  }, []);
+
+  return (
+    <AnimatePresence>
+      {visible && (
+        <motion.button
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.8 }}
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          style={{
+            position: 'fixed', bottom: '30px', right: '30px', zIndex: 99,
+            width: '56px', height: '56px', borderRadius: '16px',
+            background: 'var(--md-sys-color-primary)', border: 'none',
+            boxShadow: '0 8px 24px rgba(0,0,0,0.3)',
+            color: 'var(--md-sys-color-on-primary)', cursor: 'pointer',
+            display: 'flex', alignItems: 'center', justifyContent: 'center'
+          }}
+          title={strings?.back_to_top || "Back to Top"}
+        >
+          <span className="material-symbols-outlined">arrow_upward</span>
+        </motion.button>
+      )}
+    </AnimatePresence>
+  );
+};
+
+export default function HelpViewer({ markdownContent, strings, appConfig }) {
   const [data, setData] = useState({ sections: [] });
   const [searchQuery, setSearchQuery] = useState('');
   const [activeSection, setActiveSection] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const containerRef = useRef(null);
 
   useEffect(() => {
     if (markdownContent) {
@@ -30,33 +63,21 @@ export default function HelpViewer({ markdownContent, seedColor, strings, appCon
     );
   }, [data, searchQuery]);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id);
-          }
-        });
-      },
-      { rootMargin: '-100px 0px -80% 0px' }
-    );
-
-    filteredSections.forEach((s) => {
-      const el = document.getElementById(s.id);
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  }, [filteredSections]);
-
   const scrollToSection = (id) => {
     setIsMobileMenuOpen(false);
-    const element = document.getElementById(id);
-    if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        setActiveSection(id);
-    }
+    
+    setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+            const offset = 120;
+            const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+            window.scrollTo({
+                top: elementPosition - offset,
+                behavior: 'smooth'
+            });
+            setActiveSection(id);
+        }
+    }, 100);
   };
 
   return (
@@ -65,8 +86,8 @@ export default function HelpViewer({ markdownContent, seedColor, strings, appCon
       <div style={{ marginBottom: '30px', paddingBottom: '20px', borderBottom: '1px solid var(--md-sys-color-outline-variant)', flexShrink: 0 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px', color: 'var(--md-sys-color-on-surface-variant)', fontSize: '0.95rem', fontWeight: 500 }}>
            <span>{appConfig?.appName}</span>
-           <span className="material-symbols-outlined" style={{ fontSize: '16px', color: seedColor }}>chevron_right</span>
-           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: seedColor, fontWeight: 700 }}>
+           <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>chevron_right</span>
+           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--md-sys-color-primary)', fontWeight: 700 }}>
               <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>help</span>
               <span>{strings.help_page.page_title}</span>
            </div>
@@ -133,11 +154,12 @@ export default function HelpViewer({ markdownContent, seedColor, strings, appCon
                                         onClick={() => scrollToSection(section.id)}
                                         style={{
                                             display: 'block', width: '100%', textAlign: 'left',
-                                            background: 'transparent', border: 'none',
-                                            padding: '12px 16px',
+                                            background: activeSection === section.id ? 'var(--md-sys-color-primary-container)' : 'transparent',
+                                            border: 'none',
+                                            padding: '14px 16px',
                                             borderBottom: '1px solid var(--md-sys-color-outline-variant)',
-                                            color: activeSection === section.id ? seedColor : 'var(--md-sys-color-on-surface)',
-                                            fontWeight: activeSection === section.id ? 600 : 400,
+                                            color: activeSection === section.id ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface)',
+                                            fontWeight: activeSection === section.id ? 700 : 400,
                                         }}
                                     >
                                         {section.title === 'Introduction' ? 'Overview' : section.title}
@@ -163,7 +185,7 @@ export default function HelpViewer({ markdownContent, seedColor, strings, appCon
                             {section.id !== 'introduction' && (
                                 <h2 style={{ 
                                     fontSize: '2rem', marginBottom: '24px', 
-                                    color: activeSection === section.id ? seedColor : 'var(--md-sys-color-on-surface)',
+                                    color: activeSection === section.id ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface)',
                                     transition: 'color 0.3s'
                                 }}>
                                     {section.title}
@@ -187,9 +209,9 @@ export default function HelpViewer({ markdownContent, seedColor, strings, appCon
                 )}
                 
                 <div className="mobile-contact-card" style={{ display: 'none', marginBottom: '60px' }}>
-                    <div className="glass-card" style={{ padding: '24px', background: `linear-gradient(135deg, ${seedColor}15, rgba(255,255,255,0.02))` }}>
+                    <div className="glass-card" style={{ padding: '24px', border: '1px solid var(--md-sys-color-primary-container)' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-                            <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: seedColor, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
+                            <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'var(--md-sys-color-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--md-sys-color-on-primary)' }}>
                                 <span className="material-symbols-outlined">support_agent</span>
                             </div>
                             <h4 style={{ margin: 0, fontSize: '1rem' }}>{strings.help_page.contact_title}</h4>
@@ -219,7 +241,7 @@ export default function HelpViewer({ markdownContent, seedColor, strings, appCon
           }}
         >
           <div className="glass-card" style={{ padding: '24px', display: 'flex', flexDirection: 'column', flex: 1, overflow: 'hidden' }}>
-            <h3 style={{ fontSize: '0.85rem', textTransform: 'uppercase', color: 'var(--md-sys-color-on-surface-variant)', letterSpacing: '1px', fontWeight: 700, margin: '0 0 16px 0' }}>
+            <h3 style={{ fontSize: '0.85rem', textTransform: 'uppercase', color: 'var(--md-sys-color-primary)', letterSpacing: '1px', fontWeight: 700, margin: '0 0 16px 0' }}>
               {strings.help_page.table_of_contents}
             </h3>
             
@@ -236,9 +258,9 @@ export default function HelpViewer({ markdownContent, seedColor, strings, appCon
                     borderRadius: '8px',
                     cursor: 'pointer',
                     fontSize: '0.9rem',
-                    color: activeSection === section.id ? seedColor : 'var(--md-sys-color-on-surface-variant)',
-                    fontWeight: activeSection === section.id ? 600 : 400,
-                    borderLeft: activeSection === section.id ? `3px solid ${seedColor}` : '3px solid transparent',
+                    color: activeSection === section.id ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface-variant)',
+                    fontWeight: activeSection === section.id ? 700 : 400,
+                    borderLeft: activeSection === section.id ? `3px solid var(--md-sys-color-primary)` : '3px solid transparent',
                     transition: 'all 0.2s'
                   }}
                 >
@@ -248,9 +270,9 @@ export default function HelpViewer({ markdownContent, seedColor, strings, appCon
             </div>
           </div>
 
-          <div className="glass-card" style={{ padding: '24px', background: `linear-gradient(135deg, ${seedColor}15, rgba(255,255,255,0.02))` }}>
+          <div className="glass-card" style={{ padding: '24px', background: 'var(--md-sys-color-surface-container-high)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-               <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: seedColor, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
+               <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'var(--md-sys-color-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--md-sys-color-on-primary)' }}>
                   <span className="material-symbols-outlined">support_agent</span>
                </div>
                <h4 style={{ margin: 0, fontSize: '1rem' }}>{strings.help_page.contact_title}</h4>
@@ -268,13 +290,33 @@ export default function HelpViewer({ markdownContent, seedColor, strings, appCon
           </div>
         </aside>
 
+        <BackToTop strings={strings.changelog} />
+
         <style>{`
           .rich-text h1 { display: none; }
-          .rich-text h3 { font-size: 1.3rem; margin-top: 1.5em; margin-bottom: 0.8em; color: var(--md-sys-color-on-surface); font-weight: 600; }
+          
+          .rich-text h3 { 
+            font-size: 1.4rem; 
+            margin-top: 2.5em; 
+            margin-bottom: 1.2em; 
+            color: var(--md-sys-color-primary); 
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+          }
+          .rich-text h3::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: var(--md-sys-color-primary);
+            border-radius: 4px;
+          }
+
           .rich-text p { margin-bottom: 1.5em; line-height: 1.8; color: var(--md-sys-color-on-surface-variant); }
           .rich-text ul, .rich-text ol { margin-bottom: 1.5em; padding-left: 1.5em; }
           .rich-text li { margin-bottom: 0.5em; color: var(--md-sys-color-on-surface-variant); }
-          .rich-text strong { color: var(--md-sys-color-primary); font-weight: 600; }
+          .rich-text strong { color: var(--md-sys-color-on-surface); font-weight: 700; }
           
           @media (max-width: 1000px) {
             .desktop-toc { display: none !important; }
