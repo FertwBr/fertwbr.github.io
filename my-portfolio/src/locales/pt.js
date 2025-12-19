@@ -6,6 +6,17 @@ export default {
     cta_primary: "Ver Projetos",
     cta_secondary: "Contato"
   },
+  not_found: {
+      page_title: "Página Não Encontrada",
+      title: "404",
+      subtitle: "Ops! No meio do nada.",
+      message: "A página que você está procurando não existe no momento.",
+      suggestion_title: "Você estava procurando por isso?",
+      suggestion_desc: "Com base no seu link, achamos que você queria ir para",
+      suggestion_btn: "Sim, Ir Para Lá",
+      home_btn: "Ir para o Início",
+      apps_btn: "Ver Aplicativos"
+    },
   about: {
     title: "Sobre Mim",
     subtitle: "Engenharia encontra o Design",

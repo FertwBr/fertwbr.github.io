@@ -5,6 +5,7 @@ import { LanguageProvider, useLanguage } from './context/LanguageContext';
 import { setupTheme, applyMaterialTheme, getSurfaceColor } from './utils/themeUtils';
 import { usePageMetadata } from './hooks/usePageMetadata';
 import { config } from './config';
+import NotFound from './pages/NotFound';
 
 import Hero from './components/Hero';
 import About from './components/About';
@@ -100,6 +101,8 @@ function AppContent() {
       <Route path="/PixelPulse" element={<PixelPulsePage />} />
       <Route path="/pixelpulse/open" element={<RedirectToStore type="open" appKey="pixelpulse" />} />
       <Route path="/pixelpulse/open/buy" element={<RedirectToStore type="buy" appKey="pixelpulse" />} />
+      
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }

@@ -6,6 +6,17 @@ export default {
     cta_primary: "View Projects",
     cta_secondary: "Contact Me"
   },
+    not_found: {
+      page_title: "Page Not Found",
+      title: "404",
+      subtitle: "Oops! Into the void.",
+      message: "The page you are looking for currently does not exist.",
+      suggestion_title: "Were you looking for this?",
+      suggestion_desc: "Based on your link, we think you wanted to go to",
+      suggestion_btn: "Yes, Go There",
+      home_btn: "Go to Home",
+      apps_btn: "See Apps"
+    },
   about: {
     title: "About Me",
     subtitle: "Engineering meets Design",
