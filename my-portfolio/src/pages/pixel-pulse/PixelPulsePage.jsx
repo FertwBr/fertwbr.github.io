@@ -132,6 +132,7 @@ export default function PixelPulsePage() {
           <OverviewViewer 
               markdownContent={markdownContent} 
               seedColor={pixelPulseConfig.seedColor} 
+               appConfig={pixelPulseConfig}
               strings={t}
           />
         );
