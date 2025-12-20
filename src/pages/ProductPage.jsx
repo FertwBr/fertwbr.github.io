@@ -4,112 +4,163 @@ import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import { motion, AnimatePresence } from 'framer-motion';
 
-import { loadPageContent } from '../../utils/contentLoader';
-import { useLanguage } from '../../context/LanguageContext';
-import { applyMaterialTheme } from '../../utils/themeUtils';
+import { useLanguage } from '../context/LanguageContext';
+import { applyMaterialTheme, getSurfaceColor } from '../utils/themeUtils';
+import { usePageMetadata } from '../hooks/usePageMetadata';
+import { useMarkdownLoader } from '../hooks/useMarkdownLoader';
 
-import AppNavbar from '../../components/AppNavbar';
-import AppFooter from '../../components/AppFooter';
-import { pixelPulseConfig } from './PixelPulseConfig';
-import PixelPulseHome from './PixelPulseHome';
+import AppNavbar from '../components/layout/AppNavbar';
+import AppFooter from '../components/layout/AppFooter';
+import PageBackground from '../components/layout/PageBackground';
 
-export default function PixelPulsePage() {
-  const [activeTab, setActiveTab] = useState(pixelPulseConfig.defaultPage);
-  const [markdownContent, setMarkdownContent] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  
+import ChangelogViewer from '../components/viewers/ChangelogViewer';
+import PrivacyViewer from '../components/viewers/PrivacyViewer';
+import HelpViewer from '../components/viewers/HelpViewer';
+import RoadmapViewer from '../components/viewers/RoadmapViewer';
+import OverviewViewer from '../components/viewers/OverviewViewer';
+import PlusViewer from "../components/viewers/PlusViewer";
+
+export default function ProductPage({ config, HomeComponent, translationKey }) {
   const location = useLocation();
   const { content } = useLanguage();
-  const t = content.pixel_pulse;
+  const t = content[translationKey];
 
-  useEffect(() => {
-    applyMaterialTheme(pixelPulseConfig.seedColor, true); 
-  }, []);
+  const [activeTab, setActiveTab] = useState(() => {
+    const params = new URLSearchParams(location.search);
+    return params.get('page') && config.pages[params.get('page')]
+      ? params.get('page')
+      : config.defaultPage;
+  });
+
+  const [activeColor, setActiveColor] = useState(() => {
+    const params = new URLSearchParams(location.search);
+    const colorParam = params.get('color');
+    return colorParam ? `#${colorParam.replace('#', '')}` : config.seedColor;
+  });
+
+  const { markdownContent, isLoading } = useMarkdownLoader(activeTab, config);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
-    const page = params.get('page'); 
-    if (page && pixelPulseConfig.pages[page]) {
-        setActiveTab(page);
+    if (params.has('page') || params.has('color') || location.hash) {
+      const targetHash = location.hash;
+      window.history.replaceState({}, '', window.location.pathname);
+      
+      if (targetHash) {
+        setTimeout(() => {
+          const id = targetHash.replace('#', '');
+          const element = document.getElementById(id);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 500);
+      }
     }
-  }, [location]);
+  }, []);
+
+  const surfaceColor = getSurfaceColor(activeColor, true);
+
+  usePageMetadata({
+    title: `${config.appName} - ${activeTab === 'index' ? 'Home' : activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}`,
+    themeColor: surfaceColor,
+    favicon: config.faviconUrl || `https://raw.githubusercontent.com/FertwBr/PixelAssets/main/${config.appName === 'Pixel Pulse' ? 'Pulse' : 'Compass'}/art/favicon/favicon.ico`
+  });
 
   useEffect(() => {
-    const pageConfig = pixelPulseConfig.pages[activeTab];
-    if (pageConfig.type === 'react') return;
+    applyMaterialTheme(activeColor, true);
+  }, [activeColor]);
 
-    let isMounted = true;
-    setIsLoading(true);
-    setMarkdownContent(null);
-
-    loadPageContent(activeTab, pixelPulseConfig)
-      .then((text) => {
-        if (isMounted) {
-          setMarkdownContent(text);
-          setIsLoading(false);
+  useEffect(() => {
+    if (location.hash && !isLoading && markdownContent) {
+      setTimeout(() => {
+        const id = location.hash.replace('#', '');
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          window.history.replaceState({}, '', window.location.pathname);
         }
-      })
-      .catch(() => {
-        if (isMounted) setIsLoading(false);
-      });
-
-    return () => { isMounted = false; };
-  }, [activeTab]);
+      }, 300);
+    }
+  }, [location.hash, isLoading, markdownContent]);
 
   const handleNavigation = (pageId) => {
     setActiveTab(pageId);
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    
-    const newUrl = new URL(window.location);
-    newUrl.searchParams.set('page', pageId);
-    window.history.pushState({}, '', newUrl);
+  };
+
+  const renderContent = () => {
+    if (isLoading) {
+      return (
+        <div style={{ textAlign: 'center', padding: '100px' }}>
+          <span className="material-symbols-outlined spin-anim" style={{ fontSize: '48px', color: 'var(--md-sys-color-primary)' }}>sync</span>
+        </div>
+      );
+    }
+
+    const commonProps = {
+      markdownContent,
+      appConfig: config,
+      seedColor: activeColor,
+      strings: t,
+      onNavigate: handleNavigation
+    };
+
+    switch (activeTab) {
+      case 'changelog': return <ChangelogViewer {...commonProps} />;
+      case 'privacy': return <PrivacyViewer {...commonProps} />;
+      case 'help': return <HelpViewer {...commonProps} />;
+      case 'roadmap': return <RoadmapViewer {...commonProps} />;
+      case 'overview': return <OverviewViewer {...commonProps} />;
+      case 'plus': return <PlusViewer {...commonProps} />;
+      default: return (
+        <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 20px 60px 20px', boxSizing: 'border-box' }}>
+          <div className="glass-card" style={{ padding: 'clamp(24px, 5vw, 40px)', borderRadius: '24px' }}>
+            <div className="markdown-body">
+              <ReactMarkdown rehypePlugins={[rehypeRaw]}>{markdownContent}</ReactMarkdown>
+            </div>
+          </div>
+        </div>
+      );
+    }
   };
 
   return (
-    <div style={{ 
-      '--md-sys-color-primary': pixelPulseConfig.seedColor,
-      display: 'flex', 
-      flexDirection: 'column', 
-      minHeight: '100vh' 
-    }}>
-      <div className="bg-fixed"></div>
-      <div className="grid-overlay"></div>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', overflowX: 'hidden' }}>
+      <PageBackground />
 
       <AppNavbar 
-        config={pixelPulseConfig}
+        config={config}
+        activePage={activeTab} 
         onNavigate={handleNavigation}
         strings={t.nav}
       />
 
-      <main style={{ flex: 1 }}>
+      <main style={{ flex: 1, width: '100%', overflowX: 'hidden' }}>
         <AnimatePresence mode="wait">
           {activeTab === 'index' ? (
-             <PixelPulseHome key="home" onNavigate={handleNavigation} strings={t} />
+             <HomeComponent key="home" onNavigate={handleNavigation} strings={t} />
           ) : (
-            <motion.div 
-              key="md"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              style={{ maxWidth: '800px', margin: '0 auto', padding: '120px 24px 60px 24px' }}
+            <motion.div
+                key="content"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+                style={{ 
+                    maxWidth: ['changelog', 'privacy', 'help', 'roadmap', 'overview'].includes(activeTab) ? '1600px' : '100%', 
+                    margin: '0 auto', 
+                    padding: 'clamp(100px, 15vh, 140px) 20px 0 20px',
+                    width: '100%',
+                    boxSizing: 'border-box'
+                }}
             >
-               {isLoading ? (
-                 <div style={{ textAlign: 'center', padding: '100px' }}>
-                   <span className="material-symbols-outlined spin-anim" style={{ fontSize: '48px'}}>sync</span>
-                 </div>
-               ) : (
-                 <div className="glass-card" style={{ padding: '40px' }}>
-                    <div className="markdown-body">
-                        <ReactMarkdown rehypePlugins={[rehypeRaw]}>{markdownContent}</ReactMarkdown>
-                    </div>
-                 </div>
-               )}
+               {renderContent()}
             </motion.div>
           )}
         </AnimatePresence>
       </main>
 
-      <AppFooter strings={t} onNavigate={handleNavigation} />
+      <AppFooter strings={t} onNavigate={handleNavigation} activePage={activeTab} />
     </div>
   );
 }

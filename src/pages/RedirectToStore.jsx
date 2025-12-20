@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { pixelPulseConfig } from './pixel-pulse/PixelPulseConfig';
 import { pixelCompassConfig } from './pixel-compass/PixelCompassConfig';
 import { useLanguage } from '../context/LanguageContext';
+import PageBackground from '../components/layout/PageBackground';
 
 const configs = {
   'pixelpulse': pixelPulseConfig,
@@ -26,20 +27,16 @@ export default function RedirectToStore({ type = 'open', appKey = 'pixelpulse' }
     const encodedFallback = encodeURIComponent(fallbackUrl);
 
     const hostPath = type === 'buy' ? 'open/buy' : 'open';
-
     const androidIntent = `intent://${hostPath}#Intent;scheme=${scheme};package=${appId};S.browser_fallback_url=${encodedFallback};end`;
-
     const playStoreWeb = `https://play.google.com/store/apps/details?id=${appId}`;
 
     if (isAndroid) {
       window.location.href = androidIntent;
-
       setTimeout(() => {
         if (!document.hidden) {
           setStatus('manual');
         }
       }, 1000);
-
     } else {
       setTimeout(() => window.location.href = playStoreWeb, 1000);
     }
@@ -57,7 +54,7 @@ export default function RedirectToStore({ type = 'open', appKey = 'pixelpulse' }
       position: 'relative',
       overflow: 'hidden'
     }}>
-      <div className="bg-fixed" style={{ opacity: 0.5 }}></div>
+      <PageBackground opacity={0.5} />
 
       <motion.div
         initial={{ scale: 0.9, opacity: 0 }}

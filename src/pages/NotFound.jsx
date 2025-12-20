@@ -8,6 +8,7 @@ import { config } from '../config';
 
 import AppNavbar from '../components/layout/AppNavbar';
 import Footer from '../components/layout/Footer';
+import PageBackground from '../components/layout/PageBackground';
 
 const SITE_MAP = [
   { keywords: ['pulse', 'sound', 'meter', 'decibel', 'audio'], path: '/pixelpulse', name: 'Pixel Pulse' },
@@ -51,8 +52,7 @@ export default function NotFound() {
 
   return (
     <div style={{ position: 'relative', width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      <div className="bg-fixed"></div>
-      <div className="grid-overlay"></div>
+      <PageBackground />
 
       <AppNavbar 
         config={errorNavbarConfig} 
@@ -70,7 +70,6 @@ export default function NotFound() {
         textAlign: 'center'
       }}>
         <div style={{ maxWidth: '600px', width: '100%' }}>
-          
           <motion.div 
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -112,12 +111,7 @@ export default function NotFound() {
                 textAlign: 'left'
               }}
             >
-              <div style={{ 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  gap: '20px',
-                  flexWrap: 'wrap'
-              }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '20px', flexWrap: 'wrap' }}>
                 <div style={{ 
                     width: '48px', height: '48px', borderRadius: '50%', 
                     background: 'var(--md-sys-color-primary-container)',
