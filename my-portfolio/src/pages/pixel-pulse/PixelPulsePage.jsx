@@ -16,7 +16,7 @@ import PrivacyViewer from '../../components/viewers/PrivacyViewer';
 import HelpViewer from '../../components/viewers/HelpViewer';
 import RoadmapViewer from '../../components/viewers/RoadmapViewer';
 import OverviewViewer from '../../components/viewers/OverviewViewer';
-import PlusViewer from '../../components/PlusViewer';
+import PlusViewer from "../../components/viewers/PlusViewer";
 
 import { pixelPulseConfig } from './PixelPulseConfig';
 import PixelPulseHome from './PixelPulseHome';
