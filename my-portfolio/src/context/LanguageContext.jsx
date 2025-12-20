@@ -1,8 +1,21 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import en from '../locales/en';
 import pt from '../locales/pt';
+import de from '../locales/de';
+import ja from '../locales/ja';
+import hi from '../locales/hi';
+import es from '../locales/es';
 
 const LanguageContext = createContext();
+
+const languages = {
+  en,
+  pt,
+  de,
+  ja,
+  hi,
+  es
+};
 
 export function LanguageProvider({ children }) {
   const [language, setLanguage] = useState('en');
@@ -10,19 +23,24 @@ export function LanguageProvider({ children }) {
 
   useEffect(() => {
     const browserLang = navigator.language.split('-')[0];
-    const initialLang = browserLang === 'pt' ? 'pt' : 'en';
+    
+    const initialLang = languages[browserLang] ? browserLang : 'en';
+    
     setLanguage(initialLang);
-    setContent(initialLang === 'pt' ? pt : en);
+    setContent(languages[initialLang]);
   }, []);
 
-  const toggleLanguage = () => {
-    const newLang = language === 'en' ? 'pt' : 'en';
-    setLanguage(newLang);
-    setContent(newLang === 'pt' ? pt : en);
+  const changeLanguage = (langCode) => {
+    if (languages[langCode]) {
+      setLanguage(langCode);
+      setContent(languages[langCode]);
+    } else {
+      console.warn(`Language ${langCode} not supported`);
+    }
   };
 
   return (
-    <LanguageContext.Provider value={{ language, content, toggleLanguage }}>
+    <LanguageContext.Provider value={{ language, content, changeLanguage, availableLanguages: Object.keys(languages) }}>
       {children}
     </LanguageContext.Provider>
   );
