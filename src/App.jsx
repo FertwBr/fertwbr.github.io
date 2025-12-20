@@ -1,24 +1,26 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import Lenis from 'lenis';
+
 import { LanguageProvider, useLanguage } from './context/LanguageContext';
-import { setupTheme, applyMaterialTheme, getSurfaceColor } from './utils/themeUtils';
+import { applyMaterialTheme, getSurfaceColor } from './utils/themeUtils';
 import { usePageMetadata } from './hooks/usePageMetadata';
 import { config } from './config';
-import NotFound from './pages/NotFound';
-import PixelCompassPage from './pages/pixel-compass/PixelCompassPage';
 
 import ErrorBoundary from './components/common/ErrorBoundary';
 import OfflineNotice from './components/common/OfflineNotice';
+import Footer from './components/layout/Footer';
+import PageBackground from './components/layout/PageBackground'; // 
 
 import Hero from './components/sections/Hero';
 import About from './components/sections/About';
 import Projects from './components/sections/Projects';
 import TechStack from './components/sections/TechStack';
 import GitHubStats from './components/sections/GitHubStats';
-import Footer from './components/layout/Footer';
 
+import NotFound from './pages/NotFound';
+import PixelCompassPage from './pages/pixel-compass/PixelCompassPage';
 import PixelPulsePage from './pages/pixel-pulse/PixelPulsePage';
 import RedirectToStore from './pages/RedirectToStore';
 
@@ -58,8 +60,7 @@ function PortfolioHome() {
       exit={{ opacity: 0, y: -20, transition: { duration: 0.3 } }}
       style={{ position: 'relative', width: '100%', maxWidth: '100vw', overflow: 'hidden' }}
     >
-      <div className="bg-fixed"></div>
-      <div className="grid-overlay"></div>
+      <PageBackground />
 
       <main>
         <Hero t={content.hero} />
@@ -75,7 +76,7 @@ function PortfolioHome() {
           </p>
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
             <a href="mailto:fertwbr@gmail.com" className="btn-glow">{content.contact.email}</a>
-            <a href="https://linkedin.com/in/fernando-bela" target="_blank" className="btn-outline">{content.contact.linkedin}</a>
+            <a href="https://linkedin.com/in/fernando-bela" target="_blank" rel="noreferrer" className="btn-outline">{content.contact.linkedin}</a>
           </div>
         </section>
 
