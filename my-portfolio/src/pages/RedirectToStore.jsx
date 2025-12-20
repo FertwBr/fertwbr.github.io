@@ -1,13 +1,26 @@
 import { useEffect } from 'react';
+import { pixelPulseConfig } from './pixel-pulse/PixelPulseConfig';
 
-export default function RedirectToStore({ type = 'open' }) {
+import { pixelCompassConfig } from './pixel-compass/PixelCompassConfig';
+
+const configs = {
+    'pixelpulse': pixelPulseConfig,
+    'pixelcompass': pixelCompassConfig
+};
+
+export default function RedirectToStore({ type = 'open', appKey = 'pixelpulse' }) {
+  const config = configs[appKey] || pixelPulseConfig;
+
   useEffect(() => {
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
     const isAndroid = /android/i.test(userAgent);
     
-    const playStoreWeb = "https://play.google.com/store/apps/details?id=io.github.fertwbr.pixelpulse";
-    const deepLinkOpen = "pixelpulse://open";
-    const deepLinkBuy = "pixelpulse://open/buy";
+    const appId = config?.appId || 'io.github.fertwbr.pixelpulse';
+    const scheme = config?.scheme || 'pixelpulse';
+    
+    const playStoreWeb = `https://play.google.com/store/apps/details?id=${appId}`;
+    const deepLinkOpen = `${scheme}://open`;
+    const deepLinkBuy = `${scheme}://open/buy`;
     
     if (isAndroid) {
       const deepLink = type === 'buy' ? deepLinkBuy : deepLinkOpen;
@@ -15,17 +28,19 @@ export default function RedirectToStore({ type = 'open' }) {
       window.location.href = deepLink;
       
       setTimeout(() => {
-        window.location.href = playStoreWeb;
+        if (!document.hidden) {
+            window.location.href = playStoreWeb;
+        }
       }, 1000);
     } else {
       window.location.href = playStoreWeb;
     }
-  }, [type]);
+  }, [type, config]);
 
   return (
-    <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: '16px' }}>
-      <span className="material-symbols-outlined" style={{ fontSize: '48px', animation: 'spin 1s infinite linear' }}>sync</span>
-      <p>Redirecting to Pixel Pulse...</p>
+    <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: '24px' }}>
+      <span className="material-symbols-outlined spin-anim" style={{ fontSize: '48px', color: 'var(--md-sys-color-primary)' }}>sync</span>
+      <p style={{ color: 'var(--md-sys-color-on-surface)', fontSize: '1.1rem' }}>Redirecting to Store...</p>
     </div>
   );
 }
