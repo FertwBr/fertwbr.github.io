@@ -48,7 +48,7 @@ export default function ProductPage({ config, HomeComponent, translationKey }) {
     if (params.has('page') || params.has('color') || location.hash) {
       const targetHash = location.hash;
       window.history.replaceState({}, '', window.location.pathname);
-      
+
       if (targetHash) {
         setTimeout(() => {
           const id = targetHash.replace('#', '');
@@ -93,10 +93,14 @@ export default function ProductPage({ config, HomeComponent, translationKey }) {
 
   const renderContent = () => {
     if (isLoading) {
-      return <LoadingSpinner />;
+      return (
+        <div style={{ height: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <LoadingSpinner size={64} />
+        </div>
+      );
     }
     if (!markdownContent && activeTab !== 'index') {
-       return <div style={{ minHeight: '200px' }}></div>; 
+      return <div style={{ height: '60vh' }}></div>;
     }
 
     const commonProps = {
@@ -127,35 +131,35 @@ export default function ProductPage({ config, HomeComponent, translationKey }) {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', overflowX: 'hidden' }}>
+    <div style={{
+      display: 'grid',
+      gridTemplateRows: 'auto 1fr auto',
+      minHeight: '100vh',
+      width: '100vw'
+    }}>
       <PageBackground />
 
-      <AppNavbar 
+      <AppNavbar
         config={config}
-        activePage={activeTab} 
+        activePage={activeTab}
         onNavigate={handleNavigation}
         strings={t.nav}
       />
 
-      <main style={{ flex: 1, width: '100%', overflowX: 'hidden' }}>
+      <main style={{ width: '100%', position: 'relative' }}>
         <AnimatePresence mode="wait">
-          {activeTab === 'index' ? (
-             <PageTransition key="home">
+          <PageTransition key={activeTab}>
+            <div style={{
+              maxWidth: ['changelog', 'privacy', 'help', 'roadmap', 'overview'].includes(activeTab) ? '1600px' : '100%',
+              margin: '0 auto',
+              padding: 'clamp(100px, 15vh, 140px) 20px 0 20px',
+              boxSizing: 'border-box'
+            }}>
+              {activeTab === 'index' ? (
                 <HomeComponent onNavigate={handleNavigation} strings={t} />
-             </PageTransition>
-          ) : (
-            <PageTransition key="content">
-               <div style={{ 
-                    maxWidth: ['changelog', 'privacy', 'help', 'roadmap', 'overview'].includes(activeTab) ? '1600px' : '100%', 
-                    margin: '0 auto', 
-                    padding: 'clamp(100px, 15vh, 140px) 20px 0 20px',
-                    width: '100%',
-                    boxSizing: 'border-box'
-                }}>
-                  {renderContent()}
-               </div>
-            </PageTransition>
-          )}
+              ) : renderContent()}
+            </div>
+          </PageTransition>
         </AnimatePresence>
       </main>
 
