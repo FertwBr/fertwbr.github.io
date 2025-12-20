@@ -103,8 +103,12 @@ export default function AppNavbar({ config, activePage, onNavigate, strings }) {
     setMobileMenuOpen(false);
   };
 
-  const goBackToPortfolio = () => {
-    navigate('/');
+  const handleBackAction = () => {
+    if (activePage === 'index') {
+      navigate('/');
+    } else {
+      onNavigate('index');
+    }
   };
 
   return (
@@ -148,8 +152,8 @@ export default function AppNavbar({ config, activePage, onNavigate, strings }) {
         >
           <motion.button
             layout="position"
-            onClick={goBackToPortfolio}
-            aria-label={strings?.back || "Back"}
+            onClick={handleBackAction}
+            aria-label={activePage === 'index' ? "Close app" : strings?.back || "Back"}
             style={{
               background: 'var(--md-sys-color-secondary-container)',
               border: 'none', borderRadius: '50%',
@@ -160,7 +164,17 @@ export default function AppNavbar({ config, activePage, onNavigate, strings }) {
             }}
             whileTap={{ scale: 0.9 }}
           >
-            <span className="material-symbols-outlined" style={{ fontSize: '20px' }} aria-hidden="true">arrow_back</span>
+            <motion.span
+              key={activePage === 'index' ? 'close' : 'back'}
+              initial={{ rotate: -90, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              transition={{ duration: 0.2 }}
+              className="material-symbols-outlined"
+              style={{ fontSize: '20px' }}
+              aria-hidden="true"
+            >
+              {activePage === 'index' ? 'close' : 'arrow_back'}
+            </motion.span>
           </motion.button>
 
           <motion.div
