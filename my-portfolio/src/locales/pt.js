@@ -110,16 +110,19 @@ export default {
   },
   contact: {
     title: "Vamos Trabalhar Juntos",
-    desc: "Tem um projeto em mente ou quer discutir as novidades em tecnologia Android?",
-    email: "Enviar E-mail",
-    linkedin: "LinkedIn"
+    desc: "Tem um projeto em mente ou quer discutir as novidades do mundo Android?",
+    email: "Enviar Email",
+    linkedin: "LinkedIn",
+    github: "GitHub"
   },
   footer: {
     rights: "Todos os direitos reservados.",
-    built: "Projetado e Construído por Fernando Vaz 🇧🇷",
+    built: "Design e Desenvolvimento por Fernando Vaz 🇧🇷",
     useful_links: "Links Úteis",
+    social_title: "Conectar",
     appearance: {
       title: "Tema e Aparência",
+      language_selector: "Idioma",
       en: "Inglês",
       pt: "Português"
     }

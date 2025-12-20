@@ -112,14 +112,17 @@ export default {
     title: "Trabajemos Juntos",
     desc: "¿Tienes un proyecto en mente o quieres discutir lo último en tecnología Android?",
     email: "Enviar Email",
-    linkedin: "LinkedIn"
+    linkedin: "LinkedIn",
+    github: "GitHub"
   },
   footer: {
     rights: "Todos los derechos reservados.",
     built: "Diseñado y Construido por Fernando Vaz 🇧🇷",
     useful_links: "Enlaces Útiles",
+    social_title: "Conectar",
     appearance: {
       title: "Tema y Apariencia",
+      language_selector: "Idioma",
       en: "Inglés",
       pt: "Portugués"
     }
@@ -304,20 +307,20 @@ export default {
       title: "Experiencia Unificada",
       view_history: "Ver Historial Completo",
       items: [
-        { 
-          icon: "responsive_layout", 
-          title: "Diseños Responsivos", 
-          desc: "Pantallas de 'Bienvenida' y 'Plan' completamente rediseñadas y optimizadas para Plegables y Tablets." 
+        {
+          icon: "responsive_layout",
+          title: "Diseños Responsivos",
+          desc: "Pantallas de 'Bienvenida' y 'Plan' completamente rediseñadas y optimizadas para Plegables y Tablets."
         },
-        { 
-          icon: "error", 
-          title: "Errores Más Inteligentes", 
-          desc: "La app ahora maneja los errores de la API del clima con mensajes claros y útiles." 
+        {
+          icon: "error",
+          title: "Errores Más Inteligentes",
+          desc: "La app ahora maneja los errores de la API del clima con mensajes claros y útiles."
         },
-        { 
-          icon: "palette", 
-          title: "Pulido Visual", 
-          desc: "Colores de superficie del Tema AMOLED actualizados y scrims dinámicos en la barra de estado añadidos." 
+        {
+          icon: "palette",
+          title: "Pulido Visual",
+          desc: "Colores de superficie del Tema AMOLED actualizados y scrims dinámicos en la barra de estado añadidos."
         }
       ]
     },
@@ -325,21 +328,21 @@ export default {
       title: "Kit de Precisión",
       cta_project: "Explorar Resumen Técnico",
       items: [
-        { 
-          title: "Navegación de Precisión", 
-          desc: "Alterna entre Norte Magnético y Verdadero con precisión profesional y retroalimentación háptica." 
+        {
+          title: "Navegación de Precisión",
+          desc: "Alterna entre Norte Magnético y Verdadero con precisión profesional y retroalimentación háptica."
         },
-        { 
-          title: "Entorno Inteligente", 
-          desc: "Altitud, temperatura e índice UV en tiempo real con alertas proactivas del Insight Engine 4.0." 
+        {
+          title: "Entorno Inteligente",
+          desc: "Altitud, temperatura e índice UV en tiempo real con alertas proactivas del Insight Engine 4.0."
         },
-        { 
-          title: "Herramienta de Nivel Innovadora", 
-          desc: "Verifica niveles de superficie con animaciones expresivas: efectos de onda y olas fluidas." 
+        {
+          title: "Herramienta de Nivel Innovadora",
+          desc: "Verifica niveles de superficie con animaciones expresivas: efectos de onda y olas fluidas."
         },
-        { 
-          title: "Widgets Adaptables", 
-          desc: "Hermosos widgets de pantalla de inicio que cambian de tamaño inteligentemente desde 1x1 hasta paneles completos." 
+        {
+          title: "Widgets Adaptables",
+          desc: "Hermosos widgets de pantalla de inicio que cambian de tamaño inteligentemente desde 1x1 hasta paneles completos."
         }
       ]
     },
@@ -363,25 +366,25 @@ export default {
       cta_policy: "Leer Política",
       cta_tech: "Detalles Técnicos",
       cards: [
-        { 
-          icon: "location_off", 
-          title: "Sin Rastreo Oculto", 
-          desc: "La ubicación solo se usa para navegación y clima cuando la app está activa." 
+        {
+          icon: "location_off",
+          title: "Sin Rastreo Oculto",
+          desc: "La ubicación solo se usa para navegación y clima cuando la app está activa."
         },
-        { 
-          icon: "phonelink_lock", 
-          title: "Procesamiento en Dispositivo", 
-          desc: "Los datos del sensor se procesan completamente de forma local en tu dispositivo." 
+        {
+          icon: "phonelink_lock",
+          title: "Procesamiento en Dispositivo",
+          desc: "Los datos del sensor se procesan completamente de forma local en tu dispositivo."
         },
-        { 
-          icon: "cloud_off", 
-          title: "Datos Transparentes", 
-          desc: "No almacenamos tu historial de ubicación ni detalles de pago en nuestros servidores." 
+        {
+          icon: "cloud_off",
+          title: "Datos Transparentes",
+          desc: "No almacenamos tu historial de ubicación ni detalles de pago en nuestros servidores."
         },
-        { 
-          icon: "block", 
-          title: "Opción Sin Publicidad", 
-          desc: "Plus elimina todos los anuncios de terceros para una experiencia más limpia y rápida." 
+        {
+          icon: "block",
+          title: "Opción Sin Publicidad",
+          desc: "Plus elimina todos los anuncios de terceros para una experiencia más limpia y rápida."
         }
       ]
     },

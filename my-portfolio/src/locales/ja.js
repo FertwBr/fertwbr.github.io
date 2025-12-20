@@ -112,14 +112,17 @@ export default {
     title: "一緒にお仕事しませんか",
     desc: "プロジェクトをお考えですか、それとも最新のAndroid技術について話し合いたいですか？",
     email: "メールを送る",
-    linkedin: "LinkedIn"
+    linkedin: "LinkedIn",
+    github: "GitHub"
   },
   footer: {
     rights: "All rights reserved.",
     built: "Designed & Built by Fernando Vaz 🇧🇷",
     useful_links: "便利なリンク",
+    social_title: "ソーシャル",
     appearance: {
       title: "テーマと外観",
+      language_selector: "言語",
       en: "英語",
       pt: "ポルトガル語"
     }
@@ -304,20 +307,20 @@ export default {
       title: "統一された体験",
       view_history: "全履歴を見る",
       items: [
-        { 
-          icon: "responsive_layout", 
-          title: "レスポンシブレイアウト", 
-          desc: "フォルダブルやタブレットに最適化された「ようこそ」画面と「プラン」画面を完全に再設計。" 
+        {
+          icon: "responsive_layout",
+          title: "レスポンシブレイアウト",
+          desc: "フォルダブルやタブレットに最適化された「ようこそ」画面と「プラン」画面を完全に再設計。"
         },
-        { 
-          icon: "error", 
-          title: "スマートなエラー処理", 
-          desc: "天気APIのエラーを、明確で役立つメッセージで適切に処理するようになりました。" 
+        {
+          icon: "error",
+          title: "スマートなエラー処理",
+          desc: "天気APIのエラーを、明確で役立つメッセージで適切に処理するようになりました。"
         },
-        { 
-          icon: "palette", 
-          title: "ビジュアルの洗練", 
-          desc: "AMOLEDテーマのサーフェスカラーを更新し、動的なステータスバーのスクリムを追加しました。" 
+        {
+          icon: "palette",
+          title: "ビジュアルの洗練",
+          desc: "AMOLEDテーマのサーフェスカラーを更新し、動的なステータスバーのスクリムを追加しました。"
         }
       ]
     },
@@ -325,21 +328,21 @@ export default {
       title: "高精度ツールキット",
       cta_project: "技術概要を見る",
       items: [
-        { 
-          title: "精密ナビゲーション", 
-          desc: "プロレベルの精度と触覚フィードバックで、磁北と真北を切り替え可能。" 
+        {
+          title: "精密ナビゲーション",
+          desc: "プロレベルの精度と触覚フィードバックで、磁北と真北を切り替え可能。"
         },
-        { 
-          title: "スマート環境", 
-          desc: "Insight Engine 4.0によるリアルタイムの高度、気温、UV指数のプロアクティブなアラート。" 
+        {
+          title: "スマート環境",
+          desc: "Insight Engine 4.0によるリアルタイムの高度、気温、UV指数のプロアクティブなアラート。"
         },
-        { 
-          title: "革新的な水準器ツール", 
-          desc: "表現力豊かなアニメーション（波及効果と流体ウェーブ）で表面の傾きを確認。" 
+        {
+          title: "革新的な水準器ツール",
+          desc: "表現力豊かなアニメーション（波及効果と流体ウェーブ）で表面の傾きを確認。"
         },
-        { 
-          title: "適応型ウィジェット", 
-          desc: "1x1からフルパネルまで、インテリジェントにサイズ変更される美しいホーム画面ウィジェット。" 
+        {
+          title: "適応型ウィジェット",
+          desc: "1x1からフルパネルまで、インテリジェントにサイズ変更される美しいホーム画面ウィジェット。"
         }
       ]
     },
@@ -363,25 +366,25 @@ export default {
       cta_policy: "ポリシーを読む",
       cta_tech: "技術詳細",
       cards: [
-        { 
-          icon: "location_off", 
-          title: "隠された追跡なし", 
-          desc: "位置情報は、アプリがアクティブなときのナビゲーションと天気情報にのみ使用されます。" 
+        {
+          icon: "location_off",
+          title: "隠された追跡なし",
+          desc: "位置情報は、アプリがアクティブなときのナビゲーションと天気情報にのみ使用されます。"
         },
-        { 
-          icon: "phonelink_lock", 
-          title: "デバイス内処理", 
-          desc: "センサーデータは完全にデバイス内でローカルに処理されます。" 
+        {
+          icon: "phonelink_lock",
+          title: "デバイス内処理",
+          desc: "センサーデータは完全にデバイス内でローカルに処理されます。"
         },
-        { 
-          icon: "cloud_off", 
-          title: "透明なデータ", 
-          desc: "位置履歴や支払い情報をサーバーに保存することはありません。" 
+        {
+          icon: "cloud_off",
+          title: "透明なデータ",
+          desc: "位置履歴や支払い情報をサーバーに保存することはありません。"
         },
-        { 
-          icon: "block", 
-          title: "広告なしオプション", 
-          desc: "Plusはすべてのサードパーティ広告を削除し、よりクリーンで高速な体験を提供します。" 
+        {
+          icon: "block",
+          title: "広告なしオプション",
+          desc: "Plusはすべてのサードパーティ広告を削除し、よりクリーンで高速な体験を提供します。"
         }
       ]
     },

@@ -108,18 +108,21 @@ export default {
       stars: "Gesamtsterne"
     }
   },
-  contact: {
+contact: {
     title: "Lassen Sie uns zusammenarbeiten",
     desc: "Haben Sie ein Projekt im Kopf oder möchten Sie über die neueste Android-Technologie diskutieren?",
     email: "E-Mail senden",
-    linkedin: "LinkedIn"
+    linkedin: "LinkedIn",
+    github: "GitHub"
   },
   footer: {
     rights: "Alle Rechte vorbehalten.",
     built: "Entworfen & Entwickelt von Fernando Vaz 🇧🇷",
     useful_links: "Nützliche Links",
+    social_title: "Vernetzen",
     appearance: {
       title: "Design & Erscheinungsbild",
+      language_selector: "Sprache",
       en: "Englisch",
       pt: "Portugiesisch"
     }
