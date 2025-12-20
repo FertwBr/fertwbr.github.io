@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Disallow: /pixelpulse/open
+Disallow: /pixelcompass/open
+
+Sitemap: https://fertwbr.github.io/sitemap.xml
