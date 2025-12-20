@@ -132,10 +132,11 @@ export default function ProductPage({ config, HomeComponent, translationKey }) {
 
   return (
     <div style={{
-      display: 'grid',
-      gridTemplateRows: 'auto 1fr auto',
+      display: 'flex',
+      flexDirection: 'column',
       minHeight: '100vh',
-      width: '100vw'
+      width: '100%',
+      position: 'relative'
     }}>
       <PageBackground />
 
@@ -146,14 +147,22 @@ export default function ProductPage({ config, HomeComponent, translationKey }) {
         strings={t.nav}
       />
 
-      <main style={{ width: '100%', position: 'relative' }}>
+      <main style={{
+        flex: 1,
+        width: '100%',
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column'
+      }}>
         <AnimatePresence mode="wait">
           <PageTransition key={activeTab}>
             <div style={{
               maxWidth: ['changelog', 'privacy', 'help', 'roadmap', 'overview'].includes(activeTab) ? '1600px' : '100%',
               margin: '0 auto',
-              padding: 'clamp(100px, 15vh, 140px) 20px 0 20px',
-              boxSizing: 'border-box'
+              padding: 'clamp(80px, 12vh, 120px) 16px 0 16px',
+              width: '100%',
+              boxSizing: 'border-box',
+              flex: 1
             }}>
               {activeTab === 'index' ? (
                 <HomeComponent onNavigate={handleNavigation} strings={t} />
