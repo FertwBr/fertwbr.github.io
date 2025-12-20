@@ -2,22 +2,65 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
+const NAV_ITEMS = [
+  { id: 'index', icon: 'home' },
+  { id: 'plus', icon: 'diamond' },
+  { id: 'changelog', icon: 'history' },
+  { id: 'roadmap', icon: 'map' },
+];
+
+const SPRING_TRANSITION = {
+  type: "spring",
+  stiffness: 400,
+  damping: 40,
+  mass: 1
+};
+
+const GLASS_STYLE = (isScrolled, isActive = false) => ({
+  background: isScrolled || isActive
+    ? 'rgba(var(--md-sys-color-surface-container-rgb), 0.95)'
+    : 'rgba(var(--md-sys-color-surface-container-rgb), 0.6)',
+  backdropFilter: 'blur(20px)',
+  WebkitBackdropFilter: 'blur(20px)',
+  border: '1px solid rgba(255, 255, 255, 0.08)',
+  boxShadow: isScrolled ? '0 8px 32px rgba(0,0,0,0.15)' : 'none',
+});
+
+const MENU_ITEM_VARIANTS = {
+  hidden: { y: 20, opacity: 0 },
+  show: { y: 0, opacity: 1 },
+  exit: { y: -10, opacity: 0 }
+};
+
+const MENU_CONTAINER_VARIANTS = {
+  hidden: { opacity: 0 },
+  show: { 
+    opacity: 1,
+    transition: { staggerChildren: 0.1, delayChildren: 0.05 }
+  },
+  exit: { 
+    opacity: 0, 
+    transition: { duration: 0.2 } 
+  }
+};
+
 export default function AppNavbar({ config, activePage, onNavigate, strings }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
 
   const navigate = useNavigate();
-  
-  const isSubPage = activePage !== 'index';
+  const is404 = activePage === '404';
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      setIsScrolled(currentScrollY > 30);
+      setIsScrolled(currentScrollY > 20);
 
       if (currentScrollY > lastScrollY && currentScrollY > 100) {
         setIsVisible(false);
+        setMobileMenuOpen(false);
       } else {
         setIsVisible(true);
       }
@@ -28,67 +71,76 @@ export default function AppNavbar({ config, activePage, onNavigate, strings }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
 
-  const handleBackClick = () => {
-    if (isSubPage) {
-      if (onNavigate) onNavigate('index');
-    } else {
-      navigate('/');
-    }
+  const handleNavClick = (id) => {
+    onNavigate(id);
+    setMobileMenuOpen(false);
+  };
+
+  const goBackToPortfolio = () => {
+    navigate('/');
   };
 
   return (
     <AnimatePresence>
       <motion.nav
-        initial={{ y: 0, opacity: 1 }}
-        animate={{ y: isVisible ? 0 : -100, opacity: isVisible ? 1 : 0 }}
-        transition={{ duration: 0.3, ease: 'easeInOut' }}
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ 
+          y: isVisible ? 0 : -120, 
+          opacity: isVisible ? 1 : 0 
+        }}
+        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         style={{
           position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-          display: 'flex', justifyContent: 'center',
-          padding: '16px', pointerEvents: 'none'
+          display: 'flex', 
+          justifyContent: 'center',
+          alignItems: 'flex-start',
+          flexWrap: 'wrap',
+          gap: '12px',
+          padding: '16px', 
+          pointerEvents: 'none',
+          width: '100%'
         }}
       >
+        
         <motion.div
+          layout
+          transition={SPRING_TRANSITION}
           style={{
+            ...GLASS_STYLE(isScrolled),
             pointerEvents: 'auto',
-            background: isScrolled
-              ? 'rgba(var(--md-sys-color-surface-container-rgb), 0.85)'
-              : 'rgba(var(--md-sys-color-surface-container-rgb), 0.5)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
-            borderRadius: '100px',
-            padding: '6px 16px 6px 6px',
-            display: 'flex', alignItems: 'center',
-            gap: '12px',
-            boxShadow: isScrolled ? '0 8px 32px rgba(0,0,0,0.2)' : 'none',
-            maxWidth: '100%',
-            transition: 'background 0.3s ease, box-shadow 0.3s ease'
+            padding: '6px',
+            display: 'flex', 
+            alignItems: 'center',
+            borderRadius: '50px',
+            height: '54px',
+            flexShrink: 1,
+            maxWidth: '100%'
           }}
         >
-          <button
-            onClick={handleBackClick}
+          <motion.button
+            layout="position"
+            onClick={goBackToPortfolio}
             style={{
               background: 'var(--md-sys-color-secondary-container)',
               border: 'none', borderRadius: '50%',
-              width: 36, height: 36,
+              width: 40, height: 40,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               cursor: 'pointer', color: 'var(--md-sys-color-on-secondary-container)',
-              outline: 'none', WebkitTapHighlightColor: 'transparent'
+              flexShrink: 0, marginRight: 8
             }}
+            whileTap={{ scale: 0.9 }}
           >
-            <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>
-              {isSubPage ? 'arrow_back' : 'close'}
-            </span>
-          </button>
+            <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>arrow_back</span>
+          </motion.button>
 
-          <div
-            onClick={() => isSubPage && onNavigate ? onNavigate('index') : null}
-            style={{
-              display: 'flex', alignItems: 'center', gap: 10,
-              cursor: isSubPage && onNavigate ? 'pointer' : 'default',
-              paddingRight: '8px',
-              WebkitTapHighlightColor: 'transparent'
+          <motion.div 
+            layout="position"
+            onClick={() => !is404 && handleNavClick('index')}
+            style={{ 
+              display: 'flex', alignItems: 'center', gap: 10, 
+              cursor: is404 ? 'default' : 'pointer', 
+              paddingRight: '12px',
+              paddingLeft: '4px'
             }}
           >
             {config.materialIcon ? (
@@ -98,16 +150,160 @@ export default function AppNavbar({ config, activePage, onNavigate, strings }) {
             ) : (
               <img src={config.appIcon} alt="" style={{ width: 28, height: 28, borderRadius: 6 }} />
             )}
-
-            <span style={{
-              fontWeight: 700, fontSize: '0.95rem',
-              whiteSpace: 'nowrap',
-              color: 'var(--md-sys-color-on-surface)'
-            }}>
+            <motion.span 
+              layout="position"
+              style={{ fontWeight: 700, fontSize: '0.95rem', whiteSpace: 'nowrap', color: 'var(--md-sys-color-on-surface)' }}
+            >
               {config.appName}
-            </span>
-          </div>
+            </motion.span>
+          </motion.div>
+
+          {!is404 && (
+            <div className="desktop-menu" style={{ display: 'flex', gap: '4px', paddingLeft: '8px' }}>
+              {NAV_ITEMS.map((item) => {
+                const isActive = activePage === item.id;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => handleNavClick(item.id)}
+                    style={{
+                      position: 'relative',
+                      background: 'transparent',
+                      color: isActive ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)',
+                      border: 'none', borderRadius: '100px',
+                      padding: '10px 20px',
+                      fontSize: '0.85rem', fontWeight: isActive ? 600 : 500,
+                      cursor: 'pointer',
+                      display: 'flex', alignItems: 'center', gap: '8px',
+                      zIndex: 1
+                    }}
+                  >
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-pill-background"
+                        transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                        style={{
+                          position: 'absolute', inset: 0, borderRadius: '100px',
+                          background: 'var(--md-sys-color-primary)', zIndex: -1
+                        }}
+                      />
+                    )}
+                    <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>{item.icon}</span>
+                    {strings?.[item.id] || item.id}
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </motion.div>
+
+        {!is404 && (
+          <motion.div
+            layout
+            className="mobile-toggle-wrapper"
+            transition={SPRING_TRANSITION}
+            style={{
+              ...GLASS_STYLE(isScrolled, isMobileMenuOpen),
+              pointerEvents: 'auto',
+              borderRadius: '28px',
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
+              width: isMobileMenuOpen ? '100%' : '54px', 
+              height: isMobileMenuOpen ? 'auto' : '54px',
+            }}
+          >
+            <div style={{ 
+              display: 'flex', 
+              justifyContent: isMobileMenuOpen ? 'flex-end' : 'center', 
+              padding: '7px' 
+            }}>
+               <motion.button
+                layout="position"
+                onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+                style={{
+                  background: isMobileMenuOpen ? 'var(--md-sys-color-secondary-container)' : 'transparent',
+                  border: 'none', borderRadius: '50%',
+                  width: 40, height: 40,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  cursor: 'pointer', color: isMobileMenuOpen ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-surface)'
+                }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <motion.span 
+                  key={isMobileMenuOpen ? "close" : "menu"}
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="material-symbols-outlined"
+                >
+                  {isMobileMenuOpen ? 'close' : 'menu'}
+                </motion.span>
+              </motion.button>
+            </div>
+
+            <AnimatePresence>
+              {isMobileMenuOpen && (
+                <motion.div
+                  variants={MENU_CONTAINER_VARIANTS}
+                  initial="hidden"
+                  animate="show"
+                  exit="exit"
+                  style={{ padding: '0 8px 8px 8px', display: 'flex', flexDirection: 'column', gap: '4px' }}
+                >
+                  {NAV_ITEMS.map((item) => {
+                    const isActive = activePage === item.id;
+                    return (
+                      <motion.button
+                        key={item.id}
+                        variants={MENU_ITEM_VARIANTS}
+                        onClick={() => handleNavClick(item.id)}
+                        style={{
+                          background: isActive ? 'var(--md-sys-color-secondary-container)' : 'transparent',
+                          color: isActive ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-surface)',
+                          border: 'none', borderRadius: '16px',
+                          padding: '16px',
+                          fontSize: '1rem', fontWeight: 500,
+                          cursor: 'pointer',
+                          display: 'flex', alignItems: 'center', gap: '16px',
+                          textAlign: 'left', width: '100%'
+                        }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <span className="material-symbols-outlined" style={{ 
+                            color: isActive ? 'inherit' : 'var(--md-sys-color-primary)' 
+                        }}>
+                            {item.icon}
+                        </span>
+                        {strings?.[item.id] || item.id}
+                        {isActive && (
+                          <motion.span 
+                            initial={{ scale: 0 }} animate={{ scale: 1 }} 
+                            className="material-symbols-outlined" 
+                            style={{ marginLeft: 'auto', fontSize: '20px' }}
+                          >
+                            check_circle
+                          </motion.span>
+                        )}
+                      </motion.button>
+                    );
+                  })}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        )}
+
+        <style>{`
+          .desktop-menu { display: flex; }
+          .mobile-toggle-wrapper { display: none !important; }
+
+          @media (max-width: 850px) {
+            .desktop-menu { display: none !important; }
+            .mobile-toggle-wrapper { display: flex !important; }
+          }
+        `}</style>
       </motion.nav>
     </AnimatePresence>
   );
