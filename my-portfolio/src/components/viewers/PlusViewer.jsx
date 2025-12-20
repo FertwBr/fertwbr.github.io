@@ -321,7 +321,7 @@ export default function PlusViewer({ markdownContent, appConfig, strings }) {
                                 featureIcon={heroFeatureIcon}
                                 seedColor={appConfig?.seedColor}
                                 appName={appConfig?.name}
-
+                                appId={appConfig?.appId}
                             />
                         </GooglePixel>
                     </motion.div>
