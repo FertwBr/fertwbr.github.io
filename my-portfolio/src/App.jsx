@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
 import Lenis from 'lenis';
 import { LanguageProvider, useLanguage } from './context/LanguageContext';
 import { setupTheme, applyMaterialTheme, getSurfaceColor } from './utils/themeUtils';
@@ -7,6 +8,9 @@ import { usePageMetadata } from './hooks/usePageMetadata';
 import { config } from './config';
 import NotFound from './pages/NotFound';
 import PixelCompassPage from './pages/pixel-compass/PixelCompassPage';
+
+import ErrorBoundary from './components/common/ErrorBoundary';
+import OfflineNotice from './components/common/OfflineNotice';
 
 import Hero from './components/sections/Hero';
 import About from './components/sections/About';
@@ -48,27 +52,14 @@ function PortfolioHome() {
   });
 
   return (
-    <div style={{ position: 'relative', width: '100%', maxWidth: '100vw', overflow: 'hidden' }}>
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0, y: -20, transition: { duration: 0.3 } }}
+      style={{ position: 'relative', width: '100%', maxWidth: '100vw', overflow: 'hidden' }}
+    >
       <div className="bg-fixed"></div>
       <div className="grid-overlay"></div>
-
-      <nav style={{
-        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
-        padding: '20px 24px', display: 'flex', justifyContent: 'center',
-        background: 'transparent', pointerEvents: 'none'
-      }}>
-        <div style={{
-          backdropFilter: 'blur(10px)',
-          background: 'rgba(var(--md-sys-color-surface-container-rgb), 0.6)',
-          padding: '12px 24px',
-          borderRadius: '100px',
-          border: '1px solid rgba(255,255,255,0.1)',
-          pointerEvents: 'auto',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
-        }}>
-          <span style={{ fontWeight: 800, fontSize: '1.1rem', letterSpacing: '-0.5px' }}>FV.</span>
-        </div>
-      </nav>
 
       <main>
         <Hero t={content.hero} />
@@ -90,27 +81,31 @@ function PortfolioHome() {
 
         <Footer t={content.footer} />
       </main>
-    </div>
+    </motion.div>
   );
 }
 
-function AppContent() {
+function AnimatedRoutes() {
+  const location = useLocation();
+
   return (
-    <Routes>
-      <Route path="/" element={<PortfolioHome />} />
-      <Route path="/pixelpulse" element={<PixelPulsePage />} />
-      <Route path="/PixelPulse" element={<PixelPulsePage />} />
-      <Route path="/pixelpulse/open" element={<RedirectToStore type="open" appKey="pixelpulse" />} />
-      <Route path="/pixelpulse/open/buy" element={<RedirectToStore type="buy" appKey="pixelpulse" />} />
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<PortfolioHome />} />
+        
+        <Route path="/pixelpulse" element={<PixelPulsePage />} />
+        <Route path="/PixelPulse" element={<PixelPulsePage />} />
+        <Route path="/pixelpulse/open" element={<RedirectToStore type="open" appKey="pixelpulse" />} />
+        <Route path="/pixelpulse/open/buy" element={<RedirectToStore type="buy" appKey="pixelpulse" />} />
 
+        <Route path="/pixelcompass" element={<PixelCompassPage />} />
+        <Route path="/PixelCompass" element={<PixelCompassPage />} />
+        <Route path="/pixelcompass/open" element={<RedirectToStore type="open" appKey="pixelcompass" />} />
+        <Route path="/pixelcompass/open/buy" element={<RedirectToStore type="buy" appKey="pixelcompass" />} />
 
-      <Route path="/pixelcompass" element={<PixelCompassPage />} />
-      <Route path="/PixelCompass" element={<PixelCompassPage />} />
-      <Route path="/pixelcompass/open" element={<RedirectToStore type="open" appKey="pixelcompass" />} />
-      <Route path="/pixelcompass/open/buy" element={<RedirectToStore type="buy" appKey="pixelcompass" />} />
-
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </AnimatePresence>
   );
 }
 
@@ -133,10 +128,13 @@ export default function App() {
   }, []);
 
   return (
-    <BrowserRouter>
-      <LanguageProvider>
-        <AppContent />
-      </LanguageProvider>
-    </BrowserRouter>
+    <ErrorBoundary>
+      <BrowserRouter>
+        <LanguageProvider>
+          <OfflineNotice />
+          <AnimatedRoutes />
+        </LanguageProvider>
+      </BrowserRouter>
+    </ErrorBoundary>
   );
 }
