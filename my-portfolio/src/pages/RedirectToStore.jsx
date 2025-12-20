@@ -19,25 +19,27 @@ export default function RedirectToStore({ type = 'open', appKey = 'pixelpulse' }
 
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
     const isAndroid = /android/i.test(userAgent);
-
     const appId = config?.appId;
     const scheme = config?.scheme;
 
-    const playStoreWeb = `https://play.google.com/store/apps/details?id=${appId}`;
-    const deepLinkOpen = `${scheme}://open`;
-    const deepLinkBuy = `${scheme}://open/buy`;
+    const fallbackUrl = `market://details?id=${appId}`;
+    const encodedFallback = encodeURIComponent(fallbackUrl);
 
-    const targetLink = type === 'buy' ? deepLinkBuy : deepLinkOpen;
+    const hostPath = type === 'buy' ? 'open/buy' : 'open';
+
+    const androidIntent = `intent://${hostPath}#Intent;scheme=${scheme};package=${appId};S.browser_fallback_url=${encodedFallback};end`;
+
+    const playStoreWeb = `https://play.google.com/store/apps/details?id=${appId}`;
 
     if (isAndroid) {
-      window.location.href = targetLink;
+      window.location.href = androidIntent;
 
       setTimeout(() => {
         if (!document.hidden) {
           setStatus('manual');
-          window.location.href = playStoreWeb;
         }
-      }, 1500);
+      }, 1000);
+
     } else {
       setTimeout(() => window.location.href = playStoreWeb, 1000);
     }
