@@ -1,4 +1,24 @@
 export default {
+  common: {
+    offline: "Você está offline no momento.",
+  },
+  redirect: {
+    launching: "Iniciando Aplicativo...",
+    did_open: "O app abriu?",
+    open_again: "Abrir App Novamente",
+    get_on_store: "Baixar na Play Store"
+  },
+  error: {
+    title: "Falha no Sistema",
+    desc_1: "Algo inesperado aconteceu no núcleo da aplicação.",
+    desc_2: "Não se preocupe, nenhum dado foi perdido.",
+    reload: "Recarregar Sistema",
+    home: "Voltar ao Início",
+    show_details: "Mostrar Detalhes Técnicos",
+    hide_details: "Ocultar Detalhes Técnicos",
+    copy: "Copiar",
+    copied: "Copiado"
+  },
   hero: {
     greeting: "Olá, eu sou",
     role_prefix: "Eu desenvolvo",
@@ -7,16 +27,16 @@ export default {
     cta_secondary: "Contato"
   },
   not_found: {
-      page_title: "Página Não Encontrada",
-      title: "404",
-      subtitle: "Ops! No meio do nada.",
-      message: "A página que você está procurando não existe no momento.",
-      suggestion_title: "Você estava procurando por isso?",
-      suggestion_desc: "Com base no seu link, achamos que você queria ir para",
-      suggestion_btn: "Sim, Ir Para Lá",
-      home_btn: "Ir para o Início",
-      apps_btn: "Ver Aplicativos"
-    },
+    page_title: "Página Não Encontrada",
+    title: "404",
+    subtitle: "Ops! No meio do nada.",
+    message: "A página que você está procurando não existe no momento.",
+    suggestion_title: "Você estava procurando por isso?",
+    suggestion_desc: "Com base no seu link, achamos que você queria ir para",
+    suggestion_btn: "Sim, Ir Para Lá",
+    home_btn: "Ir para o Início",
+    apps_btn: "Ver Aplicativos"
+  },
   about: {
     title: "Sobre Mim",
     subtitle: "Engenharia encontra o Design",
@@ -98,7 +118,6 @@ export default {
     rights: "Todos os direitos reservados.",
     built: "Projetado e Construído por Fernando Vaz 🇧🇷",
     useful_links: "Links Úteis",
-    theme_title: "Tema e Aparência",
     appearance: {
       title: "Tema e Aparência",
       en: "Inglês",
@@ -169,6 +188,16 @@ export default {
       title: "Desbloqueie a Experiência Definitiva",
       desc: "Vá do reativo ao proativo com análise automatizada.",
       cta: "Descobrir o Pixel Pulse+"
+    },
+    plus_page: {
+      title: "Eleve Sua Experiência",
+      badge: "Compra Única",
+      cta: "Desbloquear Acesso Vitalício",
+      disclaimer: "Sem assinaturas. Sem taxas ocultas.",
+      why_title: "Por que uma Compra Única?",
+      features_title: "A Vantagem Plus",
+      features_subtitle: "Visualizando o poder que você recebe instantaneamente.",
+      faq_title: "Perguntas Frequentes"
     },
     privacy_section: {
       title: "Privacidade em Primeiro Lugar",
@@ -253,5 +282,164 @@ export default {
       github_btn: "Ver no GitHub",
       toc_title: "Nesta Página"
     },
+  },
+  pixel_compass: {
+    nav: {
+      index: "Visão Geral",
+      plus: "Pixel Compass+",
+      changelog: "Atualizações",
+      roadmap: "Roadmap",
+      privacy: "Privacidade",
+      help: "Ajuda",
+      overview: "Docs",
+      back: "Voltar ao Portfólio"
+    },
+    hero: {
+      title: "Seu Compasso Inteligente para Telefone e Relógio",
+      subtitle: "Navegue pelo seu mundo com estilo, precisão e um toque de mágica Material 3. O companheiro de navegação definitivo para Android.",
+      download: "Baixar na Play Store"
+    },
+    new_features: {
+      label: "Novo na v1.15 Beta",
+      title: "Experiência Unificada",
+      view_history: "Ver Histórico Completo",
+      items: [
+        {
+          icon: "responsive_layout",
+          title: "Layouts Responsivos",
+          desc: "Telas de 'Boas-vindas' e 'Plano' totalmente redesenhadas e otimizadas para Dobráveis e Tablets."
+        },
+        {
+          icon: "error",
+          title: "Erros Mais Inteligentes",
+          desc: "O app agora lida graciosamente com erros de API de clima com mensagens claras e úteis."
+        },
+        {
+          icon: "palette",
+          title: "Polimento Visual",
+          desc: "Cores de superfície do Tema AMOLED atualizadas e adicionados scrims dinâmicos na barra de status."
+        }
+      ]
+    },
+    features: {
+      title: "Kit de Precisão",
+      cta_project: "Explorar Visão Técnica",
+      items: [
+        {
+          title: "Navegação de Precisão",
+          desc: "Alterne entre Norte Magnético e Verdadeiro com precisão profissional e feedback háptico."
+        },
+        {
+          title: "Ambiente Inteligente",
+          desc: "Altitude, temperatura e índice UV em tempo real com alertas proativos do Insight Engine 4.0."
+        },
+        {
+          title: "Nível Inovador",
+          desc: "Verifique o nivelamento de superfícies com animações expressivas: efeitos de ondulação e ondas fluidas."
+        },
+        {
+          title: "Widgets Adaptáveis",
+          desc: "Belos widgets de tela inicial que redimensionam de forma inteligente de 1x1 a painéis completos."
+        }
+      ]
+    },
+    plus: {
+      title: "Desbloqueie a Experiência Definitiva",
+      desc: "Obtenha widgets exclusivos, gráficos de previsão avançados, papéis de parede na nuvem e remova anúncios.",
+      cta: "Descobrir o Pixel Compass+"
+    },
+    plus_page: {
+      title: "Eleve Sua Experiência",
+      badge: "Opções Flexíveis",
+      cta: "Desbloquear Agora",
+      disclaimer: "Opções de Assinatura ou Vitalícia disponíveis.",
+      why_title: "Por que ser Plus?",
+      features_title: "A Vantagem Plus",
+      features_subtitle: "Visualizando o poder que você recebe instantaneamente.",
+      faq_title: "Perguntas Frequentes"
+    },
+    privacy_section: {
+      title: "Privacidade em Primeiro Lugar",
+      cta_policy: "Ler Política",
+      cta_tech: "Detalhes Técnicos",
+      cards: [
+        {
+          icon: "location_off",
+          title: "Sem Rastreamento Oculto",
+          desc: "A localização é usada apenas para navegação e clima quando o app está ativo."
+        },
+        {
+          icon: "phonelink_lock",
+          title: "Processamento no Dispositivo",
+          desc: "Os dados dos sensores são processados inteiramente localmente no seu dispositivo."
+        },
+        {
+          icon: "cloud_off",
+          title: "Dados Transparentes",
+          desc: "Não armazenamos seu histórico de localização ou detalhes de pagamento em nossos servidores."
+        },
+        {
+          icon: "block",
+          title: "Opção Sem Anúncios",
+          desc: "O Plus remove todos os anúncios de terceiros para uma experiência mais limpa e rápida."
+        }
+      ]
+    },
+    footer: {
+      links: "Links Úteis",
+      rights: "Pixel Compass. Todos os direitos reservados.",
+      theme_title: "Tema e Aparência"
+    },
+    changelog: {
+      title: "Histórico de Versões",
+      subtitle: "Acompanhe a evolução do Pixel Compass. Cada recurso, melhoria e correção detalhados abaixo.",
+      search_placeholder: "Buscar recursos, versões...",
+      latest_release: "Último Lançamento",
+      released: "Lançado",
+      update_now: "Atualizar Agora",
+      on_this_page: "Nesta Página",
+      load_more: "Carregar Versões Antigas",
+      no_results: "Nenhuma versão encontrada para seus filtros.",
+      jump_to: "Ir para Versão",
+      read_more: "Ler Notas de Lançamento",
+      collapse: "Recolher",
+      back_to_top: "Voltar ao Topo",
+      plus_promo: {
+        title: "Apoie o Desenvolvimento",
+        subtitle: "Desbloqueie widgets, personalização e nos ajude a construir novos recursos.",
+        cta: "Obter Pixel Compass+"
+      },
+    },
+    roadmap_page: {
+      title: "Roadmap do Produto",
+      subtitle: "Veja o que já construímos e para onde estamos indo.",
+      suggest_btn: "Sugerir um Recurso",
+      toc_title: "Cronograma"
+    },
+    privacy_page: {
+      page_title: "Política de Privacidade",
+      last_updated: "Última Atualização:",
+      table_of_contents: "Índice",
+      contact_title: "Tem Dúvidas?",
+      contact_desc: "Se você tiver qualquer preocupação com seus dados, entre em contato conosco.",
+      contact_btn: "Contatar Suporte",
+      print_btn: "Imprimir Política"
+    },
+    help_page: {
+      page_title: "Ajuda & FAQ",
+      subtitle: "Encontre respostas e aprenda como aproveitar ao máximo o Pixel Compass.",
+      search_placeholder: "Buscar respostas...",
+      table_of_contents: "Tópicos",
+      contact_title: "Ainda está com problemas?",
+      contact_desc: "Não encontrou o que procurava? Nossa equipe está aqui para ajudar.",
+      contact_btn: "Contatar Suporte",
+      no_results: "Nenhum tópico encontrado para sua busca."
+    },
+    overview_page: {
+      title: "Visão Geral Técnica",
+      subtitle: "Mergulhe na arquitetura, sensores e engenharia.",
+      github_btn: "Ver no GitHub",
+      toc_title: "Nesta Página"
+    }
   }
 };

@@ -1,4 +1,24 @@
 export default {
+  common: {
+    offline: "You are currently offline.",
+  },
+  redirect: {
+    launching: "Launching Application...",
+    did_open: "Did the app open?",
+    open_again: "Open App Again",
+    get_on_store: "Get on Play Store"
+  },
+  error: {
+    title: "System Malfunction",
+    desc_1: "Something unexpected happened within the application core.",
+    desc_2: "Don't worry, no data was lost.",
+    reload: "Reload System",
+    home: "Return Home",
+    show_details: "Show Technical Details",
+    hide_details: "Hide Technical Details",
+    copy: "Copy",
+    copied: "Copied"
+  },
   hero: {
     greeting: "Hello, I'm",
     role_prefix: "I build",
