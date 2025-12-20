@@ -3,34 +3,45 @@ import { loadPageContent } from '../utils/contentLoader';
 
 export function useMarkdownLoader(activeTab, config) {
   const [markdownContent, setMarkdownContent] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSpinnerVisible, setIsSpinnerVisible] = useState(false); 
 
   useEffect(() => {
     const pageConfig = config.pages[activeTab];
 
     if (!pageConfig || pageConfig.type === 'react') {
       setMarkdownContent(null);
-      setIsLoading(false);
+      setIsSpinnerVisible(false);
       return;
     }
 
     let isMounted = true;
-    setIsLoading(true);
+    let timer = null;
+
     setMarkdownContent(null);
+
+    timer = setTimeout(() => {
+      if (isMounted) setIsSpinnerVisible(true);
+    }, 200);
 
     loadPageContent(activeTab, config)
       .then((text) => {
         if (isMounted) {
           setMarkdownContent(text);
-          setIsLoading(false);
+          setIsSpinnerVisible(false);
         }
       })
       .catch(() => {
-        if (isMounted) setIsLoading(false);
+        if (isMounted) setIsSpinnerVisible(false);
+      })
+      .finally(() => {
+        clearTimeout(timer);
       });
 
-    return () => { isMounted = false; };
+    return () => { 
+      isMounted = false;
+      clearTimeout(timer);
+    };
   }, [activeTab, config]);
 
-  return { markdownContent, isLoading };
+  return { markdownContent, isLoading: isSpinnerVisible };
 }

@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import { motion, AnimatePresence } from 'framer-motion';
+import LoadingSpinner from '../components/common/LoadingSpinner';
 
 import { useLanguage } from '../context/LanguageContext';
 import { applyMaterialTheme, getSurfaceColor } from '../utils/themeUtils';
@@ -92,11 +93,10 @@ export default function ProductPage({ config, HomeComponent, translationKey }) {
 
   const renderContent = () => {
     if (isLoading) {
-      return (
-        <div style={{ textAlign: 'center', padding: '100px' }}>
-          <span className="material-symbols-outlined spin-anim" style={{ fontSize: '48px', color: 'var(--md-sys-color-primary)' }}>sync</span>
-        </div>
-      );
+      return <LoadingSpinner />;
+    }
+    if (!markdownContent && activeTab !== 'index') {
+       return <div style={{ minHeight: '200px' }}></div>; 
     }
 
     const commonProps = {
