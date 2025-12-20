@@ -25,13 +25,13 @@ Upgrade to Pixel Pulse+ with a **simple one-time purchase** and unlock a suite o
 | Real-time Meter (dBA) | Included | Included |
 | Session Recording | Included | Included |
 | Interactive Playback | Included | Included |
-| **Background Monitoring** | - | **Included** |
-| **Daily/Weekly Analysis** | - | **Included** |
-| **Noise Budget & Alerts** | - | **Included** |
-| **Live Notifications** | - | **Included** |
+| **Background Monitoring** | X | **Included** |
+| **Daily/Weekly Analysis** | X | **Included** |
+| **Noise Budget & Alerts** | X | **Included** |
+| **Live Notifications** | X | **Included** |
 | **Themes & AMOLED** | System Only | **9+ Themes** |
 | **Image & CSV Export** | Text Only | **Full Export** |
-| **Weighting (C & Z)** | - | **Included** |
+| **Weighting (C & Z)** | X | **Included** |
 | Ad-Free & Privacy Focused | Included | Included |
 
 ## Frequently Asked Questions {: data-toc-key="faq" }

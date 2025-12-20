@@ -4,13 +4,6 @@ Upgrade to **Pixel Compass+** and unlock a suite of professional-grade tools des
 
 It's the ultimate toolkit for adventurers, photographers, outdoor professionals, and anyone who demands the best from their devices.
 
-<a href="https://play.google.com/store/apps/details?id=io.github.fertwbr.pixelcompass" target="_blank" class="cta-link">
-    <md-filled-button>
-        Unlock Pixel Compass+ Now
-        <md-icon slot="icon">arrow_forward</md-icon>
-    </md-filled-button>
-</a>
-
 ## 💎 The Plus Advantage: What You Unlock {: data-toc-key="unlock" }
 
 Pixel Compass+ transforms your device into a professional-grade instrument. Here is everything you get when you go Plus:
@@ -54,15 +47,6 @@ Unlock a full range of dynamic cards:
 - **Visibility & Cloud Cover:** Essential data for photographers and aviators.
 - **UV Risk Monitor:** Safe exposure times and protection recommendations.
 
-## 🖼️ Visual Gallery {: data-toc-key="gallery" }
-
-<div class="gallery-thumbnails" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; margin-top: 16px;">
-    <img src="https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/phone-widget-compass.png" alt="Compass Widget" class="thumbnail">
-    <img src="https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/phone-widget-weather.png" alt="Weather Widget" class="thumbnail">
-    <img src="https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/phone-widget-location.png" alt="Location Widget" class="thumbnail">
-    <img src="https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/phone-widget-altitude.png" alt="Altitude Widget" class="thumbnail">
-</div>
-
 ## 🛡️ Licensing: Fair and Flexible {: data-toc-key="licensing" }
 
 We believe in supporting our users while ensuring the app's sustainable growth.
@@ -76,6 +60,26 @@ The best way to stay on the cutting edge.
 - **Lifetime Purchase:** Buy once, enjoy Plus features forever. No recurring payments.
 - **Legacy Users:** If you supported us before version 1.7.2, you have been automatically upgraded to a lifetime license. Thank you for being a pioneer!
 
+## Compare Editions {: data-toc-key="comparison" }
+
+| Feature | Free | Plus | Legacy |
+| :--- | :--- | :--- | :--- |
+| Magnetic Compass & True North | Included | Included | Included |
+| Level Tool | Included | Included | Included |
+| Basic Weather & Location | Included | Included | Included |
+| Material You Design | Included | Included | Included |
+| Ad-Free Experience | Included | Included | Included |
+| **Home Screen Widgets** | X | **Included** | **Included** |
+| **Clock & At a Glance** | X | **Included** | **Included** |
+| **Forecast Charts** | X | **Included** | **Included** |
+| **Smart Insights & Alerts** | X | **Included** | **Included** |
+| **Extended Metrics (UV, Dew)** | X | **Included** | **Included** |
+| **Barometer (Pressure)** | X | **Included** | **Included** |
+| **Sun & Moon Times** | X | **Included** | **Included** |
+| **Wind on Compass** | X | **Included** | **Included** |
+| **Deep Customization** | System Only | **Exclusive Styles** | **Exclusive Styles** |
+| **Data Update Frequency** | Standard | **4x Faster** | **4x Faster** |
+
 ## 💡 Why a Subscription? {: data-toc-key="why" }
 
 Adopting a subscription model is a decision we made to ensure the long-term health and innovation of Pixel Compass. Here’s why it benefits everyone:
@@ -86,5 +90,3 @@ Adopting a subscription model is a decision we made to ensure the long-term heal
 | <md-icon>dns</md-icon> **Covers Ongoing Costs** | Features like high-precision altitude and real-time weather rely on third-party APIs (like Google Maps & Weather). These services have monthly costs that your subscription helps cover sustainably. |
 | <md-icon>support_agent</md-icon> **Dedicated Support** | A healthy development cycle means we can afford to spend time providing quality user support and responding to feedback. |
 | <md-icon>trending_up</md-icon> **Future-Proofing** | Subscriptions allow us to adapt to new Android versions, support new devices (like foldables and next-gen watches), and invest in more ambitious features down the road. |
-
-**Ready to upgrade?** Open the app and tap the **Plus** badge in the settings or main screen to supercharge your experience!
