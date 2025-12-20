@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
@@ -27,20 +27,20 @@ const GLASS_STYLE = (isScrolled, isActive = false) => ({
 });
 
 const MENU_ITEM_VARIANTS = {
-  hidden: { y: 20, opacity: 0 },
+  hidden: { y: 10, opacity: 0 },
   show: { y: 0, opacity: 1 },
-  exit: { y: -10, opacity: 0 }
+  exit: { y: -5, opacity: 0 }
 };
 
 const MENU_CONTAINER_VARIANTS = {
   hidden: { opacity: 0 },
-  show: { 
+  show: {
     opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.05 }
+    transition: { staggerChildren: 0.08, delayChildren: 0.1 }
   },
-  exit: { 
-    opacity: 0, 
-    transition: { duration: 0.2 } 
+  exit: {
+    opacity: 0,
+    transition: { duration: 0.1 }
   }
 };
 
@@ -50,17 +50,44 @@ export default function AppNavbar({ config, activePage, onNavigate, strings }) {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
 
+  const mobileMenuRef = useRef(null);
   const navigate = useNavigate();
   const is404 = activePage === '404';
+
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [isMobileMenuOpen]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isMobileMenuOpen && mobileMenuRef.current && !mobileMenuRef.current.contains(event.target)) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    if (isMobileMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('touchstart', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, [isMobileMenuOpen]);
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       setIsScrolled(currentScrollY > 20);
 
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+      if (currentScrollY > lastScrollY && currentScrollY > 100 && !isMobileMenuOpen) {
         setIsVisible(false);
-        setMobileMenuOpen(false);
       } else {
         setIsVisible(true);
       }
@@ -69,7 +96,7 @@ export default function AppNavbar({ config, activePage, onNavigate, strings }) {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
+  }, [lastScrollY, isMobileMenuOpen]);
 
   const handleNavClick = (id) => {
     onNavigate(id);
@@ -83,25 +110,27 @@ export default function AppNavbar({ config, activePage, onNavigate, strings }) {
   return (
     <AnimatePresence>
       <motion.nav
+        role="navigation"
+        aria-label="Main Navigation"
         initial={{ y: -100, opacity: 0 }}
-        animate={{ 
-          y: isVisible ? 0 : -120, 
-          opacity: isVisible ? 1 : 0 
+        animate={{
+          y: isVisible ? 0 : -120,
+          opacity: isVisible ? 1 : 0
         }}
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         style={{
           position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-          display: 'flex', 
+          display: 'flex',
           justifyContent: 'center',
           alignItems: 'flex-start',
           flexWrap: 'wrap',
           gap: '12px',
-          padding: '16px', 
+          padding: '16px',
           pointerEvents: 'none',
           width: '100%'
         }}
       >
-        
+
         <motion.div
           layout
           transition={SPRING_TRANSITION}
@@ -109,7 +138,7 @@ export default function AppNavbar({ config, activePage, onNavigate, strings }) {
             ...GLASS_STYLE(isScrolled),
             pointerEvents: 'auto',
             padding: '6px',
-            display: 'flex', 
+            display: 'flex',
             alignItems: 'center',
             borderRadius: '50px',
             height: '54px',
@@ -120,6 +149,7 @@ export default function AppNavbar({ config, activePage, onNavigate, strings }) {
           <motion.button
             layout="position"
             onClick={goBackToPortfolio}
+            aria-label={strings?.back || "Back"}
             style={{
               background: 'var(--md-sys-color-secondary-container)',
               border: 'none', borderRadius: '50%',
@@ -130,15 +160,17 @@ export default function AppNavbar({ config, activePage, onNavigate, strings }) {
             }}
             whileTap={{ scale: 0.9 }}
           >
-            <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>arrow_back</span>
+            <span className="material-symbols-outlined" style={{ fontSize: '20px' }} aria-hidden="true">arrow_back</span>
           </motion.button>
 
-          <motion.div 
+          <motion.div
             layout="position"
             onClick={() => !is404 && handleNavClick('index')}
-            style={{ 
-              display: 'flex', alignItems: 'center', gap: 10, 
-              cursor: is404 ? 'default' : 'pointer', 
+            role={!is404 ? "button" : undefined}
+            tabIndex={!is404 ? 0 : -1}
+            style={{
+              display: 'flex', alignItems: 'center', gap: 10,
+              cursor: is404 ? 'default' : 'pointer',
               paddingRight: '12px',
               paddingLeft: '4px'
             }}
@@ -150,8 +182,7 @@ export default function AppNavbar({ config, activePage, onNavigate, strings }) {
             ) : (
               <img src={config.appIcon} alt="" style={{ width: 28, height: 28, borderRadius: 6 }} />
             )}
-            <motion.span 
-              layout="position"
+            <motion.span
               style={{ fontWeight: 700, fontSize: '0.95rem', whiteSpace: 'nowrap', color: 'var(--md-sys-color-on-surface)' }}
             >
               {config.appName}
@@ -162,10 +193,13 @@ export default function AppNavbar({ config, activePage, onNavigate, strings }) {
             <div className="desktop-menu" style={{ display: 'flex', gap: '4px', paddingLeft: '8px' }}>
               {NAV_ITEMS.map((item) => {
                 const isActive = activePage === item.id;
+                const label = strings?.[item.id] || item.id;
+
                 return (
                   <button
                     key={item.id}
                     onClick={() => handleNavClick(item.id)}
+                    aria-current={isActive ? 'page' : undefined}
                     style={{
                       position: 'relative',
                       background: 'transparent',
@@ -188,8 +222,8 @@ export default function AppNavbar({ config, activePage, onNavigate, strings }) {
                         }}
                       />
                     )}
-                    <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>{item.icon}</span>
-                    {strings?.[item.id] || item.id}
+                    <span className="material-symbols-outlined" style={{ fontSize: '18px' }} aria-hidden="true">{item.icon}</span>
+                    {label}
                   </button>
                 );
               })}
@@ -199,6 +233,7 @@ export default function AppNavbar({ config, activePage, onNavigate, strings }) {
 
         {!is404 && (
           <motion.div
+            ref={mobileMenuRef}
             layout
             className="mobile-toggle-wrapper"
             transition={SPRING_TRANSITION}
@@ -209,18 +244,22 @@ export default function AppNavbar({ config, activePage, onNavigate, strings }) {
               overflow: 'hidden',
               display: 'flex',
               flexDirection: 'column',
-              width: isMobileMenuOpen ? '100%' : '54px', 
+              width: isMobileMenuOpen ? '100%' : '54px',
               height: isMobileMenuOpen ? 'auto' : '54px',
             }}
           >
-            <div style={{ 
-              display: 'flex', 
-              justifyContent: isMobileMenuOpen ? 'flex-end' : 'center', 
-              padding: '7px' 
+            <div style={{
+              display: 'flex',
+              justifyContent: isMobileMenuOpen ? 'flex-end' : 'center',
+              padding: '7px',
+              minWidth: '54px'
             }}>
-               <motion.button
+              <motion.button
                 layout="position"
                 onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+                aria-expanded={isMobileMenuOpen}
+                aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+                aria-controls="mobile-menu-items"
                 style={{
                   background: isMobileMenuOpen ? 'var(--md-sys-color-secondary-container)' : 'transparent',
                   border: 'none', borderRadius: '50%',
@@ -230,13 +269,14 @@ export default function AppNavbar({ config, activePage, onNavigate, strings }) {
                 }}
                 whileTap={{ scale: 0.9 }}
               >
-                <motion.span 
+                <motion.span
                   key={isMobileMenuOpen ? "close" : "menu"}
                   initial={{ rotate: -90, opacity: 0 }}
                   animate={{ rotate: 0, opacity: 1 }}
                   exit={{ rotate: 90, opacity: 0 }}
                   transition={{ duration: 0.2 }}
                   className="material-symbols-outlined"
+                  aria-hidden="true"
                 >
                   {isMobileMenuOpen ? 'close' : 'menu'}
                 </motion.span>
@@ -246,6 +286,7 @@ export default function AppNavbar({ config, activePage, onNavigate, strings }) {
             <AnimatePresence>
               {isMobileMenuOpen && (
                 <motion.div
+                  id="mobile-menu-items"
                   variants={MENU_CONTAINER_VARIANTS}
                   initial="hidden"
                   animate="show"
@@ -254,11 +295,14 @@ export default function AppNavbar({ config, activePage, onNavigate, strings }) {
                 >
                   {NAV_ITEMS.map((item) => {
                     const isActive = activePage === item.id;
+                    const label = strings?.[item.id] || item.id;
+
                     return (
                       <motion.button
                         key={item.id}
                         variants={MENU_ITEM_VARIANTS}
                         onClick={() => handleNavClick(item.id)}
+                        aria-current={isActive ? 'page' : undefined}
                         style={{
                           background: isActive ? 'var(--md-sys-color-secondary-container)' : 'transparent',
                           color: isActive ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-surface)',
@@ -271,17 +315,20 @@ export default function AppNavbar({ config, activePage, onNavigate, strings }) {
                         }}
                         whileTap={{ scale: 0.98 }}
                       >
-                        <span className="material-symbols-outlined" style={{ 
-                            color: isActive ? 'inherit' : 'var(--md-sys-color-primary)' 
-                        }}>
-                            {item.icon}
+                        <span className="material-symbols-outlined" style={{
+                          color: isActive ? 'inherit' : 'var(--md-sys-color-primary)'
+                        }} aria-hidden="true">
+                          {item.icon}
                         </span>
-                        {strings?.[item.id] || item.id}
+
+                        <span>{label}</span>
+
                         {isActive && (
-                          <motion.span 
-                            initial={{ scale: 0 }} animate={{ scale: 1 }} 
-                            className="material-symbols-outlined" 
+                          <motion.span
+                            initial={{ scale: 0 }} animate={{ scale: 1 }}
+                            className="material-symbols-outlined"
                             style={{ marginLeft: 'auto', fontSize: '20px' }}
+                            aria-hidden="true"
                           >
                             check_circle
                           </motion.span>

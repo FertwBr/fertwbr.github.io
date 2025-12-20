@@ -263,7 +263,7 @@ export default {
       toc_title: "On This Page"
     },
   },
-pixel_compass: {
+  pixel_compass: {
       nav: {
         index: "Overview",
         plus: "Pixel Compass+",
