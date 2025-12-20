@@ -112,14 +112,17 @@ export default {
     title: "Let's Work Together",
     desc: "Have a project in mind or want to discuss the latest in Android tech?",
     email: "Send Email",
-    linkedin: "LinkedIn"
+    linkedin: "LinkedIn",
+    github: "GitHub"
   },
-  footer: {
+footer: {
     rights: "All rights reserved.",
     built: "Designed & Built by Fernando Vaz 🇧🇷",
     useful_links: "Useful Links",
+    social_title: "Connect",
     appearance: {
       title: "Theme & Appearance",
+      language_selector: "Language",
       en: "English",
       pt: "Português"
     }
