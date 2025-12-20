@@ -24,6 +24,8 @@ import PixelCompassPage from './pages/pixel-compass/PixelCompassPage';
 import PixelPulsePage from './pages/pixel-pulse/PixelPulsePage';
 import RedirectToStore from './pages/RedirectToStore';
 
+import PageTransition from './components/layout/PageTransition';
+
 function PortfolioHome() {
   const { content } = useLanguage();
   const location = useLocation();
@@ -54,12 +56,7 @@ function PortfolioHome() {
   });
 
   return (
-    <motion.div 
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0, y: -20, transition: { duration: 0.3 } }}
-      style={{ position: 'relative', width: '100%', maxWidth: '100vw', overflow: 'hidden' }}
-    >
+    <PageTransition>
       <PageBackground />
 
       <main>
@@ -82,7 +79,7 @@ function PortfolioHome() {
 
         <Footer t={content.footer} />
       </main>
-    </motion.div>
+    </PageTransition>
   );
 }
 
@@ -93,7 +90,7 @@ function AnimatedRoutes() {
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<PortfolioHome />} />
-        
+
         <Route path="/pixelpulse" element={<PixelPulsePage />} />
         <Route path="/PixelPulse" element={<PixelPulsePage />} />
         <Route path="/pixelpulse/open" element={<RedirectToStore type="open" appKey="pixelpulse" />} />

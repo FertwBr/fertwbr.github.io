@@ -20,6 +20,8 @@ import RoadmapViewer from '../components/viewers/RoadmapViewer';
 import OverviewViewer from '../components/viewers/OverviewViewer';
 import PlusViewer from "../components/viewers/PlusViewer";
 
+import PageTransition from '../components/layout/PageTransition';
+
 export default function ProductPage({ config, HomeComponent, translationKey }) {
   const location = useLocation();
   const { content } = useLanguage();
@@ -138,24 +140,21 @@ export default function ProductPage({ config, HomeComponent, translationKey }) {
       <main style={{ flex: 1, width: '100%', overflowX: 'hidden' }}>
         <AnimatePresence mode="wait">
           {activeTab === 'index' ? (
-             <HomeComponent key="home" onNavigate={handleNavigation} strings={t} />
+             <PageTransition key="home">
+                <HomeComponent onNavigate={handleNavigation} strings={t} />
+             </PageTransition>
           ) : (
-            <motion.div
-                key="content"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
-                style={{ 
+            <PageTransition key="content">
+               <div style={{ 
                     maxWidth: ['changelog', 'privacy', 'help', 'roadmap', 'overview'].includes(activeTab) ? '1600px' : '100%', 
                     margin: '0 auto', 
                     padding: 'clamp(100px, 15vh, 140px) 20px 0 20px',
                     width: '100%',
                     boxSizing: 'border-box'
-                }}
-            >
-               {renderContent()}
-            </motion.div>
+                }}>
+                  {renderContent()}
+               </div>
+            </PageTransition>
           )}
         </AnimatePresence>
       </main>
