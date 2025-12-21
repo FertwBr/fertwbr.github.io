@@ -1,11 +1,7 @@
-import {themeFromSourceColor, applyTheme, hexFromArgb} from '@material/material-color-utilities';
-import {config} from '../config';
+import { themeFromSourceColor, applyTheme, hexFromArgb } from '@material/material-color-utilities';
+import { config } from '../config';
 
-const THEME_STORAGE_KEY_PREFIX = 'app-site-theme-color-';
-
-export function getStorageKey() {
-    return `${THEME_STORAGE_KEY_PREFIX}${config.appName.toLowerCase().replace(/\s+/g, '-')}`;
-}
+const GLOBAL_THEME_KEY = 'fertwbr-global-theme';
 
 const hexToRgb = (hex) => {
     const r = parseInt(hex.slice(1, 3), 16);
@@ -19,10 +15,7 @@ const argbToHex = (argb) => {
 };
 
 function getThemePalette(hexColor) {
-    if (!hexColor || !/^#([0-9A-F]{3}){1,2}$/i.test(hexColor)) {
-        return {primary: '#BDBDBD', secondary: '#E0E0E0', tertiary: '#EEEEEE'};
-    }
-
+    if (!hexColor) return { primary: '#BDBDBD', secondary: '#E0E0E0', tertiary: '#EEEEEE' };
     try {
         const theme = themeFromSourceColor(parseInt(hexColor.replace('#', ''), 16));
         return {
@@ -31,8 +24,12 @@ function getThemePalette(hexColor) {
             tertiary: hexFromArgb(theme.palettes.tertiary.tone(40))
         };
     } catch (error) {
-        return {primary: '#BDBDBD', secondary: '#E0E0E0', tertiary: '#EEEEEE'};
+        return { primary: '#BDBDBD', secondary: '#E0E0E0', tertiary: '#EEEEEE' };
     }
+}
+
+export function getSavedTheme() {
+    return localStorage.getItem(GLOBAL_THEME_KEY);
 }
 
 export function getSeedColor() {
@@ -43,7 +40,7 @@ export function getSeedColor() {
         return urlColor.startsWith('#') ? urlColor : `#${urlColor}`;
     }
 
-    const savedTheme = localStorage.getItem(getStorageKey());
+    const savedTheme = localStorage.getItem(GLOBAL_THEME_KEY);
     if (savedTheme) {
         return savedTheme;
     }
@@ -59,25 +56,27 @@ export function updateTheme() {
 
     try {
         const theme = themeFromSourceColor(parseInt(seedColor.replace('#', ''), 16));
-        applyTheme(theme, {dark: isDark, target: document.documentElement});
+        applyTheme(theme, { dark: isDark, target: document.documentElement });
 
         const scheme = theme.schemes.dark;
         const root = document.documentElement;
 
         const surface = hexFromArgb(scheme.surface);
         const surfaceContainer = scheme.surfaceContainer ? hexFromArgb(scheme.surfaceContainer) : surface;
-        const primary = hexFromArgb(scheme.primary);
-        const onSurface = hexFromArgb(scheme.onSurface);
-        const outline = hexFromArgb(scheme.outline);
+
+        for (const [key, value] of Object.entries(scheme.toJSON())) {
+            const token = key.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
+            root.style.setProperty(`--md-sys-color-${token}`, argbToHex(value));
+        }
 
         root.style.setProperty('--md-sys-color-surface-rgb', hexToRgb(surface));
         root.style.setProperty('--md-sys-color-surface-container-rgb', hexToRgb(surfaceContainer));
-        root.style.setProperty('--md-sys-color-primary-rgb', hexToRgb(primary));
-        root.style.setProperty('--md-sys-color-on-surface-rgb', hexToRgb(onSurface));
-        root.style.setProperty('--md-sys-color-outline-rgb', hexToRgb(outline));
+        root.style.setProperty('--md-sys-color-primary-rgb', hexToRgb(hexFromArgb(scheme.primary)));
+        root.style.setProperty('--md-sys-color-on-surface-rgb', hexToRgb(hexFromArgb(scheme.onSurface)));
+        root.style.setProperty('--md-sys-color-outline-rgb', hexToRgb(hexFromArgb(scheme.outline)));
 
     } catch (error) {
-        console.error(error);
+        console.error("Theme update failed", error);
     }
 }
 
@@ -91,24 +90,18 @@ export function applyMaterialTheme(hexColor, isDark = true) {
             const token = key.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
             root.style.setProperty(`--md-sys-color-${token}`, argbToHex(value));
         }
-
-        const surface = hexFromArgb(scheme.surface);
-        const surfaceContainer = scheme.surfaceContainer ? hexFromArgb(scheme.surfaceContainer) : surface;
-        const primary = hexFromArgb(scheme.primary);
-
-        root.style.setProperty('--md-sys-color-surface-rgb', hexToRgb(surface));
-        root.style.setProperty('--md-sys-color-surface-container-rgb', hexToRgb(surfaceContainer));
-        root.style.setProperty('--md-sys-color-primary-rgb', hexToRgb(primary));
-
-    } catch (error) {
-        console.error("Failed to generate theme", error);
+    } catch (e) {
+        console.error(e);
     }
 }
 
 export function setThemeColor(color) {
-    localStorage.setItem(getStorageKey(), color);
-    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    applyMaterialTheme(color, isDark);
+    localStorage.setItem(GLOBAL_THEME_KEY, color);
+    updateTheme();
+}
+
+export function resetTheme() {
+    localStorage.removeItem(GLOBAL_THEME_KEY);
     updateTheme();
 }
 
