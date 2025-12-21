@@ -1,12 +1,17 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
 import FooterControls from './FooterControls';
+import pkg from '../../../package.json';
 
 export default function Footer({ t }) {
     const { content } = useLanguage();
-
     const footerStrings = t || content?.footer || {};
     const contactStrings = content?.contact || {};
+
+    const startYear = 2025;
+    const currentYear = new Date().getFullYear();
+    const displayYear = currentYear > startYear ? `${startYear} - ${currentYear}` : startYear;
 
     const socialLinks = [
         { key: 'github', icon: 'code', url: 'https://github.com/fertwbr', label: contactStrings.github },
@@ -24,8 +29,7 @@ export default function Footer({ t }) {
             <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '40px' }}>
 
                 <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                    display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
                     gap: '40px', alignItems: 'start'
                 }}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -60,9 +64,32 @@ export default function Footer({ t }) {
                 <div style={{ width: '100%', height: '1px', background: 'var(--md-sys-color-outline-variant)', opacity: 0.3 }}></div>
 
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <p style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: '0.9rem', textAlign: 'center' }}>
-                        &copy; {new Date().getFullYear()} {footerStrings.built}
-                    </p>
+                    <div style={{
+                        color: 'var(--md-sys-color-on-surface-variant)',
+                        fontSize: '0.9rem',
+                        textAlign: 'center',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        flexWrap: 'wrap',
+                        justifyContent: 'center'
+                    }}>
+                        <span>&copy; {displayYear} {footerStrings.built}</span>
+                        <span style={{ opacity: 0.5 }}>•</span>
+                        <Link
+                            to="/site?page=changelog"
+                            style={{
+                                color: 'inherit',
+                                textDecoration: 'none',
+                                fontFamily: 'monospace',
+                                opacity: 0.8
+                            }}
+                            onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
+                            onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
+                        >
+                            v{pkg.version}
+                        </Link>
+                    </div>
                 </div>
             </div>
         </footer>

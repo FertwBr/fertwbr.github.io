@@ -1,12 +1,18 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
 import FooterControls from './FooterControls';
+import pkg from '../../../package.json';
 
 export default function AppFooter({ strings, onNavigate, activePage }) {
     const { content } = useLanguage();
 
     const t = strings || {};
     const globalFooter = content?.footer || {};
+
+    const startYear = 2025;
+    const currentYear = new Date().getFullYear();
+    const displayYear = currentYear > startYear ? `${startYear} - ${currentYear}` : startYear;
 
     const usefulLinks = [
         { key: 'changelog', icon: 'update' },
@@ -26,8 +32,7 @@ export default function AppFooter({ strings, onNavigate, activePage }) {
             <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '40px' }}>
 
                 <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                    display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
                     gap: '40px', alignItems: 'start'
                 }}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
@@ -72,9 +77,28 @@ export default function AppFooter({ strings, onNavigate, activePage }) {
                         <p style={{ color: 'var(--md-sys-color-on-surface)', fontSize: '0.9rem', margin: 0, fontWeight: 500 }}>
                             {t.footer?.rights}
                         </p>
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: '0.8rem', margin: 0 }}>
-                            &copy; {new Date().getFullYear()} Fernando Vaz
-                        </p>
+
+                        <div style={{
+                            display: 'flex', alignItems: 'center', gap: '8px',
+                            color: 'var(--md-sys-color-on-surface-variant)', fontSize: '0.8rem'
+                        }}>
+                            <span>&copy; {displayYear} Fernando Vaz</span>
+                            <span style={{ opacity: 0.5 }}>•</span>
+                            <Link
+                                to="/site?page=changelog"
+                                title="Portfolio Changelog"
+                                style={{
+                                    color: 'inherit',
+                                    textDecoration: 'none',
+                                    fontFamily: 'monospace',
+                                    opacity: 0.8
+                                }}
+                                onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
+                                onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
+                            >
+                                v{pkg.version}
+                            </Link>
+                        </div>
                     </div>
 
                     <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
