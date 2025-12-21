@@ -4,7 +4,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import FooterControls from './FooterControls';
 import pkg from '../../../package.json';
 
-export default function AppFooter({ strings, onNavigate, activePage }) {
+export default function AppFooter({ strings, onNavigate, activePage, isPortfolio = false }) {
     const { content } = useLanguage();
 
     const t = strings || {};
@@ -14,14 +14,17 @@ export default function AppFooter({ strings, onNavigate, activePage }) {
     const currentYear = new Date().getFullYear();
     const displayYear = currentYear > startYear ? `${startYear} - ${currentYear}` : startYear;
 
-    const usefulLinks = [
+    const allLinks = [
+        { key: 'overview', icon: 'description' },
         { key: 'changelog', icon: 'update' },
         { key: 'roadmap', icon: 'map' },
         { key: 'privacy', icon: 'security' },
-        { key: 'help', icon: 'help_center' },
-        { key: 'overview', icon: 'description' }
+        { key: 'help', icon: 'help_center' }
     ];
 
+    const visibleLinks = isPortfolio
+        ? allLinks.filter(link => ['overview', 'changelog'].includes(link.key))
+        : allLinks;
     return (
         <footer style={{
             background: 'var(--md-sys-color-surface-container)',
@@ -32,7 +35,8 @@ export default function AppFooter({ strings, onNavigate, activePage }) {
             <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '40px' }}>
 
                 <div style={{
-                    display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
                     gap: '40px', alignItems: 'start'
                 }}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
@@ -43,7 +47,7 @@ export default function AppFooter({ strings, onNavigate, activePage }) {
                             {t.footer?.links || globalFooter.useful_links}
                         </h3>
                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-                            {usefulLinks.map(link => {
+                            {visibleLinks.map(link => {
                                 const isSelected = activePage === link.key;
                                 return (
                                     <button
@@ -58,7 +62,7 @@ export default function AppFooter({ strings, onNavigate, activePage }) {
                                         }}
                                     >
                                         <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>{link.icon}</span>
-                                        {t.nav?.[link.key] || link.key}
+                                        {t.nav?.[link.key] || t[link.key] || link.key}
                                     </button>
                                 );
                             })}
@@ -88,10 +92,8 @@ export default function AppFooter({ strings, onNavigate, activePage }) {
                                 to="/site?page=changelog"
                                 title="Portfolio Changelog"
                                 style={{
-                                    color: 'inherit',
-                                    textDecoration: 'none',
-                                    fontFamily: 'monospace',
-                                    opacity: 0.8
+                                    color: 'inherit', textDecoration: 'none',
+                                    fontFamily: 'monospace', opacity: 0.8
                                 }}
                                 onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
                                 onMouseLeave={(e) => e.target.style.textDecoration = 'none'}

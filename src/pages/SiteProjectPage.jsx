@@ -147,7 +147,7 @@ export default function SiteProjectPage() {
                 </AnimatePresence>
             </main>
 
-            <AppFooter strings={t} onNavigate={handleNavigation} activePage={activeTab}/>
+            <AppFooter strings={t} onNavigate={handleNavigation} activePage={activeTab} isPortfolio={true}/>
         </div>
     );
 }
