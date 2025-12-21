@@ -253,6 +253,19 @@ contact: {
         subtitle: "Schalten Sie Auto-Monitoring frei und helfen Sie uns, neue Features zu bauen.",
         cta: "Pixel Pulse+ holen"
       },
+      beta_program: {
+        title: "Beta-Programm beitreten",
+        subtitle: "Testen Sie neue Funktionen vor der offiziellen Veröffentlichung.",
+        cta: "Am Beta-Programm teilnehmen",
+        badge: "Vorabzugang"
+      },
+      wear_os_promo: {
+        title: "Wear OS-Erlebnis",
+        subtitle_available: "Navigieren Sie direkt von Ihrem Handgelenk. Nahtlose Integration.",
+        subtitle_coming: "Erscheint im 1. Quartal 2026 für Ihre Smartwatch.",
+        cta: "Auf der Uhr anzeigen",
+        badge: "Begleiter"
+      }
     },
     privacy_page: {
       page_title: "Datenschutzerklärung",
@@ -412,6 +425,19 @@ contact: {
         subtitle: "Schalten Sie Widgets und Anpassungen frei und helfen Sie uns, neue Features zu bauen.",
         cta: "Pixel Compass+ holen"
       },
+      beta_program: {
+        title: "Beta-Programm beitreten",
+        subtitle: "Testen Sie neue Funktionen vor der offiziellen Veröffentlichung.",
+        cta: "Am Beta-Programm teilnehmen",
+        badge: "Vorabzugang"
+      },
+      wear_os_promo: {
+        title: "Wear OS-Erlebnis",
+        subtitle_available: "Navigieren Sie direkt von Ihrem Handgelenk. Nahtlose Integration.",
+        subtitle_coming: "Erscheint im 1. Quartal 2026 für Ihre Smartwatch.",
+        cta: "Auf der Uhr anzeigen",
+        badge: "Begleiter"
+      }
     },
     roadmap_page: {
       title: "Produkt-Roadmap",

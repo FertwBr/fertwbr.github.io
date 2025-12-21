@@ -253,6 +253,19 @@ export default {
         subtitle: "自動モニタリングをアンロックし、新機能の開発をご支援ください。",
         cta: "Pixel Pulse+を入手"
       },
+      beta_program: {
+        title: "ベータ版に参加",
+        subtitle: "公開前に新機能をテストしましょう。",
+        cta: "ベータプログラムに参加",
+        badge: "早期アクセス"
+      },
+      wear_os_promo: {
+        title: "Wear OS エクスペリエンス",
+        subtitle_available: "手首から直接ナビゲート。シームレスな統合。",
+        subtitle_coming: "2026年第1四半期に登場予定。",
+        cta: "ウォッチで表示",
+        badge: "コンパニオン"
+      }
     },
     privacy_page: {
       page_title: "プライバシーポリシー",
@@ -412,6 +425,19 @@ export default {
         subtitle: "ウィジェットとカスタマイズをアンロックし、新機能の開発をご支援ください。",
         cta: "Pixel Compass+を入手"
       },
+      beta_program: {
+        title: "ベータ版に参加",
+        subtitle: "公開前に新機能をテストしましょう。",
+        cta: "ベータプログラムに参加",
+        badge: "早期アクセス"
+      },
+      wear_os_promo: {
+        title: "Wear OS エクスペリエンス",
+        subtitle_available: "手首から直接ナビゲート。シームレスな統合。",
+        subtitle_coming: "2026年第1四半期に登場予定。",
+        cta: "ウォッチで表示",
+        badge: "コンパニオン"
+      }
     },
     roadmap_page: {
       title: "製品ロードマップ",

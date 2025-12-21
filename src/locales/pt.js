@@ -253,6 +253,19 @@ export default {
         subtitle: "Desbloqueie o monitoramento automático e nos ajude a construir novos recursos.",
         cta: "Obter Pixel Pulse+"
       },
+      beta_program: {
+        title: "Participe da Beta",
+        subtitle: "Teste novos recursos antes que sejam lançados publicamente.",
+        cta: "Participar do Programa Beta",
+        badge: "Acesso Antecipado"
+      },
+      wear_os_promo: {
+        title: "Experiência Wear OS",
+        subtitle_available: "Navegue diretamente do seu pulso. Integração perfeita.",
+        subtitle_coming: "Chegando ao seu pulso no 1º trimestre de 2026.",
+        cta: "Ver no Relógio",
+        badge: "Complemento"
+      }
     },
     privacy_page: {
       page_title: "Política de Privacidade",
@@ -412,6 +425,19 @@ export default {
         subtitle: "Desbloqueie widgets, personalização e nos ajude a construir novos recursos.",
         cta: "Obter Pixel Compass+"
       },
+      beta_program: {
+        title: "Participe da Beta",
+        subtitle: "Teste novos recursos antes que sejam lançados publicamente.",
+        cta: "Participar do Programa Beta",
+        badge: "Acesso Antecipado"
+      },
+      wear_os_promo: {
+        title: "Experiência Wear OS",
+        subtitle_available: "Navegue diretamente do seu pulso. Integração perfeita.",
+        subtitle_coming: "Chegando ao seu pulso no 1º trimestre de 2026.",
+        cta: "Ver no Relógio",
+        badge: "Complemento"
+      }
     },
     roadmap_page: {
       title: "Roadmap do Produto",

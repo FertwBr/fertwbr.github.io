@@ -253,6 +253,19 @@ footer: {
         subtitle: "Unlock auto-monitoring and help us build new features.",
         cta: "Get Pixel Pulse+"
       },
+      beta_program: {
+        title: "Join the Beta",
+        subtitle: "Test new features before they are released publically.",
+        cta: "Join Beta Program",
+        badge: "Early Access"
+      },
+      wear_os_promo: {
+        title: "Wear OS Experience",
+        subtitle_available: "Navigate directly from your wrist. Seamless integration.",
+        subtitle_coming: "Coming to your wrist in Q1 2026.",
+        cta: "View on Watch",
+        badge: "Companion"
+      }
     },
     privacy_page: {
       page_title: "Privacy Policy",
@@ -412,6 +425,19 @@ footer: {
           subtitle: "Unlock widgets, customization and help us build new features.",
           cta: "Get Pixel Compass+"
         },
+        beta_program: {
+          title: "Join the Beta",
+          subtitle: "Test new features before they are released publically.",
+          cta: "Join Beta Program",
+          badge: "Early Access"
+        },
+        wear_os_promo: {
+          title: "Wear OS Experience",
+          subtitle_available: "Navigate directly from your wrist. Seamless integration.",
+          subtitle_coming: "Coming to your wrist in Q1 2026.",
+          cta: "View on Watch",
+          badge: "Companion"
+        }
       },
       roadmap_page: {
         title: "Product Roadmap",
