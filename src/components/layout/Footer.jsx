@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { getThemeOptions, setThemeColor } from '../../utils/themeUtils';
+import { getThemeOptions, setThemeColor } from '../../theme/themeUtils';
 import { useLanguage } from '../../context/LanguageContext';
 
 const LANGUAGE_LABELS = {

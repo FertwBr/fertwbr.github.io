@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { usePageMetadata } from '../hooks/usePageMetadata';
-import { getSurfaceColor } from '../utils/themeUtils';
+import { getSurfaceColor } from '../theme/themeUtils';
 import { useLanguage } from '../context/LanguageContext';
 import { config } from '../config';
 
