@@ -1,45 +1,46 @@
 import React from 'react';
-import { pixelPulseConfig } from './PixelPulseConfig';
+import {pixelPulseConfig} from './PixelPulseConfig';
 import HomeHero from '../../components/sections/HomeHero';
 import HomeNewFeatures from '../../components/sections/HomeNewFeatures';
 import HomeFeaturesGrid from '../../components/sections/HomeFeaturesGrid';
 import HomePlusTeaser from '../../components/sections/HomePlusTeaser';
 import HomePrivacy from '../../components/sections/HomePrivacy';
 
-export default function PixelPulseHome({ onNavigate, strings }) {
-  return (
-    <div style={{ width: '100%', overflowX: 'hidden', boxSizing: 'border-box' }}>
-      
-      <HomeHero 
-        appConfig={pixelPulseConfig} 
-        strings={strings.hero} 
-        onNavigate={onNavigate} 
-      />
+export default function PixelPulseHome({onNavigate, strings}) {
+    return (
+        <div style={{width: '100%', overflowX: 'hidden', boxSizing: 'border-box'}}>
 
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px', boxSizing: 'border-box' }}>
-        
-        <HomeNewFeatures 
-          appConfig={pixelPulseConfig}
-          strings={strings.new_features}
-          onNavigate={onNavigate}
-        />
+            <HomeHero
+                appConfig={pixelPulseConfig}
+                strings={strings.hero}
+                onNavigate={onNavigate}
+            />
 
-        <HomeFeaturesGrid 
-          strings={strings.features}
-          onNavigate={onNavigate}
-        />
+            <div style={{maxWidth: '1200px', margin: '0 auto', padding: '0 20px', boxSizing: 'border-box'}}>
 
-        <HomePlusTeaser 
-          strings={strings.plus}
-          onNavigate={onNavigate}
-        />
+                <HomeNewFeatures
+                    appConfig={pixelPulseConfig}
+                    strings={strings.new_features}
+                    onNavigate={onNavigate}
+                />
 
-        <HomePrivacy 
-          strings={strings.privacy_section}
-          onNavigate={onNavigate}
-        />
+                <HomeFeaturesGrid
+                    strings={strings.features}
+                    onNavigate={onNavigate}
+                />
 
-      </div>
-    </div>
-  );
+                <HomePlusTeaser
+                    appConfig={pixelPulseConfig}
+                    strings={strings.plus_teaser}
+                    onNavigate={onNavigate}
+                />
+
+                <HomePrivacy
+                    strings={strings.privacy_section}
+                    onNavigate={onNavigate}
+                />
+
+            </div>
+        </div>
+    );
 }
