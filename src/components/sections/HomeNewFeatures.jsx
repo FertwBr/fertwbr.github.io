@@ -27,7 +27,6 @@ export default function HomeNewFeatures({ appConfig, strings, onNavigate }) {
     
     const fetchChangelog = async () => {
       try {
-        // Carrega o arquivo changelog.md definido na config do app
         const markdown = await loadPageContent('changelog', appConfig);
         if (!markdown || !isMounted) return;
 
@@ -39,25 +38,23 @@ export default function HomeNewFeatures({ appConfig, strings, onNavigate }) {
           const features = [];
           
           for (const line of lines) {
-            // Regex para capturar: * **Titulo**: Descrição
             const match = line.trim().match(/^\*\s*\*\*(.*?)\*\*\s*(.*)$/);
             
             if (match) {
               let title = match[1].replace(':', '').trim();
               let desc = match[2].trim();
               
-              // Remove prefixos comuns do changelog para ficar mais limpo no card
               if (title.toLowerCase().startsWith('new:')) title = title.substring(4).trim();
               if (title.toLowerCase().startsWith('fix:')) title = title.substring(4).trim();
               if (title.toLowerCase().startsWith('improvement:')) title = title.substring(12).trim();
 
               features.push({
                 title,
-                desc, // Mantemos o markdown original aqui para renderizar depois
+                desc,
                 icon: getIconForText(title + ' ' + desc)
               });
             }
-            if (features.length >= 4) break; // Pega apenas os 4 primeiros itens
+            if (features.length >= 4) break;
           }
 
           setLatestUpdate({
@@ -74,7 +71,6 @@ export default function HomeNewFeatures({ appConfig, strings, onNavigate }) {
     return () => { isMounted = false; };
   }, [appConfig]);
 
-  // Fallback para strings estáticas se não carregar o MD
   const displayFeatures = latestUpdate ? latestUpdate.features : (strings.items || []);
   const versionLabel = latestUpdate ? `New in ${latestUpdate.version}` : strings.label;
 
