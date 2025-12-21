@@ -12,8 +12,22 @@ import PageBackground from '../components/layout/PageBackground';
 import PageTransition from '../components/layout/PageTransition';
 
 const SITE_MAP = [
-  { keywords: ['pulse', 'sound', 'meter', 'decibel', 'audio'], path: '/pixelpulse', name: 'Pixel Pulse' },
+  // --- Pixel Pulse ---
+  { keywords: ['pixelpulse/changelog', 'pulse/changelog'], path: '/pixelpulse?page=changelog', name: 'Pixel Pulse Updates' },
+  { keywords: ['pixelpulse/privacy', 'pulse/privacy'], path: '/pixelpulse?page=privacy', name: 'Pixel Pulse Privacy' },
+  { keywords: ['pixelpulse/help', 'pulse/help'], path: '/pixelpulse?page=help', name: 'Pulse Help Center' },
+  { keywords: ['pulse', 'sound', 'meter', 'decibel'], path: '/pixelpulse', name: 'Pixel Pulse' },
+
+  // --- Pixel Compass ---
+  { keywords: ['pixelcompass/changelog', 'compass/changelog'], path: '/pixelcompass?page=changelog', name: 'Compass Updates' },
   { keywords: ['compass', 'gps', 'north', 'sensor'], path: '/pixelcompass', name: 'Pixel Compass' },
+
+  // --- Portfolio Site ---
+  { keywords: ['site/changelog', 'portfolio/update'], path: '/site?page=changelog', name: 'Portfolio Changelog' },
+  { keywords: ['site/overview', 'site/docs', 'architecture'], path: '/site?page=overview', name: 'Technical Overview' },
+  { keywords: ['site'], path: '/site?page=overview', name: 'Portfolio Docs' },
+
+  // --- Fallbacks ---
   { keywords: ['privacy', 'policy', 'legal'], path: '/pixelpulse?page=privacy', name: 'Privacy Policy' },
   { keywords: ['help', 'faq', 'support'], path: '/pixelpulse?page=help', name: 'Help Center' },
   { keywords: ['change', 'log', 'update', 'version'], path: '/pixelpulse?page=changelog', name: 'Version History' },
