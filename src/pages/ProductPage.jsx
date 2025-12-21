@@ -90,13 +90,13 @@ export default function ProductPage({config, HomeComponent, translationKey}) {
     const renderContent = () => {
         if (isLoading) {
             return (
-                <div style={{height: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                <div style={{flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '50vh'}}>
                     <LoadingSpinner size={64}/>
                 </div>
             );
         }
         if (!markdownContent && activeTab !== 'index') {
-            return <div style={{height: '60vh'}}></div>;
+            return <div style={{height: '60vh', flex: 1}}></div>;
         }
 
         const commonProps = {
@@ -108,25 +108,21 @@ export default function ProductPage({config, HomeComponent, translationKey}) {
         };
 
         switch (activeTab) {
-            case 'changelog':
-                return <ChangelogViewer {...commonProps} />;
-            case 'privacy':
-                return <PrivacyViewer {...commonProps} />;
-            case 'help':
-                return <HelpViewer {...commonProps} />;
-            case 'roadmap':
-                return <RoadmapViewer {...commonProps} />;
-            case 'overview':
-                return <OverviewViewer {...commonProps} />;
-            case 'plus':
-                return <PlusViewer {...commonProps} />;
+            case 'changelog': return <ChangelogViewer {...commonProps} />;
+            case 'privacy': return <PrivacyViewer {...commonProps} />;
+            case 'help': return <HelpViewer {...commonProps} />;
+            case 'roadmap': return <RoadmapViewer {...commonProps} />;
+            case 'overview': return <OverviewViewer {...commonProps} />;
+            case 'plus': return <PlusViewer {...commonProps} />;
             default:
                 return (
                     <div style={{
                         maxWidth: '800px',
                         margin: '0 auto',
-                        padding: '0 20px 60px 20px',
-                        boxSizing: 'border-box'
+                        paddingBottom: '60px',
+                        width: '100%',
+                        boxSizing: 'border-box',
+                        flex: 1
                     }}>
                         <div className="glass-card" style={{padding: 'clamp(24px, 5vw, 40px)', borderRadius: '24px'}}>
                             <div className="markdown-body">
@@ -139,13 +135,7 @@ export default function ProductPage({config, HomeComponent, translationKey}) {
     };
 
     return (
-        <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            minHeight: '100vh',
-            width: '100%',
-            position: 'relative'
-        }}>
+        <div className="page-wrapper">
             <PageBackground/>
 
             <AppNavbar
@@ -164,13 +154,16 @@ export default function ProductPage({config, HomeComponent, translationKey}) {
             }}>
                 <AnimatePresence mode="wait">
                     <PageTransition key={activeTab}>
-                        <div style={{
-                            maxWidth: ['changelog', 'privacy', 'help', 'roadmap', 'overview'].includes(activeTab) ? '1600px' : '100%',
-                            margin: '0 auto',
-                            padding: 'clamp(80px, 12vh, 120px) 16px 0 16px',
+                        <div className="app-page-padding" style={{
                             width: '100%',
                             boxSizing: 'border-box',
-                            flex: 1
+                            display: 'flex',
+                            flexDirection: 'column',
+                            flex: 1,
+                            paddingLeft: '16px',
+                            paddingRight: '16px',
+                            maxWidth: ['changelog', 'privacy', 'help', 'roadmap', 'overview'].includes(activeTab) ? '1600px' : '100%',
+                            margin: '0 auto'
                         }}>
                             {activeTab === 'index' ? (
                                 <HomeComponent onNavigate={handleNavigation} strings={t}/>

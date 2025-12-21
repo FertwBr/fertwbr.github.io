@@ -41,31 +41,38 @@ export default function PortfolioHome() {
     return (
         <PageTransition>
             <PageBackground/>
-            <main>
-                <Hero t={content.hero}/>
-                <About t={content.about}/>
-                <Projects t={content.projects}/>
-                <TechStack t={content.tech}/>
-                <GitHubStats t={content.github}/>
+            <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                minHeight: '100dvh',
+                width: '100%'
+            }}>
+                <main style={{ flex: 1, width: '100%' }}>
+                    <Hero t={content.hero}/>
+                    <About t={content.about}/>
+                    <Projects t={content.projects}/>
+                    <TechStack t={content.tech}/>
+                    <GitHubStats t={content.github}/>
 
-                <section style={{textAlign: 'center', padding: '100px 24px', maxWidth: '800px', margin: '0 auto'}}>
-                    <h2 style={{fontSize: 'clamp(2rem, 4vw, 3rem)', marginBottom: '32px'}}>{content.contact.title}</h2>
-                    <p style={{
-                        fontSize: '1.2rem',
-                        color: 'var(--md-sys-color-on-surface-variant)',
-                        marginBottom: '48px'
-                    }}>
-                        {content.contact.desc}
-                    </p>
-                    <div style={{display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap'}}>
-                        <a href="mailto:fertwbr@gmail.com" className="btn-glow">{content.contact.email}</a>
-                        <a href="https://linkedin.com/in/fernando-bela" target="_blank" rel="noreferrer"
-                           className="btn-outline">{content.contact.linkedin}</a>
-                    </div>
-                </section>
+                    <section style={{textAlign: 'center', padding: '100px 24px', maxWidth: '800px', margin: '0 auto'}}>
+                        <h2 style={{fontSize: 'clamp(2rem, 4vw, 3rem)', marginBottom: '32px'}}>{content.contact.title}</h2>
+                        <p style={{
+                            fontSize: '1.2rem',
+                            color: 'var(--md-sys-color-on-surface-variant)',
+                            marginBottom: '48px'
+                        }}>
+                            {content.contact.desc}
+                        </p>
+                        <div style={{display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap'}}>
+                            <a href="mailto:fertwbr@gmail.com" className="btn-glow">{content.contact.email}</a>
+                            <a href="https://linkedin.com/in/fernando-bela" target="_blank" rel="noreferrer"
+                               className="btn-outline">{content.contact.linkedin}</a>
+                        </div>
+                    </section>
+                </main>
 
                 <Footer t={content.footer}/>
-            </main>
+            </div>
         </PageTransition>
     );
 }
