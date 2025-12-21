@@ -122,7 +122,9 @@ export default function ProductPage({config, HomeComponent, translationKey}) {
                         paddingBottom: '60px',
                         width: '100%',
                         boxSizing: 'border-box',
-                        flex: 1
+                        flex: 1,
+                        paddingLeft: '20px',
+                        paddingRight: '20px'
                     }}>
                         <div className="glass-card" style={{padding: 'clamp(24px, 5vw, 40px)', borderRadius: '24px'}}>
                             <div className="markdown-body">
@@ -133,6 +135,8 @@ export default function ProductPage({config, HomeComponent, translationKey}) {
                 );
         }
     };
+
+    const isHome = activeTab === 'index';
 
     return (
         <div className="page-wrapper">
@@ -145,27 +149,21 @@ export default function ProductPage({config, HomeComponent, translationKey}) {
                 strings={t.nav}
             />
 
-            <main style={{
-                flex: 1,
-                width: '100%',
-                position: 'relative',
-                display: 'flex',
-                flexDirection: 'column'
-            }}>
+            <main className="page-content-wrapper">
                 <AnimatePresence mode="wait">
                     <PageTransition key={activeTab}>
-                        <div className="app-page-padding" style={{
+                        <div className={!isHome ? "page-content-padding" : ""} style={{
                             width: '100%',
                             boxSizing: 'border-box',
                             display: 'flex',
                             flexDirection: 'column',
                             flex: 1,
-                            paddingLeft: '16px',
-                            paddingRight: '16px',
-                            maxWidth: ['changelog', 'privacy', 'help', 'roadmap', 'overview'].includes(activeTab) ? '1600px' : '100%',
-                            margin: '0 auto'
+                            maxWidth: ['changelog', 'privacy', 'help', 'roadmap', 'overview', 'plus'].includes(activeTab) ? '1600px' : '100%',
+                            margin: '0 auto',
+                            paddingLeft: isHome ? '0' : '16px',
+                            paddingRight: isHome ? '0' : '16px'
                         }}>
-                            {activeTab === 'index' ? (
+                            {isHome ? (
                                 <HomeComponent onNavigate={handleNavigation} strings={t}/>
                             ) : renderContent()}
                         </div>
