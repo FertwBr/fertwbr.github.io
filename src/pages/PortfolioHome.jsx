@@ -47,15 +47,22 @@ export default function PortfolioHome() {
                 minHeight: '100dvh',
                 width: '100%'
             }}>
-                <main style={{ flex: 1, width: '100%' }}>
+                <main style={{flex: 1, width: '100%'}}>
                     <Hero t={content.hero}/>
                     <About t={content.about}/>
-                    <Projects t={content.projects}/>
+
+                    <div id="projects-section">
+                        <Projects t={content.projects}/>
+                    </div>
+
                     <TechStack t={content.tech}/>
                     <GitHubStats t={content.github}/>
 
                     <section style={{textAlign: 'center', padding: '100px 24px', maxWidth: '800px', margin: '0 auto'}}>
-                        <h2 style={{fontSize: 'clamp(2rem, 4vw, 3rem)', marginBottom: '32px'}}>{content.contact.title}</h2>
+                        <h2 style={{
+                            fontSize: 'clamp(2rem, 4vw, 3rem)',
+                            marginBottom: '32px'
+                        }}>{content.contact.title}</h2>
                         <p style={{
                             fontSize: '1.2rem',
                             color: 'var(--md-sys-color-on-surface-variant)',
