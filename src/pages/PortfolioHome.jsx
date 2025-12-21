@@ -13,6 +13,18 @@ import TechStack from '../components/sections/TechStack';
 import GitHubStats from '../components/sections/GitHubStats';
 import Footer from '../components/layout/Footer';
 
+/**
+ * PortfolioHome component
+ *
+ * Main entry page for the portfolio. Responsibilities:
+ * - Retrieves localized content via `useLanguage`.
+ * - Cleans `color` query parameter from the URL on mount.
+ * - Selects and applies a Material seed color theme (`applyMaterialTheme`).
+ * - Computes surface color and supplies metadata via `usePageMetadata`.
+ * - Renders page layout and sections: Hero, About, Projects, GitHubStats, Contact callout, TechStack, Footer.
+ *
+ * Returns: JSX.Element
+ */
 export default function PortfolioHome() {
     const {content} = useLanguage();
     const location = useLocation();
@@ -22,7 +34,8 @@ export default function PortfolioHome() {
     useEffect(() => {
         const params = new URLSearchParams(location.search);
         if (params.has('color')) {
-            window.history.replaceState({}, '', window.location.pathname);
+            const newUrl = window.location.pathname + window.location.hash;
+            window.history.replaceState({}, '', newUrl);
         }
     }, [location.search]);
 
@@ -76,7 +89,6 @@ export default function PortfolioHome() {
                             border: '1px solid rgba(255,255,255,0.1)',
                             boxShadow: '0 20px 60px rgba(0,0,0,0.1)'
                         }}>
-                            {/* Círculos decorativos de fundo */}
                             <div style={{
                                 position: 'absolute', top: '-20%', left: '-10%',
                                 width: '400px', height: '400px', borderRadius: '50%',

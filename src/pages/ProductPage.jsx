@@ -9,6 +9,7 @@ import {useLanguage} from '../context/LanguageContext';
 import {applyMaterialTheme, getSurfaceColor, getSeedColor} from '../theme/themeUtils';
 import {usePageMetadata} from '../hooks/usePageMetadata';
 import {useMarkdownLoader} from '../hooks/useMarkdownLoader';
+import {useTabState} from '../hooks/useTabState';
 
 import AppNavbar from '../components/layout/AppNavbar';
 import AppFooter from '../components/layout/AppFooter';
@@ -23,69 +24,65 @@ import PlusViewer from "../components/viewers/PlusViewer";
 
 import PageTransition from '../components/layout/PageTransition';
 
+/**
+ * ProductPage component
+ *
+ * Renders the product documentation page, switching between viewers (overview, changelog,
+ * privacy, help, roadmap, plus) and an optional HomeComponent for the index route.
+ *
+ * Props:
+ * @param {Object} config - Application configuration (appName, faviconUrl, theme settings, etc.)
+ * @param {React.Component} HomeComponent - Component to render when the active tab is 'index'
+ * @param {string} translationKey - Key used to select localized strings from the language context
+ *
+ * Behavior / responsibilities:
+ * - Reads localized strings via useLanguage()
+ * - Tracks the active tab and navigation via useTabState(config)
+ * - Loads markdown content for tabs using useMarkdownLoader(activeTab, config)
+ * - Applies a Material theme color via applyMaterialTheme and exposes seed/surface colors
+ * - Updates page metadata (title, themeColor, favicon) via usePageMetadata()
+ * - Smooth-scrolls to an element when the URL contains a hash
+ * - Renders appropriate viewer components or the provided HomeComponent
+ *
+ * Returns: JSX element containing the page background, navbar, main content (with transitions),
+ * and footer.
+ */
 export default function ProductPage({config, HomeComponent, translationKey}) {
-    const location = useLocation();
     const {content} = useLanguage();
     const t = content[translationKey];
+    const location = useLocation();
 
-    const [activeTab, setActiveTab] = useState(() => {
-        const params = new URLSearchParams(location.search);
-        return params.get('page') && config.pages[params.get('page')]
-            ? params.get('page')
-            : config.defaultPage;
-    });
+    const { activeTab, handleNavigation } = useTabState(config);
 
     const [activeColor] = useState(() => getSeedColor());
-
     const {markdownContent, isLoading} = useMarkdownLoader(activeTab, config);
 
     useEffect(() => {
-        const params = new URLSearchParams(location.search);
-        if (params.has('page') || params.has('color') || location.hash) {
+        if (location.hash) {
             const targetHash = location.hash;
-            window.history.replaceState({}, '', window.location.pathname);
+            window.history.replaceState({}, '', window.location.pathname + window.location.search);
 
-            if (targetHash) {
-                setTimeout(() => {
-                    const id = targetHash.replace('#', '');
-                    const element = document.getElementById(id);
-                    if (element) {
-                        element.scrollIntoView({behavior: 'smooth', block: 'start'});
-                    }
-                }, 500);
-            }
+            setTimeout(() => {
+                const id = targetHash.replace('#', '');
+                const element = document.getElementById(id);
+                if (element) {
+                    element.scrollIntoView({behavior: 'smooth', block: 'start'});
+                }
+            }, 500);
         }
-    }, [location.hash, location.search]);
+    }, [location.hash]);
 
     const surfaceColor = getSurfaceColor(activeColor, true);
 
     usePageMetadata({
         title: `${config.appName} - ${activeTab === 'index' ? 'Home' : activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}`,
         themeColor: surfaceColor,
-        favicon: config.faviconUrl || `https://raw.githubusercontent.com/FertwBr/PixelAssets/main/${config.appName === 'Pixel Pulse' ? 'Pulse' : 'Compass'}/art/favicon/favicon.ico`
+        favicon: config.faviconUrl
     });
 
     useEffect(() => {
         applyMaterialTheme(activeColor, true);
     }, [activeColor]);
-
-    useEffect(() => {
-        if (location.hash && !isLoading && markdownContent) {
-            setTimeout(() => {
-                const id = location.hash.replace('#', '');
-                const element = document.getElementById(id);
-                if (element) {
-                    element.scrollIntoView({behavior: 'smooth', block: 'start'});
-                    window.history.replaceState({}, '', window.location.pathname);
-                }
-            }, 300);
-        }
-    }, [location.hash, isLoading, markdownContent]);
-
-    const handleNavigation = (pageId) => {
-        setActiveTab(pageId);
-        window.scrollTo({top: 0, behavior: 'smooth'});
-    };
 
     const renderContent = () => {
         if (isLoading) {

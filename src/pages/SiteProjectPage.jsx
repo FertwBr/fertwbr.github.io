@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import {useNavigate, useLocation} from 'react-router-dom';
 import {AnimatePresence} from 'framer-motion';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 
@@ -8,6 +7,7 @@ import {applyMaterialTheme, getSurfaceColor} from '../theme/themeUtils';
 import {usePageMetadata} from '../hooks/usePageMetadata';
 import {useMarkdownLoader} from '../hooks/useMarkdownLoader';
 import {siteProjectConfig} from '../config';
+import {useTabState} from '../hooks/useTabState';
 
 import AppNavbar from '../components/layout/AppNavbar';
 import AppFooter from '../components/layout/AppFooter';
@@ -17,22 +17,26 @@ import PageTransition from '../components/layout/PageTransition';
 import ChangelogViewer from '../components/viewers/ChangelogViewer';
 import OverviewViewer from '../components/viewers/OverviewViewer';
 
+/**
+ * SiteProjectPage component
+ *
+ * Renders the project documentation pages (overview, changelog) and overall
+ * layout (navbar, footer, background). Integrates theme, page metadata and
+ * Markdown loading hooks to provide a cohesive documentation experience.
+ *
+ * Uses:
+ *  - useLanguage: localized content
+ *  - useTabState: active tab + navigation handler
+ *  - useMarkdownLoader: fetches Markdown for the active tab
+ *  - usePageMetadata: updates document title, theme color, favicon
+ *  - applyMaterialTheme (via useEffect): applies material color theming
+ *
+ * @returns {JSX.Element} The page wrapper containing viewers and layout
+ */
 export default function SiteProjectPage() {
-    const navigate = useNavigate();
-    const location = useLocation();
     const {content} = useLanguage();
 
-    const getActivePage = () => {
-        const params = new URLSearchParams(location.search);
-        const page = params.get('page');
-        return page && siteProjectConfig.pages[page] ? page : 'overview';
-    };
-
-    const [activeTab, setActiveTab] = useState(getActivePage);
-
-    useEffect(() => {
-        setActiveTab(getActivePage());
-    }, [location.search]);
+    const { activeTab, handleNavigation } = useTabState(siteProjectConfig);
 
     const activeColor = siteProjectConfig.seedColor;
     const surfaceColor = getSurfaceColor(activeColor, true);
@@ -48,13 +52,6 @@ export default function SiteProjectPage() {
     useEffect(() => {
         applyMaterialTheme(activeColor, true);
     }, [activeColor]);
-
-    const handleNavigation = (id) => {
-        if (id === activeTab) return;
-
-        navigate(`/site?page=${id}`);
-        window.scrollTo({top: 0, behavior: 'smooth'});
-    };
 
     const t = {
         nav: {
