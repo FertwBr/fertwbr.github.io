@@ -47,48 +47,44 @@ export default function PageTableOfContents({title, children, isMobile}) {
     }
 
     return (
-        <aside style={{
-            width: '300px',
-            position: 'sticky',
-            top: '120px',
-            height: 'fit-content',
-            maxHeight: 'calc(100vh - 140px)',
+        <div className="glass-card" style={{
+            width: '100%',
+            padding: '24px',
+            background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 100%)',
             display: 'flex',
             flexDirection: 'column',
-            gap: '24px',
-            flexShrink: 0
+            gap: '16px'
         }}>
-            <div className="glass-card" style={{
-                padding: '0',
+            <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                marginBottom: '8px'
+            }}>
+                <h4 style={{
+                    fontSize: '1rem',
+                    margin: 0,
+                    color: 'var(--md-sys-color-on-surface)',
+                    fontWeight: 600
+                }}>
+                    {title}
+                </h4>
+                <span className="material-symbols-outlined" style={{
+                    fontSize: '18px',
+                    color: 'var(--md-sys-color-on-surface-variant)'
+                }}>list</span>
+            </div>
+
+            <div style={{
                 display: 'flex',
                 flexDirection: 'column',
-                flex: 1,
-                minHeight: 0,
-                overflow: 'hidden'
+                gap: '4px',
+                maxHeight: '400px',
+                overflowY: 'auto',
+                paddingRight: '4px'
             }}>
-                <div style={{padding: '20px', borderBottom: '1px solid var(--md-sys-color-outline-variant)'}}>
-                    <h3 style={{
-                        fontSize: '0.85rem',
-                        textTransform: 'uppercase',
-                        color: 'var(--md-sys-color-on-surface-variant)',
-                        letterSpacing: '1px',
-                        fontWeight: 700,
-                        margin: 0
-                    }}>
-                        {title}
-                    </h3>
-                </div>
-                <div style={{
-                    overflowY: 'auto',
-                    padding: '8px 4px',
-                    flex: 1,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '2px'
-                }}>
-                    {children}
-                </div>
+                {children}
             </div>
-        </aside>
+        </div>
     );
 }
