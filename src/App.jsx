@@ -4,10 +4,10 @@ import {AnimatePresence} from 'framer-motion';
 
 import {LanguageProvider} from './context/LanguageContext';
 import {SmoothScrollProvider} from './context/SmoothScrollContext';
-
 import ScrollToTop from './components/common/ScrollToTop';
 import ErrorBoundary from './components/common/ErrorBoundary';
 import OfflineNotice from './components/common/OfflineNotice';
+import RouteNormalizer from './components/common/RouteNormalizer';
 
 import PortfolioHome from './pages/PortfolioHome';
 import NotFound from './pages/NotFound';
@@ -16,8 +16,16 @@ import PixelPulsePage from './pages/pixel-pulse/PixelPulsePage';
 import RedirectToStore from './pages/RedirectToStore';
 import SiteProjectPage from './pages/SiteProjectPage';
 
+import { pixelPulseConfig } from './pages/pixel-pulse/PixelPulseConfig';
+import { pixelCompassConfig } from './pages/pixel-compass/PixelCompassConfig';
+import { siteProjectConfig } from './config';
+
 function AnimatedRoutes() {
     const location = useLocation();
+
+    const siteIds = Object.keys(siteProjectConfig.pages);
+    const pulseIds = Object.keys(pixelPulseConfig.pages);
+    const compassIds = Object.keys(pixelCompassConfig.pages);
 
     return (
         <AnimatePresence mode="wait">
@@ -25,16 +33,23 @@ function AnimatedRoutes() {
                 <Route path="/" element={<PortfolioHome/>}/>
 
                 <Route path="/site" element={<SiteProjectPage/>}/>
+                <Route path="/site/:pageId" element={<RouteNormalizer basePath="/site" validIds={siteIds} />} />
 
-                <Route path="/pixelpulse" element={<PixelPulsePage/>}/>
-                <Route path="/PixelPulse" element={<PixelPulsePage/>}/>
                 <Route path="/pixelpulse/open" element={<RedirectToStore type="open" appKey="pixelpulse"/>}/>
                 <Route path="/pixelpulse/open/buy" element={<RedirectToStore type="buy" appKey="pixelpulse"/>}/>
+                <Route path="/pixelpulse" element={<PixelPulsePage/>}/>
+                <Route path="/PixelPulse" element={<PixelPulsePage/>}/>
 
-                <Route path="/pixelcompass" element={<PixelCompassPage/>}/>
-                <Route path="/PixelCompass" element={<PixelCompassPage/>}/>
+                <Route path="/pixelpulse/:pageId" element={<RouteNormalizer basePath="/pixelpulse" validIds={pulseIds} />} />
+                <Route path="/PixelPulse/:pageId" element={<RouteNormalizer basePath="/pixelpulse" validIds={pulseIds} />} />
+
                 <Route path="/pixelcompass/open" element={<RedirectToStore type="open" appKey="pixelcompass"/>}/>
                 <Route path="/pixelcompass/open/buy" element={<RedirectToStore type="buy" appKey="pixelcompass"/>}/>
+                <Route path="/pixelcompass" element={<PixelCompassPage/>}/>
+                <Route path="/PixelCompass" element={<PixelCompassPage/>}/>
+
+                <Route path="/pixelcompass/:pageId" element={<RouteNormalizer basePath="/pixelcompass" validIds={compassIds} />} />
+                <Route path="/PixelCompass/:pageId" element={<RouteNormalizer basePath="/pixelcompass" validIds={compassIds} />} />
 
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
