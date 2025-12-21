@@ -64,6 +64,11 @@ export function updateTheme() {
         const surface = hexFromArgb(scheme.surface);
         const surfaceContainer = scheme.surfaceContainer ? hexFromArgb(scheme.surfaceContainer) : surface;
 
+        const metaThemeColor = document.querySelector("meta[name=theme-color]");
+        if (metaThemeColor) {
+            metaThemeColor.setAttribute("content", surface);
+        }
+
         for (const [key, value] of Object.entries(scheme.toJSON())) {
             const token = key.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
             root.style.setProperty(`--md-sys-color-${token}`, argbToHex(value));
@@ -85,6 +90,13 @@ export function applyMaterialTheme(hexColor, isDark = true) {
         const theme = themeFromSourceColor(parseInt(hexColor.replace('#', ''), 16));
         const scheme = isDark ? theme.schemes.dark : theme.schemes.light;
         const root = document.documentElement;
+
+        const surface = hexFromArgb(scheme.surface);
+
+        const metaThemeColor = document.querySelector("meta[name=theme-color]");
+        if (metaThemeColor) {
+            metaThemeColor.setAttribute("content", surface);
+        }
 
         for (const [key, value] of Object.entries(scheme.toJSON())) {
             const token = key.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
