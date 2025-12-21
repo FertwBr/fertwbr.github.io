@@ -84,6 +84,17 @@ export default {
         icon: "explore"
       },
       {
+        id: "portfolio_site",
+        title: "This Portfolio",
+        category: "Web Engineering",
+        desc: "A deep dive into the architecture of this very site. Built with React, Material Design 3, and a custom Markdown engine.",
+        tags: ["React", "Vite", "Material 3", "Framer Motion"],
+        icon: "web",
+        link: "/site/overview",
+        repo: "https://github.com/fertwbr/fertwbr.github.io",
+        color: "tertiary"
+      },
+      {
         id: "box_idea",
         title: "boxIdea",
         category: "Full Stack Web",

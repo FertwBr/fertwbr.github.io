@@ -84,6 +84,17 @@ export default {
         icon: "explore"
       },
       {
+        id: "portfolio_site",
+        title: "このポートフォリオ",
+        category: "ウェブエンジニアリング",
+        desc: "このサイト自体のアーキテクチャを深く掘り下げます。React、Material Design 3、およびカスタムMarkdownエンジンを使用して構築されています。",
+        tags: ["React", "Vite", "Material 3", "Framer Motion"],
+        icon: "web",
+        link: "/site/overview",
+        repo: "https://github.com/fertwbr/fertwbr.github.io",
+        color: "tertiary"
+      },
+      {
         id: "box_idea",
         title: "boxIdea",
         category: "フルスタック Web",

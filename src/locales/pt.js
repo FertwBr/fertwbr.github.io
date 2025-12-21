@@ -84,6 +84,17 @@ export default {
         icon: "explore"
       },
       {
+        id: "portfolio_site",
+        title: "Este Portfólio",
+        category: "Engenharia Web",
+        desc: "Uma análise profunda da arquitetura deste próprio site. Desenvolvido com React, Material Design 3 e um motor Markdown personalizado.",
+        tags: ["React", "Vite", "Material 3", "Framer Motion"],
+        icon: "web",
+        link: "/site/overview",
+        repo: "https://github.com/fertwbr/fertwbr.github.io",
+        color: "tertiary"
+      },
+      {
         id: "box_idea",
         title: "boxIdea",
         category: "Full Stack Web",

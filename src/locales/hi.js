@@ -84,6 +84,17 @@ export default {
         icon: "explore"
       },
       {
+        id: "portfolio_site",
+        title: "यह पोर्टफोलियो",
+        category: "वेब इंजीनियरिंग",
+        desc: "इस साइट की वास्तुकला का गहन विश्लेषण। इसे React, Material Design 3, और एक कस्टम Markdown इंजन के साथ बनाया गया है।",
+        tags: ["React", "Vite", "Material 3", "Framer Motion"],
+        icon: "web",
+        link: "/site/overview",
+        repo: "https://github.com/fertwbr/fertwbr.github.io",
+        color: "tertiary"
+      },
+      {
         id: "box_idea",
         title: "boxIdea",
         category: "Full Stack Web",
