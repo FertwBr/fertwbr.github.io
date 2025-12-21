@@ -135,6 +135,8 @@ export default function ChangelogViewer({markdownContent, appConfig, strings, on
     const [selectedTags, setSelectedTags] = useState([]);
 
     const isCompass = appConfig?.appName?.toLowerCase().includes('compass');
+    const isPortfolio = appConfig?.appId === 'io.github.fertwbr.portfolio';
+
     const betaLink = appConfig?.playStoreLink?.replace('/store/apps/details?id=', '/apps/testing/') || appConfig?.playStoreLink;
 
     useEffect(() => {
@@ -342,12 +344,78 @@ export default function ChangelogViewer({markdownContent, appConfig, strings, on
                         </div>
                     )}
 
-                    <div className="mobile-extra-content"
-                         style={{display: 'none', marginTop: '80px', marginBottom: '100px'}}>
+                    {!isPortfolio && (
+                        <div className="mobile-extra-content"
+                             style={{display: 'none', marginTop: '80px', marginBottom: '100px'}}>
+                            <div style={{
+                                background: 'rgba(var(--md-sys-color-surface-container-rgb), 0.5)',
+                                borderRadius: '24px',
+                                padding: '24px',
+                                border: '1px solid var(--md-sys-color-outline-variant)'
+                            }}>
+                                <div style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '8px',
+                                    marginBottom: '20px',
+                                    color: 'var(--md-sys-color-on-surface-variant)',
+                                    fontSize: '0.85rem',
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '1px',
+                                    fontWeight: 600
+                                }}>
+                                    <span className="material-symbols-outlined" style={{fontSize: '18px'}}>explore</span>
+                                    <span>Explore More</span>
+                                </div>
+
+                                <div style={{display: 'flex', flexDirection: 'column', gap: '24px'}}>
+                                    {latestVersion && !searchQuery && (
+                                        <LatestReleaseCard
+                                            version={latestVersion}
+                                            strings={strings.changelog}
+                                            link={appConfig?.playStoreLink}
+                                        />
+                                    )}
+                                    <BetaProgramCard
+                                        strings={strings.changelog.beta_program}
+                                        betaLink={betaLink}
+                                    />
+                                    <WearOSCard
+                                        strings={strings.changelog.wear_os_promo}
+                                        isCompass={isCompass}
+                                        link={appConfig?.playStoreLink}
+                                    />
+                                    <PlusPromoCard
+                                        strings={strings.changelog.plus_promo}
+                                        onNavigate={onNavigate}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                <div className="desktop-toc-wrapper"
+                     style={{display: 'flex', flexDirection: 'column', gap: '20px', width: '320px', minWidth: '320px'}}>
+
+                    {!isPortfolio && latestVersion && !searchQuery && (
+                        <LatestReleaseCard
+                            version={latestVersion}
+                            strings={strings.changelog}
+                            link={appConfig?.playStoreLink}
+                        />
+                    )}
+
+                    <PageTableOfContents title={strings.changelog.on_this_page} isMobile={false}>
+                        {renderTocButtons()}
+                    </PageTableOfContents>
+
+                    {!isPortfolio && (
                         <div style={{
-                            background: 'rgba(var(--md-sys-color-surface-container-rgb), 0.5)',
-                            borderRadius: '24px',
+                            marginTop: '20px',
                             padding: '24px',
+                            borderRadius: '24px',
+                            background: 'linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 100%)',
                             border: '1px solid var(--md-sys-color-outline-variant)'
                         }}>
                             <div style={{
@@ -364,87 +432,25 @@ export default function ChangelogViewer({markdownContent, appConfig, strings, on
                                 <span className="material-symbols-outlined" style={{fontSize: '18px'}}>explore</span>
                                 <span>Explore More</span>
                             </div>
-
-                            <div style={{display: 'flex', flexDirection: 'column', gap: '24px'}}>
-                                {latestVersion && !searchQuery && (
-                                    <LatestReleaseCard
-                                        version={latestVersion}
-                                        strings={strings.changelog}
-                                        link={appConfig?.playStoreLink}
-                                    />
-                                )}
+                            <div style={{display: 'flex', flexDirection: 'column', gap: '20px'}}>
                                 <BetaProgramCard
                                     strings={strings.changelog.beta_program}
                                     betaLink={betaLink}
                                 />
+
                                 <WearOSCard
                                     strings={strings.changelog.wear_os_promo}
                                     isCompass={isCompass}
                                     link={appConfig?.playStoreLink}
                                 />
+
                                 <PlusPromoCard
                                     strings={strings.changelog.plus_promo}
                                     onNavigate={onNavigate}
                                 />
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <div className="desktop-toc-wrapper"
-                     style={{display: 'flex', flexDirection: 'column', gap: '20px', width: '320px', minWidth: '320px'}}>
-
-                    {latestVersion && !searchQuery && (
-                        <LatestReleaseCard
-                            version={latestVersion}
-                            strings={strings.changelog}
-                            link={appConfig?.playStoreLink}
-                        />
                     )}
-
-                    <PageTableOfContents title={strings.changelog.on_this_page} isMobile={false}>
-                        {renderTocButtons()}
-                    </PageTableOfContents>
-
-                    <div style={{
-                        marginTop: '20px',
-                        padding: '24px',
-                        borderRadius: '24px',
-                        background: 'linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 100%)',
-                        border: '1px solid var(--md-sys-color-outline-variant)'
-                    }}>
-                        <div style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '8px',
-                            marginBottom: '20px',
-                            color: 'var(--md-sys-color-on-surface-variant)',
-                            fontSize: '0.85rem',
-                            textTransform: 'uppercase',
-                            letterSpacing: '1px',
-                            fontWeight: 600
-                        }}>
-                            <span className="material-symbols-outlined" style={{fontSize: '18px'}}>explore</span>
-                            <span>Explore More</span>
-                        </div>
-                        <div style={{display: 'flex', flexDirection: 'column', gap: '20px'}}>
-                            <BetaProgramCard
-                                strings={strings.changelog.beta_program}
-                                betaLink={betaLink}
-                            />
-
-                            <WearOSCard
-                                strings={strings.changelog.wear_os_promo}
-                                isCompass={isCompass}
-                                link={appConfig?.playStoreLink}
-                            />
-
-                            <PlusPromoCard
-                                strings={strings.changelog.plus_promo}
-                                onNavigate={onNavigate}
-                            />
-                        </div>
-                    </div>
                 </div>
 
                 <BackToTop strings={strings.changelog}/>
