@@ -49,33 +49,98 @@ export default function PortfolioHome() {
             }}>
                 <main style={{flex: 1, width: '100%'}}>
                     <Hero t={content.hero}/>
+
                     <About t={content.about}/>
 
                     <div id="projects-section">
                         <Projects t={content.projects}/>
                     </div>
 
-                    <TechStack t={content.tech}/>
                     <GitHubStats t={content.github}/>
 
-                    <section style={{textAlign: 'center', padding: '100px 24px', maxWidth: '800px', margin: '0 auto'}}>
-                        <h2 style={{
-                            fontSize: 'clamp(2rem, 4vw, 3rem)',
-                            marginBottom: '32px'
-                        }}>{content.contact.title}</h2>
-                        <p style={{
-                            fontSize: '1.2rem',
-                            color: 'var(--md-sys-color-on-surface-variant)',
-                            marginBottom: '48px'
+                    <section style={{
+                        padding: '0 20px 80px 20px',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        marginTop: '40px'
+                    }}>
+                        <div style={{
+                            width: '100%',
+                            maxWidth: '1200px',
+                            background: 'linear-gradient(135deg, var(--md-sys-color-primary-container), var(--md-sys-color-surface-container))',
+                            borderRadius: '40px',
+                            padding: 'clamp(60px, 10vw, 100px) 40px',
+                            textAlign: 'center',
+                            position: 'relative',
+                            overflow: 'hidden',
+                            border: '1px solid rgba(255,255,255,0.1)',
+                            boxShadow: '0 20px 60px rgba(0,0,0,0.1)'
                         }}>
-                            {content.contact.desc}
-                        </p>
-                        <div style={{display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap'}}>
-                            <a href="mailto:fertwbr@gmail.com" className="btn-glow">{content.contact.email}</a>
-                            <a href="https://linkedin.com/in/fernando-bela" target="_blank" rel="noreferrer"
-                               className="btn-outline">{content.contact.linkedin}</a>
+                            {/* Círculos decorativos de fundo */}
+                            <div style={{
+                                position: 'absolute', top: '-20%', left: '-10%',
+                                width: '400px', height: '400px', borderRadius: '50%',
+                                background: 'var(--md-sys-color-primary)', opacity: 0.1, filter: 'blur(80px)'
+                            }}></div>
+                            <div style={{
+                                position: 'absolute', bottom: '-20%', right: '-10%',
+                                width: '300px', height: '300px', borderRadius: '50%',
+                                background: 'var(--md-sys-color-tertiary)', opacity: 0.1, filter: 'blur(60px)'
+                            }}></div>
+
+                            <div style={{ position: 'relative', zIndex: 2 }}>
+                                <h2 style={{
+                                    fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
+                                    fontWeight: 800,
+                                    lineHeight: 1.1,
+                                    marginBottom: '24px',
+                                    color: 'var(--md-sys-color-on-surface)'
+                                }}>
+                                    {content.contact.title}
+                                </h2>
+
+                                <p style={{
+                                    fontSize: 'clamp(1.1rem, 2vw, 1.4rem)',
+                                    color: 'var(--md-sys-color-on-surface-variant)',
+                                    maxWidth: '600px',
+                                    margin: '0 auto 50px auto',
+                                    lineHeight: 1.6
+                                }}>
+                                    {content.contact.desc}
+                                </p>
+
+                                <div style={{
+                                    display: 'flex',
+                                    gap: '16px',
+                                    justifyContent: 'center',
+                                    flexWrap: 'wrap'
+                                }}>
+                                    <a href="mailto:fertwbr@gmail.com" className="btn-glow"
+                                       style={{
+                                           fontSize: '1.2rem',
+                                           padding: '18px 40px',
+                                           borderRadius: '100px'
+                                       }}>
+                                        {content.contact.email}
+                                    </a>
+                                    <a href="https://linkedin.com/in/fernando-bela" target="_blank" rel="noreferrer"
+                                       className="btn-outline"
+                                       style={{
+                                           fontSize: '1.2rem',
+                                           padding: '18px 40px',
+                                           borderRadius: '100px',
+                                           background: 'rgba(255,255,255,0.05)',
+                                           backdropFilter: 'blur(10px)',
+                                           border: '1px solid rgba(255,255,255,0.2)'
+                                       }}>
+                                        {content.contact.linkedin}
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </section>
+
+                    <TechStack t={content.tech}/>
                 </main>
 
                 <Footer t={content.footer}/>
