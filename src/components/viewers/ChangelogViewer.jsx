@@ -6,6 +6,14 @@ import {parseChangelog} from '../../utils/changelogParser';
 import BackToTop from '../common/BackToTop';
 import PageTableOfContents from '../common/PageTableOfContents';
 
+import {
+    LatestReleaseCard,
+    BetaProgramCard,
+    WearOSCard,
+    PlusPromoCard
+} from './changelog/SidebarCards';
+
+
 const VersionBadge = ({type, text}) => {
     const config = {
         stable: {bg: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', border: 'transparent'},
@@ -14,9 +22,7 @@ const VersionBadge = ({type, text}) => {
         rc: {bg: 'rgba(171, 71, 188, 0.15)', color: '#AB47BC', border: '#AB47BC'},
         'pre-release': {bg: 'rgba(79, 195, 247, 0.15)', color: '#4FC3F7', border: '#4FC3F7'}
     };
-
     const style = config[type] || config.stable;
-
     return (
         <span style={{
             fontSize: '0.65rem', fontWeight: 700, padding: '4px 8px', borderRadius: '6px',
@@ -77,11 +83,8 @@ const ChangelogItem = ({v, index, isActive, strings}) => {
                             </div>
                         </div>
                         <div style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '8px',
-                            color: 'var(--md-sys-color-on-surface-variant)',
-                            fontSize: '0.9rem'
+                            display: 'flex', alignItems: 'center', gap: '8px',
+                            color: 'var(--md-sys-color-on-surface-variant)', fontSize: '0.9rem'
                         }}>
                             <span className="material-symbols-outlined" style={{fontSize: '16px'}}>calendar_today</span>
                             {strings.released} {v.date}
@@ -99,22 +102,16 @@ const ChangelogItem = ({v, index, isActive, strings}) => {
                                     exit={{height: 0, opacity: 0}} style={{overflow: 'hidden'}}>
                             <div style={{padding: '0 24px 24px 24px'}}>
                                 <div style={{
-                                    width: '100%',
-                                    height: '1px',
-                                    background: 'var(--md-sys-color-outline-variant)',
-                                    opacity: 0.3,
-                                    marginBottom: '24px'
+                                    width: '100%', height: '1px', background: 'var(--md-sys-color-outline-variant)',
+                                    opacity: 0.3, marginBottom: '24px'
                                 }}></div>
                                 <div style={{display: 'flex', gap: '8px', marginBottom: '24px', flexWrap: 'wrap'}}>
                                     {v.tags.filter(t => !['Wear OS', 'Android XR', 'Beta', 'Alpha', 'RC'].includes(t)).map(tag => (
                                         <span key={tag} style={{
-                                            fontSize: '0.75rem',
-                                            padding: '4px 10px',
-                                            borderRadius: '100px',
+                                            fontSize: '0.75rem', padding: '4px 10px', borderRadius: '100px',
                                             background: 'var(--md-sys-color-surface-container-high)',
                                             color: 'var(--md-sys-color-on-surface-variant)',
-                                            border: '1px solid var(--md-sys-color-outline-variant)',
-                                            fontWeight: 500
+                                            border: '1px solid var(--md-sys-color-outline-variant)', fontWeight: 500
                                         }}>{tag}</span>
                                     ))}
                                 </div>
@@ -136,6 +133,9 @@ export default function ChangelogViewer({markdownContent, appConfig, strings, on
     const [visibleCount, setVisibleCount] = useState(10);
     const [activeId, setActiveId] = useState(null);
     const [selectedTags, setSelectedTags] = useState([]);
+
+    const isCompass = appConfig?.appName?.toLowerCase().includes('compass');
+    const betaLink = appConfig?.playStoreLink?.replace('/store/apps/details?id=', '/apps/testing/') || appConfig?.playStoreLink;
 
     useEffect(() => {
         if (markdownContent) {
@@ -195,29 +195,25 @@ export default function ChangelogViewer({markdownContent, appConfig, strings, on
     const renderTocButtons = () => (
         filteredVersions.map(v => (
             <button key={v.id} onClick={() => scrollToVersion(v.id)} style={{
-                display: 'flex',
-                width: '100%',
-                textAlign: 'left',
-                padding: '12px 16px',
+                display: 'flex', width: '100%', textAlign: 'left', padding: '12px 16px',
                 background: activeId === v.id ? 'rgba(255,255,255,0.05)' : 'transparent',
                 border: 'none',
                 color: activeId === v.id ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface-variant)',
                 fontWeight: activeId === v.id ? 600 : 400,
                 borderLeft: activeId === v.id ? `3px solid var(--md-sys-color-primary)` : '3px solid transparent',
-                justifyContent: 'space-between',
-                alignItems: 'center'
+                justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', borderRadius: '4px'
             }}>
-        <span style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '180px'}}>
-          {v.version.replace('Version ', '')}
-        </span>
+                <span style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '180px'}}>
+                  {v.version.replace('Version ', '')}
+                </span>
                 {v.type !== 'stable' && (
                     <span style={{
                         fontSize: '0.65rem', padding: '2px 6px', borderRadius: '4px',
                         background: v.type === 'beta' ? '#FFB74D20' : v.type === 'alpha' ? '#EF535020' : '#AB47BC20',
                         color: v.type === 'beta' ? '#FFB74D' : v.type === 'alpha' ? '#EF5350' : '#AB47BC'
                     }}>
-            {v.type === 'rc' ? 'RC' : v.type.substring(0, 1).toUpperCase()}
-          </span>
+                        {v.type === 'rc' ? 'RC' : v.type.substring(0, 1).toUpperCase()}
+                    </span>
                 )}
             </button>
         ))
@@ -226,18 +222,12 @@ export default function ChangelogViewer({markdownContent, appConfig, strings, on
     return (
         <div>
             <div style={{
-                marginBottom: '60px',
-                paddingBottom: '30px',
+                marginBottom: '60px', paddingBottom: '30px',
                 borderBottom: '1px solid var(--md-sys-color-outline-variant)'
             }}>
                 <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    marginBottom: '16px',
-                    color: 'var(--md-sys-color-on-surface-variant)',
-                    fontSize: '0.95rem',
-                    fontWeight: 500
+                    display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px',
+                    color: 'var(--md-sys-color-on-surface-variant)', fontSize: '0.95rem', fontWeight: 500
                 }}>
                     <span>{appConfig?.appName}</span>
                     <span className="material-symbols-outlined" style={{fontSize: '16px'}}>chevron_right</span>
@@ -263,30 +253,27 @@ export default function ChangelogViewer({markdownContent, appConfig, strings, on
                     color: 'var(--md-sys-color-on-surface-variant)',
                     marginTop: '12px',
                     maxWidth: '700px'
-                }}>{strings.changelog.subtitle}</p>
+                }}>
+                    {strings.changelog.subtitle}
+                </p>
             </div>
 
             <div className="changelog-layout" style={{display: 'flex', gap: '60px', alignItems: 'flex-start'}}>
+
                 <div style={{flex: 1, minWidth: 0}}>
+
                     <div style={{marginBottom: '40px', display: 'flex', flexDirection: 'column', gap: '16px'}}>
                         <div style={{position: 'relative'}}>
                             <span className="material-symbols-outlined" style={{
-                                position: 'absolute',
-                                left: '16px',
-                                top: '50%',
-                                transform: 'translateY(-50%)',
+                                position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)',
                                 color: 'var(--md-sys-color-on-surface-variant)'
                             }}>search</span>
                             <input type="text" placeholder={strings.changelog.search_placeholder} value={searchQuery}
                                    onChange={(e) => setSearchQuery(e.target.value)} style={{
-                                width: '100%',
-                                padding: '16px 16px 16px 50px',
+                                width: '100%', padding: '16px 16px 16px 50px',
                                 background: 'rgba(var(--md-sys-color-surface-container-high-rgb), 0.5)',
-                                border: '1px solid var(--md-sys-color-outline-variant)',
-                                borderRadius: '16px',
-                                color: 'var(--md-sys-color-on-surface)',
-                                fontSize: '1rem',
-                                outline: 'none'
+                                border: '1px solid var(--md-sys-color-outline-variant)', borderRadius: '16px',
+                                color: 'var(--md-sys-color-on-surface)', fontSize: '1rem', outline: 'none'
                             }}/>
                         </div>
                         <div style={{display: 'flex', gap: '8px', flexWrap: 'wrap'}}>
@@ -307,20 +294,17 @@ export default function ChangelogViewer({markdownContent, appConfig, strings, on
                     </div>
 
                     <div className="mobile-toc-wrapper" style={{display: 'none'}}>
-                        <PageTableOfContents title={strings.changelog.jump_to}
-                                             isMobile={true}>{renderTocButtons()}</PageTableOfContents>
+                        <PageTableOfContents title={strings.changelog.jump_to} isMobile={true}>
+                            {renderTocButtons()}
+                        </PageTableOfContents>
                     </div>
 
                     <div style={{position: 'relative', paddingLeft: '40px'}}>
                         <div style={{
-                            position: 'absolute',
-                            left: '11px',
-                            top: 0,
-                            bottom: 0,
-                            width: '2px',
-                            background: 'var(--md-sys-color-outline-variant)',
-                            opacity: 0.3
+                            position: 'absolute', left: '11px', top: 0, bottom: 0, width: '2px',
+                            background: 'var(--md-sys-color-outline-variant)', opacity: 0.3
                         }}></div>
+
                         {filteredVersions.length > 0 ? (
                             filteredVersions.slice(0, visibleCount).map((v, index) => (
                                 <ChangelogItem key={v.id} v={v} index={index} isActive={activeId === v.id}
@@ -357,93 +341,126 @@ export default function ChangelogViewer({markdownContent, appConfig, strings, on
                             </button>
                         </div>
                     )}
-                </div>
 
-                <div className="desktop-toc-wrapper" style={{display: 'flex', flexDirection: 'column', gap: '20px'}}>
-                    {latestVersion && !searchQuery && (
-                        <div className="glass-card" style={{
+                    <div className="mobile-extra-content"
+                         style={{display: 'none', marginTop: '80px', marginBottom: '100px'}}>
+                        <div style={{
+                            background: 'rgba(var(--md-sys-color-surface-container-rgb), 0.5)',
+                            borderRadius: '24px',
                             padding: '24px',
-                            background: `linear-gradient(135deg, var(--md-sys-color-primary-container), rgba(255,255,255,0.02))`,
-                            width: '320px'
+                            border: '1px solid var(--md-sys-color-outline-variant)'
                         }}>
                             <div style={{
                                 display: 'flex',
-                                justifyContent: 'space-between',
                                 alignItems: 'center',
-                                marginBottom: '12px'
-                            }}>
-                                <span style={{
-                                    fontSize: '0.75rem',
-                                    textTransform: 'uppercase',
-                                    letterSpacing: '1px',
-                                    color: 'var(--md-sys-color-primary)',
-                                    fontWeight: 800
-                                }}>{strings.changelog.latest_release}</span>
-                                <VersionBadge type={latestVersion.type}/>
-                            </div>
-                            <h3 style={{
-                                fontSize: '1.8rem',
-                                margin: '0 0 4px 0'
-                            }}>{latestVersion.version.replace('Version ', '')}</h3>
-                            <p style={{
-                                fontSize: '0.9rem',
+                                gap: '8px',
+                                marginBottom: '20px',
                                 color: 'var(--md-sys-color-on-surface-variant)',
-                                marginBottom: '20px'
-                            }}>{strings.changelog.released} {latestVersion.date}</p>
-                            <a href={appConfig?.playStoreLink} target="_blank" rel="noreferrer" className="btn-glow"
-                               style={{
-                                   width: '100%',
-                                   justifyContent: 'center',
-                                   background: 'var(--md-sys-color-primary)',
-                                   color: 'var(--md-sys-color-on-primary)'
-                               }}>
-                                {strings.changelog.update_now} <span
-                                className="material-symbols-outlined">system_update</span>
-                            </a>
+                                fontSize: '0.85rem',
+                                textTransform: 'uppercase',
+                                letterSpacing: '1px',
+                                fontWeight: 600
+                            }}>
+                                <span className="material-symbols-outlined" style={{fontSize: '18px'}}>explore</span>
+                                <span>Explore More</span>
+                            </div>
+
+                            <div style={{display: 'flex', flexDirection: 'column', gap: '24px'}}>
+                                {latestVersion && !searchQuery && (
+                                    <LatestReleaseCard
+                                        version={latestVersion}
+                                        strings={strings.changelog}
+                                        link={appConfig?.playStoreLink}
+                                    />
+                                )}
+                                <BetaProgramCard
+                                    strings={strings.changelog.beta_program}
+                                    betaLink={betaLink}
+                                />
+                                <WearOSCard
+                                    strings={strings.changelog.wear_os_promo}
+                                    isCompass={isCompass}
+                                    link={appConfig?.playStoreLink}
+                                />
+                                <PlusPromoCard
+                                    strings={strings.changelog.plus_promo}
+                                    onNavigate={onNavigate}
+                                />
+                            </div>
                         </div>
+                    </div>
+                </div>
+
+                <div className="desktop-toc-wrapper"
+                     style={{display: 'flex', flexDirection: 'column', gap: '20px', width: '320px', minWidth: '320px'}}>
+
+                    {latestVersion && !searchQuery && (
+                        <LatestReleaseCard
+                            version={latestVersion}
+                            strings={strings.changelog}
+                            link={appConfig?.playStoreLink}
+                        />
                     )}
 
                     <PageTableOfContents title={strings.changelog.on_this_page} isMobile={false}>
                         {renderTocButtons()}
                     </PageTableOfContents>
 
-                    <div className="glass-card" style={{
+                    <div style={{
+                        marginTop: '20px',
                         padding: '24px',
-                        background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 100%)',
-                        width: '320px'
+                        borderRadius: '24px',
+                        background: 'linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 100%)',
+                        border: '1px solid var(--md-sys-color-outline-variant)'
                     }}>
-                        <h4 style={{
-                            fontSize: '1rem',
-                            margin: '0 0 8px 0',
-                            color: 'var(--md-sys-color-on-surface)'
-                        }}>{strings.changelog.plus_promo.title}</h4>
-                        <p style={{
-                            fontSize: '0.85rem',
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            marginBottom: '20px',
                             color: 'var(--md-sys-color-on-surface-variant)',
-                            marginBottom: '16px',
-                            lineHeight: 1.4
-                        }}>{strings.changelog.plus_promo.subtitle}</p>
-                        <button onClick={() => onNavigate && onNavigate('plus')} className="btn-outline" style={{
-                            width: '100%',
-                            justifyContent: 'center',
-                            padding: '10px'
-                        }}>{strings.changelog.plus_promo.cta}</button>
+                            fontSize: '0.85rem',
+                            textTransform: 'uppercase',
+                            letterSpacing: '1px',
+                            fontWeight: 600
+                        }}>
+                            <span className="material-symbols-outlined" style={{fontSize: '18px'}}>explore</span>
+                            <span>Explore More</span>
+                        </div>
+                        <div style={{display: 'flex', flexDirection: 'column', gap: '20px'}}>
+                            <BetaProgramCard
+                                strings={strings.changelog.beta_program}
+                                betaLink={betaLink}
+                            />
+
+                            <WearOSCard
+                                strings={strings.changelog.wear_os_promo}
+                                isCompass={isCompass}
+                                link={appConfig?.playStoreLink}
+                            />
+
+                            <PlusPromoCard
+                                strings={strings.changelog.plus_promo}
+                                onNavigate={onNavigate}
+                            />
+                        </div>
                     </div>
                 </div>
 
                 <BackToTop strings={strings.changelog}/>
 
                 <style>{`
-          @media (max-width: 1000px) {
-            .desktop-toc-wrapper { display: none !important; }
-            .changelog-layout { display: block !important; }
-            .mobile-toc-wrapper { display: block !important; }
-          }
-          .markdown-body h4 { font-size: 1.2rem; margin-top: 1.5em; margin-bottom: 0.8em; color: var(--md-sys-color-on-surface); display: flex; align-items: center; gap: 8px; }
-          .markdown-body ul { padding-left: 1.2em; list-style-type: disc; color: var(--md-sys-color-on-surface-variant); }
-          .markdown-body li { margin-bottom: 0.8em; }
-          .markdown-body li strong { color: var(--md-sys-color-on-surface); font-weight: 600; }
-        `}</style>
+                  @media (max-width: 1000px) {
+                    .desktop-toc-wrapper { display: none !important; }
+                    .changelog-layout { display: block !important; }
+                    .mobile-toc-wrapper { display: block !important; margin-bottom: 30px; }
+                    .mobile-extra-content { display: block !important; }
+                  }
+                  .markdown-body h4 { font-size: 1.2rem; margin-top: 1.5em; margin-bottom: 0.8em; color: var(--md-sys-color-on-surface); display: flex; align-items: center; gap: 8px; }
+                  .markdown-body ul { padding-left: 1.2em; list-style-type: disc; color: var(--md-sys-color-on-surface-variant); }
+                  .markdown-body li { margin-bottom: 0.8em; }
+                  .markdown-body li strong { color: var(--md-sys-color-on-surface); font-weight: 600; }
+                `}</style>
             </div>
         </div>
     );
