@@ -2,7 +2,7 @@
   font-family: 'Poppins', sans-serif;
   line-height: 1.6;
   color-scheme: light dark;
-  
+
   --md-sys-color-surface: #0f1115;
   --md-sys-color-on-surface: #e2e2e6;
   --md-sys-color-primary: #d0bcff;
@@ -21,7 +21,7 @@
   --glass-bg: rgba(27, 27, 31, 0.7);
   --glass-border: 1px solid rgba(255, 255, 255, 0.08);
   --shadow-glow: 0 0 80px rgba(var(--md-sys-color-primary-rgb), 0.15);
-  
+
   transition: background-color 0.5s ease, color 0.5s ease;
 }
 
@@ -45,23 +45,23 @@ html.lenis, html.lenis body {
   pointer-events: none;
 }
 
-* { 
-  box-sizing: border-box; 
-  margin: 0; 
-  padding: 0; 
-  -webkit-tap-highlight-color: transparent; 
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
-html { 
-  overflow-x: hidden; 
+html {
+  overflow-x: hidden;
 }
 
-body { 
+body {
   background-color: var(--md-sys-color-surface);
   color: var(--md-sys-color-on-surface);
   overflow-x: hidden;
   width: 100%;
-  min-height: 100dvh; 
+  min-height: 100dvh;
   margin: 0;
   padding: 0;
 }
@@ -75,7 +75,7 @@ body {
   position: fixed;
   inset: 0;
   z-index: -2;
-  background: 
+  background:
     radial-gradient(circle at 15% 50%, var(--md-sys-color-primary-container), transparent 40%),
     radial-gradient(circle at 85% 30%, var(--md-sys-color-secondary-container), transparent 40%);
   filter: blur(90px);
@@ -87,7 +87,7 @@ body {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background-image: 
+  background-image:
     linear-gradient(rgba(128, 128, 128, 0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(128, 128, 128, 0.03) 1px, transparent 1px);
   background-size: 40px 40px;
