@@ -34,7 +34,10 @@ html.lenis, html.lenis body { height: auto; }
 
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
-html { overflow-x: hidden; }
+html {
+    overflow-x: hidden;
+    scroll-behavior: auto !important;
+}
 
 body {
   background-color: var(--md-sys-color-surface);
@@ -44,6 +47,7 @@ body {
   min-height: 100dvh;
   margin: 0;
   padding: 0;
+  -webkit-font-smoothing: antialiased;
 }
 
 ::-webkit-scrollbar { width: 6px; }
