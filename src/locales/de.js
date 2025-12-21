@@ -176,6 +176,43 @@ contact: {
         }
       ]
     },
+    plus_teaser: {
+      title: "Schalte das ultimative Erlebnis frei",
+      description: "Werde proaktiv statt reaktiv mit automatisierter Analyse. Upgrade auf **Pixel Pulse+**, um deine Hörgesundheit kontinuierlich zu schützen.",
+      cta: "Entdecke Pixel Pulse+",
+      items: [
+        {
+          icon: "shield",
+          title: "Lärm-Budget",
+          desc: "Wöchentliches Tracking basierend auf WHO-Daten hält dich in sicheren Grenzen."
+        },
+        {
+          icon: "notifications_active",
+          title: "Proaktive Warnungen",
+          desc: "Werde durch intelligente Hintergrundprüfungen benachrichtigt, bevor Schäden entstehen."
+        },
+        {
+          icon: "auto_awesome",
+          title: "Auto-Überwachung",
+          desc: "Effiziente Belastungsüberwachung im Hintergrund ohne den Akku zu entleeren."
+        },
+        {
+          icon: "table_chart",
+          title: "CSV-Export",
+          desc: "Volle Datenkontrolle. Exportiere deinen Verlauf für detaillierte Analysen."
+        },
+        {
+          icon: "palette",
+          title: "9 Premium-Designs",
+          desc: "Schalte Emerald, Sunset und reines Schwarz (AMOLED) frei."
+        },
+        {
+          icon: "equalizer",
+          title: "Pro-Gewichtung",
+          desc: "Zugriff auf C-Bewertung und Z-Bewertung für technische Messungen."
+        }
+      ]
+    },
     features: {
       title: "Ein mächtiges Toolkit, kostenlos für alle",
       cta_project: "Technische Übersicht erkunden",
@@ -345,6 +382,43 @@ contact: {
           icon: "palette", 
           title: "Visueller Feinschliff", 
           desc: "Aktualisierte AMOLED-Theme-Oberflächenfarben und dynamische Statusleisten-Scrims hinzugefügt." 
+        }
+      ]
+    },
+    plus_teaser: {
+      title: "Steigere dein Erlebnis",
+      description: "Upgrade auf **Pixel Compass+** und schalte professionelle Werkzeuge für höchste Präzision frei. Erhalte exklusiven Zugriff auf leistungsstarke Widgets, erweiterte Umgebungsdaten und interaktive Diagramme.",
+      cta: "Entdecke Pixel Compass+",
+      items: [
+        {
+          icon: "widgets",
+          title: "Widget-Suite",
+          desc: "Exklusive Uhr-, Wetter- und Kompass-Widgets für deinen Startbildschirm."
+        },
+        {
+          icon: "query_stats",
+          title: "Vorhersage-Diagramme",
+          desc: "Tippe auf eine Karte, um stündliche Trends für Regen, Wind und UV anzuzeigen."
+        },
+        {
+          icon: "insights",
+          title: "Intelligente Einblicke",
+          desc: "Proaktive Warnungen wie 'Regen beginnt bald' oder 'Hoher UV-Index'."
+        },
+        {
+          icon: "air",
+          title: "Barometer & Wind",
+          desc: "Echtzeit-Drucküberwachung und Windrichtung auf dem Kompass."
+        },
+        {
+          icon: "wb_sunny",
+          title: "Sonne & Mond",
+          desc: "Präzise Zeiten für Sonnenaufgang, Sonnenuntergang und Sonnenbahn-Tracking."
+        },
+        {
+          icon: "speed",
+          title: "Präzise",
+          desc: "Wetter- und Höhendaten werden bis zu 4x schneller aktualisiert als in der kostenlosen Version."
         }
       ]
     },

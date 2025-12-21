@@ -176,6 +176,43 @@ export default {
         }
       ]
     },
+    plus_teaser: {
+      title: "Desbloqueie a Experiência Suprema",
+      description: "Deixe de ser reativo e torne-se proativo com análises automatizadas. Atualize para o **Pixel Pulse+** para proteger sua saúde auditiva continuamente.",
+      cta: "Descubra o Pixel Pulse+",
+      items: [
+        {
+          icon: "shield",
+          title: "Orçamento de Ruído",
+          desc: "Rastreamento semanal baseado na OMS garante que você permaneça dentro dos limites seguros."
+        },
+        {
+          icon: "notifications_active",
+          title: "Alertas Proativos",
+          desc: "Seja notificado antes que danos ocorram com verificações inteligentes em segundo plano."
+        },
+        {
+          icon: "auto_awesome",
+          title: "Monitoramento Automático",
+          desc: "Rastreamento eficiente da exposição em segundo plano sem drenar a bateria."
+        },
+        {
+          icon: "table_chart",
+          title: "Exportação CSV",
+          desc: "Propriedade total dos dados. Exporte seu histórico para análise detalhada."
+        },
+        {
+          icon: "palette",
+          title: "9 Temas Premium",
+          desc: "Desbloqueie os modos Emerald, Sunset e preto puro AMOLED."
+        },
+        {
+          icon: "equalizer",
+          title: "Ponderação Pro",
+          desc: "Acesse Ponderação C e Ponderação Z para medições técnicas."
+        }
+      ]
+    },
     features: {
       title: "Um Kit de Ferramentas Poderoso, Grátis para Todos",
       cta_project: "Explorar Visão Técnica",
@@ -345,6 +382,43 @@ export default {
           icon: "palette",
           title: "Polimento Visual",
           desc: "Cores de superfície do Tema AMOLED atualizadas e adicionados scrims dinâmicos na barra de status."
+        }
+      ]
+    },
+    plus_teaser: {
+      title: "Eleve Sua Experiência",
+      description: "Atualize para o **Pixel Compass+** e desbloqueie um conjunto de ferramentas profissionais projetadas para precisão. Tenha acesso exclusivo a widgets poderosos, dados ambientais avançados e gráficos interativos.",
+      cta: "Descubra o Pixel Compass+",
+      items: [
+        {
+          icon: "widgets",
+          title: "Suíte de Widgets",
+          desc: "Widgets exclusivos de Relógio, Clima e Bússola para sua tela inicial."
+        },
+        {
+          icon: "query_stats",
+          title: "Gráficos de Previsão",
+          desc: "Toque em qualquer cartão para revelar tendências horárias de Chuva, Vento e UV."
+        },
+        {
+          icon: "insights",
+          title: "Insights Inteligentes",
+          desc: "Alertas proativos como 'Chuva começando em breve' ou 'Índice UV alto'."
+        },
+        {
+          icon: "air",
+          title: "Barômetro e Vento",
+          desc: "Rastreamento de pressão em tempo real e direção do vento na bússola."
+        },
+        {
+          icon: "wb_sunny",
+          title: "Sol e Lua",
+          desc: "Horários precisos para nascer e pôr do sol e rastreamento da trajetória solar."
+        },
+        {
+          icon: "speed",
+          title: "Preciso",
+          desc: "Dados meteorológicos e de altitude atualizados até 4x mais rápido que na versão gratuita."
         }
       ]
     },

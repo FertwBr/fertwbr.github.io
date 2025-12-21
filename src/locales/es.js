@@ -176,6 +176,43 @@ export default {
         }
       ]
     },
+    plus_teaser: {
+      title: "Desbloquea la Experiencia Definitiva",
+      description: "Pasa de reactivo a proactivo con análisis automatizados. Actualiza a **Pixel Pulse+** para proteger tu salud auditiva continuamente.",
+      cta: "Descubre Pixel Pulse+",
+      items: [
+        {
+          icon: "shield",
+          title: "Presupuesto de Ruido",
+          desc: "El seguimiento semanal basado en la OMS asegura que te mantengas dentro de límites seguros."
+        },
+        {
+          icon: "notifications_active",
+          title: "Alertas Proactivas",
+          desc: "Recibe notificaciones antes de que ocurra daño con chequeos inteligentes en segundo plano."
+        },
+        {
+          icon: "auto_awesome",
+          title: "Monitoreo Automático",
+          desc: "Seguimiento eficiente de exposición en segundo plano sin agotar la batería."
+        },
+        {
+          icon: "table_chart",
+          title: "Exportación CSV",
+          desc: "Propiedad total de datos. Exporta tu historial para un análisis detallado."
+        },
+        {
+          icon: "palette",
+          title: "9 Temas Premium",
+          desc: "Desbloquea los modos Emerald, Sunset y negro puro AMOLED."
+        },
+        {
+          icon: "equalizer",
+          title: "Ponderación Pro",
+          desc: "Accede a Ponderación C y Ponderación Z para mediciones técnicas."
+        }
+      ]
+    },
     features: {
       title: "Un Kit de Herramientas Potente, Gratis para Todos",
       cta_project: "Explorar Resumen Técnico",
@@ -345,6 +382,81 @@ export default {
           icon: "palette",
           title: "Pulido Visual",
           desc: "Colores de superficie del Tema AMOLED actualizados y scrims dinámicos en la barra de estado añadidos."
+        }
+      ]
+    },
+    plus_teaser_compass: {
+      title: "Eleva Tu Experiencia",
+      description: "Actualiza a **Pixel Compass+** y desbloquea un conjunto de herramientas profesionales diseñadas para la precisión. Obtén acceso exclusivo a potentes widgets, datos ambientales avanzados y gráficos interactivos.",
+      cta: "Descubre Pixel Compass+",
+      items: [
+        {
+          icon: "widgets",
+          title: "Suite de Widgets",
+          desc: "Widgets exclusivos de Reloj, Clima y Brújula para tu pantalla de inicio."
+        },
+        {
+          icon: "query_stats",
+          title: "Gráficos de Pronóstico",
+          desc: "Toca cualquier tarjeta para ver tendencias por hora de Lluvia, Viento y UV."
+        },
+        {
+          icon: "insights",
+          title: "Información Inteligente",
+          desc: "Alertas proactivas como 'Lluvia comenzando pronto' o 'Índice UV alto'."
+        },
+        {
+          icon: "air",
+          title: "Barómetro y Viento",
+          desc: "Seguimiento de presión en tiempo real y dirección del viento en la brújula."
+        },
+        {
+          icon: "wb_sunny",
+          title: "Sol y Luna",
+          desc: "Horas precisas de amanecer, atardecer y seguimiento de la trayectoria solar."
+        },
+        {
+          icon: "speed",
+          title: "Preciso",
+          desc: "Actualización de datos meteorológicos y de elevación hasta 4 veces más rápida que la versión gratuita."
+        }
+      ]
+    },
+
+    plus_teaser: {
+      title: "Desbloquea la Experiencia Definitiva",
+      description: "Pasa de reactivo a proactivo con análisis automatizados. Actualiza a **Pixel Pulse+** para proteger tu salud auditiva continuamente.",
+      cta: "Descubre Pixel Pulse+",
+      items: [
+        {
+          icon: "shield",
+          title: "Presupuesto de Ruido",
+          desc: "El seguimiento semanal basado en la OMS asegura que te mantengas dentro de límites seguros."
+        },
+        {
+          icon: "notifications_active",
+          title: "Alertas Proactivas",
+          desc: "Recibe notificaciones antes de que ocurra daño con chequeos inteligentes en segundo plano."
+        },
+        {
+          icon: "auto_awesome",
+          title: "Monitoreo Automático",
+          desc: "Seguimiento eficiente de exposición en segundo plano sin agotar la batería."
+        },
+        {
+          icon: "table_chart",
+          title: "Exportación CSV",
+          desc: "Propiedad total de datos. Exporta tu historial para un análisis detallado."
+        },
+        {
+          icon: "palette",
+          title: "9 Temas Premium",
+          desc: "Desbloquea los modos Emerald, Sunset y negro puro AMOLED."
+        },
+        {
+          icon: "equalizer",
+          title: "Ponderación Pro",
+          desc: "Accede a Ponderación C y Ponderación Z para mediciones técnicas."
         }
       ]
     },

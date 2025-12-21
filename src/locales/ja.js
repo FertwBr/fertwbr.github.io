@@ -176,6 +176,43 @@ export default {
         }
       ]
     },
+    plus_teaser: {
+      title: "究極の体験をアンロック",
+      description: "自動分析により、事後対応から事前対応へと進化しましょう。**Pixel Pulse+**にアップグレードして、聴覚の健康を継続的に守りましょう。",
+      cta: "Pixel Pulse+ を見る",
+      items: [
+        {
+          icon: "shield",
+          title: "ノイズ予算",
+          desc: "WHOに基づく週間追跡により、安全な範囲内に留まるよう保証します。"
+        },
+        {
+          icon: "notifications_active",
+          title: "プロアクティブな通知",
+          desc: "スマートなバックグラウンドチェックにより、損傷が発生する前に通知を受け取ります。"
+        },
+        {
+          icon: "auto_awesome",
+          title: "自動モニタリング",
+          desc: "バッテリーを消耗せずに、バックグラウンドで効率的に暴露量を追跡します。"
+        },
+        {
+          icon: "table_chart",
+          title: "CSVエクスポート",
+          desc: "完全なデータ所有権。詳細な分析のために履歴をエクスポートできます。"
+        },
+        {
+          icon: "palette",
+          title: "9つのプレミアムテーマ",
+          desc: "エメラルド、サンセット、純黒AMOLEDモードをアンロック。"
+        },
+        {
+          icon: "equalizer",
+          title: "プロ仕様の重み付け",
+          desc: "技術的な測定のためにC特性（C-Weighting）とZ特性（Z-Weighting）にアクセスできます。"
+        }
+      ]
+    },
     features: {
       title: "強力なツールキット、誰でも無料",
       cta_project: "技術概要を見る",
@@ -345,6 +382,43 @@ export default {
           icon: "palette",
           title: "ビジュアルの洗練",
           desc: "AMOLEDテーマのサーフェスカラーを更新し、動的なステータスバーのスクリムを追加しました。"
+        }
+      ]
+    },
+    plus_teaser: {
+      title: "体験を向上させる",
+      description: "**Pixel Compass+**にアップグレードして、精度を追求したプロ仕様のツールセットを解除しましょう。強力なウィジェット、高度な環境データ、インタラクティブなチャートへの独占アクセスを入手してください。",
+      cta: "Pixel Compass+ を見る",
+      items: [
+        {
+          icon: "widgets",
+          title: "ウィジェットセット",
+          desc: "ホーム画面専用の時計、天気、コンパスウィジェット。"
+        },
+        {
+          icon: "query_stats",
+          title: "予報チャート",
+          desc: "カードをタップして、雨、風、UVの1時間ごとの傾向を表示します。"
+        },
+        {
+          icon: "insights",
+          title: "スマートインサイト",
+          desc: "「まもなく雨が降ります」や「UV指数が高い」などのプロアクティブな通知。"
+        },
+        {
+          icon: "air",
+          title: "気圧計と風",
+          desc: "リアルタイムの気圧追跡とコンパス上の風向表示。"
+        },
+        {
+          icon: "wb_sunny",
+          title: "太陽と月",
+          desc: "日の出、日の入り、太陽の軌道を正確に追跡します。"
+        },
+        {
+          icon: "speed",
+          title: "高精度",
+          desc: "無料版よりも最大4倍高速に天気と標高データを更新します。"
         }
       ]
     },

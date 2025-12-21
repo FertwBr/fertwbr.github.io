@@ -176,6 +176,43 @@ footer: {
         }
       ]
     },
+    plus_teaser: {
+      title: "Unlock the Ultimate Experience",
+      description: "Go from reactive to proactive with automated analysis. Upgrade to **Pixel Pulse+** to protect your hearing health continuously.",
+      cta: "Discover Pixel Pulse+",
+      items: [
+        {
+          icon: "shield",
+          title: "Noise Budget",
+          desc: "WHO-based weekly tracking ensures you stay within safe limits."
+        },
+        {
+          icon: "notifications_active",
+          title: "Proactive Alerts",
+          desc: "Get notified before damage happens with smart background checks."
+        },
+        {
+          icon: "auto_awesome",
+          title: "Auto Monitoring",
+          desc: "Efficient background exposure tracking without draining battery."
+        },
+        {
+          icon: "table_chart",
+          title: "CSV Export",
+          desc: "Full data ownership. Export your history for detailed analysis."
+        },
+        {
+          icon: "palette",
+          title: "9 Premium Themes",
+          desc: "Unlock Emerald, Sunset, and pure black AMOLED modes."
+        },
+        {
+          icon: "equalizer",
+          title: "Pro Weighting",
+          desc: "Access C-Weighting and Z-Weighting for technical measurements."
+        }
+      ]
+    },
     features: {
       title: "A Powerful Toolkit, Free for Everyone",
       cta_project: "Explore Technical Overview",
@@ -331,42 +368,79 @@ footer: {
         title: "Unified Experience",
         view_history: "View Full History",
         items: [
-          { 
-            icon: "responsive_layout", 
-            title: "Responsive Layouts", 
-            desc: "Completely redesigned 'Welcome' and 'Plan' screens optimized for Foldables and Tablets." 
+          {
+            icon: "responsive_layout",
+            title: "Responsive Layouts",
+            desc: "Completely redesigned 'Welcome' and 'Plan' screens optimized for Foldables and Tablets."
           },
-          { 
-            icon: "error", 
-            title: "Smarter Errors", 
-            desc: "The app now gracefully handles weather API errors with clear, helpful messages." 
+          {
+            icon: "error",
+            title: "Smarter Errors",
+            desc: "The app now gracefully handles weather API errors with clear, helpful messages."
           },
-          { 
-            icon: "palette", 
-            title: "Visual Polish", 
-            desc: "Updated AMOLED Theme surface colors and added dynamic status bar scrims." 
+          {
+            icon: "palette",
+            title: "Visual Polish",
+            desc: "Updated AMOLED Theme surface colors and added dynamic status bar scrims."
           }
         ]
       },
+    plus_teaser: {
+      title: "Elevate Your Experience",
+      description: "Upgrade to **Pixel Compass+** and unlock a suite of professional-grade tools designed for precision. Get exclusive access to powerful widgets, advanced environmental data, and interactive charts.",
+      cta: "Discover Pixel Compass+",
+      items: [
+        {
+          icon: "widgets",
+          title: "Widget Suite",
+          desc: "Exclusive Clock, Weather, and Compass widgets for your home screen."
+        },
+        {
+          icon: "query_stats",
+          title: "Forecast Charts",
+          desc: "Tap any card to reveal hourly trends for Rain, Wind, and UV."
+        },
+        {
+          icon: "insights",
+          title: "Smart Insights",
+          desc: "Proactive alerts like 'Rain starting soon' or 'High UV Index'."
+        },
+        {
+          icon: "air",
+          title: "Barometer & Wind",
+          desc: "Real-time pressure tracking and wind direction on the compass."
+        },
+        {
+          icon: "wb_sunny",
+          title: "Sun & Moon",
+          desc: "Precise times for sunrise, sunset, and solar path tracking."
+        },
+        {
+          icon: "speed",
+          title: "Precise",
+          desc: "Weather and elevation data updates up to 4x faster than the free version."
+        }
+      ]
+    },
       features: {
         title: "Precision Toolkit",
         cta_project: "Explore Technical Overview",
         items: [
-          { 
-            title: "Precision Navigation", 
-            desc: "Toggle between Magnetic and True North with professional accuracy and haptic feedback." 
+          {
+            title: "Precision Navigation",
+            desc: "Toggle between Magnetic and True North with professional accuracy and haptic feedback."
           },
-          { 
-            title: "Smart Environment", 
-            desc: "Real-time altitude, temperature, and UV index with proactive Insight Engine 4.0 alerts." 
+          {
+            title: "Smart Environment",
+            desc: "Real-time altitude, temperature, and UV index with proactive Insight Engine 4.0 alerts."
           },
-          { 
-            title: "Innovative Level Tool", 
-            desc: "Check surface levels with expressive animations: ripple effects and fluid waves." 
+          {
+            title: "Innovative Level Tool",
+            desc: "Check surface levels with expressive animations: ripple effects and fluid waves."
           },
-          { 
-            title: "Adaptive Widgets", 
-            desc: "Beautiful home screen widgets that resize intelligently from 1x1 to full panels." 
+          {
+            title: "Adaptive Widgets",
+            desc: "Beautiful home screen widgets that resize intelligently from 1x1 to full panels."
           }
         ]
       },
@@ -390,25 +464,25 @@ footer: {
         cta_policy: "Read Policy",
         cta_tech: "Tech Details",
         cards: [
-          { 
-            icon: "location_off", 
-            title: "No Hidden Tracking", 
-            desc: "Location is only used for navigation and weather when the app is active." 
+          {
+            icon: "location_off",
+            title: "No Hidden Tracking",
+            desc: "Location is only used for navigation and weather when the app is active."
           },
-          { 
-            icon: "phonelink_lock", 
-            title: "On-Device Processing", 
-            desc: "Sensor data is processed entirely locally on your device." 
+          {
+            icon: "phonelink_lock",
+            title: "On-Device Processing",
+            desc: "Sensor data is processed entirely locally on your device."
           },
-          { 
-            icon: "cloud_off", 
-            title: "Transparent Data", 
-            desc: "We do not store your location history or payment details on our servers." 
+          {
+            icon: "cloud_off",
+            title: "Transparent Data",
+            desc: "We do not store your location history or payment details on our servers."
           },
-          { 
-            icon: "block", 
-            title: "Ad-Free Option", 
-            desc: "Plus removes all third-party ads for a cleaner, faster experience." 
+          {
+            icon: "block",
+            title: "Ad-Free Option",
+            desc: "Plus removes all third-party ads for a cleaner, faster experience."
           }
         ]
       },
