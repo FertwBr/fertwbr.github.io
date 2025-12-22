@@ -1,34 +1,33 @@
+import {parseMarkdownSections} from './markdownUtils';
+
+/**
+ * Parses the Help & FAQ Markdown content.
+ * Removes custom metadata tags (like {:...}) and structures the content.
+ *
+ * @param {string} markdown - The raw Markdown string.
+ * @returns {{
+ * sections: Array<{id: string, title: string, content: string}>
+ * }}
+ */
 export const parseHelpFAQ = (markdown) => {
-  if (!markdown) return { sections: [] };
+    if (!markdown) return {sections: []};
 
-  const cleanMarkdown = markdown.replace(/\{:.*?\}/g, '');
+    const cleanMarkdown = markdown.replace(/\{:.*?\}/g, '');
 
-  const sections = [];
-  const rawSections = cleanMarkdown.split(/^## /m);
+    const sections = [];
+    const rawSections = cleanMarkdown.split(/^## /m);
 
-  const introContent = rawSections[0].replace(/^# .+$/m, '').trim();
-  
-  if (introContent) {
-    sections.push({
-      id: 'introduction',
-      title: 'Introduction',
-      content: introContent
-    });
-  }
+    const introContent = rawSections[0].replace(/^# .+$/m, '').trim();
 
-  rawSections.slice(1).forEach((rawSection) => {
-    const sectionLines = rawSection.split('\n');
-    const title = sectionLines[0].trim();
-    const content = sectionLines.slice(1).join('\n').trim();
-    
-    if (title && content) {
-      sections.push({
-        id: title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-        title,
-        content
-      });
+    if (introContent) {
+        sections.push({
+            id: 'introduction',
+            title: 'Introduction',
+            content: introContent
+        });
     }
-  });
 
-  return { sections };
+    const bodySections = parseMarkdownSections(rawSections.slice(1));
+
+    return {sections: [...sections, ...bodySections]};
 };

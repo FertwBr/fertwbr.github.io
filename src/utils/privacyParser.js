@@ -1,50 +1,50 @@
+import {parseMarkdownSections} from './markdownUtils';
+
+/**
+ * Parses the Privacy Policy Markdown content.
+ * Extracts the "Last Updated" date and separates the Introduction from the rest of the sections.
+ *
+ * @param {string} markdown - The raw Markdown string.
+ * @returns {{
+ * lastUpdated: string,
+ * intro: {title: string, content: string}|null,
+ * sections: Array<{id: string, title: string, content: string}>
+ * }}
+ */
 export const parsePrivacyPolicy = (markdown) => {
-  if (!markdown) return { lastUpdated: '', sections: [] };
+    if (!markdown) return {lastUpdated: '', intro: null, sections: []};
 
-  let lines = markdown.split('\n');
-  let lastUpdated = '';
-  
-  const dateRegex = /Last Updated:\s*(.+)/i;
-  
-  for (let i = 0; i < 10 && i < lines.length; i++) {
-    const match = lines[i].match(dateRegex);
-    if (match) {
-      lastUpdated = match[1].replace(/[*_]/g, '').trim();
-      break;
+    let lines = markdown.split('\n');
+    let lastUpdated = '';
+
+    const dateRegex = /Last Updated:\s*(.+)/i;
+
+    for (let i = 0; i < 15 && i < lines.length; i++) {
+        const match = lines[i].match(dateRegex);
+        if (match) {
+            lastUpdated = match[1].replace(/[*_]/g, '').trim();
+            break;
+        }
     }
-  }
 
-  lines = lines.filter(line => !line.match(dateRegex));
-  const cleanMarkdown = lines.join('\n');
+    lines = lines.filter(line => !line.match(dateRegex));
+    const cleanMarkdown = lines.join('\n');
 
-  const sections = [];
-  const rawSections = cleanMarkdown.split(/^## /m);
+    const rawSections = cleanMarkdown.split(/^## /m);
+    let intro = null;
 
-  const introContent = rawSections[0];
-  
-  const cleanIntro = introContent.replace(/^# .+$/m, '').trim();
-  
-  if (cleanIntro) {
-    sections.push({
-      id: 'introduction',
-      title: 'Introduction',
-      content: cleanIntro
-    });
-  }
+    const introRaw = rawSections[0];
+    const cleanIntroContent = introRaw.replace(/^# .+$/m, '').trim();
 
-  rawSections.slice(1).forEach((rawSection) => {
-    const sectionLines = rawSection.split('\n');
-    const title = sectionLines[0].trim();
-    const content = sectionLines.slice(1).join('\n').trim();
-    
-    if (title && content) {
-      sections.push({
-        id: title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-        title,
-        content
-      });
+    if (cleanIntroContent) {
+        intro = {
+            id: 'introduction',
+            title: 'Introduction',
+            content: cleanIntroContent
+        };
     }
-  });
 
-  return { lastUpdated, sections };
+    const sections = parseMarkdownSections(rawSections.slice(1));
+
+    return {lastUpdated, intro, sections};
 };
