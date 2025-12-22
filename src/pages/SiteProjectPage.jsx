@@ -1,11 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {AnimatePresence} from 'framer-motion';
 
 import GeometricSpinner from '../components/common/GeometricSpinner.jsx';
 import ErrorDisplay from '../components/common/ErrorDisplay';
 
 import {useLanguage} from '../context/LanguageContext';
-import {applyMaterialTheme, getSurfaceColor} from '../theme/themeUtils';
+import {applyMaterialTheme, getSeedColor, getSurfaceColor} from '../theme/themeUtils';
 import {usePageMetadata} from '../hooks/usePageMetadata';
 import {useMarkdownLoader} from '../hooks/useMarkdownLoader';
 import {siteProjectConfig} from '../config';
@@ -40,7 +40,7 @@ export default function SiteProjectPage() {
 
     const { activeTab, handleNavigation } = useTabState(siteProjectConfig);
 
-    const activeColor = siteProjectConfig.seedColor;
+    const [activeColor] = useState(() => getSeedColor());
     const surfaceColor = getSurfaceColor(activeColor, true);
 
     const {markdownContent, isLoading, error} = useMarkdownLoader(activeTab, siteProjectConfig);
