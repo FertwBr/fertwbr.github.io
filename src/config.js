@@ -17,7 +17,7 @@ export const siteProjectConfig = {
   seedColor: "#d87739",
   appIcon: "https://github.com/fertwbr.png",
   defaultPage: 'overview',
-  basePath: "/site/md/en/",
+  basePath: "/site/md/",
   pages: {
     changelog: {
       id: "changelog",
