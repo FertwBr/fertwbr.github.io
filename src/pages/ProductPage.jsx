@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {useLocation} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import {AnimatePresence} from 'framer-motion';
@@ -20,6 +20,7 @@ import RoadmapViewer from '../components/viewers/RoadmapViewer';
 import OverviewViewer from '../components/viewers/OverviewViewer';
 import PlusViewer from "../components/viewers/PlusViewer";
 import PageTransition from '../components/layout/PageTransition';
+import {handleContactSupport} from "../utils/navigationUtils.js";
 
 /**
  * ProductPage component
@@ -48,8 +49,9 @@ export default function ProductPage({config, HomeComponent, translationKey}) {
     const {content} = useLanguage();
     const t = content[translationKey];
     const location = useLocation();
+    const navigate = useNavigate();
 
-    const {activeTab, handleNavigation} = useTabState(config);
+    const {activeTab, handleNavigation: internalNav} = useTabState(config);
     const [activeColor] = useState(() => getSeedColor());
 
     const {markdownContent, isLoading, error} = useMarkdownLoader(activeTab, config);
@@ -76,6 +78,18 @@ export default function ProductPage({config, HomeComponent, translationKey}) {
         favicon: config.faviconUrl
     });
 
+    /**
+     * Unified navigation handler.
+     */
+    const onNavigate = (id) => {
+        if (id === 'feedback') {
+            const source = config.appId.includes('pixelpulse') ? 'pixelpulse' : 'pixelcompass';
+            handleContactSupport('feedback', navigate, { source: source, platform: 'android' });
+        } else {
+            internalNav(id);
+        }
+    };
+
     useEffect(() => {
         applyMaterialTheme(activeColor, true);
     }, [activeColor]);
@@ -100,7 +114,7 @@ export default function ProductPage({config, HomeComponent, translationKey}) {
             appConfig: config,
             seedColor: activeColor,
             strings: t,
-            onNavigate: handleNavigation
+            onNavigate: onNavigate
         };
 
         switch (activeTab) {
@@ -147,7 +161,7 @@ export default function ProductPage({config, HomeComponent, translationKey}) {
             <AppNavbar
                 config={config}
                 activePage={activeTab}
-                onNavigate={handleNavigation}
+                onNavigate={onNavigate}
                 strings={t.nav}
             />
 
@@ -166,14 +180,18 @@ export default function ProductPage({config, HomeComponent, translationKey}) {
                             paddingRight: isHome ? '0' : '16px'
                         }}>
                             {isHome ? (
-                                <HomeComponent onNavigate={handleNavigation} strings={t}/>
+                                <HomeComponent onNavigate={onNavigate} strings={t}/>
                             ) : renderContent()}
                         </div>
                     </PageTransition>
                 </AnimatePresence>
             </main>
 
-            <AppFooter strings={t} onNavigate={handleNavigation} activePage={activeTab}/>
+            <AppFooter
+                strings={t}
+                onNavigate={onNavigate}
+                activePage={activeTab}
+            />
         </div>
     );
 }
