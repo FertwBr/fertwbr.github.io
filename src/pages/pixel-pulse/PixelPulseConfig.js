@@ -6,7 +6,7 @@ export const pixelPulseConfig = {
   appIcon: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Pulse/art/icon.svg",
   playStoreLink: "https://play.google.com/store/apps/details?id=io.github.fertwbr.pixelpulse",
   defaultPage: 'index',
-  basePath: "/PixelPulse/md/",
+  basePath: "/content/PixelPulse/md/",
   pages: {
     index: {
       id: "index",

@@ -6,7 +6,7 @@ export const pixelCompassConfig = {
   appIcon: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/icon.svg",
   playStoreLink: "https://play.google.com/store/apps/details?id=io.github.fertwbr.pixelcompass",
   defaultPage: 'index',
-  basePath: "/PixelCompass/md/",
+  basePath: "/content/PixelCompass/md/",
   pages: {
     index: {
       id: "index",
