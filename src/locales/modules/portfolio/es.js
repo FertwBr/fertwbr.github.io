@@ -129,13 +129,18 @@ export default {
         subtitle: "Herramientas que utilizo para dar vida a las ideas"
     },
     github: {
-        title: "Open Source",
+        title: "Código Abierto",
+        view_profile: "Ver Perfil de GitHub",
+        languages: "Lenguajes Más Utilizados",
+        default_bio: "Desarrollando soluciones para Android y la Web.",
         stats: {
-            contributions: "Contribuciones anuales",
+            contributions: "Contribuciones del Año",
             repos: "Repositorios",
-            stars: "Total de estrellas"
+            stars: "Total de Estrellas",
+            followers: "Seguidores"
         }
     },
+
     contact: {
         title: "Trabajemos juntos",
         desc: "¿Tienes un proyecto en mente o quieres hablar sobre lo último en tecnología Android?",

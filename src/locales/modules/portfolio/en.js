@@ -131,10 +131,14 @@ export default {
     },
     github: {
         title: "Open Source",
+        view_profile: "View GitHub Profile",
+        languages: "Most Used Languages",
+        default_bio: "Building things for Android and the Web.",
         stats: {
             contributions: "Year Contributions",
             repos: "Repositories",
-            stars: "Total Stars"
+            stars: "Total Stars",
+            followers: "Followers"
         }
     },
     contact: {

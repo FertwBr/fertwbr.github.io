@@ -130,11 +130,15 @@ export default {
         subtitle: "Ferramentas que utilizo para dar vida às ideias"
     },
     github: {
-        title: "Open Source",
+        title: "Código Aberto",
+        view_profile: "Ver Perfil no GitHub",
+        languages: "Linguagens Mais Utilizadas",
+        default_bio: "Desenvolvendo soluções para Android e Web.",
         stats: {
             contributions: "Contribuições no Ano",
             repos: "Repositórios",
-            stars: "Total de Estrelas"
+            stars: "Total de Estrelas",
+            followers: "Seguidores"
         }
     },
     contact: {
