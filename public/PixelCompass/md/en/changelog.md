@@ -1,6 +1,24 @@
 # Version History
-
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
+
+## Version 1.15.0 Beta 2
+*(Released December 20, 2025)*
+
+This beta improves the synergy between your Phone and Watch. We've introduced deep linking to allow smoother interactions between devices (like opening the purchase screen on your phone from your watch). We've added professional compass units and - for Wear OS users - a completely redesigned "About" screen.
+
+#### 📱 Phone
+* **New: Deep Link Support:** The app now handles intelligent links (e.g., `pixelcompass://open/buy`). This allows other apps (like our Watch app) to direct you to specific screens seamlessly.
+* **Improvement: Smarter Feedback:** The feedback system now detects the source of the report. If you send feedback triggered from your Watch, we'll know, helping us debug wearable-specific issues faster.
+* **New: Compass Unit Selection:** For professional use, you can now switch the azimuth display unit between **Degrees (360°)** and **NATO Mils (6400)** in the settings.
+* **New: Remote Interactions:** You can now trigger actions on your connected phone directly from the watch, such as opening the "Plus" purchase screen or the privacy policy.
+* **Improvement:** Added helpful descriptions to the GPS Format selection dialog.
+
+#### ⌚ Wear OS
+* **New: Compass Unit Selection:** For professional use, you can now switch the azimuth display unit between **Degrees (360°)** and **NATO Mils (6400)** in the settings.
+* **New: Redesigned 'About' Screen:** A complete visual overhaul. It now features quick action buttons to Send Feedback, Rate the App, or Open the Companion App on your phone.
+* **New: Remote Interactions:** You can now trigger actions on your connected phone directly from the watch, such as opening the privacy policy.
+
+
 ## Version 1.15.0 Beta 1
 *(Released December 15, 2025)*
 
