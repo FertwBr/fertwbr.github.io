@@ -406,7 +406,6 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
 
                     <div style={{marginBottom: '40px', display: 'flex', flexDirection: 'column', gap: '16px'}}>
 
-                        {/* Search Bar */}
                         <div className="search-input-wrapper">
                             <span className="material-symbols-outlined search-icon-absolute">search</span>
                             <input
@@ -418,7 +417,6 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                             />
                         </div>
 
-                        {/* Tags de Filtro com Cores Dinâmicas */}
                         {allTags.length > 0 && (
                             <div className="filter-tags-container">
                                 {allTags.map(tag => {
