@@ -1,42 +1,28 @@
 import React from "react";
-import {motion} from "framer-motion";
-import {useSmoothScroll} from "../../context/SmoothScrollContext";
+import { motion } from "framer-motion";
+import ScrollToLink from "../ui/ScrollToLink";
 
 /**
  * About section component.
+ * Displays biographical information, education, and tech stack details.
  *
  * @param {Object} props - Component props.
- * @param {Object} props.t - Translations/text content for the section. Expected shape:
- *   { title: string, subtitle: string, cards: { education, location, stack } }
+ * @param {Object} props.t - Translations object for the About section.
  * @returns {JSX.Element} The About section.
  */
-export default function About({t}) {
-    const {lenis} = useSmoothScroll();
-
-    const handleScrollTo = (e, targetId) => {
-        e.preventDefault();
-        if (lenis) {
-            lenis.scrollTo(targetId, {
-                duration: 1.5,
-                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
-            });
-        } else {
-            const element = document.querySelector(targetId);
-            element?.scrollIntoView({behavior: 'smooth'});
-        }
-    };
+export default function About({ t }) {
 
     const containerVariants = {
-        hidden: {opacity: 0},
+        hidden: { opacity: 0 },
         show: {
             opacity: 1,
-            transition: {staggerChildren: 0.1, delayChildren: 0.2}
+            transition: { staggerChildren: 0.1, delayChildren: 0.2 }
         }
     };
 
     const itemVariants = {
-        hidden: {y: 20, opacity: 0},
-        show: {y: 0, opacity: 1, transition: {type: "spring", stiffness: 50}}
+        hidden: { y: 20, opacity: 0 },
+        show: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 50 } }
     };
 
     return (
@@ -48,10 +34,10 @@ export default function About({t}) {
             width: '100%'
         }}>
             <motion.div
-                initial={{opacity: 0, y: 20}}
-                whileInView={{opacity: 1, y: 0}}
-                viewport={{once: true}}
-                style={{marginBottom: 'clamp(40px, 8vw, 60px)'}}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                style={{ marginBottom: 'clamp(40px, 8vw, 60px)' }}
             >
                 <span style={{
                     color: 'var(--md-sys-color-primary)',
@@ -85,10 +71,10 @@ export default function About({t}) {
             }}>
 
                 <motion.div
-                    initial={{opacity: 0, x: -20}}
-                    whileInView={{opacity: 1, x: 0}}
-                    viewport={{once: true}}
-                    style={{display: 'flex', flexDirection: 'column', gap: '32px'}}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}
                 >
                     <p style={{
                         fontSize: 'clamp(1.1rem, 4vw, 1.5rem)',
@@ -97,9 +83,11 @@ export default function About({t}) {
                         fontWeight: 400,
                         margin: 0
                     }}>
-                        I'm Fernando Vaz, a Software Engineer graduated from <strong
-                        style={{color: 'var(--md-sys-color-primary)'}}>UniCesumar</strong>,
-                        passionate about the intersection of robust code and intuitive design.
+                        {t.bio.p1.start}
+                        <strong style={{ color: 'var(--md-sys-color-primary)' }}>
+                            {t.bio.p1.highlight}
+                        </strong>
+                        {t.bio.p1.end}
                     </p>
 
                     <p style={{
@@ -108,23 +96,26 @@ export default function About({t}) {
                         color: 'var(--md-sys-color-on-surface-variant)',
                         margin: 0
                     }}>
-                        Specializing in the <strong style={{color: 'var(--md-sys-color-secondary)'}}>Android
-                        ecosystem</strong> (Kotlin/Jetpack Compose)
-                        and scalable <strong style={{color: 'var(--md-sys-color-tertiary)'}}>Backends</strong> (Spring
-                        Boot).
-                        I create solutions that are not only functional but delightful to use.
+                        {t.bio.p2.start}
+                        <strong style={{ color: 'var(--md-sys-color-secondary)' }}>
+                            {t.bio.p2.highlight_1}
+                        </strong>
+                        {t.bio.p2.middle}
+                        <strong style={{ color: 'var(--md-sys-color-tertiary)' }}>
+                            {t.bio.p2.highlight_2}
+                        </strong>
+                        {t.bio.p2.end}
                     </p>
 
-                    <div style={{marginTop: '16px'}}>
-                        <a
+                    <div style={{ marginTop: '16px' }}>
+                        <ScrollToLink
                             href="#projects-section"
-                            onClick={(e) => handleScrollTo(e, '#projects-section')}
                             className="btn-outline"
-                            style={{display: 'inline-flex', alignItems: 'center', gap: '8px'}}
+                            style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
                         >
-                            See my work
+                            {t.cta_work}
                             <span className="material-symbols-outlined">arrow_downward</span>
-                        </a>
+                        </ScrollToLink>
                     </div>
                 </motion.div>
 
@@ -132,12 +123,12 @@ export default function About({t}) {
                     variants={containerVariants}
                     initial="hidden"
                     whileInView="show"
-                    viewport={{once: true}}
-                    style={{display: 'flex', flexDirection: 'column', gap: '16px', width: '100%'}}
+                    viewport={{ once: true }}
+                    style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}
                 >
-                    <InfoCard variants={itemVariants} data={t.cards.education} icon="school" color="primary"/>
-                    <InfoCard variants={itemVariants} data={t.cards.location} icon="location_on" color="secondary"/>
-                    <InfoCard variants={itemVariants} data={t.cards.stack} icon="layers" color="tertiary"/>
+                    <InfoCard variants={itemVariants} data={t.cards.education} icon="school" color="primary" />
+                    <InfoCard variants={itemVariants} data={t.cards.location} icon="location_on" color="secondary" />
+                    <InfoCard variants={itemVariants} data={t.cards.stack} icon="layers" color="tertiary" />
                 </motion.div>
 
             </div>
@@ -145,11 +136,21 @@ export default function About({t}) {
     );
 }
 
-function InfoCard({data, icon, variants, color = "primary"}) {
+/**
+ * Reusable card component for displaying stats or info bits.
+ *
+ * @param {Object} props - Component props.
+ * @param {Object} props.data - Data object containing title, value, and sub.
+ * @param {string} props.icon - Material Symbols icon name.
+ * @param {Object} props.variants - Framer Motion variants.
+ * @param {string} [props.color="primary"] - Theme color suffix (primary, secondary, etc).
+ * @returns {JSX.Element} The rendered InfoCard.
+ */
+function InfoCard({ data, icon, variants, color = "primary" }) {
     return (
         <motion.div
             variants={variants}
-            whileHover={{scale: 1.02, x: 5}}
+            whileHover={{ scale: 1.02, x: 5 }}
             style={{
                 padding: '20px',
                 borderRadius: '24px',
@@ -170,10 +171,10 @@ function InfoCard({data, icon, variants, color = "primary"}) {
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 flexShrink: 0
             }}>
-                <span className="material-symbols-outlined" style={{fontSize: '28px'}}>{icon}</span>
+                <span className="material-symbols-outlined" style={{ fontSize: '28px' }}>{icon}</span>
             </div>
 
-            <div style={{minWidth: 0}}>
+            <div style={{ minWidth: 0 }}>
                 <h3 style={{
                     fontSize: '0.85rem',
                     color: 'var(--md-sys-color-on-surface-variant)',
@@ -193,7 +194,7 @@ function InfoCard({data, icon, variants, color = "primary"}) {
                 }}>
                     {data.value}
                 </p>
-                <small style={{color: `var(--md-sys-color-${color})`, fontWeight: 600, fontSize: '0.85rem'}}>
+                <small style={{ color: `var(--md-sys-color-${color})`, fontWeight: 600, fontSize: '0.85rem' }}>
                     {data.sub}
                 </small>
             </div>
