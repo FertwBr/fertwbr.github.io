@@ -1,6 +1,6 @@
 # Portfolio Architecture
 {: .intro}
-This project serves two purposes: to showcase my professional work and to demonstrate my ability to engineer complex, scalable frontend architectures. It is not just a static site; it's a dynamic React application with a custom content engine.
+This project serves two purposes: to showcase my professional work and to demonstrate my ability to engineer complex, scalable frontend architectures. It is not just a static site; it's a dynamic React application with a custom content engine and AI-driven automation.
 
 ## 🛠️ Tech Stack
 | Category | Stack |
@@ -9,6 +9,7 @@ This project serves two purposes: to showcase my professional work and to demons
 | **Design** | Material Design 3, CSS Variables |
 | **Animation** | Framer Motion, Lenis Scroll |
 | **Data** | Custom Markdown Parsers, Fetch API |
+| **AI & Automation** | Google Gemini API, Node.js Scripts |
 | **Routing** | React Router DOM v6 |
 
 ## 📐 Design Philosophy
@@ -21,8 +22,14 @@ The site uses `@material/material-color-utilities` to generate a complete tonal 
 
 ### Content as Code
 Instead of hardcoding text into React components, the site fetches raw Markdown files from the `public/` directory.
-* **Custom Parsers:** I wrote regex-based parsers to extract structured data (version numbers, dates, tags) from standard Markdown files.
-* **Components:** Specialized viewers (`ChangelogViewer`, `RoadmapViewer`) consume this parsed data to render rich, interactive UIs.
+* **Custom Parsers:** I wrote regex-based parsers to extract structured data (version numbers, dates, tags, roadmap phases) from standard Markdown files.
+* **Smart Viewers:** Specialized components like `ChangelogViewer` and `RoadmapViewer` consume this parsed data to render rich, interactive UIs with filtering and search capabilities.
+
+## 🤖 AI Integration
+To manage documentation across 6 languages efficiently, I engineered a custom build-time workflow:
+* **Incremental Translation:** A Node.js script scans English changelogs and compares them against target languages.
+* **Gemini API:** It uses the **Gemini 1.5 Flash** model to translate *only* the missing version blocks, preserving Markdown structure and technical terminology.
+* **Cost Efficiency:** The script implements a "save-as-you-go" strategy and rate limiting to stay within free tier quotas while ensuring data persistence.
 
 ## 🚀 Performance
 
