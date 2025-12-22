@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {useLocation} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import {useLanguage} from '../context/LanguageContext';
 import {applyMaterialTheme, getSurfaceColor, getSeedColor} from '../theme/themeUtils';
 import {usePageMetadata} from '../hooks/usePageMetadata';
@@ -11,7 +11,7 @@ import About from '../components/sections/About';
 import Projects from '../components/sections/Projects';
 import TechStack from '../components/sections/TechStack';
 import GitHubStats from '../components/sections/GitHubStats';
-import Footer from '../components/layout/Footer';
+import AppFooter from '../components/layout/AppFooter';
 
 /**
  * PortfolioHome component
@@ -21,13 +21,15 @@ import Footer from '../components/layout/Footer';
  * - Cleans `color` query parameter from the URL on mount.
  * - Selects and applies a Material seed color theme (`applyMaterialTheme`).
  * - Computes surface color and supplies metadata via `usePageMetadata`.
- * - Renders page layout and sections: Hero, About, Projects, GitHubStats, Contact callout, TechStack, Footer.
+ * - Renders page layout and sections: Hero, About, Projects, GitHubStats, Contact callout, TechStack.
+ * - Uses AppFooter configured for portfolio (Docs/Changelog only).
  *
- * Returns: JSX.Element
+ * @returns {JSX.Element}
  */
 export default function PortfolioHome() {
     const {content} = useLanguage();
     const location = useLocation();
+    const navigate = useNavigate();
 
     const [activeColor] = useState(() => getSeedColor());
 
@@ -50,6 +52,15 @@ export default function PortfolioHome() {
         themeColor: surfaceColor,
         favicon: "https://github.com/fertwbr.png"
     });
+
+    /**
+     * Handles footer navigation.
+     * Redirects internal documentation links to the /site route.
+     * @param {string} key - The footer link key (overview, changelog, etc.)
+     */
+    const handleFooterNavigation = (key) => {
+        navigate(`/site?page=${key}`);
+    };
 
     return (
         <PageTransition>
@@ -100,7 +111,7 @@ export default function PortfolioHome() {
                                 background: 'var(--md-sys-color-tertiary)', opacity: 0.1, filter: 'blur(60px)'
                             }}></div>
 
-                            <div style={{ position: 'relative', zIndex: 2 }}>
+                            <div style={{position: 'relative', zIndex: 2}}>
                                 <h2 style={{
                                     fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
                                     fontWeight: 800,
@@ -155,7 +166,12 @@ export default function PortfolioHome() {
                     <TechStack t={content.tech}/>
                 </main>
 
-                <Footer t={content.footer}/>
+                <AppFooter
+                    strings={content}
+                    onNavigate={handleFooterNavigation}
+                    activePage="index"
+                    isPortfolio={true}
+                />
             </div>
         </PageTransition>
     );

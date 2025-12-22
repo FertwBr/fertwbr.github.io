@@ -3,6 +3,15 @@
  * Includes common UI elements, hero section, about, and general site navigation.
  */
 export default {
+    nav: {
+        index: "Home",
+        overview: "Docs",
+        changelog: "Changelog",
+        roadmap: "Roadmap",
+        privacy: "Privacy",
+        help: "Help",
+        back: "Back"
+    },
     common: {
         offline: "You are currently offline.",
     },
@@ -159,5 +168,26 @@ export default {
             en: "English",
             pt: "Português"
         }
+    },
+    changelog: {
+        title: "Version History",
+        subtitle: "Track the evolution of the site. Here you'll find a detailed log of new features, improvements, and fixes for each version.",
+        search_placeholder: "Search features, versions...",
+        latest_release: "Latest Release",
+        released: "Released",
+        update_now: "Update Now",
+        on_this_page: "On This Page",
+        load_more: "Load Older Versions",
+        no_results: "No versions found matching your filters.",
+        jump_to: "Jump to Version",
+        read_more: "Read Release Notes",
+        collapse: "Collapse",
+        back_to_top: "Back to Top"
+    },
+    overview_page: {
+        title: "Technical Overview",
+        subtitle: "Deep dive into the architecture and stack.",
+        github_btn: "View on GitHub",
+        toc_title: "On This Page"
     }
 };

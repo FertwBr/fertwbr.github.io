@@ -2,6 +2,15 @@
  * Core portfolio localization strings (Japanese).
  */
 export default {
+    nav: {
+        index: "ホーム",
+        overview: "ドキュメント",
+        changelog: "変更履歴",
+        roadmap: "ロードマップ",
+        privacy: "プライバシー",
+        help: "ヘルプ",
+        back: "戻る"
+    },
     common: {
         offline: "現在オフラインです。",
     },
@@ -158,5 +167,26 @@ export default {
             en: "English",
             pt: "Português"
         }
+    },
+    changelog: {
+        title: "バージョン履歴",
+        subtitle: "サイトの進化を追跡します。ここでは、各バージョンの新機能、改善、修正に関する詳細なログを確認できます。",
+        search_placeholder: "機能、バージョンを検索...",
+        latest_release: "最新リリース",
+        released: "リリース済み",
+        update_now: "今すぐ更新",
+        on_this_page: "このページ内",
+        load_more: "以前のバージョンを読み込む",
+        no_results: "フィルターに一致するバージョンが見つかりませんでした。",
+        jump_to: "バージョンへ移動",
+        read_more: "リリースノートを読む",
+        collapse: "折りたたむ",
+        back_to_top: "トップへ戻る"
+    },
+    overview_page: {
+        title: "技術概要",
+        subtitle: "アーキテクチャとスタックの詳細な分析。",
+        github_btn: "GitHubで表示",
+        toc_title: "このページ内"
     }
 };

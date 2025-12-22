@@ -3,6 +3,15 @@
  * Inclui elementos comuns de UI, seção hero, sobre e navegação geral do site.
  */
 export default {
+    nav: {
+        index: "Início",
+        overview: "Documentação",
+        changelog: "Notas de Versão",
+        roadmap: "Cronograma",
+        privacy: "Privacidade",
+        help: "Ajuda",
+        back: "Voltar"
+    },
     common: {
         offline: "Você está offline no momento.",
     },
@@ -159,5 +168,26 @@ export default {
             en: "English",
             pt: "Português"
         }
+    },
+    changelog: {
+        title: "Histórico de Versões",
+        subtitle: "Acompanhe a evolução do site. Aqui você encontrará um registro detalhado de novas funcionalidades, melhorias e correções para cada versão.",
+        search_placeholder: "Pesquisar funcionalidades, versões...",
+        latest_release: "Último Lançamento",
+        released: "Lançado",
+        update_now: "Atualizar Agora",
+        on_this_page: "Nesta Página",
+        load_more: "Carregar Versões Anteriores",
+        no_results: "Nenhuma versão encontrada que corresponda aos seus filtros.",
+        jump_to: "Ir para a Versão",
+        read_more: "Ler Notas de Lançamento",
+        collapse: "Recolher",
+        back_to_top: "Voltar ao Topo"
+    },
+    overview_page: {
+        title: "Visão Geral Técnica",
+        subtitle: "Mergulho profundo na arquitetura e na stack.",
+        github_btn: "Ver no GitHub",
+        toc_title: "Nesta Página"
     }
 };

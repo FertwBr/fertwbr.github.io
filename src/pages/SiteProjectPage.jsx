@@ -65,8 +65,8 @@ export default function SiteProjectPage() {
             links: "Documentation",
             rights: "Portfolio Source Code"
         },
-        changelog: content.pixel_pulse.changelog,
-        overview_page: {
+        changelog: content.changelog,
+        overview_page: content.overview_page || {
             title: "Technical Overview",
             subtitle: "How this portfolio was built.",
             toc_title: "On this page",

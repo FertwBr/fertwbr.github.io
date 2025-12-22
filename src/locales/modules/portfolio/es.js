@@ -2,6 +2,15 @@
  * Core portfolio localization strings (Spanish).
  */
 export default {
+    nav: {
+        index: "Inicio",
+        overview: "Documentación",
+        changelog: "Historial de cambios",
+        roadmap: "Hoja de ruta",
+        privacy: "Privacidad",
+        help: "Ayuda",
+        back: "Volver"
+    },
     common: {
         offline: "Actualmente no tienes conexión.",
     },
@@ -159,5 +168,26 @@ export default {
             en: "English",
             pt: "Português"
         }
+    },
+    changelog: {
+        title: "Historial de versiones",
+        subtitle: "Siga la evolución del sitio. Aquí encontrará un registro detallado de las nuevas funciones, mejoras y correcciones de cada versión.",
+        search_placeholder: "Buscar funciones, versiones...",
+        latest_release: "Último lanzamiento",
+        released: "Lanzado",
+        update_now: "Actualizar ahora",
+        on_this_page: "En esta página",
+        load_more: "Cargar versiones anteriores",
+        no_results: "No se han encontrado versiones que coincidan con sus filtros.",
+        jump_to: "Ir a la versión",
+        read_more: "Leer notas de lanzamiento",
+        collapse: "Contraer",
+        back_to_top: "Volver arriba"
+    },
+    overview_page: {
+        title: "Resumen técnico",
+        subtitle: "Análisis profundo de la arquitectura y el stack.",
+        github_btn: "Ver en GitHub",
+        toc_title: "En esta página"
     }
 };

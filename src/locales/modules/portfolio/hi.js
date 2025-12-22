@@ -2,6 +2,15 @@
  * Core portfolio localization strings (Hindi).
  */
 export default {
+    nav: {
+        index: "मुख्य पृष्ठ",
+        overview: "दस्तावेज़",
+        changelog: "परिवर्तन लॉग",
+        roadmap: "रोडमैप",
+        privacy: "गोपनीयता",
+        help: "सहायता",
+        back: "वापस"
+    },
     common: {
         offline: "आप अभी ऑफ़लाइन हैं।",
     },
@@ -158,5 +167,26 @@ export default {
             en: "English",
             pt: "Português"
         }
+    },
+    changelog: {
+        title: "वर्शन इतिहास",
+        subtitle: "साइट के विकास पर नज़र रखें। यहाँ आपको प्रत्येक वर्शन के लिए नई सुविधाओं, सुधारों और सुधारों का विस्तृत विवरण मिलेगा।",
+        search_placeholder: "सुविधाएँ, वर्शन खोजें...",
+        latest_release: "नवीनतम रिलीज़",
+        released: "रिलीज़ किया गया",
+        update_now: "अभी अपडेट करें",
+        on_this_page: "इस पृष्ठ पर",
+        load_more: "पुराने वर्शन लोड करें",
+        no_results: "आपके फ़िल्टर से मेल खाने वाला कोई वर्शन नहीं मिला।",
+        jump_to: "वर्शन पर जाएँ",
+        read_more: "रिलीज़ नोट्स पढ़ें",
+        collapse: "छोटा करें",
+        back_to_top: "ऊपर वापस जाएँ"
+    },
+    overview_page: {
+        title: "तकनीकी अवलोकन",
+        subtitle: "आर्किटेक्चर और स्टैक का गहरा विश्लेषण।",
+        github_btn: "GitHub पर देखें",
+        toc_title: "इस पृष्ठ पर"
     }
 };
