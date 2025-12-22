@@ -189,5 +189,77 @@ export default {
         subtitle: "Deep dive into the architecture and stack.",
         github_btn: "View on GitHub",
         toc_title: "On This Page"
+    },
+    feedback: {
+        title: "Send Feedback",
+        subtitle: "Help us improve. Bug reports, feature requests, or just say hi.",
+
+        form: {
+            project_label: "Project",
+            type_label: "Topic",
+            platform_label: "Platform",
+            description_label: "Message",
+            description_placeholder: "Describe what happened or share your idea...",
+            include_device_info: "Include device info (Browser/OS)",
+            send_button: "Generate Email",
+            draft_recovered: "Draft recovered",
+            discard_draft: "Discard Draft",
+            attach_tip: "Note: Please attach screenshots directly in your email app if needed."
+        },
+
+        success: {
+            title: "Ready to Send",
+            message: "We've opened your email client with the prepared message. Please review and hit Send.",
+            btn_retry: "Open Email App Again",
+            btn_edit: "Edit Message",
+            btn_home: "Return Home"
+        },
+
+        projects: {
+            pixelpulse: "Pixel Pulse",
+            pixelcompass: "Pixel Compass",
+            portfolio: "Portfolio Site"
+        },
+
+        platforms: {
+            android: "Android (Phone)",
+            wearos: "Wear OS",
+            web: "Web / Site"
+        },
+
+        types: {
+            general: "General Feedback",
+            bug: "Bug Report",
+            feature: "Feature Request",
+            translation: "Translation Issue",
+            ui: "UI Suggestion",
+            other: "Other"
+        },
+        guidance: {
+            label: "Tip",
+            default_general: "We are listening! Share your thoughts.",
+            default_bug: "Describe the steps to make the bug happen.",
+            default_feature: "How would this feature improve your experience?",
+            default_translation: "Which screen has the wrong text?",
+
+            short_text: "Please provide a bit more detail so we can understand better.",
+            crash: "If the app crashed, did you see an error code or message?",
+            screenshot: "A picture is worth a thousand words. Consider attaching a screenshot in the email.",
+            translation_keyword: "Mentioning the specific language and the incorrect phrase helps us fix it fast.",
+
+            steps_received: "Perfect! Knowing the steps helps us reproduce the issue.",
+            error_received: "Thanks for including the error details.",
+            location_received: "Excellent, knowing the screen location is very helpful.",
+            idea_received: "That is an interesting idea! Tell us more about how it works.",
+            great_detail: "Great detail! This helps us understand significantly."
+        },
+        keywords: {
+            crash: "crash,close,stop,shut,freeze,lag,broken,white screen",
+            error: "error,code,fail,exception,0x,number,message",
+            steps: "step,first,then,after,when,click,tap,press,scroll",
+            screen: "screen,page,view,window,dialog,tab,card,menu,navbar,footer",
+            correction: "text,word,typo,wrong,incorrect,bad,spelling,grammar,translate,language",
+            idea: "add,create,wish,would,could,should,better,new,feature,mode"
+        }
     }
 };

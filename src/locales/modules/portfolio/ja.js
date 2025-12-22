@@ -188,5 +188,77 @@ export default {
         subtitle: "アーキテクチャとスタックの詳細な分析。",
         github_btn: "GitHubで表示",
         toc_title: "このページ内"
+    },
+    feedback: {
+        title: "フィードバックを送信",
+        subtitle: "改善にご協力ください。バグ報告、機能のリクエスト、または単なる挨拶でも構いません。",
+
+        form: {
+            project_label: "プロジェクト",
+            type_label: "トピック",
+            platform_label: "プラットフォーム",
+            description_label: "メッセージ",
+            description_placeholder: "何が起きたのか、またはあなたのアイデアを教えてください...",
+            include_device_info: "デバイス情報を含める (Browser/OS)",
+            send_button: "メールを生成",
+            draft_recovered: "下書きを復元しました",
+            discard_draft: "下書きを破棄",
+            attach_tip: "注意：必要に応じて、メールアプリで直接スクリーンショットを添付してください。"
+        },
+
+        success: {
+            title: "送信の準備完了",
+            message: "作成されたメッセージを表示した状態でメールクライアントを開きました。内容を確認して送信ボタンを押してください。",
+            btn_retry: "メールアプリを再度開く",
+            btn_edit: "メッセージを編集",
+            btn_home: "ホームに戻る"
+        },
+
+        projects: {
+            pixelpulse: "Pixel Pulse",
+            pixelcompass: "Pixel Compass",
+            portfolio: "Portfolio Site"
+        },
+
+        platforms: {
+            android: "Android (Phone)",
+            wearos: "Wear OS",
+            web: "Web / Site"
+        },
+
+        types: {
+            general: "全般的なフィードバック",
+            bug: "バグ報告",
+            feature: "機能リクエスト",
+            translation: "翻訳の問題",
+            ui: "UIの提案",
+            other: "その他"
+        },
+        guidance: {
+            label: "ヒント",
+            default_general: "皆様のご意見をお待ちしております！",
+            default_bug: "バグが発生するまでの手順を説明してください。",
+            default_feature: "この機能によって、あなたの体験はどのように向上しますか？",
+            default_translation: "どの画面に誤ったテキストがありますか？",
+
+            short_text: "より詳しく理解するために、もう少し詳細を教えてください。",
+            crash: "アプリがクラッシュした場合、エラーコードやメッセージが表示されましたか？",
+            screenshot: "百聞は一見に如かず。メールにスクリーンショットを添付することをご検討ください。",
+            translation_keyword: "特定の言語と誤ったフレーズを明記していただくと、迅速な修正に役立ちます。",
+
+            steps_received: "完璧です！手順を把握することで、問題を再現しやすくなります。",
+            error_received: "エラーの詳細を含めていただき、ありがとうございます。",
+            location_received: "素晴らしいです。画面上の場所がわかると非常に助かります。",
+            idea_received: "それは興味深いアイデアですね！どのように機能するか詳しく教えてください。",
+            great_detail: "詳細な情報をありがとうございます！理解を深めるのに非常に役立ちます。"
+        },
+        keywords: {
+            crash: "クラッシュ,閉じる,停止,終了,フリーズ,ラグ,壊れた,白画面",
+            error: "エラー,コード,失敗,例外,0x,番号,メッセージ",
+            steps: "ステップ,最初,次に,後で,時,クリック,タップ,押す,スクロール",
+            screen: "画面,ページ,ビュー,ウィンドウ,ダイアログ,タブ,カード,メニュー,ナビバー,フッター",
+            correction: "テキスト,単語,誤字,間違い,正しくない,悪い,綴り,文法,翻訳,言語",
+            idea: "追加,作成,希望,したい,できる,すべき,より良い,新しい,機能,モード"
+        }
     }
 };

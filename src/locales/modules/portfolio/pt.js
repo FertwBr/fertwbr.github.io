@@ -189,5 +189,77 @@ export default {
         subtitle: "Mergulho profundo na arquitetura e na stack.",
         github_btn: "Ver no GitHub",
         toc_title: "Nesta Página"
+    },
+    feedback: {
+        title: "Enviar Feedback",
+        subtitle: "Ajude-nos a melhorar. Relatos de bugs, sugestões de funcionalidades ou apenas um olá.",
+
+        form: {
+            project_label: "Projeto",
+            type_label: "Tópico",
+            platform_label: "Plataforma",
+            description_label: "Mensagem",
+            description_placeholder: "Descreva o ocorrido ou compartilhe a sua ideia...",
+            include_device_info: "Incluir informações do dispositivo (Navegador/SO)",
+            send_button: "Gerar E-mail",
+            draft_recovered: "Rascunho recuperado",
+            discard_draft: "Descartar Rascunho",
+            attach_tip: "Nota: Por favor, anexe capturas de tela diretamente no seu aplicativo de e-mail, se necessário."
+        },
+
+        success: {
+            title: "Pronto para Enviar",
+            message: "Abrimos o seu cliente de e-mail com a mensagem preparada. Por favor, revise-a e clique em Enviar.",
+            btn_retry: "Abrir App de E-mail Novamente",
+            btn_edit: "Editar Mensagem",
+            btn_home: "Voltar ao Início"
+        },
+
+        projects: {
+            pixelpulse: "Pixel Pulse",
+            pixelcompass: "Pixel Compass",
+            portfolio: "Portfolio Site"
+        },
+
+        platforms: {
+            android: "Android (Phone)",
+            wearos: "Wear OS",
+            web: "Web / Site"
+        },
+
+        types: {
+            general: "Feedback Geral",
+            bug: "Relato de Bug",
+            feature: "Sugestão de Funcionalidade",
+            translation: "Problema de Tradução",
+            ui: "Sugestão de UI",
+            other: "Outro"
+        },
+        guidance: {
+            label: "Dica",
+            default_general: "Estamos ouvindo! Compartilhe os seus pensamentos.",
+            default_bug: "Descreva os passos para reproduzir o bug.",
+            default_feature: "Como esta funcionalidade melhoraria a sua experiência?",
+            default_translation: "Qual tela possui o texto incorreto?",
+
+            short_text: "Por favor, forneça um pouco mais de detalhes para que possamos entender melhor.",
+            crash: "Se o aplicativo parou de funcionar, você viu algum código ou mensagem de erro?",
+            screenshot: "Uma imagem vale mais que mil palavras. Considere anexar uma captura de tela no e-mail.",
+            translation_keyword: "Mencionar o idioma específico e a frase incorreta ajuda-nos a corrigir rapidamente.",
+
+            steps_received: "Perfeito! Conhecer os passos ajuda-nos a reproduzir o problema.",
+            error_received: "Obrigado por incluir os detalhes do erro.",
+            location_received: "Excelente, saber a localização na tela é muito útil.",
+            idea_received: "Essa é uma ideia interessante! Conte-nos mais sobre como ela funcionaria.",
+            great_detail: "Ótimos detalhes! Isso ajuda-nos significativamente na compreensão."
+        },
+        keywords: {
+            crash: "crash,fechar,parar,encerrar,travar,lag,quebrado,tela branca",
+            error: "erro,código,falha,exceção,0x,número,mensagem",
+            steps: "passo,primeiro,depois,após,quando,clicar,tocar,pressionar,rolar",
+            screen: "tela,página,visualização,janela,diálogo,aba,cartão,menu,navbar,rodapé",
+            correction: "texto,palavra,erro de digitação,errado,incorreto,ruim,ortografia,gramática,traduzir,idioma",
+            idea: "adicionar,criar,desejo,gostaria,poderia,deveria,melhor,novo,funcionalidade,modo"
+        }
     }
 };
