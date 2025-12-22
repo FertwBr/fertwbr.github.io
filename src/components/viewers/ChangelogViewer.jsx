@@ -17,6 +17,49 @@ import {
 } from './changelog/SidebarCards';
 
 /**
+ * Map of tag keys to visual style settings used by badges and timeline indicators.
+ * Keys are lowercase tag identifiers (e.g. "stable", "beta", "alpha", "rc", "pre-release").
+ * Each entry contains:
+ *  - bg: background color
+ *  - color: foreground color
+ *  - border: border color
+ *  - highlight: accent color used for timeline/markers
+ *
+ * @type {{[key: string]: {bg: string, color: string, border: string, highlight: string}}}
+ */
+const TAG_STYLE_CONFIG = {
+    stable: {bg: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', border: 'transparent', highlight: 'var(--md-sys-color-primary)'},
+    beta: {bg: 'rgba(255, 183, 77, 0.15)', color: '#FFB74D', border: '#FFB74D', highlight: '#FFB74D'},
+    alpha: {bg: 'rgba(239, 83, 80, 0.15)', color: '#EF5350', border: '#EF5350', highlight: '#EF5350'},
+    rc: {bg: 'rgba(171, 71, 188, 0.15)', color: '#AB47BC', border: '#AB47BC', highlight: '#AB47BC'},
+    'pre-release': {bg: 'rgba(79, 195, 247, 0.15)', color: '#4FC3F7', border: '#4FC3F7', highlight: '#4FC3F7'},
+    default: {bg: 'var(--md-sys-color-primary-container)', color: 'var(--md-sys-color-primary)', border: 'var(--md-sys-color-primary)', highlight: 'var(--md-sys-color-primary)'}
+};
+
+
+/**
+ * Get the style configuration for a tag/type key.
+ *
+ * Normalizes the input to lowercase and returns:
+ *  - exact match from TAG_STYLE_CONFIG if available
+ *  - fallback pattern matches for keys that include 'beta', 'alpha', 'rc', or 'pre-release'
+ *  - the 'default' style otherwise
+ *
+ * @param {string|undefined|null} tagKey - Tag or release type (case-insensitive).
+ * @returns {{bg: string, color: string, border: string, highlight: string}} Style config for the provided tag.
+ */
+const getTagStyle = (tagKey) => {
+    const key = tagKey?.toLowerCase() || 'default';
+    if (TAG_STYLE_CONFIG[key]) return TAG_STYLE_CONFIG[key];
+
+    if (key.includes('beta')) return TAG_STYLE_CONFIG.beta;
+    if (key.includes('alpha')) return TAG_STYLE_CONFIG.alpha;
+    if (key.includes('rc')) return TAG_STYLE_CONFIG.rc;
+    if (key.includes('pre-release')) return TAG_STYLE_CONFIG['pre-release'];
+
+    return TAG_STYLE_CONFIG.default;
+};
+/**
  * VersionBadge component
  *
  * Renders a small badge representing the release channel/type (e.g. stable, beta, alpha, rc, pre-release).
@@ -27,23 +70,19 @@ import {
  * @returns {JSX.Element} Inline styled `<span>` used as a badge.
  */
 const VersionBadge = ({type, text}) => {
-    const config = {
-        stable: {bg: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', border: 'transparent'},
-        beta: {bg: 'rgba(255, 183, 77, 0.15)', color: '#FFB74D', border: '#FFB74D'},
-        alpha: {bg: 'rgba(239, 83, 80, 0.15)', color: '#EF5350', border: '#EF5350'},
-        rc: {bg: 'rgba(171, 71, 188, 0.15)', color: '#AB47BC', border: '#AB47BC'},
-        'pre-release': {bg: 'rgba(79, 195, 247, 0.15)', color: '#4FC3F7', border: '#4FC3F7'}
-    };
-    const style = config[type] || config.stable;
+    const style = getTagStyle(type);
+
     return (
         <span style={{
             fontSize: '0.65rem', fontWeight: 700, padding: '4px 8px', borderRadius: '6px',
-            background: style.bg, color: style.color, border: `1px solid ${style.border}`,
+            background: style.bg,
+            color: style.color,
+            border: `1px solid ${style.border}`,
             textTransform: 'uppercase', letterSpacing: '0.5px', display: 'inline-flex',
             alignItems: 'center', whiteSpace: 'nowrap'
         }}>
-      {text || type}
-    </span>
+          {text || type}
+        </span>
     );
 };
 
@@ -65,6 +104,9 @@ const VersionBadge = ({type, text}) => {
  */
 const ChangelogItem = ({v, index, isActive, strings}) => {
     const [isOpen, setIsOpen] = useState(index === 0);
+    const badgeStyle = getTagStyle(v.type);
+
+    const timelineColor = badgeStyle.highlight;
 
     return (
         <motion.div
@@ -78,7 +120,7 @@ const ChangelogItem = ({v, index, isActive, strings}) => {
                 position: 'absolute', left: '-46px', top: '24px',
                 width: '14px', height: '14px', borderRadius: '50%',
                 background: v.type === 'stable' ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface)',
-                border: `3px solid ${v.type === 'stable' ? 'var(--md-sys-color-primary)' : v.type === 'beta' ? '#FFB74D' : v.type === 'alpha' ? '#EF5350' : '#AB47BC'}`,
+                border: `3px solid ${timelineColor}`,
                 zIndex: 2, boxShadow: `0 0 0 4px var(--md-sys-color-surface)`
             }}/>
 
@@ -192,7 +234,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
             const originalContent = await loadPageContent('changelog', appConfig, 'en');
             if (originalContent) {
                 setMarkdown(originalContent);
-                setIsAiTranslated(false); // Manually disable flag since 'en' won't have it
+                setIsAiTranslated(false);
                 setShowTranslateInfo(false);
             }
         } catch (e) {
@@ -316,10 +358,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                 )}
             </AnimatePresence>
 
-            <div style={{
-                marginBottom: '60px', paddingBottom: '30px',
-                borderBottom: '1px solid var(--md-sys-color-outline-variant)'
-            }}>
+            <div className="page-header-container">
                 <div style={{
                     display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px',
                     color: 'var(--md-sys-color-on-surface-variant)', fontSize: '0.95rem', fontWeight: 500
@@ -366,34 +405,42 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                 <div style={{flex: 1, minWidth: 0}}>
 
                     <div style={{marginBottom: '40px', display: 'flex', flexDirection: 'column', gap: '16px'}}>
-                        <div style={{position: 'relative'}}>
-                            <span className="material-symbols-outlined" style={{
-                                position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)',
-                                color: 'var(--md-sys-color-on-surface-variant)'
-                            }}>search</span>
-                            <input type="text" placeholder={strings.changelog.search_placeholder} value={searchQuery}
-                                   onChange={(e) => setSearchQuery(e.target.value)} style={{
-                                width: '100%', padding: '16px 16px 16px 50px',
-                                background: 'rgba(var(--md-sys-color-surface-container-high-rgb), 0.5)',
-                                border: '1px solid var(--md-sys-color-outline-variant)', borderRadius: '16px',
-                                color: 'var(--md-sys-color-on-surface)', fontSize: '1rem', outline: 'none'
-                            }}/>
+
+                        {/* Search Bar */}
+                        <div className="search-input-wrapper">
+                            <span className="material-symbols-outlined search-icon-absolute">search</span>
+                            <input
+                                type="text"
+                                className="search-input-high-contrast"
+                                placeholder={strings.changelog.search_placeholder}
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                            />
                         </div>
+
+                        {/* Tags de Filtro com Cores Dinâmicas */}
                         {allTags.length > 0 && (
-                            <div style={{display: 'flex', gap: '8px', flexWrap: 'wrap'}}>
-                                {allTags.map(tag => (
-                                    <button key={tag} onClick={() => toggleTag(tag)} style={{
-                                        padding: '6px 12px',
-                                        borderRadius: '8px',
-                                        cursor: 'pointer',
-                                        fontSize: '0.85rem',
-                                        fontWeight: 500,
-                                        background: selectedTags.includes(tag) ? 'var(--md-sys-color-primary-container)' : 'transparent',
-                                        color: selectedTags.includes(tag) ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface-variant)',
-                                        border: `1px solid ${selectedTags.includes(tag) ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
-                                        transition: 'all 0.2s'
-                                    }}>{tag}</button>
-                                ))}
+                            <div className="filter-tags-container">
+                                {allTags.map(tag => {
+                                    const isSelected = selectedTags.includes(tag);
+                                    const style = getTagStyle(tag);
+
+                                    return (
+                                        <button
+                                            key={tag}
+                                            onClick={() => toggleTag(tag)}
+                                            className="filter-tag"
+                                            style={{
+                                                backgroundColor: isSelected ? style.bg : 'transparent',
+                                                borderColor: isSelected ? style.border : 'var(--md-sys-color-outline-variant)',
+                                                color: isSelected ? style.color : 'var(--md-sys-color-on-surface-variant)',
+                                                fontWeight: isSelected ? 700 : 500
+                                            }}
+                                        >
+                                            {tag}
+                                        </button>
+                                    );
+                                })}
                             </div>
                         )}
                     </div>
