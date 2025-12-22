@@ -1,7 +1,14 @@
 import {motion, useMotionValue, useTransform, useSpring} from "framer-motion";
 import {useRef} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
+/**
+ * Projects Section Component.
+ * Displays a list of projects with 3D tilt effects and glassmorphism.
+ *
+ * @param {object} props - Component props.
+ * @param {object} props.t - Translations for the projects section.
+ */
 export default function Projects({t}) {
     return (
         <section id="projects" style={{
@@ -32,8 +39,13 @@ export default function Projects({t}) {
     );
 }
 
+/**
+ * Individual Project Card with 3D hover effect.
+ */
 function ProjectCard({project, t, index}) {
     const ref = useRef(null);
+    const navigate = useNavigate();
+
     const x = useMotionValue(0);
     const y = useMotionValue(0);
 
@@ -58,6 +70,16 @@ function ProjectCard({project, t, index}) {
     };
 
     const isInternalLink = project.link && project.link.startsWith('/');
+
+    const handleCardClick = (e) => {
+        if (e.target.tagName === 'A' || e.target.closest('a')) return;
+
+        if (isInternalLink) {
+            navigate(project.link);
+        } else {
+            window.open(project.link, '_blank');
+        }
+    };
 
     const ViewButton = () => {
         const style = {
@@ -115,6 +137,7 @@ function ProjectCard({project, t, index}) {
                 ref={ref}
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
+                onClick={handleCardClick}
                 style={{
                     rotateX, rotateY,
                     transformStyle: "preserve-3d",
@@ -128,14 +151,6 @@ function ProjectCard({project, t, index}) {
                     overflow: 'hidden'
                 }}
                 className="glass-card"
-                onClick={(e) => {
-                    if (e.target.tagName === 'A') return;
-                    if (isInternalLink) {
-                        window.location.href = project.link;
-                    } else {
-                        window.open(project.link, '_blank');
-                    }
-                }}
             >
                 <div style={{transform: "translateZ(50px)", pointerEvents: 'none'}}>
                     {project.icon_url ? (
@@ -154,22 +169,22 @@ function ProjectCard({project, t, index}) {
                             fontSize: 'clamp(60px, 15vw, 100px)',
                             color: `var(--md-sys-color-${project.color})`
                         }}>
-              {project.icon}
-            </span>
+                            {project.icon}
+                        </span>
                     )}
                 </div>
             </motion.div>
 
             <div style={{padding: '0 8px'}}>
-        <span style={{
-            color: `var(--md-sys-color-${project.color})`,
-            fontWeight: 700,
-            letterSpacing: '1.5px',
-            textTransform: 'uppercase',
-            fontSize: '0.85rem'
-        }}>
-          {project.category}
-        </span>
+                <span style={{
+                    color: `var(--md-sys-color-${project.color})`,
+                    fontWeight: 700,
+                    letterSpacing: '1.5px',
+                    textTransform: 'uppercase',
+                    fontSize: '0.85rem'
+                }}>
+                    {project.category}
+                </span>
                 <h3 style={{fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', margin: '12px 0'}}>{project.title}</h3>
                 <p style={{
                     fontSize: 'clamp(1rem, 3.5vw, 1.1rem)',
@@ -188,15 +203,13 @@ function ProjectCard({project, t, index}) {
                             color: 'var(--md-sys-color-on-surface-variant)',
                             border: '1px solid var(--md-sys-color-outline-variant)'
                         }}>
-              {tag}
-            </span>
+                            {tag}
+                        </span>
                     ))}
                 </div>
 
                 <div style={{display: 'flex', gap: '12px', flexWrap: 'wrap'}}>
-
                     <ViewButton/>
-
                     <a href={project.repo} target="_blank" rel="noreferrer" className="btn-outline" style={{
                         padding: '12px 24px',
                         borderRadius: '100px',
