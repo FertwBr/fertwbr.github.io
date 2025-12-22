@@ -187,7 +187,9 @@ export default {
         title: "技術概要",
         subtitle: "アーキテクチャとスタックの詳細な分析。",
         github_btn: "GitHubで表示",
-        toc_title: "このページ内"
+        toc_title: "このページ内",
+        dynamic_docs_note: "この概要はMarkdownファイルから動的に生成されており、コードベースの最新の変更に合わせて常に最新の状態が保たれるようになっています。",
+        about_docs_title: "このドキュメントについて"
     },
     feedback: {
         title: "フィードバックを送信",

@@ -188,7 +188,9 @@ export default {
         title: "Resumen técnico",
         subtitle: "Análisis profundo de la arquitectura y el stack.",
         github_btn: "Ver en GitHub",
-        toc_title: "En esta página"
+        toc_title: "En esta página",
+        dynamic_docs_note: "Esta descripción general se genera dinámicamente a partir de archivos Markdown para garantizar que esté siempre actualizada con los últimos cambios en la base de código.",
+        about_docs_title: "Acerca de esta documentación"
     },
     feedback: {
         title: "Enviar comentarios",

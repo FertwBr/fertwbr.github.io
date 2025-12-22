@@ -188,7 +188,9 @@ export default {
         title: "Visão Geral Técnica",
         subtitle: "Mergulho profundo na arquitetura e na stack.",
         github_btn: "Ver no GitHub",
-        toc_title: "Nesta Página"
+        toc_title: "Nesta Página",
+        dynamic_docs_note: "Esta visão geral é gerada dinamicamente a partir de arquivos Markdown para garantir que esteja sempre atualizada com as últimas alterações na base de código.",
+        about_docs_title: "Sobre esta documentação"
     },
     feedback: {
         title: "Enviar Feedback",

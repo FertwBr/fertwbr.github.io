@@ -208,6 +208,8 @@ export default {
         title: "Technische Übersicht",
         subtitle: "Tiefer Einblick in Architektur, Tech-Stack und Privacy-Engineering.",
         github_btn: "Auf GitHub ansehen",
-        toc_title: "Auf dieser Seite"
+        toc_title: "Auf dieser Seite",
+        dynamic_docs_note: "Dieser Überblick wird dynamisch aus Markdown-Dateien generiert, um sicherzustellen, dass er stets mit den neuesten Änderungen an der Codebasis übereinstimmt.",
+        about_docs_title: "Über diese Dokumentation"
     }
 };

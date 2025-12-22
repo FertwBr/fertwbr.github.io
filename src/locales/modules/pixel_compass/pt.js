@@ -208,6 +208,8 @@ export default {
         title: "Visão Geral Técnica",
         subtitle: "Análise profunda da arquitetura, sensores e engenharia.",
         github_btn: "Ver no GitHub",
-        toc_title: "Nesta Página"
+        toc_title: "Nesta Página",
+        dynamic_docs_note: "Esta visão geral é gerada dinamicamente a partir de arquivos Markdown para garantir que esteja sempre atualizada com as últimas alterações na base de código.",
+        about_docs_title: "Sobre esta documentação"
     }
 };

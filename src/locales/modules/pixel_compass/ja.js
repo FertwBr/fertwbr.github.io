@@ -208,6 +208,8 @@ export default {
         title: "技術概要",
         subtitle: "アーキテクチャ、センサー、およびエンジニアリングを深く掘り下げます。",
         github_btn: "GitHub で表示",
-        toc_title: "このページの内容"
+        toc_title: "このページの内容",
+        dynamic_docs_note: "この概要はMarkdownファイルから動的に生成されており、コードベースの最新の変更に合わせて常に最新の状態が保たれるようになっています。",
+        about_docs_title: "このドキュメントについて"
     }
 };

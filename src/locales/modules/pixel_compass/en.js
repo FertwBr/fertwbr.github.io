@@ -208,6 +208,8 @@ export default {
         title: "Technical Overview",
         subtitle: "Deep dive into the architecture, sensors, and engineering.",
         github_btn: "View on GitHub",
-        toc_title: "On This Page"
+        toc_title: "On This Page",
+        dynamic_docs_note: "This overview is generated dynamically from Markdown files to ensure it's always up-to-date with the latest codebase changes.",
+        about_docs_title: "About this docs"
     }
 };
