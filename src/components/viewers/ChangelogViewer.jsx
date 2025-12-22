@@ -3,8 +3,11 @@ import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import {motion, AnimatePresence} from 'framer-motion';
 import {parseChangelog} from '../../utils/changelogParser';
+import {loadPageContent} from '../../utils/contentLoader';
+import {useLanguage} from '../../context/LanguageContext';
 import BackToTop from '../common/BackToTop';
 import PageTableOfContents from '../common/PageTableOfContents';
+import AutoTranslateBadge from '../common/AutoTranslateBadge';
 
 import {
     LatestReleaseCard,
@@ -13,7 +16,16 @@ import {
     PlusPromoCard
 } from './changelog/SidebarCards';
 
-
+/**
+ * VersionBadge component
+ *
+ * Renders a small badge representing the release channel/type (e.g. stable, beta, alpha, rc, pre-release).
+ *
+ * @param {Object} props
+ * @param {string} props.type - Release type key used to determine visual style.
+ * @param {string} [props.text] - Optional text to display; falls back to the `type` value.
+ * @returns {JSX.Element} Inline styled `<span>` used as a badge.
+ */
 const VersionBadge = ({type, text}) => {
     const config = {
         stable: {bg: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', border: 'transparent'},
@@ -35,6 +47,22 @@ const VersionBadge = ({type, text}) => {
     );
 };
 
+/**
+ * ChangelogItem component
+ *
+ * Renders a single changelog entry card with expand/collapse behavior and entrance animation.
+ * The first item (index === 0) is open by default. Uses framer-motion for animated mount/unmount
+ * and expansion. Displays version metadata (version string, release date, type badges, tags)
+ * and renders the changelog content as Markdown.
+ *
+ * @param {Object} props
+ * @param {Object} props.v - Version object parsed from the changelog. Expected shape:
+ *   { id: string|number, version: string, date: string, type: string, tags: string[], content: string }
+ * @param {number} props.index - Index of this item in the list (used for animation delay and initial open).
+ * @param {boolean} props.isActive - Whether this item is currently active/in-view (used for styling).
+ * @param {Object} props.strings - Localization strings used inside the item (e.g. released label).
+ * @returns {JSX.Element} A motion-wrapped changelog item card with header, badges and Markdown content.
+ */
 const ChangelogItem = ({v, index, isActive, strings}) => {
     const [isOpen, setIsOpen] = useState(index === 0);
 
@@ -66,11 +94,7 @@ const ChangelogItem = ({v, index, isActive, strings}) => {
                 }}>
                     <div>
                         <div style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '12px',
-                            marginBottom: '8px',
-                            flexWrap: 'wrap'
+                            display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px', flexWrap: 'wrap'
                         }}>
                             <h2 style={{fontSize: '1.5rem', fontWeight: 800, margin: 0, letterSpacing: '-0.5px'}}>
                                 {v.version.replace('Version ', '')}
@@ -127,23 +151,54 @@ const ChangelogItem = ({v, index, isActive, strings}) => {
     );
 };
 
-export default function ChangelogViewer({markdownContent, appConfig, strings, onNavigate}) {
+/**
+ * Changelog viewer component.
+ *
+ * @param {Object} props
+ * @param {string} props.markdownContent - Initial changelog Markdown content.
+ * @param {Object} props.appConfig - Application configuration (e.g. appName, appId, playStoreLink).
+ * @param {Object} props.strings - Localization strings used by the component.
+ * @param {Function} [props.onNavigate] - Optional navigation callback for promo actions.
+ * @returns {JSX.Element}
+ */
+export default function ChangelogViewer({markdownContent: initialMarkdown, appConfig, strings, onNavigate}) {
+    const { language } = useLanguage();
+    const [markdown, setMarkdown] = useState(initialMarkdown);
     const [versions, setVersions] = useState([]);
+    const [isAiTranslated, setIsAiTranslated] = useState(false);
+    const [showTranslateInfo, setShowTranslateInfo] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [visibleCount, setVisibleCount] = useState(10);
     const [activeId, setActiveId] = useState(null);
     const [selectedTags, setSelectedTags] = useState([]);
 
     const isCompass = appConfig?.appName?.toLowerCase().includes('compass');
-    const isPortfolio = appConfig?.appId === 'io.github.fertwbr.portfolio';
-
+    const isPortfolio = appConfig?.appId === 'io.github.fertwbr.portfolio' || !appConfig?.playStoreLink;
     const betaLink = appConfig?.playStoreLink?.replace('/store/apps/details?id=', '/apps/testing/') || appConfig?.playStoreLink;
 
     useEffect(() => {
-        if (markdownContent) {
-            setVersions(parseChangelog(markdownContent));
+        setMarkdown(initialMarkdown);
+    }, [initialMarkdown]);
+
+    useEffect(() => {
+        if (markdown) {
+            setIsAiTranslated(markdown.includes(''));
+            setVersions(parseChangelog(markdown));
         }
-    }, [markdownContent]);
+    }, [markdown]);
+
+    const handleRevertToEnglish = async () => {
+        try {
+            const originalContent = await loadPageContent('changelog', appConfig, 'en');
+            if (originalContent) {
+                setMarkdown(originalContent);
+                setIsAiTranslated(false); // Manually disable flag since 'en' won't have it
+                setShowTranslateInfo(false);
+            }
+        } catch (e) {
+            console.error("Failed to load English content", e);
+        }
+    };
 
     const allTags = useMemo(() => {
         const tags = new Set();
@@ -223,6 +278,44 @@ export default function ChangelogViewer({markdownContent, appConfig, strings, on
 
     return (
         <div>
+            <AnimatePresence>
+                {showTranslateInfo && (
+                    <div style={{
+                        position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 9999,
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)'
+                    }}>
+                        <motion.div
+                            initial={{ scale: 0.9, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.9, opacity: 0 }}
+                            className="glass-card"
+                            style={{
+                                width: '90%', maxWidth: '400px', padding: '24px', borderRadius: '24px',
+                                border: '1px solid var(--md-sys-color-outline-variant)',
+                                background: 'var(--md-sys-color-surface-container)'
+                            }}
+                        >
+                            <div style={{display:'flex', alignItems:'center', gap:'12px', marginBottom:'16px'}}>
+                                <span className="material-symbols-outlined" style={{color:'var(--md-sys-color-primary)', fontSize:'32px'}}>auto_awesome</span>
+                                <h3 style={{margin:0, fontSize:'1.2rem'}}>AI Translated</h3>
+                            </div>
+                            <p style={{color:'var(--md-sys-color-on-surface-variant)', lineHeight:1.5, marginBottom:'24px'}}>
+                                This content was automatically translated by Google Gemini to help you stay updated. Some technical terms or nuances might be slightly inaccurate.
+                            </p>
+                            <div style={{display:'flex', flexDirection:'column', gap:'12px'}}>
+                                <button onClick={handleRevertToEnglish} className="btn-glow" style={{justifyContent:'center'}}>
+                                    Show Original (English)
+                                </button>
+                                <button onClick={() => setShowTranslateInfo(false)} className="btn-outline" style={{justifyContent:'center', border:'none'}}>
+                                    Keep Translation
+                                </button>
+                            </div>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
+
             <div style={{
                 marginBottom: '60px', paddingBottom: '30px',
                 borderBottom: '1px solid var(--md-sys-color-outline-variant)'
@@ -244,20 +337,28 @@ export default function ChangelogViewer({markdownContent, appConfig, strings, on
                         <span>Changelog</span>
                     </div>
                 </div>
-                <h1 style={{
-                    fontSize: '3rem',
-                    fontWeight: 800,
-                    margin: 0,
-                    lineHeight: 1.1
-                }}>{strings.changelog.title}</h1>
-                <p style={{
-                    fontSize: '1.1rem',
-                    color: 'var(--md-sys-color-on-surface-variant)',
-                    marginTop: '12px',
-                    maxWidth: '700px'
-                }}>
-                    {strings.changelog.subtitle}
-                </p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '12px' }}>
+                    <h1 style={{
+                        fontSize: '3rem',
+                        fontWeight: 800,
+                        margin: 0,
+                        lineHeight: 1.1
+                    }}>{strings.changelog.title}</h1>
+
+                    <div style={{display:'flex', alignItems:'flex-start', gap:'16px', flexWrap:'wrap'}}>
+                        <p style={{
+                            fontSize: '1.1rem',
+                            color: 'var(--md-sys-color-on-surface-variant)',
+                            margin: 0,
+                            maxWidth: '700px'
+                        }}>
+                            {strings.changelog.subtitle}
+                        </p>
+                        <AnimatePresence>
+                            {isAiTranslated && <AutoTranslateBadge onClick={() => setShowTranslateInfo(true)} />}
+                        </AnimatePresence>
+                    </div>
+                </div>
             </div>
 
             <div className="changelog-layout" style={{display: 'flex', gap: '60px', alignItems: 'flex-start'}}>
@@ -278,21 +379,23 @@ export default function ChangelogViewer({markdownContent, appConfig, strings, on
                                 color: 'var(--md-sys-color-on-surface)', fontSize: '1rem', outline: 'none'
                             }}/>
                         </div>
-                        <div style={{display: 'flex', gap: '8px', flexWrap: 'wrap'}}>
-                            {allTags.map(tag => (
-                                <button key={tag} onClick={() => toggleTag(tag)} style={{
-                                    padding: '6px 12px',
-                                    borderRadius: '8px',
-                                    cursor: 'pointer',
-                                    fontSize: '0.85rem',
-                                    fontWeight: 500,
-                                    background: selectedTags.includes(tag) ? 'var(--md-sys-color-primary-container)' : 'transparent',
-                                    color: selectedTags.includes(tag) ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface-variant)',
-                                    border: `1px solid ${selectedTags.includes(tag) ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
-                                    transition: 'all 0.2s'
-                                }}>{tag}</button>
-                            ))}
-                        </div>
+                        {allTags.length > 0 && (
+                            <div style={{display: 'flex', gap: '8px', flexWrap: 'wrap'}}>
+                                {allTags.map(tag => (
+                                    <button key={tag} onClick={() => toggleTag(tag)} style={{
+                                        padding: '6px 12px',
+                                        borderRadius: '8px',
+                                        cursor: 'pointer',
+                                        fontSize: '0.85rem',
+                                        fontWeight: 500,
+                                        background: selectedTags.includes(tag) ? 'var(--md-sys-color-primary-container)' : 'transparent',
+                                        color: selectedTags.includes(tag) ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface-variant)',
+                                        border: `1px solid ${selectedTags.includes(tag) ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
+                                        transition: 'all 0.2s'
+                                    }}>{tag}</button>
+                                ))}
+                            </div>
+                        )}
                     </div>
 
                     <div className="mobile-toc-wrapper" style={{display: 'none'}}>
