@@ -2,40 +2,35 @@ import React, {useState, useEffect, useMemo} from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import {motion} from 'framer-motion';
+import {useNavigate} from 'react-router-dom';
 import {parseHelpFAQ} from '../../utils/helpParser';
 import BackToTop from '../common/BackToTop';
 import PageTableOfContents from '../common/PageTableOfContents';
+import {useSectionScroll} from '../../hooks/useSectionScroll';
+import {handleContactSupport} from '../../utils/navigationUtils';
 
 export default function HelpViewer({markdownContent, strings, appConfig}) {
     const [data, setData] = useState({sections: []});
     const [searchQuery, setSearchQuery] = useState('');
-    const [activeSection, setActiveSection] = useState('');
+    const navigate = useNavigate();
+
+    const {activeSection, setActiveSection, scrollToSection} = useSectionScroll('');
 
     useEffect(() => {
         if (markdownContent) {
             const parsed = parseHelpFAQ(markdownContent);
             setData(parsed);
-            if (parsed.sections.length > 0) setActiveSection(parsed.sections[0].id);
+            if (parsed.sections.length > 0 && !activeSection) {
+                setActiveSection(parsed.sections[0].id);
+            }
         }
-    }, [markdownContent]);
+    }, [markdownContent, setActiveSection]);
 
     const filteredSections = useMemo(() => {
         if (!searchQuery) return data.sections;
         const lowerQuery = searchQuery.toLowerCase();
         return data.sections.filter(s => s.title.toLowerCase().includes(lowerQuery) || s.content.toLowerCase().includes(lowerQuery));
     }, [data, searchQuery]);
-
-    const scrollToSection = (id) => {
-        setTimeout(() => {
-            const element = document.getElementById(id);
-            if (element) {
-                const offset = 160;
-                const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-                window.scrollTo({top: elementPosition - offset, behavior: 'smooth'});
-                setActiveSection(id);
-            }
-        }, 100);
-    };
 
     const renderTocItems = () => (
         filteredSections.map((section) => (
@@ -44,10 +39,15 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
                 onClick={() => scrollToSection(section.id)}
                 style={{
                     display: 'block', width: '100%', textAlign: 'left',
-                    background: activeSection === section.id ? 'var(--md-sys-color-primary-container)' : 'transparent',
-                    border: 'none', padding: '14px 16px', borderBottom: '1px solid var(--md-sys-color-outline-variant)',
-                    color: activeSection === section.id ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface)',
-                    fontWeight: activeSection === section.id ? 700 : 400,
+                    background: activeSection === section.id ? 'var(--md-sys-color-secondary-container)' : 'transparent',
+                    border: 'none',
+                    padding: '10px 16px',
+                    borderRadius: '8px',
+                    color: activeSection === section.id ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-surface-variant)',
+                    fontWeight: activeSection === section.id ? 700 : 500,
+                    marginBottom: '4px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease'
                 }}
             >
                 {section.title === 'Introduction' ? 'Overview' : section.title}
@@ -55,22 +55,23 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
         ))
     );
 
+    const onSupportClick = () => {
+        handleContactSupport('support', navigate, {
+            source: appConfig?.appId || 'pixel_compass',
+            platform: 'android'
+        });
+    };
+
     return (
         <div style={{display: 'flex', flexDirection: 'column', minHeight: 0}}>
             <div style={{
-                marginBottom: '30px',
+                marginBottom: '40px',
                 paddingBottom: '20px',
                 borderBottom: '1px solid var(--md-sys-color-outline-variant)',
-                flexShrink: 0
             }}>
                 <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    marginBottom: '16px',
-                    color: 'var(--md-sys-color-on-surface-variant)',
-                    fontSize: '0.95rem',
-                    fontWeight: 500
+                    display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px',
+                    color: 'var(--md-sys-color-on-surface-variant)', fontSize: '0.9rem', fontWeight: 500
                 }}>
                     <span>{appConfig?.appName}</span>
                     <span className="material-symbols-outlined" style={{fontSize: '16px'}}>chevron_right</span>
@@ -85,11 +86,10 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
                         <span>{strings.help_page.page_title}</span>
                     </div>
                 </div>
+
                 <h1 style={{
-                    fontSize: '3rem',
-                    fontWeight: 800,
-                    margin: 0,
-                    lineHeight: 1.1
+                    fontSize: 'clamp(2.5rem, 5vw, 3rem)',
+                    fontWeight: 800, margin: 0, lineHeight: 1.1, letterSpacing: '-1px'
                 }}>{strings.help_page.page_title}</h1>
                 <p style={{
                     fontSize: '1.1rem',
@@ -101,25 +101,19 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
 
             <div className="help-layout" style={{display: 'flex', gap: '60px', flex: 1, alignItems: 'flex-start'}}>
                 <div style={{flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0}}>
-                    <div style={{marginBottom: '24px', position: 'relative'}}>
+                    <div className="search-input-wrapper" style={{marginBottom: '40px'}}>
                         <span className="material-symbols-outlined" style={{
-                            position: 'absolute',
-                            left: '16px',
-                            top: '50%',
-                            transform: 'translateY(-50%)',
-                            color: 'var(--md-sys-color-on-surface-variant)'
+                            position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)',
+                            color: '#ffffff', zIndex: 2
                         }}>search</span>
-                        <input type="text" placeholder={strings.help_page.search_placeholder} value={searchQuery}
-                               onChange={(e) => setSearchQuery(e.target.value)} style={{
-                            width: '100%',
-                            padding: '16px 16px 16px 50px',
-                            background: 'rgba(var(--md-sys-color-surface-container-high-rgb), 0.5)',
-                            border: '1px solid var(--md-sys-color-outline-variant)',
-                            borderRadius: '16px',
-                            color: 'var(--md-sys-color-on-surface)',
-                            fontSize: '1rem',
-                            outline: 'none'
-                        }}/>
+
+                        <input
+                            type="text"
+                            className="search-input-high-contrast"
+                            placeholder={strings.help_page.search_placeholder}
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
                     </div>
 
                     <div className="mobile-toc-wrapper" style={{display: 'none'}}>
@@ -130,23 +124,25 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
                     <div className="help-content-scroll">
                         {filteredSections.length > 0 ? (
                             filteredSections.map((section, index) => (
-                                <motion.div key={section.id} id={section.id} initial={{opacity: 0, y: 20}}
-                                            animate={{opacity: 1, y: 0}} transition={{delay: index * 0.1}}
-                                            style={{marginBottom: '60px'}}>
+                                <motion.div key={section.id} id={section.id}
+                                            initial={{opacity: 0, y: 20}} animate={{opacity: 1, y: 0}}
+                                            transition={{delay: index * 0.1}}
+                                            style={{
+                                                marginBottom: '40px',
+                                                paddingBottom: '40px',
+                                                borderBottom: index !== filteredSections.length - 1 ? '1px solid var(--md-sys-color-outline-variant)' : 'none'
+                                            }}>
                                     {section.id !== 'introduction' && (
                                         <h2 style={{
-                                            fontSize: '2rem',
-                                            marginBottom: '24px',
-                                            color: activeSection === section.id ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface)',
-                                            transition: 'color 0.3s'
+                                            fontSize: '1.8rem', marginBottom: '24px',
+                                            color: 'var(--md-sys-color-on-surface)',
+                                            fontWeight: 700, letterSpacing: '-0.5px'
                                         }}>
                                             {section.title}
                                         </h2>
                                     )}
-                                    <div className="glass-card" style={{padding: '40px', borderRadius: '24px'}}>
-                                        <div className="markdown-body rich-text">
-                                            <ReactMarkdown rehypePlugins={[rehypeRaw]}>{section.content}</ReactMarkdown>
-                                        </div>
+                                    <div className="markdown-body rich-text">
+                                        <ReactMarkdown rehypePlugins={[rehypeRaw]}>{section.content}</ReactMarkdown>
                                     </div>
                                 </motion.div>
                             ))
@@ -157,46 +153,25 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
                                 <p>{strings.help_page.no_results}</p>
                             </div>
                         )}
-                        <div className="mobile-contact-card" style={{display: 'none', marginBottom: '60px'}}>
-                            <div className="glass-card"
-                                 style={{padding: '24px', border: '1px solid var(--md-sys-color-primary-container)'}}>
-                                <div style={{display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px'}}>
-                                    <div style={{
-                                        width: '40px',
-                                        height: '40px',
-                                        borderRadius: '50%',
-                                        background: 'var(--md-sys-color-primary)',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        color: 'var(--md-sys-color-on-primary)'
-                                    }}><span className="material-symbols-outlined">support_agent</span></div>
-                                    <h4 style={{margin: 0, fontSize: '1rem'}}>{strings.help_page.contact_title}</h4>
-                                </div>
-                                <p style={{
-                                    fontSize: '0.9rem',
-                                    color: 'var(--md-sys-color-on-surface-variant)',
-                                    marginBottom: '16px',
-                                    lineHeight: 1.5
-                                }}>{strings.help_page.contact_desc}</p>
-                                <a href="mailto:fertwbr@gmail.com" className="btn-outline" style={{
-                                    width: '100%',
-                                    justifyContent: 'center',
-                                    background: 'rgba(255,255,255,0.05)',
-                                    border: 'none'
-                                }}>{strings.help_page.contact_btn}</a>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
-                <div className="desktop-toc-wrapper" style={{display: 'flex', flexDirection: 'column', gap: '24px'}}>
+                <div className="desktop-toc-wrapper" style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '24px',
+                    width: '300px',
+                    position: 'sticky',
+                    top: '100px'
+                }}>
                     <PageTableOfContents title={strings.help_page.table_of_contents}
                                          isMobile={false}>{renderTocItems()}</PageTableOfContents>
+
                     <div className="glass-card" style={{
                         padding: '24px',
                         background: 'var(--md-sys-color-surface-container-high)',
-                        width: '300px'
+                        border: '1px solid var(--md-sys-color-outline-variant)',
+                        width: '100%'
                     }}>
                         <div style={{display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px'}}>
                             <div style={{
@@ -216,33 +191,45 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
                             color: 'var(--md-sys-color-on-surface-variant)',
                             marginBottom: '16px',
                             lineHeight: 1.5
-                        }}>{strings.help_page.contact_desc}</p>
-                        <a href="mailto:fertwbr@gmail.com" className="btn-outline" style={{
+                        }}>
+                            {strings.help_page.contact_desc}
+                        </p>
+                        <button onClick={onSupportClick} className="btn-outline" style={{
                             width: '100%',
                             justifyContent: 'center',
                             background: 'rgba(255,255,255,0.05)',
-                            border: 'none'
-                        }}>{strings.help_page.contact_btn}</a>
+                            border: 'none',
+                            cursor: 'pointer'
+                        }}>
+                            {strings.help_page.contact_btn}
+                        </button>
                     </div>
                 </div>
 
                 <BackToTop strings={strings.changelog}/>
-
                 <style>{`
-          .rich-text h1 { display: none; }
-          .rich-text h3 { font-size: 1.4rem; margin-top: 2.5em; margin-bottom: 1.2em; color: var(--md-sys-color-primary); font-weight: 700; display: flex; align-items: center; gap: 12px; }
-          .rich-text h3::before { content: ''; width: 4px; height: 24px; background: var(--md-sys-color-primary); border-radius: 4px; }
-          .rich-text p { margin-bottom: 1.5em; line-height: 1.8; color: var(--md-sys-color-on-surface-variant); }
-          .rich-text ul, .rich-text ol { margin-bottom: 1.5em; padding-left: 1.5em; }
-          .rich-text li { margin-bottom: 0.5em; color: var(--md-sys-color-on-surface-variant); }
-          .rich-text strong { color: var(--md-sys-color-on-surface); font-weight: 700; }
-          @media (max-width: 1000px) {
-            .desktop-toc-wrapper { display: none !important; }
-            .help-layout { display: block !important; }
-            .mobile-toc-wrapper { display: block !important; }
-            .mobile-contact-card { display: block !important; }
-          }
-        `}</style>
+                  .rich-text h1 { display: none; }
+                  .rich-text h3 { 
+                    font-size: 1.3rem; margin-top: 2em; margin-bottom: 1em; 
+                    color: var(--md-sys-color-primary); font-weight: 600; 
+                  }
+                  .rich-text p { margin-bottom: 1.2em; line-height: 1.7; color: var(--md-sys-color-on-surface-variant); font-size: 1.05rem; }
+                  .rich-text ul, .rich-text ol { margin-bottom: 1.5em; padding-left: 1.5em; }
+                  .rich-text li { margin-bottom: 0.5em; color: var(--md-sys-color-on-surface-variant); }
+                  .rich-text strong { color: var(--md-sys-color-on-surface); font-weight: 700; }
+                  .rich-text blockquote { 
+                    border-left: 4px solid var(--md-sys-color-primary); 
+                    margin-left: 0; padding-left: 20px; 
+                    background: var(--md-sys-color-surface-container);
+                    padding: 16px; border-radius: 0 12px 12px 0;
+                    font-style: italic;
+                  }
+                  @media (max-width: 1000px) {
+                    .desktop-toc-wrapper { display: none !important; }
+                    .help-layout { display: block !important; }
+                    .mobile-toc-wrapper { display: block !important; }
+                  }
+                `}</style>
             </div>
         </div>
     );
