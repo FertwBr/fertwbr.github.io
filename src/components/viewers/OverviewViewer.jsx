@@ -5,6 +5,7 @@ import {motion} from 'framer-motion';
 import {parseOverview} from '../../utils/overviewParser';
 import BackToTop from '../common/BackToTop';
 import PageTableOfContents from '../common/PageTableOfContents';
+import {useSectionScroll} from "../../hooks/useSectionScroll.js";
 
 const getIconForCategory = (category) => {
     const map = {
@@ -117,7 +118,7 @@ const DeepDiveRenderer = ({content}) => {
 
 export default function OverviewViewer({markdownContent, appConfig, strings}) {
     const [data, setData] = useState({sections: []});
-    const [activeSection, setActiveSection] = useState('');
+    const { activeSection, setActiveSection, scrollToSection } = useSectionScroll('');
 
     useEffect(() => {
         if (markdownContent) {
@@ -127,21 +128,9 @@ export default function OverviewViewer({markdownContent, appConfig, strings}) {
         }
     }, [markdownContent]);
 
-    const scrollToSection = (id) => {
-        setTimeout(() => {
-            const element = document.getElementById(id);
-            if (element) {
-                const offset = 160;
-                const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-                window.scrollTo({top: elementPosition - offset, behavior: 'smooth'});
-                setActiveSection(id);
-            }
-        }, 100);
-    };
-
     const renderTocItems = () => (
         data.sections.map((section) => (
-            <button key={section.id} onClick={() => scrollToSection(section.id)} style={{
+            <button key={section.id} onClick={() => useSectionScroll(section.id)} style={{
                 textAlign: 'left', background: activeSection === section.id ? 'rgba(255,255,255,0.05)' : 'transparent',
                 border: 'none', padding: '10px 16px', borderRadius: '8px', cursor: 'pointer', fontSize: '0.9rem',
                 color: activeSection === section.id ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface-variant)',
