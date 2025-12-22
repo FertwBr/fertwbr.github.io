@@ -1,6 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {AnimatePresence} from 'framer-motion';
-import LoadingSpinner from '../components/common/LoadingSpinner';
+
+import GeometricSpinner from '../components/common/GeometricSpinner.jsx';
+import ErrorDisplay from '../components/common/ErrorDisplay';
 
 import {useLanguage} from '../context/LanguageContext';
 import {applyMaterialTheme, getSurfaceColor} from '../theme/themeUtils';
@@ -25,11 +27,11 @@ import OverviewViewer from '../components/viewers/OverviewViewer';
  * Markdown loading hooks to provide a cohesive documentation experience.
  *
  * Uses:
- *  - useLanguage: localized content
- *  - useTabState: active tab + navigation handler
- *  - useMarkdownLoader: fetches Markdown for the active tab
- *  - usePageMetadata: updates document title, theme color, favicon
- *  - applyMaterialTheme (via useEffect): applies material color theming
+ * - useLanguage: localized content
+ * - useTabState: active tab + navigation handler
+ * - useMarkdownLoader: fetches Markdown for the active tab
+ * - usePageMetadata: updates document title, theme color, favicon
+ * - applyMaterialTheme (via useEffect): applies material color theming
  *
  * @returns {JSX.Element} The page wrapper containing viewers and layout
  */
@@ -41,7 +43,7 @@ export default function SiteProjectPage() {
     const activeColor = siteProjectConfig.seedColor;
     const surfaceColor = getSurfaceColor(activeColor, true);
 
-    const {markdownContent, isLoading} = useMarkdownLoader(activeTab, siteProjectConfig);
+    const {markdownContent, isLoading, error} = useMarkdownLoader(activeTab, siteProjectConfig);
 
     usePageMetadata({
         title: `${siteProjectConfig.appName} - ${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}`,
@@ -80,21 +82,19 @@ export default function SiteProjectPage() {
     };
 
     const renderContent = () => {
+        if (activeTab === 'index') return null;
+
         if (isLoading) {
-            return (
-                <div style={{
-                    flex: 1,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    minHeight: '50vh'
-                }}>
-                    <LoadingSpinner size={64}/>
-                </div>
-            );
+            return <GeometricSpinner />;
         }
 
-        if (!markdownContent) return <div style={{height: '60vh'}}></div>;
+        if (error) {
+            return <ErrorDisplay error={error} onRetry={() => window.location.reload()} />;
+        }
+
+        if (!markdownContent) {
+            return <div style={{height: '60vh', flex: 1}}></div>;
+        }
 
         const commonProps = {
             markdownContent,

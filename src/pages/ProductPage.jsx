@@ -3,25 +3,22 @@ import {useLocation} from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import {AnimatePresence} from 'framer-motion';
-import LoadingSpinner from '../components/common/LoadingSpinner';
-
+import GeometricSpinner from '../components/common/GeometricSpinner.jsx';
+import ErrorDisplay from '../components/common/ErrorDisplay';
 import {useLanguage} from '../context/LanguageContext';
 import {applyMaterialTheme, getSurfaceColor, getSeedColor} from '../theme/themeUtils';
 import {usePageMetadata} from '../hooks/usePageMetadata';
 import {useMarkdownLoader} from '../hooks/useMarkdownLoader';
 import {useTabState} from '../hooks/useTabState';
-
 import AppNavbar from '../components/layout/AppNavbar';
 import AppFooter from '../components/layout/AppFooter';
 import PageBackground from '../components/layout/PageBackground';
-
 import ChangelogViewer from '../components/viewers/ChangelogViewer';
 import PrivacyViewer from '../components/viewers/PrivacyViewer';
 import HelpViewer from '../components/viewers/HelpViewer';
 import RoadmapViewer from '../components/viewers/RoadmapViewer';
 import OverviewViewer from '../components/viewers/OverviewViewer';
 import PlusViewer from "../components/viewers/PlusViewer";
-
 import PageTransition from '../components/layout/PageTransition';
 
 /**
@@ -38,7 +35,7 @@ import PageTransition from '../components/layout/PageTransition';
  * Behavior / responsibilities:
  * - Reads localized strings via useLanguage()
  * - Tracks the active tab and navigation via useTabState(config)
- * - Loads markdown content for tabs using useMarkdownLoader(activeTab, config)
+ * - Loads Markdown content for tabs using useMarkdownLoader(activeTab, config)
  * - Applies a Material theme color via applyMaterialTheme and exposes seed/surface colors
  * - Updates page metadata (title, themeColor, favicon) via usePageMetadata()
  * - Smooth-scrolls to an element when the URL contains a hash
@@ -52,16 +49,15 @@ export default function ProductPage({config, HomeComponent, translationKey}) {
     const t = content[translationKey];
     const location = useLocation();
 
-    const { activeTab, handleNavigation } = useTabState(config);
-
+    const {activeTab, handleNavigation} = useTabState(config);
     const [activeColor] = useState(() => getSeedColor());
-    const {markdownContent, isLoading} = useMarkdownLoader(activeTab, config);
+
+    const {markdownContent, isLoading, error} = useMarkdownLoader(activeTab, config);
 
     useEffect(() => {
         if (location.hash) {
             const targetHash = location.hash;
             window.history.replaceState({}, '', window.location.pathname + window.location.search);
-
             setTimeout(() => {
                 const id = targetHash.replace('#', '');
                 const element = document.getElementById(id);
@@ -85,14 +81,17 @@ export default function ProductPage({config, HomeComponent, translationKey}) {
     }, [activeColor]);
 
     const renderContent = () => {
+        if (activeTab === 'index') return null;
+
         if (isLoading) {
-            return (
-                <div style={{flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '50vh'}}>
-                    <LoadingSpinner size={64}/>
-                </div>
-            );
+            return <GeometricSpinner />;
         }
-        if (!markdownContent && activeTab !== 'index') {
+
+        if (error) {
+            return <ErrorDisplay error={error} onRetry={() => window.location.reload()} />;
+        }
+
+        if (!markdownContent) {
             return <div style={{height: '60vh', flex: 1}}></div>;
         }
 
@@ -105,12 +104,18 @@ export default function ProductPage({config, HomeComponent, translationKey}) {
         };
 
         switch (activeTab) {
-            case 'changelog': return <ChangelogViewer {...commonProps} />;
-            case 'privacy': return <PrivacyViewer {...commonProps} />;
-            case 'help': return <HelpViewer {...commonProps} />;
-            case 'roadmap': return <RoadmapViewer {...commonProps} />;
-            case 'overview': return <OverviewViewer {...commonProps} />;
-            case 'plus': return <PlusViewer {...commonProps} />;
+            case 'changelog':
+                return <ChangelogViewer {...commonProps} />;
+            case 'privacy':
+                return <PrivacyViewer {...commonProps} />;
+            case 'help':
+                return <HelpViewer {...commonProps} />;
+            case 'roadmap':
+                return <RoadmapViewer {...commonProps} />;
+            case 'overview':
+                return <OverviewViewer {...commonProps} />;
+            case 'plus':
+                return <PlusViewer {...commonProps} />;
             default:
                 return (
                     <div style={{
@@ -148,7 +153,7 @@ export default function ProductPage({config, HomeComponent, translationKey}) {
 
             <main className="page-content-wrapper">
                 <AnimatePresence mode="wait">
-                    <PageTransition key={activeTab}>
+                    <PageTransition key={`${config.appId}_${activeTab}`}>
                         <div className={!isHome ? "page-content-padding" : ""} style={{
                             width: '100%',
                             boxSizing: 'border-box',
