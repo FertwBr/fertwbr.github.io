@@ -19,6 +19,7 @@ import SiteProjectPage from './pages/SiteProjectPage';
 import { pixelPulseConfig } from './pages/pixel-pulse/PixelPulseConfig';
 import { pixelCompassConfig } from './pages/pixel-compass/PixelCompassConfig';
 import { siteProjectConfig } from './config';
+import FeedbackPage from "./pages/FeedbackPage.jsx";
 
 function AnimatedRoutes() {
     const location = useLocation();
@@ -34,6 +35,8 @@ function AnimatedRoutes() {
 
                 <Route path="/site" element={<SiteProjectPage/>}/>
                 <Route path="/site/:pageId" element={<RouteNormalizer basePath="/site" validIds={siteIds} />} />
+
+                <Route path="/feedback" element={<FeedbackPage />} />
 
                 <Route path="/pixelpulse/open" element={<RedirectToStore type="open" appKey="pixelpulse"/>}/>
                 <Route path="/pixelpulse/open/buy" element={<RedirectToStore type="buy" appKey="pixelpulse"/>}/>
