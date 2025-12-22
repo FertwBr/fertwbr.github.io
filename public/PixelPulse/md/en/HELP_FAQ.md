@@ -25,7 +25,6 @@ From the Session Detail screen, you can use the menu to export your data.
 -   **Copy as Text:** This free option copies a simple summary of the session to your clipboard.
 -   **Export as CSV `[Plus+]`:** This premium feature saves a complete, timestamped log of the session's decibel history to a CSV file, perfect for analysis in spreadsheet software.
 
----
 
 ## Pixel Pulse+: Sound Exposure & Alerts {: data-toc-key="plus-features" }
 
