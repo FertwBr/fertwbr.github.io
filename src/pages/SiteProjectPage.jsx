@@ -1,44 +1,43 @@
 import React, {useEffect, useState} from 'react';
 import {AnimatePresence} from 'framer-motion';
-
 import GeometricSpinner from '../components/common/GeometricSpinner.jsx';
 import ErrorDisplay from '../components/common/ErrorDisplay';
-
 import {useLanguage} from '../context/LanguageContext';
 import {applyMaterialTheme, getSeedColor, getSurfaceColor} from '../theme/themeUtils';
 import {usePageMetadata} from '../hooks/usePageMetadata';
 import {useMarkdownLoader} from '../hooks/useMarkdownLoader';
 import {siteProjectConfig} from '../config';
 import {useTabState} from '../hooks/useTabState';
-
 import AppNavbar from '../components/layout/AppNavbar';
 import AppFooter from '../components/layout/AppFooter';
 import PageBackground from '../components/layout/PageBackground';
 import PageTransition from '../components/layout/PageTransition';
-
 import ChangelogViewer from '../components/viewers/ChangelogViewer';
 import OverviewViewer from '../components/viewers/OverviewViewer';
 
 /**
- * SiteProjectPage component
+ * SiteProjectPage React component.
  *
- * Renders the project documentation pages (overview, changelog) and overall
- * layout (navbar, footer, background). Integrates theme, page metadata and
- * Markdown loading hooks to provide a cohesive documentation experience.
+ * Renders documentation pages for the site project using layout components
+ * and dynamic theming. Loads Markdown content for the currently active tab
+ * and displays a spinner, an error display, or the appropriate viewer
+ * (overview or changelog).
  *
- * Uses:
- * - useLanguage: localized content
- * - useTabState: active tab + navigation handler
- * - useMarkdownLoader: fetches Markdown for the active tab
- * - usePageMetadata: updates document title, theme color, favicon
- * - applyMaterialTheme (via useEffect): applies material color theming
+ * Side effects:
+ * - Applies a Material theme based on a generated seed color.
+ * - Updates page metadata (title, theme color, favicon).
  *
- * @returns {JSX.Element} The page wrapper containing viewers and layout
+ * Hooks used:
+ * - useLanguage, useTabState, useMarkdownLoader, usePageMetadata.
+ *
+ * Returns:
+ * - JSX layout including AppNavbar, PageBackground, page content and AppFooter.
  */
 export default function SiteProjectPage() {
     const {content} = useLanguage();
 
-    const { activeTab, handleNavigation } = useTabState(siteProjectConfig);
+    const configWithRoute = { ...siteProjectConfig, routeBasePath: '/site' };
+    const { activeTab, handleNavigation } = useTabState(configWithRoute);
 
     const [activeColor] = useState(() => getSeedColor());
     const surfaceColor = getSurfaceColor(activeColor, true);
@@ -66,12 +65,7 @@ export default function SiteProjectPage() {
             rights: "Portfolio Source Code"
         },
         changelog: content.changelog,
-        overview_page: content.overview_page || {
-            title: "Technical Overview",
-            subtitle: "How this portfolio was built.",
-            toc_title: "On this page",
-            github_btn: "View Source"
-        }
+        overview_page: content.overview_page || {}
     };
 
     const navbarConfig = {
@@ -82,19 +76,9 @@ export default function SiteProjectPage() {
     };
 
     const renderContent = () => {
-        if (activeTab === 'index') return null;
-
-        if (isLoading) {
-            return <GeometricSpinner />;
-        }
-
-        if (error) {
-            return <ErrorDisplay error={error} onRetry={() => window.location.reload()} />;
-        }
-
-        if (!markdownContent) {
-            return <div style={{height: '60vh', flex: 1}}></div>;
-        }
+        if (isLoading) return <GeometricSpinner />;
+        if (error) return <ErrorDisplay error={error} onRetry={() => window.location.reload()} />;
+        if (!markdownContent) return <div style={{height: '60vh', flex: 1}}></div>;
 
         const commonProps = {
             markdownContent,
@@ -104,12 +88,9 @@ export default function SiteProjectPage() {
         };
 
         switch (activeTab) {
-            case 'changelog':
-                return <ChangelogViewer {...commonProps} />;
-            case 'overview':
-                return <OverviewViewer {...commonProps} />;
-            default:
-                return <OverviewViewer {...commonProps} />;
+            case 'changelog': return <ChangelogViewer {...commonProps} />;
+            case 'overview': return <OverviewViewer {...commonProps} />;
+            default: return <OverviewViewer {...commonProps} />;
         }
     };
 
