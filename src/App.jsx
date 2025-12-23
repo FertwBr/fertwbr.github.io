@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {BrowserRouter, Routes, Route, useLocation, Navigate} from 'react-router-dom';
 import {AnimatePresence} from 'framer-motion';
 
@@ -56,6 +56,14 @@ function AnimatedRoutes() {
     const siteIds = Object.keys(siteProjectConfig.pages);
     const pulseIds = Object.keys(pixelPulseConfig.pages);
     const compassIds = Object.keys(pixelCompassConfig.pages);
+
+    useEffect(() => {
+        console.log(
+            "%c Designed & Engineered by Fernando Vaz ",
+            "background: #1a1a1a; color: #d0bcff; border-radius: 4px; padding: 8px; font-size: 14px; font-weight: bold; border: 1px solid #d0bcff;"
+        );
+        console.log("Looking for the source code? Check out https://github.com/FertwBr/fertwbr.github.io");
+    }, []);
 
     return (
         <AnimatePresence mode="wait">
