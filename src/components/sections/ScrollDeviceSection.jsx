@@ -47,7 +47,9 @@ export default function ScrollDeviceSection({config, title, points, reversed = f
                 alignItems: 'center',
                 direction: reversed ? 'rtl' : 'ltr'
             }}>
-                <motion.div style={{y, opacity, zIndex: 2, display: 'flex', justifyContent: 'center'}}>
+                <motion.div
+                    className="hardware-accelerated"
+                    style={{y, opacity, zIndex: 2, display: 'flex', justifyContent: 'center'}}>
                     <motion.div style={{rotate}}>
                         <GooglePixel>
                             {isPulse ? <PulseMockScreen/> : <CompassMockScreen/>}

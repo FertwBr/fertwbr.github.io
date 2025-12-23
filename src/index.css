@@ -356,3 +356,9 @@ body {
   z-index: 2;
   font-size: 20px;
 }
+
+.hardware-accelerated {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
