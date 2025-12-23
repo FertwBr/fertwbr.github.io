@@ -3,6 +3,20 @@ import ProductPage from '../ProductPage';
 import { pixelCompassConfig } from './PixelCompassConfig';
 import PixelCompassHome from './PixelCompassHome';
 
+/**
+ * PixelCompassPage
+ *
+ * Top-level page component for the Pixel Compass product.
+ * Merges the shared product configuration from `pixelCompassConfig` with a
+ * custom `faviconUrl` and passes the resulting `config` to `ProductPage`.
+ *
+ * Renders `ProductPage` with:
+ *  - config: merged pixelCompassConfig + faviconUrl override
+ *  - HomeComponent: PixelCompassHome
+ *  - translationKey: "pixel_compass"
+ *
+ * @returns {JSX.Element} React element for the Pixel Compass product page.
+ */
 export default function PixelCompassPage() {
   const config = {
     ...pixelCompassConfig,

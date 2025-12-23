@@ -6,6 +6,19 @@ import HomeFeaturesGrid from '../../components/sections/HomeFeaturesGrid';
 import HomePlusTeaser from '../../components/sections/HomePlusTeaser';
 import HomePrivacy from '../../components/sections/HomePrivacy';
 
+/**
+ * PixelPulseHome component.
+ *
+ * Root landing page for the Pixel Pulse app. Renders the hero, features,
+ * new-features, plus teaser and privacy sections using the provided
+ * configuration and localized strings.
+ *
+ * @param {Object} props - Component props.
+ * @param {(route: string) => void} props.onNavigate - Navigation callback invoked
+ *   when a child component requests navigation.
+ * @param {Object} props.strings - Localized strings for each section of the page.
+ * @returns {JSX.Element} The rendered PixelPulse home page.
+ */
 export default function PixelPulseHome({onNavigate, strings}) {
     return (
         <div style={{width: '100%', overflowX: 'hidden', boxSizing: 'border-box'}}>

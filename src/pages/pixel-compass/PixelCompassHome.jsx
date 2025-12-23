@@ -7,6 +7,20 @@ import HomeFeaturesGrid from '../../components/sections/HomeFeaturesGrid';
 import HomePlusTeaser from '../../components/sections/HomePlusTeaser';
 import HomePrivacy from '../../components/sections/HomePrivacy';
 
+/**
+ * PixelCompassHome component
+ *
+ * Renders the home page for the Pixel Compass app by composing section components:
+ * HomeHero, HomeNewFeatures, HomeFeaturesGrid, HomePlusTeaser, and HomePrivacy.
+ *
+ * Props:
+ * @param {Function} onNavigate - Callback invoked to navigate from child sections.
+ * @param {Object} strings - Localized string sets for each section (hero, new_features, features, plus_teaser, privacy_section).
+ *
+ * Notes:
+ * - `pixelCompassConfig` is passed to sections that require app configuration.
+ * - This is a presentational functional component; it delegates behavior to children via props.
+ */
 export default function PixelCompassHome({onNavigate, strings}) {
     return (
         <div style={{width: '100%', overflowX: 'hidden', boxSizing: 'border-box'}}>

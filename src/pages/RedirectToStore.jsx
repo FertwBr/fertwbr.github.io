@@ -10,6 +10,26 @@ const configs = {
   'pixelcompass': pixelCompassConfig
 };
 
+/**
+ * RedirectToStore React component.
+ *
+ * Attempts to open the native app via a platform-specific URL (Android intent or custom scheme)
+ * and falls back to the Play Store web page if the app isn't available. Also updates the
+ * application's primary color CSS variable based on the selected app configuration.
+ *
+ * Props:
+ * @param {Object} props
+ * @param {'open'|'buy'} [props.type='open'] - Determines the host path used for the deep link (`open` or `open/buy`).
+ * @param {string} [props.appKey='pixelpulse'] - Key selecting the app configuration (e.g. 'pixelpulse', 'pixelcompass').
+ *
+ * Side effects:
+ * - Sets `--md-sys-color-primary` from the selected config on mount.
+ * - On Android, attempts an `intent://` redirect and updates `status` to `'manual'` if the app does not open.
+ * - On non-Android platforms, redirects to the Play Store web page shortly after mount.
+ *
+ * Returns:
+ * @returns {JSX.Element} UI shown while attempting the redirect and fallback actions.
+ */
 export default function RedirectToStore({ type = 'open', appKey = 'pixelpulse' }) {
   const config = configs[appKey] || pixelPulseConfig;
   const [status, setStatus] = useState('attempting');
