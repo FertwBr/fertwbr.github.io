@@ -1,6 +1,22 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.18.0 Beta 1
+*(Released December 23, 2025)*
+
+This beta release focuses on architectural improvements, enhanced deep linking capabilities, and a major cleanup of legacy web assets to support our new cloud infrastructure.
+
+#### 🌐 Web & Infrastructure
+* **New: Premium Web Portal:** We have replaced the old static documentation with a fully rebuilt, high-performance **React Portal** (`apps.fertwbr.com`).
+* **Enhanced User Experience:** In-app links (Help, Privacy) now lead to a modern site featuring **Instant Navigation**, **Dynamic Material 3 Theming** (that matches the app's look), and **AI-Powered Translations** in 6 languages.
+* **Cleanup: Repository Hygiene:** Removed legacy web assets (`docs/`, `website-content/`) from the app package. This reduces the project size and ensures you always see the most up-to-date documentation from the cloud.
+
+#### 📱 Phone
+* **New: Deep Link Support:** Added robust deep linking for the `/buy` route (`pixelpulse://open/buy`), allowing external sources (like our website or future Wear OS app) to direct users straight to the Plus subscription screen.
+* **New: Source Tracking:** The app now intelligently tracks the source of deep links (e.g., "Web", "WearOS") to provide context-aware feedback and analytics.
+* **Improvement: Smart URL Handling:** Refactored the URL generation logic into a shared module, ensuring consistent, themed links to our new web portal across the app.
+* **Fix: HTTPS Verification:** Updated `assetlinks.json` and manifest intent filters to support verified App Links for both `fertwbr.github.io` (legacy) and `apps.fertwbr.com` (new).
+
 ## Version 1.17.0
 *(Released December 16, 2025)*
 

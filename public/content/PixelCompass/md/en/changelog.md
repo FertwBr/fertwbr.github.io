@@ -1,6 +1,23 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.15.0 Beta 2.1
+*(Released December 23, 2025)*
+
+This update finalizes the integration with our new web ecosystem and cleans up the project structure.
+
+#### 🌐 Web & Infrastructure
+* **New: Premium Web Portal:** We have replaced the old static documentation with a fully rebuilt, high-performance **React Portal** (`apps.fertwbr.com`).
+* **Enhanced User Experience:** In-app links (Help, Privacy) now lead to a modern site featuring **Instant Navigation**, **Dynamic Material 3 Theming** (that matches the app's look), and **AI-Powered Translations** in 6 languages.
+* **Cleanup: Repository Hygiene:** Removed legacy web assets (`docs/`, `website-content/`) from the app package. This reduces the project size and ensures you always see the most up-to-date documentation from the cloud.
+#### 📱 Phone
+* **New: App Link Verification:** Added intent filters for `apps.fertwbr.com`, enabling verified deep links that open directly in the app without browser redirection.
+* **Refactor:** Unified URL handling logic with a new shared utility that generates consistent, theme-aware links for both Phone and Watch.
+
+#### ⌚ Wear OS
+* **Improvement: About Screen UI:** Further polished the "About" screen with a cleaner layout for version information and standardized button styles using tonal colors.
+* **Improvement: Themed Links:** Action buttons now generate URLs that respect the user's active theme color, providing a seamless visual transition from Watch to Phone browser.
+* 
 ## Version 1.15.0 Beta 2
 *(Released December 20, 2025)*
 
