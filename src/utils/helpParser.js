@@ -14,14 +14,14 @@ const slugify = (text) => {
 };
 
 /**
- * Parses Help/FAQ Markdown content into sections.
- * Handles custom syntax: ## Title {: data-toc-key="custom-id" }
+ * Parses Help/FAQ Markdown content.
+ * Splits by H2 for sections and processes internal H3/H4 tags to apply IDs.
  *
  * @param {string} markdown - The raw Markdown content.
  * @returns {Object} Object containing an array of sections.
  */
 export function parseHelpFAQ(markdown) {
-    if (!markdown) return { sections: [] };
+    if (!markdown) return {sections: []};
 
     const rawSections = markdown.split(/^##\s+/gm);
 
@@ -32,26 +32,32 @@ export function parseHelpFAQ(markdown) {
     const sections = rawSections.map(sectionRaw => {
         const firstLineEnd = sectionRaw.indexOf('\n');
         let titleLine = firstLineEnd === -1 ? sectionRaw : sectionRaw.substring(0, firstLineEnd);
-        let content = firstLineEnd === -1 ? '' : sectionRaw.substring(firstLineEnd + 1);
+        let rawContent = firstLineEnd === -1 ? '' : sectionRaw.substring(firstLineEnd + 1);
 
-        let id = '';
-        let title = titleLine.trim();
+        let sectionId = '';
+        let sectionTitle = titleLine.trim();
+        const sectionAttrMatch = sectionTitle.match(/\{:\s*data-toc-key="([^"]+)"\s*\}/);
 
-        const attrMatch = title.match(/\{:\s*data-toc-key="([^"]+)"\s*\}/);
-
-        if (attrMatch) {
-            id = attrMatch[1];
-            title = title.replace(attrMatch[0], '').trim();
+        if (sectionAttrMatch) {
+            sectionId = sectionAttrMatch[1];
+            sectionTitle = sectionTitle.replace(sectionAttrMatch[0], '').trim();
         } else {
-            id = slugify(title);
+            sectionId = slugify(sectionTitle);
         }
 
+        const processedContent = rawContent.replace(/^(#{3,6})\s+(.*?)\s+\{:\s*data-toc-key="([^"]+)"\s*\}/gm,
+            (match, hashes, title, id) => {
+                const level = hashes.length; // 3 for ###, 4 for ####
+                return `<h${level} id="${id}">${title.trim()}</h${level}>`;
+            }
+        );
+
         return {
-            id,
-            title,
-            content: content.trim()
+            id: sectionId,
+            title: sectionTitle,
+            content: processedContent.trim()
         };
     });
 
-    return { sections };
+    return {sections};
 }
