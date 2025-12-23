@@ -1,33 +1,57 @@
-import {parseMarkdownSections} from './markdownUtils';
+/**
+ * Generates a URL-friendly slug from a string.
+ * @param {string} text - The text to slugify.
+ * @returns {string} The slug.
+ */
+const slugify = (text) => {
+    return text
+        .toString()
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, '-')
+        .replace(/[^\w\-]+/g, '')
+        .replace(/\-\-+/g, '-');
+};
 
 /**
- * Parses the Help & FAQ Markdown content.
- * Removes custom metadata tags (like {:...}) and structures the content.
+ * Parses Help/FAQ Markdown content into sections.
+ * Handles custom syntax: ## Title {: data-toc-key="custom-id" }
  *
- * @param {string} markdown - The raw Markdown string.
- * @returns {{
- * sections: Array<{id: string, title: string, content: string}>
- * }}
+ * @param {string} markdown - The raw Markdown content.
+ * @returns {Object} Object containing an array of sections.
  */
-export const parseHelpFAQ = (markdown) => {
-    if (!markdown) return {sections: []};
+export function parseHelpFAQ(markdown) {
+    if (!markdown) return { sections: [] };
 
-    const cleanMarkdown = markdown.replace(/\{:.*?\}/g, '');
+    const rawSections = markdown.split(/^##\s+/gm);
 
-    const sections = [];
-    const rawSections = cleanMarkdown.split(/^## /m);
-
-    const introContent = rawSections[0].replace(/^# .+$/m, '').trim();
-
-    if (introContent) {
-        sections.push({
-            id: 'introduction',
-            title: 'Introduction',
-            content: introContent
-        });
+    if (rawSections[0].trim() === '') {
+        rawSections.shift();
     }
 
-    const bodySections = parseMarkdownSections(rawSections.slice(1));
+    const sections = rawSections.map(sectionRaw => {
+        const firstLineEnd = sectionRaw.indexOf('\n');
+        let titleLine = firstLineEnd === -1 ? sectionRaw : sectionRaw.substring(0, firstLineEnd);
+        let content = firstLineEnd === -1 ? '' : sectionRaw.substring(firstLineEnd + 1);
 
-    return {sections: [...sections, ...bodySections]};
-};
+        let id = '';
+        let title = titleLine.trim();
+
+        const attrMatch = title.match(/\{:\s*data-toc-key="([^"]+)"\s*\}/);
+
+        if (attrMatch) {
+            id = attrMatch[1];
+            title = title.replace(attrMatch[0], '').trim();
+        } else {
+            id = slugify(title);
+        }
+
+        return {
+            id,
+            title,
+            content: content.trim()
+        };
+    });
+
+    return { sections };
+}
