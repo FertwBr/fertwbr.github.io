@@ -1,6 +1,22 @@
 # Version History
 Track the evolution of the portfolio. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 2.3.0
+*(Released December 23, 2025)*
+
+This release introduces the **"Scrollytelling" Apps Portal**, a high-fidelity, interactive landing page for the app ecosystem. It leverages advanced animation techniques to showcase Pixel Pulse and Pixel Compass in a cinematic, narrative-driven format.
+
+#### 🌐 Apps Portal (Scrollytelling)
+* **New: Cinematic "Scrollytelling" Experience:** The Apps Home (`apps.fertwbr.com`) has been completely reimagined. It now features a scroll-driven narrative that animates devices, UIs, and text based on user interaction.
+* **New: High-Fidelity Device Mocks:** Engineered realistic, CSS-only reproductions of **Pixel Phones** and **Pixel Watches** (with domed glass effects and stainless steel finishes) to display app content without heavy image assets.
+* **New: Animated Mock Screens:** Developed simulated, animated UIs for Pixel Pulse (audio visualization) and Pixel Compass (rotating compass dial) that live inside the device frames.
+* **New: Interactive Split Choice:** A "Grand Finale" navigation component that splits the screen, allowing users to choose their path (Master Audio vs. Find Path) with expanding hover effects and dynamic focus.
+
+#### 🛠️ Technical & Architecture
+* **Refactor: Modular Section Architecture:** Broken down the monolithic home page into specialized, reusable section components (`ScrollDeviceSection`, `WearSection`, `AppsHero`, `AppsHomeExtra`) for better maintainability.
+* **New: Spring Physics Animations:** Integrated complex `framer-motion` spring transitions for fluid, natural movement of UI elements.
+* **Localization:** Expanded the `apps_home` locale modules across all supported languages (de, es, hi, ja, pt) to support the new narrative content and technical specs.
+
 ## Version 2.2.0
 *(Released December 23, 2025)*
 
