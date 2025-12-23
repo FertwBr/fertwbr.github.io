@@ -1,6 +1,9 @@
 [
-  {
-    "relation": ["delegate_permission/common.handle_all_urls"],
+  {npm version 2.1.1
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
     "target": {
       "namespace": "android_app",
       "package_name": "io.github.fertwbr.pixelcompass",
@@ -10,7 +13,9 @@
     }
   },
   {
-    "relation": ["delegate_permission/common.handle_all_urls"],
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
     "target": {
       "namespace": "android_app",
       "package_name": "io.github.fertwbr.pixelcompass",
@@ -20,7 +25,9 @@
     }
   },
   {
-    "relation": ["delegate_permission/common.handle_all_urls"],
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
     "target": {
       "namespace": "android_app",
       "package_name": "io.github.fertwbr.pixelpulse",
@@ -30,7 +37,9 @@
     }
   },
   {
-    "relation": ["delegate_permission/common.handle_all_urls"],
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
     "target": {
       "namespace": "android_app",
       "package_name": "io.github.fertwbr.pixelpulse",
