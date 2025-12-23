@@ -20,6 +20,7 @@ import { pixelPulseConfig } from './pages/pixel-pulse/PixelPulseConfig';
 import { pixelCompassConfig } from './pages/pixel-compass/PixelCompassConfig';
 import { siteProjectConfig } from './config';
 import FeedbackPage from "./pages/FeedbackPage.jsx";
+import CanonicalPathRedirect from "./components/common/CanonicalPathRedirect.jsx";
 
 function AnimatedRoutes() {
     const location = useLocation();
@@ -64,6 +65,7 @@ export default function App() {
     return (
         <ErrorBoundary>
             <BrowserRouter future={{v7_startTransition: true, v7_relativeSplatPath: true}}>
+                <CanonicalPathRedirect />
                 <LanguageProvider>
                     <SmoothScrollProvider>
                         <ScrollToTop/>
