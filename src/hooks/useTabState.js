@@ -3,6 +3,7 @@ import {useLocation, useNavigate, useParams} from 'react-router-dom';
 
 /**
  * React hook to manage tab state via URL path segments.
+ * Handles legacy query params redirection and URL cleanup.
  *
  * NOW INCLUDES:
  * 1. Auto-redirect from legacy query params (?page=x) to path (/x).
@@ -22,35 +23,47 @@ export function useTabState(config) {
         if (pageId && config.pages[pageId]) {
             return pageId;
         }
-
         const params = new URLSearchParams(location.search);
         const queryPage = params.get('page');
         if (queryPage && config.pages[queryPage]) {
             return queryPage;
         }
-
         return config.defaultPage || 'index';
     }, [pageId, location.search, config]);
 
     useEffect(() => {
         const params = new URLSearchParams(location.search);
         const queryPage = params.get('page');
+        const paramsToRemove = ['color', 'theme', 't', 'fbclid', 'source', 'page'];
+
+        let shouldRedirect = false;
+        let targetPath = location.pathname;
 
         if (queryPage && config.routeBasePath && config.pages[queryPage]) {
-
             const basePath = config.routeBasePath.endsWith('/')
                 ? config.routeBasePath.slice(0, -1)
                 : config.routeBasePath;
-
-            const targetPath = `${basePath}/${queryPage}`;
-
-            params.delete('page');
-            const searchStr = params.toString();
-            const newSearch = searchStr ? `?${searchStr}` : '';
-
-            navigate(`${targetPath}${newSearch}${location.hash}`, {replace: true});
+            targetPath = `${basePath}/${queryPage}`;
+            shouldRedirect = true;
         }
-    }, [location.search, config, navigate]);
+
+        const hasTrash = paramsToRemove.some(key => params.has(key));
+
+        if (shouldRedirect || hasTrash) {
+            paramsToRemove.forEach(key => params.delete(key));
+
+            const newSearch = params.toString();
+            const searchStr = newSearch ? `?${newSearch}` : '';
+            const finalHash = location.hash;
+
+            if (shouldRedirect) {
+                navigate(`${targetPath}${searchStr}${finalHash}`, {replace: true});
+            } else {
+                const newUrl = `${targetPath}${searchStr}${finalHash}`;
+                window.history.replaceState(window.history.state, '', newUrl);
+            }
+        }
+    }, [location.search, location.pathname, location.hash, config, navigate]);
 
     const handleNavigation = useCallback((tabId) => {
         if (!config.pages[tabId]) return;
@@ -67,32 +80,8 @@ export function useTabState(config) {
         }
 
         navigate(targetPath);
-        window.scrollTo({top: 0, behavior: 'smooth'});
+        window.scrollTo({top: 0, behavior: 'instant'});
     }, [config, navigate, activeTab]);
-
-    useEffect(() => {
-        const params = new URLSearchParams(location.search);
-        const paramsToRemove = ['color', 'theme', 't', 'fbclid', 'source', 'page'];
-        let needsCleanup = false;
-
-        paramsToRemove.forEach(key => {
-            if (params.has(key)) {
-                params.delete(key);
-                needsCleanup = true;
-            }
-        });
-
-        if (needsCleanup) {
-            const newSearch = params.toString();
-            const newUrl = `${location.pathname}${newSearch ? '?' + newSearch : ''}${location.hash}`;
-
-            window.history.replaceState(
-                window.history.state,
-                '',
-                newUrl
-            );
-        }
-    }, [location.search, location.pathname, location.hash]);
 
     return {
         activeTab,
