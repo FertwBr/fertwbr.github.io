@@ -25,7 +25,7 @@ export const SiteConfig = {
     },
     /** Important static internal routes */
     routes: {
-        siteChangelog: '/site?page=changelog'
+        siteChangelog: '/changelog'
     },
     /**
      * Generates the dynamic copyright string.
