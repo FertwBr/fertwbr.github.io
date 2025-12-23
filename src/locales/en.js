@@ -1,6 +1,7 @@
 import portfolio from './modules/portfolio/en';
 import pixel_pulse from './modules/pixel_pulse/en';
 import pixel_compass from './modules/pixel_compass/en';
+import apps_home from "./modules/apps_home/en.js";
 
 /**
  * Aggregator for English localization resources.
@@ -9,5 +10,6 @@ import pixel_compass from './modules/pixel_compass/en';
 export default {
     ...portfolio,
     pixel_pulse,
-    pixel_compass
+    pixel_compass,
+    apps_home
 };

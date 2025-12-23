@@ -1,6 +1,7 @@
 import portfolio from './modules/portfolio/hi';
 import pixel_pulse from './modules/pixel_pulse/hi';
 import pixel_compass from './modules/pixel_compass/hi';
+import apps_home from "./modules/apps_home/hi.js";
 
 /**
  * Aggregator for Hindi localization resources.
@@ -9,5 +10,6 @@ import pixel_compass from './modules/pixel_compass/hi';
 export default {
   ...portfolio,
   pixel_pulse,
-  pixel_compass
+  pixel_compass,
+  apps_home
 };
