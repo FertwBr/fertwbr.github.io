@@ -1,6 +1,5 @@
-import React from 'react';
-import { Navigate, useParams } from 'react-router-dom';
-import NotFound from '../../pages/NotFound';
+import React, { useEffect } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 /**
  * `RouteNormalizer` is a React component designed to normalize URL paths
@@ -25,16 +24,39 @@ import NotFound from '../../pages/NotFound';
  *                                      the `NotFound` component will be rendered.
  * @returns {React.Element | null} A `Navigate` component for redirection, a `NotFound` component, or `null`.
  */
-const RouteNormalizer = ({ basePath, validIds }) => {
+const RouteNormalizer = ({ basePath, validIds, children, fallback }) => {
+    const location = useLocation();
+    const navigate = useNavigate();
     const { pageId } = useParams();
 
-    if (!pageId) return null;
+    useEffect(() => {
+        const currentPath = location.pathname;
+        if (currentPath.toLowerCase() === basePath && currentPath !== basePath) {
+            navigate(`${basePath}${location.search}${location.hash}`, { replace: true });
+            return;
+        }
 
-    if (validIds && !validIds.includes(pageId)) {
-        return <NotFound />;
+        const params = new URLSearchParams(location.search);
+        const legacyPage = params.get('page');
+
+        if (legacyPage) {
+            if (validIds.includes(legacyPage)) {
+                params.delete('page');
+                const remainingParams = params.toString();
+                const queryPart = remainingParams ? `?${remainingParams}` : '';
+
+                navigate(`${basePath}/${legacyPage}${queryPart}${location.hash}`, { replace: true });
+            }
+        }
+    }, [location, navigate, basePath, validIds]);
+
+    if (pageId) {
+        if (!validIds.includes(pageId)) {
+            return fallback || null;
+        }
     }
 
-    return <Navigate to={`${basePath}?page=${pageId}`} replace />;
+    return children;
 };
 
 export default RouteNormalizer;
