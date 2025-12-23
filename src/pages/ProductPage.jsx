@@ -23,27 +23,20 @@ import PageTransition from '../components/layout/PageTransition';
 import {handleContactSupport} from "../utils/navigationUtils.js";
 
 /**
- * ProductPage component
+ * ProductPage React component.
  *
- * Renders the product documentation page, switching between viewers (overview, changelog,
- * privacy, help, roadmap, plus) and an optional HomeComponent for the index route.
+ * Loads and renders product-related pages (overview, changelog, help, privacy, roadmap, plus)
+ * based on the active tab from `useTabState`. Handles:
+ *  - Markdown loading via `useMarkdownLoader`
+ *  - theme application (`applyMaterialTheme`, `getSeedColor`, `getSurfaceColor`)
+ *  - page metadata (`usePageMetadata`)
+ *  - in-page hash scrolling
+ *  - navigation including special "feedback" handling via `handleContactSupport`
  *
  * Props:
- * @param {Object} config - Application configuration (appName, faviconUrl, theme settings, etc.)
- * @param {React.Component} HomeComponent - Component to render when the active tab is 'index'
- * @param {string} translationKey - Key used to select localized strings from the language context
- *
- * Behavior / responsibilities:
- * - Reads localized strings via useLanguage()
- * - Tracks the active tab and navigation via useTabState(config)
- * - Loads Markdown content for tabs using useMarkdownLoader(activeTab, config)
- * - Applies a Material theme color via applyMaterialTheme and exposes seed/surface colors
- * - Updates page metadata (title, themeColor, favicon) via usePageMetadata()
- * - Smooth-scrolls to an element when the URL contains a hash
- * - Renders appropriate viewer components or the provided HomeComponent
- *
- * Returns: JSX element containing the page background, navbar, main content (with transitions),
- * and footer.
+ *  - {Object} config - application configuration (appId, appName, faviconUrl, etc.)
+ *  - {React.Component} HomeComponent - component to render for the home/index tab
+ *  - {string} translationKey - key used to retrieve localized strings from the language context
  */
 export default function ProductPage({config, HomeComponent, translationKey}) {
     const {content} = useLanguage();
@@ -51,7 +44,10 @@ export default function ProductPage({config, HomeComponent, translationKey}) {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const {activeTab, handleNavigation: internalNav} = useTabState(config);
+    const routeBasePath = config.appId.includes('pixelpulse') ? '/pixelpulse' : '/pixelcompass';
+    const configWithRoute = {...config, routeBasePath};
+
+    const {activeTab, handleNavigation: internalNav} = useTabState(configWithRoute);
     const [activeColor] = useState(() => getSeedColor());
 
     const {markdownContent, isLoading, error} = useMarkdownLoader(activeTab, config);
@@ -59,7 +55,6 @@ export default function ProductPage({config, HomeComponent, translationKey}) {
     useEffect(() => {
         if (location.hash) {
             const targetHash = location.hash;
-            window.history.replaceState({}, '', window.location.pathname + window.location.search);
             setTimeout(() => {
                 const id = targetHash.replace('#', '');
                 const element = document.getElementById(id);
