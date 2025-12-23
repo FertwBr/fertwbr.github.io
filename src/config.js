@@ -1,13 +1,16 @@
 export const config = {
   appName: "FernandoPortfolio",
-  seedColor: "#6750A4",
+  seedColor: "#D97706",
   themeColors: [
     { name: "M3 Purple", value: "#6750A4" },
     { name: "Crimson", value: "#9C4146" },
     { name: "Teal", value: "#006A6A" },
-    { name: "Indigo", value: "#4C5D9F" },
     { name: "Forest", value: "#4C662B" },
-    { name: "Golden", value: "#825500" }
+    { name: "Emerald", value: "#1B6E4F" },
+    { name: "Amber", value: "#B86E00" },
+    { name: "Coral", value: "#D65A4A" },
+    { name: "Rose", value: "#B9375E" },
+    { name: "Magenta", value: "#8E3A8C" },
   ]
 };
 
