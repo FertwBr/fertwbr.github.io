@@ -9,48 +9,40 @@ import {useSmoothScroll} from '../../context/SmoothScrollContext';
  * Compatible with asynchronous rendering (Markdown) and Smooth Scroll (Lenis).
  */
 export default function HashScrollHandler() {
-    const {hash, pathname} = useLocation(); // Adicionei pathname para reiniciar ao mudar de página
+    const {hash, pathname} = useLocation();
     const {lenis} = useSmoothScroll();
 
     useEffect(() => {
-        if (!hash) return;
+        if (!hash || !lenis) return;
 
         const id = hash.replace('#', '');
-
         const HEADER_OFFSET = 120;
+        let attempts = 0;
+        const maxAttempts = 50;
 
         const attemptScroll = () => {
             const element = document.getElementById(id);
 
             if (element) {
-                if (lenis) {
-                    lenis.scrollTo(element, {
-                        offset: -HEADER_OFFSET,
-                        duration: 1.5,
-                        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                        lock: false,
-                        force: true
-                    });
-                } else {
-                    const elementPosition = element.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - HEADER_OFFSET;
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: "smooth"
-                    });
-                }
+                lenis.resize();
+
+                lenis.scrollTo(element, {
+                    offset: -HEADER_OFFSET,
+                    duration: 1.5,
+                    force: true,
+                    lock: true,
+                    onComplete: () => {
+                    }
+                });
                 return true;
             }
             return false;
         };
 
-        if (attemptScroll()) return;
-
-        let attempts = 0;
         const intervalId = setInterval(() => {
             attempts++;
             const success = attemptScroll();
-            if (success || attempts >= 40) {
+            if (success || attempts >= maxAttempts) {
                 clearInterval(intervalId);
             }
         }, 100);
