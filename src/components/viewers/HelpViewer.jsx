@@ -124,14 +124,17 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
                     <div className="help-content-scroll">
                         {filteredSections.length > 0 ? (
                             filteredSections.map((section, index) => (
-                                <motion.div key={section.id} id={section.id}
-                                            initial={{opacity: 0, y: 20}} animate={{opacity: 1, y: 0}}
-                                            transition={{delay: index * 0.1}}
-                                            style={{
-                                                marginBottom: '40px',
-                                                paddingBottom: '40px',
-                                                borderBottom: index !== filteredSections.length - 1 ? '1px solid var(--md-sys-color-outline-variant)' : 'none'
-                                            }}>
+                                <motion.div
+                                    key={section.id}
+                                    id={section.id}
+                                    initial={{opacity: 0, y: 20}}
+                                    animate={{opacity: 1, y: 0}}
+                                    transition={{delay: index * 0.1}}
+                                    style={{
+                                        marginBottom: '40px',
+                                        paddingBottom: '40px',
+                                        borderBottom: index !== filteredSections.length - 1 ? '1px solid var(--md-sys-color-outline-variant)' : 'none'
+                                    }}>
                                     {section.id !== 'introduction' && (
                                         <h2 style={{
                                             fontSize: '1.8rem', marginBottom: '24px',
