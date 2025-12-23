@@ -33,10 +33,15 @@ import OverviewViewer from '../components/viewers/OverviewViewer';
  * Returns:
  * - JSX layout including AppNavbar, PageBackground, page content and AppFooter.
  */
-export default function SiteProjectPage() {
+export default function SiteProjectPage({ forcedTab }) {
     const {content} = useLanguage();
 
-    const configWithRoute = { ...siteProjectConfig, routeBasePath: '/site' };
+    const configWithRoute = {
+        ...siteProjectConfig,
+        routeBasePath: '',
+        defaultPage: forcedTab || siteProjectConfig.defaultPage
+    };
+
     const { activeTab, handleNavigation } = useTabState(configWithRoute);
 
     const [activeColor] = useState(() => getSeedColor());

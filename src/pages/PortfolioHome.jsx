@@ -55,11 +55,11 @@ export default function PortfolioHome() {
 
     /**
      * Handles footer navigation.
-     * Redirects internal documentation links to the /site route.
+     * Redirects internal documentation links directly to the new top-level routes.
      * @param {string} key - The footer link key (overview, changelog, etc.)
      */
     const handleFooterNavigation = (key) => {
-        navigate(`/site?page=${key}`);
+        navigate(`/${key}`);
     };
 
     return (

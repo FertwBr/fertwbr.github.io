@@ -8,9 +8,10 @@ import ScrollToTop from './components/common/ScrollToTop';
 import ErrorBoundary from './components/common/ErrorBoundary';
 import OfflineNotice from './components/common/OfflineNotice';
 import RouteNormalizer from './components/common/RouteNormalizer';
+import CanonicalPathRedirect from './components/common/CanonicalPathRedirect';
 
 import PortfolioHome from './pages/PortfolioHome';
-import AppsHome from './pages/apps-home/AppsHome.jsx';
+import AppsHome from './pages/apps-home/AppsHome';
 import NotFound from './pages/NotFound';
 import PixelCompassPage from './pages/pixel-compass/PixelCompassPage';
 import PixelPulsePage from './pages/pixel-pulse/PixelPulsePage';
@@ -18,9 +19,9 @@ import RedirectToStore from './pages/RedirectToStore';
 import SiteProjectPage from './pages/SiteProjectPage';
 import FeedbackPage from "./pages/FeedbackPage";
 
-import {pixelPulseConfig} from './pages/pixel-pulse/PixelPulseConfig';
-import {pixelCompassConfig} from './pages/pixel-compass/PixelCompassConfig';
-import {siteProjectConfig} from './config';
+import { pixelPulseConfig } from './pages/pixel-pulse/PixelPulseConfig';
+import { pixelCompassConfig } from './pages/pixel-compass/PixelCompassConfig';
+import { siteProjectConfig } from './config';
 
 /**
  * Determines which Home component to render based on the hostname.
@@ -29,8 +30,7 @@ import {siteProjectConfig} from './config';
  */
 const DomainAwareHome = () => {
     const hostname = window.location.hostname;
-    //const isAppsDomain = hostname.includes('apps.') || hostname.includes('localhost');
-    const isAppsDomain = false;
+    const isAppsDomain = hostname.includes('apps.') || hostname.includes('localhost');
     return isAppsDomain ? <AppsHome/> : <PortfolioHome/>;
 
 };
@@ -60,49 +60,48 @@ function AnimatedRoutes() {
     return (
         <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
-                <Route path="/" element={<DomainAwareHome/>}/>
+                <Route path="/" element={<DomainAwareHome />}/>
 
-                <Route path="/overview" element={<Navigate to="/site/overview" replace/>}/>
-                <Route path="/changelog" element={<Navigate to="/site/changelog" replace/>}/>
+                <Route path="/overview" element={<SiteProjectPage forcedTab="overview" />} />
+                <Route path="/changelog" element={<SiteProjectPage forcedTab="changelog" />} />
 
-                <Route path="/site" element={<SiteProjectPage/>}/>
+                <Route path="/site" element={<Navigate to="/overview" replace />} />
+                <Route path="/site/overview" element={<Navigate to="/overview" replace />} />
+                <Route path="/site/changelog" element={<Navigate to="/changelog" replace />} />
+
                 <Route
                     path="/site/:pageId"
                     element={
-                        <RouteNormalizer basePath="/site" validIds={siteIds} fallback={<NotFound/>}>
-                            <SiteProjectPage/>
+                        <RouteNormalizer basePath="" validIds={siteIds} fallback={<NotFound />}>
+                            <div />
                         </RouteNormalizer>
                     }
                 />
 
-                <Route path="/feedback" element={<FeedbackPage/>}/>
+                <Route path="/feedback" element={<FeedbackPage />} />
 
                 <Route path="/pixelpulse/open" element={<RedirectToStore type="open" appKey="pixelpulse"/>}/>
                 <Route path="/pixelpulse/open/buy" element={<RedirectToStore type="buy" appKey="pixelpulse"/>}/>
-
-                <Route path="/pixelpulse" element={<PixelPulsePage/>}/>
-                <Route path="/PixelPulse" element={<Navigate to="/pixelpulse" replace/>}/>
-
+                <Route path="/pixelpulse" element={<PixelPulsePage />}/>
+                <Route path="/PixelPulse" element={<Navigate to="/pixelpulse" replace />}/>
                 <Route
                     path="/pixelpulse/:pageId"
                     element={
-                        <RouteNormalizer basePath="/pixelpulse" validIds={pulseIds} fallback={<NotFound/>}>
-                            <PixelPulsePage/>
+                        <RouteNormalizer basePath="/pixelpulse" validIds={pulseIds} fallback={<NotFound />}>
+                            <PixelPulsePage />
                         </RouteNormalizer>
                     }
                 />
 
                 <Route path="/pixelcompass/open" element={<RedirectToStore type="open" appKey="pixelcompass"/>}/>
                 <Route path="/pixelcompass/open/buy" element={<RedirectToStore type="buy" appKey="pixelcompass"/>}/>
-
-                <Route path="/pixelcompass" element={<PixelCompassPage/>}/>
-                <Route path="/PixelCompass" element={<Navigate to="/pixelcompass" replace/>}/>
-
+                <Route path="/pixelcompass" element={<PixelCompassPage />}/>
+                <Route path="/PixelCompass" element={<Navigate to="/pixelcompass" replace />}/>
                 <Route
                     path="/pixelcompass/:pageId"
                     element={
-                        <RouteNormalizer basePath="/pixelcompass" validIds={compassIds} fallback={<NotFound/>}>
-                            <PixelCompassPage/>
+                        <RouteNormalizer basePath="/pixelcompass" validIds={compassIds} fallback={<NotFound />}>
+                            <PixelCompassPage />
                         </RouteNormalizer>
                     }
                 />
@@ -117,6 +116,7 @@ export default function App() {
     return (
         <ErrorBoundary>
             <BrowserRouter future={{v7_startTransition: true, v7_relativeSplatPath: true}}>
+                <CanonicalPathRedirect/>
                 <LanguageProvider>
                     <SmoothScrollProvider>
                         <ScrollToTop/>
