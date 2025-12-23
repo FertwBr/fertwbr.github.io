@@ -13,25 +13,24 @@ import PageTransition from '../components/layout/PageTransition';
 
 const SITE_MAP = [
   // --- Pixel Pulse ---
-  { keywords: ['pixelpulse/changelog', 'pulse/changelog'], path: '/pixelpulse?page=changelog', name: 'Pixel Pulse Updates' },
-  { keywords: ['pixelpulse/privacy', 'pulse/privacy'], path: '/pixelpulse?page=privacy', name: 'Pixel Pulse Privacy' },
-  { keywords: ['pixelpulse/help', 'pulse/help'], path: '/pixelpulse?page=help', name: 'Pulse Help Center' },
+  { keywords: ['pixelpulse/changelog', 'pulse/changelog'], path: '/pixelpulse/changelog', name: 'Pixel Pulse Updates' },
+  { keywords: ['pixelpulse/privacy', 'pulse/privacy'], path: '/pixelpulse/privacy', name: 'Pixel Pulse Privacy' },
+  { keywords: ['pixelpulse/help', 'pulse/help'], path: '/pixelpulse/help', name: 'Pulse Help Center' },
   { keywords: ['pulse', 'sound', 'meter', 'decibel'], path: '/pixelpulse', name: 'Pixel Pulse' },
 
   // --- Pixel Compass ---
-  { keywords: ['pixelcompass/changelog', 'compass/changelog'], path: '/pixelcompass?page=changelog', name: 'Compass Updates' },
+  { keywords: ['pixelcompass/changelog', 'compass/changelog'], path: '/pixelcompass/changelog', name: 'Compass Updates' },
   { keywords: ['compass', 'gps', 'north', 'sensor'], path: '/pixelcompass', name: 'Pixel Compass' },
 
   // --- Portfolio Site ---
-  { keywords: ['site/changelog', 'portfolio/update'], path: '/site?page=changelog', name: 'Portfolio Changelog' },
-  { keywords: ['site/overview', 'site/docs', 'architecture'], path: '/site?page=overview', name: 'Technical Overview' },
-  { keywords: ['site'], path: '/site?page=overview', name: 'Portfolio Docs' },
+  { keywords: ['site/changelog', 'portfolio/update', 'changelog'], path: '/changelog', name: 'Portfolio Changelog' },
+  { keywords: ['site/overview', 'site/docs', 'architecture', 'overview'], path: '/overview', name: 'Technical Overview' },
 
   // --- Fallbacks ---
-  { keywords: ['privacy', 'policy', 'legal'], path: '/pixelpulse?page=privacy', name: 'Privacy Policy' },
-  { keywords: ['help', 'faq', 'support'], path: '/pixelpulse?page=help', name: 'Help Center' },
-  { keywords: ['change', 'log', 'update', 'version'], path: '/pixelpulse?page=changelog', name: 'Version History' },
-  { keywords: ['plus', 'pro', 'buy'], path: '/pixelpulse?page=plus', name: 'Pixel Pulse+' },
+  { keywords: ['privacy', 'policy', 'legal'], path: '/pixelpulse/privacy', name: 'Privacy Policy' },
+  { keywords: ['help', 'faq', 'support'], path: '/pixelpulse/help', name: 'Help Center' },
+  { keywords: ['change', 'log', 'update', 'version'], path: '/changelog', name: 'Version History' },
+  { keywords: ['plus', 'pro', 'buy'], path: '/pixelpulse/plus', name: 'Pixel Pulse+' },
   { keywords: ['about', 'fernando', 'contact', 'mail'], path: '/', name: 'Portfolio Home' }
 ];
 
@@ -62,7 +61,8 @@ export default function NotFound() {
 
   const errorNavbarConfig = {
     appName: t.page_title || "Error",
-    materialIcon: "broken_image"
+    materialIcon: "broken_image",
+    defaultPage: 'index'
   };
 
   return (

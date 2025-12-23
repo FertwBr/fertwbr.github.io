@@ -130,12 +130,14 @@ export default function FeedbackPage() {
     const handleNavigation = (target) => {
         if (target === 'index' || target === 'back') {
             navigate(projectContext.backPath);
-        } else {
-            if (projectContext.isPortfolio) {
-                navigate(`/site?page=${target}`);
-            } else {
-                navigate(`/${project}?page=${target}`);
-            }
+            return;
+        }
+
+        if (projectContext.isPortfolio) {
+            navigate(`/${target}`);
+        }
+        else {
+            navigate(`/${project}/${target}`);
         }
     };
 
