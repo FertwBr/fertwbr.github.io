@@ -1,50 +1,79 @@
 import {useEffect, useCallback, useMemo} from 'react';
-import {useLocation, useNavigate} from 'react-router-dom';
+import {useLocation, useNavigate, useParams} from 'react-router-dom';
 
 /**
- * React hook to manage tab state via the `page` URL query parameter.
+ * React hook to manage tab state via URL path segments.
  *
- * - Determines the current active tab from `location.search` (falls back to `config.defaultPage` or `'index'`).
- * - Returns a `handleNavigation(tabId)` function that updates the URL using `navigate` (replacing history) and scrolls to top.
- * - Cleans common tracking/query parameters (`color`, `t`, `fbclid`, `source`) from the URL when the location changes.
+ * NOW INCLUDES:
+ * 1. Auto-redirect from legacy query params (?page=x) to path (/x).
+ * 2. Visual cleanup of parameters like 'theme', 'color', 'page'.
  *
- * @param {Object} config - Configuration for the hook.
- * @param {Object<string, any>} config.pages - Map of valid page ids to page definitions.
- * @param {string} [config.defaultPage] - Default page id to use when `page` param is missing or invalid.
- * @returns {{ activeTab: string, handleNavigation: (tabId: string) => void }} Object containing the current active tab id and a navigation handler.
+ * @param {Object} config - Configuration object.
+ * @param {Object} config.pages - Map of valid page definitions.
+ * @param {string} [config.defaultPage] - Default page ID.
+ * @param {string} [config.routeBasePath] - The base route (e.g., '/pixelpulse').
  */
 export function useTabState(config) {
     const location = useLocation();
     const navigate = useNavigate();
+    const {pageId} = useParams();
 
     const activeTab = useMemo(() => {
+        if (pageId && config.pages[pageId]) {
+            return pageId;
+        }
+
         const params = new URLSearchParams(location.search);
-        const pageParam = params.get('page');
-
-        if (pageParam && config.pages[pageParam]) {
-            return pageParam;
+        const queryPage = params.get('page');
+        if (queryPage && config.pages[queryPage]) {
+            return queryPage;
         }
+
         return config.defaultPage || 'index';
-    }, [location.search, config]);
-
-    const handleNavigation = useCallback((tabId) => {
-        if (!config.pages[tabId]) return;
-
-        if (tabId === activeTab) return;
-
-        if (tabId === config.defaultPage) {
-            navigate(location.pathname, {replace: true});
-        } else {
-            navigate(`${location.pathname}?page=${tabId}`, {replace: true});
-        }
-
-        window.scrollTo({top: 0, behavior: 'smooth'});
-    }, [config, location.pathname, navigate, activeTab]);
+    }, [pageId, location.search, config]);
 
     useEffect(() => {
         const params = new URLSearchParams(location.search);
+        const queryPage = params.get('page');
+
+        if (queryPage && config.routeBasePath && config.pages[queryPage]) {
+
+            const basePath = config.routeBasePath.endsWith('/')
+                ? config.routeBasePath.slice(0, -1)
+                : config.routeBasePath;
+
+            const targetPath = `${basePath}/${queryPage}`;
+
+            params.delete('page');
+            const searchStr = params.toString();
+            const newSearch = searchStr ? `?${searchStr}` : '';
+
+            navigate(`${targetPath}${newSearch}${location.hash}`, {replace: true});
+        }
+    }, [location.search, config, navigate]);
+
+    const handleNavigation = useCallback((tabId) => {
+        if (!config.pages[tabId]) return;
+        if (tabId === activeTab) return;
+
+        let targetPath;
+        if (tabId === config.defaultPage) {
+            targetPath = config.routeBasePath || '/';
+        } else {
+            const basePath = config.routeBasePath?.endsWith('/')
+                ? config.routeBasePath.slice(0, -1)
+                : (config.routeBasePath || '');
+            targetPath = `${basePath}/${tabId}`;
+        }
+
+        navigate(targetPath);
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }, [config, navigate, activeTab]);
+
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        const paramsToRemove = ['color', 'theme', 't', 'fbclid', 'source', 'page'];
         let needsCleanup = false;
-        const paramsToRemove = ['color', 't', 'fbclid', 'source'];
 
         paramsToRemove.forEach(key => {
             if (params.has(key)) {
@@ -55,10 +84,15 @@ export function useTabState(config) {
 
         if (needsCleanup) {
             const newSearch = params.toString();
-            const newUrl = newSearch ? `${location.pathname}?${newSearch}` : location.pathname;
-            window.history.replaceState({}, '', newUrl);
+            const newUrl = `${location.pathname}${newSearch ? '?' + newSearch : ''}${location.hash}`;
+
+            window.history.replaceState(
+                window.history.state,
+                '',
+                newUrl
+            );
         }
-    }, [location.search, location.pathname]);
+    }, [location.search, location.pathname, location.hash]);
 
     return {
         activeTab,
