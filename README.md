@@ -2,13 +2,14 @@
 
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![Cloudflare Pages](https://img.shields.io/badge/Cloudflare%20Pages-F38020?style=for-the-badge&logo=cloudflare&logoColor=white)
 ![Google Gemini](https://img.shields.io/badge/Google%20Gemini-8E75B2?style=for-the-badge&logo=googlebard&logoColor=white)
 ![Framer Motion](https://img.shields.io/badge/Framer-black?style=for-the-badge&logo=framer&logoColor=blue)
 ![Material Design 3](https://img.shields.io/badge/Material%20Design%203-7555fa?style=for-the-badge&logo=materialdesign&logoColor=white)
 
 This repository contains the source code for my professional portfolio and the official landing pages for my mobile application suite. It is designed to showcase my technical proficiency in front-end architecture, UI/UX implementation, full-stack automation, and modern web performance.
 
-**🌐 Live at:** [fertwbr.github.io](https://fertwbr.github.io)
+**🌐 Live at:** [fertwbr.com](https://fertwbr.com)
 
 ## 🎯 Purpose
 
@@ -19,6 +20,12 @@ This project is a personal showcase of my programming standards, architectural d
 * **Tooling & Automation:** Creating custom scripts to automate localization workflows using AI.
 
 ## 🚀 Technical Highlights
+
+### ☁️ Cloudflare Pages Migration & Hybrid Routing
+The site has moved from standard GitHub Pages to a **Cloudflare Pages** infrastructure to support advanced routing requirements:
+* **Domain Strategy:** Separation of concerns using `fertwbr.com` for the portfolio and `apps.fertwbr.com` for the application ecosystem.
+* **Legacy Compatibility:** A hybrid redirect chain ensures old `fertwbr.github.io` links (including case-sensitive paths like `/PixelCompass`) are seamlessly redirected to the new canonical domains via server-side rules.
+* **SPA Routing:** Full support for client-side routing with proper fallback handling for deep links.
 
 ### 🤖 AI-Driven Localization Pipeline
 To maintain documentation across **6 languages** without manual overhead, I engineered a custom build-time solution:
@@ -52,22 +59,21 @@ A fully custom feedback engine built from scratch (`/feedback`), designed to red
 ### 📝 Markdown Content Engine
 The site features a custom-built engine to parse and render Markdown documentation directly:
 * **Custom Parsers:** Utilities to extract structured data (sections, dates, tags, roadmap phases) from raw Markdown files.
-* **Dedicated Viewers:** Specialized components:
-    * `ChangelogViewer`: Interactive version history with filtering and AI translation badges.
-    * `RoadmapViewer`: Flexible timeline visualization supporting nested and flat data structures.
-    * `Privacy/HelpViewer`: Clean, typography-focused layouts for readability.
+* **Dedicated Viewers:** Specialized components like `ChangelogViewer` and `RoadmapViewer` for rich data visualization.
+* **Async Scroll Handling:** A custom `HashScrollHandler` ensures deep links work correctly even with asynchronous content loading and smooth scrolling libraries.
 
 ## 📱 Integrated App Ecosystem
 
 The site hosts dedicated environments for my Android projects, featuring **Deep Linking** and **Google Play** integration:
 
-* **Pixel Pulse:** High-fidelity audio analysis and hearing health tools. Includes interactive comparison tables and roadmap viewers.
+* **Pixel Pulse:** High-fidelity audio analysis and hearing health tools.
 * **Pixel Compass:** Premium navigation suite utilizing advanced sensor fusion.
-* **Smart Redirects:** Implemented logic (`RedirectToStore`) that attempts to open the installed Android app via Intent URL scheme and gracefully falls back to the Play Store if not installed.
+* **Smart Redirects:** Implemented logic (`RedirectToStore`) that attempts to open the installed Android app via Intent URL scheme and gracefully falls back to the Play Store.
 
 ## 🛠️ Tech Stack
 
 * **Front-end:** React 18 (Vite)
+* **Hosting:** Cloudflare Pages
 * **Languages:** JavaScript (ES6+), Node.js (Automation Scripts)
 * **AI Integration:** Google Gemini API (`@google/generative-ai`)
 * **Design System:** Material Design 3 (M3)
@@ -76,7 +82,6 @@ The site hosts dedicated environments for my Android projects, featuring **Deep 
 * **Routing:** React Router DOM v6
 * **Data Parsing:** Remark / Rehype / Gray-matter
 * **Localization:** Custom Context-based i18n with Fallback
-* **CI/CD:** GitHub Pages
 
 ## 📄 License & Intellectual Property
 

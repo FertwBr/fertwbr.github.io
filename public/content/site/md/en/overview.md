@@ -6,11 +6,25 @@ This project serves two purposes: to showcase my professional work and to demons
 | Category | Stack |
 | --- | --- |
 | **Core** | React 18, Vite |
+| **Hosting** | Cloudflare Pages |
 | **Design** | Material Design 3, CSS Variables |
 | **Animation** | Framer Motion, Lenis Scroll |
 | **Data** | Custom Markdown Parsers, Fetch API |
 | **AI & Automation** | Google Gemini API, Node.js Scripts |
 | **Routing** | React Router DOM v6 |
+
+## ☁️ Infrastructure & Hosting
+Moving beyond standard static hosting, Version 2.2.0 introduced a robust cloud infrastructure using **Cloudflare Pages**.
+
+### Domain Strategy
+To clearly separate my personal portfolio from my software products, the architecture now supports domain-aware routing:
+* **fertwbr.com:** Serves the personal portfolio, resume, and contact information.
+* **apps.fertwbr.com:** Serves as the dedicated portal for Pixel Pulse and Pixel Compass.
+
+### Legacy Compatibility Layer
+Migrating domains often breaks existing links. I engineered a hybrid redirect solution:
+1.  **GitHub Pages** acts as a "dumb" redirector using a custom `CNAME`, forwarding all legacy `fertwbr.github.io` traffic to the new domain.
+2.  **Cloudflare Redirects** intercept incoming traffic to normalize case-sensitive URLs (e.g., redirecting `/PixelCompass` to `/pixelcompass`), ensuring 100% link preservation for existing users.
 
 ## 📐 Design Philosophy
 

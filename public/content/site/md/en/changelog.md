@@ -1,6 +1,35 @@
 # Version History
 Track the evolution of the portfolio. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 2.2.0
+*(Released December 23, 2025)*
+
+This update marks the migration to a professional cloud infrastructure, solving routing limitations and establishing a dedicated domain for the app ecosystem.
+
+#### ☁️ Infrastructure & Cloud
+* **New: Cloudflare Pages Migration:** The site is now hosted on **Cloudflare Pages**, enabling faster global delivery, better analytics, and advanced routing rules.
+* **New: Custom Domains:** Established `fertwbr.com` for the portfolio and `apps.fertwbr.com` for the software products.
+* **New: Legacy Link Compatibility:** Implemented a robust redirect chain. Legacy links (e.g., `fertwbr.github.io/PixelCompass`) are now automatically redirected to the new domain, preserving SEO and user bookmarks.
+* **New: Case-Insensitive Routing:** Server-side rules now handle legacy capitalization issues, redirecting `/PixelPulse` to `/pixelpulse` automatically.
+
+#### 🛠️ Technical Improvements
+* **Fix: Async Anchor Scrolling:** Engineered a `HashScrollHandler` compatible with **Lenis** smooth scroll. It intelligently waits for asynchronous Markdown content to render before scrolling to deep links (e.g., `#privacy`).
+* **Refactor: URL Cleanup:** The state management hook now aggressively cleans up query parameters (`?color=...`, `?theme=...`) after applying them, resulting in cleaner, shareable URLs.
+* **Security:** Updated `assetlinks.json` to support unified app linking across both new domains.
+
+## Version 2.1.0
+*(Released December 23, 2025)*
+
+This release introduces the "Apps Portal" concept and refactors the codebase for better maintainability.
+
+#### 🌐 Apps Portal
+* **New: Apps Home:** Created a dedicated landing page for `apps.fertwbr.com` that serves as a central hub for all mobile applications.
+* **New: Domain-Aware Routing:** The application now detects the hostname (`apps.` vs `www.`) and serves the appropriate Home component (Apps Portal vs. Portfolio) while sharing the same codebase.
+
+#### 🏗️ Architecture
+* **Refactor: SiteConfig:** Centralized all external links, asset URLs, and metadata into a single configuration file (`SiteConfig`). This acts as a "Single Source of Truth," making future updates effortless.
+* **Refactor: Footer Architecture:** Unified the footer logic while allowing context-aware variations (Portfolio vs. Apps).
+
 ## Version 2.0.0
 *(Released December 23, 2025)*
 
