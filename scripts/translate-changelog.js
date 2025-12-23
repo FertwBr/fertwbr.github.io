@@ -22,7 +22,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const APPS = ['PixelPulse', 'PixelCompass', 'site'];
+const APPS = [ 'site', 'PixelPulse', 'PixelCompass'];
 
 const LANGUAGES = {
     'pt': 'Portuguese (Brazil)',
@@ -200,10 +200,10 @@ async function run() {
     console.log(`🔍 Using Model: ${MODEL_NAME}`);
 
     for (const app of APPS) {
-        const sourceFile = `./public/${app}/md/en/changelog.md`;
+        const sourceFile = `./public/content/${app}/md/en/changelog.md`;
 
         for (const [code, name] of Object.entries(LANGUAGES)) {
-            const targetFile = `./public/${app}/md/${code}/changelog.md`;
+            const targetFile = `./public/content/${app}/md/${code}/changelog.md`;
             await processFile(sourceFile, targetFile, name);
         }
     }
