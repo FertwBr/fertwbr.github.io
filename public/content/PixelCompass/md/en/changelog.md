@@ -17,7 +17,7 @@ This update finalizes the integration with our new web ecosystem and cleans up t
 #### ⌚ Wear OS
 * **Improvement: About Screen UI:** Further polished the "About" screen with a cleaner layout for version information and standardized button styles using tonal colors.
 * **Improvement: Themed Links:** Action buttons now generate URLs that respect the user's active theme color, providing a seamless visual transition from Watch to Phone browser.
-* 
+
 ## Version 1.15.0 Beta 2
 *(Released December 20, 2025)*
 
