@@ -21,27 +21,27 @@ import OverviewViewer from '../components/viewers/OverviewViewer';
 import PlusViewer from "../components/viewers/PlusViewer";
 import PageTransition from '../components/layout/PageTransition';
 import {handleContactSupport} from "../utils/navigationUtils.js";
+import HashScrollHandler from '../components/common/HashScrollHandler'; // Import here
 
 /**
  * ProductPage React component.
  *
  * Loads and renders product-related pages (overview, changelog, help, privacy, roadmap, plus)
  * based on the active tab from `useTabState`. Handles:
- *  - Markdown loading via `useMarkdownLoader`
- *  - theme application (`applyMaterialTheme`, `getSeedColor`, `getSurfaceColor`)
- *  - page metadata (`usePageMetadata`)
- *  - in-page hash scrolling
- *  - navigation including special "feedback" handling via `handleContactSupport`
+ * - Markdown loading via `useMarkdownLoader`
+ * - theme application (`applyMaterialTheme`, `getSeedColor`, `getSurfaceColor`)
+ * - page metadata (`usePageMetadata`)
+ * - navigation including special "feedback" handling via `handleContactSupport`
+ * - Uses HashScrollHandler for robust anchor linking.
  *
  * Props:
- *  - {Object} config - application configuration (appId, appName, faviconUrl, etc.)
- *  - {React.Component} HomeComponent - component to render for the home/index tab
- *  - {string} translationKey - key used to retrieve localized strings from the language context
+ * - {Object} config - application configuration (appId, appName, faviconUrl, etc.)
+ * - {React.Component} HomeComponent - component to render for the home/index tab
+ * - {string} translationKey - key used to retrieve localized strings from the language context
  */
 export default function ProductPage({config, HomeComponent, translationKey}) {
     const {content} = useLanguage();
     const t = content[translationKey];
-    const location = useLocation();
     const navigate = useNavigate();
 
     const routeBasePath = config.appId.includes('pixelpulse') ? '/pixelpulse' : '/pixelcompass';
@@ -51,19 +51,6 @@ export default function ProductPage({config, HomeComponent, translationKey}) {
     const [activeColor] = useState(() => getSeedColor());
 
     const {markdownContent, isLoading, error} = useMarkdownLoader(activeTab, config);
-
-    useEffect(() => {
-        if (location.hash) {
-            const targetHash = location.hash;
-            setTimeout(() => {
-                const id = targetHash.replace('#', '');
-                const element = document.getElementById(id);
-                if (element) {
-                    element.scrollIntoView({behavior: 'smooth', block: 'start'});
-                }
-            }, 500);
-        }
-    }, [location.hash]);
 
     const surfaceColor = getSurfaceColor(activeColor, true);
 
@@ -151,6 +138,8 @@ export default function ProductPage({config, HomeComponent, translationKey}) {
 
     return (
         <div className="page-wrapper">
+            <HashScrollHandler />
+
             <PageBackground/>
 
             <AppNavbar

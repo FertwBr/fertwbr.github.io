@@ -16,6 +16,7 @@ import PageBackground from '../components/layout/PageBackground';
 import PageTransition from '../components/layout/PageTransition';
 import ChangelogViewer from '../components/viewers/ChangelogViewer';
 import OverviewViewer from '../components/viewers/OverviewViewer';
+import HashScrollHandler from '../components/common/HashScrollHandler';
 
 /**
  * SiteProjectPage React component.
@@ -103,6 +104,8 @@ export default function SiteProjectPage({ forcedTab }) {
 
     return (
         <div className="page-wrapper">
+            <HashScrollHandler />
+
             <PageBackground/>
 
             <AppNavbar
