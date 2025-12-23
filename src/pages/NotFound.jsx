@@ -5,6 +5,7 @@ import { usePageMetadata } from '../hooks/usePageMetadata';
 import { getSurfaceColor } from '../theme/themeUtils';
 import { useLanguage } from '../context/LanguageContext';
 import { config } from '../config';
+import { SiteConfig } from '../utils/siteConstants';
 
 import AppNavbar from '../components/layout/AppNavbar';
 import Footer from '../components/layout/Footer';
@@ -48,7 +49,7 @@ export default function NotFound() {
   usePageMetadata({
     title: `404 - ${t.page_title || "Not Found"}`,
     themeColor: surfaceColor,
-    favicon: "https://github.com/fertwbr.png"
+    favicon: SiteConfig.assets.avatar
   });
 
   useEffect(() => {

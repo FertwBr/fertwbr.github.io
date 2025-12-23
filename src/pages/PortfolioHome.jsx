@@ -3,6 +3,7 @@ import {useLocation, useNavigate} from 'react-router-dom';
 import {useLanguage} from '../context/LanguageContext';
 import {applyMaterialTheme, getSurfaceColor, getSeedColor} from '../theme/themeUtils';
 import {usePageMetadata} from '../hooks/usePageMetadata';
+import {SiteConfig} from '../utils/siteConstants';
 
 import PageTransition from '../components/layout/PageTransition';
 import PageBackground from '../components/layout/PageBackground';
@@ -50,7 +51,7 @@ export default function PortfolioHome() {
     usePageMetadata({
         title: "Fernando Vaz | Software Engineer",
         themeColor: surfaceColor,
-        favicon: "https://github.com/fertwbr.png"
+        favicon: SiteConfig.assets.avatar
     });
 
     /**
@@ -138,7 +139,7 @@ export default function PortfolioHome() {
                                     justifyContent: 'center',
                                     flexWrap: 'wrap'
                                 }}>
-                                    <a href="mailto:fertwbr@gmail.com" className="btn-glow"
+                                    <a href={SiteConfig.links.mailTo} className="btn-glow"
                                        style={{
                                            fontSize: '1.2rem',
                                            padding: '18px 40px',
@@ -146,7 +147,7 @@ export default function PortfolioHome() {
                                        }}>
                                         {content.contact.email}
                                     </a>
-                                    <a href="https://linkedin.com/in/fernando-bela" target="_blank" rel="noreferrer"
+                                    <a href={SiteConfig.links.linkedin} target="_blank" rel="noreferrer"
                                        className="btn-outline"
                                        style={{
                                            fontSize: '1.2rem',

@@ -8,6 +8,8 @@ import {usePageMetadata} from '../hooks/usePageMetadata';
 import {useMarkdownLoader} from '../hooks/useMarkdownLoader';
 import {siteProjectConfig} from '../config';
 import {useTabState} from '../hooks/useTabState';
+import {SiteConfig} from '../utils/siteConstants';
+
 import AppNavbar from '../components/layout/AppNavbar';
 import AppFooter from '../components/layout/AppFooter';
 import PageBackground from '../components/layout/PageBackground';
@@ -52,7 +54,7 @@ export default function SiteProjectPage({ forcedTab }) {
     usePageMetadata({
         title: `${siteProjectConfig.appName} - ${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}`,
         themeColor: surfaceColor,
-        favicon: "https://github.com/fertwbr.png"
+        favicon: SiteConfig.assets.avatar
     });
 
     useEffect(() => {

@@ -5,6 +5,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { applyMaterialTheme, getSeedColor, getSurfaceColor } from '../theme/themeUtils';
 import { usePageMetadata } from '../hooks/usePageMetadata';
 import { getGuidanceKey, generateMailto } from '../utils/feedbackUtils';
+import { SiteConfig } from '../utils/siteConstants';
 import PageBackground from '../components/layout/PageBackground';
 import AppNavbar from '../components/layout/AppNavbar';
 import AppFooter from '../components/layout/AppFooter';
@@ -79,7 +80,7 @@ export default function FeedbackPage() {
     usePageMetadata({
         title: "Feedback - Fernando Vaz",
         themeColor: surfaceColor,
-        favicon: "https://github.com/fertwbr.png"
+        favicon: SiteConfig.assets.avatar
     });
 
     useEffect(() => {
