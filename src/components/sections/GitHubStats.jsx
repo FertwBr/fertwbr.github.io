@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {motion} from "framer-motion";
+import { SiteConfig } from '../../utils/siteConstants';
 
 /**
  * @typedef {Object} GitHubUser
@@ -21,7 +22,7 @@ import {motion} from "framer-motion";
 /**
  * GitHubStats React component.
  *
- * Fetches public GitHub user and repository data for the user `fertwbr`.
+ * Fetches public GitHub user and repository data.
  * Aggregates basic statistics (repo count, total stars, followers) and computes
  * most used languages across repositories.
  *
@@ -83,7 +84,7 @@ export default function GitHubStats({t}) {
                 console.error("Error fetching GitHub data:", error);
 
                 setData({
-                    user: {name: "Fernando Vaz", login: "fertwbr", avatar: null, url: "https://github.com/fertwbr"},
+                    user: {name: "Fernando Vaz", login: "fertwbr", avatar: null, url: SiteConfig.links.githubProfile},
                     stats: [
                         {key: 'repos', value: "35+", icon: "folder_open", label: t.stats.repos},
                         {key: 'stars', value: "15+", icon: "star", label: t.stats.stars},
@@ -134,7 +135,7 @@ export default function GitHubStats({t}) {
                 >
                     <div style={{display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '24px'}}>
                         <img
-                            src={data.user.avatar || "https://github.com/fertwbr.png"}
+                            src={data.user.avatar || SiteConfig.assets.avatar}
                             alt="Profile"
                             style={{
                                 width: '80px',

@@ -1,3 +1,4 @@
+import React from 'react';
 import {motion} from "framer-motion";
 
 const row1 = [
@@ -68,8 +69,8 @@ const MarqueeRow = ({items, direction = "left", speed = 30}) => {
  *
  * @param {Object} props
  * @param {{title: string, subtitle: string}} props.t - Text content for the section:
- *   - title: section heading
- *   - subtitle: descriptive subtitle
+ * - title: section heading
+ * - subtitle: descriptive subtitle
  * @returns {JSX.Element} The TechStack section element.
  */
 export default function TechStack({t}) {

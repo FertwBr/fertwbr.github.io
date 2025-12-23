@@ -105,7 +105,6 @@ export default function HomeNewFeatures({appConfig, strings, onNavigate}) {
                                 icon: getIconForText(title + ' ' + desc)
                             });
                         }
-                        // Limit to 4 cards to keep the home screen clean
                         if (features.length >= 4) break;
                     }
 

@@ -9,7 +9,7 @@ import ReactMarkdown from 'react-markdown';
  *
  * @param {Object} props
  * @param {Object} props.strings - Localized text and content for the teaser. Expected shape:
- *   { title: string, description: string (markdown), items: Array<{icon: string, title: string, desc: string}>, cta: string }
+ * { title: string, description: string (markdown), items: Array<{icon: string, title: string, desc: string}>, cta: string }
  * @param {Function} props.onNavigate - Callback invoked with a route key (e.g. 'plus') when CTA is clicked.
  * @param {Object} [props.appConfig] - App configuration, may include `seedColor` used as accent color.
  * @returns {JSX.Element|null} The teaser section or null if `strings` is not provided.

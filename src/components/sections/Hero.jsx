@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { useState, useEffect } from "react";
 import ScrollToLink from "../ui/ScrollToLink";
+import { SiteConfig } from '../../utils/siteConstants';
 
 /**
  * Hero section component.
@@ -105,7 +106,7 @@ export default function Hero({ t }) {
                     }}
                 >
                     <img
-                        src="https://github.com/fertwbr.png"
+                        src={SiteConfig.assets.avatar}
                         alt="Fernando Vaz"
                         style={{
                             width: '100%',
@@ -170,7 +171,7 @@ export default function Hero({ t }) {
                     </ScrollToLink>
 
                     <a
-                        href="mailto:fertwbr@gmail.com"
+                        href={SiteConfig.links.mailTo}
                         className="btn-outline"
                         style={{
                             padding: '14px 28px',
