@@ -2,21 +2,31 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
 import FooterControls from './FooterControls';
-import pkg from '../../../package.json';
+import { SiteConfig } from '../../utils/siteConstants';
 
+
+/**
+ * Footer component documentation
+ *
+ * Renders the site footer using localized strings from the `useLanguage` context
+ * and configuration from `SiteConfig`. The footer includes:
+ *  - A social links section (GitHub, LinkedIn, Email) built from `SiteConfig.links`
+ *  - Appearance controls via the `FooterControls` component
+ *  - Site metadata (version and copyright year) with a link to the changelog
+ *
+ * @param {Object} props
+ * @param {Object} [props.t] - Optional translation/override object for footer strings.
+ * @returns {JSX.Element} Footer element
+ */
 export default function Footer({ t }) {
     const { content } = useLanguage();
     const footerStrings = t || content?.footer || {};
     const contactStrings = content?.contact || {};
 
-    const startYear = 2025;
-    const currentYear = new Date().getFullYear();
-    const displayYear = currentYear > startYear ? `${startYear} - ${currentYear}` : startYear;
-
     const socialLinks = [
-        { key: 'github', icon: 'code', url: 'https://github.com/fertwbr', label: contactStrings.github },
-        { key: 'linkedin', icon: 'work', url: 'https://linkedin.com/in/fernando-bela', label: contactStrings.linkedin },
-        { key: 'email', icon: 'mail', url: 'mailto:fertwbr@gmail.com', label: contactStrings.email }
+        { key:'github', icon: 'code', url: SiteConfig.links.githubProfile, label: contactStrings.github },
+        { key: 'linkedin', icon: 'work', url: SiteConfig.links.linkedin, label: contactStrings.linkedin },
+        { key: 'email', icon: 'mail', url: SiteConfig.links.mailTo, label: contactStrings.email }
     ];
 
     return (
@@ -68,26 +78,21 @@ export default function Footer({ t }) {
                         color: 'var(--md-sys-color-on-surface-variant)',
                         fontSize: '0.9rem',
                         textAlign: 'center',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        flexWrap: 'wrap',
-                        justifyContent: 'center'
+                        display: 'flex', alignItems: 'center', gap: '8px',
+                        flexWrap: 'wrap', justifyContent: 'center'
                     }}>
-                        <span>&copy; {displayYear} {footerStrings.built}</span>
+                        <span>&copy; {SiteConfig.getCopyrightYear()} {footerStrings.built}</span>
                         <span style={{ opacity: 0.5 }}>•</span>
                         <Link
-                            to="/site?page=changelog"
+                            to={SiteConfig.routes.siteChangelog}
                             style={{
-                                color: 'inherit',
-                                textDecoration: 'none',
-                                fontFamily: 'monospace',
-                                opacity: 0.8
+                                color: 'inherit', textDecoration: 'none',
+                                fontFamily: 'monospace', opacity: 0.8
                             }}
                             onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
                             onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
                         >
-                            v{pkg.version}
+                            v{SiteConfig.meta.version}
                         </Link>
                     </div>
                 </div>

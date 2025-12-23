@@ -2,17 +2,24 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
 import FooterControls from './FooterControls';
-import pkg from '../../../package.json';
+import { SiteConfig } from '../../utils/siteConstants';
 
+/**
+ * Footer specific to App pages (Docs, internal Changelogs, etc).
+ * Provides contextual navigation (Overview, Roadmap, etc) while keeping global links consistent.
+ *
+ * @param {Object} props
+ * @param {Object} props.strings - Translated strings specific to the app
+ * @param {Function} props.onNavigate - Function to switch internal tabs/pages
+ * @param {string} props.activePage - Key of the current page
+ * @param {boolean} [props.isPortfolio=false] - If true, filters links for portfolio mode
+ * @returns {JSX.Element}
+ */
 export default function AppFooter({ strings, onNavigate, activePage, isPortfolio = false }) {
     const { content } = useLanguage();
 
     const t = strings || {};
     const globalFooter = content?.footer || {};
-
-    const startYear = 2025;
-    const currentYear = new Date().getFullYear();
-    const displayYear = currentYear > startYear ? `${startYear} - ${currentYear}` : startYear;
 
     const allLinks = [
         { key: 'overview', icon: 'description' },
@@ -25,6 +32,7 @@ export default function AppFooter({ strings, onNavigate, activePage, isPortfolio
     const visibleLinks = isPortfolio
         ? allLinks.filter(link => ['overview', 'changelog'].includes(link.key))
         : allLinks;
+
     return (
         <footer style={{
             background: 'var(--md-sys-color-surface-container)',
@@ -86,10 +94,10 @@ export default function AppFooter({ strings, onNavigate, activePage, isPortfolio
                             display: 'flex', alignItems: 'center', gap: '8px',
                             color: 'var(--md-sys-color-on-surface-variant)', fontSize: '0.8rem'
                         }}>
-                            <span>&copy; {displayYear} Fernando Vaz</span>
+                            <span>&copy; {SiteConfig.getCopyrightYear()} {SiteConfig.meta.author}</span>
                             <span style={{ opacity: 0.5 }}>•</span>
                             <Link
-                                to="/site?page=changelog"
+                                to={SiteConfig.routes.siteChangelog}
                                 title="Portfolio Changelog"
                                 style={{
                                     color: 'inherit', textDecoration: 'none',
@@ -98,16 +106,16 @@ export default function AppFooter({ strings, onNavigate, activePage, isPortfolio
                                 onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
                                 onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
                             >
-                                v{pkg.version}
+                                v{SiteConfig.meta.version}
                             </Link>
                         </div>
                     </div>
 
                     <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-                        <a href="https://github.com/fertwbr" target="_blank" rel="noreferrer" style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: 0.8 }}>
+                        <a href={SiteConfig.links.githubProfile} target="_blank" rel="noreferrer" style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: 0.8 }}>
                             <span className="material-symbols-outlined">code</span>
                         </a>
-                        <a href="mailto:fertwbr@gmail.com" style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: 0.8 }}>
+                        <a href={SiteConfig.links.mailTo} style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: 0.8 }}>
                             <span className="material-symbols-outlined">mail</span>
                         </a>
                     </div>
