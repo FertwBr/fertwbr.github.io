@@ -2,114 +2,114 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://fertwbr.github.io/</loc>
+    <loc>https://fertwbr.com/</loc>
     <lastmod>2025-12-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
-    <loc>https://fertwbr.github.io/apps</loc>
-    <lastmod>2025-12-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://fertwbr.github.io/feedback</loc>
+    <loc>https://fertwbr.com/feedback</loc>
     <lastmod>2025-12-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://fertwbr.github.io/site?page=overview</loc>
+    <loc>https://fertwbr.com/overview</loc>
     <lastmod>2025-12-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://fertwbr.github.io/site?page=changelog</loc>
+    <loc>https://fertwbr.com/changelog</loc>
     <lastmod>2025-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://fertwbr.github.io/pixelpulse</loc>
+    <loc>https://apps.fertwbr.com/</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://apps.fertwbr.com/pixelpulse</loc>
     <lastmod>2025-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://fertwbr.github.io/pixelpulse?page=plus</loc>
+    <loc>https://apps.fertwbr.com/pixelpulse/plus</loc>
     <lastmod>2025-12-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://fertwbr.github.io/pixelpulse?page=changelog</loc>
+    <loc>https://apps.fertwbr.com/pixelpulse/changelog</loc>
     <lastmod>2025-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://fertwbr.github.io/pixelpulse?page=roadmap</loc>
+    <loc>https://apps.fertwbr.com/pixelpulse/roadmap</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://fertwbr.github.io/pixelpulse?page=privacy</loc>
+    <loc>https://apps.fertwbr.com/pixelpulse/privacy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
-    <loc>https://fertwbr.github.io/pixelpulse?page=help</loc>
+    <loc>https://apps.fertwbr.com/pixelpulse/help</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://fertwbr.github.io/pixelcompass</loc>
+    <loc>https://apps.fertwbr.com/pixelcompass</loc>
     <lastmod>2025-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://fertwbr.github.io/pixelcompass?page=plus</loc>
+    <loc>https://apps.fertwbr.com/pixelcompass/plus</loc>
     <lastmod>2025-12-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://fertwbr.github.io/pixelcompass?page=changelog</loc>
+    <loc>https://apps.fertwbr.com/pixelcompass/changelog</loc>
     <lastmod>2025-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://fertwbr.github.io/pixelcompass?page=roadmap</loc>
+    <loc>https://apps.fertwbr.com/pixelcompass/roadmap</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://fertwbr.github.io/pixelcompass?page=privacy</loc>
+    <loc>https://apps.fertwbr.com/pixelcompass/privacy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
-    <loc>https://fertwbr.github.io/pixelcompass?page=help</loc>
+    <loc>https://apps.fertwbr.com/pixelcompass/help</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
