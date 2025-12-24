@@ -1,7 +1,7 @@
 {
   "name": "fernando-vaz-portfolio",
   "private": true,
-  "version": "2.3.0",
+  "version": "2.3.1",
   "type": "module",
   "scripts": {
     "dev": "vite --host",
