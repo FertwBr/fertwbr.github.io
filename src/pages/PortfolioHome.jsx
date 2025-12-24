@@ -50,8 +50,10 @@ export default function PortfolioHome() {
 
     usePageMetadata({
         title: "Fernando Vaz | Software Engineer",
+        description: "Portfolio of Fernando Vaz, a Software Engineer specializing in Android and Web Development.",
         themeColor: surfaceColor,
-        favicon: SiteConfig.assets.avatar
+        favicon: SiteConfig.assets.avatar,
+        type: 'profile'
     });
 
     /**

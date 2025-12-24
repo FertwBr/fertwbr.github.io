@@ -79,8 +79,10 @@ export default function FeedbackPage() {
 
     usePageMetadata({
         title: "Feedback - Fernando Vaz",
+        description: "Send feedback, bug reports, or feature requests.",
         themeColor: surfaceColor,
-        favicon: SiteConfig.assets.avatar
+        favicon: SiteConfig.assets.avatar,
+        type: 'website'
     });
 
     useEffect(() => {

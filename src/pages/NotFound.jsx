@@ -48,8 +48,10 @@ export default function NotFound() {
 
   usePageMetadata({
     title: `404 - ${t.page_title || "Not Found"}`,
+    description: "Page not found.",
     themeColor: surfaceColor,
-    favicon: SiteConfig.assets.avatar
+    favicon: SiteConfig.assets.avatar,
+    type: 'website'
   });
 
   useEffect(() => {

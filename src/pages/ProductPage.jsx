@@ -56,8 +56,13 @@ export default function ProductPage({config, HomeComponent, translationKey}) {
 
     usePageMetadata({
         title: `${config.appName} - ${activeTab === 'index' ? 'Home' : activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}`,
+        description: `Official page for ${config.appName}. ${activeTab === 'index' ? 'Download for Android.' : ''}`,
         themeColor: surfaceColor,
-        favicon: config.faviconUrl
+        favicon: config.faviconUrl,
+        type: 'product',
+        product: {
+            appName: config.appName
+        }
     });
 
     /**

@@ -1,27 +1,103 @@
 import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
-export function usePageMetadata({ title, themeColor, favicon }) {
+/**
+ * Hook to manage document head metadata (Title, Favicon, Theme Color, Open Graph & JSON-LD).
+ *
+ * @param {Object} metadata
+ * @param {string} metadata.title - Page title.
+ * @param {string} metadata.description - Page description for SEO.
+ * @param {string} metadata.themeColor - Hex code for browser toolbar color.
+ * @param {string} metadata.favicon - URL to the favicon.
+ * @param {string} [metadata.type] - 'website', 'profile', or 'product' (for Schema).
+ * @param {Object} [metadata.product] - Optional product details for Schema (appName, author).
+ */
+export function usePageMetadata({ title, description, themeColor, favicon, type = 'website', product }) {
+  const location = useLocation();
+
   useEffect(() => {
-    if (title) {
-      document.title = title;
-    }
+    if (title) document.title = title;
 
     if (themeColor) {
-      let metaThemeColor = document.querySelector("meta[name='theme-color']");
-      if (!metaThemeColor) {
-        metaThemeColor = document.createElement('meta');
-        metaThemeColor.name = 'theme-color';
-        document.head.appendChild(metaThemeColor);
+      let metaTheme = document.querySelector("meta[name='theme-color']");
+      if (!metaTheme) {
+        metaTheme = document.createElement('meta');
+        metaTheme.name = 'theme-color';
+        document.head.appendChild(metaTheme);
       }
-      metaThemeColor.setAttribute('content', themeColor);
+      metaTheme.setAttribute('content', themeColor);
     }
 
     if (favicon) {
-      const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+      const existingIcons = document.querySelectorAll("link[rel*='icon']");
+      existingIcons.forEach(el => el.remove());
+
+      const link = document.createElement('link');
       link.type = 'image/x-icon';
       link.rel = 'shortcut icon';
       link.href = favicon;
-      document.getElementsByTagName('head')[0].appendChild(link);
+      document.head.appendChild(link);
     }
-  }, [title, themeColor, favicon]);
+
+    const updateMeta = (property, content) => {
+      if (!content) return;
+      let tag = document.querySelector(`meta[property='${property}']`);
+      if (!tag) {
+        tag = document.createElement('meta');
+        tag.setAttribute('property', property);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute('content', content);
+    };
+
+    updateMeta('og:title', title);
+    updateMeta('og:description', description || "Professional Android Software Engineering Portfolio.");
+    updateMeta('og:url', window.location.href);
+    updateMeta('og:type', type);
+
+    let script = document.querySelector("#structured-data");
+    if (!script) {
+      script = document.createElement('script');
+      script.id = 'structured-data';
+      script.type = 'application/ld+json';
+      document.head.appendChild(script);
+    }
+
+    let schemaData = {};
+
+    if (type === 'product' || (title && (title.includes('Pixel') || title.includes('Compass')))) {
+      schemaData = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": product?.appName || title,
+        "operatingSystem": "Android",
+        "applicationCategory": "UtilitiesApplication",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "author": {
+          "@type": "Person",
+          "name": "Fernando Vaz",
+          "url": "https://fertwbr.com"
+        }
+      };
+    } else {
+      schemaData = {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Fernando Vaz Portfolio",
+        "url": "https://fertwbr.com",
+        "author": {
+          "@type": "Person",
+          "name": "Fernando Vaz",
+          "jobTitle": "Software Engineer"
+        }
+      };
+    }
+
+    script.textContent = JSON.stringify(schemaData);
+
+  }, [title, description, themeColor, favicon, type, product, location]);
 }

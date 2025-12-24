@@ -28,8 +28,10 @@ export default function AppsHome() {
 
     usePageMetadata({
         title: t.meta_title || appsHomeConfig.appName,
+        description: t.hero_subtitle || "Discover Pixel Pulse and Pixel Compass.",
         themeColor: appsHomeConfig.themeColor,
-        favicon: appsHomeConfig.faviconUrl
+        favicon: appsHomeConfig.faviconUrl,
+        type: 'website'
     });
 
     return (

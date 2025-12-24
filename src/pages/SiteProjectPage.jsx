@@ -54,8 +54,10 @@ export default function SiteProjectPage({ forcedTab }) {
 
     usePageMetadata({
         title: `${siteProjectConfig.appName} - ${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}`,
+        description: "Documentation and Changelogs for the Portfolio Website.",
         themeColor: surfaceColor,
-        favicon: SiteConfig.assets.avatar
+        favicon: SiteConfig.assets.avatar,
+        type: 'website'
     });
 
     useEffect(() => {
