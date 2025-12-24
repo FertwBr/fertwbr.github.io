@@ -44,6 +44,15 @@ export function usePageMetadata({ title, description, themeColor, favicon, type 
       document.head.appendChild(appleLink);
     }
 
+    let canonicalLink = document.querySelector("link[rel='canonical']");
+    if (!canonicalLink) {
+      canonicalLink = document.createElement('link');
+      canonicalLink.rel = 'canonical';
+      document.head.appendChild(canonicalLink);
+    }
+    const cleanUrl = window.location.href.split('?')[0];
+    canonicalLink.href = cleanUrl;
+
     const updateMeta = (property, content) => {
       if (!content) return;
       let tag = document.querySelector(`meta[property='${property}']`);
@@ -86,7 +95,8 @@ export function usePageMetadata({ title, description, themeColor, favicon, type 
           "@type": "Person",
           "name": "Fernando Vaz",
           "url": "https://fertwbr.com"
-        }
+        },
+        "image": favicon
       };
     } else {
       schemaData = {
@@ -94,10 +104,13 @@ export function usePageMetadata({ title, description, themeColor, favicon, type 
         "@type": "WebSite",
         "name": "Fernando Vaz Portfolio",
         "url": "https://fertwbr.com",
+        "image": favicon,
         "author": {
           "@type": "Person",
           "name": "Fernando Vaz",
-          "jobTitle": "Software Engineer"
+          "jobTitle": "Software Engineer",
+          "url": "https://fertwbr.com",
+          "image": favicon
         }
       };
     }
