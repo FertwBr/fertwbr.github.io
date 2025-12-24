@@ -2,11 +2,13 @@ import React, {useRef} from 'react';
 import {motion, useScroll, useTransform} from 'framer-motion';
 import GooglePixel from '../ui/GooglePixel';
 import {PulseMockScreen, CompassMockScreen} from './MockAppScreens';
+import RatingBadge from '../ui/RatingBadge';
 
 /**
  * A section displaying an app on a phone device with scroll-triggered animations.
+ * Integrates a compact rating badge next to the app name with corrected alignment.
  *
- * @param {Object} config - App configuration object.
+ * @param {Object} config - App configuration object containing rating fallback.
  * @param {string} title - Section title.
  * @param {Array<string>} points - List of key feature points.
  * @param {boolean} reversed - If true, places text on left and phone on right.
@@ -59,12 +61,39 @@ export default function ScrollDeviceSection({config, title, points, reversed = f
 
                 <div style={{direction: 'ltr', zIndex: 2}}>
                     <div style={{
-                        display: 'inline-flex', alignItems: 'center', gap: '12px',
-                        marginBottom: '24px', padding: '8px 16px', borderRadius: '100px',
-                        background: 'var(--md-sys-color-surface-container-high)'
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '12px',
+                        marginBottom: '24px',
+                        padding: '8px 16px',
+                        borderRadius: '100px',
+                        background: 'var(--md-sys-color-surface-container-high)',
+                        border: '1px solid var(--md-sys-color-outline-variant)',
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
                     }}>
-                        <img src={config.appIcon} alt="" style={{width: '24px', borderRadius: '6px'}}/>
-                        <span style={{fontSize: '0.9rem', fontWeight: 600}}>{config.appName}</span>
+                        <img src={config.appIcon} alt=""
+                             style={{width: '24px', borderRadius: '6px', display: 'block'}}/>
+
+                        <span style={{
+                            fontSize: '0.95rem',
+                            fontWeight: 600,
+                            color: 'var(--md-sys-color-on-surface)',
+                            lineHeight: 1,
+                            paddingTop: '2px'
+                        }}>
+                            {config.appName}
+                        </span>
+
+                        <div style={{
+                            width: '1px',
+                            height: '14px',
+                            background: 'var(--md-sys-color-outline)',
+                            opacity: 0.4
+                        }}></div>
+
+                        <div style={{display: 'flex', alignItems: 'center', marginTop: '-1px'}}>
+                            <RatingBadge appId={config.appId} fallback={config.rating} variant="compact"/>
+                        </div>
                     </div>
 
                     <motion.h2
