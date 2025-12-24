@@ -45,6 +45,7 @@ export default function SplitChoice({pulseConfig, compassConfig, texts}) {
             position: 'relative',
             width: '100%',
             height: '85vh',
+            minHeight: '600px',
             display: 'flex',
             flexDirection: isMobile ? 'column' : 'row',
             overflow: 'hidden',
@@ -73,7 +74,8 @@ export default function SplitChoice({pulseConfig, compassConfig, texts}) {
                 position: 'relative',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                flexShrink: 0
             }}>
                 <motion.div
                     animate={{
@@ -118,8 +120,7 @@ function SplitPanel({
                         gradient,
                         accentColor
                     }) {
-    // Animation properties based on orientation
-    const flexValue = isFocused ? 3 : isDimmed ? 1 : 1.5;
+    const flexGrowValue = isFocused ? 3 : isDimmed ? 1 : 1.5;
 
     return (
         <motion.div
@@ -127,12 +128,14 @@ function SplitPanel({
             onMouseEnter={onHover}
             onClick={onClick}
             animate={{
-                flex: flexValue,
+                flexGrow: flexGrowValue,
                 filter: isDimmed ? 'grayscale(0.8) brightness(0.4)' : 'grayscale(0) brightness(1)'
             }}
             transition={{type: "spring", stiffness: 150, damping: 25}}
             style={{
-                [isMobile ? 'width' : 'height']: '100%',
+                flexBasis: 0,
+                width: isMobile ? '100%' : 'auto',
+                height: isMobile ? 'auto' : '100%',
                 background: gradient,
                 position: 'relative',
                 display: 'flex',
@@ -140,7 +143,8 @@ function SplitPanel({
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: 'pointer',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                willChange: 'flex-grow'
             }}
         >
             <motion.h1
@@ -185,7 +189,7 @@ function SplitPanel({
                     style={{
                         width: 'clamp(60px, 8vw, 120px)',
                         borderRadius: '22px',
-                        marginBottom: isMobile ? '16px' : '32px',
+                        marginBottom: isMobile ? '12px' : '32px',
                         boxShadow: `0 20px 50px -10px ${isFocused ? accentColor : 'rgba(0,0,0,0.3)'}`
                     }}
                 />
@@ -218,7 +222,7 @@ function SplitPanel({
                                 fontWeight: 500,
                                 color: 'var(--md-sys-color-on-surface-variant)',
                                 display: isMobile && !isFocused ? 'none' : 'block'
-                            }}>
+                            }}>`
                                 {actionText}
                             </p>
 
