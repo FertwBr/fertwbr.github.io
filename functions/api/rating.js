@@ -1,6 +1,6 @@
 /**
  * Cloudflare Pages Function
- * Rota: /api/rating?id=com.package.name
+ * Path: /api/rating
  */
 export async function onRequest(context) {
     const { request } = context;
@@ -48,8 +48,16 @@ export async function onRequest(context) {
         const ratingMatch = html.match(/"ratingValue":"([0-9.]+)"/) || html.match(/class="TT9eCd">([0-9,.]+)/);
         const countMatch = html.match(/"ratingCount":"([0-9]+)"/) || html.match(/class="g1rdde">([0-9,.]+) reviews/);
 
+        let formattedRating = null;
+        if (ratingMatch && ratingMatch[1]) {
+            const rawRating = parseFloat(ratingMatch[1].replace(',', '.'));
+            if (!isNaN(rawRating)) {
+                formattedRating = rawRating.toFixed(1);
+            }
+        }
+
         const data = {
-            rating: ratingMatch ? ratingMatch[1].replace(',', '.') : null,
+            rating: formattedRating,
             count: countMatch ? countMatch[1] : null,
             updatedAt: new Date().toISOString()
         };
