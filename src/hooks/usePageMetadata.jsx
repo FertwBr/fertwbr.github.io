@@ -33,10 +33,15 @@ export function usePageMetadata({ title, description, themeColor, favicon, type 
       existingIcons.forEach(el => el.remove());
 
       const link = document.createElement('link');
-      link.type = 'image/x-icon';
-      link.rel = 'shortcut icon';
+      link.type = 'image/png';
+      link.rel = 'icon';
       link.href = favicon;
       document.head.appendChild(link);
+
+      const appleLink = document.createElement('link');
+      appleLink.rel = 'apple-touch-icon';
+      appleLink.href = favicon;
+      document.head.appendChild(appleLink);
     }
 
     const updateMeta = (property, content) => {
