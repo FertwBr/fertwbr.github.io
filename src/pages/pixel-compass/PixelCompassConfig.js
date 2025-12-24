@@ -7,6 +7,10 @@ export const pixelCompassConfig = {
   playStoreLink: "https://play.google.com/store/apps/details?id=io.github.fertwbr.pixelcompass",
   defaultPage: 'index',
   basePath: "/content/PixelCompass/md/",
+  rating: {
+    value: "4.5",
+    count: "230"
+  },
   pages: {
     index: {
       id: "index",

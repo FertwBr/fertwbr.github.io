@@ -7,6 +7,10 @@ export const pixelPulseConfig = {
   playStoreLink: "https://play.google.com/store/apps/details?id=io.github.fertwbr.pixelpulse",
   defaultPage: 'index',
   basePath: "/content/PixelPulse/md/",
+  rating: {
+    value: "4.8",
+    count: "11"
+  },
   pages: {
     index: {
       id: "index",
