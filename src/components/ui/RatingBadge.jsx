@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 /**
  * RatingBadge component.
- * Fetches rating from Cloudflare Worker or uses fallback.
- * Renders minimalist star + rating text, designed to inherit parent styles.
+ * Displays the app rating fetched from the local API or falls back to config.
  *
  * @param {Object} props
  * @param {string} props.appId - Android Package Name.
@@ -14,14 +13,17 @@ export default function RatingBadge({ appId, fallback, variant = 'expanded' }) {
     const [data, setData] = useState(null);
 
     useEffect(() => {
+        let isMounted = true;
+
         const fetchRating = async () => {
+            if (!appId) return;
             try {
-                const WORKER_URL = "https://play-scraper.fertwbr.workers.dev";
-                const response = await fetch(`${WORKER_URL}?id=${appId}`);
-                if (!response.ok) throw new Error("Network response was not ok");
+                const response = await fetch(`/api/rating?id=${appId}`);
+
+                if (!response.ok) return;
 
                 const result = await response.json();
-                if (result.rating && result.count) {
+                if (isMounted && result.rating && result.count) {
                     setData({ value: result.rating, count: result.count });
                 }
             } catch (error) {
@@ -29,9 +31,9 @@ export default function RatingBadge({ appId, fallback, variant = 'expanded' }) {
             }
         };
 
-        if (appId) {
-            fetchRating();
-        }
+        fetchRating();
+
+        return () => { isMounted = false; };
     }, [appId]);
 
     const display = data || fallback || { value: "4.5", count: "100" };
@@ -41,12 +43,13 @@ export default function RatingBadge({ appId, fallback, variant = 'expanded' }) {
             <div style={{ display: 'flex', alignItems: 'center', gap: '4px', opacity: 0.9, fontSize: '0.75rem', marginTop: '2px' }}>
                 <span className="material-symbols-outlined" style={{
                     fontSize: '14px',
-                    fontVariationSettings: "'FILL' 1"
+                    fontVariationSettings: "'FILL' 1",
+                    color: 'inherit'
                 }}>star</span>
                 <span style={{ fontWeight: 700, color: 'inherit' }}>
                     {display.value}
                 </span>
-                <span style={{ opacity: 0.8, fontWeight: 400 }}>
+                <span style={{ opacity: 0.8, fontWeight: 400, color: 'inherit' }}>
                     ({display.count})
                 </span>
             </div>
