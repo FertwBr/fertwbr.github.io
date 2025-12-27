@@ -18,12 +18,11 @@ const NAV_ITEMS = [
  * Spring animation configuration for smoother motion transitions.
  * @constant {object}
  */
-const SPRING_TRANSITION = {type: "spring", stiffness: 400, damping: 40, mass: 1};
+const SPRING_TRANSITION = {type: "spring", stiffness: 400, damping: 30};
 
 /**
  * Generates the glassmorphism style object based on scroll and active state.
- * Includes hardware acceleration hacks (transform: translateZ) to prevent blur lag.
- * * @param {boolean} isScrolled - Whether the user has scrolled down past the threshold.
+ * @param {boolean} isScrolled - Whether the user has scrolled down past the threshold.
  * @param {boolean} [isActive=false] - Whether the mobile menu is currently active.
  * @returns {React.CSSProperties} The style object.
  */
@@ -50,7 +49,7 @@ const MENU_ITEM_VARIANTS = {
 };
 
 /**
- * Animation variants for the mobile menu container (stagger effect).
+ * Animation variants for the mobile menu container.
  * @constant {object}
  */
 const MENU_CONTAINER_VARIANTS = {
@@ -61,11 +60,11 @@ const MENU_CONTAINER_VARIANTS = {
 
 /**
  * AppNavbar Component.
- * * A responsive, glassmorphic navigation bar that hides on scroll down and shows on scroll up.
- * Handles both desktop (pills) and mobile (hamburger) layouts.
- * * @component
+ * A responsive, glassmorphic navigation bar.
+ *
+ * @component
  * @param {object} props - Component props.
- * @param {object} props.config - Configuration object for the app (icon, name, defaults).
+ * @param {object} props.config - Configuration object for the app.
  * @param {string} props.activePage - The ID of the currently active page.
  * @param {Function} props.onNavigate - Callback function triggered when a nav item is clicked.
  * @param {object} props.strings - Localization strings for labels.
@@ -113,9 +112,10 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
             setIsScrolled(currentScrollY > 20);
+
             if (currentScrollY > lastScrollY.current && currentScrollY > 100 && !isMobileMenuOpen) {
                 setIsVisible(false);
-            } else {
+            } else if (currentScrollY < lastScrollY.current || currentScrollY < 50) {
                 setIsVisible(true);
             }
             lastScrollY.current = currentScrollY;
@@ -129,14 +129,8 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
         setMobileMenuOpen(false);
     };
 
-    /**
-     * Logic for the back/close button.
-     * 1. If inside a sub-page (e.g., /pixelpulse/help), go to App Root (/pixelpulse).
-     * 2. If at App Root (/pixelpulse), go to Domain Root (Apps Portal or Portfolio).
-     */
     const handleBackAction = () => {
         const isAtAppRoot = activePage === config.defaultPage || activePage === 'index';
-
         if (isAtAppRoot) {
             navigate('/');
         } else {
@@ -148,9 +142,9 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
         <AnimatePresence>
             <motion.nav
                 role="navigation"
-                initial={{y: -100, opacity: 0}}
-                animate={{y: isVisible ? 0 : -120, opacity: isVisible ? 1 : 0}}
-                transition={{duration: 0.4, ease: [0.22, 1, 0.36, 1]}}
+                initial={{y: 0, opacity: 1}}
+                animate={{y: isVisible ? 0 : -100, opacity: isVisible ? 1 : 0}}
+                transition={{duration: 0.3, ease: "easeInOut"}}
                 style={{
                     position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
                     display: 'flex', justifyContent: 'center', alignItems: 'flex-start',
@@ -158,8 +152,6 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
                 }}
             >
                 <motion.div
-                    layout
-                    transition={SPRING_TRANSITION}
                     style={{
                         ...GLASS_STYLE(isScrolled),
                         pointerEvents: 'auto', padding: '6px', display: 'flex', alignItems: 'center',
@@ -190,8 +182,7 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
                         </motion.span>
                     </motion.button>
 
-                    <motion.div
-                        layout="position"
+                    <div
                         onClick={() => !is404 && handleNavClick(config.defaultPage)}
                         role={!is404 ? "button" : undefined}
                         style={{
@@ -207,15 +198,15 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
                         ) : (
                             <img src={config.appIcon} alt="" style={{width: 28, height: 28, borderRadius: 6}}/>
                         )}
-                        <motion.span style={{
+                        <span style={{
                             fontWeight: 700,
                             fontSize: '0.95rem',
                             whiteSpace: 'nowrap',
                             color: 'var(--md-sys-color-on-surface)'
                         }}>
                             {config.appName}
-                        </motion.span>
-                    </motion.div>
+                        </span>
+                    </div>
 
                     {!is404 && (
                         <div className="desktop-menu" style={{display: 'flex', gap: '4px', paddingLeft: '8px'}}>
@@ -229,14 +220,15 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
                                             position: 'relative', background: 'transparent',
                                             color: isActive ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)',
                                             border: 'none', borderRadius: '100px', padding: '10px 20px',
-                                            fontSize: '0.85rem', fontWeight: isActive ? 600 : 500, cursor: 'pointer',
-                                            display: 'flex', alignItems: 'center', gap: '8px', zIndex: 1
+                                            fontSize: '0.85rem', fontWeight: 500, cursor: 'pointer',
+                                            display: 'flex', alignItems: 'center', gap: '8px', zIndex: 1,
+                                            minWidth: 'fit-content'
                                         }}
                                     >
                                         {isActive && (
                                             <motion.span
                                                 layoutId="nav-pill-background"
-                                                transition={{type: "spring", bounce: 0.2, duration: 0.6}}
+                                                transition={{type: "spring", bounce: 0.2, duration: 0.5}}
                                                 style={{
                                                     position: 'absolute',
                                                     inset: 0,

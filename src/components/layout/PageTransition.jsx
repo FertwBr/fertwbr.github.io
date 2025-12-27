@@ -6,27 +6,25 @@ import { motion } from 'framer-motion';
  * @type {{duration: number, ease: number[]}}
  */
 const transition = {
-  duration: 0.6,
-  ease: [0.22, 1, 0.36, 1]
+  duration: 0.5,
+  ease: [0.25, 1, 0.5, 1]
 };
 
 /**
  * Framer Motion variants for the page transition wrapper.
- * - `initial`: starting state when component mounts
- * - `enter`: animate to this state
- * - `exit`: state when leaving
+ * Adjusted to slide horizontally (left-to-right feel) instead of vertical movement.
  *
  * @type {Object<string, import('framer-motion').TargetAndTransition>}
  */
 const variants = {
   initial: {
     opacity: 0,
-    y: 40,
-    scale: 0.98
+    x: -15,
+    scale: 0.99
   },
   enter: {
     opacity: 1,
-    y: 0,
+    x: 0,
     scale: 1,
     transition: {
       ...transition,
@@ -35,10 +33,10 @@ const variants = {
   },
   exit: {
     opacity: 0,
-    y: -20,
-    scale: 0.98,
+    x: 15,
+    scale: 0.99,
     transition: {
-      duration: 0.4,
+      duration: 0.3,
       ease: "easeInOut"
     }
   }
@@ -55,15 +53,15 @@ const variants = {
  */
 export default function PageTransition({ children, className = "" }) {
   return (
-    <motion.div
-      initial="initial"
-      animate="enter"
-      exit="exit"
-      variants={variants}
-      className={className}
-      style={{ width: '100%', position: 'relative' }}
-    >
-      {children}
-    </motion.div>
+      <motion.div
+          initial="initial"
+          animate="enter"
+          exit="exit"
+          variants={variants}
+          className={className}
+          style={{ width: '100%', position: 'relative' }}
+      >
+        {children}
+      </motion.div>
   );
 }
