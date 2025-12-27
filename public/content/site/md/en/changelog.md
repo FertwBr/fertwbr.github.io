@@ -1,6 +1,35 @@
 # Version History
 Track the evolution of the portfolio. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 2.4.0
+*(Released December 24, 2025)*
+
+This update brings the portfolio to life with **Real-Time Data**. We've integrated a serverless backend to fetch live Google Play Store ratings and implemented advanced SEO standards to ensure the apps are properly indexed by search engines.
+
+#### ☁️ Cloud & Infrastructure
+* **New: Serverless Rating API:** We deployed a custom **Cloudflare Pages Function** (`/api/rating`) that acts as a secure middleware. It scrapes, caches, and serves Google Play Store ratings for Pixel Compass and Pixel Pulse, protecting our API limits and improving frontend performance.
+* **New: Smart Caching:** The rating worker implements caching strategies to ensure instant load times while keeping data fresh.
+
+#### 🎨 UI & Components
+* **New: Live Rating Badge:** Introduced a `RatingBadge` component that connects to our new API. It displays the live star rating and review count with a graceful fallback if the network is offline.
+* **New: Compact Mode:** Integrated a condensed version of the rating badge directly into the "Scrollytelling" device pills for a cleaner look.
+
+#### 🌐 SEO & Metadata
+* **New: Structured Data (JSON-LD):** Injected dynamic `application/ld+json` scripts into the head of the document. This allows search engines to read "Rich Snippets" for the software products, displaying price, OS, and ratings directly in search results.
+
+## Version 2.3.1
+*(Released December 24, 2025)*
+
+A focused update on **Security** and **Brand Identity**, ensuring the site is not only fast but also secure and recognizable across all platforms.
+
+#### 🛡️ Security & Polish
+* **New: Security Headers:** Added a strict `_headers` configuration file. This enforces **HSTS** (Strict Transport Security), prevents MIME-sniffing, and secures the site against clickjacking attacks.
+* **New: Console Branding:** Added a stylized developer signature in the browser console, providing a polished touch for developers inspecting the source code.
+
+#### 🛠️ Metadata Enhancements
+* **Improvement: Apple Ecosystem Support:** Updated the favicon system to strictly support `apple-touch-icon`, ensuring the apps looks native when added to an iOS Home Screen.
+* **Improvement: Canonical Links:** The `usePageMetadata` hook now automatically generates canonical URLs, preventing "duplicate content" SEO penalties across the portfolio and app domains.
+
 ## Version 2.3.0
 *(Released December 23, 2025)*
 
