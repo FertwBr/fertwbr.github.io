@@ -1,13 +1,60 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
-## Version 1.15.0 Beta 4
+## Version 1.15.0 Beta 7
+*(Released January 7, 2026)*
+
+This update focuses exclusively on the **Compass Widget**, bringing a refreshed design to the "Style" variants and introducing new experimental configuration options.
+
+#### 📱 Phone
+* **New: Compass Widget Rotation (Beta):** We added a new configuration toggle for the Compass Widget. You can now choose between:
+  * **Rotating Dial:** The entire compass rose rotates (Classic behavior).
+  * **Fixed North-Up:** The rose stays fixed, and an indicator needle moves to show direction.
+* **Visual Polish:** Updated the design for the "Style" versions of the Compass Widget to support dynamic bitmap generation.
+* **Refinement:** Adjusted padding and layout for the **PILL** widget shape to ensure the new compass elements fit perfectly.
+* **UI:** Added a "BETA" badge to experimental features in the widget configuration screen to clearly identify new capabilities being tested.
+
+## Version 1.15.0 Beta 6
+*(Released January 6, 2026)*
+
+This update is dedicated to **Performance and Stability**. We have implemented Baseline Profiles across both platforms and optimized sensor usage to make the app significantly faster and more efficient.
+
+#### 📱 Phone
+* **Performance Boost:** Integrated **Startup Compilation Baseline Profiles**.
+  * **The Verdict:** App startup time is now **26.5% faster**.
+* **Fix:** Resolved a bug where the user-selected theme would delay applying for 2 seconds after the app opened.
+* **Fix:** Addressed a potential crash in notifications when string resources were missing.
+* **Fix:** Corrected an issue where the "Welcome to Plus" screen could enter a navigation loop.
+
+#### ⌚ Wear OS
+* **Performance Boost:** Implemented Baseline Profiles for the watch app, achieving a **19.2% improvement** in startup times.
+* **Optimization:** Refactored the **Compass Tile**, introducing smart sensor throttling to reduce battery drain and system load while keeping the tile responsive.
+* **Fix:** Solved an issue where tiles could cause performance hiccups by requesting data too aggressively.
+
+
+## Version 1.15.0 Beta 5
 *(Released January 4, 2026)*
+
+This is a massive feature drop. We are introducing **Mechanical Haptics**, deeper Compass Customization, **Smart Notifications**, and a completely overhauled Weather UI.
+
+#### 📱 Phone
+* **New: Mechanical Haptics (Plus):** Feel the movement. This feature simulates the sensation of mechanical gears engaging as the compass dial rotates (note: increases battery usage).
+* **New: Compass Customization:**
+  * **Arrow Style:** Choose between a single needle or a double arrow.
+  * **Indicator Format:** Toggle the compass ring between Cardinal Letters (N, S, E, W) or Degrees (0°, 90°, 180°).
+* **New: App Shortcuts:** Long-press the app icon on your home screen to quickly access **Level**, **Settings**, or **Feedback**.
+* **Weather UI Overhaul:**
+  * **Precipitation:** Added a new "Zero State" visual for when no rain is expected.
+  * **Astronomy:** Redesigned Sun Path and Moon Phase charts with distinct section headers.
+  * **Wind:** Added localized wind direction labels to forecast charts.
+
+## Version 1.15.0 Beta 4
+*(Released December 28, 2025)*
 
 This update focuses on **visual refinement and stability**. We have completely redesigned the Widget Debug experience, added smarter weather insights, and performed a major "under-the-hood" cleanup to improve app performance and logging.
 
 #### 📱 Phone
-* **New: Smart Weather Notifications:** The Sensor Service now includes a smart notification system that delivers real-time weather insights and forecast updates directly to your notification shade.
+* **New: Smart Notifications:** The foreground service notification has been upgraded. Instead of a generic "Sensor Active" message, Plus users now see live **Temperature**, **Weather Conditions**, and **UV Index** directly in the notification shade.
 * **New: OSS Licenses Screen:** Added a dedicated screen in Settings to display Open Source Software licenses, ensuring proper attribution and compliance.
 * **Improvement: Widget Debug UI:** A complete redesign of the Widget Debug info card. It now features a cleaner, modern layout with better empty states and organized info boxes.
 * **Improvement: Wind Charts:** Added localized wind direction labels directly below the bars in the Wind Forecast Chart for easier reading.
@@ -18,15 +65,16 @@ This update focuses on **visual refinement and stability**. We have completely r
 * **Optimization:** Refactored the Compass Sensor logic to reduce battery usage and improve the smoothness of the needle movement (increased update granularity to 16ms).
 
 ## Version 1.15.0 Beta 3
-*(Released December 27, 2026)*
+*(Released December 26, 2025)*
 
 This beta introduces a **brand-new Calibration experience** shared across both Phone and Watch, along with a massive overhaul of the Wear OS settings menu to make customization easier.
 
-#### ↔️ Shared (Phone & Watch)
+#### 📱 Phone
 * **New: Advanced Calibration UI:** The calibration screen has been rebuilt from scratch. It now features:
   * **Morphing Animation:** A dynamic "figure-8" guide that changes shape based on your movement speed.
   * **Haptic Feedback:** Distinct vibration patterns now confirm when calibration succeeds or alert you if it times out.
   * **Smart Detection:** The app now checks sensor accuracy *before* prompting you to calibrate.
+  * **Feedback:** Clear success/failure screens to let you know if the sensor is ready.
 * **New: Imperial Altitude:** You can now manually input and view reference altitude in **Feet** (ft) as well as Meters. The app remembers your preference.
 
 #### ⌚ Wear OS
@@ -34,6 +82,12 @@ This beta introduces a **brand-new Calibration experience** shared across both P
 * **New: Dialog Settings:** The simple toggles for "True North", "Advanced Data", and "Invert Compass" have been upgraded to dedicated dialog screens that explain exactly what each feature does before you enable it.
 * **Improvement: 60fps Performance:** The compass display now uses dual-layer caching. Static elements and dynamic elements (like the compass rose) are rendered separately, ensuring a buttery smooth 60fps experience.
 * **Visual Polish:** The Compass Style selection screen now features improved pager animations and clearer "Applied" states.
+* **New: Advanced Calibration UI:** The calibration screen has been rebuilt from scratch. It now features:
+  * **Morphing Animation:** A dynamic "figure-8" guide that changes shape based on your movement speed.
+  * **Haptic Feedback:** Distinct vibration patterns now confirm when calibration succeeds or alert you if it times out.
+  * **Smart Detection:** The app now checks sensor accuracy *before* prompting you to calibrate.
+  * **Feedback:** Clear success/failure screens to let you know if the sensor is ready.
+* **New: Imperial Altitude:** You can now manually input and view reference altitude in **Feet** (ft) as well as Meters. The app remembers your preference.
 
 ## Version 1.15.0 Beta 2.1
 *(Released December 23, 2025)*
