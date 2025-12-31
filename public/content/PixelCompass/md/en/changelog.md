@@ -1,8 +1,54 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+
+## Version 1.15.0
+*(Released January X, 2026)*
+
+Welcome to **Pixel Compass 1.15**! This major update focuses on **Performance**, **Professional Tools**, and **Ecosystem Synergy**. We've completely overhauled the calibration experience, introduced NATO Mils for pros, made the app significantly faster, and brought your Phone and Watch closer together.
+
+#### 🚀 Performance & Stability
+* **Baseline Profiles:** We’ve optimized the app's core code. Startup times are now **26.5% faster** on Phone and **19.2% faster** on Watch.
+* **Under the Hood:** A complete migration to **Timber** logging and refined sensor logic ensures better stability and battery life across the board.
+
+#### 📱 Phone
+* **New: Mechanical Haptics (Plus):** Feel the direction. This feature simulates the physical sensation of mechanical gears engaging as the compass dial rotates.
+* **New: Professional Tools:**
+  * **NATO Mils:** You can now switch the azimuth display unit to **6400 Mils** for professional/military use.
+  * **Imperial Altitude:** Manual altitude input and display now supports **Feet (ft)**.
+  * **Arrow Customization:** Choose between a single needle or a double arrow, and toggle between Cardinal Letters or Degree markers on the ring.
+* **New: Compass Widget 2.0:**
+  * **Rotation Modes:** Configure your widget to use a **Rotating Dial** (Classic) or **Fixed North-Up** (Needle moves).
+  * **Visual Polish:** Refined designs for "Style" variants and dynamic bitmap generation.
+* **New: Advanced Calibration UI:** A completely rebuilt calibration experience featuring a dynamic "figure-8" morphing animation, haptic feedback, and smart sensor accuracy detection.
+* **New: Smart Notifications:** The foreground service notification now displays live **Temperature**, **Weather Conditions**, and **UV Index**.
+* **New: Ecosystem & Web:**
+  * **Deep Links:** Smarter links (e.g., `pixelcompass://`) allow for seamless navigation.
+  * **Web Portal:** Access our new premium web portal at `apps.fertwbr.com` with verification.
+* **Weather UI Overhaul:** Redesigned Astronomy charts, clearer Precipitation "Zero States," and localized Wind Direction labels.
+
+#### ⌚ Wear OS
+* **New: 60fps Experience:** The compass now uses dual-layer caching to render at a buttery smooth **60 frames per second**.
+* **New: Settings Overhaul:** A reorganized menu with dedicated dialogs for "True North," "Advanced Data," and "Invert Compass."
+* **New: Remote Interactions:** Trigger actions on your phone directly from your watch (e.g., open Privacy Policy, Buy Plus).
+* **New: About Screen:** A complete visual redesign with quick actions to rate the app or send feedback.
+* **Improvement:** The **Compass Tile** now uses smart throttling to save battery while keeping data fresh.
+
+
+## Version 1.15.0 Release Candidate 1
+*(Released December 29, 2025*
+
+This is the final step before the public release. We have consolidated all features from the beta cycle, polished the UI, and finalized translations.
+
+#### 📱 Phone
+* **Final Polish:** Refined the **Compass Widget**
+* **Localization:** Finalized translations for all new features (Calibration UI, Widget Config, and Deep Links) across all 15+ supported languages.
+
+#### ⌚ Wear OS
+* **Localization:** Finalized translations for all new features (Calibration UI, Widget Config, and Deep Links) across all 15+ supported languages.
+
 ## Version 1.15.0 Beta 7
-*(Released January 7, 2026)*
+*(Released December 26, 2025)*
 
 This update focuses exclusively on the **Compass Widget**, bringing a refreshed design to the "Style" variants and introducing new experimental configuration options.
 
@@ -15,7 +61,7 @@ This update focuses exclusively on the **Compass Widget**, bringing a refreshed 
 * **UI:** Added a "BETA" badge to experimental features in the widget configuration screen to clearly identify new capabilities being tested.
 
 ## Version 1.15.0 Beta 6
-*(Released January 6, 2026)*
+*(Released December 24, 2025)*
 
 This update is dedicated to **Performance and Stability**. We have implemented Baseline Profiles across both platforms and optimized sensor usage to make the app significantly faster and more efficient.
 
@@ -33,7 +79,7 @@ This update is dedicated to **Performance and Stability**. We have implemented B
 
 
 ## Version 1.15.0 Beta 5
-*(Released January 4, 2026)*
+*(Released December 22, 2025)*
 
 This is a massive feature drop. We are introducing **Mechanical Haptics**, deeper Compass Customization, **Smart Notifications**, and a completely overhauled Weather UI.
 
@@ -49,7 +95,7 @@ This is a massive feature drop. We are introducing **Mechanical Haptics**, deepe
   * **Wind:** Added localized wind direction labels to forecast charts.
 
 ## Version 1.15.0 Beta 4
-*(Released December 28, 2025)*
+*(Released December 20, 2025)*
 
 This update focuses on **visual refinement and stability**. We have completely redesigned the Widget Debug experience, added smarter weather insights, and performed a major "under-the-hood" cleanup to improve app performance and logging.
 
@@ -65,7 +111,7 @@ This update focuses on **visual refinement and stability**. We have completely r
 * **Optimization:** Refactored the Compass Sensor logic to reduce battery usage and improve the smoothness of the needle movement (increased update granularity to 16ms).
 
 ## Version 1.15.0 Beta 3
-*(Released December 26, 2025)*
+*(Released December 18, 2025)*
 
 This beta introduces a **brand-new Calibration experience** shared across both Phone and Watch, along with a massive overhaul of the Wear OS settings menu to make customization easier.
 
@@ -90,7 +136,7 @@ This beta introduces a **brand-new Calibration experience** shared across both P
 * **New: Imperial Altitude:** You can now manually input and view reference altitude in **Feet** (ft) as well as Meters. The app remembers your preference.
 
 ## Version 1.15.0 Beta 2.1
-*(Released December 23, 2025)*
+*(Released December 16, 2025)*
 
 This update finalizes the integration with our new web ecosystem and cleans up the project structure.
 
@@ -107,7 +153,7 @@ This update finalizes the integration with our new web ecosystem and cleans up t
 * **Improvement: Themed Links:** Action buttons now generate URLs that respect the user's active theme color, providing a seamless visual transition from Watch to Phone browser.
 
 ## Version 1.15.0 Beta 2
-*(Released December 20, 2025)*
+*(Released December 15, 2025)*
 
 This beta improves the synergy between your Phone and Watch. We've introduced deep linking to allow smoother interactions between devices (like opening the purchase screen on your phone from your watch). We've added professional compass units and - for Wear OS users - a completely redesigned "About" screen.
 
@@ -125,7 +171,7 @@ This beta improves the synergy between your Phone and Watch. We've introduced de
 
 
 ## Version 1.15.0 Beta 1
-*(Released December 15, 2025)*
+*(Released December 13, 2025)*
 
 This update focuses on **harmonizing the design language** between **Pixel Compass** and **Pixel Pulse**. We've brought the refined UI elements and responsive layouts from Pixel Pulse into Compass to create a more unified and polished experience, particularly for plus screens.
 
