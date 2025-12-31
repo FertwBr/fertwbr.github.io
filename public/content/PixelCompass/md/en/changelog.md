@@ -1,7 +1,6 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
-
 ## Version 1.15.0
 *(Released January X, 2026)*
 
@@ -43,6 +42,10 @@ This is the final step before the public release. We have consolidated all featu
 #### 📱 Phone
 * **Final Polish:** Refined the **Compass Widget**
 * **Localization:** Finalized translations for all new features (Calibration UI, Widget Config, and Deep Links) across all 15+ supported languages.
+* **UI Polish:** Adjusted scale factors and padding for **PILL** and **ARCH** widget shapes to ensure perfect visual alignment.
+* **Refactor:** Renamed all "Pro" UI references to "Plus" for consistency with the new branding.
+* **Fix:** Improved Locale handling by using `Locale.Builder` with SIM Country ISO for more accurate region formatting.
+* **Fix:** Refined the "Plus Required" view with improved icon hierarchy and padding.
 
 #### ⌚ Wear OS
 * **Localization:** Finalized translations for all new features (Calibration UI, Widget Config, and Deep Links) across all 15+ supported languages.
