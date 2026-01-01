@@ -11,7 +11,7 @@ This update prepares Pixel Pulse for the upcoming Wear OS companion app. We've b
 * **New: Expanded Deep Links:** Added support for new navigation routes (like `/buy`), allowing external triggers (such as the Watch app) to take you directly to specific screens like the Plus purchase page.
 * **Fix:** Improved the reliability of the Billing Client connection when resuming the app.
 
-#### ⌚ Wear OS Integration
+#### ⌚ Wear OS
 * **New: Plus Status Sync:** We've added a background listener service that communicates with your watch. When you upgrade to **Pixel Pulse+** on your phone, your watch will automatically unlock premium features without you needing to do a thing.
 
 ## Version 1.18.0 Alpha 04
