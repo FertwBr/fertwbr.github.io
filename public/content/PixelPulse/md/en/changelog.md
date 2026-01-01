@@ -1,6 +1,59 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.18.0 Beta 2
+*(Released January 1, 2026)*
+
+This update prepares Pixel Pulse for the upcoming Wear OS companion app. We've built the bridges needed for the two devices to talk to each other, improved deep linking, and refined the feedback system to understand where your reports are coming from.
+
+#### 📱 Phone
+* **New: Smart Feedback Source:** The feedback system is now context-aware. If you send a report triggered from your Watch, the phone app knows it, helping us debug wearable-specific issues faster.
+* **New: Expanded Deep Links:** Added support for new navigation routes (like `/buy`), allowing external triggers (such as the Watch app) to take you directly to specific screens like the Plus purchase page.
+* **Fix:** Improved the reliability of the Billing Client connection when resuming the app.
+
+#### ⌚ Wear OS Integration
+* **New: Plus Status Sync:** We've added a background listener service that communicates with your watch. When you upgrade to **Pixel Pulse+** on your phone, your watch will automatically unlock premium features without you needing to do a thing.
+
+## Version 1.18.0 Alpha 04
+*(Released January 1, 2026)*
+
+**Wear OS:** This update brings the Meter to life! We've implemented the core real-time monitoring interface and the synchronization engine.
+
+* **New: Immersive Meter UI:** The main screen now displays live decibel readings with a beautiful **Reactive Background** that pulses and changes color based on sound intensity.
+* **New: Recording Controls:** You can now Start, Stop, and Reset recordings directly from your wrist. A new timer shows your session duration.
+* **New: Plus Syncing:** The app now listens to your phone for subscription updates. If you are a Plus user, your watch app will automatically unlock premium settings.
+* **New: User Experience Screen:** Added a dedicated screen in Settings to view your current plan status and force a sync if needed.
+
+
+## Version 1.18.0 Alpha 03
+*(Released December 29, 2025)*
+
+**Wear OS:** This update focuses on professional tools and deep configuration options.
+
+* **New: Audio Calibration:** Added a dedicated **Calibration Screen**. You can now manually adjust the microphone input offset directly on the watch to match professional equipment.
+* **New: Advanced Settings:** Implemented selection dialogs for **Frequency Weighting** (A/C/Z) and **Update Speed**, allowing you to tune the meter's behavior.
+* **New: Info Screen:** A new hub accessible via vertical swipe, displaying quick status info and shortcuts to settings.
+* **UI:** Added "Smart Toggles" to the Info screen cards—tap to cycle options, long-press to view the full list.
+
+## Version 1.18.0 Alpha 02
+*(Released December 28, 2025)*
+
+**Wear OS:** This update introduces the navigation structure and remote phone interactions.
+
+* **New: Remote Interactions:** Your watch can now control your phone! Added buttons to **Open Privacy Policy**, **Send Feedback**, and **Rate App** which automatically launch the corresponding action on your connected phone.
+* **New: Redesigned 'About' Screen:** A complete visual overhaul for the About section, featuring the new remote action buttons.
+* **New: Onboarding Overlay:** Added a helpful animated overlay to guide users on how to swipe between the Meter and Info screens.
+* **Navigation:** Implemented the vertical pager system, allowing seamless transition between the main Meter and the Info/Settings stack.
+
+## Version 1.18.0 Alpha 01
+*(Released December 27, 2025)*
+
+**Wear OS:** Initial foundation release.
+
+* **New:** Initial project setup for **Pixel Pulse on Wear OS**.
+* **Visuals:** Added the animated Splash Screen, adaptive launcher icons, and the base Material 3 theme implementation.
+* **Core:** Integrated logging and basic preference storage.
+
 ## Version 1.18.0 Beta 1
 *(Released December 23, 2025)*
 
