@@ -1,6 +1,22 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.18.0 Alpha 06
+*(Released January 3, 2026)*
+
+**Wear OS:** This update introduces the complete **History & Playback** ecosystem. You can now save, manage, and view to your recordings directly from your wrist.
+
+* **New: Session History:** A dedicated **History Screen** allows you to browse saved sessions grouped by month. Includes support for "Select All", batch deletion, and toggling favorites.
+* **New: On-Watch Playback:** Implemented a full **Session Player** with db visualization, play/pause controls, and adjustable playback speed.
+* **New: Session Actions:** Added powerful management tools. You can now **Rename** sessions (using the on-screen keyboard), **Delete** them with a confirmation dialog, or view detailed metadata.
+* **New: Save Flow:** When you stop a recording, a new **Save Screen** appears, allowing you to review the session stats before choosing to save or discard.
+
+## Version 1.18.0 Alpha 05
+*(Released January 2, 2026)*
+
+* **New: Background Service:** Recording is now handled by a robust **Foreground Service**. This ensures uninterrupted recording even if you lower your wrist, complete with a live notification showing real-time dB levels.
+* **UX:** Improved permission handling with dedicated "Locked" screens for denied Microphone or Notification permissions, guiding the user to settings if needed.
+
 ## Version 1.18.0 Beta 2
 *(Released January 1, 2026)*
 
