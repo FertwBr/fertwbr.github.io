@@ -1,6 +1,6 @@
 # Pixel Pulse - Help & Frequently Asked Questions {: data-toc-key="top" }
 
-Welcome to the Pixel Pulse Help & FAQ page! Our goal is to help you measure and understand your acoustic environment with precision and clarity.
+Welcome to the Pixel Pulse Help & FAQ page! Our goal is to help you measure and understand your acoustic environment with precision and clarity, whether on your phone or your wrist.
 
 ## Getting Started {: data-toc-key="getting-started" }
 
@@ -13,18 +13,27 @@ Welcome to the Pixel Pulse Help & FAQ page! Our goal is to help you measure and 
     -   **Toolbar:** Icons for quick access to Calibration, Saving, and this Info guide.
 
 ### 2. How does Calibration work? {: data-toc-key="calibration" }
-The **Calibration** tool allows you to fine-tune the app's readings. If you have access to a professional sound level meter, you can use the slider in the calibration dialog to apply a positive or negative offset (e.g., -2.5 dB). This offset will be applied to all future measurements to improve accuracy. This is a free feature for all users.
+The **Calibration** tool allows you to fine-tune the app's readings. If you have access to a professional sound level meter, you can use the slider in the calibration dialog to apply a positive or negative offset (e.g., -2.5 dB). This offset will be applied to all future measurements (Phone and Watch) to improve accuracy. This is a free feature for all users.
 
 ## Session History {: data-toc-key="session-history" }
 
 ### 1. How do I save and manage sessions? {: data-toc-key="manage-sessions" }
-After pausing a recording, tap the **Save** icon. On the History screen, **long-press** any session to enter selection mode. This allows you to select multiple recordings to delete or favorite them all at once. A regular tap in selection mode also toggles the selection.
+After pausing a recording, tap the **Save** icon. On the History screen, **long-press** any session to enter selection mode. This allows you to select multiple recordings to delete or favorite them all at once. Sessions recorded on your Wear OS watch will also appear here after synchronization.
 
 ### 2. How do I export my data? {: data-toc-key="exporting" }
 From the Session Detail screen, you can use the menu to export your data.
 -   **Copy as Text:** This free option copies a simple summary of the session to your clipboard.
 -   **Export as CSV `[Plus+]`:** This premium feature saves a complete, timestamped log of the session's decibel history to a CSV file, perfect for analysis in spreadsheet software.
 
+## Wear OS Companion {: data-toc-key="wear-os" }
+
+Pixel Pulse for Wear OS works as both a standalone recorder and a companion to your phone.
+
+### 1. Standalone Recording {: data-toc-key="wear-recording" }
+You can record sessions directly on your watch without your phone being present. The interface is optimized for AMOLED screens to save battery. When you finish a recording on the watch, you can save it locally.
+
+### 2. Synchronization {: data-toc-key="wear-sync" }
+When your watch reconnects to your phone, it can automatically transfer your saved sessions to the phone app's History tab. You can configure this behavior in **Settings > Sync & Backup** on your watch.
 
 ## Pixel Pulse+: Sound Exposure & Alerts {: data-toc-key="plus-features" }
 
@@ -60,6 +69,12 @@ Your privacy is paramount. Here is exactly what data the app handles and how.
 -   **Is audio recorded in the background?** Absolutely not. The process is the same as the real-time meter: measure, calculate, and discard audio instantly.
 -   **Where is this data stored?** It is also stored in the same private, local database on your device.
 -   **Is any data shared?** No. All analysis, charts, and insights are generated 100% on-device.
+
+### 3. Sync & Backup (Wear OS) {: data-toc-key="sync-data-privacy" }
+-   **How is data transferred?** We use the secure **Android Wearable Data Layer API** (part of Google Play Services) to transfer session data from your Watch to your Phone.
+-   **Is data stored on servers?** No. Pixel Pulse does not have its own backend servers. The sync process is strictly **Device-to-Device**.
+-   **What about Cloud Sync?** If your watch and phone are not connected via Bluetooth, the system may use Google Cloud Sync (encrypted) to relay the data via Wi-Fi/LTE. This is handled entirely by the Android System to ensure delivery; Pixel Pulse does not access or store this data externally.
+-   **Can I disable this?** Yes. You can disable "Automatic Sync" in the **Settings > Sync & Backup** menu on your watch at any time.
 
 We **do not** collect, share, or have any access to your audio or measurement data.
 
