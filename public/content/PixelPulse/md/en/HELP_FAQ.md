@@ -27,13 +27,35 @@ From the Session Detail screen, you can use the menu to export your data.
 
 ## Wear OS Companion {: data-toc-key="wear-os" }
 
-Pixel Pulse for Wear OS works as both a standalone recorder and a companion to your phone.
+The Pixel Pulse app for Wear OS is designed for quick interactions and standalone recording. Here is how to navigate the interface:
 
 ### 1. Standalone Recording {: data-toc-key="wear-recording" }
 You can record sessions directly on your watch without your phone being present. The interface is optimized for AMOLED screens to save battery. When you finish a recording on the watch, you can save it locally.
 
 ### 2. Synchronization {: data-toc-key="wear-sync" }
 When your watch reconnects to your phone, it can automatically transfer your saved sessions to the phone app's History tab. You can configure this behavior in **Settings > Sync & Backup** on your watch.
+
+### 3. Navigation Basics {: data-toc-key="wear-nav" }
+The app uses a **Horizontal Layout** to organize its main features. Swipe **Left** or **Right** to switch between screens:
+-   **Center:** The Main Meter.
+-   **Right:** Session History.
+-   **Far Right:** Settings.
+
+### 4. Using the Main Meter {: data-toc-key="wear-meter" }
+-   **Start Recording:** Tap the large **Play** button to start monitoring.
+-   **Immersive Mode:** While recording, **tap the screen** to hide the Stop/Save buttons. This enlarges the decibel reading and reveals live statistics (Min/Avg/Max). Tap again to show the controls.
+-   **Quick Info:** Swipe **Up** from the bottom edge to see specific details about the current session layout or tips.
+
+### 5. Viewing History & Details {: data-toc-key="wear-history" }
+Swipe to the **History** screen to see your list of recordings.
+-   **Session Player:** Tap any session to open the details. The first screen shows a chart and playback controls.
+-   **Session Actions:** On the detail screen, swipe **Up** to reveal the actions menu. Here you can **Rename**, **Delete**, **Favorite**, or manually **Sync** that specific session to your phone.
+
+### 6. Settings & Customization {: data-toc-key="wear-settings" }
+Swipe to the **Settings** screen (far right) to configure your experience:
+-   **Meter Settings:** Adjust Update Speed and Frequency Weighting `[Plus+]` or Calibrate the microphone.
+-   **Customization:** Change the app theme color to match your watch face.
+-   **Sync & Backup:** Configure whether sessions sync automatically.
 
 ## Pixel Pulse+: Sound Exposure & Alerts {: data-toc-key="plus-features" }
 
