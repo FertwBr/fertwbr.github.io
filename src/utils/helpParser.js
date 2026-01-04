@@ -25,30 +25,30 @@ export function parseHelpFAQ(markdown) {
 
     const rawSections = markdown.split(/^##\s+/gm);
 
-    if (rawSections[0].trim() === '') {
+    if (rawSections.length > 0 && rawSections[0].trim() === '') {
         rawSections.shift();
     }
 
-    const sections = rawSections.map(sectionRaw => {
+    const sections = rawSections.map((sectionRaw, index) => {
         const firstLineEnd = sectionRaw.indexOf('\n');
         let titleLine = firstLineEnd === -1 ? sectionRaw : sectionRaw.substring(0, firstLineEnd);
         let rawContent = firstLineEnd === -1 ? '' : sectionRaw.substring(firstLineEnd + 1);
 
         let sectionId = '';
-        let sectionTitle = titleLine.trim();
+        let sectionTitle = titleLine.trim().replace(/^#+\s*/, '');
         const sectionAttrMatch = sectionTitle.match(/\{:\s*data-toc-key="([^"]+)"\s*\}/);
 
         if (sectionAttrMatch) {
             sectionId = sectionAttrMatch[1];
             sectionTitle = sectionTitle.replace(sectionAttrMatch[0], '').trim();
         } else {
-            sectionId = slugify(sectionTitle);
+            sectionId = index === 0 ? 'introduction' : slugify(sectionTitle);
         }
 
         const processedContent = rawContent.replace(/^(#{3,6})\s+(.*?)\s+\{:\s*data-toc-key="([^"]+)"\s*\}/gm,
             (match, hashes, title, id) => {
-                const level = hashes.length; // 3 for ###, 4 for ####
-                return `<h${level} id="${id}">${title.trim()}</h${level}>`;
+                const level = hashes.length;
+                return `<h${level} id="${id}">${title.trim()}</h${level}>\n\n`;
             }
         );
 
