@@ -211,5 +211,13 @@ export default {
         toc_title: "En esta Página",
         dynamic_docs_note: "Esta descripción general se genera dinámicamente a partir de archivos Markdown para garantizar que esté siempre actualizada con los últimos cambios en la base de código.",
         about_docs_title: "Acerca de esta documentación"
+    },
+    store_footer: {
+        tagline: "Experiencia Nativa de Android",
+        title: "Encuentra tu camino.",
+        subtitle: "Precisión, belleza y utilidad combinadas en una sola aplicación.",
+        button_sub: "Disponible en",
+        button_main: "Google Play",
+        bottom_note: "Funciona en teléfonos, tablets y plegables"
     }
 };

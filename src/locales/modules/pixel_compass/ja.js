@@ -211,5 +211,13 @@ export default {
         toc_title: "このページの内容",
         dynamic_docs_note: "この概要はMarkdownファイルから動的に生成されており、コードベースの最新の変更に合わせて常に最新の状態が保たれるようになっています。",
         about_docs_title: "このドキュメントについて"
+    },
+    store_footer: {
+        tagline: "ネイティブなAndroid体験",
+        title: "進むべき道を見つける。",
+        subtitle: "精度、美しさ、実用性を一つのアプリに。",
+        button_sub: "ダウンロード：",
+        button_main: "Google Play",
+        bottom_note: "スマートフォン、タブレット、フォルダブルに対応"
     }
 };
