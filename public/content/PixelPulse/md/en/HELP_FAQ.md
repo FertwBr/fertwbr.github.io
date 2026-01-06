@@ -57,6 +57,31 @@ Swipe to the **Settings** screen (far right) to configure your experience:
 -   **Customization:** Change the app theme color to match your watch face.
 -   **Sync & Backup:** Configure whether sessions sync automatically.
 
+## Manual Backup & Restore (.ppbk) {: data-toc-key="manual-backup" }
+
+Pixel Pulse offers a robust, privacy-first manual backup system allowing you to transfer your data between devices or keep offline archives. This system uses a proprietary file format: **`.ppbk` (Pixel Pulse Backup)**.
+
+### 1. What is a `.ppbk` file? {: data-toc-key="ppbk-format" }
+A `.ppbk` file is a secure, encrypted container that holds your entire Pixel Pulse history. Unlike simple text or CSV exports, this file contains:
+-   **Session Recordings:** All your saved audio metering sessions.
+-   **Exposure History:** Your long-term background monitoring data.
+-   **Metadata:** Information about which device (Phone or Watch) created the data and the app version.
+
+### 2. Smart Restore (Merge Strategy) {: data-toc-key="smart-restore" }
+Restoring data in Pixel Pulse is **non-destructive**. We use a "Smart Merge" strategy:
+-   **No Overwriting:** Restoring a backup **will not** delete or overwrite your existing data.
+-   **Duplicate Detection:** The app checks the unique timestamp of every session and exposure entry.
+-   **Seamless Integration:** It only imports records that do not currently exist on your device. This allows you to combine data from multiple backups or different devices without creating duplicates.
+
+### 3. Security & Encryption {: data-toc-key="backup-security" }
+Your sound data is sensitive, so our backups are encrypted by default. You cannot simply open a `.ppbk` file in a text editor.
+-   **Encryption Standard:** We use **AES-256-GCM** (Advanced Encryption Standard in Galois/Counter Mode) with NoPadding. This is an industry-standard algorithm used for securing sensitive data.
+-   **Integrity Check:** The file includes a unique "Magic Header" and initialization vectors to ensure the file hasn't been corrupted or tampered with before decryption.
+
+### 4. How to use it {: data-toc-key="using-backup" }
+-   **To Backup:** Go to **Settings > Data Management > Backup**. This will generate a `.ppbk` file that you can save to Google Drive, send via email, or store on your phone's file system.
+-   **To Restore:** Go to **Settings > Data Management > Restore** and select a valid `.ppbk` file. The app will process the file and let you know how many new items were imported.
+
 ## Pixel Pulse+: Sound Exposure & Alerts {: data-toc-key="plus-features" }
 
 The Exposure tab is the heart of the Pixel Pulse+ experience. It transforms the app into an automated hearing health coach.
