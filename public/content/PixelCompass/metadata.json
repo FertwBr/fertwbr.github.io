@@ -1,0 +1,13 @@
+{
+  "app_name": "Pixel Compass",
+  "privacy": {
+    "last_updated": "2026-01-06",
+    "url": "https://apps.fertwbr.com/pixelcompass/privacy"
+  },
+  "terms": {
+    "last_updated": "2026-01-06",
+    "url": "https://apps.fertwbr.com/pixelcompass/terms"
+  },
+  "maintenance_mode": false,
+  "min_version_code": 1
+}

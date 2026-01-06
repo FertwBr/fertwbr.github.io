@@ -1,0 +1,13 @@
+{
+  "app_name": "Pixel Pulse",
+  "privacy": {
+    "last_updated": "2026-01-06",
+    "url": "https://apps.fertwbr.com/pixelpulse/privacy"
+  },
+  "terms": {
+    "last_updated": "2026-01-06",
+    "url": "https://apps.fertwbr.com/pixelpulse/terms"
+  },
+  "maintenance_mode": false,
+  "min_version_code": 1
+}
