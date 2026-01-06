@@ -211,5 +211,13 @@ export default {
         toc_title: "En esta página",
         dynamic_docs_note: "Esta descripción general se genera dinámicamente a partir de archivos Markdown para garantizar que esté siempre actualizada con los últimos cambios en la base de código.",
         about_docs_title: "Acerca de esta documentación"
+    },
+    store_footer: {
+        tagline: "Diseñado para Android",
+        title: "¿Listo para medir?",
+        subtitle: "Únete a otros usuarios y protege tu audición con Pixel Pulse.",
+        button_sub: "Disponible en",
+        button_main: "Google Play",
+        bottom_note: "Requiere Android 13 o superior"
     }
 };

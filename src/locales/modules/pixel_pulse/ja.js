@@ -211,5 +211,13 @@ export default {
         toc_title: "このページの内容",
         dynamic_docs_note: "この概要はMarkdownファイルから動的に生成されており、コードベースの最新の変更に合わせて常に最新の状態が保たれるようになっています。",
         about_docs_title: "このドキュメントについて"
+    },
+    store_footer: {
+        tagline: "Android向けに設計",
+        title: "測定の準備はいいですか？",
+        subtitle: "Pixel Pulseで、他のユーザーと一緒に聴覚を保護しましょう。",
+        button_sub: "で手に入れよう",
+        button_main: "Google Play",
+        bottom_note: "Android 13 以降が必要です"
     }
 };

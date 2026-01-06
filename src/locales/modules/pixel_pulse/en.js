@@ -211,5 +211,13 @@ export default {
         toc_title: "On This Page",
         dynamic_docs_note: "This overview is generated dynamically from Markdown files to ensure it's always up-to-date with the latest codebase changes.",
         about_docs_title: "About this docs"
+    },
+    store_footer: {
+        tagline: "Designed for Android",
+        title: "Ready to measure?",
+        subtitle: "Join other users in protecting their hearing with Pixel Pulse.",
+        button_sub: "Get it on",
+        button_main: "Google Play",
+        bottom_note: "Requires Android 13 or newer"
     }
 };

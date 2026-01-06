@@ -211,5 +211,13 @@ export default {
         toc_title: "इस पेज पर",
         dynamic_docs_note: "यह अवलोकन Markdown फ़ाइलों से गतिशील रूप से उत्पन्न किया जाता है, ताकि यह सुनिश्चित हो सके कि यह हमेशा कोडबेस में हुए नवीनतम परिवर्तनों के साथ अद्यतित रहे।",
         about_docs_title: "इस दस्तावेज़ के बारे में"
+    },
+    store_footer: {
+        tagline: "Android के लिए डिज़ाइन किया गया",
+        title: "मापने के लिए तैयार?",
+        subtitle: "Pixel Pulse के साथ अपनी श्रवण शक्ति की रक्षा करने वाले अन्य उपयोगकर्ताओं में शामिल हों।",
+        button_sub: "पर उपलब्ध",
+        button_main: "Google Play",
+        bottom_note: "Android 13 या नए संस्करण की आवश्यकता है"
     }
 };
