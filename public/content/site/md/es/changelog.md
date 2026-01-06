@@ -1,6 +1,72 @@
 # Historial de Versiones
 Siga la evolución del portafolio. Aquí encontrará un registro detallado de nuevas características, mejoras y correcciones para cada versión.
 
+## Versión 2.7.0
+*(Lanzada el 6 de enero de 2026)*
+
+Esta actualización se centra en **Confianza, Seguridad y Cumplimiento**. Hemos introducido una infraestructura legal robusta con un visor de Términos de Uso dedicado, Políticas de Privacidad expandidas en todos los idiomas y documentación completa para la seguridad de datos y copias de seguridad.
+
+#### ⚖️ Legal y Cumplimiento
+* **Nuevo: Visor de Términos de Uso:** Se implementó un componente `TermsViewer` especializado que renderiza los Términos de Servicio con una tabla de contenido dinámica e integración de contacto de soporte.
+* **Nuevo: Localización Legal:** Se agregaron y actualizaron los archivos `TERMS.md` y `PRIVACY_POLICY.md` para Pixel Compass y Pixel Pulse en 6 idiomas (Alemán, Inglés, Español, Hindi, Japonés, Portugués).
+* **Actualización: Política de Privacidad:** Políticas revisadas para aclarar el procesamiento de datos, el uso de permisos y la adición de descargos de responsabilidad médica específicos para la aplicación Pulse.
+* **Nuevo: Configuración:** Se actualizaron `PixelCompassConfig` y `PixelPulseConfig` para soportar la nueva sección 'Terms', permitiendo una navegación fluida entre Privacidad, Ayuda y Términos.
+
+#### 📘 Documentación y Soporte
+* **Nuevo: Guía de Copia de Seguridad Manual:** Se agregó una sección detallada de "Copia de Seguridad Manual y Restauración" a las FAQ. Cubre el formato de archivo `.ppbk`, estrategias de restauración inteligente y estándares de encriptación para ayudar a los usuarios a archivar sus datos de forma segura.
+* **Mejora:** Se mejoró la utilidad `termsParser` para extraer metadatos y secciones de archivos Markdown con mayor precisión.
+
+## Versión 2.6.0
+*(Lanzada el 6 de enero de 2026)*
+
+Este lanzamiento introduce el **Kit de Conversión de Tienda**, diseñado para cerrar la brecha entre el portal web y Google Play Store. Cuenta con componentes de Llamada a la Acción de alta fidelidad e interacciones de pie de página mejoradas.
+
+#### 🛍️ Integración con la Tienda
+* **Nuevo: Componente HomeStoreFooter:** Se introdujo un pie de página de marca específicamente para las páginas de inicio de la aplicación. Cuenta con una insignia "Get it on Google Play", eslóganes localizados y notas de compatibilidad de dispositivos.
+* **Localización:** Se agregaron claves de traducción `store_footer` en todos los idiomas admitidos para asegurar que las indicaciones de descarga sean nativas de la región del usuario.
+* **Integración:** Se integró perfectamente el nuevo pie de página en `PixelCompassHome` y `PixelPulseHome`.
+
+#### 🎨 UI y Animación
+* **Nuevo: Enlaces de Pie de Página Interactivos:** La navegación del pie de página de la aplicación y los enlaces sociales se envolvieron con `framer-motion` para proporcionar retroalimentación táctil (animaciones al pasar el cursor y al tocar) para una experiencia de usuario más atractiva.
+
+## Versión 2.5.0
+*(Lanzada el 4 de enero de 2026)*
+
+Una actualización centrada en la documentación que une el teléfono y la muñeca, detallando el **Ecosistema Wear OS**.
+
+#### ⌚ Ecosistema Wear OS
+* **Nuevo: Documentación de la App Companion:** Se expandieron significativamente las FAQ para incluir una guía dedicada para la aplicación **Pixel Pulse Wear OS**.
+* **Guías Detalladas:** Se agregaron secciones sobre Conceptos Básicos de Navegación, uso del Medidor Principal, visualización del Historial y personalización de configuraciones directamente desde el reloj.
+* **Sincronización y Privacidad:** Se aclaró cómo funciona la sincronización de sesiones entre el Teléfono y el Reloj, incluidos los detalles de privacidad con respecto a la transferencia de datos local.
+
+#### 🛠️ Técnico
+* **Mejora: Help Parser:** Se refinó la lógica de `helpParser`. Ahora maneja inteligentemente los títulos de sección (eliminando los hashes iniciales) y asegura que los subtítulos se procesen con saltos de línea correctos para una mejor legibilidad.
+
+## Versión 2.4.4
+*(Lanzada el 1 de enero de 2026)*
+
+* **Documentación:** Se actualizaron los registros de cambios internos para reflejar el enorme progreso en **Pixel Pulse v1.18.0** (Beta 2 a Alpha 01), documentando características como Deep Linking, Sincronización de Estado Plus y el nuevo núcleo Wear OS.
+
+## Versión 2.4.3
+*(Lanzada el 31 de diciembre de 2025)*
+
+* **Mantenimiento:** Actualizaciones de documentación de rutina e incremento de versión.
+
+## Versión 2.4.2
+*(Lanzada el 31 de diciembre de 2025)*
+
+* **Documentación:** Se actualizaron los registros de cambios para cubrir **Pixel Compass v1.15.0 (Beta 5-7)**, destacando la nueva Háptica Mecánica, los modos de Rotación de Widget y la UI de Calibración Avanzada.
+
+## Versión 2.4.1
+*(Lanzada el 26 de diciembre de 2025)*
+
+Una actualización de pulido centrada en la fluidez de la interfaz de usuario y las transiciones de navegación.
+
+#### 🎨 Pulido Visual
+* **Corrección: Transiciones Más Suaves:** Se refinaron las animaciones de `AppNavbar` y `PageTransition`. Se cambió de efectos de deslizamiento vertical a horizontal para la navegación de página para crear una sensación más natural de "aplicación nativa".
+* **Corrección: Lógica de Animación:** Se simplificaron las props de animación y se mejoraron las funciones de tiempo para eliminar cambios de diseño durante la navegación.
+* **Documentación:** Se sincronizó el registro de cambios del sitio con los lanzamientos recientes de aplicaciones en las configuraciones regionales de alemán y japonés, asegurando consistencia en el historial de versiones.
+
 ## Versión 2.4.0
 *(Lanzada el 24 de diciembre de 2025)*
 

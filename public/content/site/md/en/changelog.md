@@ -1,6 +1,72 @@
 # Version History
 Track the evolution of the portfolio. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 2.7.0
+*(Released January 6, 2026)*
+
+This update focuses on **Trust, Safety, and Compliance**. We have introduced a robust legal infrastructure with a dedicated Terms of Use viewer, expanded Privacy Policies across all languages, and added comprehensive documentation for data safety and backups.
+
+#### ⚖️ Legal & Compliance
+* **New: Terms of Use Viewer:** Implemented a specialized `TermsViewer` component that renders the Terms of Service with a dynamic table of contents and support contact integration.
+* **New: Legal Localization:** Added and updated `TERMS.md` and `PRIVACY_POLICY.md` files for Pixel Compass and Pixel Pulse in 6 languages (German, English, Spanish, Hindi, Japanese, Portuguese).
+* **Update: Privacy Policy:** Revised policies to clarify data processing, permission usage, and added specific medical disclaimers for the Pulse app.
+* **New: Configuration:** Updated `PixelCompassConfig` and `PixelPulseConfig` to support the new 'Terms' section, allowing seamless navigation between Privacy, Help, and Terms.
+
+#### 📘 Documentation & Support
+* **New: Manual Backup Guide:** Added a detailed "Manual Backup and Restore" section to the FAQ. It covers the `.ppbk` file format, smart restore strategies, and encryption standards to help users securely archive their data.
+* **Improvement:** Enhanced the `termsParser` utility to extract metadata and sections from Markdown files more accurately.
+
+## Version 2.6.0
+*(Released January 6, 2026)*
+
+This release introduces the **Store Conversion Kit**, designed to bridge the gap between the web portal and the Google Play Store. It features high-fidelity Call-to-Action components and enhanced footer interactions.
+
+#### 🛍️ Store Integration
+* **New: HomeStoreFooter Component:** Introduced a branded footer specifically for app home pages. It features a "Get it on Google Play" badge, localized taglines, and device compatibility notes.
+* **Localization:** Added `store_footer` translation keys across all supported languages to ensure the download prompts are native to the user's region.
+* **Integration:** Seamlessly integrated the new footer into `PixelCompassHome` and `PixelPulseHome`.
+
+#### 🎨 UI & Animation
+* **New: Interactive Footer Links:** Wrapped app footer navigation and social links with `framer-motion` to provide tactile feedback (hover and tap animations) for a more engaging user experience.
+
+## Version 2.5.0
+*(Released January 4, 2026)*
+
+A documentation-focused update that bridges the gap between the phone and the wrist, detailing the **Wear OS Ecosystem**.
+
+#### ⌚ Wear OS Ecosystem
+* **New: Companion App Documentation:** Significantly expanded the FAQ to include a dedicated guide for the **Pixel Pulse Wear OS** app.
+* **Detailed Guides:** Added sections on Navigation Basics, Main Meter usage, History viewing, and customizing settings directly from the watch.
+* **Sync & Privacy:** Clarified how session synchronization works between the Phone and Watch, including privacy details regarding local data transfer.
+
+#### 🛠️ Technical
+* **Improvement: Help Parser:** Refined the `helpParser` logic. It now intelligently handles section titles (removing leading hashes) and ensures subheadings are processed with correct line breaks for better readability.
+
+## Version 2.4.4
+*(Released January 1, 2026)*
+
+* **Documentation:** Updated the internal changelogs to reflect the massive progress on **Pixel Pulse v1.18.0** (Beta 2 through Alpha 01), documenting features like Deep Linking, Plus Status Sync, and the new Wear OS core.
+
+## Version 2.4.3
+*(Released December 31, 2025)*
+
+* **Maintenance:** Routine documentation updates and version bumping.
+
+## Version 2.4.2
+*(Released December 31, 2025)*
+
+* **Documentation:** Updated changelogs to cover **Pixel Compass v1.15.0 (Beta 5-7)**, highlighting the new Mechanical Haptics, Widget Rotation modes, and Advanced Calibration UI.
+
+## Version 2.4.1
+*(Released December 26, 2025)*
+
+A polish update focused on the fluidity of the user interface and navigation transitions.
+
+#### 🎨 Visual Polish
+* **Fix: Smoother Transitions:** Refined `AppNavbar` and `PageTransition` animations. Switched from vertical to horizontal slide effects for page navigation to create a more natural "native app" feel.
+* **Fix: Animation Logic:** Simplified animation props and improved timing functions to eliminate layout shifts during navigation.
+* **Documentation:** Synchronized the site's changelog with recent app releases across German and Japanese locales, ensuring consistency in version history.
+
 ## Version 2.4.0
 *(Released December 24, 2025)*
 
