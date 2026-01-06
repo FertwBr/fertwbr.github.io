@@ -5,6 +5,7 @@ import HomeNewFeatures from '../../components/sections/HomeNewFeatures';
 import HomeFeaturesGrid from '../../components/sections/HomeFeaturesGrid';
 import HomePlusTeaser from '../../components/sections/HomePlusTeaser';
 import HomePrivacy from '../../components/sections/HomePrivacy';
+import HomeStoreFooter from "../../components/layout/HomeStoreFooter.jsx";
 
 /**
  * PixelPulseHome component.
@@ -51,6 +52,11 @@ export default function PixelPulseHome({onNavigate, strings}) {
                 <HomePrivacy
                     strings={strings.privacy_section}
                     onNavigate={onNavigate}
+                />
+
+                <HomeStoreFooter
+                    appConfig={pixelPulseConfig}
+                    strings={strings.store_footer}
                 />
 
             </div>
