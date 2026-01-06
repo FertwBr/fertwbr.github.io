@@ -41,6 +41,12 @@ export const pixelCompassConfig = {
       fileName: "PRIVACY_POLICY.md",
       type: "markdown"
     },
+    terms: {
+      id: "terms",
+      title: "Terms",
+      fileName: "TERMS.md",
+      type: "markdown"
+    },
     help: {
       id: "help",
       title: "Help & FAQ",
