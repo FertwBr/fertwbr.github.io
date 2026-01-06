@@ -21,7 +21,8 @@ import OverviewViewer from '../components/viewers/OverviewViewer';
 import PlusViewer from "../components/viewers/PlusViewer";
 import PageTransition from '../components/layout/PageTransition';
 import {handleContactSupport} from "../utils/navigationUtils.js";
-import HashScrollHandler from '../components/common/HashScrollHandler'; // Import here
+import HashScrollHandler from '../components/common/HashScrollHandler';
+import TermsViewer from "../components/viewers/TermsViewer.jsx"; // Import here
 
 /**
  * ProductPage React component.
@@ -109,6 +110,8 @@ export default function ProductPage({config, HomeComponent, translationKey}) {
                 return <ChangelogViewer {...commonProps} />;
             case 'privacy':
                 return <PrivacyViewer {...commonProps} />;
+            case 'terms':
+                return <TermsViewer markdownContent={markdownContent} appConfig={config} strings={t} />;
             case 'help':
                 return <HelpViewer {...commonProps} />;
             case 'roadmap':

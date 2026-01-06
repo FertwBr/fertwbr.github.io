@@ -27,6 +27,7 @@ export default function AppFooter({ strings, onNavigate, activePage, isPortfolio
         { key: 'changelog', icon: 'update' },
         { key: 'roadmap', icon: 'map' },
         { key: 'privacy', icon: 'security' },
+        { key: 'terms', icon: 'gavel' },
         { key: 'help', icon: 'help_center' }
     ];
 
