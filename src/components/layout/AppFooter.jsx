@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext';
 import FooterControls from './FooterControls';
 import { SiteConfig } from '../../utils/siteConstants';
@@ -58,20 +59,23 @@ export default function AppFooter({ strings, onNavigate, activePage, isPortfolio
                             {visibleLinks.map(link => {
                                 const isSelected = activePage === link.key;
                                 return (
-                                    <button
-                                        key={link.key} onClick={() => onNavigate(link.key)}
+                                    <motion.button
+                                        key={link.key}
+                                        onClick={() => onNavigate(link.key)}
+                                        whileHover={{ scale: 1.05, backgroundColor: isSelected ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-variant)' }}
+                                        whileTap={{ scale: 0.95 }}
                                         style={{
                                             borderRadius: '8px', padding: '8px 16px',
                                             border: isSelected ? '1px solid var(--md-sys-color-primary)' : '1px solid transparent',
                                             background: isSelected ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container-high)',
                                             color: isSelected ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface)',
                                             fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '8px',
-                                            cursor: 'pointer', fontWeight: 500, transition: 'all 0.2s ease'
+                                            cursor: 'pointer', fontWeight: 500, transition: 'color 0.2s ease, border 0.2s ease'
                                         }}
                                     >
                                         <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>{link.icon}</span>
                                         {t.nav?.[link.key] || t[link.key] || link.key}
-                                    </button>
+                                    </motion.button>
                                 );
                             })}
                         </div>
@@ -112,12 +116,24 @@ export default function AppFooter({ strings, onNavigate, activePage, isPortfolio
                     </div>
 
                     <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-                        <a href={SiteConfig.links.githubProfile} target="_blank" rel="noreferrer" style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: 0.8 }}>
+                        <motion.a
+                            href={SiteConfig.links.githubProfile}
+                            target="_blank"
+                            rel="noreferrer"
+                            whileHover={{ y: -3, color: 'var(--md-sys-color-primary)', opacity: 1 }}
+                            whileTap={{ scale: 0.9 }}
+                            style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: 0.8, display: 'inline-block' }}
+                        >
                             <span className="material-symbols-outlined">code</span>
-                        </a>
-                        <a href={SiteConfig.links.mailTo} style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: 0.8 }}>
+                        </motion.a>
+                        <motion.a
+                            href={SiteConfig.links.mailTo}
+                            whileHover={{ y: -3, color: 'var(--md-sys-color-primary)', opacity: 1 }}
+                            whileTap={{ scale: 0.9 }}
+                            style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: 0.8, display: 'inline-block' }}
+                        >
                             <span className="material-symbols-outlined">mail</span>
-                        </a>
+                        </motion.a>
                     </div>
                 </div>
             </div>
