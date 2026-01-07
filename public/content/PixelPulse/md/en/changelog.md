@@ -1,6 +1,53 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+
+# Version History
+Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
+
+## Version 1.18.0 Beta 3
+*(Released January 7, 2026)*
+
+This update focuses on legal compliance, data portability, and refining the user experience for backups and onboarding.
+
+#### 📱 Phone
+* **New: Policy Transparency:** Introduced a transparent **Policy Update Dialog**. You will now be notified when Terms of Service or Privacy Policies change, with direct links to review them.
+* **New: Backup Import via File:** The app now supports opening `.ppbk` (Pixel Pulse Backup) files directly from your file manager or email attachments.
+* **New: Data Settings:** Added a dedicated **"Data & History"** settings screen to manage backups, view last sync timestamps for both Phone and Watch, and manually export/import data.
+* **Security:** Backups are now encrypted using AES-GCM to ensure your sensitive session data remains private.
+
+## Version 1.18.0 Alpha 08
+*(Released January 7, 2026)*
+
+**Wear OS:** This massive update introduces the **Exposure Analytics** dashboard to your wrist. You can now analyze your sound environment in detail without reaching for your phone.
+
+* **New: Exposure Dashboard:** A comprehensive new screen displaying your **Noise Budget**, **Daily/Weekly Charts**, and **Peak Levels**.
+* **New: Detailed Views:** Tap on any card in the dashboard to drill down into detailed reports:
+  * **Daily/Weekly/Monthly:** View bar charts of your exposure over time.
+  * **Distribution:** See a donut chart breaking down how much time you spent in Quiet, Normal, or Loud environments.
+  * **Peaks:** Track the loudest sounds recorded each day.
+* **New: Visualizations:** Built custom, high-performance **Bar** and **Donut Charts** specifically designed for small circular screens.
+* **New: Budget Insight:** A dedicated card shows your remaining "Safe Listening" budget for the day.
+* **Settings:** Added a toggle to show/hide the Exposure screen in the main navigation loop.
+* **New: Policy Integration:** The Wear OS app now includes the Policy Update Dialog, ensuring legal compliance directly on the wrist.
+* **Localization:** Added "Terms of Use" strings for all 15+ supported languages.
+
+## Version 1.18.0 Alpha 07
+*(Released January 4, 2026)*
+
+**Wear OS:** This update implements the **Synchronization & Backup** infrastructure, ensuring your watch data is safe and consistent with your phone.
+
+* **New: Sync Engine:** The app can now synchronize recorded sessions from your Watch to your Phone.
+  * **Manual Sync:** Select specific sessions in History to send, or use the "Sync All" button.
+  * **Auto Sync:** Sessions are automatically queued for sync immediately after recording (configurable).
+  * **Status:** Added icons to the History list indicating which sessions are safely synced to the phone.
+* **New: Sync Settings:** A dedicated settings screen to control synchronization behavior.
+* **New: Exposure Settings:** Configure background monitoring directly from the watch.
+  * **Alerts:** Set custom dB thresholds and duration triggers for noise alerts.
+  * **Data Management:** Added a "Delete Exposure Data" screen with a safety "Slide-to-Confirm" UI.
+* **New: Debug Tools:** Added a hidden Debug menu for developers to populate test exposure data.
+* **Core:** Migrated data models to a shared domain to ensure consistent logic between Phone and Watch apps.
+
 ## Version 1.18.0 Alpha 06
 *(Released January 3, 2026)*
 
