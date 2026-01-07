@@ -1,8 +1,42 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.15.2
+*(Released January 10, 2026)*
+
+This update focuses on compliance, stability, and refining the purchase experience for all user tiers.
+
+#### 📱 Phone
+* **New: Policy Management:** Implemented a transparent **Policy Update Dialog**. Users will now be notified when Terms of Service or Privacy Policies change, with direct links to review them within the app settings and About screen.
+* **UI: Lifetime Card Redesign:** The "Lifetime Upgrade" card has been redesigned with a modern gradient background and improved typography to better highlight the premium offering.
+* **UI: Smart Purchase Footer:** The purchase sticky footer is now context-aware, correctly differentiating between **Plus**, **Legacy**, and **Subscriber** users to show only relevant upgrade options.
+* **Fix: Widget Stability:** Added robust error handling to the `SensorService` to prevent crashes when updating Glance widgets that may have been removed or are temporarily unavailable.
+
+#### ⌚ Wear OS
+* **New: Policy Integration:** The Wear OS app now includes the **Policy Update Dialog**, ensuring legal compliance and transparency directly on the wrist.
+* **i18n:** Added localized strings for "Terms of Use" across all supported languages.
+
+
+## Version 1.15.1
+*(Released January 6, 2026)*
+
+Welcome to 2026! This release introduces a highly requested accessibility feature and visual refinements.
+
+#### 📱 Phone
+* **New: Night Vision Theme:** A new, high-contrast **"Red Light"** theme is now available for **FREE** to all users. This theme preserves night vision by using red tones for dark modes.
+* **Visuals:** Refreshed the color palettes for **Orange (Sunset)** and **Brown (Earth)** themes, making them more vibrant and natural.
+* **Fix: Theme Logic:** Fixed an issue where free users could unintentionally select paid themes. Logic for "System" and "Night Vision" (Free) vs. Paid themes is now strictly enforced.
+* **Fix: Haptics Guard:** Ensured that Mechanical Haptics settings are correctly locked behind the Plus subscription.
+* **New:** Added full Russian translations for the "What's New" section.
+* **Update:** Localized "Night Vision" strings across all supported languages.
+* 
+#### ⌚ Wear OS
+* **New: Night Vision:** The "Red Light" theme is also available on Wear OS, perfect for maintaining low-light visibility during night hikes.
+* * **Visuals:** Refreshed the color palettes for **Orange (Sunset)** and **Brown (Earth)** themes, making them more vibrant and natural.
+* **UI: Compass Readability:** Added a bold **'N'** label to the North mark (0°) on the compass dial for faster orientation.
+
 ## Version 1.15.0
-*(Released January X, 2026)*
+*(Released January 2, 2026)*
 
 Welcome to **Pixel Compass 1.15**! This major update focuses on **Performance**, **Professional Tools**, and **Ecosystem Synergy**. We've completely overhauled the calibration experience, introduced NATO Mils for pros, made the app significantly faster, and brought your Phone and Watch closer together.
 
