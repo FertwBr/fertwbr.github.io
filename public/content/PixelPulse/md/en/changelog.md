@@ -1,9 +1,73 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.18.0 Beta 4
+*(Released January 9, 2026)*
 
-# Version History
-Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
+This update refines the Session History experience, adds intelligent playback controls, and enhances the connection with your wearable.
+
+#### 📱 Phone
+
+* **New: Auto Playback Speed:**
+  * Introduced a smart **'Auto'** playback speed option. The app now dynamically adjusts playback speed based on session duration (targeting ~15s), making it easier to review long recordings quickly.
+  * Revamped the **Playback Speed UI** with clearer visual states and a dedicated Auto option.
+* **New: Monitoring Modes (Plus):**
+  * Added a new **Monitoring Mode** selection in Exposure Settings. Plus users can now choose which device handles background monitoring: **Phone Only**, **Watch Only**, or **Hybrid (Both)**.
+  * Settings changes (thresholds, enabled state) now instantly sync to the Watch.
+* **UI: History & Sessions:**
+  * **Redesigned Session Items:** List items now feature animated transitions, better visual hierarchy, and display key stats (Avg/Max dB, Duration) directly on the card.
+  * **Empty States:** Added beautiful placeholder UI and dashed charts for sessions with missing or empty data.
+  * **Loading Indicators:** The History screen now shows a proper loading state while fetching data.
+  * **Selection Overlays:** Refactored selection mode for a smoother experience when managing multiple items.
+* **Visuals:**
+  * **Charts:** Replaced the standard doughnut chart with a custom **Animated Donut Chart** in the Noise Distribution card.
+  * **Marquee:** Added scrolling text effects to long labels (e.g., Sync switches) to prevent truncation.
+* **Performance & Fixes:**
+  * **Audio Stability:** Added a fallback mechanism to use the standard MIC source if UNPROCESSED audio is not supported by the device, and fixed a crash when stopping the recorder.
+  * **Sampling:** The main meter now throttles UI updates based on your selected "Update Speed" preference, improving performance.
+  * **Sync:** Improved logging and stability for the Wearable Data Listener service.
+
+
+### Wear OS Release Notes
+
+## Version 1.18.0 Alpha 10
+*(Released January 9, 2026)*
+
+A massive update to the Exposure Dashboard and User Experience, bringing feature parity with the phone app.
+
+#### ⌚ Wear OS
+* **New: Exposure Dashboard 2.0:**
+  * **Insights & Highlights:** Added **Daily Highlights** (e.g., "Quiet Day") and contextual **Insight Cards** interleaved with your charts.
+  * **Section Headers:** Organized the dashboard with clear headers (Daily Summary, Weekly Trends, Peaks).
+  * **Scroll Hint:** Added a dynamic "Scroll Hint" at the top of the screen that updates as you scroll through different dashboard sections.
+  * **Visuals:** Unified card shapes and added "Distribution Bars" to visualize noise zones.
+* **New: Settings & Navigation:**
+  * **Monitoring Mode:** Added a screen to select **Phone**, **Watch**, or **Both** for background monitoring (syncs with phone).
+  * **Alert Configuration:** Replaced small steppers with dedicated **Slider Screens** for setting Noise Threshold and Duration, making it easier to adjust on a small screen.
+  * **Structure:** Moved settings to a dedicated route and improved navigation logic.
+* **New: User Experience Hub:**
+  * Completely redesigned the "Plus" status screen with **Gradient Cards**, shimmer effects, and a clear list of unlocked benefits.
+* **Audio & Playback:**
+  * **Auto Speed:** Added the 'Auto' playback speed logic to the watch player.
+  * **Warmup:** Implemented a 1-second warmup period for the microphone to prevent audio artifacts at the start of recordings.
+  * **Stability:** Added placeholders for the player UI when decibel data is missing.
+* **UI Polish:**
+  * **Marquee Text:** Long texts in cards, policy dialogs, and info links now scroll automatically for better readability.
+  * **Policy Dialog:** Redesigned the Legal/Policy dialog with modern Wear OS chips and icons.
+  * **Charts:** Localized labels for "Peak" and "Avg" in chart cards.
+
+## Version 1.18.0 Beta 3.1
+*(Released January 7, 2026)*
+
+#### 📱 Phone
+* **Fix:** Resolved a ProGuard/R8 obfuscation issue affecting `Moshi` serialization and enum fields, ensuring data is saved and loaded correctly.
+
+## Version 1.18.0 Alpha 09
+*(Released January 7, 2026)*
+
+#### ⌚ Wear OS
+* **Fix:** Resolved a ProGuard/R8 obfuscation issue affecting `Moshi` serialization and enum fields, ensuring data is saved and loaded correctly.
+
 
 ## Version 1.18.0 Beta 3
 *(Released January 7, 2026)*
@@ -19,7 +83,9 @@ This update focuses on legal compliance, data portability, and refining the user
 ## Version 1.18.0 Alpha 08
 *(Released January 7, 2026)*
 
-**Wear OS:** This massive update introduces the **Exposure Analytics** dashboard to your wrist. You can now analyze your sound environment in detail without reaching for your phone.
+This massive update introduces the **Exposure Analytics** dashboard to your wrist. You can now analyze your sound environment in detail without reaching for your phone.
+
+#### ⌚ Wear OS
 
 * **New: Exposure Dashboard:** A comprehensive new screen displaying your **Noise Budget**, **Daily/Weekly Charts**, and **Peak Levels**.
 * **New: Detailed Views:** Tap on any card in the dashboard to drill down into detailed reports:
@@ -35,7 +101,9 @@ This update focuses on legal compliance, data portability, and refining the user
 ## Version 1.18.0 Alpha 07
 *(Released January 4, 2026)*
 
-**Wear OS:** This update implements the **Synchronization & Backup** infrastructure, ensuring your watch data is safe and consistent with your phone.
+This update implements the **Synchronization & Backup** infrastructure, ensuring your watch data is safe and consistent with your phone.
+
+#### ⌚ Wear OS
 
 * **New: Sync Engine:** The app can now synchronize recorded sessions from your Watch to your Phone.
   * **Manual Sync:** Select specific sessions in History to send, or use the "Sync All" button.
@@ -51,7 +119,9 @@ This update focuses on legal compliance, data portability, and refining the user
 ## Version 1.18.0 Alpha 06
 *(Released January 3, 2026)*
 
-**Wear OS:** This update introduces the complete **History & Playback** ecosystem. You can now save, manage, and view to your recordings directly from your wrist.
+This update introduces the complete **History & Playback** ecosystem. You can now save, manage, and view to your recordings directly from your wrist.
+
+#### ⌚ Wear OS
 
 * **New: Session History:** A dedicated **History Screen** allows you to browse saved sessions grouped by month. Includes support for "Select All", batch deletion, and toggling favorites.
 * **New: On-Watch Playback:** Implemented a full **Session Player** with db visualization, play/pause controls, and adjustable playback speed.
