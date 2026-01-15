@@ -173,10 +173,10 @@ export default {
         },
         wear_os_promo: {
             title: "Wear OS अनुभव",
-            subtitle_available: "सीधे अपनी कलाई से नेविगेट करें। निर्बाध एकीकरण।",
-            subtitle_coming: "Q1 2026 में आपकी कलाई पर आ रहा है।",
+            subtitle_available: "सीधे अपनी कलाई से स्तर मापें। निर्बाध एकीकरण।",
+            subtitle_coming: "2026 की पहली तिमाही (Q1) में आपकी कलाई पर आ रहा है।",
             cta: "घड़ी पर देखें",
-            badge: "कंपैनियन"
+            badge: "साथी ऐप"
         }
     },
     privacy_page: {

@@ -173,7 +173,7 @@ export default {
         },
         wear_os_promo: {
             title: "Wear OS Experience",
-            subtitle_available: "Navigate directly from your wrist. Seamless integration.",
+            subtitle_available: "Measure levels directly from your wrist. Seamless integration.",
             subtitle_coming: "Coming to your wrist in Q1 2026.",
             cta: "View on Watch",
             badge: "Companion"

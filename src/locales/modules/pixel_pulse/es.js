@@ -173,10 +173,10 @@ export default {
         },
         wear_os_promo: {
             title: "Experiencia Wear OS",
-            subtitle_available: "Navegue directamente desde su muñeca. Integración perfecta.",
-            subtitle_coming: "Próximamente en su muñeca en el primer trimestre de 2026.",
+            subtitle_available: "Mida niveles directamente desde su muñeca. Integración fluida.",
+            subtitle_coming: "Llegará a su muñeca en el primer trimestre de 2026.",
             cta: "Ver en el reloj",
-            badge: "Compañero"
+            badge: "Complemento"
         }
     },
     privacy_page: {

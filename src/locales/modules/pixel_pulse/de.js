@@ -172,11 +172,11 @@ export default {
             badge: "Vorabzugang"
         },
         wear_os_promo: {
-            title: "Wear OS Erlebnis",
-            subtitle_available: "Navigieren Sie direkt von Ihrem Handgelenk aus. Nahtlose Integration.",
-            subtitle_coming: "Erscheint für Ihr Handgelenk im 1. Quartal 2026.",
-            cta: "Auf der Uhr anzeigen",
-            badge: "Begleit-App"
+            title: "Wear OS-Erlebnis",
+            subtitle_available: "Messen Sie Pegel direkt am Handgelenk. Nahtlose Integration.",
+            subtitle_coming: "Erscheint im 1. Quartal 2026 für Ihr Handgelenk.",
+            cta: "Auf der Uhr ansehen",
+            badge: "Begleiter"
         }
     },
     privacy_page: {

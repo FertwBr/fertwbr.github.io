@@ -172,10 +172,10 @@ export default {
             badge: "先行アクセス"
         },
         wear_os_promo: {
-            title: "Wear OS 体験",
-            subtitle_available: "手首から直接操作。シームレスな統合。",
-            subtitle_coming: "2026年第1四半期に手首へお届け予定。",
-            cta: "ウォッチで表示",
+            title: "Wear OS エクスペリエンス",
+            subtitle_available: "手首から直接レベルを測定。シームレスな統合。",
+            subtitle_coming: "2026年第1四半期に登場予定。",
+            cta: "ウォッチで見る",
             badge: "コンパニオン"
         }
     },

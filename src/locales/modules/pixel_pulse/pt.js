@@ -173,10 +173,10 @@ export default {
         },
         wear_os_promo: {
             title: "Experiência Wear OS",
-            subtitle_available: "Navegue diretamente do seu pulso. Integração perfeita.",
-            subtitle_coming: "Disponível para o seu pulso no 1º trimestre de 2026.",
-            cta: "Ver no Relógio",
-            badge: "Acompanhante"
+            subtitle_available: "Meça os níveis diretamente do seu pulso. Integração perfeita.",
+            subtitle_coming: "Chegando ao seu pulso no 1º trimestre de 2026.",
+            cta: "Ver no relógio",
+            badge: "Complemento"
         }
     },
     privacy_page: {
