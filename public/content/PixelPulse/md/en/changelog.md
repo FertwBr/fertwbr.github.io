@@ -1,6 +1,115 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.18.0 Release Candidate 1
+*(Released January 16, 2026)*
+
+This is the final polish before our major public release! We've focused on perfecting the layout for all screen sizes, ensuring rock-solid stability, and finalizing translations for our global community.
+
+#### 📱 Phone
+
+* **New: Adaptive Layouts & Insets:**
+  * **Edge-to-Edge Perfection:** We've refined how the app handles system bars (status/navigation) across the entire app. Screens now draw beautifully behind system UI with safe padding for cutouts and gesture areas.
+  * **Large Screen Optimization:** History, Settings, and Meter screens now adapt intelligently to tablets and foldables, utilizing specific "Expanded" layouts with proper window insets.
+* **New: Notification Logic:**
+  * **Persistent Alerts:** Critical notifications (like Backup Success/Failure) are now persistent to ensure you never miss the result of a long operation.
+  * **Auto-Reset:** Success notifications automatically clear themselves after a short delay to keep your tray clean.
+* **UI Polish:**
+  * **Cleaner Favorites:** The favorite star icon in lists now only appears for favorited items, reducing visual clutter.
+  * **Meter Layout:** The main dB meter now dynamically hides less critical labels on very small screens to preserve readability of the main value.
+* **Globalization:**
+  * **100% Translated:** Added missing translations for all new features (Backup, Monitoring Modes, Exposure Insights) across all 15+ supported languages.
+
+#### ⌚ Wear OS
+* **Globalization:**
+  * **100% Translated:** Added missing translations for all new features (Backup, Monitoring Modes, Exposure Insights) across all 15+ supported languages.
+
+## Version 1.18.0 Beta 7
+*(Released January 14, 2026)*
+
+**Wear OS Beta:** The watch app graduates to Beta with a massive visual polish! On the phone, we've introduced interactive charts and a refined backup experience.
+
+#### 📱 Phone
+
+* **New: Interactive Charts:**
+  * **Touch Scrubbing:** You can now touch and drag across the **Daily Exposure Chart** to view specific decibel values for any time block. Bars scale up dynamically as you interact with them.
+  * **Visual Refresh:** The **Weekly** and **Monthly** analysis cards now feature new pill-shaped bars, animated progress tracks, and clearer labels.
+* **New: Expressive UI Overhaul:**
+  * **Insight Cards:** Completely redesigned with dynamic background tints, expanding animations, and "squircle" iconography.
+  * **Noise Budget:** Now features a custom-drawn **Capsule Progress Bar** for a premium look.
+  * **Distribution:** The Donut chart now highlights the dominant noise zone in the center and features a cleaner legend.
+* **New: Backup Experience:**
+  * Moved the Backup/Restore progress from a simple dialog to a modern **Modal Bottom Sheet**.
+  * Added smooth transitions between states (Preparing, Encrypting, Uploading) to prevent UI flickering.
+* **New: Smart Ecosystem:**
+  * **Worn State Sync:** The phone now knows if you are wearing your watch. It uses this real-time status to optimize battery usage in "Automatic" monitoring mode (e.g., pausing phone monitoring when the watch is on your wrist).
+  * **Notification Actions:** Added **"Measure Now"** and **"Retry"** buttons directly to service notifications.
+
+#### ⌚ Wear OS
+
+* **New: Meter Redesign:**
+  * **Adaptive Layout:** The main dB meter now automatically resizes text based on your screen shape, ensuring perfect visibility on all watch sizes.
+  * **Reactive Background 2.0:** The background now "breathes" gently when idle and switches to a reactive radial glow when recording.
+  * **Animated Buttons:** Replaced static controls with **Morphing Shape Buttons** that animate their corners when pressed, providing satisfying visual and haptic feedback.
+* **New: Service Recovery:**
+  * Introduced a **Service Reactivation Screen**. If the background monitoring service is killed by the system, a smart notification helps you restart it with a single tap.
+* **New: Data Sync:**
+  * The watch now actively broadcasts its **"Off-Wrist"** state to the phone to help coordinate monitoring duties.
+
+## Version 1.18.0 Beta 6
+*(Released January 12, 2026)*
+
+This update introduces industrial-grade security for backups, "gapless" synchronization, and intelligent battery management.
+
+#### 📱 Phone
+
+* **New: Native Secure Backups:**
+  * **C++ Encryption:** We've moved our security core to a native C++ library. Backups are now encrypted with a high-performance native secret key, making them significantly more secure.
+  * **Streaming Engine:** Implemented a new memory-efficient streaming architecture. You can now export and import massive backup files without crashing the app or freezing the UI.
+  * **Progress UI:** Added a detailed **Backup Progress Dialog** to track export/import status in real-time.
+* **New: Gapless Data Sync:**
+  * **High watermark:** The app now performs a smart "Handshake" with your watch on startup to detect and request any missing data gaps.
+  * **Smart Merge:** The database now intelligently merges sessions, ensuring that if you have data on both devices, the highest quality version is preserved.
+* **New: Intelligence & Monitoring:**
+  * **Automatic Mode:** The default monitoring mode is now **"Automatic"**. The system intelligently decides which device (Phone or Watch) should handle recording based on battery and active state.
+  * **Centralized Notifications:** Completely rewrote the notification system (`PixelPulseNotificationManager`) for consistent alerting across foreground services and exposure warnings.
+* **UI/UX:**
+  * **Responsive Layouts:** Session and Playback screens now adapt dynamically to screen width, looking perfect on foldables and tablets in landscape mode.
+
+## Version 1.18.0 Alpha 11
+*(Released January 12, 2026)*
+
+**Wear OS:** This update makes the watch app smarter about battery usage and data transmission.
+
+#### ⌚ Wear OS
+
+* **New: Off-Body Detection:**
+  * The monitoring service now utilizes the low-latency off-body sensor. If you take the watch off, the app automatically enters **Standby Mode** to stop recording and save battery.
+* **New: Batched Synchronization:**
+  * To respect system limits and save power, the watch now sends exposure data in optimized **Batches** rather than real-time streams, while still maintaining near-instant sync when the phone requests it.
+* **Improvement:**
+  * **Standby Logic:** improved logic to pause microphone usage immediately when the watch is not the active master device or is off-wrist.
+  * **Sync Handshake:** The watch now listens for "Handshake" requests from the phone to re-send any missing historical data.
+
+## Version 1.18.0 Beta 5
+*(Released January 10, 2026)*
+
+This update transforms how you analyze your data with **Immersive Charts** and overhauled **History Management**.
+
+#### 📱 Phone
+
+* **New: Immersive Analysis:**
+  * **Semantic Markers:** Charts now feature "Zebra Striping" and icon markers to visually distinguish between different recording events and sections.
+* **New: Advanced History Management:**
+  * **Filter & Sort:** A new toolbar allows you to filter by **Favorites** or sort sessions by **Date** and **Name**.
+  * **Fast Scroller:** Navigate through years of recordings instantly with a new invisible side-scrubber for dates.
+  * **Search:** Added a dedicated Material 3 search bar to quickly find sessions by name.
+* **New: Session Metadata:**
+  * Added a **Metadata Dialog** to view technical details of a recording, including the Calibration offset, Frequency Weighting, and Update Speed used during the session.
+* **UI: Adaptive Design:**
+  * **Landscape Support:** Completely refactored the Session and History screens to look great in landscape mode, optimizing space for tablets and foldables.
+  * **Responsive Layouts:** Buttons and controls now dynamically resize and rearrange based on the available screen width.
+
 ## Version 1.18.0 Beta 4
 *(Released January 9, 2026)*
 
@@ -27,8 +136,6 @@ This update refines the Session History experience, adds intelligent playback co
   * **Sampling:** The main meter now throttles UI updates based on your selected "Update Speed" preference, improving performance.
   * **Sync:** Improved logging and stability for the Wearable Data Listener service.
 
-
-### Wear OS Release Notes
 
 ## Version 1.18.0 Alpha 10
 *(Released January 9, 2026)*
