@@ -1,6 +1,74 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.18.0
+*(Released January x, 2026)*
+
+This milestone update extends the Pixel Pulse ecosystem to your wrist with the launch of our dedicated Wear OS app, alongside a complete re-architecture of the phone experience. We have introduced military-grade encrypted backups, fully interactive charts, and an intelligent synchronization engine that seamlessly bridges your devices.
+
+#### 📱 Phone
+
+* **New: Immersive Interactive Charts:**
+  Gain deeper insights into your sound environment with a completely rebuilt visualization engine that puts your data at your fingertips.
+  * **Touch & Scrub Analysis:** Interact directly with your data using the new scrubbing engine. Drag your finger across daily exposure graphs to view precise decibel values for specific time blocks, featuring bars that scale dynamically as you touch them.
+  * **Semantic Visuals:** Waveforms now utilize "Zebra Striping" and distinct semantic markers to help you visually distinguish between different recording events and sessions at a glance.
+
+* **New: Industrial-Grade Data Security:**
+  Your privacy is paramount. We have overhauled our storage architecture to ensure your sensitive recording data remains yours and yours alone.
+  * **Native Encryption:** We have rebuilt the backup engine using a native C++ library, securing your data with high-performance encryption via a custom native secret key.
+  * **Portable Backups:** You can now open `.ppbk` backup files directly from your file manager or email to instantly import history from another device.
+  * **Streaming Architecture:** Exporting and importing massive history files is now instant and stable, utilizing a memory-efficient streaming engine that handles large datasets without compromising performance.
+
+* **New: Intelligent Ecosystem:**
+  Pixel Pulse is no longer just an app, it's a connected system. Your phone and watch now work in perfect harmony to capture every moment.
+  * **Gapless Synchronization:** The app now performs a smart "Handshake" startup routine, detecting and filling any data gaps between your phone and watch automatically to ensure a unified history.
+  * **Smart Monitoring Modes:** Introduced "Automatic" monitoring. The system intelligently determines which device (Phone or Watch) should handle background recording based on battery life and whether you are currently wearing your watch.
+  * **Worn State Detection:** The phone app now detects your watch's on-wrist status in real-time to optimize battery usage and pause redundant monitoring.
+
+* **New: Advanced History Management:**
+  Managing your library of recordings has never been easier. We've added powerful tools to help you organize, find, and review your sessions.
+  * **Smart Playback:** The audio player now features an **'Auto'** speed mode, intelligently adjusting playback velocity based on the session duration to help you review long recordings faster.
+  * **Search & Filter:** Instantly locate specific sessions using the new Material 3 search bar, or filter your history by **Favorites**, **Date**, or **Name**.
+  * **Metadata Inspection:** View deep technical details of any recording via the new Metadata Dialog, including the specific calibration offset and frequency weighting used.
+
+* **Visual Overhaul:**
+  A fresh coat of paint that goes beyond just looks. We've refined the interface to be more fluid, responsive, and delightful to use on any screen size.
+  * **Expressive Cards:** Analysis cards have been redesigned with dynamic background tints, expanding animations, and "squircle" iconography for a premium feel.
+  * **Adaptive Layouts:** The entire app now features a responsive design that adapts intelligently to foldables and tablets, including optimized landscape layouts and edge-to-edge support.
+  * **Polished Notifications:** Critical alerts are now persistent to ensure you never miss a result, while success messages automatically clear themselves to keep your tray clean.
+
+* **Core Experience & Reliability:**
+  Under-the-hood improvements to ensure the app runs smoothly and complies with the latest standards.
+  * **Policy Transparency:** Added a transparent update dialog to keep you informed about Terms of Service or Privacy Policy changes.
+  * **Deep Link Support:** Improved navigation allows external links (from web or watch) to take you directly to specific screens, such as the Plus subscription page.
+  * **Audio Stability:** Enhanced the recording engine with a fallback mechanism to ensure stability even on devices with non-standard audio hardware.
+
+#### ⌚ Wear OS
+
+* **New: Pixel Pulse for Watch:**
+  Experience the full power of Pixel Pulse, reimagined for your wrist. It's not just a companion; it's a fully featured standalone tool.
+  * **Immersive Meter:** A wrist-first experience featuring a reactive atmosphere background that breathes gently when idle and pulses with a radial glow in sync with real-time sound intensity.
+  * **Remote Actions:** Seamlessly control your phone from your wrist. Use the watch to open policies, send feedback, or rate the app directly on your connected device.
+  * **Morphing Controls:** Tactile animated shape buttons that physically morph their corners when pressed, providing satisfying visual and haptic feedback.
+  * **Adaptive Typography:** A smart layout engine that automatically resizes and reflows decibel readings to ensure perfect visibility on any watch screen size or shape.
+
+* **New: Wrist-Based Analytics:**
+  Leave your phone in your pocket. You can now track your noise budget and analyze exposure trends directly on your watch.
+  * **Exposure Dashboard:** A complete analytics suite on your wrist that displays your **Noise Budget**, **Daily/Weekly Charts**, and **Peak Levels** without needing your phone.
+  * **Distribution Bars:** Visualize exactly how much time you spend in Quiet, Normal, or Loud environments with custom-built donut and bar charts optimized for circular screens.
+  * **Daily Highlights:** Contextual insight cards that appear within the dashboard to highlight key stats, such as your "Quietest Day" or "Loudest Event."
+
+* **New: Standalone Capability:**
+  Built for independence. The watch app is designed to work flawlessly even when your phone is out of range or battery.
+  * **Background Recording:** A robust foreground service keeps monitoring sound levels even when you lower your wrist or exit the app.
+  * **Off-Body Intelligence:** The app utilizes low-latency sensors to detect when the watch is taken off, automatically entering **Standby Mode** to preserve battery.
+  * **Service Recovery:** If the system interrupts monitoring to save resources, a smart "Service Reactivation" notification allows you to resume with a single tap.
+
+* **New: On-Wrist Configuration:**
+  Total control, right on your wrist. Tweak professional settings and calibration without ever opening the phone app.
+  * **Professional Settings:** Adjust **Frequency Weighting** (A/C/Z), **Update Speed**, and **Noise Thresholds** directly from the watch.
+  * **Calibration:** A dedicated screen allows you to fine-tune the microphone input offset to match professional equipment directly on your wrist.
+
 ## Version 1.18.0 Release Candidate 1
 *(Released January 16, 2026)*
 
