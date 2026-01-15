@@ -215,8 +215,10 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
     const [selectedTags, setSelectedTags] = useState([]);
 
     const isCompass = appConfig?.appName?.toLowerCase().includes('compass');
+    const isPulse = appConfig?.appName?.toLowerCase().includes('pulse');
     const isPortfolio = appConfig?.appId === 'io.github.fertwbr.portfolio' || !appConfig?.playStoreLink;
     const betaLink = appConfig?.playStoreLink?.replace('/store/apps/details?id=', '/apps/testing/') || appConfig?.playStoreLink;
+    const hasWearApp = isCompass || isPulse;
 
     useEffect(() => {
         setMarkdown(initialMarkdown);
@@ -530,7 +532,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                     />
                                     <WearOSCard
                                         strings={strings.changelog.wear_os_promo}
-                                        isCompass={isCompass}
+                                        isAvailable={hasWearApp}
                                         link={appConfig?.playStoreLink}
                                     />
                                     <PlusPromoCard

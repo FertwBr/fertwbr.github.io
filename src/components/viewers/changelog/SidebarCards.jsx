@@ -108,8 +108,7 @@ export const BetaProgramCard = ({strings, betaLink}) => (
     </SidebarBaseCard>
 );
 
-export const WearOSCard = ({strings, isCompass, link}) => {
-    const isAvailable = isCompass;
+export const WearOSCard = ({strings, isAvailable, link}) => {
 
     return (
         <SidebarBaseCard>
