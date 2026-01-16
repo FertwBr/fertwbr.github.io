@@ -1,6 +1,22 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.15.3
+*(Released January 16, 2026)*
+
+This update focuses on **Visual Fluidity** and **UI Refinements**. We've tuned the compass rendering engine to handle high-performance sensors flawlessly.
+
+#### 📱 Phone
+* **Fix: Silky Smooth Animation:** We resolved an issue where the compass needle could appear "jittery" or stuck on devices with high-frequency sensors (60Hz+). The needle movement is now fluid and responsive, regardless of your device's sensor speed.
+* **UI: Layout Polish:**
+  * **Feature Carousel:** Refined layout calculations for the "What's New" carousel and grid items to ensure perfect alignment on all screen sizes and densities.
+  * **Purchase Screen:** The purchase footer now uses a responsive flow layout, improving how buttons are arranged on smaller screens or when using large fonts.
+  * **Visuals:** Updated colors on the Premium Benefit cards for better contrast and consistency with the system theme.
+* **Fix: RTL Support:** Icons in the Policy update dialogs now correctly mirror for Right-To-Left languages (e.g., Arabic, Hebrew).
+
+#### ⌚ Wear OS
+* **UI: Modern Policy Dialog:** The Terms & Privacy dialog has been completely redesigned to match the latest Wear OS standards. It now features a prominent header icon, improved typography, and large, accessible action chips.
+
 ## Version 1.15.2
 *(Released January 10, 2026)*
 
