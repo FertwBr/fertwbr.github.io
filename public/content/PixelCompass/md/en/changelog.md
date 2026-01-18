@@ -1,6 +1,34 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.16.0 Beta 1
+*(Released January 18, 2026)*
+
+This beta introduces a richer widget experience, deeper personalization for insights, and significant UI polish across the app.
+
+#### 📱 Phone
+
+* **New: Rich Widget Pinning:**
+  * **Preview Cards:** Completely redesigned the widget pinning screen. You can now browse a horizontal carousel of rich preview cards that show exactly how each widget (Compass, Altitude, Clock, etc.) will look before pinning it.
+  * **Smart Adaptation:** The "Plus Required" view on widgets now intelligently hides itself on small layouts to prevent clutter.
+* **New: Insight Engine 5.0:**
+  * **Smarter Suggestions:** The insight engine has been upgraded to v5.0, offering smarter, context-aware tips for **Safety, Health, Commute, Photography, and Lifestyle**.
+  * **New Insights:** Added specific alerts for **Sun Glare** (during driving/low sun), **Clothing Recommendations** based on real-feel temp, and **Moon Phase Visibility** for photographers.
+  * **Category Filtering:** You can now customize exactly which types of insights you want to see via a new "Insight Categories" settings screen.
+* **New: Expressive UI:**
+  * **Info Banners:** Permission and info banners now use an expressive Material 3 design with animated scaling on press and distinct icon badges.
+  * **Dynamic Layouts:** The "Dynamic Cards" section now features a synchronized layout engine that ensures contextual cards perfectly match the width of the grid above them.
+  * **Lifetime Offer:** Redesigned the Lifetime Upgrade offer with a high-contrast button and streamlined benefits view.
+* **New: License Management:**
+  * **Interactive Cards:** The License Card is now flippable and interactive. Free users see a clear "Upgrade" action, while Plus users get direct access to manage their subscription.
+* **Fix:** Improved the reliability of stopping background sensor services to comply with strict Android foreground service policies.
+* **Localization:**
+  * **New Language:** Added full support for **Czech (Čeština)** across the entire app.
+
+#### ⌚ Wear OS
+* **Localization:**
+  * **New Language:** Added full support for **Czech (Čeština)** across the entire app.
+
 ## Version 1.15.3
 *(Released January 16, 2026)*
 
