@@ -70,6 +70,24 @@ This milestone update extends the Pixel Pulse ecosystem to your wrist with the l
   * **Calibration:** A dedicated screen allows you to fine-tune the microphone input offset to match professional equipment directly on your wrist.
 
 
+## Version 1.18.0 Release Candidate 3
+*(Released January 20, 2026)*
+
+This release brings a massive functionality boost to your wrist! We've introduced a complete suite of **Interactive Tiles** and **Watch Face Complications**, transforming Pixel Pulse on Wear OS into a standalone monitoring powerhouse.
+
+#### ⌚ Wear OS
+
+* **New: Advanced Tiles Suite:**
+  * **Current dB Tile:** Now features a **Quick Measure Button** to trigger a check directly from the tile, visualized with a new segmented circular progress indicator.
+  * **Noise Budget Tile:** Displays your weekly usage with dynamic status text (Safe, Nearing, Exceeded) to keep you informed at a glance.
+  * **Last 24h Tile:** A brand-new tile offering a **Bar Chart Visualization** of your sound exposure over the last day.
+* **New: Watch Face Complications:**
+  * **Seamless Integration:** You can now add **dB Level** and **Noise Budget** data directly to your favorite watch face.
+  * **Rich Data:** Supports Short Text, Ranged Values (progress bars), and Small Images across compatible watch faces.
+* **Stability & Experience:**
+  * **Smart Error Handling:** Complications now feature clickable error indicators that allow you to retry failed updates without opening the app.
+  * **Visual Polish:** Tiles now include "Preview" states for better configuration in the companion app and smoother loading animations.
+
 ## Version 1.18.0 Release Candidate 2
 *(Released January 19, 2026)*
 
