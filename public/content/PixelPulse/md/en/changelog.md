@@ -69,6 +69,39 @@ This milestone update extends the Pixel Pulse ecosystem to your wrist with the l
   * **Professional Settings:** Adjust **Frequency Weighting** (A/C/Z), **Update Speed**, and **Noise Thresholds** directly from the watch.
   * **Calibration:** A dedicated screen allows you to fine-tune the microphone input offset to match professional equipment directly on your wrist.
 
+
+## Version 1.18.0 Release Candidate 2
+*(Released January 19, 2026)*
+
+This update focuses on refined interactions, visual fluidity, and robust connectivity. We've overhauled the banner system with spring-based animations, added tactile feedback to charts, and hardened the synchronization logic between Phone and Watch.
+
+#### 📱 Phone
+
+* **New: Visuals & Animation:**
+  * **Live Session Waveform:** The Live Session banner has been redesigned as a floating card featuring a real-time **animated audio waveform**, making active recording status instantly recognizable.
+  * **Spring Physics:** InfoBanners now use a custom layout with **spring-based scale animations** for entry and exit, providing a more organic feel.
+  * **Material 3 Polish:** The "Beta" badge and History Filter chips have been updated to modern pill-shaped designs with improved spacing and outlined/filled states.
+* **New: Tactile Interactions:**
+  * **Haptic Charts:** Scrubbing through the **Daily Exposure Chart** now triggers haptic feedback as you cross between bars, making data inspection physically responsive.
+  * **Selection Logic:** Enhanced the selection experience in History Mode with clearer color contrasts (especially in Dark Mode) and the ability to toggle/deselect items directly.
+* **Core Improvements:**
+  * **Sound Exposure Onboarding:** Introduced a dedicated onboarding screen that adapts based on your subscription status (Activate vs. Upgrade) to guide you through exposure features.
+  * **License Card:** The subscription management card is now flippable with a cleaner layout, distinguishing clearly between new and returning Plus users.
+  * **Accessibility:** Improved color contrast for "Loud" and "Very Loud" decibel levels in Dark Mode to ensure text remains legible against vibrant indicators.
+* **Stability & Sync:**
+  * **Smart Fallback:** If the remote (watch) data becomes stale or the Wearable API is unavailable, the phone automatically falls back to its own microphone to ensure continuous monitoring.
+  * **Connection Robustness:** Added explicit handling for API connection failures to prevent crashes or log spam during sync operations.
+* **Notifications:**
+  * **Remote Active State:** Notifications now intelligently display the **"Remote Active"** status, clearly indicating when the monitoring is being powered by your watch versus the phone.
+
+#### ⌚ Wear OS
+
+* **Stability & Sync:**
+  * **Smart Fallback:** If the remote (watch) data becomes stale or the Wearable API is unavailable, the phone automatically falls back to its own microphone to ensure continuous monitoring.
+  * **Connection Robustness:** Added explicit handling for API connection failures to prevent crashes or log spam during sync operations.
+* **Notifications:**
+  * **Remote Active State:** Notifications now intelligently display the **"Remote Active"** status, clearly indicating when the monitoring is being powered by your watch versus the phone.
+
 ## Version 1.18.0 Release Candidate 1
 *(Released January 16, 2026)*
 
