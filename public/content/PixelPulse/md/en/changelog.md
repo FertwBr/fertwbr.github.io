@@ -2,7 +2,7 @@
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
 ## Version 1.18.0
-*(Released January x, 2026)*
+*(Released January 30, 2026)*
 
 This milestone update extends the Pixel Pulse ecosystem to your wrist with the launch of our dedicated Wear OS app, alongside a complete re-architecture of the phone experience. We have introduced military-grade encrypted backups, fully interactive charts, and an intelligent synchronization engine that seamlessly bridges your devices.
 
