@@ -1,6 +1,35 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.16.0 Beta 2
+*(Released January 22, 2026)*
+
+This beta focuses on **Location Reliability** and expanding the **Wear OS Ecosystem**. We've hardened the GPS logic against errors, added visual polish to weather loading, and introduced powerful new ways to view Altitude on your watch.
+
+#### 📱 Phone
+
+* **New: Robust Location Engine:**
+  * **Smart Tracking:** The app now dynamically manages location updates based on GPS availability, significantly improving battery life and recovery from signal loss.
+  * **Clearer Status:** Added specific states for **"Waiting for Location"** and **"GPS Disabled"**, complete with helpful banners to guide you if permissions or sensors are off.
+* **New: Weather Loading State:** Gone are the spinning circles. The weather section now features a modern **Shimmer Skeleton** animation while loading data, providing a smoother visual experience.
+* **New: Calibration Hint:** A new warning icon will appear on the compass dial if the magnetic sensor accuracy drops, allowing you to tap and recalibrate instantly.
+* **Settings Organization:** The **"Show Status Icons"** toggle has been moved to the *Display & Units* section to better group visual customization options.
+* **Fix:** Resolved an issue where billing error handling could trigger redundant state updates.
+
+#### ⌚ Wear OS
+
+* **New: Altitude Tile:**
+  * **Vertical Context:** A brand-new Tile dedicated to Altitude! It displays your current elevation with a dynamic **Progress Indicator** that adapts to your metrics (Feet/Meters).
+  * **Smart Caching:** Optimized to load instantly without blocking the main thread.
+* **New: Altitude Complication:** You can now add a live **Altitude Data** complication directly to your favorite watch face.
+* **Performance:**
+  * **Wear-Optimized GPS:** Location update intervals have been specifically tuned for Wear OS to balance accuracy with the smaller battery capacity of watches.
+  * **Rotation Readiness:** The app now intelligently waits for the rotation vector sensor to initialize before dismissing the splash screen, preventing "jumpy" initial headings.
+* **Visual Polish:**
+  * Updated preview images for Compass and Altitude tiles in the phone companion app.
+  * Refined padding and layouts for the **Calibration** and **Status** screens for better readability on round screens.
+* **New: Calibration Hint:** A new warning icon will appear on the compass dial if the magnetic sensor accuracy drops, allowing you to tap and recalibrate instantly.
+
 ## Version 1.16.0 Beta 1
 *(Released January 18, 2026)*
 
