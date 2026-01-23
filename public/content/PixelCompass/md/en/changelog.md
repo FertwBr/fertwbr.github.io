@@ -1,6 +1,26 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.16.0 Beta 3
+*(Released January 23, 2026)*
+
+This beta refines the purchase experience with clearer pricing transparency and smoothes out sensor interactions for a buttery-smooth compass.
+
+#### 📱 Phone
+
+* **New: Transparent Pricing:**
+  * **Discount Clarity:** The purchase screen now explicitly shows the original price and the calculated discount percentage for all plans, making savings transparent.
+  * **Lifetime Value:** A smart new indicator calculates exactly how many months of a subscription equal the one-time Lifetime price, helping you make the best choice.
+  * **Promo Animations:** The Lifetime button now cycles between its price and the "X months equivalent" text with a slick spring animation.
+* **New: Expressive Cards:**
+  * **Interactive Motion:** We've unified all dashboard cards (Weather, Location, Wind) to use a new `ExpressiveInteractiveCard`. They now scale and elevate responsively on touch, providing satisfying tactile feedback.
+* **Performance & Fixes:**
+  * **Butter-Smooth Compass:** Completely rewrote the compass rotation logic. It now uses a cumulative rotation engine that eliminates "stutter" or freezing on devices with high-frequency sensors (120Hz+).
+  * **Sensor Stability:** Improved validity checks for sensor data to prevent NaN (Not-a-Number) crashes and tuned the low-pass filter for a more stable needle.
+  * **Location Flexibility:** The background service can now start with just **Coarse Location** permissions, improving compatibility for users who prefer approximate location access.
+  * **Optimization:** Weather cards now intelligently skip UI updates if the data hasn't changed, reducing battery drain.
+
+
 ## Version 1.16.0 Beta 2
 *(Released January 22, 2026)*
 
