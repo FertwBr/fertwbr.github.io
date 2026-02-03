@@ -1,6 +1,39 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.16.0 Beta 4
+*(Released February 1, 2026)*
+
+This beta expands the **Insight Engine** with lifestyle-focused alerts, introduces a modern **"Upgrade to Plus"** experience, and refines navigation throughout the app.
+
+#### 📱 Phone
+
+* **New: Intelligent Power Management:**
+  * **Custom Strategies:** A new "Power" settings screen allows you to customize how the app behaves. Choose between **Normal**, **Low Power** (disables animations, reduces GPS usage), or **Offline** modes.
+  * **Offline Low Power:** A dedicated mode for extreme battery saving. It completely cuts network access, forces a dark AMOLED theme, and pauses background updates.
+  * **Smart Adaptation:** The app now automatically detects when your system enters "Battery Saver" mode and gracefully degrades visuals (disabling blurs, ripples, and reducing frame rates) to extend runtime.
+* **New: Advanced Weather Insights:**
+  * **Meteorological Alerts:** Added deep insights for **Dew Point** comfort, **Fog/Frost** warnings, **Icy Road** risks, and **Pressure Changes** (barometer trends).
+  * **Lifestyle Tips:** New suggestions for **Hydration** (based on humidity/temp), **Hair Frizz** forecasts, and **Running Conditions**.
+  * **Vivid Skies:** The app now predicts vivid sunsets or sunrises based on cloud cover and atmospheric conditions.
+* **New: Beta Experience:**
+  * **Beta Badge:** A dynamic badge now appears in settings for users on Alpha/Beta/RC builds, with a direct link to the community.
+  * **Smart Join:** The "Join Beta" option is now intelligently hidden if you are already running a pre-release version.
+* **UI/UX Refinements:**
+  * **Upgrade Dialog:** Redesigned the "Upgrade to Plus" prompt with Expressive Material 3 styling, better typography, and smoother animations.
+  * **Related Settings:** Added quick navigation links at the bottom of settings pages (e.g., jumping from "Display" to "Customization") for faster access.
+  * **Shimmer Effects:** The "Plus Required" placeholders now feature a premium branded shimmer animation.
+* **Fix:**
+  * **Regional Formats:** Added a dedicated confirmation dialog when disabling regional formats to prevent accidental changes.
+  * **Optimization:** Weather insights are now strictly generated only for Plus users, saving processing power for free users.
+
+#### ⌚ Wear OS
+
+* **New: Power Settings:**
+  * **Watch-Specific Control:** You can now toggle "Always Low Power" directly on the watch to extend battery life during long hikes.
+  * **Force AMOLED:** A new option to force a pure black theme on the watch, regardless of the system setting, for maximum OLED efficiency.
+* **Visuals:** The compass animation on the watch now respects the power strategy, disabling resource-intensive spring animations when battery is low.
+
 ## Version 1.16.0 Beta 3
 *(Released January 23, 2026)*
 
