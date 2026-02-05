@@ -1,6 +1,29 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.16.0 Release Candidate 2
+*(Released February 6, 2026)*
+
+This update refines the subscription management experience with a new "Restore Purchases" interface and adds final UI polishes before the stable release.
+
+#### 📱 Phone
+
+* **New: Restore Purchases Interface:**
+  * **Interactive Flow:** Replaced the old "toast" messages with a dedicated **Restore Bottom Sheet**. You can now visually track the restoration process (Connecting -> Searching -> Result).
+  * **Clear Feedback:** The app now clearly communicates if purchases were successfully restored, if none were found, or if a connection error occurred, complete with troubleshooting tips.
+* **UI: Visual Consistency:**
+  * **What's New:** The "What's New" screen now uses the signature **Animated Shape Button** for the "Continue" action, matching the rest of the app's design language.
+  * **Adaptive Community Card:** The Community Action card now intelligently hides the arrow icon on narrow screens (under 360dp) to prevent text truncation and layout issues.
+  * **RC Badge:** The settings screen now correctly identifies and displays a **"Release Candidate"** badge for RC builds.
+* **Under the Hood:**
+  * **Billing Stability:** Improved the internal billing query logic (`queryPurchases`) to return explicit success flags, ensuring more reliable subscription status updates.
+
+#### ⌚ Wear OS
+
+* **Stability:**
+  * **Billing Core:** Inherited improvements to the shared billing engine for more reliable subscription status checks on the watch.
+
+
 ## Version 1.16.0 Release Candidate 1
 *(Released February 5, 2026)*
 
