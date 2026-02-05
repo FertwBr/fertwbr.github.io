@@ -1,6 +1,32 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.16.0 Release Candidate 1
+*(Released February 5, 2026)*
+
+This release candidate finalizes the Altitude features on Wear OS, optimizes power consumption strategies, and significantly expands language support.
+
+#### 📱 Phone
+
+* **New: Global Expansion:**
+  * **New Languages:** Added full localization support for **Dutch (Nederlands)**, **Portuguese (Portugal)**, **Swedish (Svenska)**, and **Traditional Chinese (繁體中文)**.
+  * **Smart Insights:** "Smart Insights" and widget descriptions are now fully translated across all supported languages.
+* **Performance: Power Strategy Tuning:**
+  * Refined sensor sampling rates for **Normal** and **Low Power** modes. The app now balances responsiveness and battery usage more effectively by adjusting sensor delays dynamically.
+* **UI: Settings Cleanup:**
+  * Simplified the **Power Settings** screen for better clarity.
+  * **Fix:** Corrected pluralization rules for rain duration insights in Czech.
+
+#### ⌚ Wear OS
+
+* **New: Smart Altitude Complication:**
+  * **Battery Saver:** The Altitude complication has been re-architected to use **Barometric Pressure** (relative to your session) instead of constant GPS checks. This significantly reduces battery drain on your watch face while keeping data fresh.
+  * **Instant Init:** The altitude session now initializes immediately upon app launch or resume, ensuring the complication shows data as soon as the sensors are ready.
+* **Refinement: Power & Animations:**
+  * **Animation Handling:** We've streamlined the Low Power experience. The manual toggle to "Disable Animations" has been removed; the app now intelligently handles animations to ensure smoothness without compromising battery life.
+  * **Localization:** Added full translations for Altitude tiles, calibration prompts, and power settings.
+
+
 ## Version 1.16.0 Beta 4
 *(Released February 1, 2026)*
 
