@@ -1,6 +1,34 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.16.0
+*(Released February 8, 2026)*
+
+This massive update introduces a sophisticated **Adaptive Power System** that intelligently manages battery life by detecting your context (Normal, Low Power, Offline, or Offline Low Power). We've also added rich **Meteorological Insights**, a dedicated **Altitude Tile** for Wear OS, and a complete visual overhaul with our new **Expressive UI** engine.
+
+#### 📱 Phone
+
+* **New: Adaptive Power System:** The app now automatically detects your environment to optimize performance. It dynamically adjusts sensor sampling rates (Game vs. UI speed), pauses background updates, and manages network usage based on four distinct states: **Normal**, **Low Power**, **Offline**, and **Offline Low Power**.
+* **New: Power Management Settings:** A new settings section allows you to customize how the app handles power, including options to **Override System Battery Saver**, disable animations to save energy, and **Force Pure Black (AMOLED)** mode.
+* **New: Advanced Weather Insights:** The Insight Engine now detects and alerts you about complex conditions including **Dew Point**, **Fog**, **Frost**, **Icy Roads**, **Static Electricity**, **Frizz Risk**, and **Hydration** needs.
+* **New: Expressive UI & Motion:** We've introduced "Expressive Interactive Cards" across the app. Weather and Location cards now feature reactive scaling, haptic feedback, and fluid physics.
+* **New: Beta & Build Badges:** For our community testers, the app now visually identifies the build type with specific badges for **Alpha**, **Canary**, **Dev**, **Release Candidate (RC)**, and **Beta** versions directly in the settings.
+* **New: Location State Intelligence:** The app now gracefully handles "GPS Disabled" and "Permission Missing" scenarios with specific banners, and introduces a **Waiting for Location** state to prevent UI confusion.
+* **New: Purchase Architecture:** A completely rebuilt **Restore Purchases** flow provides clear status feedback (Loading, Success, Error) and displays **Discount & Original Price** info for lifetime plans.
+* **New: Weather Skeleton Loading:** A new shimmering skeleton screen provides a smoother visual experience while fetching weather data.
+* **New:** Added a **Calibration Hint** icon to the compass dial that appears specifically when sensor accuracy drops, prompting a recalibration.
+* **Improvement:** The "What's New" screen now features the new **Animated Shape Button** for a cohesive design language.
+* **Improvement:** Refined the **Compass Rotation** logic to use monotonic cumulative values, preventing animation glitches during 360° turns.
+
+#### ⌚ Wear OS
+
+* **New: Altitude Tile:** A brand new Tile features a segmented circular progress indicator, giving you quick access to your altitude without opening the app.
+* **New: Altitude Complication:** You can now add a live altitude data provider to your favorite watch faces.
+* **New: Session-Based Altitude:** The altimeter now uses a "Session Reference," allowing for immediate pressure-based relative altitude updates without waiting for a slow GPS lock.
+* **New: Wearable Power Settings:** Full power management controls are now available on your wrist, allowing you to toggle animations and force dark themes to extend watch battery life.
+* **Improvement:** The app startup flow now intelligently waits for **Rotation Readiness**, preventing the splash screen from appearing distorted on valid start.
+* **Improvement:** Optimized **Location Intervals** specifically for Wear OS devices to balance tracking precision with battery drain.
+
 ## Version 1.16.0 Release Candidate 2
 *(Released February 6, 2026)*
 
