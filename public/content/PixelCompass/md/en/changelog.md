@@ -1,8 +1,35 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.17.0 Beta 1
+*(Released February 10, 2026)*
+
+This major update introduces the **Expressive Weather Engine**, featuring fully interactive charts, fluid animations, and **Insight Engine 6.0**.
+
+#### 📱 Phone
+
+* **New: Interactive Charts:**
+  * **Touch Scrubbing:** You can now touch and drag across **ALL** weather charts (Temperature, Precipitation, Wind, UV, Humidity, etc.) to view precise hourly data.
+  * **Haptic Feedback:** Feel the data points as you scrub through forecasts with satisfying haptic ticks.
+  * **Fluid Animations:** Charts now animate in smoothly with custom Bezier curves, gradient fills, and dynamic scaling.
+* **New: Expressive Weather UI:**
+  * **Animated Icons:** Weather icons now react to conditions—sun icons float gently, rain falls, and storm icons flash.
+  * **Dynamic Cards:** The "Current Conditions" and "Wind Direction" cards now feature entrance animations, reactive scaling on touch, and improved layouts.
+  * **Visual Polish:** Redesigned the UV Risk card with a color-changing gauge, added a "Day/Night" band to visibility charts, and switched to rounded "Pill" visuals for hourly forecasts.
+* **New: Insight Engine 6.0:**
+  * **Physiological Alerts:** New warnings for **Wet-Bulb Temperature** (extreme heat risk) and **Wind Chill** (frostbite risk).
+  * **Pet Safety:** Alerts for "Pavement Heat" to protect your pets' paws on hot days.
+  * **Safety:** Added hydroplaning risk alerts during heavy rain.
+  * **Localization:** Moon Phase insights are now fully localized.
+* **New: Restore Purchases UI:**
+  * Replaced the old "restore" toast with a modern **Bottom Sheet** that clearly shows loading, success, or error states with helpful troubleshooting tips.
+* **Refinement:**
+  * **Performance:** Charts now use native text rendering (`TextMeasurer`) for better performance and accessibility.
+  * **Moon & Sun:** Polished the Moon Phase and Sun Path charts with smoother arcs, better labels, and a cleaner design.
+
+
 ## Version 1.16.0
-*(Released February 8, 2026)*
+*(Released February 9, 2026)*
 
 This massive update introduces a sophisticated **Adaptive Power System** that intelligently manages battery life by detecting your context (Normal, Low Power, Offline, or Offline Low Power). We've also added rich **Meteorological Insights**, a dedicated **Altitude Tile** for Wear OS, and a complete visual overhaul with our new **Expressive UI** engine.
 
