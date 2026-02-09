@@ -1,6 +1,29 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.17.0 Beta 2
+*(Released February 11, 2026)*
+
+This update brings the **Expressive Design** system to life with dynamic fonts that react to the weather, a smarter status bar, and beautiful new moon phase visuals.
+
+#### 📱 Phone
+
+* **New: Smart Status Bar:**
+  * **Interactive Indicator:** The top bar now features an expandable status pill. It intelligently surfaces critical info like **Calibration Needed**, **Power Saving**, or **Altitude Status** without cluttering the screen.
+  * **Auto-Hide:** The app title gracefully fades out when status messages need to be shown, ensuring zero overlap.
+  * **Animations:** Status changes now use snappy spring animations for a fluid feel.
+* **New: Expressive Weather UI:**
+  * **Dynamic Typography:** We've introduced a new font engine. The font weight and width now **animate based on the temperature**—hotter weather uses heavier, expanded fonts, while cooler temps use lighter, condensed styles.
+  * **Moon Phase Visuals:** Added a complete set of vector-based Moon Phase icons. The moon card now features a "shape morphing" animation that clips the container to match the current phase.
+  * **Temperature Range Bar:** The current weather card now displays a visual Min/Max bar with a pip indicating exactly where the current temperature sits in the daily range.
+* **Refinement: Charts & Details:**
+  * **Unified Chart Engine:** All charts (Temperature, Humidity, Pressure, etc.) now share a robust rendering engine with smoother Bezier curves and improved touch scrubbing.
+  * **Visual Polish:** Updated all detail cards with rounded corners (28dp), improved padding, and clearer hierarchy.
+  * **Sun Path:** Corrected the sun positioning math and added a day/night arc visual to better represent the solar cycle.
+* **Core:**
+  * **Font Families:** Implemented "Expanded" and "Condensed" Roboto Flex families to support the new expressive UI.
+  * **Accessibility:** Added clear content descriptions to all top bar actions for better screen reader support.
+
 ## Version 1.17.0 Beta 1
 *(Released February 10, 2026)*
 
