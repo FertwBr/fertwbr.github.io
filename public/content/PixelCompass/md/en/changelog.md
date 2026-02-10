@@ -1,6 +1,32 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.17.0 Beta 3
+*(Released February 12, 2026)*
+
+This update introduces the **Interactive Status Hub**, significantly refines the **Weather & Forecast** visuals with new animations, and hardens the billing system against network errors.
+
+#### 📱 Phone
+
+* **New: Interactive Status Hub:**
+  * **Smart Sheet:** Tapping a status indicator (like "Calibration Needed" or "True North") now expands a **Status Sheet**. This gives you context, quick actions (e.g., "Disable True North"), and details without leaving the compass screen.
+  * **Fluid Animations:** The top bar now morphs smoothly into the status sheet with spring-based animations, changing color and padding dynamically.
+  * **True North Control:** You can now toggle "True North" off directly from the status indicator if you prefer Magnetic North.
+* **New: Interactive Forecasts:**
+  * **Live Highlight Cards:** The forecast card is now interactive. Tap it to toggle between a general summary ("Rain starts soon") and exact timing ("Rain in 2h 15m").
+  * **New Weather Types:** Added distinct visual support for **Hail** and **Ice**, complete with specific icons and color themes.
+  * **Lively Animations:** Weather icons now feature distinct motion types—Rain **bounces**, Snow **sways**, and Wind **glides**, making the dashboard feel alive.
+* **New: Smart Altitude Calibration:**
+  * **Modern UI:** Completely redesigned the Altitude Calibration dialog with a dedicated "Last Updated" timestamp and relative time text (e.g., "Updated 5 min ago").
+  * **Smart Logic:** The app now prevents redundant calibration requests if the altitude data is already fresh (Smart Recalibration).
+* **UI/UX Polish:**
+  * **Expressive Lists:** Detail panels (Wind, Pressure, etc.) now use a unified **"Detail List"** design with grouped rounded corners and better hierarchy.
+  * **Locale-Aware Dates:** The date header now respects your device's specific grammar rules (e.g., correctly formatting "10 de febrero" for Spanish/Portuguese).
+  * **Visuals:** Updated gradients for Snow and Storm themes to improve text contrast.
+* **Fixes & Core:**
+  * **Billing Reliability:** Fixed a critical issue where the app might temporarily "forget" your Plus status if the Play Store query failed due to no internet. It now strictly preserves your premium state on errors.
+  * **Localization:** Fixed an issue where Arabic text was appearing in the German translation.
+ 
 ## Version 1.17.0 Beta 2
 *(Released February 11, 2026)*
 
