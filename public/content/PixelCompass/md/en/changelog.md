@@ -1,6 +1,33 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.17.0 Beta 5
+*(Released February 12, 2026)*
+
+This update focuses on **Meteorological Precision** and **Visual Polish**. We've introduced a new "Damp" comfort state, revamped the Humidity card, and refined the app's animations.
+
+#### 📱 Phone
+
+* **New: Advanced Humidity Insights:**
+  * **"Damp" Comfort Level:** The app now correctly identifies cold, high-humidity conditions (Cold + High RH) as **"Damp"** instead of "Sticky," complete with a new Teal color theme.
+  * **Dew Point Integration:** The Humidity Comfort card has been completely rebuilt to use **Dew Point** calculations for a more accurate representation of how the air actually feels.
+  * **Interactive Details:** Tap the humidity card to see a breakdown of Relative Humidity vs. Dew Point and temperature.
+* **New: Status & Layout Polish:**
+  * **Animated Status Sheet:** The expanded layout (on tablets/foldables) now features a fully animated **Status Sheet** that slides down gracefully, with synchronized corner radius animations.
+  * **Top Bar Indicators:** Status indicators in the top bar now use smoother **Fade & Scale** animations instead of sliding, feeling much snappier.
+* **UI: Weather Visuals:**
+  * **Temperature Range:** The current weather card now features a redesigned **Temperature Bar** with a visual "thumb" indicating exactly where the current temp sits between the daily Low and High.
+  * **Precipitation Metrics:** The precipitation status now displays exact quantities (e.g., "1.2 mm") alongside probability when available.
+  * **Dynamic Icons:** Updated precipitation icons to use specific "Cookie" shapes (4-sided, 7-sided, 9-sided) based on intensity and type (Rain vs. Snow/Hail).
+* **Fix:**
+  * **Chart Labels:** Cloud cover charts now intelligently pin labels to the top for high values (90%+) to prevent them from being cut off or overlapping.
+  * **Navigation:** Fixed an issue where the settings click handler wasn't propagating correctly in some layouts.
+* **Localization:**
+  * **i18n:** Added comprehensive translations for all new weather insights (Wet Bulb, Mold Risk, Frostbite, etc.) and UI labels.
+* **Refinement:**
+  * **Adaptive Layout:** The compass display now uses a `BoxWithConstraints` to ensure perfect centering and sizing on all watch face shapes, preventing clipping on smaller screens.
+
+
 ## Version 1.17.0 Beta 4
 *(Released February 13, 2026)*
 
