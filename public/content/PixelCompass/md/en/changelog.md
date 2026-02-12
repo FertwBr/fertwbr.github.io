@@ -1,6 +1,34 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.17.0 Beta 4
+*(Released February 13, 2026)*
+
+This update introduces "Deceptive Weather" detection to keep you safe from the sun, unifies the interactive chart experience with a robust new rendering engine, and refines the app's color harmony.
+
+#### 📱 Phone
+
+* **New: Solar Exposure Smart Card:**
+  * **Time-to-Burn:** A new intelligent badge calculates your estimated safe exposure time in minutes based on the current UV Index.
+  * **Deceptive Weather:** The app now detects and warns you about **"Deceptive Coolness"** (high UV + wind/clouds) or **"Hidden Intensity"**, ensuring you don't get burned when it feels cool outside.
+  * **Interactive Details:** Tap the solar card to reveal a beautiful, animated breakdown of why the risk is high (e.g., "Sweat Risk," "Rapid Burn").
+* **New: Chart Engine 2.0:**
+  * **Collision Avoidance:** We've rewritten the label renderer. Data points now intelligently shift to avoid overlapping with each other or the chart edges, ensuring perfect readability.
+  * **Day/Night Axis:** The time axis on charts now features visual Sun and Moon icons to clearly mark day and night cycles.
+  * **Unified Scrubbing:** All charts (Wind, Rain, UV, etc.) now share a unified touch-scrubbing engine with consistent haptic feedback and dashed indicator lines.
+* **UI: Expressive Theme Engine:**
+  * **Harmonious Colors:** Refactored all chart and card themes to use a new **Material 3 Expressive** palette engine. Colors are now generated using tonal pairs and semantic logic, ensuring perfect contrast and harmony between light and dark modes.
+  * **Dynamic Layouts:** The "Contextual Card Pager" and "Insight Cards" now use a smarter layout engine that adapts text size, icon shapes, and spacing based on the available content.
+  * **Material Shapes:** Forecast icons now sit on expressive Material 3 shapes, replacing old animations with a cleaner, more modern look.
+* **Refinement:**
+  * **Flow Legends:** Chart legends now use a "Flow" layout, wrapping gracefully on smaller screens without cutting off text.
+  * **Precipitation Logic:** Refined the "Rain Starting Soon" logic to be more accurate, filtering out low-probability "phantom" rain events.
+* **Core:** Inherited a critical shared fix for **Magnetic Accuracy**. The compass now intelligently prefers the Rotation Vector sensor over raw magnetic field updates when available, resulting in a much more stable needle.
+
+#### ⌚ Wear OS
+
+* **Core:** Inherited a critical shared fix for **Magnetic Accuracy**. The compass now intelligently prefers the Rotation Vector sensor over raw magnetic field updates when available, resulting in a much more stable needle on devices.
+
 ## Version 1.17.0 Beta 3
 *(Released February 12, 2026)*
 
