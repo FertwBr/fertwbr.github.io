@@ -2,7 +2,7 @@
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
 ## Version 1.17.0 Beta 5
-*(Released February 12, 2026)*
+*(Released February 14, 2026)*
 
 This update focuses on **Meteorological Precision** and **Visual Polish**. We've introduced a new "Damp" comfort state, revamped the Humidity card, and refined the app's animations.
 
