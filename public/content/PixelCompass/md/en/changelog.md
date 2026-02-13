@@ -1,6 +1,28 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.17.0 Beta 6
+*(Released February 15, 2026)*
+
+This update refines the visual language of our weather engine with snappier animations, smarter data summaries, and a new unified card system.
+
+#### 📱 Phone
+
+* **New: Expressive Info Cards:**
+  * **Unified Design:** We've introduced `ExpressiveInfoCard`, a shared component that brings consistent, bouncy spring animations and "morphing" interactions to all detail cards (Humidity, UV, Forecast).
+  * **Precipitation Summary:** A new **Precipitation Insight Card** analyzes the next 12 hours to give you a smart summary (e.g., "Light rain starting in 20 min") instead of just raw data.
+* **Visual Polish:**
+  * **Chart Aesthetics:** Hourly forecast animations are now faster and staggered for a "cascading" entry effect. The "Now" highlight is more subtle, using a transparent container instead of a border.
+  * **Temperature Gradients:** The temperature range bar and weekly charts now share a unified color engine (`TemperatureChartDefaults`) that dynamically paints bars based on the exact temperature (hotter = warmer colors), respecting Dark Mode.
+  * **Section Headers:** Added clear section headers to all detail panels (Wind, Humidity, Pressure, etc.) for better readability.
+* **UX Improvements:**
+  * **Transient Status:** The top bar status indicator now shows **"True North Enabled"** temporarily when toggled, then auto-hides.
+  * **Smart Location:** The Detail Panels now display the **Location Name** and **Last Update Time** in the footer, so you always know how fresh the data is.
+  * **Animation:** Replaced the slide-up animation in detail footers with a smoother **Crossfade + Scale** transition.
+* **Fixes:**
+  * **Night Mode:** UV and Solar cards now correctly switch to a "Night" theme (Moon icon, dark colors) when the sun is down, even if UV is zero.
+  * **Precipitation Charts:** Fixed dashed line rendering and optimized label placement to prevent collisions.
+
 ## Version 1.17.0 Beta 5
 *(Released February 14, 2026)*
 
