@@ -1,6 +1,36 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+# Version History
+Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
+
+## Version 1.17.0 Beta 7
+*(Released February 16, 2026)*
+
+This beta introduces a massive expansion to the **Insight Engine** with over 15 new weather rules, adds critical cold-weather safety alerts, and polishes the app's visual feedback.
+
+#### 📱 Phone
+
+* **Update: Continuing Insight Engine 6.0:**
+  * **Complex Conditions:** Added sophisticated new detection rules for:
+    * **"Crisp Clarity":** (Cold + Low Humidity + High Visibility)
+    * **"Heavy Air":** (Warm + Humid + Low Pressure)
+    * **"Deceptive Sunshine":** (Sunny but very cold)
+    * **"Oven/Sauna Effects":** Specific alerts for dry vs. humid extreme heat.
+  * **Sleep Insights:** New **"Tropical Night"** and **"Dry Sleep"** alerts to help you prepare your bedroom environment.
+  * **Home & Car:** Specific alerts for **Pipe Freezing**, **Windshield Frost**, **Black Ice**, **Tire Pressure Drops**, and **Battery Drain** risks during cold snaps.
+  * **Lifestyle:** New suggestions for **"Indoor Cozy"** activities and **"Dry Skin"** care when the air is harsh.
+
+* **UI: Visual Refinements:**
+  * **Loading States:** The top bar now features a subtle **"Cloud Sync"** indicator when weather data is refreshing.
+  * **Precipitation:** The precipitation chart now distinguishes between **Liquid** (Rain) and **Frozen** (Snow) totals, ensuring you know exactly how much of each to expect.
+  * **Humidity:** The humidity chart now reserves space for top labels, preventing cut-off text on high values.
+* **UX Improvements:**
+  * **Smart Summaries:** The Precipitation Card now offers an expandable **"12-Hour Summary"** that analyzes upcoming rain/snow probabilities into a simple sentence (e.g., "Light rain starting in 20 min").
+  * **Interactive Info:** Cards like Humidity and UV now flip/expand on tap to reveal deeper data (e.g., Dew Point vs. Temp) instead of just static text.
+* **Refinement:**
+  * **Temperature Units:** Unified temperature normalization across the entire app. All charts and gradients now perfectly respect your Fahrenheit/Celsius preference.
+
 ## Version 1.17.0 Beta 6
 *(Released February 15, 2026)*
 
