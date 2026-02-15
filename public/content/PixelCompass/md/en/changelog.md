@@ -1,9 +1,6 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
-# Version History
-Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
-
 ## Version 1.17.0 Beta 7
 *(Released February 16, 2026)*
 
