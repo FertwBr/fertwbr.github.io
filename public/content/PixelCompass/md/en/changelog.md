@@ -2,7 +2,7 @@
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
 ## Version 1.17.0 Beta 8
-*(Released February 15, 2026)*
+*(Released February 17, 2026)*
 
 This beta expands our global reach with new languages, introduces a sophisticated Wind Analysis engine, and makes weather updates smarter for travelers.
 
