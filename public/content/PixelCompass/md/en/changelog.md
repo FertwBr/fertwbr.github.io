@@ -1,6 +1,33 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.17.0 Beta 8
+*(Released February 15, 2026)*
+
+This beta expands our global reach with new languages, introduces a sophisticated Wind Analysis engine, and makes weather updates smarter for travelers.
+
+#### 📱 Phone
+
+* **New: Global Expansion:**
+  * **New Languages:** Added full localization support for **Filipino (Tagalog)** and **Indonesian (Bahasa Indonesia)** across the entire app and Wear OS.
+  * **Weather Insights:** All weather warnings, tips, and forecasts are now fully translated into these new languages.
+* **New: Advanced Wind Analysis:**
+  * **Wind Insight Card:** A new dedicated card breaks down wind conditions using the **Beaufort Scale** (e.g., "Light Breeze" vs. "Gale").
+  * **Expressive Themes:** The wind card changes color dynamically based on intensity—from a calm blue for breezes to an intense purple/red for storms.
+  * **Gust Detection:** The app now intelligently flags "Gusty" conditions when wind variance is high.
+* **New: Smart Travel Updates:**
+  * **Distance-Based Refresh:** The weather engine now checks your location. If you travel significantly (e.g., commute to another city), the app will trigger a weather update even if the data isn't "stale" yet, ensuring you always see local conditions.
+* **Refinement:**
+  * **Solar & Precip Logic:** Refactored the internal logic for Solar/UV and Precipitation into dedicated "Analyzers" for better accuracy and stability.
+  * **Chart Visuals:** Tuned the precipitation chart bar width for a cleaner look and improved text wrapping on the Sun Path chart.
+  * **Status Bar:** Added a specific status indicator for **"Calibrated with Barometer"** to confirm when altitude is derived from pressure data.
+  * **Top Bar:** Simplified the logic to reduce clutter; "True North" status is now handled more gracefully.
+
+#### ⌚ Wear OS
+
+* **New: Global Expansion:**
+  * **New Languages:** Added full localization support for **Filipino (Tagalog)** and **Indonesian (Bahasa Indonesia)** across the entire Wear OS app.
+
 ## Version 1.17.0 Beta 7
 *(Released February 16, 2026)*
 
