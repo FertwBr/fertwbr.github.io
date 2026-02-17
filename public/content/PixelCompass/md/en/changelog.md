@@ -1,6 +1,75 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.17.0 Release Candidate 2
+*(Released February 20, 2026)*
+
+This second Release Candidate introduces aggressive battery optimizations and fixes for Wear OS, ensuring the smoothest experience possible for the upcoming stable release.
+
+#### ⌚ Wear OS
+
+* **New: Extreme Battery Optimization:**
+  * **Lifecycle-Aware Sensors:** Sensors now strictly pause when the app is minimized, the screen is turned off, or the device is locked. This drastically reduces background battery drain during daily wear.
+  * **Balanced Listening:** Refined the internal sensor manager to prevent redundant sensor activation, ensuring the hardware only runs when absolutely necessary.
+* **New: Enhanced Complications:**
+  * **Dynamic Altitude Range:** The Altitude Ranged Complication now uses your current session's Min/Max values. Instead of fixed ranges, it displays your elevation relative to your specific hike or climb for better context.
+  * **Live Complication Status:** Updated the background update notification to "Sensors Active" with clearer copy, ensuring you know exactly why the app is running in the background.
+* **New: Connectivity & Calibration:**
+  * **Power-Mode Handshake:** The watch now automatically re-checks altitude calibration as soon as it reconnects to the internet after being in an "Offline" mode.
+  * **Altitude Freshness:** Added a "Last Updated" relative timestamp (e.g., "Updated 5 mins ago") to the Altitude Status screen.
+* **Stability & Fixes:**
+  * **Foreground Reliability:** Improved handling for background service starts on Android 12+ (API 31), preventing rare crashes when the system restricts background tasks.
+
+## Version 1.17.0 Release Candidate 1
+*(Released February 19, 2026)*
+
+This major Release Candidate focuses on extreme performance optimizations for Wear OS, a re-architected live complication engine, and significant stability fixes for the core sensor and UI layers.
+
+#### 📱 Phone
+
+* **New: Intelligent Sensor Stability:**
+  * **Startup Suppression:** The app now intelligently suppresses "Low Accuracy" warnings for the first 2 seconds after launch, allowing sensors to stabilize before alerting the user.
+* **New: Intelligent Navigation:**
+  * **Scroll-Driven Top Bar:** The top bar now elegantly hides and reveals itself as you scroll through weather cards. This transition is accompanied by subtle haptic feedback and smooth slide-fade animations.
+  * **Smart Collision Detection:** The app title now only hides when the Status Indicator (like "Calibration Needed") physically overlaps with it, maximizing the visibility of the app's identity on various screen sizes.
+
+* **UI & Visual Polish:**
+  * **Night Mode Tones:** Refined the night-time color palette for solar and weather charts to improve contrast and visual harmony in dark themes.
+  * **Wind Iconography:** Updated the icons for "Gentle" and "Moderate" breezes to a new cloud-based design for better atmospheric representation.
+  * **Card Layouts:** Improved the **Wind Direction Card** with more consistent spacing and a centered layout that adapts better to different screen widths.
+  * **Scrim Animations:** Added a smooth, animated background scrim that transitions when the Status Sheet expands, providing better visual focus and depth.
+  * **Transparent Aesthetics:** Refined the top bar transparency during scrolls for a more modern, edge-to-edge look.
+
+* **Fixes & Stability:**
+  * **Layout Safety:** Improved the internal layout engine (`DependentWidthLayout`) with null-safe measurements to prevent crashes on specific device configurations.
+  * **Settings Management:** Temporarily disabled Top Bar settings/customization shortcuts in specific layouts to prepare for a major UI transition in the stable release.
+  * **Metadata Handling:** Improved `PolicyManager` robustness by adding explicit handling for network timeouts and IO exceptions during metadata fetching.
+  * **Type Safety:** Refined internal coroutine logic and generic type inference to prevent compile-time ambiguities and minor runtime memory leaks.
+  * **Online Reconnect:** The app now intelligently detects when you transition from "Offline" to "Online" power modes, automatically triggering a weather data refresh to ensure your dashboard is up to date.
+  * **Reactive Sensor Stabilization:** Replaced the fixed delay with a smart stabilization routine. The compass now declares itself "Ready" as soon as high sensor accuracy is detected, or falls back to a 4s timeout, making the startup feel much snappier.
+  * **Enhanced FAB:** Increased the scroll threshold for the Floating Action Button, keeping it extended for longer while browsing to ensure quick access to key actions.
+
+#### ⌚ Wear OS
+
+* **New: Live Complication Engine:**
+  * **Foreground Worker:** Replaced the legacy update logic with a dedicated `WearComplicationUpdateService`. This allows for true "Live Mode" updates for Compass and Altitude complications.
+  * **Specialized Service:** Switched to the `specialUse` service type (API 34+) to reduce battery impact while maintaining high-frequency sensor updates.
+  * **Permission Flow:** Introduced a dedicated **Live Complication Permission Screen** to properly handle notification permissions required for persistent background updates.
+* **New: Wear Status Display:**
+  * **Dedicated Layer:** Status and calibration icons have been moved to a new `WearStatusLayer`. This layer features improved touch targets and smoother animations for power, altitude, and sensor accuracy states.
+* **Performance: "Silky Smooth" Optimization:**
+  * **Bitmap Caching:** The `WearCompassDisplay` now separates static and dynamic layers. The compass dial and text are cached into GPU-accelerated bitmaps, significantly reducing CPU overhead and sustaining high FPS.
+  * **Split-Flow Updates:** Separated azimuth (rotation) from other data. Rotation now updates at ~60Hz for fluid movement, while heavier data (Altitude, Location, Incline) is sampled every 250ms to save battery.
+  * **Bubble Level Optimization:** The Flat Level screen now uses lambda-based providers for offsets, skipping full recompositions and reducing CPU usage during use.
+* **Core & Battery:**
+  * **Lifecycle Management:** Moved sensor control out of the `MainActivity` and into the navigation layer. Sensors now only activate when the relevant screen is visible, drastically reducing background battery drain.
+  * **Tile Efficiency:** The Altitude Tile now caches user preferences and measurement units, eliminating blocking IO calls during tile requests for instant loading.
+  * **Power Strategy:** Implemented dynamic screen wake-lock handling that adapts to your current **Power Strategy** and battery level.
+* **Stability:**
+  * **Metadata Handling:** Improved `PolicyManager` robustness by adding explicit handling for network timeouts and IO exceptions during metadata fetching.
+  * **Type Safety:** Refined internal coroutine logic and generic type inference to prevent compile-time ambiguities and minor runtime memory leaks.
+
+
 ## Version 1.17.0 Beta 8
 *(Released February 17, 2026)*
 
