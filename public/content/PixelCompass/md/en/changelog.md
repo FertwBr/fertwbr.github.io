@@ -19,6 +19,7 @@ This second Release Candidate introduces aggressive battery optimizations and fi
   * **Altitude Freshness:** Added a "Last Updated" relative timestamp (e.g., "Updated 5 mins ago") to the Altitude Status screen.
 * **Stability & Fixes:**
   * **Foreground Reliability:** Improved handling for background service starts on Android 12+ (API 31), preventing rare crashes when the system restricts background tasks.
+  * **Rotation correction and True North:** Add rotation and declination handling to the compass complication and tiles. This fixes incorrect directions when the watch orientation changes and ensures thread-safety for rotation updates.
 
 ## Version 1.17.0 Release Candidate 1
 *(Released February 19, 2026)*
