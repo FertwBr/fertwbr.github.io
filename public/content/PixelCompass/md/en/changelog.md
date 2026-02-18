@@ -4,7 +4,21 @@ Track the evolution of Pixel Compass. Here you'll find a detailed log of new fea
 ## Version 1.17.0 Release Candidate 2
 *(Released February 20, 2026)*
 
-This second Release Candidate introduces aggressive battery optimizations and fixes for Wear OS, ensuring the smoothest experience possible for the upcoming stable release.
+This second Release Candidate introduces a new fluid navigation system and dynamic UI scaling for the phone app, alongside aggressive battery optimizations and fixes for Wear OS, ensuring the smoothest experience possible for the upcoming stable release.
+
+#### 📱 Phone
+
+* **New: Fluid Navigation & Physics:**
+  * **Physics-Based Top Bar:** Replaced standard slide animations with a height-driven nested scroll system. The top bar now reacts naturally to your finger's movement and "snaps" to the nearest open or closed state when scrolling stops, preventing awkward half-states.
+  * **Smart Snapping:** Implemented a `LaunchedEffect` that detects scroll idle states to smoothly animate the top bar to full expansion or collapse if left partially open.
+* **New: Adaptive UI Engine:**
+  * **Dynamic Compass Scaling:** The compass rose, degree text, and indicators now scale proportionally using a new `scaleFactor` logic. This ensures the compass looks perfectly balanced on screens of all sizes.
+  * **Responsive Weather Grids:** Weather cards and skeleton loading states now use `BoxWithConstraints` to detect available width, dynamically adjusting the number of columns to fit the screen density.
+* **Visual Polish & Fixes:**
+  * **Shared Element Precision:** The compass now strictly enforces a 1:1 square aspect ratio during screen transitions, eliminating visual distortion during navigation.
+  * **Refined Status Sheet:** Adjusted the collapsed content offset (-40dp) and removed redundant spacing for a tighter, more cohesive animation when the bottom sheet is interacting with the UI.
+  * **Settings Cleanup:** Removed the "Wavy Vertical Divider" from the Settings screen for a cleaner, less cluttered look.
+  * **Modern Loading:** The global loading indicator now uses scale-based sizing (2.5x) rather than fixed widths for smoother rendering.
 
 #### ⌚ Wear OS
 
