@@ -1,6 +1,66 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.17.0
+*(Released February 20, 2026)*
+
+This major release introduces the **Expressive Design System**, bringing the app to life with physics-based navigation and dynamic typography. We have also deployed **Insight Engine 6.0**, our most advanced weather analysis tool yet, capable of detecting complex conditions like "Wet-Bulb Temperature" and "Black Ice." For Wear OS, this update includes a complete re-architecture of the complication engine and massive battery optimizations.
+
+#### 📱 Phone
+
+* **New: Expressive Design System:**
+  * **Physics-Based Navigation:** The top bar has been completely reimagined. It now reacts naturally to your scroll gestures, expanding and collapsing with fluid physics and "snapping" to the nearest state.
+  * **Dynamic Typography:** We’ve introduced a new font engine using "Expanded" and "Condensed" *Roboto Flex* families. Text weight and width now animate based on the weather—hotter temps trigger heavier fonts, while cooler conditions use lighter styles.
+  * **Harmonious Colors:** Refactored all themes to use a new **Material 3 Expressive** palette engine. Colors are generated using tonal pairs and semantic logic, ensuring perfect contrast between light and dark modes.
+* **New: Insight Engine 6.0:**
+  * **Physiological Alerts:** New warnings for **Wet-Bulb Temperature** (extreme heat risk) and **Wind Chill** (frostbite risk) based on combined weather factors.
+  * **Cold Weather Mastery:** Added sophisticated rules for **"Crisp Clarity"** (Cold+Dry), **"Deceptive Sunshine"**, and specific risks like **Pipe Freezing**, **Black Ice**, and **Car Battery Drain**.
+  * **Safety & Lifestyle:** Added alerts for **"Pavement Heat"** (Pet Safety), **Hydroplaning Risk** during heavy rain, and **Mold Risk** ("Heavy Air").
+  * **Sleep Insights:** New **"Tropical Night"** and **"Dry Sleep"** alerts help you prepare your bedroom environment.
+* **New: Smart Insight Cards:**
+  * **Solar Exposure Card:** A new intelligent badge calculates your **"Time-to-Burn"** in minutes based on UV Index. It also warns of **"Deceptive Coolness"** when wind hides the sun's intensity.
+  * **Advanced Humidity Insights:** Beyond simple percentages, this card analyzes **Thermal Comfort** using Dew Point calculations. It intelligently identifies **"Damp"** conditions (Cold + High Humidity) with a distinct Teal theme, separating them from "Sticky" or "Muggy" heat. You can also tap the card to toggle between the comfort summary and exact **Dew Point** data.
+  * **Smart Summaries:** Precipitation cards offer a 12-hour summary (e.g., "Light rain starting in 20 min") alongside the visual data.
+  * **Wind Analysis Card:** A dedicated card breaks down wind conditions using the **Beaufort Scale** (e.g., "Gale" vs. "Breeze") with expressive color themes that shift from calm blues to intense purples.
+* **New: Interactive Charting:**
+  * **Unified Chart Engine:** All charts (e.g., Temperature, Humidity, Pressure) now share a robust rendering engine with smoother Bezier curves and haptic touch-scrubbing to view precise hourly data.
+* **UI: Detail Panel Overhaul:**
+  * **Unified Architecture:** The `DetailPanelBottomSheet` has been completely rebuilt. Every weather metric (Wind, UV, Pressure, etc.) now shares a standardized, high-quality layout engine via the `ContentFactory`, ensuring a consistent experience across the entire app.
+  * **Expressive Headers:** Section headers now feature a bold, clean design with large typography for values and a new `DateHeader` that respects your device's exact locale formatting (e.g., "Tuesday, March 10") with a smooth slide-in entry animation.
+  * **Smart Data Grouping:** Introduced a **"Cohesive List"** system (`DetailList`). Data rows now intelligently detect their position (Top, Middle, Bottom) and merge into a single visual block with continuous rounded corners, reducing visual clutter compared to separated cards.
+  * **Expressive Motion:**
+    * **Morphing Cards:** New `ExpressiveInfoCard` components physically morph their shape (animating corner radius from 28dp to 48dp) and use fluid `Slide+Fade` transitions when expanding to show more details.
+    * **Staggered Entry:** The "Current Conditions" row (UV, Air Quality, Feels Like) now uses a staggered entrance animation, with each "Pill" sliding in sequentially.
+  * **Interactive Controls:** Added a new **Expressive Unit Menu** for selecting units (like Pressure). It features a custom dropdown with haptic feedback and smooth expansion animations, replacing standard system dialogs.
+* **New: Global Expansion:**
+  * **New Languages:** Added full localization support for **Filipino (Tagalog)** and **Indonesian (Bahasa Indonesia)**.
+* **Improvement:**
+  * **Restore Purchases UI:** Replaced the old toast message with a modern **Bottom Sheet** that visually tracks the restoration process and offers helpful troubleshooting tips for connection errors.
+  * **Smart Altitude Calibration:** Completely redesigned the calibration dialog with **Smart Recalibration** logic (prevents redundant requests) and a "Last Updated" relative timestamp.
+  * **Smart Travel Updates:** The weather engine now detects significant location changes (e.g., commuting between cities) to trigger an immediate update, ensuring you never see stale data.
+  * **Visual Polish:** Updated all detail cards with rounded corners (28dp), improved padding, and corrected the Sun Path math for accurate day/night arc visualization.
+* **Fixes & Core:**
+  * **Billing Reliability:** Fixed a critical issue where the app might temporarily "forget" your Plus status if the Play Store query failed due to no internet. It now strictly preserves your premium state on errors.
+  * **Localization:** Fixed an issue where Arabic text was appearing in the German translation.
+
+
+#### ⌚ Wear OS
+
+* **New: Live Complication Engine:**
+  * **Real-Time Updates:** Replaced legacy logic with a dedicated `WearComplicationUpdateService` and `specialUse` service type. This enables true "Live Mode" for Compass and Altitude complications with high reliability.
+  * **Permission Flow:** Introduced a dedicated screen to properly handle notification permissions required for persistent background updates.
+* **New: Extreme Battery Optimization:**
+  * **Lifecycle-Aware Sensors:** Sensors now strictly pause when the app is minimized or the screen turns off.
+  * **Split-Flow Updates:** Separated data streams—Rotation updates at 60Hz for fluid movement, while heavier data (Altitude, Location) is sampled less frequently to save battery.
+  * **Bitmap Caching:** The compass dial and text are now cached into GPU-accelerated bitmaps, significantly reducing CPU overhead.
+* **New: Enhanced Experience:**
+  * **Wear Status Layer:** Status and calibration icons have been moved to a dedicated layer with larger touch targets and smoother animations.
+  * **Dynamic Altitude Range:** The Altitude Complication now uses your current session's Min/Max values for better context during hikes.
+  * **Power-Mode Handshake:** The watch automatically re-checks altitude calibration as soon as it reconnects to the internet after being offline.
+* **Stability & Fixes:**
+  * **True North Correction:** Added rotation and declination handling to the compass complication and tiles, fixing incorrect directions when the watch orientation changes.
+  * **Foreground Reliability:** Improved handling for background service starts on Android 12+, preventing rare crashes when the system restricts background tasks.
+
 ## Version 1.17.0 Release Candidate 2
 *(Released February 20, 2026)*
 
