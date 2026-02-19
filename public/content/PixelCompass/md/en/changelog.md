@@ -1,8 +1,25 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.18.0 Beta 1
+*(Released February 28, 2026)*
+
+This update is a "Foundation & Modernization" release. We’ve overhauled the app's internal engine, upgrading to the latest industry standards to ensure long-term stability and performance.
+
+#### 📱 Phone & ⌚ Wear OS
+
+* **New: Cutting-Edge Build Engine:**
+  * **Gradle 9 & AGP 9:** We've upgraded the project to use **Gradle 9.1** and **Android Gradle Plugin 9.0**. This prepares the app for the next generation of Android development, offering faster build times and better optimization.
+  * **KSP 2.0:** Migrated to the latest Kotlin Symbol Processing engine for faster code generation in libraries like Hilt and Room.
+* **Core: Dependency Modernization:**
+  * **Unified Version Catalog:** All internal dependencies (Timber, Coil, Play Review, Animation) have been centralized. This means more consistent library versions across your Phone and Watch.
+  * **Library Bumps:** Updated core components including **Compose**, **Hilt**, **WorkManager**, and **Play Services** to their latest stable versions for improved security and bug fixes.
+* **Refinement: Clean Build Logic:**
+  * Cleaned up hundreds of build-time warnings, ensuring the code is compliant with the latest API standards.
+  * Added specific Android build flags to improve R8 resource shrinking, resulting in a slightly more optimized app binary.
+
 ## Version 1.17.0
-*(Released February 20, 2026)*
+*(Released February 27, 2026)*
 
 This major release introduces the **Expressive Design System**, bringing the app to life with physics-based navigation and dynamic typography. We have also deployed **Insight Engine 6.0**, our most advanced weather analysis tool yet, capable of detecting complex conditions like "Wet-Bulb Temperature" and "Black Ice." For Wear OS, this update includes a complete re-architecture of the complication engine and massive battery optimizations.
 
