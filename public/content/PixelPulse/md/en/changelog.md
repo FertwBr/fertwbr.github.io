@@ -1,6 +1,61 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.19.0 Beta 1
+*(Released February 19, 2026)*
+
+This update marks a significant shift towards **Performance Scaling** and **UI Standardization**. We have introduced advanced data downsampling to handle massive datasets with ease, a unified Top Bar architecture, and a modern billing restoration experience.
+
+#### 📱 Phone
+
+* **New: High-Performance Waveforms:**
+  * **Visual Downsampling:** The `ZoomableWaveform` now uses an intelligent peak-preserving downsampling algorithm. By aggregating data into visual "chunks" based on screen pixels, the app maintains smooth 60 FPS scrolling even when viewing sessions spanning several hours.
+  * **Frame-Based Playback:** Rewrote the playback engine to use monotonic frame-based timing. This ensures that audio playback and visual progress remain perfectly synchronized regardless of processing load or selected speed.
+* **New: Enhanced History & Bulk Actions:**
+  * **Smart Pagination:** Introduced "Load More" and "Load All" controls to the history list. This reduces initial load times and memory footprint by fetching sessions incrementally.
+  * **Intelligent Selection:** Added a "Select All" toggle to the contextual app bar with fluid scale animations. It now intelligently filters across your entire database, allowing you to select matching sessions even if they aren't currently visible on the screen.
+  * **Interactive Controls:** Seek and playback buttons now feature a more modern, transparent, and rounded design with enhanced haptic feedback.
+* **New: Visual Branding & Banners:**
+  * **Unified Top Bar:** Standardized the header across Meter, History, and Exposure screens. It features a bold branding style, integrated Plus-user gradients, and dynamic build badges.
+  * **Highlights Carousel:** The settings screen now features a "Highlights Banner" that auto-scrolls through multiple informational cards, such as "What's New" and "Premium Appreciation" notices.
+  * **Dynamic Build Badges:** New expressive badges automatically identify Alpha, Canary, Dev, and Release Candidate builds with distinct color-pair gradients.
+* **New: Subscription Management:**
+  * **Restore Purchases UI:** A dedicated Modal Bottom Sheet now handles the restoration of Plus status. It provides real-time feedback (Loading, Success, Not Found) and built-in troubleshooting tips for network or Play Store connectivity issues.
+* **Refinement & UX:**
+  * **Related Settings:** Added "Looking for something else?" quick links at the bottom of settings pages to improve discoverability between related categories.
+  * **Experimental Features:** Developers and power users can now long-press the version number in the "About" screen to toggle experimental UI features.
+* **Project Modernization:**
+  * **Gradle 9 & AGP 9:** Upgraded the entire project to the latest **Gradle 9.1** and **Android Gradle Plugin 9.0.1** for faster builds and better code shrinking.
+  * **Kotlin 2.2 & KSP 2.0:** Fully migrated to the latest Kotlin compiler and KSP engine to optimize Hilt and Room performance.
+  * **Java 17:** Standardized the build toolchain to JVM 17 using the latest Gradle compiler options.
+* **Billing Stability:**
+  * Prevented concurrent billing connection attempts to avoid Play Store service conflicts.
+  * Improved status persistence; the app now strictly preserves your Plus status during temporary network timeouts.
+* **General Fixes:**
+  * Wrapped deep link navigation in safety guards to prevent crashes from malformed external routes.
+  * Centralized all dependency versions using a project-wide **Version Catalog**.
+
+#### ⌚ Wear OS
+
+* **New: Performance "Silky Smooth" Engine:**
+  * **GPU-Accelerated Display:** The Compass UI now separates static and dynamic layers, caching heavy elements into GPU-accelerated bitmaps. This drastically reduces CPU usage during active navigation.
+  * **Async Analytics:** Heavy exposure calculations are now precomputed on background threads (`Dispatchers.Default`). This prevents UI stutters when opening the dashboard after long recording sessions.
+  * **Split-Flow Sampling:** The app now samples rotation at 60Hz for fluid movement while downsampling secondary data (Altitude/Location) to preserve battery.
+* **New: History Pagination:**
+  * To conserve watch memory, the history screen now uses pagination similar to the phone app, including a "Load more" trigger at the bottom of the session list.
+* **Project Modernization:**
+  * **Gradle 9 & AGP 9:** Upgraded the entire project to the latest **Gradle 9.1** and **Android Gradle Plugin 9.0.1** for faster builds and better code shrinking.
+  * **Kotlin 2.2 & KSP 2.0:** Fully migrated to the latest Kotlin compiler and KSP engine to optimize Hilt and Room performance.
+  * **Java 17:** Standardized the build toolchain to JVM 17 using the latest Gradle compiler options.
+* **Billing Stability:**
+  * Prevented concurrent billing connection attempts to avoid Play Store service conflicts.
+  * Improved status persistence; the app now strictly preserves your Plus status during temporary network timeouts.
+* **General Fixes:**
+  * Wrapped deep link navigation in safety guards to prevent crashes from malformed external routes.
+  * Centralized all dependency versions using a project-wide **Version Catalog**.
+
+
+
 ## Version 1.18.0
 *(Released January 30, 2026)*
 
