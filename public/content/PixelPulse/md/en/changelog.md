@@ -1,6 +1,46 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.19.0 Beta 2
+*(Released February 20, 2026)*
+
+This update focuses on **Ecosystem Reliability** and **Advanced History Management**. We have introduced a smart automatic fallback system to prevent data gaps when devices disconnect, alongside a powerful multi-filter engine for your session history.
+
+#### 📱 Phone
+
+* **New: Multi-Filter History Engine:**
+  * **Combined Filtering:** You can now apply multiple filters simultaneously. Filter your history by source (**Phone vs. Watch**), session type (**Live Monitoring**), and **Favorites** all at once to find exactly what you need.
+  * **Filter Bottom Sheet:** Replaced the top chips with a modern Modal Bottom Sheet for a cleaner UI. Active filters are now displayed as interactive InputChips with easy-remove actions.
+  * **Sort Dropdown:** Streamlined the history header by replacing sort chips with a unified Dropdown Menu, maximizing screen space for your data.
+* **New: Automatic Fallback System:**
+  * **Zero-Gap Monitoring:** If your watch is disconnected or taken off-wrist in Automatic mode, the phone now intelligently detects the stale data state.
+  * **Smart Thresholds:** Reduced the stale data threshold to **5 minutes**. When reached, the phone automatically takes over monitoring duties to ensure no data is lost.
+  * **Contextual Notifications:** Updated the notification manager to show a "Remote Disconnected" standby message, clearly informing you which device is currently active and why.
+* **Refinement & UX:**
+  * **Haptic Feedback:** Added tactile "ticks" to all history actions, including sorting, filtering, and session removal.
+  * **Data Integrity:** Refined the Exposure analysis logic to handle empty chart data correctly, ensuring the "Not Enough Data" state is shown instead of empty graphs.
+  * **Animation Polish:** Fixed enter/exit transition glitches in the Backup Progress Sheet by implementing keyed content animations.
+* **Core & Reliability:**
+  * **Cycle Guard:** Introduced an internal `isMeasuring` flag to prevent overlapping measurement cycles, eliminating race conditions and redundant microphone activations.
+
+#### ⌚ Wear OS
+
+* **New: Automatic Fallback System:**
+  * **Zero-Gap Monitoring:** If the watch is disconnected or taken off-wrist in Automatic mode, the system intelligently triggers a fallback flow.
+  * **Smart Thresholds:** Reduced the stale data threshold to **5 minutes**, ensuring the ecosystem reacts faster to device state changes.
+  * **Contextual Notifications:** Tiles and notifications now reflect the fallback state, providing clear status updates when the phone takes over monitoring.
+* **New: Complication & Tile Optimization:**
+  * **On-Demand Updates:** Completely re-architected the Complication services. By removing background collectors and switching to on-demand data production, we’ve significantly reduced idle battery drain.
+  * **Complication Refresh:** Implemented a reflection-based update trigger that ensures all watch complications refresh instantly alongside tiles.
+* **Performance & UX:**
+  * **Service Startup Logic:** Refined service initialization to prioritize standard start actions, falling back to foreground services only when required by the OS. This improves startup speed and reduces system overhead.
+  * **Smooth Pagination:** Introduced a `isLoadingMore` state with a subtle **300ms delay** to ensure loading transitions feel intentional and smooth.
+  * **UI Polish:** Centered the loading spinners within the vertical pager and updated the layout to fill the maximum screen real estate on round displays.
+  * **Loading UX:** The "Show more" button now features a centered loading spinner (24dp) and becomes disabled during fetching to prevent accidental duplicate loads.
+* **Core & Reliability:**
+  * **Cycle Guard:** A new internal guard prevents concurrent measurement cycles, ensuring stable microphone management and preventing duplicate data entries.
+  * **Lifecycle Fix:** Corrected a critical service lifecycle bug where `onDestroy` was not being called correctly, improving long-term memory management.
+
 ## Version 1.19.0 Beta 1
 *(Released February 19, 2026)*
 
@@ -53,8 +93,6 @@ This update marks a significant shift towards **Performance Scaling** and **UI S
 * **General Fixes:**
   * Wrapped deep link navigation in safety guards to prevent crashes from malformed external routes.
   * Centralized all dependency versions using a project-wide **Version Catalog**.
-
-
 
 ## Version 1.18.0
 *(Released January 30, 2026)*
