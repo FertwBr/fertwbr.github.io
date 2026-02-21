@@ -1,6 +1,39 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.19.0 Release Candidate 1
+*(Released February 21, 2026)*
+
+This Release Candidate finalizes the **Cross-Device Plus Experience** and significantly improves ecosystem reliability. We have introduced a 30-day grace period for premium access, a sophisticated license-sync dashboard for Wear OS, and completed a massive localization effort across 17 languages.
+
+#### 📱 Phone
+
+* **UI: Visual Refinement:**
+  * **Fluid Blob Animations:** Re-engineered the background "Blob" animations. By persisting randomness across recompositions and scaling durations instead of using delays, the visuals are now smoother and free of "jank."
+  * **Contextual Alerts:** Improved the "Standby" notification to clearly communicate when the phone has taken over monitoring because the remote device (watch) is disconnected.
+* **New: Global Expansion:**
+  * **Full Localization:** Added hundreds of localized UI strings for Beta settings, and Restore Flows across 17 languages, including Arabic, German, Spanish, French, Hindi, Italian, Japanese, Korean, Polish, Portuguese, Russian, Thai, Turkish, Vietnamese, and Chinese.
+* **Stability:**
+  * **Deduplication:** Applied `distinctUntilChanged` to the Plus-status flow to prevent redundant UI refreshes.
+
+#### ⌚ Wear OS
+
+* **New: Plus Persistence:**
+  * **30-Day Grace Period:** The app now tracks the last successful license sync. If you go offline, your Plus features will remain active for 30 days before requiring a new check, ensuring uninterrupted service in remote areas.
+  * **Optimized Syncing:** Implemented timestamp rounding (to 12-hour intervals) and deduplication for license data transfers. This reduces background battery drain and prevents redundant updates between your phone and watch.
+* **New: Premium Sync Dashboard:**
+  * **Sync Status Card:** A new UI in the settings displays the exact timestamp of your last license check and calculates the remaining days in your 30-day grace period.
+  * **Live Purchase Sync:** When completing a purchase on your phone, the watch now displays a "Waiting for Phone" spinner and automatically dismisses the screen once the Plus status is synchronized.
+* **Fix: Reliability Architecture:**
+  * **Broadcast Trampoline:** Tiles and Complications now use a `QuickCheckReceiver` broadcast to trigger measurements. This improves reliability on Android 12+ by avoiding direct foreground service starts from static UI components.
+  * **Smart Service Fallback:** The app now intelligently attempts a standard service start before falling back to a foreground service, optimizing system resource usage.
+* **UI/UX Polish:**
+  * **Interactive Toasts:** Added success toasts and haptic feedback when a Plus license is successfully detected.
+  * **Standby Awareness:** Notifications now reflect the "Remote Disconnected" state if the phone is handling monitoring duties.
+* **Stability:**
+  * **Lifecycle Fix:** Corrected a critical service bug ensuring the `onDestroy` lifecycle event is handled properly for background tasks.
+  * **Data Layer:** Refined internal coroutine logic and reflection-based timestamp fetching for faster, safer preference access.
+
 ## Version 1.19.0 Beta 2
 *(Released February 20, 2026)*
 
