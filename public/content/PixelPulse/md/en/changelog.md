@@ -4,7 +4,7 @@ Track the evolution of Pixel Pulse. Here you'll find a detailed log of new featu
 ## Version 1.19.0 Release Candidate 1
 *(Released February 21, 2026)*
 
-This Release Candidate finalizes the **Cross-Device Plus Experience** and significantly improves ecosystem reliability. We have introduced a 30-day grace period for premium access, a sophisticated license-sync dashboard for Wear OS, and completed a massive localization effort across 17 languages.
+This Release Candidate finalizes the **Cross-Device Plus Experience** and significantly improves ecosystem reliability. We have introduced a 30-day grace period for plus access, a sophisticated license-sync dashboard for Wear OS, and completed a massive localization effort across 17 languages.
 
 #### 📱 Phone
 
