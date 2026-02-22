@@ -1,6 +1,32 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.19.0 Release Candidate 2
+*(Released February 22, 2026)*
+
+This Release Candidate focuses on hardening the background monitoring architecture for Wear OS and polishing the notification system across the entire ecosystem. We've introduced a more robust activity-based trigger for quick checks and improved the clarity of cross-device notification states.
+
+#### 📱 Phone
+
+* **Notifications:**
+  * **Clearer States:** Streamlined the notification engine to provide clearer, more concise messages for active, fallback, and remote-monitoring (standby) states. Notifications now feature a more compact data description for better readability.
+* **UI Polish:**
+  * **Settings Screen:** Removed an unnecessary status bar overlay (scrim) from the Settings screen, resulting in a cleaner, flush appearance.
+* **Stability:**
+  * **Data Layer:** Refined the internal preference repository with an updated caching mechanism for Plus user status synchronization, alongside minor formatting and documentation improvements.
+
+#### ⌚ Wear OS
+
+* **Core & Reliability:**
+  * **Quick Check Architecture:** Replaced the previous broadcast-based Quick Check system with a secure, transparent `QuickCheckActivity` "trampoline." This ensures the continuous monitoring service launches reliably from Watch Face Complications and Tiles by adhering to strict OS background-start restrictions.
+* **UI/UX Polish:**
+  * **Interactive Feedback:** The new Quick Check architecture now includes user-facing toasts. If a background service launch fails, it gracefully prompts you to restart the service via the notification manager.
+* **Notifications:**
+  * **Clearer States:** Streamlined the notification engine to provide clearer, more concise messages for active, fallback, and remote-monitoring (standby) states. Notifications now feature a more compact data description for better readability.
+* **Stability:**
+  * **Data Layer:** Refined the internal preference repository with an updated caching mechanism for Plus user status synchronization, alongside minor formatting and documentation improvements.
+
+
 ## Version 1.19.0 Release Candidate 1
 *(Released February 21, 2026)*
 
