@@ -1,6 +1,45 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.19.0
+*(Released February 24, 2026)*
+
+This major update transforms Pixel Pulse with an intelligent **Cross-Device Ecosystem**, massive performance scaling, and a refined history engine. We've introduced "Zero-Gap" automatic fallback monitoring, a 30-day offline grace period for Plus users on Wear OS, and silky-smooth high-performance waveforms to handle your largest recording sessions.
+
+#### 📱 Phone
+
+* **New: Zero-Gap Ecosystem Monitoring:**
+  * **Fix Smart Fallback:** If your watch is disconnected or taken off-wrist in Automatic mode, the phone now intelligently detects the stale data state (5-minute threshold) and automatically takes over monitoring duties to ensure no data is lost.
+  * **Contextual Notifications:** The notification engine has been completely rebuilt. It now clearly shows "Remote Active" or "Standby" states so you always know which device is actively monitoring. These alerts are fully localized across 17 languages.
+* **New: High-Performance History Engine:**
+  * **Visual Downsampling:** The waveform charts now use an intelligent peak-preserving downsampling algorithm, maintaining smooth 60 FPS scrolling even when viewing sessions spanning several hours.
+  * **Multi-Filter System:** Apply multiple filters simultaneously. Filter your history by source (Phone vs. Watch), session type, and Favorites all at once via a modern Bottom Sheet.
+  * **Smart Pagination & Selection:** Introduced "Load More" to dramatically reduce initial load times. A new "Select All" toggle intelligently filters across your *entire* database, not just what's visible on screen.
+* **Visual & UI Polish:**
+  * **Fluid Animations:** Re-engineered the background "Blob" animations for a completely smooth, jank-free experience.
+  * **Unified Top Bar:** Standardized the header across the app with bold branding, integrated Plus gradients, and dynamic build badges.
+  * **Restore Purchases:** A dedicated, modern Modal Bottom Sheet now handles Plus status restoration with real-time feedback and troubleshooting tips.
+* **Core & Reliability:**
+  * **Resilient Monitoring:** Added strict timeouts and a "Cycle Guard" to background measurements. This prevents overlapping audio cycles, eliminates race conditions, and safely handles microphone lockups.
+* **Project Modernization:** Fully upgraded to Gradle 9.1, Android Gradle Plugin 9.0.1, Kotlin 2.2, and Java 17 for faster processing and a smaller app footprint.
+* **Billing Stability:** Hardened the Play Store billing connection to strictly preserve your Plus status during temporary network timeouts and prevent concurrent API requests.
+* 
+#### ⌚ Wear OS
+
+* **New: Premium Offline Persistence:**
+  * **30-Day Grace Period:** The app now tracks your last successful Plus license sync. If you go off-grid, your premium features remain active for 30 days before requiring a phone connection.
+  * **Sync Dashboard:** A new UI in settings displays the exact timestamp of your last license check and calculates your remaining offline days.
+* **New: "Silky Smooth" Performance Engine:**
+  * **GPU-Accelerated UI:** The Compass and Meter screens now cache heavy elements into GPU bitmaps, drastically reducing battery drain and CPU usage during active navigation.
+  * **Async Analytics:** Heavy exposure calculations are now precomputed in the background, preventing UI stutters when opening the dashboard.
+  * **Memory Optimization:** Added history pagination ("Load more") with smooth 300ms transition delays to conserve watch memory.
+* **New: Tile & Complication Mastery:**
+  * **Unified Data Layer:** Tiles and Complications now pull directly from the core `ExposureRepository`. They update instantly after a sync with your phone, ensuring your watch face is always accurate.
+  * **Smart Loading:** Complications now feature intelligent loading states that only appear if the displayed data is older than 5 seconds.
+  * **On-Demand Updates:** Removed background collectors from complications in favor of on-demand updates to significantly improve idle battery life.
+* **Core & Reliability:**
+  * **Rock-Solid Background Starts:** Replaced legacy broadcast receivers with a secure, transparent `QuickCheckActivity` trampoline. This ensures continuous monitoring launches reliably from your watch face on modern Wear OS versions without failing.
+
 ## Version 1.19.0 Release Candidate 2
 *(Released February 22, 2026)*
 
