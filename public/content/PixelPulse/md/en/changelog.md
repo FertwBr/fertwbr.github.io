@@ -1,6 +1,32 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.20.0 Beta 1
+*(Released February 25, 2026)*
+
+This first beta for 1.20 introduces two highly requested features: **Automated Backups** to keep your history safely stored without lifting a finger, and **Custom Monitoring Intervals** to let you perfectly balance data accuracy with battery life across your devices.
+
+#### 📱 Phone
+
+* **New: Automated Local Backups:**
+  * **Set and Forget:** You can now schedule automatic backups to run daily, weekly, or monthly.
+  * **Drive Integration:** These automatic backups are saved securely in a dedicated local folder that fully supports Android's native Google Drive backup, ensuring your data is safe even if you change phones.
+  * **Restore Hub:** We've completely redesigned the Backup & Sync settings into a cleaner list layout, featuring new modern Bottom Sheets for easily enabling schedules and restoring previous automatic backups.
+* **New: Custom Monitoring Intervals:**
+  * **Total Control:** You can now adjust how often the app measures background noise, ranging from every 5 minutes up to every 60 minutes.
+  * **Smart Warnings:** The UI now provides helpful contextual warnings if your chosen interval might drain the battery too quickly (under 15 mins) or reduce data accuracy (over 30 mins).
+* **UI & UX Polish:**
+  * **Fluid Feature Cards:** Upgraded the "Feature Cards" with smoother, spring-based expand/collapse animations and dynamically rotating arrows for a more premium feel.
+  * **Expanded Notifications:** System notifications have been upgraded to support expanded text blocks (`BigTextStyle`), ensuring you can comfortably read long alerts or backup statuses directly from your notification tray.
+
+#### ⌚ Wear OS
+
+* **New: Custom Monitoring Intervals:**
+  * **Wrist Control:** You can now configure the background monitoring interval (5 to 60 minutes) directly from a new dedicated settings screen on your watch.
+  * **Instant Sync:** Whatever interval you choose on your watch will automatically sync and apply to your phone (and vice versa).
+* **UI Polish & Haptics:**
+  * **Tactile Sliders:** Introduced a completely custom `WearInlineSlider` for both Interval Selection and Microphone Calibration. It now features precise haptic "ticks" for every adjustment step, making it much easier to configure settings on a small screen.
+
 ## Version 1.19.0
 *(Released February 24, 2026)*
 
