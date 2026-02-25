@@ -1,6 +1,40 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.20.0 Beta 2
+*(Released February 25, 2026)*
+
+This major beta update introduces the **Acoustic Health Engine**, a powerful new analytics system that evaluates your listening habits against World Health Organization (WHO) guidelines. We've also completely overhauled the Exposure screen to look stunning on tablets and foldables, and made exposure alerts significantly smarter.
+
+#### 📱 Phone
+
+* **New: Acoustic Health Engine:**
+  * **WHO Guidelines Integration:** The app now analyzes your sound exposure against official WHO thresholds, including weekly leisure max limits and daytime stress levels.
+  * **Smart Insights:** Added new danger and warning insights for "No Ear Recovery" (when you have virtually no quiet time in 24 hours), "Daytime Stress", and "Sleep Quality" (evaluating noise between 11 PM and 7 AM).
+  * **Health Insights Carousel:** A brand-new horizontal scrolling carousel on the Exposure screen displays your personalized health cards. The cards dynamically change color based on the risk level (Excellent, Normal, Warning, Danger).
+* **UI: Adaptive Large Screen Layouts:**
+  * **Tablet & Foldable Optimization:** The Exposure screen has been completely rewritten. On large screens, it now uses a beautiful two-column split layout, allowing you to view your charts and insights side-by-side with independent scrolling.
+  * **Dynamic Backgrounds:** The top app bar and background now smoothly animate their colors as you scroll through your data.
+  * **Dashboard Polish:** The central Noise Budget ring now features a split-text design to clearly show your usage status (e.g., "Exceeded" in red). Summary cards have also been enlarged for better touch targets and readability.
+* **New: Advanced Alert Tracking:**
+  * **Database Logging:** Exposure alerts are no longer just temporary notifications. They are now permanently logged to your database with full context (Threshold, Duration, Interval, and Source Device).
+  * **Live dB Notifications:** When an exposure alert is triggered, the notification now displays the exact current decibel level that caused the warning.
+  * **Backup Integration:** Your automated and manual backups now track and restore your entire alert history.
+* **Refinement & UX:**
+  * **Streamlined Settings:** Consolidated the monitoring toggle into a new "Master Switch" and improved the layout of exposure interval warnings. Enabling background monitoring now seamlessly prompts a Plus upgrade if you aren't subscribed.
+  * **Responsive Permissions:** The "Permission Denied" screen has been updated to be fully responsive on all screen sizes and now includes a direct shortcut to your device settings.
+
+#### ⌚ Wear OS
+
+* **New: Acoustic Health Engine (Shared):**
+  * **Wrist-Powered Analytics:** The background data collected by your watch now directly feeds into the new Acoustic Health Engine. Your wrist measurements will help calculate WHO-based metrics like Ear Recovery Time and Weekly Habit Patterns.
+* **New: Advanced Alert Tracking (Shared):**
+  * **Historical Logging:** Exposure alerts triggered while wearing your watch are now securely logged to the unified database (Room v6), preserving the exact decibel level and duration that triggered the warning.
+  * **Live Context:** Watch-triggered alert notifications now intelligently include the real-time decibel value.
+* **Core & Stability:**
+  * **Database Upgrade:** The core database has been cleanly migrated to Version 6 to support the new alert context fields without losing your existing history.
+  * **Code Optimization:** Applied `@Keep` annotations to critical internal models (like `MonitoringInterval` and `SourceDevice`) to ensure flawless data synchronization between your watch and phone under strict code shrinking rules.
+
 ## Version 1.20.0 Beta 1
 *(Released February 25, 2026)*
 
