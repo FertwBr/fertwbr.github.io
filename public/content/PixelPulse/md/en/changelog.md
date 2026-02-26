@@ -1,6 +1,38 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.20.0 Beta 3
+*(Released February 26, 2026)*
+
+This beta focuses heavily on **Personalization and Advanced Health Insights**. We have significantly expanded the Acoustic Health Engine to detect complex noise patterns and introduced fully customizable daily routines, allowing the app to adapt its analysis to your specific lifestyle.
+
+#### 📱 Phone
+
+* **New: Personalized Daily Routines:**
+  * **Custom Sleep & Work Hours:** You can now define your exact Sleep and Work/Study schedules, including which days of the week you work.
+  * **Smart Regional Defaults:** Even if you don't set a routine, the app now uses your time zone to intelligently guess standard sleep and work hours for your region (e.g., North America vs. East Asia).
+  * **Material 3 Time Picker:** Upgraded the time selection interface to a modern, fully localized Material 3 picker. You can now toggle between a visual clock dial or direct keyboard input.
+* **New: Advanced Acoustic Insights:**
+  * **Workplace Stress:** The engine now specifically monitors your noise exposure during your personalized work hours and alerts you if levels exceed WHO stress thresholds.
+  * **Pre-Sleep Noise:** A new analysis checks the 2-hour window before your scheduled bedtime, warning you if loud environments might disrupt your upcoming sleep quality.
+  * **Interruption Tracking:** The app now detects "Constant Interruptions," warning you if your quiet periods are frequently broken by sudden noise spikes.
+  * **Habit & Anomaly Detection:** Added insights to track long-term Monthly Progress and instantly flag "Daily Anomalies" (e.g., when a specific day is unusually quiet or loud compared to your weekly average).
+* **UI & Layout Polish:**
+  * **Exposure Dashboard:** The summary cards on the main dashboard have been enlarged for better readability. The "Dominant Noise" card now features an elegant crossfade animation, alternating between the percentage and the noise zone label.
+  * **Insights Carousel:** Refined the spacing and sizing of the Health Insights carousel so cards fit perfectly on both compact phone screens and large tablet displays.
+
+#### ⌚ Wear OS
+
+* **New: On-Wrist Routine Management (Shared):**
+  * **Custom Sleep & Work Hours:** You can now configure your Sleep schedule, Work hours, and Active Work Days directly from your watch via dedicated new settings screens.
+  * **Wrist-to-Phone Sync:** Any changes you make to your routine on your watch instantly sync to your phone, ensuring the Acoustic Health Engine always has your latest schedule.
+* **UI Polish & Interactions:**
+  * **Exposure Settings Redesign:** The Exposure settings screen has been reorganized for clarity, neatly grouping Plus-exclusive features and adding a dedicated "Delete Data" button.
+  * **Smart Loading States:** Added visual loading indicators when the app is fetching or updating your settings to prevent screen freezing.
+* **New: Advanced Acoustic Insights (Shared):**
+  * **Wrist-Powered Analytics:** The data collected by your watch during your newly defined Sleep and Work routines directly feeds into the expanded Acoustic Health Engine, powering the new Workplace Stress and Pre-Sleep Noise insights.
+
+
 ## Version 1.20.0 Beta 2
 *(Released February 25, 2026)*
 
