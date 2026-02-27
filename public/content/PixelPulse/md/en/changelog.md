@@ -1,6 +1,37 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.20.0 Beta 4
+*(Released February 28, 2026)*
+
+This beta brings a massive visual and analytical overhaul to Pixel Pulse. We've completely redesigned how your health data is presented, introducing dynamic typography that reacts to noise levels, highly interactive charts for Sleep and Fatigue analysis, and even more advanced Acoustic Health insights.
+
+#### 📱 Phone
+
+* **New: Advanced Acoustic Health Insights:**
+  * **Deeper Analytics:** The Acoustic Health Engine has been significantly expanded to evaluate your environment against even more WHO guidelines. New insights now track Cognitive Performance (focus environments), Cardiovascular Risk Trends, and Loud Leisure Noise exposure.
+  * **Smarter Curation:** The dashboard now intelligently filters your insights, displaying only the most critical, highest-risk warning per category so you aren't overwhelmed with duplicate alerts.
+* **UI: Dynamic "Expressive" Typography & Colors:**
+  * **Data-Driven Fonts:** Introduced a completely new typography system (`HealthTypographyMapper`). The font size and weight of decibel values and warnings now dynamically scale up and become bolder as the noise levels or risk factors increase, making critical data instantly grab your attention.
+  * **Themed Health Colors:** Health and success indicators now perfectly adapt their shades (Light/Dark) based on your system theme for maximum contrast and readability.
+* **UI: Interactive Health Charts:**
+  * **Sleep Analysis Revamp:** The Sleep Quality screen now features dynamic, data-driven charts. If noise spikes are detected, you'll see a detailed "Interruptions" bar chart; otherwise, you'll get a clear comparative Peak vs. Average chart.
+  * **Ear Recovery (Fatigue) Chart:** Redesigned the Acoustic Fatigue history chart. It now filters out empty days, automatically scales to fit your data, and features larger touch targets with distinct shapes for met vs. unmet recovery goals.
+  * **Noise Budget History:** Replaced the old "Success/Fail" badges with a fully interactive, tappable bar chart that shows your exact usage percentage for the past 4 weeks.
+  * **Habit Pattern Heatmap:** The Habit Pattern screen now uses a richer "Heatmap" layout to visualize your daily noise exposure, alongside a new "Consistency Score" (0-100) that tracks how stable your listening habits are from day to day.
+* **Refinement & UX:**
+  * **Responsive Dialogs & Sheets:** Replaced older pop-up dialogs with modern, smooth Modal Bottom Sheets across the app (e.g., Duration Selection, Monitoring Mode, History Filters).
+  * **History Filters:** The History filter menu now uses a much clearer multi-select list layout instead of chips, making it easier to combine filters. The "No Results" screen also intelligently suggests clearing active filters if nothing is found.
+  * **Minimal Exposure States:** The main Noise Budget ring now displays a dedicated "Minimal Exposure" status if you've barely recorded any noise, rather than showing a tiny, unreadable fraction.
+
+#### ⌚ Wear OS
+
+* **UI: Global Localization (Shared):**
+  * **Full Translation Support:** All the new features introduced in the 1.20 cycle—including Automated Backups, Custom Monitoring Intervals, Daily Routines, and all the new Acoustic Health Insights—have been fully translated across 17 languages (including Spanish, French, German, Japanese, and Portuguese).
+* **Refinement (Shared):**
+  * **Smoother Animations:** Day selection chips and settings buttons now use spring-based scaling animations that adapt to the button's size for a more tactile, premium feel.
+
+
 ## Version 1.20.0 Beta 3
 *(Released February 26, 2026)*
 
