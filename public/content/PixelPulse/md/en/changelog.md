@@ -1,6 +1,38 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.20.0 Beta 5
+*(Released March 2, 2026)*
+
+This massive update brings the 1.20 feature set near its final form. We've introduced dedicated Detail Screens for every single Acoustic Health metric on your phone, completely overhauled the Live Session notifications, and fixed a critical bug regarding background microphone access.
+
+#### 📱 Phone
+
+* **New: Comprehensive Acoustic Health Detail Screens:**
+  * **Deep Dives:** Every single summary card on the Exposure Dashboard (Daily Analysis, Weekly Peaks, Sleep Quality, Ear Recovery, Habit Patterns, Noise Distribution, and Long-Term Trends) now features its own dedicated, full-screen Detail View.
+  * **Interactive Analytics:** Tapping a card now opens these new screens, which are packed with highly interactive, data-driven charts (like the new 90-day interactive calendar for Long-Term Trends and the selectable donut chart for Noise Distribution).
+  * **Smart Deduplication:** The new detail screens intelligently prioritize your Health Insights, ensuring you only see the most critical warning per category without duplicate cards cluttering your view.
+* **New: Enhanced Live Session Notifications:**
+  * **Dynamic Decibel Colors:** The Live Session notification now dynamically changes color in real-time (Green, Yellow, Red) based on your current decibel exposure level. This works seamlessly across standard Android notifications and the Samsung's Now Bar ("Ongoing Activity") pill.
+  * **Save From Notification:** You can now instantly save a Live Session directly from the notification tray using the new localized "Save" action button.
+  * **Redesigned Setup Sheet:** The "Start Live Session" bottom sheet has been completely visually refreshed with a cleaner, list-driven layout and modern typography.
+* **Fix: Shared Microphone Reliability:**
+  * **Background Audio Bug:** Resolved a critical issue where the app would stop actively listening to audio if you left the app open while the background continuous monitoring service was running. The microphone is now intelligently shared via a new client-tagging and reference-counting system, ensuring both live UI meters and background services can record simultaneously without locking each other out.
+* **UI & Layout Polish:**
+  * **Large Screen Mastery:** The new detail screens automatically adapt to tablets and foldables, utilizing smart split-pane layouts and dynamic, scroll-responsive scaffold background colors.
+  * **Snappier Interactions:** Replaced generic click animations with smooth, spring-based scaling for Insight cards.
+  * **Dynamic Typography V2:** Refined the `HealthTypographyMapper` introduced in Beta 4. Decibel values and progress percentages now scale with a smoother, punchier font-weight algorithm.
+* **New: Global Localization Expansion:**
+  * **100% Translated:** Almost all of the massive text additions from the 1.20 cycle—including every new Acoustic Health Insight, Daily Routine setting, Automated Backup flow, and Chart Label—have been fully translated into 17 languages.
+
+#### ⌚ Wear OS
+
+* **Fix: Shared Microphone Reliability (Shared):**
+  * **Background Audio Bug:** The watch app also receives the new microphone reference-counting architecture. This ensures that opening the main app on your watch will no longer interrupt or break the continuous background monitoring service.
+* **UI & Navigation Polish:**
+  * **Exposure Settings Redesign:** The Exposure settings screen has been reorganized for clarity, neatly grouping Plus-exclusive features and adding a dedicated "Delete Data" button.
+  * **Smart Loading States:** Added visual loading indicators (spinners) when the app is fetching or updating your routine settings to prevent screen freezing during syncs.
+
 ## Version 1.20.0 Beta 4
 *(Released February 28, 2026)*
 
