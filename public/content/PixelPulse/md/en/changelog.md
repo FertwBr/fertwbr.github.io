@@ -20,6 +20,9 @@ This beta is heavily focused on **Wear OS Parity and Ecosystem Polish**. We have
   * **Interactive Habit Heatmap:** The Habit Pattern heatmap now supports touch selection. Tap or drag across the morning, afternoon, or night blocks to see the exact decibel values.
   * **Fatigue History Chart:** Added drag-to-scrub support to the Acoustic Fatigue chart, allowing you to easily glide through your 7-day recovery history. We also improved the visual weighting so "Today" is always prominently highlighted.
 * **Refinement & UX:**
+  * **Exposure FAB Group:** Added a new dynamic Floating Action Button (FAB) on the Exposure screen. It intelligently adapts to your recording state, providing quick access to start, stop, or save a Live Session with smooth animations and haptic feedback.
+  * **Live Session Summary:** Redesigned the post-session summary dialog. It now groups your metrics cleanly with custom wavy dividers and features a completely rewritten, exposure-focused bar chart that intelligently downsamples large datasets for perfect rendering.
+  * **Samsung Layout Fix:** Fixed an issue where the Samsung "Now Bar" setup tip could break the layout in the Live Session bottom sheet on smaller devices. The tip is now a neatly expandable/collapsible interactive card.
   * **Habit Consistency Insights:** Added a helpful info dialog explaining how the 0-100 "Consistency Score" is calculated based on your daily routines.
   * **Smart Deduplication (Continued):** Further refined the detail screens to prevent duplicate cards (e.g., ensuring Sleep Averages or Noise Budget histories aren't shown twice on the same page).
 
