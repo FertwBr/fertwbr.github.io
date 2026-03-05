@@ -1,6 +1,34 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.20.0 Beta 6
+*(Released March 5, 2026)*
+
+This beta is heavily focused on **Wear OS Parity and Ecosystem Polish**. We have brought the massive Acoustic Health updates from the phone directly to your wrist, complete with new data-rich charts and a beautiful, unified color system.
+
+#### 📱 Phone
+
+* **UI: Color & Theme Unification:**
+  * **Semantic Health Colors:** The entire Exposure Screen now can use a unified `HealthColors` system. All charts, icons, and text automatically adapt their shades (Danger, Warning, Normal, Excellent) based on whether you are using Light or Dark mode, ensuring perfect contrast at all times.
+  * **Dynamic Typography Polish:** Tweaked the dynamic font scaling introduced in recent betas. Progress percentages and decibel values now scale with a more aggressive font weight, making critical information punchier and easier to read at a glance.
+* **UI: Interactive Health Charts:**
+  * **90-Day Trend Calendar:** The Long-Term Trend chart is now fully responsive. On tablets and foldables, it expands to show a massive 90-day grid. We've also added drag-to-scrub support so you can smoothly slide your finger across the calendar to view daily averages.
+  * **Interactive Habit Heatmap:** The Habit Pattern heatmap now supports touch selection. Tap or drag across the morning, afternoon, or night blocks to see the exact decibel values.
+  * **Fatigue History Chart:** Added drag-to-scrub support to the Acoustic Fatigue chart, allowing you to easily glide through your 7-day recovery history. We also improved the visual weighting so "Today" is always prominently highlighted.
+* **Refinement & UX:**
+  * **Habit Consistency Insights:** Added a helpful info dialog explaining how the 0-100 "Consistency Score" is calculated based on your daily routines.
+  * **Smart Deduplication (Continued):** Further refined the detail screens to prevent duplicate cards (e.g., ensuring Sleep Averages or Noise Budget histories aren't shown twice on the same page).
+
+#### ⌚ Wear OS
+
+* **New: Wrist-Based Health Analytics:**
+  * **Deep Detail Screens:** Just like the phone app, Wear OS now has dedicated detail screens for Sleep Quality, Acoustic Fatigue, Habit Patterns, and Long-Term Trends.
+  * **On-Wrist Charts:** We've built custom, highly optimized charts specifically for circular displays. You can now view your Sleep Interruptions bar chart, a 4-week Noise Budget history graph, and a daily Habit Heatmap right from your watch.
+* **UI: Visual Overhaul:**
+  * **Health Color System:** The watch app now shares the exact same `WearHealthColors` palette as the phone, ensuring that Danger (Red), Warning (Yellow), and Excellent (Green) states look identical across your devices.
+  * **Data-Driven Carousel:** The main Exposure Dashboard has been rewritten. It now acts as a smart, swipeable carousel that prioritizes your most critical Health Insights (e.g., automatically placing a "Poor Sleep" warning front and center).
+  * **Responsive Typography:** Upgraded the text components (`WearHabitMetricRow`, `SleepDataRow`) to use scrolling marquee text for long labels, ensuring nothing gets cut off on small screens.
+
 ## Version 1.20.0 Beta 5
 *(Released March 2, 2026)*
 
