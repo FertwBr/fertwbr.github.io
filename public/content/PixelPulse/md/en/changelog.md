@@ -8,6 +8,10 @@ This beta is heavily focused on **Wear OS Parity and Ecosystem Polish**. We have
 
 #### 📱 Phone
 
+* **New: Smart Top Bar Status:**
+  * **Dynamic Status Pill:** The top navigation bar now features an intelligent, animated status indicator for active Live Sessions, battery optimization warnings, and missing permissions.
+  * **Status Modal:** Tapping the new top bar status pill opens a dedicated bottom sheet with detailed information, live progress indicators, and quick actions (like stopping/saving a session or fixing permissions).
+  * **Auto-Hiding Titles:** The main screen title now automatically fades out if the status pill needs more room, preventing awkward text overlaps on smaller screens.
 * **UI: Color & Theme Unification:**
   * **Semantic Health Colors:** The entire Exposure Screen now can use a unified `HealthColors` system. All charts, icons, and text automatically adapt their shades (Danger, Warning, Normal, Excellent) based on whether you are using Light or Dark mode, ensuring perfect contrast at all times.
   * **Dynamic Typography Polish:** Tweaked the dynamic font scaling introduced in recent betas. Progress percentages and decibel values now scale with a more aggressive font weight, making critical information punchier and easier to read at a glance.
@@ -21,6 +25,8 @@ This beta is heavily focused on **Wear OS Parity and Ecosystem Polish**. We have
 
 #### ⌚ Wear OS
 
+* **Core: Unified Insight Engine:**
+  * **AcousticHealthAnalyzer:** The watch app now fully utilizes the shared `AcousticHealthAnalyzer` to generate your health insights, perfectly matching the phone's advanced WHO-based logic. The legacy `ExposureCalculator` has been completely refactored to focus exclusively on rendering the new visual charts and raw metric cards.
 * **New: Wrist-Based Health Analytics:**
   * **Deep Detail Screens:** Just like the phone app, Wear OS now has dedicated detail screens for Sleep Quality, Acoustic Fatigue, Habit Patterns, and Long-Term Trends.
   * **On-Wrist Charts:** We've built custom, highly optimized charts specifically for circular displays. You can now view your Sleep Interruptions bar chart, a 4-week Noise Budget history graph, and a daily Habit Heatmap right from your watch.
