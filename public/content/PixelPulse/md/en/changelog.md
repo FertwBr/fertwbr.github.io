@@ -1,6 +1,27 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.20.0 Beta 6.1
+*(Released March 6, 2026)*
+
+This is a focused hotfix and polish update. We've introduced a major overhaul to how the Acoustic Health Engine calculates averages, completely redesigned the Monthly Analysis chart, and squashed several UI and notification bugs.
+
+#### 📱 Phone
+
+* **Core: True Time-Weighted Accuracy (Major Fix):**
+  * **No More Data Skewing:** Previously, taking frequent short measurements (like during a Live Session) could artificially skew your daily and weekly averages. The engine now uses true "time-weighted" averaging, meaning a 10-second loud spike is mathematically weighed correctly against hours of background quiet time. Your Acoustic Health Insights are now dramatically more accurate.
+* **UI: Monthly Chart Redesign:**
+  * **Animated Vertical Bars:** The Monthly Analysis header has been completely redesigned. It now features a beautiful, compact vertical bar chart for your 4-week history, complete with staggered entry animations, dynamic typography, and a highlighted track for the current week.
+* **Bug Fixes & UX Polish:**
+  * **Stuck Notifications Fixed:** Resolved an issue where the Live Session timer and notification could sometimes get stuck or linger in the notification tray after you clicked "Stop" or "Save".
+  * **Scrollable Sheets:** Fixed a layout bug where the "Start Live Session" setup sheets couldn't be scrolled on smaller screens, cutting off content.
+  * **Budget Ring Sizing:** Improved the text scaling inside the main Noise Budget ring to ensure the percentage text never overflows the circle, even when hitting exactly 100% (Danger state).
+
+#### ⌚ Wear OS
+
+* **Core: True Time-Weighted Accuracy (Shared):**
+  * **Precision on the Wrist:** The watch app inherits the massive time-weighted calculation fix. Any data recorded manually or via Live Sessions on your watch will now blend perfectly with your background measurements without skewing your long-term WHO health insights.
+
 ## Version 1.20.0 Beta 6
 *(Released March 5, 2026)*
 
