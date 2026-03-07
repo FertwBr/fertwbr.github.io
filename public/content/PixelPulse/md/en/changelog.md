@@ -1,6 +1,31 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.20.0 Beta 7
+*(Released March 7, 2026)*
+
+This beta is completely dedicated to **Performance Scaling and Global Localization**. As we prepare for the final release, we've entirely re-architected how the Acoustic Health Engine loads your data, resulting in dramatically faster dashboard load times on both your phone and watch, while also finalizing our 17-language translation effort.
+
+#### 📱 Phone
+
+* **Core: Massive Performance Scaling:**
+  * **Lazy-Loaded Analytics:** We've fundamentally changed how your Exposure Dashboard loads. Heavy, deep-dive calculations (like 90-day heatmaps or sleep interruptions) are now completely deferred until you actually tap into a specific Detail Screen. This makes the main dashboard load near-instantly and massively reduces battery drain.
+  * **Database-Level Aggregation:** Instead of loading thousands of raw sound measurements into memory, the app now uses optimized SQLite pre-aggregations. The database itself does the heavy lifting for your hourly and daily averages, drastically reducing CPU usage.
+  * **Asynchronous UI Updates:** Separated fast UI updates (like toggling a switch or updating a live session state) from the heavy background health analysis. The app will no longer "stutter" or drop frames while calculating your weekly noise budget in the background.
+* **UI & UX Polish:**
+  * **Smart Status Pill:** The top navigation bar's status pill will now only expand when its actual status *type* changes (e.g., from Idle to Loading), rather than unnecessarily expanding every time the text updates, creating a much less distracting experience.
+  * **Duration Formatting:** Centralized and polished how durations (MM:SS) are formatted across the app, ensuring labels look perfectly centered and never clip, regardless of your screen size.
+* **Global Localization:**
+  * **Full Translation:** Completed the translation effort for all the new Beta 1.20 features. Everything from Weekly Peaks analysis to the new Live Session "Save" actions and Habit Consistency info dialogs are now perfectly localized across 17 languages.
+
+#### ⌚ Wear OS
+
+* **Core: Extreme Performance Scaling (Shared):**
+  * **Lazy-Loaded Analytics:** Just like the phone app, the Wear OS dashboard now only calculates top-level summaries. Deep analytics are strictly deferred to the new Detail Screens, preventing memory spikes and keeping your watch UI buttery smooth.
+  * **Database-Level Aggregation:** The watch app also inherits the new pre-aggregated database flows, saving precious battery life by offloading heavy math to the SQLite engine.
+* **Global Localization (Shared):**
+  * **Wrist Translations:** The entire suite of new Wear OS Acoustic Health features—including Sleep Quality metrics, Fatigue Recovery formats, Trend labels, and new Noise Budget states—have been fully translated into 17 languages.
+
 ## Version 1.20.0 Beta 6.1
 *(Released March 6, 2026)*
 
