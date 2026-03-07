@@ -1,6 +1,37 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+
+## Version 1.18.0 Beta 2
+*(Released March 7, 2026)*
+
+This beta brings deep visual customization to Pixel Compass. We've introduced multiple Weather Icon Styles to match your aesthetic, a completely interactive Customization Preview Board, and significantly smoothed out app animations and stability.
+
+#### 📱 Phone
+
+* **New: Weather Icon Styles:**
+  * **Choose Your Look:** You can now customize how weather is displayed across the app and widgets. Choose between the classic "Legacy" icons, the colorful "Vibrant" set, or the clean "Immersive" style.
+  * **Dynamic Night Mode:** Added dozens of brand-new, high-quality vector assets for nighttime weather conditions across all style variants.
+  * **Widget Integration:** Your chosen Weather Icon Style instantly syncs to your home screen widgets and previews.
+* **UI: Customization Preview Board:**
+  * **Interactive Settings:** We've completely redesigned the Customization Settings screen. It now features an animated, tabbed "Preview Board" that lets you instantly see how your Interface, Compass, and Card style changes will look before applying them.
+  * **Pill Tab Selector:** Replaced the standard segmented buttons with a smooth, pill-shaped sliding tab selector that features satisfying haptic feedback when tapped.
+  * **Rotating Previews:** The new "Cards & Icons" tab features a dynamic preview that automatically rotates between sample weather icons and different dynamic card layouts.
+* **Visual Polish & Animations:**
+  * **Fluid Feature Cards:** The expandable "Feature Cards" now use a smoother, spring-based expand/shrink animation with rotating arrows for a more premium feel.
+  * **Stable Blob Backgrounds:** Re-engineered the animated background "Blobs" to be much smoother, eliminating jitter during screen transitions.
+  * **Expanded Notifications:** Weather and location notifications now fully support expanded text (`BigTextStyle`), ensuring no information gets cut off.
+* **New: Global Expansion:**
+  * **Greek Language Support:** Pixel Compass is now fully translated into Greek (el), including all UI elements, settings, and widgets for both phone and watch.
+* **Core & Stability:**
+  * **Deep Link Safety:** Added safeguards to prevent the app from crashing when opened via malformed or unregistered deep links.
+  * **Billing Reliability:** Improved the Play Store connection logic to prevent duplicate billing requests and race conditions.
+  * **Modernized Build System:** Fully migrated the Open Source Licenses plugin to the new Version Catalog system.
+
+#### ⌚ Wear OS
+* **Global Expansion (Shared):**
+  * **Greek Language Support:** The Wear OS app is now fully translated into Greek.
+
 ## Version 1.18.0 Beta 1
 *(Released February 28, 2026)*
 
