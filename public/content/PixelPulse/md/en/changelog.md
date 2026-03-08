@@ -1,6 +1,24 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.20.0 Beta 8
+*(Released March 8, 2026)*
+
+This beta is heavily focused on the **Wear OS Experience**. We've addressed several layout and background service issues specifically on smartwatches, significantly improved the Tile and Complication reliability, and introduced smoother navigation indicators for your wrist.
+
+#### ⌚ Wear OS
+
+* **Fix: True Quick Check Reliability:**
+  * **Instant Measurements:** We have completely rebuilt how "Quick Checks" are handled when triggered from a Tile or Complication. Instead of attempting to launch a background service (which the OS often blocks), Quick Checks now run directly and silently within an invisible Activity. This guarantees that your instant decibel readings will *always* succeed without failing or getting stuck.
+  * **Consistent Noise Budget Math:** Fixed a critical bug where the 24h Tile sometimes calculated your Noise Budget using a hardcoded interval, leading to mismatched numbers between the Tile and the main app. The Tile now correctly pulls your custom monitoring interval for perfectly accurate math.
+* **Core & Performance:**
+  * **Optimized 24h Tile:** The "Last 24h" bar chart tile now utilizes the new pre-aggregated database SQLite flows introduced in Beta 7. By offloading the heavy math to the database, the tile renders significantly faster and uses less battery.
+  * **Persistent Monitoring Notification:** The background recording notification has been upgraded to properly utilize the Wear OS "Ongoing Activity" system (LocusId). This ensures the monitoring icon remains consistently visible at the bottom of your watch face without buzzing or vibrating unnecessarily.
+* **UI & Layout Polish:**
+  * **Expressive Pager Indicators:** Replaced the simple static dots on the Exposure Dashboard with a beautiful, animated "Expressive" indicator that dynamically scales as you swipe through your health cards.
+  * **Unified Progress Bars:** Centralized the design of the Acoustic Fatigue progress bars, ensuring consistent, rounded segment styling and proper color mapping across all Fatigue detail screens.
+  * **Text Formatting:** Prevented awkward text-wrapping on small circular screens. The Habit Pattern and Sleep Quality cards now intelligently scroll (marquee) long labels or cleanly truncate them to ensure your data is always legible.
+
 ## Version 1.20.0 Beta 7
 *(Released March 7, 2026)*
 
