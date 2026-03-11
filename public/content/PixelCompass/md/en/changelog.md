@@ -1,6 +1,30 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.18.0 Beta 3
+*(Released March 11, 2026)*
+
+This beta introduces a massive overhaul to how you customize Pixel Compass. We have completely rewritten the customization engine to introduce a powerful new "Edit Mode" featuring drag-and-drop layouts, individual element styling, and an undo/redo history stack.
+
+#### 📱 Phone
+
+* **New: Advanced "Edit Mode" Architecture:**
+  * **Unified Customization:** The main screen now features a dedicated "Edit Mode." When activated, the bottom navigation hides, and a new Floating Editor Bar appears at the bottom of the screen.
+  * **Drag & Drop Layouts:** You can now long-press and drag any dynamic card (Weather, UV, Solar, etc.) to rearrange your layout instantly. The grid will automatically shift and reorganize as you drag.
+  * **Element Selection:** Tap on any individual element—like the Compass Rose, the Weather Cards, or the Status Icons—to select it. The new Editor Bar will instantly update to show settings specific to the item you selected.
+  * **Undo, Redo, and Reset:** Made a mistake? The top bar now features a robust history stack with Undo and Redo arrows. You can also revert your entire layout back to the defaults with a single tap.
+  * **Draft Saving:** Changes made in Edit Mode are kept in a "draft" state until you press "Done" to save them or "Close" to discard them, preventing accidental layout breaks.
+* **New: Smart Placeholders & Visibility Toggles:**
+  * **Hidden Elements Management:** You can now easily hide or show specific cards or status icons directly from the Editor Bar.
+  * **Visual Placeholders:** When a card is hidden, Edit Mode will display a clean, dashed "Add" placeholder in its spot, making it incredibly easy to re-add elements exactly where you want them.
+* **UI: Floating Editor Bar Refinements:**
+  * **Tabbed Interface:** The Editor Bar is split into clean, logical tabs (e.g., Compass shape settings vs. Card styles) utilizing expressive, expanding chips.
+  * **Split Buttons:** The top app bar now uses modern Material 3 "Split Buttons" to neatly separate the "Done" and "Reset" actions.
+* **UI: Customization Preview Polish:**
+  * **Responsive Previews:** The "Cards & Icons" preview board in the Settings menu has been upgraded to a responsive square grid that scales perfectly on tablets, foldables, and standard phones.
+  * **Theme Showcase:** Added a dynamic `AppThemeShowcasePreview` that accurately reflects how your current Material You theme colors will look across different interface elements.
+  * **Expressive Chip Tabs:** Replaced the old sliding indicator in the customization menu with independent, chip-style tabs that smoothly expand to reveal an icon when selected.
+* **State Management:** * Introduced a dedicated `CompassEditorViewModel`. By completely separating the "editing" state from the "live" state, the compass and weather data remain perfectly stable and frozen while you are customizing your layout, preventing visual glitches.
 
 ## Version 1.18.0 Beta 2
 *(Released March 7, 2026)*
