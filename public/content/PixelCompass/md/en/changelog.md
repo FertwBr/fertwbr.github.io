@@ -1,6 +1,29 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.20.0 Beta 4
+*(Released March 12, 2026)*
+
+This beta polishes the massive Edit Mode introduced previously, focusing on stability, layout refinements, and expanding editor support for Contextual Pagers and dynamic weather cards. We've also enhanced the Regional Preferences logic with automatic globe icons.
+
+#### 📱 Phone
+
+* **New: Expanded Edit Mode Capabilities:**
+  * **Contextual Pager Editing:** The Contextual Insight Pager is now fully editable. You can select it, move it around, or hide it just like any other dynamic card.
+  * **Plus Feature Smart Gating:** Edit mode is now fully aware of Premium (Plus) features. If a Plus-only card is hidden and you aren't a subscriber, it will appear dimmed in the "Add Card" menu with a Plus badge, and tapping it will prompt an upgrade instead of breaking the layout.
+  * **Dynamic Weather Previews:** Weather cards and Condition text now correctly display your selected Weather Icon Style (Legacy, Vibrant, or Immersive) while in Edit Mode, giving you an accurate preview of your setup.
+* **UI & Layout Polish:**
+  * **Smart Top Bar Redesign:** The `PixelCompassTopBar` has been completely refactored to be more flexible. It now intelligently handles very long custom titles (which automatically scroll) and animates the back button smoothly.
+  * **Responsive Grid Logic:** Addressed a layout crash issue on certain devices when dragging items in the grid. The underlying card layout now uses an `IntrinsicSizeBlocker` to ensure the drag-and-drop grid remains perfectly stable, even when rendering single-item rows.
+  * **Theme Showcase Polish:** The `AppThemeShowcasePreview` in the customization settings has been updated to use fully responsive sizing (`fillMaxHeight`/`aspectRatio`), ensuring the theme previews look perfect on both narrow phones and wide tablets.
+* **New: Regional Preferences Enhancements:**
+  * **Auto-Region Globe Icons:** The Regional Preferences menu now displays a dynamic "Globe" icon that visually matches your detected region (e.g., North America, South America, Europe, Asia) based on your Time Zone and Locale.
+  * **Expanded Unit Support:** The automatic unit detection has been expanded to support more countries for Fahrenheit and Imperial measurements (including Belize and the Bahamas), and pressure units (InHg/mbar/hPa) are now mapped more accurately by country.
+  * **Preview HUD:** Added a sleek, HUD-style preview board above the Regional formats switch so you can instantly see how your time, temperature, and distance units will look.
+* **Core & Stability:**
+  * **Altitude Status Accuracy:** Improved how the app reports altitude calibration during cold starts. It now shows "Awaiting Location" instead of a confusing "Unavailable" state while searching for GPS, and correctly remembers your last calibration method (Barometer, Manual, or GPS Fallback) if the network fails.
+
+
 ## Version 1.18.0 Beta 3
 *(Released March 11, 2026)*
 
