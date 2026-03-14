@@ -1,6 +1,37 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.20.0 Beta 5
+*(Released March 14, 2026)*
+
+This beta finalizes the deep customization architecture for Pixel Compass. We've polished the Edit Mode experience, expanded Regional Preferences with intuitive visual previews, and brought the new highly configurable Compass Arcs to Wear OS.
+
+#### 📱 Phone
+
+* **UI: Smart Top Bar Redux:**
+  * **Intelligent Title Collapsing:** The `PixelCompassTopBar` has been further refined. It now uses a custom "Constrained Fit Text" logic that mathematically guarantees your custom titles will never clip or awkwardly overlap with the status pill or action icons, smoothly hiding itself if space runs out on smaller screens.
+  * **Expressive Action Buttons:** Replaced standard top bar icons with new `ExpressiveIconButton` components. Tapping Undo, Redo, or Settings now triggers satisfying, Material 3 spatial rotation and scale animations.
+* **UI: Edit Mode & Dynamic Cards Polish:**
+  * **Contextual Pager Mastery:** The Contextual Insight Pager now fully respects Edit Mode. You can select it, drag it, or hide it, and it will correctly display a dashed placeholder or a mock insight preview when edited.
+  * **Responsive Grid Logic:** Introduced an `IntrinsicSizeBlocker` to the dynamic card grid. This fixes layout crashes and ensures perfectly stable drag-and-drop animations, even when rendering single-item rows or hiding the location/pager cards.
+  * **Dynamic Weather Previews:** The "Dynamic Cards" settings screen now features a real-time `DynamicCardsPreviewBoard`. As you change your Weather Icon Style (Legacy/Vibrant/Immersive), the preview board instantly updates to show exactly how your cards will look.
+* **New: Regional Preferences HUD:**
+  * **Visual Format Previews:** Added a sleek, HUD-style preview board above the Regional formats switch so you can instantly see how your current time, temperature, and distance units will look before applying them.
+  * **Auto-Region Globe Icons:** The Regional Preferences menu now displays a dynamic "Globe" icon that visually matches your detected continent (North America, South America, Europe, Asia) based on your Time Zone and Locale.
+* **Core & Stability:**
+  * **Compass Navigation Cleanup:** Removed redundant settings callbacks from the compass layouts, ensuring the new Edit Mode Floating Bar handles all customization routing cleanly.
+  * **Altitude Status Accuracy:** Improved how the app reports altitude calibration during cold starts. It now defaults to "Awaiting Location" and correctly remembers your last calibration method (Barometer, Manual, or GPS Fallback).
+
+#### ⌚ Wear OS
+
+* **New: Configurable Compass Arcs:**
+  * **Wrist Customization:** You can now fully customize the four data arcs around the compass dial on your watch.
+  * **New Arc Settings Screen:** A dedicated `ArcCustomizationScreen` allows you to assign different metrics (Altitude, Incline, GPS Lat/Long, Speed, Pressure, or Time) to the Top Left, Top Right, Bottom Left, and Bottom Right positions.
+  * **Live Data Rendering:** Added support for computing and rendering real-time Speed (km/h or mph), Barometric Pressure, and formatted Time directly onto the curved arcs of the compass face.
+* **Global Localization (Shared):**
+  * **Greek Language Support:** Added comprehensive Greek (el) translations across the app, shared modules, and Wear OS, ensuring all new customization menus and arc labels are fully localized.
+
+
 ## Version 1.20.0 Beta 4
 *(Released March 12, 2026)*
 
