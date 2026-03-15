@@ -1,3 +1,8 @@
+/**
+ * @file PixelPulseConfig.js
+ * @description Configuration properties for the Pixel Pulse product project.
+ */
+
 export const pixelPulseConfig = {
   appName: "Pixel Pulse",
   appId: "io.github.fertwbr.pixelpulse",

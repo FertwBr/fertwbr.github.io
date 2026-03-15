@@ -1,3 +1,8 @@
+/**
+ * @file PixelCompassConfig.js
+ * @description Configuration properties for the Pixel Compass product project.
+ */
+
 export const pixelCompassConfig = {
   appName: "Pixel Compass",
   appId: "io.github.fertwbr.pixelcompass",
