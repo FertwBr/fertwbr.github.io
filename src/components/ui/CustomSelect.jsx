@@ -1,12 +1,11 @@
+/**
+ * @file CustomSelect.jsx
+ * @description Custom Select component with animations and Glassmorphism styling. Replaces the native select for a consistent look.
+ */
+
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import PropTypes from 'prop-types';
-
-/**
- * @typedef {Object} SelectOption
- * @property {string} value - The internal value of the option.
- * @property {string} label - The visible text of the option.
- */
 
 /**
  * Custom Select component with animations and Glassmorphism styling.
@@ -47,21 +46,13 @@ const CustomSelect = ({ label, value, onChange, options }) => {
                     onClick={() => setIsOpen(!isOpen)}
                     className="custom-input"
                     style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        width: '100%',
-                        textAlign: 'left',
-                        cursor: 'pointer',
-                        paddingRight: '16px'
+                        display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%',
+                        textAlign: 'left', cursor: 'pointer', paddingRight: '16px'
                     }}
                 >
                     <span style={{
-                        color: 'var(--md-sys-color-on-surface)',
-                        whiteSpace: 'nowrap',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        marginRight: '8px'
+                        color: 'var(--md-sys-color-on-surface)', whiteSpace: 'nowrap',
+                        overflow: 'hidden', textOverflow: 'ellipsis', marginRight: '8px'
                     }}>
                         {selectedLabel}
                     </span>
@@ -70,10 +61,8 @@ const CustomSelect = ({ label, value, onChange, options }) => {
                         className="material-symbols-outlined"
                         style={{
                             transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                            transition: 'transform 0.3s ease',
-                            color: 'var(--md-sys-color-on-surface-variant)',
-                            fontSize: '24px',
-                            flexShrink: 0
+                            transition: 'transform 0.3s ease', color: 'var(--md-sys-color-on-surface-variant)',
+                            fontSize: '24px', flexShrink: 0
                         }}
                     >
                         expand_more
@@ -88,18 +77,11 @@ const CustomSelect = ({ label, value, onChange, options }) => {
                             exit={{ opacity: 0, y: -10, scale: 0.98 }}
                             transition={{ duration: 0.2, ease: "easeOut" }}
                             style={{
-                                position: 'absolute',
-                                top: '100%',
-                                left: 0,
-                                right: 0,
+                                position: 'absolute', top: '100%', left: 0, right: 0,
                                 background: 'var(--md-sys-color-surface-container-high)',
                                 border: '1px solid var(--md-sys-color-outline-variant)',
-                                borderRadius: '16px',
-                                padding: '8px',
-                                zIndex: 100,
-                                boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-                                maxHeight: '250px',
-                                overflowY: 'auto'
+                                borderRadius: '16px', padding: '8px', zIndex: 100,
+                                boxShadow: '0 8px 32px rgba(0,0,0,0.4)', maxHeight: '250px', overflowY: 'auto'
                             }}
                         >
                             {options.map((opt) => (
@@ -110,18 +92,12 @@ const CustomSelect = ({ label, value, onChange, options }) => {
                                         setIsOpen(false);
                                     }}
                                     style={{
-                                        padding: '12px 16px',
-                                        borderRadius: '12px',
-                                        cursor: 'pointer',
+                                        padding: '12px 16px', borderRadius: '12px', cursor: 'pointer',
                                         color: value === opt.value ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-surface)',
                                         background: value === opt.value ? 'var(--md-sys-color-secondary-container)' : 'transparent',
-                                        marginBottom: '4px',
-                                        transition: 'background 0.2s',
-                                        fontSize: '0.95rem',
-                                        fontWeight: value === opt.value ? 600 : 400,
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'space-between'
+                                        marginBottom: '4px', transition: 'background 0.2s', fontSize: '0.95rem',
+                                        fontWeight: value === opt.value ? 600 : 400, display: 'flex',
+                                        alignItems: 'center', justifyContent: 'space-between'
                                     }}
                                     onMouseEnter={(e) => {
                                         if (value !== opt.value) e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
