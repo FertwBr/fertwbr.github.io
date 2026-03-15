@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="1000"><g clip-path="url(#SvgjsClipPath1095)"><rect width="1000" height="1000" fill="#ffffff"></rect><g transform="matrix(1.953125,0,0,1.953125,0,0)"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512"><svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="256" cy="256" r="15" fill="url(#paint0_linear_281_53573)"></circle>
+<path d="M228.567 235.13C230.509 231.279 332.315 148.559 341.855 154.384C351.538 160.299 288.581 270.631 281.117 278.553C278.286 282.513 176.265 365.897 166.778 360.104C157.04 354.156 221.897 243.983 228.567 235.13ZM256 231C242.193 231 231.001 242.193 231.001 256C231.001 269.807 242.193 281 256 281C269.807 281 281 269.807 281 256C281 242.193 269.807 231 256 231Z" fill="url(#paint1_linear_281_53573)"></path>
+<defs>
+<linearGradient id="paint0_linear_281_53573" x1="265.853" y1="246.218" x2="248.972" y2="269.201" gradientUnits="userSpaceOnUse">
+<stop stop-color="#578CFF"></stop>
+<stop offset="0.710029" stop-color="#0057CC"></stop>
+</linearGradient>
+<linearGradient id="paint1_linear_281_53573" x1="312.5" y1="190" x2="189" y2="327.5" gradientUnits="userSpaceOnUse">
+<stop offset="0.243474" stop-color="#578CFF"></stop>
+<stop offset="0.710029" stop-color="#0057CC"></stop>
+</linearGradient>
+<clipPath id="SvgjsClipPath1095"><rect width="1000" height="1000" x="0" y="0" rx="500" ry="500"></rect></clipPath></defs>
+</svg></svg></g></g></svg>
