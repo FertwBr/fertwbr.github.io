@@ -1,7 +1,33 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
-## Version 1.20.0 Beta 5
+## Version 1.18.0 Release Candidate 1
+*(Released March 16, 2026)*
+
+This Release Candidate finalizes our major customization updates and introduces a massive quality-of-life upgrade with a completely new in-app feedback system. We have also brought full Regional Preferences parity to Wear OS and applied extensive UI and UX polish across all devices.
+
+#### 📱 Phone
+
+* **New: Direct In-App Feedback System:**
+  * **No More Third-Party Apps:** We have completely replaced the old method of opening your external email client (like Gmail or Outlook). You can now submit bug reports, ideas, and screenshots securely and directly from within the app.
+  * **Smart Auto-Replies:** When you submit feedback, you will instantly receive a beautifully formatted, localized confirmation email. These email templates now fully support dynamic Light and Dark modes to match your email client.
+* **UI & UX Polish:**
+  * **Interactive Disabled Settings:** Tapping on a "disabled" settings row (such as a Premium feature or a setting requiring permissions) no longer does nothing. It now intelligently intercepts the tap and provides a helpful prompt or explanation.
+  * **Expressive Top Bar:** The top navigation bar now uses `ExpressiveIconButton` components, giving actions like Undo, Redo, and Settings satisfying, fluid animations when pressed.
+  * **Visual Cleanups:** Disabled settings now use a consistent 38% opacity for better visual hierarchy. Long setting titles will now smoothly scroll (marquee) instead of getting cut off on smaller screens.
+  * **Refined Placeholders:** The "Add Card" placeholders and compass overlays have received visual tweaks, using softer strokes and better scaling for a cleaner look during Edit Mode.
+
+#### ⌚ Wear OS
+
+* **New: Regional Preferences & Unit Control:**
+  * **Wear OS Parity:** The powerful Regional Preferences system from the phone is now fully available on your wrist.
+  * **Automatic or Manual:** You can now toggle a master switch to leave your units on "Automatic" (dynamically adapting to your location/timezone), or manually override your preferred Measurement (Metric/Imperial), Temperature, Time Format, and Pressure units directly from the watch settings.
+* **UI & UX Polish:**
+  * **Revamped Settings UI:** We've completely redesigned the Display and Units settings on Wear OS. Instead of small toggles, the app now uses large, full-width buttons, making it much easier to tap and configure your preferences on a small screen.
+  * **Arc Customization Reset:** Added a convenient `EdgeButton` at the bottom of the Arc Customization screen, allowing you to instantly reset your corner data back to the defaults.
+  * **Scrolling Text:** Long text labels (like specific data types or statuses) now utilize a scrolling marquee effect to ensure you can read everything clearly without awkward line breaks.
+
+## Version 1.18.0 Beta 5
 *(Released March 14, 2026)*
 
 This beta finalizes the deep customization architecture for Pixel Compass. We've polished the Edit Mode experience, expanded Regional Preferences with intuitive visual previews, and brought the new highly configurable Compass Arcs to Wear OS.
@@ -32,7 +58,7 @@ This beta finalizes the deep customization architecture for Pixel Compass. We've
   * **Greek Language Support:** Added comprehensive Greek (el) translations across the app, shared modules, and Wear OS, ensuring all new customization menus and arc labels are fully localized.
 
 
-## Version 1.20.0 Beta 4
+## Version 1.18.0 Beta 4
 *(Released March 12, 2026)*
 
 This beta polishes the massive Edit Mode introduced previously, focusing on stability, layout refinements, and expanding editor support for Contextual Pagers and dynamic weather cards. We've also enhanced the Regional Preferences logic with automatic globe icons.
