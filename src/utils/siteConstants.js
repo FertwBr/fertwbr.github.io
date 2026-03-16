@@ -10,14 +10,14 @@ export const SiteConfig = {
         version: pkg.version,
         author: 'Fernando Vaz',
         startYear: 2025,
-        email: 'fetwbr@programmer.net',
+        email: 'contact@fertwbr.com',
     },
     /** External links */
     links: {
         githubProfile: 'https://github.com/fertwbr',
         linkedin: 'https://linkedin.com/in/fernando-bela',
         repo: 'https://github.com/fertwbr/fertwbr.github.io',
-        mailTo: 'mailto:fetwbr@programmer.net'
+        mailTo: 'mailto:contact@fertwbr.com'
     },
     /** Common assets URLs */
     assets: {
@@ -25,7 +25,8 @@ export const SiteConfig = {
     },
     /** Important static internal routes */
     routes: {
-        siteChangelog: '/changelog'
+        siteChangelog: '/changelog',
+        feedback: '/feedback'
     },
     /**
      * Generates the dynamic copyright string.
