@@ -1,6 +1,6 @@
 import React from 'react';
 import ProductPage from '../ProductPage';
-import { pixelPulseConfig } from './PixelPulseConfig';
+import {pixelPulseConfig} from './PixelPulseConfig';
 import PixelPulseHome from './PixelPulseHome';
 
 /**
@@ -12,17 +12,18 @@ import PixelPulseHome from './PixelPulseHome';
  * @component
  * @returns {JSX.Element} The rendered ProductPage for Pixel Pulse.
  */
-export default function PixelPulsePage() {
-  const config = {
-    ...pixelPulseConfig,
-    faviconUrl: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Pulse/art/favicon/favicon.ico"
-  };
+export default function PixelPulsePage({forcedTab}) {
+    const config = {
+        ...pixelPulseConfig,
+        faviconUrl: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Pulse/art/favicon/favicon.ico"
+    };
 
-  return (
-    <ProductPage 
-      config={config} 
-      HomeComponent={PixelPulseHome} 
-      translationKey="pixel_pulse" 
-    />
-  );
+    return (
+        <ProductPage
+            config={config}
+            HomeComponent={PixelPulseHome}
+            translationKey="pixel_pulse"
+            forcedTab={forcedTab}
+        />
+    );
 }

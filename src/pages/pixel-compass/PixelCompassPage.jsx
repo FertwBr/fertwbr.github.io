@@ -1,6 +1,6 @@
 import React from 'react';
 import ProductPage from '../ProductPage';
-import { pixelCompassConfig } from './PixelCompassConfig';
+import {pixelCompassConfig} from './PixelCompassConfig';
 import PixelCompassHome from './PixelCompassHome';
 
 /**
@@ -11,23 +11,24 @@ import PixelCompassHome from './PixelCompassHome';
  * custom `faviconUrl` and passes the resulting `config` to `ProductPage`.
  *
  * Renders `ProductPage` with:
- *  - config: merged pixelCompassConfig + faviconUrl override
- *  - HomeComponent: PixelCompassHome
- *  - translationKey: "pixel_compass"
+ * - config: merged pixelCompassConfig + faviconUrl override
+ * - HomeComponent: PixelCompassHome
+ * - translationKey: "pixel_compass"
  *
  * @returns {JSX.Element} React element for the Pixel Compass product page.
  */
-export default function PixelCompassPage() {
-  const config = {
-    ...pixelCompassConfig,
-    faviconUrl: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/favicon/favicon.ico"
-  };
+export default function PixelCompassPage({forcedTab}) {
+    const config = {
+        ...pixelCompassConfig,
+        faviconUrl: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/favicon/favicon.ico"
+    };
 
-  return (
-    <ProductPage 
-      config={config} 
-      HomeComponent={PixelCompassHome} 
-      translationKey="pixel_compass" 
-    />
-  );
+    return (
+        <ProductPage
+            config={config}
+            HomeComponent={PixelCompassHome}
+            translationKey="pixel_compass"
+            forcedTab={forcedTab}
+        />
+    );
 }

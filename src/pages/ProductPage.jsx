@@ -39,14 +39,15 @@ import TermsViewer from "../components/viewers/TermsViewer.jsx"; // Import here
  * - {Object} config - application configuration (appId, appName, faviconUrl, etc.)
  * - {React.Component} HomeComponent - component to render for the home/index tab
  * - {string} translationKey - key used to retrieve localized strings from the language context
+ * - {string} forcedTab - optional tab to force loading
  */
-export default function ProductPage({config, HomeComponent, translationKey}) {
+export default function ProductPage({config, HomeComponent, translationKey, forcedTab}) {
     const {content} = useLanguage();
     const t = content[translationKey];
     const navigate = useNavigate();
 
     const routeBasePath = config.appId.includes('pixelpulse') ? '/pixelpulse' : '/pixelcompass';
-    const configWithRoute = {...config, routeBasePath};
+    const configWithRoute = {...config, routeBasePath, defaultPage: forcedTab || config.defaultPage};
 
     const {activeTab, handleNavigation: internalNav} = useTabState(configWithRoute);
     const [activeColor] = useState(() => getSeedColor());
@@ -72,7 +73,7 @@ export default function ProductPage({config, HomeComponent, translationKey}) {
     const onNavigate = (id) => {
         if (id === 'feedback') {
             const source = config.appId.includes('pixelpulse') ? 'pixelpulse' : 'pixelcompass';
-            handleContactSupport('feedback', navigate, { source: source, platform: 'android' });
+            handleContactSupport('feedback', navigate, {source: source, platform: 'android'});
         } else {
             internalNav(id);
         }
@@ -86,11 +87,11 @@ export default function ProductPage({config, HomeComponent, translationKey}) {
         if (activeTab === 'index') return null;
 
         if (isLoading) {
-            return <GeometricSpinner />;
+            return <GeometricSpinner/>;
         }
 
         if (error) {
-            return <ErrorDisplay error={error} onRetry={() => window.location.reload()} />;
+            return <ErrorDisplay error={error} onRetry={() => window.location.reload()}/>;
         }
 
         if (!markdownContent) {
@@ -111,7 +112,7 @@ export default function ProductPage({config, HomeComponent, translationKey}) {
             case 'privacy':
                 return <PrivacyViewer {...commonProps} />;
             case 'terms':
-                return <TermsViewer markdownContent={markdownContent} appConfig={config} strings={t} />;
+                return <TermsViewer markdownContent={markdownContent} appConfig={config} strings={t}/>;
             case 'help':
                 return <HelpViewer {...commonProps} />;
             case 'roadmap':
@@ -146,7 +147,7 @@ export default function ProductPage({config, HomeComponent, translationKey}) {
 
     return (
         <div className="page-wrapper">
-            <HashScrollHandler />
+            <HashScrollHandler/>
 
             <PageBackground/>
 
