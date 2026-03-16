@@ -294,11 +294,14 @@ export default function FeedbackPage() {
                             </div>
 
                             <div className="input-wrapper">
-                                <label className="input-label" style={{ color: validationErrors.email ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)' }}>
+                                <label htmlFor="userEmail" className="input-label" style={{ color: validationErrors.email ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)' }}>
                                     {t.form?.email_label || "Email Address"}
                                 </label>
                                 <input
+                                    id="userEmail"
+                                    name="userEmail"
                                     type="email"
+                                    autoComplete="email"
                                     className="custom-input"
                                     value={email}
                                     onChange={e => { setEmail(e.target.value); setValidationErrors(prev => ({...prev, email: false})); }}
@@ -313,11 +316,13 @@ export default function FeedbackPage() {
                             </div>
 
                             <div className="input-wrapper">
-                                <label className="input-label" style={{ color: validationErrors.message ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)' }}>
+                                <label htmlFor="userMessage" className="input-label" style={{ color: validationErrors.message ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)' }}>
                                     {t.form?.description_label || "Description"}
                                 </label>
                                 <div style={{ position: 'relative' }}>
                                     <textarea
+                                        id="userMessage"
+                                        name="userMessage"
                                         className="custom-input"
                                         value={message}
                                         onChange={e => { setMessage(e.target.value); setValidationErrors(prev => ({...prev, message: false})); }}
@@ -333,8 +338,15 @@ export default function FeedbackPage() {
                                 {validationErrors.message && <span style={{ color: 'var(--md-sys-color-error)', fontSize: '0.8rem', marginTop: '4px', marginLeft: '4px' }}>{t.form?.description_error || "Too short"}</span>}
                             </div>
 
-                            <label style={{ display: 'flex', alignItems: 'center', gap: '16px', cursor: 'pointer', padding: '16px', background: 'rgba(var(--md-sys-color-surface-container-high-rgb), 0.5)', borderRadius: '16px', border: '1px solid var(--md-sys-color-outline-variant)' }}>
-                                <input type="checkbox" checked={includeInfo} onChange={e => setIncludeInfo(e.target.checked)} style={{ width: '22px', height: '22px', accentColor: 'var(--md-sys-color-primary)' }} />
+                            <label htmlFor="includeInfo" style={{ display: 'flex', alignItems: 'center', gap: '16px', cursor: 'pointer', padding: '16px', background: 'rgba(var(--md-sys-color-surface-container-high-rgb), 0.5)', borderRadius: '16px', border: '1px solid var(--md-sys-color-outline-variant)' }}>
+                                <input
+                                    id="includeInfo"
+                                    name="includeInfo"
+                                    type="checkbox"
+                                    checked={includeInfo}
+                                    onChange={e => setIncludeInfo(e.target.checked)}
+                                    style={{ width: '22px', height: '22px', accentColor: 'var(--md-sys-color-primary)' }}
+                                />
                                 <span style={{ fontSize: '0.95rem', fontWeight: 500 }}>{t.form?.include_device_info || "Include device info"}</span>
                             </label>
 
@@ -352,7 +364,15 @@ export default function FeedbackPage() {
                                 )}
                             </AnimatePresence>
 
-                            <input type="file" accept="image/*" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileChange} />
+                            <input
+                                id="attachmentFile"
+                                name="attachmentFile"
+                                type="file"
+                                accept="image/*"
+                                ref={fileInputRef}
+                                style={{ display: 'none' }}
+                                onChange={handleFileChange}
+                            />
 
                             <div style={{ display: 'flex', gap: '12px', marginTop: '8px' }}>
                                 <button onClick={() => fileInputRef.current?.click()} className="btn-outline" style={{ padding: '0', width: '60px', height: '60px', borderRadius: '100px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
