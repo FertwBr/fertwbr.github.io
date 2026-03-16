@@ -137,6 +137,6 @@ Your sound data is sensitive, so our backups are encrypted by default. You canno
 ## Support & Feedback {: data-toc-key="support" }
 
 - **In-App Feedback:** The best way to reach us is via **Settings > About & Help > Send Feedback**.
-- **Contact Email:** **fertwbr@programmer.net**
+- **Contact:** [Send us a message here](/feedback?source=pixelpulse).
 
 Thank you for choosing **Pixel Pulse**!
