@@ -3,6 +3,12 @@
  * @description Cloudflare Pages Function to securely handle feedback submissions via Resend API.
  */
 
+/**
+ * Returns localized support and auto-reply configurations.
+ * @param {string} languageCode - The user's locale.
+ * @param {string} appName - The target application name.
+ * @returns {Object} Localized strings.
+ */
 function getLocalization(languageCode, appName) {
     const lang = (languageCode || 'en').split('-')[0].toLowerCase();
 
@@ -60,6 +66,11 @@ function getLocalization(languageCode, appName) {
     };
 }
 
+/**
+ * Generates the Auto-Reply HTML layout.
+ * @param {Object} params - The dynamic content variables.
+ * @returns {string} The constructed HTML.
+ */
 function buildAutoReplyHtml({
                                 greeting,
                                 bodyText,
@@ -114,10 +125,57 @@ function buildAutoReplyHtml({
     `;
 }
 
+/**
+ * Generates the Support HTML layout using the same modern dark theme.
+ * @param {Object} params - The dynamic content variables.
+ * @returns {string} The constructed HTML.
+ */
+function buildSupportHtml({appName, type, platform, email, message, debugInfo, colorHex}) {
+    const debugSection = debugInfo ? `<div style="font-size: 14px; font-weight: bold; margin-bottom: 10px; color: #${colorHex}; text-transform: uppercase;">Diagnostic Info</div><div style="background-color: #0f1115; color: #e2e2e6; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 12px; white-space: pre-wrap; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05);">${debugInfo}</div>` : "";
+
+    return `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <style>
+                body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #0f1115; margin: 0; padding: 0; color: #e2e2e6; }
+                .container { max-width: 600px; margin: 40px auto; background-color: #1b1b1f; border-radius: 32px; border: 1px solid rgba(255, 255, 255, 0.08); overflow: hidden; }
+                .header { background: linear-gradient(135deg, #${colorHex} 0%, #0f1115 150%); padding: 30px 20px; text-align: center; color: #ffffff; font-size: 20px; font-weight: bold; }
+                .content { padding: 40px 30px; line-height: 1.6; }
+                .metadata { margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+                .badge { display: inline-block; padding: 4px 10px; border-radius: 100px; background-color: rgba(255,255,255,0.05); font-size: 12px; font-weight: bold; color: #e2e2e6; margin-left: 8px; border: 1px solid rgba(255,255,255,0.1); }
+                .user-quote { background: rgba(255,255,255,0.03); border-left: 4px solid #${colorHex}; padding: 15px; border-radius: 8px; font-size: 14px; margin-bottom: 30px; white-space: pre-wrap; color: #e2e2e6; }
+                .section-title { font-size: 14px; font-weight: bold; margin-bottom: 10px; color: #${colorHex}; text-transform: uppercase; }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="header">New Ticket: ${appName}</div>
+                <div class="content">
+                    <div class="metadata">
+                        <p style="margin: 8px 0;"><strong>User:</strong> <a href="mailto:${email}" style="color: #${colorHex}; text-decoration: none;">${email}</a></p>
+                        <p style="margin: 8px 0;"><strong>Type:</strong> <span class="badge">${type}</span></p>
+                        <p style="margin: 8px 0;"><strong>Platform:</strong> <span class="badge">${platform}</span></p>
+                    </div>
+                    <div class="section-title">Message</div>
+                    <div class="user-quote">${message}</div>
+                    ${debugSection}
+                </div>
+            </div>
+        </body>
+        </html>
+    `;
+}
+
+/**
+ * Handles POST requests for email submissions.
+ * @param {Object} context - The Cloudflare Pages context object.
+ * @returns {Response}
+ */
 export async function onRequestPost({request, env}) {
     try {
         const body = await request.json();
-
         const apiKey = env.RESEND_API_KEY;
 
         if (!apiKey) {
@@ -157,10 +215,13 @@ export async function onRequestPost({request, env}) {
         }
 
         const loc = getLocalization(languageCode, appName);
+
         const attachments = attachmentBase64 ? [{
             filename: attachmentName || 'screenshot.png',
             content: attachmentBase64
         }] : undefined;
+
+        const supportHtml = buildSupportHtml({appName, type, platform, email, message, debugInfo, colorHex});
 
         const supportRes = await fetch("https://api.resend.com/emails", {
             method: "POST",
@@ -170,7 +231,8 @@ export async function onRequestPost({request, env}) {
                 to: ["support@fertwbr.com"],
                 reply_to: email,
                 subject: `[${appName}] New Feedback: ${type}`,
-                html: `<p><strong>From:</strong> ${email}</p><p><strong>Platform:</strong> ${platform}</p><p>${message}</p><hr><pre>${debugInfo || ''}</pre>`,
+                html: supportHtml,
+                text: `New Ticket for ${appName}\n\nFrom: ${email}\nType: ${type}\nPlatform: ${platform}\n\nMessage:\n${message}\n\nDiagnostic Info:\n${debugInfo || 'N/A'}`,
                 attachments
             })
         });
@@ -195,10 +257,11 @@ export async function onRequestPost({request, env}) {
             method: "POST",
             headers: {"Authorization": `Bearer ${apiKey}`, "Content-Type": "application/json"},
             body: JSON.stringify({
-                from: `${appName} <no-reply@fertwbr.com>`,
+                from: `${appName} Support <support@fertwbr.com>`,
                 to: [email],
                 subject: loc.subject,
-                html: autoReplyHtml
+                html: autoReplyHtml,
+                text: `${loc.greeting}\n\n${loc.bodyText}\n\nYour message:\n${message}\n\n${appName} Team`
             })
         });
 
