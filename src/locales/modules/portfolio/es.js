@@ -194,73 +194,71 @@ export default {
     },
     feedback: {
         title: "Enviar comentarios",
-        subtitle: "Ayúdenos a mejorar. Informes de errores, solicitudes de funciones o simplemente un saludo.",
-
+        subtitle: "Ayúdenos a mejorar. Reportes de errores, solicitudes de funciones o simplemente un saludo.",
         form: {
             project_label: "Proyecto",
             type_label: "Tema",
             platform_label: "Plataforma",
+            email_label: "Dirección de correo electrónico",
+            email_placeholder: "su@email.com",
+            email_error: "Por favor, introduzca una dirección de correo electrónico válida.",
             description_label: "Mensaje",
             description_placeholder: "Describa lo que sucedió o comparta su idea...",
+            description_error: "El mensaje debe tener al menos 15 caracteres.",
             include_device_info: "Incluir información del dispositivo (Navegador/SO)",
-            send_button: "Generar correo electrónico",
+            send_button: "Enviar comentarios",
             draft_recovered: "Borrador recuperado",
-            discard_draft: "Descartar borrador",
-            attach_tip: "Nota: Por favor, adjunte capturas de pantalla directamente en su aplicación de correo si es necesario."
+            discard_draft: "Descartar borrador"
         },
-
         success: {
-            title: "Listo para enviar",
-            message: "Hemos abierto su cliente de correo con el mensaje preparado. Por favor, revíselo y pulse Enviar.",
-            btn_retry: "Abrir app de correo de nuevo",
+            title: "¡Mensaje enviado!",
+            message: "Su mensaje ha sido enviado con éxito a support@fertwbr.com. Se ha enviado una copia de confirmación a {email}.",
+            error_title: "Error en el envío",
+            error_message: "Encontramos un error de red al intentar enviar su mensaje. Por favor, inténtelo de nuevo.",
+            btn_retry: "Reintentar",
             btn_edit: "Editar mensaje",
             btn_home: "Volver al inicio"
         },
-
         projects: {
             pixelpulse: "Pixel Pulse",
             pixelcompass: "Pixel Compass",
-            portfolio: "Portfolio Site"
+            portfolio: "Sitio de portafolio"
         },
-
         platforms: {
-            android: "Android (Phone)",
+            android: "Android (Teléfono)",
             wearos: "Wear OS",
-            web: "Web / Site"
+            web: "Web / Sitio"
         },
-
         types: {
-            general: "Comentario general",
-            bug: "Informe de error",
+            general: "Comentarios generales",
+            bug: "Reporte de error",
             feature: "Solicitud de función",
             translation: "Problema de traducción",
-            ui: "Sugerencia de UI",
+            ui: "Sugerencia de interfaz",
             other: "Otro"
         },
         guidance: {
-            label: "Sugerencia",
+            label: "Consejo",
             default_general: "¡Le escuchamos! Comparta sus pensamientos.",
             default_bug: "Describa los pasos para que ocurra el error.",
             default_feature: "¿Cómo mejoraría esta función su experiencia?",
             default_translation: "¿En qué pantalla aparece el texto incorrecto?",
-
             short_text: "Por favor, proporcione un poco más de detalle para que podamos entender mejor.",
-            crash: "Si la aplicación se cerró inesperadamente, ¿vio algún código o mensaje de error?",
-            screenshot: "Una imagen vale más que mil palabras. Considere adjuntar una captura de pantalla en el correo.",
-            translation_keyword: "Mencionar el idioma específico y la frase incorrecta nos ayuda a solucionarlo rápido.",
-
+            crash: "Si la aplicación falló, ¿vio algún código o mensaje de error?",
+            screenshot: "Una imagen vale más que mil palabras. Considere adjuntar una captura de pantalla.",
+            translation_keyword: "Mencionar el idioma específico y la frase incorrecta nos ayuda a corregirlo rápido.",
             steps_received: "¡Perfecto! Conocer los pasos nos ayuda a reproducir el problema.",
             error_received: "Gracias por incluir los detalles del error.",
             location_received: "Excelente, conocer la ubicación en la pantalla es muy útil.",
             idea_received: "¡Es una idea interesante! Cuéntenos más sobre cómo funcionaría.",
-            great_detail: "¡Gran detalle! Esto nos ayuda significativamente a comprender."
+            great_detail: "¡Gran detalle! Esto nos ayuda significativamente a entender."
         },
         keywords: {
-            crash: "cierre,cerrar,detener,bloqueo,congelar,lag,roto,pantalla blanca",
+            crash: "crash,cerrar,detener,bloqueo,congelar,lag,roto,pantalla blanca",
             error: "error,código,fallo,excepción,0x,número,mensaje",
-            steps: "paso,primero,luego,después,cuando,clic,tocar,presionar,desplazar",
+            steps: "paso,primero,luego,después,cuando,clic,tocar,presionar,deslizar",
             screen: "pantalla,página,vista,ventana,diálogo,pestaña,tarjeta,menú,navbar,pie de página",
-            correction: "texto,palabra,errata,incorrecto,malo,ortografía,gramática,traducir,idioma",
+            correction: "texto,palabra,error tipográfico,falso,incorrecto,malo,ortografía,gramática,traducir,idioma",
             idea: "añadir,crear,deseo,gustaría,podría,debería,mejor,nuevo,función,modo"
         }
     }
