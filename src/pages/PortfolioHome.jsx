@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {useLocation, useNavigate} from 'react-router-dom';
+import {useLocation, useNavigate, Link} from 'react-router-dom';
 import {useLanguage} from '../context/LanguageContext';
 import {applyMaterialTheme, getSurfaceColor, getSeedColor} from '../theme/themeUtils';
 import {usePageMetadata} from '../hooks/usePageMetadata';
@@ -141,14 +141,14 @@ export default function PortfolioHome() {
                                     justifyContent: 'center',
                                     flexWrap: 'wrap'
                                 }}>
-                                    <a href={SiteConfig.links.mailTo} className="btn-glow"
-                                       style={{
-                                           fontSize: '1.2rem',
-                                           padding: '18px 40px',
-                                           borderRadius: '100px'
-                                       }}>
+                                    <Link to={SiteConfig.routes.feedback} className="btn-glow"
+                                          style={{
+                                              fontSize: '1.2rem',
+                                              padding: '18px 40px',
+                                              borderRadius: '100px'
+                                          }}>
                                         {content.contact.email}
-                                    </a>
+                                    </Link>
                                     <a href={SiteConfig.links.linkedin} target="_blank" rel="noreferrer"
                                        className="btn-outline"
                                        style={{
@@ -179,3 +179,4 @@ export default function PortfolioHome() {
         </PageTransition>
     );
 }
+f
