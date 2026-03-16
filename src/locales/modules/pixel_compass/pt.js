@@ -148,35 +148,48 @@ export default {
     },
     changelog: {
         title: "Histórico de Versões",
-        subtitle: "Acompanhe a evolução do Pixel Compass. Cada funcionalidade, melhoria e correção detalhadas abaixo.",
-        search_placeholder: "Pesquisar funcionalidades, versões...",
+        subtitle: "Acompanhe a evolução do Pixel Compass. Todos os recursos, melhorias e correções estão detalhados abaixo.",
+        search_placeholder: "Pesquisar recursos, versões...",
         latest_release: "Último Lançamento",
-        released: "Lançado em",
+        released: "Lançado",
         update_now: "Atualizar Agora",
         on_this_page: "Nesta Página",
-        load_more: "Carregar Versões Anteriores",
-        no_results: "Nenhuma versão encontrada para os filtros aplicados.",
-        jump_to: "Ir para a Versão",
         read_more: "Ler Notas de Lançamento",
         collapse: "Recolher",
         back_to_top: "Voltar ao Topo",
+        "update_details": "Detalhes da Atualização",
+        "view_all": "Ver Todas as Atualizações",
+        "share_update": "Compartilhar Atualização",
+        "jump_to": "Ir para",
+        "version_not_found": "Versão não encontrada.",
+        "no_results": "Nenhum resultado encontrado.",
+        "back_to_changelog": "Voltar ao Changelog",
+        "load_more": "Carregar Mais",
+        "explore_more": "Explorar Mais",
+        "link_copied": "Link copiado para a área de transferência!",
+        "open_full_screen": "Abrir em tela cheia",
+        "share_tooltip": "Compartilhar esta atualização",
+        "previous_update": "Atualização Anterior",
+        "next_update": "Próxima Atualização",
+        "table_of_contents": "Índice",
+        "in_this_update": "Nesta atualização",
         plus_promo: {
-            title: "Apoie o Desenvolvimento",
-            subtitle: "Desbloqueie widgets, personalização e ajude-nos a criar novas funcionalidades.",
-            cta: "Obter Pixel Compass+"
+            title: "Apoiar o Desenvolvimento",
+            subtitle: "Desbloqueie widgets, personalização e ajude-nos a criar novos recursos.",
+            cta: "Obter o Pixel Compass+"
         },
         beta_program: {
-            title: "Aceda ao Programa Beta",
-            subtitle: "Teste novas funcionalidades antes de serem lançadas publicamente.",
-            cta: "Aceder ao Programa Beta",
+            title: "Participar do Beta",
+            subtitle: "Teste novos recursos antes que sejam lançados publicamente.",
+            cta: "Participar do Programa Beta",
             badge: "Acesso Antecipado"
         },
         wear_os_promo: {
             title: "Experiência Wear OS",
             subtitle_available: "Navegue diretamente do seu pulso. Integração perfeita.",
-            subtitle_coming: "Disponível para o seu pulso no 1º trimestre de 2026.",
+            subtitle_coming: "Chegando ao seu pulso no 1º trimestre de 2026.",
             cta: "Ver no Relógio",
-            badge: "Companion"
+            badge: "Complementar"
         }
     },
     roadmap_page: {
