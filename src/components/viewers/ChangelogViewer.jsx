@@ -377,7 +377,8 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
                     )}
 
                     {prevVersion && (
-                        <button onClick={() => onOpenSingle(prevVersion.id)} className="seq-btn next-btn">
+                        <button onClick={() => onOpenSingle(prevVersion.id)} className="seq-btn next-btn"
+                                style={{marginLeft: nextVersion ? 'auto' : '0'}}>
                             <div className="seq-text" style={{alignItems: 'flex-end'}}>
                                 <span className="seq-label">{strings.previous_update || "Previous Update"}</span>
                                 <span className="seq-title">{prevVersion.version.replace('Version ', '')}</span>
@@ -409,6 +410,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
     const [markdown, setMarkdown] = useState(initialMarkdown);
     const [versions, setVersions] = useState([]);
     const [isAiTranslated, setIsAiTranslated] = useState(false);
+    const [isShowingOriginal, setIsShowingOriginal] = useState(false);
     const [showTranslateInfo, setShowTranslateInfo] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [visibleCount, setVisibleCount] = useState(10);
@@ -436,18 +438,65 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
 
     /**
      * Reverts translated changelog to its original English state by reloading local content.
+     * Maps the localized active version ID back to its English equivalent to maintain synchronization.
      * @async
      */
     const handleRevertToEnglish = async () => {
         try {
             const originalContent = await loadPageContent('changelog', appConfig, 'en');
             if (originalContent) {
+                const englishVersions = parseChangelog(originalContent);
+
+                if (isFullScreenMode && versionId) {
+                    const safeVersionId = versionId.replace(/[^a-z0-9]/gi, '-').toLowerCase();
+                    const currentIndex = versions.findIndex(v => v.id === safeVersionId);
+
+                    if (currentIndex !== -1 && englishVersions[currentIndex]) {
+                        const newId = englishVersions[currentIndex].id;
+                        const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : '';
+                        navigate(`${basePath}/changelog/${newId}`, {replace: true});
+                        setActiveId(newId);
+                    }
+                }
+
                 setMarkdown(originalContent);
-                setIsAiTranslated(false);
+                setIsShowingOriginal(true);
                 setShowTranslateInfo(false);
             }
         } catch (e) {
             console.error("Failed to load English content", e);
+        }
+    };
+
+    /**
+     * Restores the translated changelog state by reloading local content for the current language.
+     * Maps the localized active version ID back to its translated equivalent to maintain synchronization.
+     * @async
+     */
+    const handleRestoreTranslation = async () => {
+        try {
+            const translatedContent = await loadPageContent('changelog', appConfig, language);
+            if (translatedContent) {
+                const translatedVersions = parseChangelog(translatedContent);
+
+                if (isFullScreenMode && versionId) {
+                    const safeVersionId = versionId.replace(/[^a-z0-9]/gi, '-').toLowerCase();
+                    const currentIndex = versions.findIndex(v => v.id === safeVersionId);
+
+                    if (currentIndex !== -1 && translatedVersions[currentIndex]) {
+                        const newId = translatedVersions[currentIndex].id;
+                        const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : '';
+                        navigate(`${basePath}/changelog/${newId}`, {replace: true});
+                        setActiveId(newId);
+                    }
+                }
+
+                setMarkdown(translatedContent);
+                setIsAiTranslated(true);
+                setIsShowingOriginal(false);
+            }
+        } catch (e) {
+            console.error("Failed to load translated content", e);
         }
     };
 
@@ -691,7 +740,9 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                     {strings.changelog?.share_update || "Share Update"}
                                 </button>
                                 <AnimatePresence>
-                                    {isAiTranslated && <AutoTranslateBadge onClick={() => setShowTranslateInfo(true)}/>}
+                                    {(isAiTranslated || isShowingOriginal) &&
+                                        <AutoTranslateBadge isShowingOriginal={isShowingOriginal}
+                                                            onClick={() => isShowingOriginal ? handleRestoreTranslation() : setShowTranslateInfo(true)}/>}
                                 </AnimatePresence>
                             </div>
                         </>
@@ -713,7 +764,9 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                     {strings.changelog?.subtitle || 'Track the evolution of the application.'}
                                 </p>
                                 <AnimatePresence>
-                                    {isAiTranslated && <AutoTranslateBadge onClick={() => setShowTranslateInfo(true)}/>}
+                                    {(isAiTranslated || isShowingOriginal) &&
+                                        <AutoTranslateBadge isShowingOriginal={isShowingOriginal}
+                                                            onClick={() => isShowingOriginal ? handleRestoreTranslation() : setShowTranslateInfo(true)}/>}
                                 </AnimatePresence>
                             </div>
                         </>
@@ -967,9 +1020,6 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                           padding-top: 16px;
                           border-top: 1px solid var(--md-sys-color-outline-variant);
                       }
-                      .sequential-nav {
-                          flex-direction: column;
-                      }
                   }
                   
                   .icon-action-btn {
@@ -1119,11 +1169,13 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                   @media (max-width: 600px) {
                       .sequential-nav {
                           flex-direction: column;
-                          gap: 16px;
+                          align-items: stretch;
+                          gap: 12px;
                       }
                       .seq-btn {
                           max-width: 100%;
                           width: 100%;
+                          padding: 14px 16px;
                       }
                       .seq-btn.next-btn {
                           margin-left: 0;
