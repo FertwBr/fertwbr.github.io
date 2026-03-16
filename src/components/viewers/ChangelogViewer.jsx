@@ -114,16 +114,12 @@ const ChangelogItem = ({v, index, isActive, strings, onOpenSingle, onShare}) => 
             }}/>
 
             <div className="glass-card" style={{
-                borderRadius: '24px',
+                borderRadius: '32px',
                 border: isActive ? `1px solid var(--md-sys-color-primary)` : '1px solid var(--md-sys-color-outline-variant)',
                 overflow: 'hidden', transition: 'border-color 0.3s'
             }}>
-                <div onClick={() => setIsOpen(!isOpen)} style={{
-                    padding: '24px', cursor: 'pointer',
-                    background: isOpen ? 'rgba(255,255,255,0.02)' : 'transparent',
-                    display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '16px'
-                }}>
-                    <div>
+                <div onClick={() => setIsOpen(!isOpen)} className={`changelog-item-header ${isOpen ? 'open' : ''}`}>
+                    <div style={{flex: 1, minWidth: 0}}>
                         <div style={{
                             display: 'flex',
                             alignItems: 'center',
@@ -131,7 +127,13 @@ const ChangelogItem = ({v, index, isActive, strings, onOpenSingle, onShare}) => 
                             marginBottom: '8px',
                             flexWrap: 'wrap'
                         }}>
-                            <h2 style={{fontSize: '1.5rem', fontWeight: 800, margin: 0, letterSpacing: '-0.5px'}}>
+                            <h2 style={{
+                                fontSize: '1.5rem',
+                                fontWeight: 800,
+                                margin: 0,
+                                letterSpacing: '-0.5px',
+                                wordBreak: 'break-word'
+                            }}>
                                 {v.version.replace('Version ', '')}
                             </h2>
                             <div style={{display: 'flex', gap: '6px', flexWrap: 'wrap'}}>
@@ -152,7 +154,7 @@ const ChangelogItem = ({v, index, isActive, strings, onOpenSingle, onShare}) => 
                             {strings.released || "Released"} {v.date}
                         </div>
                     </div>
-                    <div style={{display: 'flex', alignItems: 'center', gap: '4px'}}>
+                    <div className="changelog-item-actions">
                         <button
                             onClick={(e) => {
                                 e.stopPropagation();
@@ -172,9 +174,11 @@ const ChangelogItem = ({v, index, isActive, strings, onOpenSingle, onShare}) => 
                         >
                             <span className="material-symbols-outlined" style={{fontSize: '20px'}}>open_in_new</span>
                         </button>
-                        <span className="material-symbols-outlined icon-action-btn" style={{
-                            transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s'
-                        }}>expand_more</span>
+                        <div className="icon-expand" style={{
+                            transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)'
+                        }}>
+                            <span className="material-symbols-outlined">expand_more</span>
+                        </div>
                     </div>
                 </div>
 
@@ -291,7 +295,7 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
                             fontSize: '0.85rem',
                             fontWeight: 600,
                             color: 'var(--md-sys-color-on-surface-variant)',
-                            marginBottom: '8px',
+                            marginBottom: '12px',
                             textTransform: 'uppercase',
                             letterSpacing: '1px'
                         }}>
@@ -320,7 +324,7 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
                             top: '140px',
                             background: 'rgba(var(--md-sys-color-surface-container-rgb), 0.3)',
                             padding: '24px',
-                            borderRadius: '24px',
+                            borderRadius: '32px',
                             border: '1px solid var(--md-sys-color-outline-variant)'
                         }}>
                             <h3 style={{
@@ -603,8 +607,8 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                             style={{
                                 width: '90%',
                                 maxWidth: '400px',
-                                padding: '24px',
-                                borderRadius: '24px',
+                                padding: '32px',
+                                borderRadius: '32px',
                                 border: '1px solid var(--md-sys-color-outline-variant)',
                                 background: 'var(--md-sys-color-surface-container)'
                             }}
@@ -619,18 +623,18 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                             <p style={{
                                 color: 'var(--md-sys-color-on-surface-variant)',
                                 lineHeight: 1.5,
-                                marginBottom: '24px'
+                                marginBottom: '32px'
                             }}>
                                 This content was automatically translated by Google Gemini to help you stay updated.
                                 Some technical terms or nuances might be slightly inaccurate.
                             </p>
                             <div style={{display: 'flex', flexDirection: 'column', gap: '12px'}}>
                                 <button onClick={handleRevertToEnglish} className="btn-glow"
-                                        style={{justifyContent: 'center'}}>
+                                        style={{justifyContent: 'center', borderRadius: '100px'}}>
                                     Show Original (English)
                                 </button>
                                 <button onClick={() => setShowTranslateInfo(false)} className="btn-outline"
-                                        style={{justifyContent: 'center', border: 'none'}}>
+                                        style={{justifyContent: 'center', border: 'none', borderRadius: '100px'}}>
                                     Keep Translation
                                 </button>
                             </div>
@@ -812,7 +816,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                             <button onClick={() => setVisibleCount(prev => prev + 10)} className="btn-outline" style={{
                                 width: '100%',
                                 padding: '16px',
-                                borderRadius: '16px',
+                                borderRadius: '100px',
                                 borderStyle: 'dashed',
                                 opacity: 0.7
                             }}>
@@ -826,7 +830,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                              style={{display: 'none', marginTop: '80px', marginBottom: '100px'}}>
                             <div style={{
                                 background: 'rgba(var(--md-sys-color-surface-container-rgb), 0.5)',
-                                borderRadius: '24px',
+                                borderRadius: '32px',
                                 padding: '24px',
                                 border: '1px solid var(--md-sys-color-outline-variant)'
                             }}>
@@ -879,7 +883,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                         </PageTableOfContents>
                         {!isPortfolio && (
                             <div style={{
-                                marginTop: '20px', padding: '24px', borderRadius: '24px',
+                                marginTop: '20px', padding: '24px', borderRadius: '32px',
                                 background: 'linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 100%)',
                                 border: '1px solid var(--md-sys-color-outline-variant)'
                             }}>
@@ -927,47 +931,170 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                     .article-layout { display: grid; grid-template-columns: 1fr 300px; gap: 40px; align-items: start; }
                   }
                   
-                  .icon-action-btn {
-                    background: transparent; border: none; color: var(--md-sys-color-on-surface-variant);
-                    cursor: pointer; display: flex; alignItems: center; padding: 8px; border-radius: 50%;
-                    transition: background 0.2s, color 0.2s;
+                  .changelog-item-header {
+                      padding: 24px;
+                      cursor: pointer;
+                      background: transparent;
+                      display: flex;
+                      justify-content: space-between;
+                      align-items: flex-start;
+                      gap: 16px;
+                      transition: background 0.3s;
                   }
-                  .icon-action-btn:hover { background: rgba(255,255,255,0.05); }
-                  .icon-action-btn.primary { color: var(--md-sys-color-primary); }
+                  
+                  .changelog-item-header.open {
+                      background: rgba(255,255,255,0.02);
+                  }
+                  
+                  .changelog-item-actions {
+                      display: flex;
+                      align-items: center;
+                      gap: 8px;
+                      flex-shrink: 0;
+                  }
+                  
+                  @media (max-width: 600px) {
+                      .changelog-item-header {
+                          flex-direction: column;
+                      }
+                      .changelog-item-actions {
+                          width: 100%;
+                          justify-content: flex-end;
+                          padding-top: 16px;
+                          border-top: 1px solid var(--md-sys-color-outline-variant);
+                      }
+                      .sequential-nav {
+                          flex-direction: column;
+                      }
+                  }
+                  
+                  .icon-action-btn {
+                      background: var(--md-sys-color-surface-container);
+                      border: none;
+                      color: var(--md-sys-color-on-surface-variant);
+                      cursor: pointer;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      width: 48px;
+                      height: 48px;
+                      border-radius: 16px;
+                      transition: all 0.2s;
+                  }
+                  
+                  .icon-action-btn:hover {
+                      background: var(--md-sys-color-surface-container-high);
+                      color: var(--md-sys-color-on-surface);
+                  }
+                  
+                  .icon-action-btn.primary {
+                      background: var(--md-sys-color-primary-container);
+                      color: var(--md-sys-color-on-primary-container);
+                  }
+                  
+                  .icon-action-btn.primary:hover {
+                      background: var(--md-sys-color-primary);
+                      color: var(--md-sys-color-on-primary);
+                  }
+                  
+                  .icon-expand {
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      width: 48px;
+                      height: 48px;
+                      border-radius: 24px;
+                      background: transparent;
+                      color: var(--md-sys-color-on-surface-variant);
+                      transition: transform 0.3s, background 0.2s;
+                  }
+                  
+                  .changelog-item-header:hover .icon-expand {
+                      background: var(--md-sys-color-surface-container-highest);
+                  }
                   
                   .content-tag {
-                    font-size: 0.75rem; padding: 4px 10px; border-radius: 100px;
+                    font-size: 0.75rem; padding: 6px 12px; border-radius: 100px;
                     background: var(--md-sys-color-surface-container-high);
                     color: var(--md-sys-color-on-surface-variant);
                     border: 1px solid var(--md-sys-color-outline-variant); font-weight: 500;
                   }
                   
                   .horizontal-chips {
-                    display: flex; overflow-x: auto; gap: 8px; padding-bottom: 8px;
+                    display: flex;
+                    overflow-x: auto;
+                    gap: 8px;
+                    padding-bottom: 12px;
                     scrollbar-width: none;
+                    -ms-overflow-style: none;
+                    scroll-snap-type: x mandatory;
                   }
                   .horizontal-chips::-webkit-scrollbar { display: none; }
+                  
                   .toc-chip {
+                    scroll-snap-align: start;
+                    flex-shrink: 0;
                     white-space: nowrap; background: var(--md-sys-color-surface-container);
                     border: 1px solid var(--md-sys-color-outline-variant); color: var(--md-sys-color-on-surface);
                     padding: 8px 16px; border-radius: 100px; font-size: 0.85rem; cursor: pointer;
+                    transition: all 0.2s;
+                  }
+                  
+                  .toc-chip:active {
+                      transform: scale(0.95);
                   }
                   
                   .toc-link-btn:hover { color: var(--md-sys-color-primary) !important; }
                   
                   .sequential-nav {
-                    display: flex; justify-content: space-between; gap: 16px; margin-top: 60px;
-                    border-top: 1px solid var(--md-sys-color-outline-variant); padding-top: 40px;
+                    display: flex;
+                    justify-content: space-between;
+                    gap: 16px;
+                    margin-top: 60px;
+                    border-top: 1px solid var(--md-sys-color-outline-variant);
+                    padding-top: 40px;
+                    margin-bottom: 80px;
                   }
                   .seq-btn {
-                    flex: 1; display: flex; align-items: center; gap: 16px; background: var(--md-sys-color-surface-container);
-                    border: 1px solid var(--md-sys-color-outline-variant); padding: 20px; border-radius: 20px;
-                    cursor: pointer; transition: all 0.2s; color: var(--md-sys-color-on-surface);
+                    flex: 1;
+                    display: flex;
+                    align-items: center;
+                    gap: 16px;
+                    background: var(--md-sys-color-surface-container);
+                    border: 1px solid var(--md-sys-color-outline-variant);
+                    padding: 24px;
+                    border-radius: 32px;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                    color: var(--md-sys-color-on-surface);
+                    min-width: 0;
                   }
                   .seq-btn:hover { background: var(--md-sys-color-surface-container-high); border-color: var(--md-sys-color-primary); }
-                  .seq-text { display: flex; flex-direction: column; }
-                  .seq-label { font-size: 0.8rem; color: var(--md-sys-color-on-surface-variant); text-transform: uppercase; letter-spacing: 1px; }
-                  .seq-title { font-size: 1.1rem; font-weight: 700; }
+                  
+                  .seq-text {
+                      display: flex;
+                      flex-direction: column;
+                      min-width: 0;
+                      overflow: hidden;
+                  }
+                  
+                  .seq-label {
+                      font-size: 0.8rem;
+                      color: var(--md-sys-color-on-surface-variant);
+                      text-transform: uppercase;
+                      letter-spacing: 1px;
+                      white-space: nowrap;
+                      overflow: hidden;
+                      text-overflow: ellipsis;
+                  }
+                  
+                  .seq-title {
+                      font-size: 1.1rem;
+                      font-weight: 700;
+                      white-space: nowrap;
+                      overflow: hidden;
+                      text-overflow: ellipsis;
+                  }
                   
                   .article-typography h4 {
                     font-size: 1.5rem !important; margin-top: 2.5em !important; 
