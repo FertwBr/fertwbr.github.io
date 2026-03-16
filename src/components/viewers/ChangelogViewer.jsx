@@ -20,30 +20,39 @@ import {
  * Map of tag keys to visual style settings used by badges and timeline indicators.
  * Keys are lowercase tag identifiers (e.g. "stable", "beta", "alpha", "rc", "pre-release").
  * Each entry contains:
- *  - bg: background color
- *  - color: foreground color
- *  - border: border color
- *  - highlight: accent color used for timeline/markers
+ * - bg: background color
+ * - color: foreground color
+ * - border: border color
+ * - highlight: accent color used for timeline/markers
  *
  * @type {{[key: string]: {bg: string, color: string, border: string, highlight: string}}}
  */
 const TAG_STYLE_CONFIG = {
-    stable: {bg: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', border: 'transparent', highlight: 'var(--md-sys-color-primary)'},
+    stable: {
+        bg: 'var(--md-sys-color-primary)',
+        color: 'var(--md-sys-color-on-primary)',
+        border: 'transparent',
+        highlight: 'var(--md-sys-color-primary)'
+    },
     beta: {bg: 'rgba(255, 183, 77, 0.15)', color: '#FFB74D', border: '#FFB74D', highlight: '#FFB74D'},
     alpha: {bg: 'rgba(239, 83, 80, 0.15)', color: '#EF5350', border: '#EF5350', highlight: '#EF5350'},
     rc: {bg: 'rgba(171, 71, 188, 0.15)', color: '#AB47BC', border: '#AB47BC', highlight: '#AB47BC'},
     'pre-release': {bg: 'rgba(79, 195, 247, 0.15)', color: '#4FC3F7', border: '#4FC3F7', highlight: '#4FC3F7'},
-    default: {bg: 'var(--md-sys-color-primary-container)', color: 'var(--md-sys-color-primary)', border: 'var(--md-sys-color-primary)', highlight: 'var(--md-sys-color-primary)'}
+    default: {
+        bg: 'var(--md-sys-color-primary-container)',
+        color: 'var(--md-sys-color-primary)',
+        border: 'var(--md-sys-color-primary)',
+        highlight: 'var(--md-sys-color-primary)'
+    }
 };
-
 
 /**
  * Get the style configuration for a tag/type key.
  *
  * Normalizes the input to lowercase and returns:
- *  - exact match from TAG_STYLE_CONFIG if available
- *  - fallback pattern matches for keys that include 'beta', 'alpha', 'rc', or 'pre-release'
- *  - the 'default' style otherwise
+ * - exact match from TAG_STYLE_CONFIG if available
+ * - fallback pattern matches for keys that include 'beta', 'alpha', 'rc', or 'pre-release'
+ * - the 'default' style otherwise
  *
  * @param {string|undefined|null} tagKey - Tag or release type (case-insensitive).
  * @returns {{bg: string, color: string, border: string, highlight: string}} Style config for the provided tag.
@@ -59,6 +68,7 @@ const getTagStyle = (tagKey) => {
 
     return TAG_STYLE_CONFIG.default;
 };
+
 /**
  * VersionBadge component
  *
@@ -96,7 +106,7 @@ const VersionBadge = ({type, text}) => {
  *
  * @param {Object} props
  * @param {Object} props.v - Version object parsed from the changelog. Expected shape:
- *   { id: string|number, version: string, date: string, type: string, tags: string[], content: string }
+ * { id: string|number, version: string, date: string, type: string, tags: string[], content: string }
  * @param {number} props.index - Index of this item in the list (used for animation delay and initial open).
  * @param {boolean} props.isActive - Whether this item is currently active/in-view (used for styling).
  * @param {Object} props.strings - Localization strings used inside the item (e.g. released label).
@@ -107,6 +117,9 @@ const ChangelogItem = ({v, index, isActive, strings}) => {
     const badgeStyle = getTagStyle(v.type);
 
     const timelineColor = badgeStyle.highlight;
+
+    const platformTags = ['Wear OS', 'Android XR', 'Phone', 'Tablet', 'Web', 'Website'];
+    const excludeTags = ['Wear OS', 'Android XR', 'Phone', 'Tablet', 'Web', 'Website', 'Beta', 'Alpha', 'RC', 'Pre-release'];
 
     return (
         <motion.div
@@ -141,9 +154,9 @@ const ChangelogItem = ({v, index, isActive, strings}) => {
                             <h2 style={{fontSize: '1.5rem', fontWeight: 800, margin: 0, letterSpacing: '-0.5px'}}>
                                 {v.version.replace('Version ', '')}
                             </h2>
-                            <div style={{display: 'flex', gap: '6px'}}>
+                            <div style={{display: 'flex', gap: '6px', flexWrap: 'wrap'}}>
                                 <VersionBadge type={v.type}/>
-                                {v.tags.filter(tag => tag === 'Wear OS' || tag === 'Android XR').map(tag => (
+                                {v.tags.filter(tag => platformTags.includes(tag)).map(tag => (
                                     <VersionBadge key={tag} type="stable" text={tag}/>
                                 ))}
                             </div>
@@ -172,7 +185,7 @@ const ChangelogItem = ({v, index, isActive, strings}) => {
                                     opacity: 0.3, marginBottom: '24px'
                                 }}></div>
                                 <div style={{display: 'flex', gap: '8px', marginBottom: '24px', flexWrap: 'wrap'}}>
-                                    {v.tags.filter(t => !['Wear OS', 'Android XR', 'Beta', 'Alpha', 'RC'].includes(t)).map(tag => (
+                                    {v.tags.filter(t => !excludeTags.includes(t)).map(tag => (
                                         <span key={tag} style={{
                                             fontSize: '0.75rem', padding: '4px 10px', borderRadius: '100px',
                                             background: 'var(--md-sys-color-surface-container-high)',
@@ -204,7 +217,7 @@ const ChangelogItem = ({v, index, isActive, strings}) => {
  * @returns {JSX.Element}
  */
 export default function ChangelogViewer({markdownContent: initialMarkdown, appConfig, strings, onNavigate}) {
-    const { language } = useLanguage();
+    const {language} = useLanguage();
     const [markdown, setMarkdown] = useState(initialMarkdown);
     const [versions, setVersions] = useState([]);
     const [isAiTranslated, setIsAiTranslated] = useState(false);
@@ -330,9 +343,9 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                         background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)'
                     }}>
                         <motion.div
-                            initial={{ scale: 0.9, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            exit={{ scale: 0.9, opacity: 0 }}
+                            initial={{scale: 0.9, opacity: 0}}
+                            animate={{scale: 1, opacity: 1}}
+                            exit={{scale: 0.9, opacity: 0}}
                             className="glass-card"
                             style={{
                                 width: '90%', maxWidth: '400px', padding: '24px', borderRadius: '24px',
@@ -340,18 +353,28 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                 background: 'var(--md-sys-color-surface-container)'
                             }}
                         >
-                            <div style={{display:'flex', alignItems:'center', gap:'12px', marginBottom:'16px'}}>
-                                <span className="material-symbols-outlined" style={{color:'var(--md-sys-color-primary)', fontSize:'32px'}}>auto_awesome</span>
-                                <h3 style={{margin:0, fontSize:'1.2rem'}}>AI Translated</h3>
+                            <div style={{display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px'}}>
+                                <span className="material-symbols-outlined" style={{
+                                    color: 'var(--md-sys-color-primary)',
+                                    fontSize: '32px'
+                                }}>auto_awesome</span>
+                                <h3 style={{margin: 0, fontSize: '1.2rem'}}>AI Translated</h3>
                             </div>
-                            <p style={{color:'var(--md-sys-color-on-surface-variant)', lineHeight:1.5, marginBottom:'24px'}}>
-                                This content was automatically translated by Google Gemini to help you stay updated. Some technical terms or nuances might be slightly inaccurate.
+                            <p style={{
+                                color: 'var(--md-sys-color-on-surface-variant)',
+                                lineHeight: 1.5,
+                                marginBottom: '24px'
+                            }}>
+                                This content was automatically translated by Google Gemini to help you stay updated.
+                                Some technical terms or nuances might be slightly inaccurate.
                             </p>
-                            <div style={{display:'flex', flexDirection:'column', gap:'12px'}}>
-                                <button onClick={handleRevertToEnglish} className="btn-glow" style={{justifyContent:'center'}}>
+                            <div style={{display: 'flex', flexDirection: 'column', gap: '12px'}}>
+                                <button onClick={handleRevertToEnglish} className="btn-glow"
+                                        style={{justifyContent: 'center'}}>
                                     Show Original (English)
                                 </button>
-                                <button onClick={() => setShowTranslateInfo(false)} className="btn-outline" style={{justifyContent:'center', border:'none'}}>
+                                <button onClick={() => setShowTranslateInfo(false)} className="btn-outline"
+                                        style={{justifyContent: 'center', border: 'none'}}>
                                     Keep Translation
                                 </button>
                             </div>
@@ -378,7 +401,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                         <span>Changelog</span>
                     </div>
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '12px' }}>
+                <div style={{display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '12px'}}>
                     <h1 style={{
                         fontSize: '3rem',
                         fontWeight: 800,
@@ -386,7 +409,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                         lineHeight: 1.1
                     }}>{strings.changelog.title}</h1>
 
-                    <div style={{display:'flex', alignItems:'flex-start', gap:'16px', flexWrap:'wrap'}}>
+                    <div style={{display: 'flex', alignItems: 'flex-start', gap: '16px', flexWrap: 'wrap'}}>
                         <p style={{
                             fontSize: '1.1rem',
                             color: 'var(--md-sys-color-on-surface-variant)',
@@ -396,7 +419,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                             {strings.changelog.subtitle}
                         </p>
                         <AnimatePresence>
-                            {isAiTranslated && <AutoTranslateBadge onClick={() => setShowTranslateInfo(true)} />}
+                            {isAiTranslated && <AutoTranslateBadge onClick={() => setShowTranslateInfo(true)}/>}
                         </AnimatePresence>
                     </div>
                 </div>
@@ -514,7 +537,8 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                     letterSpacing: '1px',
                                     fontWeight: 600
                                 }}>
-                                    <span className="material-symbols-outlined" style={{fontSize: '18px'}}>explore</span>
+                                    <span className="material-symbols-outlined"
+                                          style={{fontSize: '18px'}}>explore</span>
                                     <span>Explore More</span>
                                 </div>
 
@@ -612,7 +636,17 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                     .mobile-toc-wrapper { display: block !important; margin-bottom: 30px; }
                     .mobile-extra-content { display: block !important; }
                   }
-                  .markdown-body h4 { font-size: 1.2rem; margin-top: 1.5em; margin-bottom: 0.8em; color: var(--md-sys-color-on-surface); display: flex; align-items: center; gap: 8px; }
+                  .markdown-body h4 {
+                    font-size: 1.3rem;
+                    margin-top: 2em;
+                    margin-bottom: 1em;
+                    padding-bottom: 0.5em;
+                    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+                    color: var(--md-sys-color-primary);
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                  }
                   .markdown-body ul { padding-left: 1.2em; list-style-type: disc; color: var(--md-sys-color-on-surface-variant); }
                   .markdown-body li { margin-bottom: 0.8em; }
                   .markdown-body li strong { color: var(--md-sys-color-on-surface); font-weight: 600; }
