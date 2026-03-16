@@ -19,9 +19,9 @@ import RedirectToStore from './pages/RedirectToStore';
 import SiteProjectPage from './pages/SiteProjectPage';
 import FeedbackPage from "./pages/FeedbackPage";
 
-import { pixelPulseConfig } from './pages/pixel-pulse/PixelPulseConfig';
-import { pixelCompassConfig } from './pages/pixel-compass/PixelCompassConfig';
-import { siteProjectConfig } from './config';
+import {pixelPulseConfig} from './pages/pixel-pulse/PixelPulseConfig';
+import {pixelCompassConfig} from './pages/pixel-compass/PixelCompassConfig';
+import {siteProjectConfig} from './config';
 
 /**
  * Determines which Home component to render based on the hostname.
@@ -41,14 +41,14 @@ const DomainAwareHome = () => {
  * Provides the application's route definitions and enables animated page
  * transitions. Responsibilities:
  * - Wraps route tree with framer-motion's AnimatePresence to allow exit/enter
- *   animations when location changes.
+ * animations when location changes.
  * - Reads the current location from react-router's useLocation and keys the
- *   Routes to the pathname to trigger animations.
+ * Routes to the pathname to trigger animations.
  * - Collects valid page IDs from configuration objects and supplies them to
- *   RouteNormalizer to validate dynamic routes and render a fallback
- *   (NotFound) for unknown IDs.
+ * RouteNormalizer to validate dynamic routes and render a fallback
+ * (NotFound) for unknown IDs.
  * - Declares static routes, redirects, domain-aware home selection, and
- *   per-app routes (PixelPulse / PixelCompass) including store redirect paths.
+ * per-app routes (PixelPulse / PixelCompass) including store redirect paths.
  */
 function AnimatedRoutes() {
     const location = useLocation();
@@ -68,48 +68,53 @@ function AnimatedRoutes() {
     return (
         <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
-                <Route path="/" element={<DomainAwareHome />}/>
+                <Route path="/" element={<DomainAwareHome/>}/>
 
-                <Route path="/overview" element={<SiteProjectPage forcedTab="overview" />} />
-                <Route path="/changelog" element={<SiteProjectPage forcedTab="changelog" />} />
+                <Route path="/overview" element={<SiteProjectPage forcedTab="overview"/>}/>
+                <Route path="/changelog" element={<SiteProjectPage forcedTab="changelog"/>}/>
+                <Route path="/changelog/:versionId" element={<SiteProjectPage forcedTab="changelog"/>}/>
 
-                <Route path="/site" element={<Navigate to="/overview" replace />} />
-                <Route path="/site/overview" element={<Navigate to="/overview" replace />} />
-                <Route path="/site/changelog" element={<Navigate to="/changelog" replace />} />
+                <Route path="/site" element={<Navigate to="/overview" replace/>}/>
+                <Route path="/site/overview" element={<Navigate to="/overview" replace/>}/>
+                <Route path="/site/changelog" element={<Navigate to="/changelog" replace/>}/>
 
                 <Route
                     path="/site/:pageId"
                     element={
-                        <RouteNormalizer basePath="" validIds={siteIds} fallback={<NotFound />}>
-                            <div />
+                        <RouteNormalizer basePath="" validIds={siteIds} fallback={<NotFound/>}>
+                            <div/>
                         </RouteNormalizer>
                     }
                 />
 
-                <Route path="/feedback" element={<FeedbackPage />} />
+                <Route path="/feedback" element={<FeedbackPage/>}/>
 
                 <Route path="/pixelpulse/open" element={<RedirectToStore type="open" appKey="pixelpulse"/>}/>
                 <Route path="/pixelpulse/open/buy" element={<RedirectToStore type="buy" appKey="pixelpulse"/>}/>
-                <Route path="/pixelpulse" element={<PixelPulsePage />}/>
-                <Route path="/PixelPulse" element={<Navigate to="/pixelpulse" replace />}/>
+                <Route path="/pixelpulse" element={<PixelPulsePage/>}/>
+                <Route path="/PixelPulse" element={<Navigate to="/pixelpulse" replace/>}/>
+
+                <Route path="/pixelpulse/changelog/:versionId" element={<PixelPulsePage forcedTab="changelog"/>}/>
                 <Route
                     path="/pixelpulse/:pageId"
                     element={
-                        <RouteNormalizer basePath="/pixelpulse" validIds={pulseIds} fallback={<NotFound />}>
-                            <PixelPulsePage />
+                        <RouteNormalizer basePath="/pixelpulse" validIds={pulseIds} fallback={<NotFound/>}>
+                            <PixelPulsePage/>
                         </RouteNormalizer>
                     }
                 />
 
                 <Route path="/pixelcompass/open" element={<RedirectToStore type="open" appKey="pixelcompass"/>}/>
                 <Route path="/pixelcompass/open/buy" element={<RedirectToStore type="buy" appKey="pixelcompass"/>}/>
-                <Route path="/pixelcompass" element={<PixelCompassPage />}/>
-                <Route path="/PixelCompass" element={<Navigate to="/pixelcompass" replace />}/>
+                <Route path="/pixelcompass" element={<PixelCompassPage/>}/>
+                <Route path="/PixelCompass" element={<Navigate to="/pixelcompass" replace/>}/>
+
+                <Route path="/pixelcompass/changelog/:versionId" element={<PixelCompassPage forcedTab="changelog"/>}/>
                 <Route
                     path="/pixelcompass/:pageId"
                     element={
-                        <RouteNormalizer basePath="/pixelcompass" validIds={compassIds} fallback={<NotFound />}>
-                            <PixelCompassPage />
+                        <RouteNormalizer basePath="/pixelcompass" validIds={compassIds} fallback={<NotFound/>}>
+                            <PixelCompassPage/>
                         </RouteNormalizer>
                     }
                 />
