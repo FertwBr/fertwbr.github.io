@@ -438,7 +438,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
 
     /**
      * Reverts translated changelog to its original English state by reloading local content.
-     * Maps the localized active version ID back to its English equivalent to maintain synchronization.
+     * Maps the localized active version ID back to its English equivalent using semantic version numbers.
      * @async
      */
     const handleRevertToEnglish = async () => {
@@ -449,13 +449,18 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
 
                 if (isFullScreenMode && versionId) {
                     const safeVersionId = versionId.replace(/[^a-z0-9]/gi, '-').toLowerCase();
-                    const currentIndex = versions.findIndex(v => v.id === safeVersionId);
+                    const currentVer = versions.find(v => v.id === safeVersionId);
 
-                    if (currentIndex !== -1 && englishVersions[currentIndex]) {
-                        const newId = englishVersions[currentIndex].id;
-                        const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : '';
-                        navigate(`${basePath}/changelog/${newId}`, {replace: true});
-                        setActiveId(newId);
+                    if (currentVer) {
+                        const versionNumberMatch = currentVer.version.match(/[\d.]+/);
+                        if (versionNumberMatch) {
+                            const targetVer = englishVersions.find(v => v.version.includes(versionNumberMatch[0]));
+                            if (targetVer) {
+                                const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : '';
+                                navigate(`${basePath}/changelog/${targetVer.id}`, {replace: true});
+                                setActiveId(targetVer.id);
+                            }
+                        }
                     }
                 }
 
@@ -470,7 +475,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
 
     /**
      * Restores the translated changelog state by reloading local content for the current language.
-     * Maps the localized active version ID back to its translated equivalent to maintain synchronization.
+     * Maps the active version ID back to its translated equivalent using semantic version numbers.
      * @async
      */
     const handleRestoreTranslation = async () => {
@@ -481,13 +486,18 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
 
                 if (isFullScreenMode && versionId) {
                     const safeVersionId = versionId.replace(/[^a-z0-9]/gi, '-').toLowerCase();
-                    const currentIndex = versions.findIndex(v => v.id === safeVersionId);
+                    const currentVer = versions.find(v => v.id === safeVersionId);
 
-                    if (currentIndex !== -1 && translatedVersions[currentIndex]) {
-                        const newId = translatedVersions[currentIndex].id;
-                        const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : '';
-                        navigate(`${basePath}/changelog/${newId}`, {replace: true});
-                        setActiveId(newId);
+                    if (currentVer) {
+                        const versionNumberMatch = currentVer.version.match(/[\d.]+/);
+                        if (versionNumberMatch) {
+                            const targetVer = translatedVersions.find(v => v.version.includes(versionNumberMatch[0]));
+                            if (targetVer) {
+                                const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : '';
+                                navigate(`${basePath}/changelog/${targetVer.id}`, {replace: true});
+                                setActiveId(targetVer.id);
+                            }
+                        }
                     }
                 }
 
@@ -1183,7 +1193,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                   }
                   
                   .article-typography h4 {
-                    font-size: 1.5rem !important; margin-top: 2.5em !important; 
+                    font-size: 1.5rem !important; margin-top: 2.5em !important;
                     padding-bottom: 0.5em; border-bottom: 2px solid var(--md-sys-color-surface-container-highest);
                   }
                   .article-typography p, .article-typography li { font-size: 1.1rem; line-height: 1.7; }
