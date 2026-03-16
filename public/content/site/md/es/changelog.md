@@ -1,6 +1,62 @@
 # Historial de Versiones
 Siga la evolución del portafolio. Aquí encontrará un registro detallado de nuevas características, mejoras y correcciones para cada versión.
 
+## Versión 2.8.2
+*(Lanzado el 16 de marzo de 2026)*
+
+Una actualización de refinamiento centrada en mejorar el sistema automatizado de correos electrónicos de soporte, garantizando una alta capacidad de entrega y accesibilidad en todas las plataformas.
+
+#### 📧 Sistema de Correo Electrónico y Soporte
+* **Nuevo: Tematización Dinámica de Correo:** Se agregó soporte robusto para temas claro/oscuro al HTML del correo automatizado mediante el uso de etiquetas meta `color-scheme` y clases CSS. Los tickets de soporte y las respuestas automáticas ahora se adaptan perfectamente al tema del cliente de correo del usuario.
+* **Mejora: Plantillas HTML:** Se introdujo un generador `buildSupportHtml()` para crear cuerpos de correo modernos y con la marca, que contienen el mensaje del usuario junto con datos de depuración de diagnóstico.
+* **Mejora: Accesibilidad de Formularios:** Se agregaron los atributos correctos `id`, `name`, `htmlFor` y `autoComplete` al formulario de la página de Feedback para una mejor compatibilidad con lectores de pantalla y facilitar las pruebas.
+
+## Versión 2.8.1
+*(Lanzado el 15 de marzo de 2026)*
+
+* **Corrección: Optimización de la Resend API:** Se simplificó la estructura HTML de las respuestas automáticas y se reemplazaron los ayudantes de envoltura por llamadas `fetch` directas y optimizadas a la Resend API, mejorando el manejo de errores y la velocidad de entrega.
+* **Corrección: Refinamiento de la UI:** Se eliminó un artefacto de carácter suelto del componente `PortfolioHome` que podía causar inconsistencias de renderizado.
+
+## Versión 2.8.0
+*(Lanzado el 15 de marzo de 2026)*
+
+Esta importante actualización introduce una completa **API de Comentarios y Soporte en la Aplicación**, migrando de enlaces `mailto:` directos a un sistema de envío seguro y sin servidor (serverless) con archivos adjuntos y respuestas automáticas localizadas.
+
+#### ☁️ Cloud y API
+* **Nuevo: API de Comentarios Serverless:** Se implementó una Cloudflare Pages Function (`/api/feedback`) que maneja de manera segura las solicitudes POST y se comunica con la **Resend API** para despachar tickets de soporte y respuestas automáticas localizadas para el usuario.
+* **Nuevo: Soporte para Archivos Adjuntos:** El sistema de comentarios ahora es totalmente compatible con archivos adjuntos en Base64, lo que permite a los usuarios enviar capturas de pantalla de forma segura directamente desde el formulario web.
+
+#### 🎨 UI y Localización
+* **Nuevo: Formulario de Comentarios Interactivo:** Se construyó un sólido flujo de validación del lado del cliente con estados de carga en tiempo real (`idle/sending/success/error`), guardado automático de borradores y vistas previas de archivos adjuntos.
+* **Localización:** Se tradujo por completo la nueva experiencia de comentarios (marcadores de posición, errores, mensajes de éxito y textos de guía) en los 6 idiomas compatibles (de, en, es, hi, ja, pt).
+* **Refactorización: Pie de Página y Navegación:** Se reemplazaron los correos electrónicos de contacto directos por componentes seguros `Link` de React Router. Se mejoraron los componentes `DropdownButton` y `MenuItem` con transiciones más suaves y estados de desplazamiento (hover) perfeccionados.
+
+#### 💎 Branding y Activos
+* **Actualización: Iconografía de la App:** Se renovaron por completo los activos de Favicon y Web Manifest tanto para Pixel Compass como para Pixel Pulse. Se reconstruyeron los SVG con gradientes refinados, rutas de recorte actualizadas y se integró el soporte adecuado de `apple-touch-icon` para el ecosistema de Apple.
+* **Documentación:** Se agregaron encabezados JSDoc a los archivos de configuración principales (`PixelCompassConfig`, `PixelPulseConfig`) para mejorar la experiencia del desarrollador y la mantenibilidad.
+
+## Versión 2.7.4
+*(Lanzado el 5 de febrero de 2026)*
+
+* **Documentación:** Sincronización masiva de los registros de cambios del sitio para cubrir los extensos ciclos de beta y release candidate para **Pixel Compass v1.16.0 - v1.20.0** y **Pixel Pulse v1.19.0 - v1.20.0**, documentando exhaustivamente nuevas características como el Acoustic Health Engine, la paridad con Wear OS y las actualizaciones de la Expressive UI.
+
+## Versión 2.7.3
+*(Lanzado el 19 de enero de 2026)*
+
+* **Mejora de UI:** Se refactorizó la lógica de la `WearOSCard` para usar una propiedad de disponibilidad genérica, mostrando dinámicamente la tarjeta promocional de Wear OS para las páginas de destino tanto de Compass como de Pulse.
+* **Localización:** Se refinaron las traducciones promocionales de Wear OS en todas las regiones para aclarar las capacidades de medición en la muñeca.
+* **Documentación:** Se agregaron entradas en el registro de cambios para Pixel Pulse v1.18.0 RC2 y Pixel Compass v1.16.0 Beta 1.
+
+## Versión 2.7.2
+*(Lanzado el 15 de enero de 2026)*
+
+* **Documentación:** Actualizaciones de rutina que detallan el lanzamiento oficial de **Pixel Pulse v1.18.0**, incluyendo la nueva aplicación para Wear OS, copias de seguridad encriptadas y gráficos interactivos.
+
+## Versión 2.7.1
+*(Lanzado el 7 de enero de 2026)*
+
+* **Documentación:** Se ampliaron las descripciones generales de los proyectos para destacar las estrategias de modularización y la nueva sincronización del Wear OS Data Layer. Se actualizaron las notas de la versión para las versiones de la aplicación 1.15.1 y 1.15.2.
+
 ## Versión 2.7.0
 *(Lanzada el 6 de enero de 2026)*
 

@@ -1,6 +1,62 @@
 # Version History
 Track the evolution of the portfolio. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 2.8.2
+*(Released March 16, 2026)*
+
+A polishing update focused on improving the automated support email system, ensuring high deliverability and accessibility across all platforms.
+
+#### 📧 Email & Support System
+* **New: Dynamic Email Theming:** Added robust light/dark theme support to the automated email HTML using `color-scheme` meta tags and CSS classes. Support tickets and auto-replies now seamlessly adapt to the user's email client theme.
+* **Improvement: HTML Templates:** Introduced a `buildSupportHtml()` generator to create modern, branded email bodies containing the user's message alongside diagnostic debug data.
+* **Improvement: Form Accessibility:** Added proper `id`, `name`, `htmlFor`, and `autoComplete` attributes to the Feedback page form for better screen-reader compatibility and easier testing.
+
+## Version 2.8.1
+*(Released March 15, 2026)*
+
+* **Fix: Resend API Optimization:** Simplified the auto-reply HTML structure and replaced wrapper helpers with direct, optimized `fetch` calls to the Resend API, improving error handling and delivery speed.
+* **Fix: UI Polish:** Removed a stray character artifact from the `PortfolioHome` component that could cause rendering inconsistencies.
+
+## Version 2.8.0
+*(Released March 15, 2026)*
+
+This major update introduces a complete **In-App Feedback & Support API**, migrating away from raw `mailto:` links to a secure, serverless submission system with file attachments and localized auto-replies.
+
+#### ☁️ Cloud & API
+* **New: Serverless Feedback API:** Deployed a Cloudflare Pages Function (`/api/feedback`) that securely handles POST requests and interfaces with the **Resend API** to dispatch support tickets and localized user auto-replies.
+* **New: Attachment Support:** The feedback system now fully supports Base64 file attachments, allowing users to safely send screenshots directly from the web form.
+
+#### 🎨 UI & Localization
+* **New: Interactive Feedback Form:** Built a robust client-side validation flow with real-time loading states (`idle/sending/success/error`), draft auto-saving, and attachment previews.
+* **Localization:** Fully translated the new feedback experience (placeholders, errors, success messages, and guidance texts) across all 6 supported languages (de, en, es, hi, ja, pt).
+* **Refactor: Footer & Navigation:** Replaced raw contact emails with secure React Router `Link` components. Enhanced the `DropdownButton` and `MenuItem` components with smoother transitions and improved hover states.
+
+#### 💎 Branding & Assets
+* **Update: App Iconography:** Completely refreshed the Favicon and Web Manifest assets for both Pixel Compass and Pixel Pulse. Rebuilt the SVGs with refined gradients, updated clipping paths, and integrated proper `apple-touch-icon` support for the Apple ecosystem.
+* **Documentation:** Added JSDoc headers to the core configuration files (`PixelCompassConfig`, `PixelPulseConfig`) to improve developer experience and maintainability.
+
+## Version 2.7.4
+*(Released February 5, 2026)*
+
+* **Documentation:** Massive synchronization of the site's changelogs to cover the extensive beta and release candidate cycles for **Pixel Compass v1.16.0 - v1.20.0** and **Pixel Pulse v1.19.0 - v1.20.0**, thoroughly documenting new features like the Acoustic Health Engine, Wear OS parity, and Expressive UI updates.
+
+## Version 2.7.3
+*(Released January 19, 2026)*
+
+* **UI Improvement:** Refactored the `WearOSCard` logic to use a generic availability prop, dynamically displaying the Wear OS promotional card for both the Compass and Pulse landing pages.
+* **Localization:** Refined Wear OS promotional translations across all locales to clarify wrist-based measurement capabilities.
+* **Documentation:** Added changelog entries for Pixel Pulse v1.18.0 RC2 and Pixel Compass v1.16.0 Beta 1.
+
+## Version 2.7.2
+*(Released January 15, 2026)*
+
+* **Documentation:** Routine updates detailing the official launch of **Pixel Pulse v1.18.0**, including the new Wear OS app, encrypted backups, and interactive charts.
+
+## Version 2.7.1
+*(Released January 7, 2026)*
+
+* **Documentation:** Expanded project overviews to highlight modularization strategies and the new Wear OS Data Layer synchronization. Updated release notes for app versions 1.15.1 and 1.15.2.
+
 ## Version 2.7.0
 *(Released January 6, 2026)*
 

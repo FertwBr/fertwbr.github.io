@@ -1,6 +1,62 @@
 # Versionsverlauf
 Verfolgen Sie die Entwicklung des Portfolios. Hier finden Sie ein detailliertes Protokoll über neue Funktionen, Verbesserungen und Korrekturen für jede Version.
 
+## Version 2.8.2
+*(Veröffentlicht am 16. März 2026)*
+
+Ein Feinschliff-Update, das sich auf die Verbesserung des automatisierten Support-E-Mail-Systems konzentriert, um eine hohe Zustellbarkeit und Barrierefreiheit auf allen Plattformen zu gewährleisten.
+
+#### 📧 E-Mail- & Support-System
+* **Neu: Dynamisches E-Mail-Theming:** Dem automatisierten E-Mail-HTML wurde eine robuste Unterstützung für helle/dunkle Themes unter Verwendung von `color-scheme`-Meta-Tags und CSS-Klassen hinzugefügt. Support-Tickets und automatische Antworten passen sich nun nahtlos an das Theme des E-Mail-Clients des Benutzers an.
+* **Verbesserung: HTML-Vorlagen:** Ein `buildSupportHtml()`-Generator wurde eingeführt, um moderne, gebrandete E-Mail-Texte zu erstellen, die die Nachricht des Benutzers zusammen mit diagnostischen Debug-Daten enthalten.
+* **Verbesserung: Formular-Barrierefreiheit:** Dem Formular auf der Feedback-Seite wurden die korrekten Attribute `id`, `name`, `htmlFor` und `autoComplete` hinzugefügt, um die Kompatibilität mit Screenreadern zu verbessern und das Testen zu erleichtern.
+
+## Version 2.8.1
+*(Veröffentlicht am 15. März 2026)*
+
+* **Behebung: Resend API-Optimierung:** Die HTML-Struktur der automatischen Antworten wurde vereinfacht und Wrapper-Hilfsfunktionen wurden durch direkte, optimierte `fetch`-Aufrufe an die Resend API ersetzt, was die Fehlerbehandlung und die Zustellgeschwindigkeit verbessert.
+* **Behebung: UI-Feinschliff:** Ein verwaistes Zeichen-Artefakt aus der `PortfolioHome`-Komponente wurde entfernt, das Inkonsistenzen beim Rendering verursachen konnte.
+
+## Version 2.8.0
+*(Veröffentlicht am 15. März 2026)*
+
+Dieses große Update führt eine vollständige **In-App Feedback & Support API** ein und migriert von einfachen `mailto:`-Links zu einem sicheren, serverlosen Übermittlungssystem mit Dateianhängen und lokalisierten automatischen Antworten.
+
+#### ☁️ Cloud & API
+* **Neu: Serverlose Feedback API:** Eine Cloudflare Pages Function (`/api/feedback`) wurde bereitgestellt, die POST-Anfragen sicher verarbeitet und mit der **Resend API** kommuniziert, um Support-Tickets und lokalisierte automatische Antworten an Benutzer zu versenden.
+* **Neu: Unterstützung von Anhängen:** Das Feedback-System unterstützt nun vollständig Base64-Dateianhänge, sodass Benutzer sicher Screenshots direkt aus dem Webformular senden können.
+
+#### 🎨 UI & Lokalisierung
+* **Neu: Interaktives Feedback-Formular:** Ein robuster clientseitiger Validierungsablauf mit Echtzeit-Ladezuständen (`idle/sending/success/error`), automatischem Speichern von Entwürfen und Vorschauen für Anhänge wurde erstellt.
+* **Lokalisierung:** Die neue Feedback-Erfahrung (Platzhalter, Fehler, Erfolgsmeldungen und Anleitungstexte) wurde vollständig in alle 6 unterstützten Sprachen (de, en, es, hi, ja, pt) übersetzt.
+* **Refactoring: Fußzeile & Navigation:** Die reinen Kontakt-E-Mails wurden durch sichere React Router `Link`-Komponenten ersetzt. Die Komponenten `DropdownButton` und `MenuItem` wurden mit fließenderen Übergängen und verbesserten Hover-Zuständen optimiert.
+
+#### 💎 Branding & Assets
+* **Aktualisierung: App-Ikonographie:** Die Favicon- und Web Manifest-Ressourcen für sowohl Pixel Compass als auch Pixel Pulse wurden komplett überarbeitet. Die SVGs wurden mit verfeinerten Farbverläufen, aktualisierten Beschneidungspfaden und einer angemessenen Integration der `apple-touch-icon`-Unterstützung für das Apple-Ökosystem neu erstellt.
+* **Dokumentation:** Den zentralen Konfigurationsdateien (`PixelCompassConfig`, `PixelPulseConfig`) wurden JSDoc-Header hinzugefügt, um die Entwicklererfahrung und die Wartbarkeit zu verbessern.
+
+## Version 2.7.4
+*(Veröffentlicht am 5. Februar 2026)*
+
+* **Dokumentation:** Massive Synchronisierung der Änderungsprotokolle der Website, um die umfangreichen Beta- und Release-Candidate-Zyklen für **Pixel Compass v1.16.0 - v1.20.0** und **Pixel Pulse v1.19.0 - v1.20.0** abzudecken. Neue Funktionen wie die Acoustic Health Engine, Wear OS-Parität und Aktualisierungen der Expressive UI werden dabei ausführlich dokumentiert.
+
+## Version 2.7.3
+*(Veröffentlicht am 19. Januar 2026)*
+
+* **UI-Verbesserung:** Die Logik der `WearOSCard` wurde refaktorisiert, um ein generisches Verfügbarkeits-Prop zu verwenden, wodurch die Wear OS-Werbekarte sowohl für die Compass- als auch für die Pulse-Landingpages dynamisch angezeigt wird.
+* **Lokalisierung:** Die Werbeübersetzungen für Wear OS wurden über alle Gebietsschemas hinweg verfeinert, um die Möglichkeiten der handgelenkbasierten Messung klarer darzustellen.
+* **Dokumentation:** Änderungsprotokolleinträge für Pixel Pulse v1.18.0 RC2 und Pixel Compass v1.16.0 Beta 1 hinzugefügt.
+
+## Version 2.7.2
+*(Veröffentlicht am 15. Januar 2026)*
+
+* **Dokumentation:** Routinemäßige Aktualisierungen, die den offiziellen Start von **Pixel Pulse v1.18.0** detailliert beschreiben, einschließlich der neuen Wear OS-App, verschlüsselter Backups und interaktiver Diagramme.
+
+## Version 2.7.1
+*(Veröffentlicht am 7. Januar 2026)*
+
+* **Dokumentation:** Erweiterung der Projektübersichten, um Modularisierungsstrategien und die neue Wear OS Data Layer-Synchronisierung hervorzuheben. Die Versionshinweise für die App-Versionen 1.15.1 und 1.15.2 wurden aktualisiert.
+
 ## Version 2.7.0
 *(Veröffentlicht am 6. Januar 2026)*
 
