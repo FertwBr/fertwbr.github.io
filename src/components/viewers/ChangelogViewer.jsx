@@ -110,13 +110,15 @@ const ChangelogItem = ({v, index, isActive, strings, onOpenSingle, onShare}) => 
                 width: '14px', height: '14px', borderRadius: '50%',
                 background: v.type === 'stable' ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface)',
                 border: `3px solid ${timelineColor}`,
-                zIndex: 2, boxShadow: `0 0 0 4px var(--md-sys-color-surface)`
+                zIndex: 2, boxShadow: `0 0 0 4px var(--md-sys-color-surface)`,
+                transition: 'all 0.3s ease'
             }}/>
 
             <div className="glass-card" style={{
                 borderRadius: '32px',
                 border: isActive ? `1px solid var(--md-sys-color-primary)` : '1px solid var(--md-sys-color-outline-variant)',
-                overflow: 'hidden', transition: 'border-color 0.3s'
+                overflow: 'hidden', transition: 'border-color 0.3s',
+                backgroundColor: isActive ? 'rgba(var(--md-sys-color-primary-rgb), 0.05)' : 'var(--md-sys-color-surface-container)'
             }}>
                 <div onClick={() => setIsOpen(!isOpen)} className={`changelog-item-header ${isOpen ? 'open' : ''}`}>
                     <div style={{flex: 1, minWidth: 0}}>
@@ -132,7 +134,8 @@ const ChangelogItem = ({v, index, isActive, strings, onOpenSingle, onShare}) => 
                                 fontWeight: 800,
                                 margin: 0,
                                 letterSpacing: '-0.5px',
-                                wordBreak: 'break-word'
+                                wordBreak: 'break-word',
+                                color: isActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface)'
                             }}>
                                 {v.version.replace('Version ', '')}
                             </h2>
@@ -789,7 +792,18 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                 <div style={{flex: 1, minWidth: 0}}>
                     {!isFullScreenMode && (
                         <>
-                            <div style={{marginBottom: '40px', display: 'flex', flexDirection: 'column', gap: '16px'}}>
+                            <div className="glass-card" style={{
+                                marginBottom: '40px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '16px',
+                                padding: '24px',
+                                borderRadius: '32px',
+                                border: '1px solid var(--md-sys-color-outline-variant)',
+                                background: 'linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 100%)',
+                                backdropFilter: 'blur(12px)',
+                                WebkitBackdropFilter: 'blur(12px)'
+                            }}>
                                 <div className="search-input-wrapper">
                                     <span className="material-symbols-outlined search-icon-absolute">search</span>
                                     <input
@@ -811,7 +825,8 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                                         backgroundColor: isSelected ? style.bg : 'transparent',
                                                         borderColor: isSelected ? style.border : 'var(--md-sys-color-outline-variant)',
                                                         color: isSelected ? style.color : 'var(--md-sys-color-on-surface-variant)',
-                                                        fontWeight: isSelected ? 700 : 500
+                                                        fontWeight: isSelected ? 700 : 500,
+                                                        transition: 'all 0.2s cubic-bezier(0.2, 0, 0, 1)'
                                                     }}
                                                 >
                                                     {tag}
@@ -830,11 +845,16 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                         </>
                     )}
 
-                    <div style={{position: 'relative', paddingLeft: isFullScreenMode ? '0' : '40px'}}>
+                    <div style={{position: 'relative', paddingLeft: isFullScreenMode ? '0' : '48px'}}>
                         {!isFullScreenMode && (
                             <div style={{
-                                position: 'absolute', left: '11px', top: 0, bottom: 0, width: '2px',
-                                background: 'var(--md-sys-color-outline-variant)', opacity: 0.3
+                                position: 'absolute',
+                                left: '15px',
+                                top: '24px',
+                                bottom: '24px',
+                                width: '2px',
+                                background: 'linear-gradient(to bottom, var(--md-sys-color-outline-variant) 0%, transparent 100%)',
+                                opacity: 0.3
                             }}></div>
                         )}
 
@@ -878,7 +898,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                             textAlign: 'center',
                             marginTop: '40px',
                             paddingBottom: '20px',
-                            paddingLeft: '40px'
+                            paddingLeft: '48px'
                         }}>
                             <button onClick={() => setVisibleCount(prev => prev + 10)} className="btn-outline" style={{
                                 width: '100%',
@@ -1029,6 +1049,15 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                           justify-content: flex-end;
                           padding-top: 16px;
                           border-top: 1px solid var(--md-sys-color-outline-variant);
+                      }
+                      .filter-tags-container {
+                          flex-wrap: nowrap;
+                          overflow-x: auto;
+                          padding-bottom: 8px;
+                          -webkit-overflow-scrolling: touch;
+                      }
+                      .filter-tag {
+                          flex-shrink: 0;
                       }
                   }
                   
@@ -1193,7 +1222,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                   }
                   
                   .article-typography h4 {
-                    font-size: 1.5rem !important; margin-top: 2.5em !important;
+                    font-size: 1.5rem !important; margin-top: 2.5em !important; 
                     padding-bottom: 0.5em; border-bottom: 2px solid var(--md-sys-color-surface-container-highest);
                   }
                   .article-typography p, .article-typography li { font-size: 1.1rem; line-height: 1.7; }
