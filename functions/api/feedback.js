@@ -118,9 +118,10 @@ export async function onRequestPost(context) {
     try {
         const body = await context.request.json();
         const apiKey = context.env.RESEND_API_KEY;
+        const envKeys = Object.keys(context.env).join(', ');
 
         if (!apiKey) {
-            console.error("DEBUG: RESEND_API_KEY is missing in context.env");
+            console.error("DEBUG: RESEND_API_KEY is missing in context.env. Keys found: " + envKeys);
             return new Response(JSON.stringify({error: "API Key not configured"}), {status: 500});
         }
 
