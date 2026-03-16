@@ -127,7 +127,13 @@ const ChangelogItem = ({v, index, isActive, strings, onOpenSingle, onShare}) => 
                             marginBottom: '8px',
                             flexWrap: 'wrap'
                         }}>
-                            <h2 style={{fontSize: '1.5rem', fontWeight: 800, margin: 0, letterSpacing: '-0.5px', wordBreak: 'break-word'}}>
+                            <h2 style={{
+                                fontSize: '1.5rem',
+                                fontWeight: 800,
+                                margin: 0,
+                                letterSpacing: '-0.5px',
+                                wordBreak: 'break-word'
+                            }}>
                                 {v.version.replace('Version ', '')}
                             </h2>
                             <div style={{display: 'flex', gap: '6px', flexWrap: 'wrap'}}>
@@ -358,26 +364,28 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
                 )}
             </div>
 
-            <div className="sequential-nav">
-                {nextVersion ? (
-                    <button onClick={() => onOpenSingle(nextVersion.id)} className="seq-btn prev-btn">
-                        <span className="material-symbols-outlined">arrow_back</span>
-                        <div className="seq-text">
-                            <span className="seq-label">{strings.next_update || "Next Update"}</span>
-                            <span className="seq-title">{nextVersion.version.replace('Version ', '')}</span>
-                        </div>
-                    </button>
-                ) : <div style={{flex: 1}}></div>}
+            <div className="sequential-nav-wrapper">
+                <div className="sequential-nav">
+                    {nextVersion && (
+                        <button onClick={() => onOpenSingle(nextVersion.id)} className="seq-btn prev-btn">
+                            <span className="material-symbols-outlined">arrow_back</span>
+                            <div className="seq-text" style={{alignItems: 'flex-start'}}>
+                                <span className="seq-label">{strings.next_update || "Next Update"}</span>
+                                <span className="seq-title">{nextVersion.version.replace('Version ', '')}</span>
+                            </div>
+                        </button>
+                    )}
 
-                {prevVersion ? (
-                    <button onClick={() => onOpenSingle(prevVersion.id)} className="seq-btn next-btn">
-                        <div className="seq-text" style={{textAlign: 'right'}}>
-                            <span className="seq-label">{strings.previous_update || "Previous Update"}</span>
-                            <span className="seq-title">{prevVersion.version.replace('Version ', '')}</span>
-                        </div>
-                        <span className="material-symbols-outlined">arrow_forward</span>
-                    </button>
-                ) : <div style={{flex: 1}}></div>}
+                    {prevVersion && (
+                        <button onClick={() => onOpenSingle(prevVersion.id)} className="seq-btn next-btn">
+                            <div className="seq-text" style={{alignItems: 'flex-end'}}>
+                                <span className="seq-label">{strings.previous_update || "Previous Update"}</span>
+                                <span className="seq-title">{prevVersion.version.replace('Version ', '')}</span>
+                            </div>
+                            <span className="material-symbols-outlined">arrow_forward</span>
+                        </button>
+                    )}
+                </div>
             </div>
         </motion.div>
     );
@@ -612,7 +620,10 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                     color: 'var(--md-sys-color-primary)',
                                     fontSize: '32px'
                                 }}>auto_awesome</span>
-                                <h3 style={{margin: 0, fontSize: '1.2rem'}}>{strings.changelog?.translate_modal_title || 'Auto Translated'}</h3>
+                                <h3 style={{
+                                    margin: 0,
+                                    fontSize: '1.2rem'
+                                }}>{strings.changelog?.translate_modal_title || 'Auto Translated'}</h3>
                             </div>
                             <p style={{
                                 color: 'var(--md-sys-color-on-surface-variant)',
@@ -1039,54 +1050,84 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                   
                   .toc-link-btn:hover { color: var(--md-sys-color-primary) !important; }
                   
-                  .sequential-nav {
-                    display: flex;
-                    justify-content: space-between;
-                    gap: 16px;
+                  .sequential-nav-wrapper {
                     margin-top: 60px;
                     border-top: 1px solid var(--md-sys-color-outline-variant);
                     padding-top: 40px;
                     margin-bottom: 80px;
+                    width: 100%;
                   }
+                  
+                  .sequential-nav {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: flex-start;
+                    gap: 16px;
+                  }
+                  
                   .seq-btn {
-                    flex: 1;
                     display: flex;
                     align-items: center;
                     gap: 16px;
                     background: var(--md-sys-color-surface-container);
                     border: 1px solid var(--md-sys-color-outline-variant);
-                    padding: 24px;
-                    border-radius: 32px;
+                    padding: 16px 24px;
+                    border-radius: 24px;
                     cursor: pointer;
                     transition: all 0.2s;
                     color: var(--md-sys-color-on-surface);
-                    min-width: 0;
+                    max-width: 45%;
+                    min-width: 200px;
                   }
-                  .seq-btn:hover { background: var(--md-sys-color-surface-container-high); border-color: var(--md-sys-color-primary); }
+                  
+                  .seq-btn.next-btn {
+                      margin-left: auto;
+                  }
+                  
+                  .seq-btn:hover { 
+                      background: var(--md-sys-color-surface-container-high); 
+                      border-color: var(--md-sys-color-primary); 
+                  }
                   
                   .seq-text {
                       display: flex;
                       flex-direction: column;
                       min-width: 0;
                       overflow: hidden;
+                      flex: 1;
                   }
                   
                   .seq-label {
-                      font-size: 0.8rem;
+                      font-size: 0.75rem;
                       color: var(--md-sys-color-on-surface-variant);
                       text-transform: uppercase;
                       letter-spacing: 1px;
                       white-space: nowrap;
                       overflow: hidden;
                       text-overflow: ellipsis;
+                      margin-bottom: 4px;
                   }
                   
                   .seq-title {
-                      font-size: 1.1rem;
+                      font-size: 1rem;
                       font-weight: 700;
                       white-space: nowrap;
                       overflow: hidden;
                       text-overflow: ellipsis;
+                  }
+
+                  @media (max-width: 600px) {
+                      .sequential-nav {
+                          flex-direction: column;
+                          gap: 16px;
+                      }
+                      .seq-btn {
+                          max-width: 100%;
+                          width: 100%;
+                      }
+                      .seq-btn.next-btn {
+                          margin-left: 0;
+                      }
                   }
                   
                   .article-typography h4 {
