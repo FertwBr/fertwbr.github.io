@@ -943,8 +943,11 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                     )}
                                     <BetaProgramCard strings={strings.changelog?.beta_program || {}}
                                                      betaLink={betaLink}/>
-                                    <WearOSCard strings={strings.changelog?.wear_os_promo || {}}
-                                                isAvailable={hasWearApp} link={appConfig?.playStoreLink}/>
+                                    <WearOSCard
+                                        strings={strings.changelog?.wear_os_promo || {}}
+                                        isAvailable={hasWearApp}
+                                        link={appConfig?.playStoreLink}
+                                    />
                                     <PlusPromoCard strings={strings.changelog?.plus_promo || {}}
                                                    onNavigate={onNavigate}/>
                                 </div>
@@ -992,8 +995,11 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                 <div style={{display: 'flex', flexDirection: 'column', gap: '20px'}}>
                                     <BetaProgramCard strings={strings.changelog?.beta_program || {}}
                                                      betaLink={betaLink}/>
-                                    <WearOSCard strings={strings.changelog?.wear_os_promo || {}} isCompass={isCompass}
-                                                link={appConfig?.playStoreLink}/>
+                                    <WearOSCard
+                                        strings={strings.changelog?.wear_os_promo || {}}
+                                        isAvailable={hasWearApp}
+                                        link={appConfig?.playStoreLink}
+                                    />
                                     <PlusPromoCard strings={strings.changelog?.plus_promo || {}}
                                                    onNavigate={onNavigate}/>
                                 </div>
