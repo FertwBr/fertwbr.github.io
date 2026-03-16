@@ -1,6 +1,30 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.20.0 Release Candidate 1
+*(Released March 16, 2026)*
+
+This Release Candidate transitions Pixel Pulse to a modern, fully integrated in-app support system and brings the final layer of polish to the UI before the stable release.
+
+#### 📱 Phone
+
+* **New: In-App Feedback & Support System:**
+  * **Seamless Support:** We have completely removed the old method of opening your email client to send feedback. You can now submit bug reports, feature requests, and screenshots directly within the app via a new, secure Feedback Bottom Sheet.
+  * **Automated Support Infrastructure:** The app now integrates directly with the Resend API to securely transmit your feedback.
+  * **Branded Auto-Replies:** When you submit feedback, you will now instantly receive a beautifully formatted, localized confirmation email (with full Light/Dark mode support) acknowledging your request.
+  * **Smart Drafts & Validation:** The feedback form now features real-time email validation, visual loading states, and it automatically saves your message as a draft if you close the sheet accidentally.
+* **UI & Polish:**
+  * **Expressive Settings Actions:** Standardized the behavior of "disabled" settings items. If a feature requires a Plus subscription or a specific permission, tapping the disabled row now triggers a helpful prompt or action instead of doing nothing.
+  * **Visual Cleanups:** Disabled settings items now use a consistent 50% opacity for better visual hierarchy, and long setting titles will now smoothly scroll (marquee) instead of getting cut off on smaller screens.
+* **Core & Architecture:**
+  * **Deep Link Tracking:** The app now intelligently tracks where you opened the Feedback screen from (e.g., via a website link vs. in-app menu) to help us better categorize support tickets.
+  * **Performance:** Replaced several redundant UI checks with streamlined `isReady` flags in the Exposure Engine, slightly improving the speed at which charts render.
+
+#### ⌚ Wear OS
+
+* **UI Polish (Shared):**
+  * **Text Formatting:** Fixed an issue where the "Loudest Period" label on the Habit Pattern card could wrap awkwardly on smaller watches. The text now properly scrolls (marquee) on a single line.
+
 ## Version 1.20.0 Beta 8
 *(Released March 8, 2026)*
 
