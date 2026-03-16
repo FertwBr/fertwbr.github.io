@@ -148,35 +148,48 @@ export default {
     },
     changelog: {
         title: "Histórico de Versões",
-        subtitle: "Acompanhe a evolução do Pixel Pulse. Cada funcionalidade, melhoria e correção detalhadas abaixo.",
-        search_placeholder: "Pesquisar funcionalidades, versões (ex: 1.15, Beta)...",
-        latest_release: "Última Versão",
-        released: "Lançado em",
+        subtitle: "Acompanhe a evolução do Pixel Pulse. Todos os recursos, melhorias e correções estão detalhados abaixo.",
+        search_placeholder: "Pesquisar recursos, versões (ex. 1.15, Beta)...",
+        latest_release: "Último Lançamento",
+        released: "Lançado",
         update_now: "Atualizar Agora",
         on_this_page: "Nesta Página",
-        load_more: "Carregar Versões Anteriores",
-        no_results: "Nenhuma versão encontrada para os filtros aplicados.",
-        jump_to: "Ir para a Versão",
         read_more: "Ler Notas de Lançamento",
         collapse: "Recolher",
         back_to_top: "Voltar ao Topo",
+        "update_details": "Detalhes da Atualização",
+        "view_all": "Ver Todas as Atualizações",
+        "share_update": "Compartilhar Atualização",
+        "jump_to": "Ir para",
+        "version_not_found": "Versão não encontrada.",
+        "no_results": "Nenhum resultado encontrado.",
+        "back_to_changelog": "Voltar ao Changelog",
+        "load_more": "Carregar Mais",
+        "explore_more": "Explorar Mais",
+        "link_copied": "Link copiado para a área de transferência!",
+        "open_full_screen": "Abrir em tela cheia",
+        "share_tooltip": "Compartilhar esta atualização",
+        "previous_update": "Atualização Anterior",
+        "next_update": "Próxima Atualização",
+        "table_of_contents": "Índice",
+        "in_this_update": "Nesta atualização",
         plus_promo: {
-            title: "Apoie o Desenvolvimento",
-            subtitle: "Desbloqueie a monitorização automática e ajude-nos a construir novas funcionalidades.",
-            cta: "Obter Pixel Pulse+"
+            title: "Apoiar o Desenvolvimento",
+            subtitle: "Desbloqueie o monitoramento automático e ajude-nos a criar novos recursos.",
+            cta: "Obter o Pixel Pulse+"
         },
         beta_program: {
-            title: "Participe na Beta",
-            subtitle: "Teste novas funcionalidades antes do lançamento público.",
-            cta: "Aderir ao Programa Beta",
+            title: "Participar do Beta",
+            subtitle: "Teste novos recursos antes que sejam lançados publicamente.",
+            cta: "Participar do Programa Beta",
             badge: "Acesso Antecipado"
         },
         wear_os_promo: {
             title: "Experiência Wear OS",
             subtitle_available: "Meça os níveis diretamente do seu pulso. Integração perfeita.",
             subtitle_coming: "Chegando ao seu pulso no 1º trimestre de 2026.",
-            cta: "Ver no relógio",
-            badge: "Complemento"
+            cta: "Ver no Relógio",
+            badge: "Complementar"
         }
     },
     privacy_page: {
