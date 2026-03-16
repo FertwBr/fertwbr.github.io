@@ -67,7 +67,7 @@ function getLocalization(languageCode, appName) {
 }
 
 /**
- * Generates the Auto-Reply HTML layout.
+ * Generates the Auto-Reply HTML layout with dynamic light/dark theme support.
  * @param {Object} params - The dynamic content variables.
  * @returns {string} The constructed HTML.
  */
@@ -87,17 +87,32 @@ function buildAutoReplyHtml({
         <html lang="en">
         <head>
             <meta charset="UTF-8">
+            <meta name="color-scheme" content="light dark">
+            <meta name="supported-color-schemes" content="light dark">
             <style>
-                body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #0f1115; margin: 0; padding: 0; color: #e2e2e6; }
-                .container { max-width: 600px; margin: 40px auto; background-color: #1b1b1f; border-radius: 32px; border: 1px solid rgba(255, 255, 255, 0.08); overflow: hidden; }
-                .header { background: linear-gradient(135deg, #${colorHex} 0%, #0f1115 150%); padding: 60px 20px; text-align: center; }
-                .app-icon { width: 80px; height: 80px; border-radius: 20px; margin-bottom: 16px; }
+                :root { color-scheme: light dark; }
+                body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f4f4f5; margin: 0; padding: 0; color: #1b1b1f; }
+                .container { max-width: 600px; margin: 40px auto; background-color: #ffffff; border-radius: 24px; border: 1px solid #e2e2e6; overflow: hidden; }
+                .header { background: linear-gradient(135deg, #${colorHex} 0%, #2b2930 150%); padding: 50px 20px; text-align: center; color: #ffffff; }
+                .app-icon { width: 80px; height: 80px; border-radius: 20px; margin-bottom: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
                 .content { padding: 40px 30px; line-height: 1.6; }
-                .title { color: #${colorHex}; font-size: 26px; font-weight: 700; margin-bottom: 10px; }
-                .user-quote { background: rgba(255,255,255,0.03); border-left: 4px solid #${colorHex}; padding: 15px; border-radius: 8px; font-style: italic; margin-bottom: 30px; white-space: pre-wrap; }
-                .footer { background-color: #1b1b1f; padding: 40px 30px; border-top: 1px solid rgba(255, 255, 255, 0.08); }
-                .footer-link { display: inline-block; background: #2b2930; color: #e2e2e6; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-size: 13px; margin: 4px; }
-                .btn-main { display: inline-block; padding: 16px 32px; background-color: #${colorHex}; color: #ffffff; text-decoration: none; border-radius: 100px; font-weight: 700; }
+                .title { color: #${colorHex}; font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+                .user-quote { background: #f8f9fa; border-left: 4px solid #${colorHex}; padding: 16px; border-radius: 8px; font-style: italic; margin: 24px 0; white-space: pre-wrap; color: #49454f; }
+                .footer { background-color: #f8f9fa; padding: 30px; border-top: 1px solid #e2e2e6; }
+                .footer-title { font-size: 12px; color: #79747e; margin-bottom: 16px; text-transform: uppercase; font-weight: bold; letter-spacing: 1px; }
+                .footer-link { display: inline-block; background: #e2e2e6; color: #1b1b1f; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-size: 13px; margin: 4px; font-weight: 600; }
+                .btn-main { display: inline-block; padding: 14px 28px; background-color: #${colorHex}; color: #ffffff !important; text-decoration: none; border-radius: 100px; font-weight: 700; margin-bottom: 20px; }
+                .copyright { margin-top: 20px; font-size: 13px; color: #79747e; }
+                
+                @media (prefers-color-scheme: dark) {
+                    body { background-color: #0f1115 !important; color: #e2e2e6 !important; }
+                    .container { background-color: #1b1b1f !important; border-color: #2b2930 !important; }
+                    .header { background: linear-gradient(135deg, #${colorHex} 0%, #0f1115 150%) !important; }
+                    .user-quote { background: rgba(255,255,255,0.03) !important; color: #e2e2e6 !important; }
+                    .footer { background-color: #1b1b1f !important; border-color: #2b2930 !important; }
+                    .footer-link { background: #2b2930 !important; color: #e2e2e6 !important; }
+                    .footer-title, .copyright { color: #938f99 !important; }
+                }
             </style>
         </head>
         <body>
@@ -113,11 +128,13 @@ function buildAutoReplyHtml({
                     <a href="https://fertwbr.com/${appSlug}" class="btn-main">${btnText}</a>
                 </div>
                 <div class="footer">
-                    <div style="font-size: 12px; color: #938f99; margin-bottom: 20px;">${linksTitle}</div>
+                    <div class="footer-title">${linksTitle}</div>
                     <a href="https://fertwbr.com/${appSlug}/overview" class="footer-link">Docs</a>
                     <a href="https://fertwbr.com/${appSlug}/changelog" class="footer-link">Updates</a>
+                    <a href="https://fertwbr.com/${appSlug}/roadmap" class="footer-link">Roadmap</a>
                     <a href="https://fertwbr.com/${appSlug}/privacy" class="footer-link">Privacy</a>
-                    <div style="margin-top: 20px; font-size: 13px;">&copy; 2025 - 2026 Fernando Vaz</div>
+                    <a href="https://fertwbr.com/${appSlug}/help" class="footer-link">Help</a>
+                    <div class="copyright">&copy; 2025 - 2026 Fernando Vaz</div>
                 </div>
             </div>
         </body>
@@ -126,27 +143,42 @@ function buildAutoReplyHtml({
 }
 
 /**
- * Generates the Support HTML layout using the same modern dark theme.
+ * Generates the Support HTML layout with dynamic light/dark theme support.
  * @param {Object} params - The dynamic content variables.
  * @returns {string} The constructed HTML.
  */
 function buildSupportHtml({appName, type, platform, email, message, debugInfo, colorHex}) {
-    const debugSection = debugInfo ? `<div style="font-size: 14px; font-weight: bold; margin-bottom: 10px; color: #${colorHex}; text-transform: uppercase;">Diagnostic Info</div><div style="background-color: #0f1115; color: #e2e2e6; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 12px; white-space: pre-wrap; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05);">${debugInfo}</div>` : "";
+    const debugSection = debugInfo ? `<div class="section-title">Diagnostic Info</div><div class="debug">${debugInfo}</div>` : "";
 
     return `
         <!DOCTYPE html>
         <html lang="en">
         <head>
             <meta charset="UTF-8">
+            <meta name="color-scheme" content="light dark">
+            <meta name="supported-color-schemes" content="light dark">
             <style>
-                body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #0f1115; margin: 0; padding: 0; color: #e2e2e6; }
-                .container { max-width: 600px; margin: 40px auto; background-color: #1b1b1f; border-radius: 32px; border: 1px solid rgba(255, 255, 255, 0.08); overflow: hidden; }
-                .header { background: linear-gradient(135deg, #${colorHex} 0%, #0f1115 150%); padding: 30px 20px; text-align: center; color: #ffffff; font-size: 20px; font-weight: bold; }
+                :root { color-scheme: light dark; }
+                body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f4f4f5; margin: 0; padding: 0; color: #1b1b1f; }
+                .container { max-width: 600px; margin: 40px auto; background-color: #ffffff; border-radius: 24px; border: 1px solid #e2e2e6; overflow: hidden; }
+                .header { background: linear-gradient(135deg, #${colorHex} 0%, #2b2930 150%); padding: 30px 20px; text-align: center; color: #ffffff; font-size: 20px; font-weight: bold; }
                 .content { padding: 40px 30px; line-height: 1.6; }
-                .metadata { margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
-                .badge { display: inline-block; padding: 4px 10px; border-radius: 100px; background-color: rgba(255,255,255,0.05); font-size: 12px; font-weight: bold; color: #e2e2e6; margin-left: 8px; border: 1px solid rgba(255,255,255,0.1); }
-                .user-quote { background: rgba(255,255,255,0.03); border-left: 4px solid #${colorHex}; padding: 15px; border-radius: 8px; font-size: 14px; margin-bottom: 30px; white-space: pre-wrap; color: #e2e2e6; }
+                .metadata { margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #e2e2e6; }
+                .badge { display: inline-block; padding: 4px 10px; border-radius: 100px; background-color: #e2e2e6; font-size: 12px; font-weight: bold; color: #1b1b1f; margin-left: 8px; }
+                .user-quote { background: #f8f9fa; border-left: 4px solid #${colorHex}; padding: 16px; border-radius: 8px; font-size: 14px; margin-bottom: 30px; white-space: pre-wrap; color: #49454f; }
                 .section-title { font-size: 14px; font-weight: bold; margin-bottom: 10px; color: #${colorHex}; text-transform: uppercase; }
+                .debug { background-color: #f8f9fa; color: #49454f; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 12px; white-space: pre-wrap; margin-bottom: 20px; border: 1px solid #e2e2e6; }
+                .link { color: #${colorHex}; text-decoration: none; font-weight: 600; }
+
+                @media (prefers-color-scheme: dark) {
+                    body { background-color: #0f1115 !important; color: #e2e2e6 !important; }
+                    .container { background-color: #1b1b1f !important; border-color: #2b2930 !important; }
+                    .header { background: linear-gradient(135deg, #${colorHex} 0%, #0f1115 150%) !important; }
+                    .metadata { border-color: #2b2930 !important; }
+                    .badge { background-color: #2b2930 !important; color: #e2e2e6 !important; border: 1px solid #49454f !important; }
+                    .user-quote { background: rgba(255,255,255,0.03) !important; color: #e2e2e6 !important; }
+                    .debug { background-color: #0f1115 !important; color: #e2e2e6 !important; border-color: #2b2930 !important; }
+                }
             </style>
         </head>
         <body>
@@ -154,7 +186,7 @@ function buildSupportHtml({appName, type, platform, email, message, debugInfo, c
                 <div class="header">New Ticket: ${appName}</div>
                 <div class="content">
                     <div class="metadata">
-                        <p style="margin: 8px 0;"><strong>User:</strong> <a href="mailto:${email}" style="color: #${colorHex}; text-decoration: none;">${email}</a></p>
+                        <p style="margin: 8px 0;"><strong>User:</strong> <a href="mailto:${email}" class="link">${email}</a></p>
                         <p style="margin: 8px 0;"><strong>Type:</strong> <span class="badge">${type}</span></p>
                         <p style="margin: 8px 0;"><strong>Platform:</strong> <span class="badge">${platform}</span></p>
                     </div>
