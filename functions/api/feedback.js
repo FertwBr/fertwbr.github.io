@@ -10,27 +10,27 @@ function getLocalization(languageCode, appName) {
         pt: "Mensagem Recebida!",
         es: "¡Mensaje Recibido!",
         fr: "Message Reçu !",
-        de: "Nachricht erhalten!",
+        de: "Nachricht Erhalten!",
         ja: "メッセージを受信しました！",
         hi: "संदेश प्राप्त हुआ!"
     };
 
     const bodies = {
-        pt: "Obrigado pelo contato! Nossos devs já receberam seu feedback e retornarão o mais breve possível.",
-        es: "¡Gracias por contactarnos! Nuestros desenvolvedores han recibido tu mensaje y te responderán lo antes posible.",
-        fr: "Merci de nous avoir contactés ! Nos développeurs ont reçu votre message.",
-        de: "Vielen Dank für deine Nachricht! Unsere Entwickler haben dein Feedback erhalten.",
-        ja: "ご連絡ありがとうございます。開発チームがフィードバックを受け取りました。",
-        hi: "संपर्क करने के लिए धन्यवाद! हमारे डेवलपर्स को आपकी प्रतिक्रिया मिल गई है।"
+        pt: "Obrigado pelo contato! Nossa equipe já recebeu seu feedback e retornará o mais breve possível.",
+        es: "¡Gracias por contactarnos! Nuestro equipo ha recibido tu mensaje y te responderán lo antes posible.",
+        fr: "Merci de nous avoir contactés ! Notre équipe a reçu votre message.",
+        de: "Vielen Dank für Ihre Nachricht! Unser Team hat Ihr Feedback erhalten.",
+        ja: "ご連絡ありがとうございます。チームがフィードバックを受け取りました。",
+        hi: "संपर्क करने के लिए धन्यवाद! हमारी टीम को आपकी प्रतिक्रिया मिल गई है।"
     };
 
     const buttons = {
         pt: "Ver Projeto",
         es: "Ver Proyecto",
         fr: "Voir le Projet",
-        de: "Projekt ansehen",
+        de: "Projekt Ansehen",
         ja: "プロジェクトを見る",
-        hi: "प्रोजект देखें"
+        hi: "प्रोजेक्ट देखें"
     };
 
     const linksTitles = {
@@ -53,7 +53,7 @@ function getLocalization(languageCode, appName) {
 
     return {
         greeting: greetings[lang] || "Message Received!",
-        bodyText: bodies[lang] || "Thanks for reaching out! Our devs have received your feedback and will get back to you as soon as possible.",
+        bodyText: bodies[lang] || "Thanks for reaching out! Our team has received your feedback and will get back to you as soon as possible.",
         btnText: buttons[lang] || "View Project",
         linksTitle: linksTitles[lang] || "Useful Links",
         subject: subjects[lang] || `Confirmed: We got your message! - ${appName}`
@@ -73,11 +73,11 @@ function buildAutoReplyHtml({
                             }) {
     return `
         <!DOCTYPE html>
-        <html>
+        <html lang="en">
         <head>
             <meta charset="UTF-8">
             <style>
-                body { font-family: sans-serif; background-color: #0f1115; margin: 0; padding: 0; color: #e2e2e6; }
+                body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #0f1115; margin: 0; padding: 0; color: #e2e2e6; }
                 .container { max-width: 600px; margin: 40px auto; background-color: #1b1b1f; border-radius: 32px; border: 1px solid rgba(255, 255, 255, 0.08); overflow: hidden; }
                 .header { background: linear-gradient(135deg, #${colorHex} 0%, #0f1115 150%); padding: 60px 20px; text-align: center; }
                 .app-icon { width: 80px; height: 80px; border-radius: 20px; margin-bottom: 16px; }
@@ -92,7 +92,7 @@ function buildAutoReplyHtml({
         <body>
             <div class="container">
                 <div class="header">
-                    <img src="${appIcon}" class="app-icon">
+                    <img src="${appIcon}" alt="Icon" class="app-icon">
                     <div style="font-size: 22px; font-weight: 700;">${appName}</div>
                 </div>
                 <div class="content">
@@ -106,7 +106,7 @@ function buildAutoReplyHtml({
                     <a href="https://fertwbr.com/${appSlug}/overview" class="footer-link">Docs</a>
                     <a href="https://fertwbr.com/${appSlug}/changelog" class="footer-link">Updates</a>
                     <a href="https://fertwbr.com/${appSlug}/privacy" class="footer-link">Privacy</a>
-                    <div style="margin-top: 20px; font-size: 13px;">© 2025 - 2026 Fernando Vaz</div>
+                    <div style="margin-top: 20px; font-size: 13px;">&copy; 2025 - 2026 Fernando Vaz</div>
                 </div>
             </div>
         </body>
@@ -114,15 +114,17 @@ function buildAutoReplyHtml({
     `;
 }
 
-export async function onRequestPost(context) {
+export async function onRequestPost({request, env}) {
     try {
-        const body = await context.request.json();
-        const apiKey = context.env.RESEND_API_KEY;
-        const envKeys = Object.keys(context.env).join(', ');
+        const body = await request.json();
+
+        const apiKey = env.RESEND_API_KEY;
 
         if (!apiKey) {
-            console.error("DEBUG: RESEND_API_KEY is missing in context.env. Keys found: " + envKeys);
-            return new Response(JSON.stringify({error: "API Key not configured"}), {status: 500});
+            return new Response(JSON.stringify({error: "Missing configuration."}), {
+                status: 500,
+                headers: {"Content-Type": "application/json"}
+            });
         }
 
         const {
@@ -151,7 +153,7 @@ export async function onRequestPost(context) {
             appName = "Pixel Pulse";
             appSlug = "pixelpulse";
             colorHex = "3BA174";
-            appIcon = "https://apps.fertwbr.com/pixelpulse/assets/favicon/web-app-manifest-192x192.png";
+            appIcon = "https://apps.fertwbr.com/content/PixelPulse/assets/favicon/web-app-manifest-192x192.png";
         }
 
         const loc = getLocalization(languageCode, appName);
@@ -173,6 +175,10 @@ export async function onRequestPost(context) {
             })
         });
 
+        if (!supportRes.ok) {
+            throw new Error("API Support call failed: " + supportRes.status);
+        }
+
         const autoReplyHtml = buildAutoReplyHtml({
             greeting: loc.greeting,
             bodyText: loc.bodyText,
@@ -185,7 +191,7 @@ export async function onRequestPost(context) {
             appIcon
         });
 
-        await fetch("https://api.resend.com/emails", {
+        const replyRes = await fetch("https://api.resend.com/emails", {
             method: "POST",
             headers: {"Authorization": `Bearer ${apiKey}`, "Content-Type": "application/json"},
             body: JSON.stringify({
@@ -196,10 +202,19 @@ export async function onRequestPost(context) {
             })
         });
 
-        return new Response(JSON.stringify({success: true}), {status: 200});
+        if (!replyRes.ok) {
+            throw new Error("API Auto-Reply call failed: " + replyRes.status);
+        }
+
+        return new Response(JSON.stringify({success: true}), {
+            status: 200,
+            headers: {"Content-Type": "application/json"}
+        });
 
     } catch (error) {
-        console.error("CRITICAL ERROR:", error.message);
-        return new Response(JSON.stringify({error: error.message}), {status: 500});
+        return new Response(JSON.stringify({error: "Failed to send email."}), {
+            status: 500,
+            headers: {"Content-Type": "application/json"}
+        });
     }
 }
