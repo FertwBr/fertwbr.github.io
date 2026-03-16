@@ -18,15 +18,9 @@ import {
 } from './changelog/SidebarCards';
 
 /**
- * Map of tag keys to visual style settings used by badges and timeline indicators.
- * Keys are lowercase tag identifiers.
- * Each entry contains:
- * - bg: background color
- * - color: foreground color
- * - border: border color
- * - highlight: accent color used for timeline/markers
- *
- * @type {{[key: string]: {bg: string, color: string, border: string, highlight: string}}}
+ * Configuration object defining styles for various changelog tags.
+ * @constant
+ * @type {Object.<string, {bg: string, color: string, border: string, highlight: string}>}
  */
 const TAG_STYLE_CONFIG = {
     stable: {
@@ -48,120 +42,64 @@ const TAG_STYLE_CONFIG = {
 };
 
 /**
- * Get the style configuration for a tag/type key.
- *
- * @param {string|undefined|null} tagKey - Tag or release type (case-insensitive).
- * @returns {{bg: string, color: string, border: string, highlight: string}} Style config for the provided tag.
+ * Retrieves the associated style object for a given tag type.
+ * @param {string} tagKey - The key or name of the tag (e.g., 'beta', 'stable').
+ * @returns {{bg: string, color: string, border: string, highlight: string}} The computed style configuration.
  */
 const getTagStyle = (tagKey) => {
     const key = tagKey?.toLowerCase() || 'default';
     if (TAG_STYLE_CONFIG[key]) return TAG_STYLE_CONFIG[key];
-
     if (key.includes('beta')) return TAG_STYLE_CONFIG.beta;
     if (key.includes('alpha')) return TAG_STYLE_CONFIG.alpha;
     if (key.includes('rc')) return TAG_STYLE_CONFIG.rc;
     if (key.includes('pre-release')) return TAG_STYLE_CONFIG['pre-release'];
-
     return TAG_STYLE_CONFIG.default;
 };
 
 /**
- * VersionBadge component
- *
- * Renders a small badge representing the release channel/type.
- *
- * @param {Object} props
- * @param {string} props.type - Release type key used to determine visual style.
- * @param {string} [props.text] - Optional text to display; falls back to the `type` value.
- * @returns {JSX.Element} Inline styled `<span>` used as a badge.
+ * Renders a stylized badge indicating the version type or platform tag.
+ * @param {Object} props - The component props.
+ * @param {string} props.type - The release type used to determine the badge style.
+ * @param {string} [props.text] - The display text. Falls back to the 'type' if not provided.
+ * @returns {JSX.Element} The rendered version badge.
  */
 const VersionBadge = ({type, text}) => {
     const style = getTagStyle(type);
-
     return (
         <span style={{
             fontSize: '0.65rem', fontWeight: 700, padding: '4px 8px', borderRadius: '6px',
-            background: style.bg,
-            color: style.color,
-            border: `1px solid ${style.border}`,
+            background: style.bg, color: style.color, border: `1px solid ${style.border}`,
             textTransform: 'uppercase', letterSpacing: '0.5px', display: 'inline-flex',
             alignItems: 'center', whiteSpace: 'nowrap'
         }}>
-          {text || type}
+            {text || type}
         </span>
     );
 };
 
 /**
- * ChangelogItem component
- *
- * Renders a single changelog entry card with expand/collapse behavior and entrance animation.
- * The first item (index === 0) is open by default. Uses framer-motion for animated mount/unmount
- * and expansion. Displays version metadata (version string, release date, type badges, tags)
- * and renders the changelog content as Markdown.
- *
- * @param {Object} props
- * @param {Object} props.v - Version object parsed from the changelog.
- * @param {number} props.index - Index of this item in the list.
- * @param {boolean} props.isActive - Whether this item is currently active/in-view.
- * @param {Object} props.strings - Localization strings used inside the item.
- * @param {boolean} [props.forceOpen] - If true, the item starts expanded regardless of its index.
- * @param {boolean} [props.isFullScreenMode] - If true, drops the card UI and renders as a full page article.
- * @param {Function} [props.onOpenSingle] - Callback to open the item in full screen mode.
- * @param {Function} [props.onShare] - Callback to trigger the share API for this specific version.
- * @returns {JSX.Element} A motion-wrapped changelog item card or a flat full-screen layout.
+ * Renders an expandable card displaying the details of a single changelog release.
+ * @param {Object} props - The component props.
+ * @param {Object} props.v - The version data object containing id, type, tags, date, and content.
+ * @param {number} props.index - The current index of this item in the rendered list.
+ * @param {boolean} props.isActive - Whether this specific card is currently active/highlighted.
+ * @param {Object} props.strings - Localized string definitions.
+ * @param {Function} props.onOpenSingle - Callback triggered when the full-screen action is clicked.
+ * @param {Function} props.onShare - Callback triggered to initiate the share flow.
+ * @returns {JSX.Element} The changelog item card component.
  */
-const ChangelogItem = ({v, index, isActive, strings, forceOpen, isFullScreenMode, onOpenSingle, onShare}) => {
-    const [isOpen, setIsOpen] = useState(forceOpen || index === 0);
+const ChangelogItem = ({v, index, isActive, strings, onOpenSingle, onShare}) => {
+    const [isOpen, setIsOpen] = useState(index === 0);
     const badgeStyle = getTagStyle(v.type);
-
-    useEffect(() => {
-        if (forceOpen) {
-            setIsOpen(true);
-        }
-    }, [forceOpen]);
-
     const timelineColor = badgeStyle.highlight;
 
     const platformTags = ['Wear OS', 'Android XR', 'Phone', 'Tablet', 'Web', 'Website'];
-    const excludeTags = ['Wear OS', 'Android XR', 'Phone', 'Tablet', 'Web', 'Website', 'Beta', 'Alpha', 'RC', 'Pre-release'];
-
-    if (isFullScreenMode) {
-        return (
-            <div id={`ver-${v.id}`} style={{marginBottom: '40px'}}>
-                <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    color: 'var(--md-sys-color-on-surface-variant)',
-                    fontSize: '1rem',
-                    marginBottom: '24px'
-                }}>
-                    <span className="material-symbols-outlined" style={{fontSize: '18px'}}>calendar_today</span>
-                    {strings.released || "Released"} {v.date}
-                </div>
-
-                <div style={{display: 'flex', gap: '8px', marginBottom: '32px', flexWrap: 'wrap'}}>
-                    {v.tags.filter(t => !excludeTags.includes(t)).map(tag => (
-                        <span key={tag} style={{
-                            fontSize: '0.85rem', padding: '6px 14px', borderRadius: '100px',
-                            background: 'var(--md-sys-color-surface-container-high)',
-                            color: 'var(--md-sys-color-on-surface-variant)',
-                            border: '1px solid var(--md-sys-color-outline-variant)', fontWeight: 500
-                        }}>{tag}</span>
-                    ))}
-                </div>
-
-                <div className="markdown-body" style={{fontSize: '1.15rem'}}>
-                    <ReactMarkdown rehypePlugins={[rehypeRaw]}>{v.content}</ReactMarkdown>
-                </div>
-            </div>
-        );
-    }
+    const excludeTags = [...platformTags, 'Beta', 'Alpha', 'RC', 'Pre-release'];
 
     return (
         <motion.div
             id={`ver-${v.id}`}
+            layoutId={`changelog-card-${v.id}`}
             initial={{opacity: 0, y: 20}}
             animate={{opacity: 1, y: 0}}
             transition={{delay: index * 0.05}}
@@ -187,7 +125,11 @@ const ChangelogItem = ({v, index, isActive, strings, forceOpen, isFullScreenMode
                 }}>
                     <div>
                         <div style={{
-                            display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px', flexWrap: 'wrap'
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '12px',
+                            marginBottom: '8px',
+                            flexWrap: 'wrap'
                         }}>
                             <h2 style={{fontSize: '1.5rem', fontWeight: 800, margin: 0, letterSpacing: '-0.5px'}}>
                                 {v.version.replace('Version ', '')}
@@ -200,8 +142,11 @@ const ChangelogItem = ({v, index, isActive, strings, forceOpen, isFullScreenMode
                             </div>
                         </div>
                         <div style={{
-                            display: 'flex', alignItems: 'center', gap: '8px',
-                            color: 'var(--md-sys-color-on-surface-variant)', fontSize: '0.9rem'
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            color: 'var(--md-sys-color-on-surface-variant)',
+                            fontSize: '0.9rem'
                         }}>
                             <span className="material-symbols-outlined" style={{fontSize: '16px'}}>calendar_today</span>
                             {strings.released || "Released"} {v.date}
@@ -213,17 +158,7 @@ const ChangelogItem = ({v, index, isActive, strings, forceOpen, isFullScreenMode
                                 e.stopPropagation();
                                 if (onShare) onShare(v);
                             }}
-                            style={{
-                                background: 'transparent',
-                                border: 'none',
-                                color: 'var(--md-sys-color-on-surface-variant)',
-                                cursor: 'pointer',
-                                display: 'flex',
-                                alignItems: 'center',
-                                padding: '8px',
-                                borderRadius: '50%'
-                            }}
-                            title={strings.share_tooltip || "Share this update"}
+                            className="icon-action-btn" title={strings.share_tooltip || "Share this update"}
                         >
                             <span className="material-symbols-outlined" style={{fontSize: '20px'}}>share</span>
                         </button>
@@ -232,23 +167,13 @@ const ChangelogItem = ({v, index, isActive, strings, forceOpen, isFullScreenMode
                                 e.stopPropagation();
                                 if (onOpenSingle) onOpenSingle();
                             }}
-                            style={{
-                                background: 'transparent',
-                                border: 'none',
-                                color: 'var(--md-sys-color-primary)',
-                                cursor: 'pointer',
-                                display: 'flex',
-                                alignItems: 'center',
-                                padding: '8px',
-                                borderRadius: '50%'
-                            }}
+                            className="icon-action-btn primary"
                             title={strings.open_full_screen || "Open in full screen"}
                         >
                             <span className="material-symbols-outlined" style={{fontSize: '20px'}}>open_in_new</span>
                         </button>
-                        <span className="material-symbols-outlined" style={{
-                            transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s',
-                            color: 'var(--md-sys-color-on-surface-variant)', padding: '8px'
+                        <span className="material-symbols-outlined icon-action-btn" style={{
+                            transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s'
                         }}>expand_more</span>
                     </div>
                 </div>
@@ -259,17 +184,15 @@ const ChangelogItem = ({v, index, isActive, strings, forceOpen, isFullScreenMode
                                     exit={{height: 0, opacity: 0}} style={{overflow: 'hidden'}}>
                             <div style={{padding: '0 24px 24px 24px'}}>
                                 <div style={{
-                                    width: '100%', height: '1px', background: 'var(--md-sys-color-outline-variant)',
-                                    opacity: 0.3, marginBottom: '24px'
+                                    width: '100%',
+                                    height: '1px',
+                                    background: 'var(--md-sys-color-outline-variant)',
+                                    opacity: 0.3,
+                                    marginBottom: '24px'
                                 }}></div>
                                 <div style={{display: 'flex', gap: '8px', marginBottom: '24px', flexWrap: 'wrap'}}>
                                     {v.tags.filter(t => !excludeTags.includes(t)).map(tag => (
-                                        <span key={tag} style={{
-                                            fontSize: '0.75rem', padding: '4px 10px', borderRadius: '100px',
-                                            background: 'var(--md-sys-color-surface-container-high)',
-                                            color: 'var(--md-sys-color-on-surface-variant)',
-                                            border: '1px solid var(--md-sys-color-outline-variant)', fontWeight: 500
-                                        }}>{tag}</span>
+                                        <span key={tag} className="content-tag">{tag}</span>
                                     ))}
                                 </div>
                                 <div className="markdown-body">
@@ -285,14 +208,192 @@ const ChangelogItem = ({v, index, isActive, strings, forceOpen, isFullScreenMode
 };
 
 /**
- * Changelog viewer component.
+ * Full Screen Article Component displaying a detailed view of a specific changelog.
  *
- * @param {Object} props
- * @param {string} props.markdownContent - Initial changelog Markdown content.
- * @param {Object} props.appConfig - Application configuration.
- * @param {Object} props.strings - Localization strings used by the component.
- * @param {Function} [props.onNavigate] - Optional navigation callback for promo actions.
- * @returns {JSX.Element}
+ * @param {Object} props - The component props.
+ * @param {Object} props.v - The active version data object.
+ * @param {Object|null} props.prevVersion - The previous chronological version data object.
+ * @param {Object|null} props.nextVersion - The next chronological version data object.
+ * @param {Object} props.strings - Localized string definitions.
+ * @param {Function} props.onOpenSingle - Callback for internal routing to sequential updates.
+ * @returns {JSX.Element} The Full Screen Article component.
+ */
+const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle}) => {
+    const headers = useMemo(() => {
+        const regex = /^####\s+(.+)$/gm;
+        const matches = [];
+        let match;
+        while ((match = regex.exec(v.content)) !== null) {
+            matches.push({title: match[1], id: match[1].toLowerCase().replace(/[^a-z0-9]+/g, '-')});
+        }
+        return matches;
+    }, [v.content]);
+
+    /**
+     * Smooth scrolls the window to a specified section element based on its ID.
+     * @param {string} id - The DOM element ID to scroll to.
+     */
+    const scrollToSection = (id) => {
+        const el = document.getElementById(id);
+        if (el) {
+            const offset = 120;
+            const elementPosition = el.getBoundingClientRect().top + window.pageYOffset;
+            window.scrollTo({top: elementPosition - offset, behavior: "smooth"});
+        }
+    };
+
+    const excludeTags = ['Wear OS', 'Android XR', 'Phone', 'Tablet', 'Web', 'Website', 'Beta', 'Alpha', 'RC', 'Pre-release'];
+
+    /**
+     * Custom components mapping for ReactMarkdown to inject IDs into specific heading elements.
+     * @type {Object}
+     */
+    const MarkdownComponents = {
+        h4: ({node, ...props}) => {
+            const childrenArray = React.Children.toArray(props.children);
+            const text = childrenArray.join('');
+            const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+            return <h4 id={id} {...props} />;
+        }
+    };
+
+    return (
+        <motion.div
+            layoutId={`changelog-card-${v.id}`}
+            initial={{opacity: 0, scale: 0.98}}
+            animate={{opacity: 1, scale: 1}}
+            transition={{type: "spring", stiffness: 200, damping: 20}}
+            className="full-screen-article"
+        >
+            <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                color: 'var(--md-sys-color-on-surface-variant)',
+                fontSize: '1rem',
+                marginBottom: '24px'
+            }}>
+                <span className="material-symbols-outlined" style={{fontSize: '18px'}}>calendar_today</span>
+                {strings.released || "Released"} {v.date}
+            </div>
+
+            <div style={{display: 'flex', gap: '8px', marginBottom: '40px', flexWrap: 'wrap'}}>
+                {v.tags.filter(t => !excludeTags.includes(t)).map(tag => (
+                    <span key={tag} className="content-tag"
+                          style={{fontSize: '0.85rem', padding: '6px 14px'}}>{tag}</span>
+                ))}
+            </div>
+
+            <div className="article-layout">
+                {headers.length > 0 && (
+                    <div className="mobile-article-toc">
+                        <div style={{
+                            fontSize: '0.85rem',
+                            fontWeight: 600,
+                            color: 'var(--md-sys-color-on-surface-variant)',
+                            marginBottom: '8px',
+                            textTransform: 'uppercase',
+                            letterSpacing: '1px'
+                        }}>
+                            {strings.in_this_update || "In this update"}
+                        </div>
+                        <div className="horizontal-chips">
+                            {headers.map(h => (
+                                <button key={h.id} onClick={() => scrollToSection(h.id)} className="toc-chip">
+                                    {h.title}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                <div className="markdown-body article-typography">
+                    <ReactMarkdown rehypePlugins={[rehypeRaw]} components={MarkdownComponents}>
+                        {v.content}
+                    </ReactMarkdown>
+                </div>
+
+                {headers.length > 0 && (
+                    <div className="desktop-article-toc">
+                        <div style={{
+                            position: 'sticky',
+                            top: '140px',
+                            background: 'rgba(var(--md-sys-color-surface-container-rgb), 0.3)',
+                            padding: '24px',
+                            borderRadius: '24px',
+                            border: '1px solid var(--md-sys-color-outline-variant)'
+                        }}>
+                            <h3 style={{
+                                margin: '0 0 16px 0',
+                                fontSize: '1rem',
+                                color: 'var(--md-sys-color-on-surface)'
+                            }}>
+                                {strings.table_of_contents || "Table of Contents"}
+                            </h3>
+                            <ul style={{
+                                listStyle: 'none',
+                                padding: 0,
+                                margin: 0,
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '12px'
+                            }}>
+                                {headers.map(h => (
+                                    <li key={h.id}>
+                                        <button onClick={() => scrollToSection(h.id)} style={{
+                                            background: 'none',
+                                            border: 'none',
+                                            textAlign: 'left',
+                                            cursor: 'pointer',
+                                            color: 'var(--md-sys-color-on-surface-variant)',
+                                            fontSize: '0.9rem',
+                                            padding: 0,
+                                            transition: 'color 0.2s'
+                                        }} className="toc-link-btn">
+                                            {h.title}
+                                        </button>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                )}
+            </div>
+
+            <div className="sequential-nav">
+                {nextVersion ? (
+                    <button onClick={() => onOpenSingle(nextVersion.id)} className="seq-btn prev-btn">
+                        <span className="material-symbols-outlined">arrow_back</span>
+                        <div className="seq-text">
+                            <span className="seq-label">{strings.next_update || "Next Update"}</span>
+                            <span className="seq-title">{nextVersion.version.replace('Version ', '')}</span>
+                        </div>
+                    </button>
+                ) : <div style={{flex: 1}}></div>}
+
+                {prevVersion ? (
+                    <button onClick={() => onOpenSingle(prevVersion.id)} className="seq-btn next-btn">
+                        <div className="seq-text" style={{textAlign: 'right'}}>
+                            <span className="seq-label">{strings.previous_update || "Previous Update"}</span>
+                            <span className="seq-title">{prevVersion.version.replace('Version ', '')}</span>
+                        </div>
+                        <span className="material-symbols-outlined">arrow_forward</span>
+                    </button>
+                ) : <div style={{flex: 1}}></div>}
+            </div>
+        </motion.div>
+    );
+};
+
+/**
+ * Main viewer component capable of rendering standard list or full-screen views of the changelog.
+ *
+ * @param {Object} props - The component props.
+ * @param {string} props.markdownContent - The raw markdown text containing changelog data.
+ * @param {Object} props.appConfig - General application configuration data (e.g., playStoreLink).
+ * @param {Object} props.strings - Complete localized string map.
+ * @param {Function} props.onNavigate - Callback for external navigation handlers.
+ * @returns {JSX.Element} The rendered ChangelogViewer application.
  */
 export default function ChangelogViewer({markdownContent: initialMarkdown, appConfig, strings, onNavigate}) {
     const {language} = useLanguage();
@@ -327,6 +428,10 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
         }
     }, [markdown]);
 
+    /**
+     * Reverts translated changelog to its original English state by reloading local content.
+     * @async
+     */
     const handleRevertToEnglish = async () => {
         try {
             const originalContent = await loadPageContent('changelog', appConfig, 'en');
@@ -340,30 +445,34 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
         }
     };
 
+    /**
+     * Navigates back to the root changelog path removing the active version parameter.
+     */
     const handleViewAll = () => {
-        if (isCompass) {
-            navigate('/pixelcompass/changelog');
-        } else if (isPulse) {
-            navigate('/pixelpulse/changelog');
-        } else {
-            navigate('/changelog');
-        }
+        if (isCompass) navigate('/pixelcompass/changelog');
+        else if (isPulse) navigate('/pixelpulse/changelog');
+        else navigate('/changelog');
     };
 
+    /**
+     * Navigates to a specific version for full-screen detailed view.
+     * @param {string} id - The ID of the version to navigate to.
+     */
     const handleOpenSingle = (id) => {
         const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : '';
         navigate(`${basePath}/changelog/${id}`);
     };
 
+    /**
+     * Handles sharing functionality, defaulting to native share on supported platforms.
+     * @param {Object} version - The active version data to generate a specific link.
+     */
     const handleShare = (version) => {
         const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : '';
         const shareUrl = `${window.location.origin}${basePath}/changelog/${version.id}`;
 
         if (navigator.share) {
-            navigator.share({
-                title: `${appConfig?.appName} Update ${version.version}`,
-                url: shareUrl
-            }).catch(() => {
+            navigator.share({title: `${appConfig?.appName} Update ${version.version}`, url: shareUrl}).catch(() => {
             });
         } else {
             navigator.clipboard.writeText(shareUrl).then(() => {
@@ -393,6 +502,9 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
     }, [versions, searchQuery, selectedTags, isFullScreenMode, versionId]);
 
     const latestVersion = versions[0];
+    const activeVersionIndex = isFullScreenMode && versions.length > 0 ? versions.findIndex(v => v.id === filteredVersions[0]?.id) : -1;
+    const nextVersionObj = activeVersionIndex > 0 ? versions[activeVersionIndex - 1] : null;
+    const prevVersionObj = activeVersionIndex !== -1 && activeVersionIndex < versions.length - 1 ? versions[activeVersionIndex + 1] : null;
 
     useEffect(() => {
         if (isFullScreenMode) return;
@@ -410,6 +522,10 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
         return () => observer.disconnect();
     }, [filteredVersions, visibleCount, isFullScreenMode]);
 
+    /**
+     * Programmatically scrolls to a specific active version element in the list view.
+     * @param {string} id - The target version ID to focus.
+     */
     const scrollToVersion = (id) => {
         const targetIndex = filteredVersions.findIndex(v => v.id === id);
         if (targetIndex !== -1) {
@@ -425,23 +541,30 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
         }
     };
 
+    /**
+     * Toggles an active filter tag state.
+     * @param {string} tag - The specific tag string to toggle.
+     */
     const toggleTag = (tag) => {
         setSelectedTags(prev => prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]);
     };
 
+    /**
+     * Generates table of content navigation buttons relative to filtered versions.
+     * @returns {JSX.Element[]} List of interactive Table of Content nodes.
+     */
     const renderTocButtons = () => (
         filteredVersions.map(v => (
             <button key={v.id} onClick={() => scrollToVersion(v.id)} style={{
                 display: 'flex', width: '100%', textAlign: 'left', padding: '12px 16px',
-                background: activeId === v.id ? 'rgba(255,255,255,0.05)' : 'transparent',
-                border: 'none',
+                background: activeId === v.id ? 'rgba(255,255,255,0.05)' : 'transparent', border: 'none',
                 color: activeId === v.id ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface-variant)',
                 fontWeight: activeId === v.id ? 600 : 400,
                 borderLeft: activeId === v.id ? `3px solid var(--md-sys-color-primary)` : '3px solid transparent',
                 justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', borderRadius: '4px'
             }}>
                 <span style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '180px'}}>
-                  {v.version.replace('Version ', '')}
+                    {v.version.replace('Version ', '')}
                 </span>
                 {v.type !== 'stable' && (
                     <span style={{
@@ -461,17 +584,27 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
             <AnimatePresence>
                 {showTranslateInfo && (
                     <div style={{
-                        position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 9999,
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)'
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        zIndex: 9999,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        background: 'rgba(0,0,0,0.6)',
+                        backdropFilter: 'blur(4px)'
                     }}>
                         <motion.div
-                            initial={{scale: 0.9, opacity: 0}}
-                            animate={{scale: 1, opacity: 1}}
+                            initial={{scale: 0.9, opacity: 0}} animate={{scale: 1, opacity: 1}}
                             exit={{scale: 0.9, opacity: 0}}
                             className="glass-card"
                             style={{
-                                width: '90%', maxWidth: '400px', padding: '24px', borderRadius: '24px',
+                                width: '90%',
+                                maxWidth: '400px',
+                                padding: '24px',
+                                borderRadius: '24px',
                                 border: '1px solid var(--md-sys-color-outline-variant)',
                                 background: 'var(--md-sys-color-surface-container)'
                             }}
@@ -528,12 +661,9 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                 <div style={{display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '12px'}}>
                     {isFullScreenMode && filteredVersions.length > 0 ? (
                         <>
-                            <h1 style={{
-                                fontSize: '3rem',
-                                fontWeight: 800,
-                                margin: 0,
-                                lineHeight: 1.1
-                            }}>{appConfig?.appName} {filteredVersions[0].version.replace('Version ', '')}</h1>
+                            <h1 style={{fontSize: '3rem', fontWeight: 800, margin: 0, lineHeight: 1.1}}>
+                                Update {filteredVersions[0].version.replace('Version ', '')}
+                            </h1>
                             <div style={{
                                 display: 'flex',
                                 alignItems: 'center',
@@ -586,18 +716,15 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
             <div className="changelog-layout" style={{display: 'flex', gap: '60px', alignItems: 'flex-start'}}>
 
                 <div style={{flex: 1, minWidth: 0}}>
-
                     {!isFullScreenMode && (
                         <>
                             <div style={{marginBottom: '40px', display: 'flex', flexDirection: 'column', gap: '16px'}}>
                                 <div className="search-input-wrapper">
                                     <span className="material-symbols-outlined search-icon-absolute">search</span>
                                     <input
-                                        type="text"
-                                        className="search-input-high-contrast"
+                                        type="text" className="search-input-high-contrast"
                                         placeholder={strings.changelog?.search_placeholder || "Search updates..."}
-                                        value={searchQuery}
-                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                        value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
                                     />
                                 </div>
 
@@ -606,12 +733,9 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                         {allTags.map(tag => {
                                             const isSelected = selectedTags.includes(tag);
                                             const style = getTagStyle(tag);
-
                                             return (
                                                 <button
-                                                    key={tag}
-                                                    onClick={() => toggleTag(tag)}
-                                                    className="filter-tag"
+                                                    key={tag} onClick={() => toggleTag(tag)} className="filter-tag"
                                                     style={{
                                                         backgroundColor: isSelected ? style.bg : 'transparent',
                                                         borderColor: isSelected ? style.border : 'var(--md-sys-color-outline-variant)',
@@ -645,14 +769,18 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
 
                         {filteredVersions.length > 0 ? (
                             isFullScreenMode ? (
-                                <ChangelogItem key={filteredVersions[0].id} v={filteredVersions[0]} index={0}
-                                               isActive={true}
-                                               strings={strings.changelog || {}} forceOpen={true}
-                                               isFullScreenMode={true}/>
+                                <FullScreenArticle
+                                    key={`fs-${filteredVersions[0].id}`}
+                                    v={filteredVersions[0]}
+                                    prevVersion={prevVersionObj}
+                                    nextVersion={nextVersionObj}
+                                    strings={strings.changelog || {}}
+                                    onOpenSingle={handleOpenSingle}
+                                />
                             ) : (
                                 filteredVersions.slice(0, visibleCount).map((v, index) => (
                                     <ChangelogItem key={v.id} v={v} index={index} isActive={activeId === v.id}
-                                                   strings={strings.changelog || {}} isFullScreenMode={false}
+                                                   strings={strings.changelog || {}}
                                                    onOpenSingle={() => handleOpenSingle(v.id)} onShare={handleShare}/>
                                 ))
                             )
@@ -717,28 +845,17 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                           style={{fontSize: '18px'}}>explore</span>
                                     <span>{strings.changelog?.explore_more || "Explore More"}</span>
                                 </div>
-
                                 <div style={{display: 'flex', flexDirection: 'column', gap: '24px'}}>
                                     {latestVersion && !searchQuery && (
-                                        <LatestReleaseCard
-                                            version={latestVersion}
-                                            strings={strings.changelog || {}}
-                                            link={appConfig?.playStoreLink}
-                                        />
+                                        <LatestReleaseCard version={latestVersion} strings={strings.changelog || {}}
+                                                           link={appConfig?.playStoreLink}/>
                                     )}
-                                    <BetaProgramCard
-                                        strings={strings.changelog?.beta_program || {}}
-                                        betaLink={betaLink}
-                                    />
-                                    <WearOSCard
-                                        strings={strings.changelog?.wear_os_promo || {}}
-                                        isAvailable={hasWearApp}
-                                        link={appConfig?.playStoreLink}
-                                    />
-                                    <PlusPromoCard
-                                        strings={strings.changelog?.plus_promo || {}}
-                                        onNavigate={onNavigate}
-                                    />
+                                    <BetaProgramCard strings={strings.changelog?.beta_program || {}}
+                                                     betaLink={betaLink}/>
+                                    <WearOSCard strings={strings.changelog?.wear_os_promo || {}}
+                                                isAvailable={hasWearApp} link={appConfig?.playStoreLink}/>
+                                    <PlusPromoCard strings={strings.changelog?.plus_promo || {}}
+                                                   onNavigate={onNavigate}/>
                                 </div>
                             </div>
                         </div>
@@ -746,32 +863,23 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                 </div>
 
                 {!isFullScreenMode && (
-                    <div className="desktop-toc-wrapper"
-                         style={{
-                             display: 'flex',
-                             flexDirection: 'column',
-                             gap: '20px',
-                             width: '320px',
-                             minWidth: '320px'
-                         }}>
-
+                    <div className="desktop-toc-wrapper" style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '20px',
+                        width: '320px',
+                        minWidth: '320px'
+                    }}>
                         {!isPortfolio && latestVersion && !searchQuery && (
-                            <LatestReleaseCard
-                                version={latestVersion}
-                                strings={strings.changelog || {}}
-                                link={appConfig?.playStoreLink}
-                            />
+                            <LatestReleaseCard version={latestVersion} strings={strings.changelog || {}}
+                                               link={appConfig?.playStoreLink}/>
                         )}
-
                         <PageTableOfContents title={strings.changelog?.on_this_page || "On this page"} isMobile={false}>
                             {renderTocButtons()}
                         </PageTableOfContents>
-
                         {!isPortfolio && (
                             <div style={{
-                                marginTop: '20px',
-                                padding: '24px',
-                                borderRadius: '24px',
+                                marginTop: '20px', padding: '24px', borderRadius: '24px',
                                 background: 'linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 100%)',
                                 border: '1px solid var(--md-sys-color-outline-variant)'
                             }}>
@@ -791,21 +899,12 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                     <span>{strings.changelog?.explore_more || "Explore More"}</span>
                                 </div>
                                 <div style={{display: 'flex', flexDirection: 'column', gap: '20px'}}>
-                                    <BetaProgramCard
-                                        strings={strings.changelog?.beta_program || {}}
-                                        betaLink={betaLink}
-                                    />
-
-                                    <WearOSCard
-                                        strings={strings.changelog?.wear_os_promo || {}}
-                                        isCompass={isCompass}
-                                        link={appConfig?.playStoreLink}
-                                    />
-
-                                    <PlusPromoCard
-                                        strings={strings.changelog?.plus_promo || {}}
-                                        onNavigate={onNavigate}
-                                    />
+                                    <BetaProgramCard strings={strings.changelog?.beta_program || {}}
+                                                     betaLink={betaLink}/>
+                                    <WearOSCard strings={strings.changelog?.wear_os_promo || {}} isCompass={isCompass}
+                                                link={appConfig?.playStoreLink}/>
+                                    <PlusPromoCard strings={strings.changelog?.plus_promo || {}}
+                                                   onNavigate={onNavigate}/>
                                 </div>
                             </div>
                         )}
@@ -820,17 +919,66 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                     .changelog-layout { display: block !important; }
                     .mobile-toc-wrapper { display: block !important; margin-bottom: 30px; }
                     .mobile-extra-content { display: block !important; }
+                    .article-layout { flex-direction: column; }
+                    .desktop-article-toc { display: none; }
                   }
+                  @media (min-width: 1001px) {
+                    .mobile-article-toc { display: none; }
+                    .article-layout { display: grid; grid-template-columns: 1fr 300px; gap: 40px; align-items: start; }
+                  }
+                  
+                  .icon-action-btn {
+                    background: transparent; border: none; color: var(--md-sys-color-on-surface-variant);
+                    cursor: pointer; display: flex; alignItems: center; padding: 8px; border-radius: 50%;
+                    transition: background 0.2s, color 0.2s;
+                  }
+                  .icon-action-btn:hover { background: rgba(255,255,255,0.05); }
+                  .icon-action-btn.primary { color: var(--md-sys-color-primary); }
+                  
+                  .content-tag {
+                    font-size: 0.75rem; padding: 4px 10px; border-radius: 100px;
+                    background: var(--md-sys-color-surface-container-high);
+                    color: var(--md-sys-color-on-surface-variant);
+                    border: 1px solid var(--md-sys-color-outline-variant); font-weight: 500;
+                  }
+                  
+                  .horizontal-chips {
+                    display: flex; overflow-x: auto; gap: 8px; padding-bottom: 8px;
+                    scrollbar-width: none;
+                  }
+                  .horizontal-chips::-webkit-scrollbar { display: none; }
+                  .toc-chip {
+                    white-space: nowrap; background: var(--md-sys-color-surface-container);
+                    border: 1px solid var(--md-sys-color-outline-variant); color: var(--md-sys-color-on-surface);
+                    padding: 8px 16px; border-radius: 100px; font-size: 0.85rem; cursor: pointer;
+                  }
+                  
+                  .toc-link-btn:hover { color: var(--md-sys-color-primary) !important; }
+                  
+                  .sequential-nav {
+                    display: flex; justify-content: space-between; gap: 16px; margin-top: 60px;
+                    border-top: 1px solid var(--md-sys-color-outline-variant); padding-top: 40px;
+                  }
+                  .seq-btn {
+                    flex: 1; display: flex; align-items: center; gap: 16px; background: var(--md-sys-color-surface-container);
+                    border: 1px solid var(--md-sys-color-outline-variant); padding: 20px; border-radius: 20px;
+                    cursor: pointer; transition: all 0.2s; color: var(--md-sys-color-on-surface);
+                  }
+                  .seq-btn:hover { background: var(--md-sys-color-surface-container-high); border-color: var(--md-sys-color-primary); }
+                  .seq-text { display: flex; flex-direction: column; }
+                  .seq-label { font-size: 0.8rem; color: var(--md-sys-color-on-surface-variant); text-transform: uppercase; letter-spacing: 1px; }
+                  .seq-title { font-size: 1.1rem; font-weight: 700; }
+                  
+                  .article-typography h4 {
+                    font-size: 1.5rem !important; margin-top: 2.5em !important; 
+                    padding-bottom: 0.5em; border-bottom: 2px solid var(--md-sys-color-surface-container-highest);
+                  }
+                  .article-typography p, .article-typography li { font-size: 1.1rem; line-height: 1.7; }
+                  
                   .markdown-body h4 {
-                    font-size: 1.3rem;
-                    margin-top: 2em;
-                    margin-bottom: 1em;
-                    padding-bottom: 0.5em;
-                    border-bottom: 1px solid var(--md-sys-color-outline-variant);
-                    color: var(--md-sys-color-primary);
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
+                    font-size: 1.3rem; margin-top: 2em; margin-bottom: 1em; padding-bottom: 0.5em;
+                    border-bottom: 1px solid var(--md-sys-color-outline-variant); color: var(--md-sys-color-primary);
+                    display: flex; align-items: center; gap: 8px;
                   }
                   .markdown-body ul { padding-left: 1.2em; list-style-type: disc; color: var(--md-sys-color-on-surface-variant); }
                   .markdown-body li { margin-bottom: 0.8em; }
