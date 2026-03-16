@@ -127,13 +127,7 @@ const ChangelogItem = ({v, index, isActive, strings, onOpenSingle, onShare}) => 
                             marginBottom: '8px',
                             flexWrap: 'wrap'
                         }}>
-                            <h2 style={{
-                                fontSize: '1.5rem',
-                                fontWeight: 800,
-                                margin: 0,
-                                letterSpacing: '-0.5px',
-                                wordBreak: 'break-word'
-                            }}>
+                            <h2 style={{fontSize: '1.5rem', fontWeight: 800, margin: 0, letterSpacing: '-0.5px', wordBreak: 'break-word'}}>
                                 {v.version.replace('Version ', '')}
                             </h2>
                             <div style={{display: 'flex', gap: '6px', flexWrap: 'wrap'}}>
@@ -618,24 +612,23 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                     color: 'var(--md-sys-color-primary)',
                                     fontSize: '32px'
                                 }}>auto_awesome</span>
-                                <h3 style={{margin: 0, fontSize: '1.2rem'}}>AI Translated</h3>
+                                <h3 style={{margin: 0, fontSize: '1.2rem'}}>{strings.changelog?.translate_modal_title || 'Auto Translated'}</h3>
                             </div>
                             <p style={{
                                 color: 'var(--md-sys-color-on-surface-variant)',
                                 lineHeight: 1.5,
                                 marginBottom: '32px'
                             }}>
-                                This content was automatically translated by Google Gemini to help you stay updated.
-                                Some technical terms or nuances might be slightly inaccurate.
+                                {strings.changelog?.translate_modal_desc || 'This content was automatically translated by an AI system to help you stay updated. Some technical terms or nuances might be slightly inaccurate.'}
                             </p>
                             <div style={{display: 'flex', flexDirection: 'column', gap: '12px'}}>
                                 <button onClick={handleRevertToEnglish} className="btn-glow"
                                         style={{justifyContent: 'center', borderRadius: '100px'}}>
-                                    Show Original (English)
+                                    {strings.changelog?.translate_modal_show_original || 'Show Original (English)'}
                                 </button>
                                 <button onClick={() => setShowTranslateInfo(false)} className="btn-outline"
                                         style={{justifyContent: 'center', border: 'none', borderRadius: '100px'}}>
-                                    Keep Translation
+                                    {strings.changelog?.translate_modal_keep_translation || 'Keep Translation'}
                                 </button>
                             </div>
                         </motion.div>

@@ -1,56 +1,53 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../../context/LanguageContext';
 
 /**
  * A clickable badge indicating content was translated by AI.
  *
  * @param {Object} props - Component props.
  * @param {Function} props.onClick - Handler triggered when the badge is clicked.
- * @returns {JSX.Element} The rendered badge.
+ * @returns {JSX.Element|null} The rendered badge.
  */
 export default function AutoTranslateBadge({ onClick }) {
+    const { language, content } = useLanguage();
+
+    const isPortfolio = !window.location.pathname.toLowerCase().includes('pixelcompass') &&
+        !window.location.pathname.toLowerCase().includes('pixelpulse');
+
+    if (language.startsWith('en') || !isPortfolio) {
+        return null;
+    }
+
+    const badgeText = content?.changelog?.auto_translated_badge || "Auto Translated";
+    const tooltipText = content?.changelog?.auto_translated_tooltip || "Translated by an AI system for your convenience.";
+
     return (
         <motion.button
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
             onClick={onClick}
+            className="btn-outline"
             style={{
+                padding: '8px 16px',
+                fontSize: '0.9rem',
+                borderRadius: '100px',
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '6px',
-                padding: '6px 12px',
-                borderRadius: '100px',
-                background: 'linear-gradient(90deg, rgba(var(--md-sys-color-primary-rgb), 0.1), rgba(var(--md-sys-color-tertiary-rgb), 0.1))',
-                border: '1px solid rgba(var(--md-sys-color-primary-rgb), 0.2)',
-                fontSize: '0.75rem',
-                fontWeight: 600,
-                color: 'var(--md-sys-color-on-surface-variant)',
+                gap: '8px',
                 cursor: 'pointer',
-                marginBottom: '16px',
-                position: 'relative',
-                overflow: 'hidden',
-                outline: 'none'
+                margin: 0,
+                whiteSpace: 'nowrap'
             }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            title="Translated by AI. Click for details."
+            whileHover={{ scale: 1.02, backgroundColor: 'rgba(var(--md-sys-color-on-surface-rgb), 0.05)' }}
+            whileTap={{ scale: 0.98 }}
+            title={tooltipText}
         >
-            <motion.div
-                animate={{ x: ['-100%', '200%'] }}
-                transition={{ repeat: Infinity, duration: 3, ease: "linear", delay: 1 }}
-                style={{
-                    position: 'absolute',
-                    top: 0, left: 0, bottom: 0, width: '50%',
-                    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)',
-                    zIndex: 1
-                }}
-            />
-
-            <span className="material-symbols-outlined" style={{ fontSize: '14px', color: 'var(--md-sys-color-primary)' }}>
+            <span className="material-symbols-outlined" style={{ fontSize: '18px', color: 'var(--md-sys-color-primary)' }}>
                 auto_awesome
             </span>
-            <span>AI Translated</span>
+            <span style={{ fontWeight: 600 }}>{badgeText}</span>
         </motion.button>
     );
 }
