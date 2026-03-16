@@ -1,5 +1,6 @@
 import React from 'react';
 import {motion} from "framer-motion";
+import {Link} from "react-router-dom";
 import {SiteConfig} from '../../utils/siteConstants';
 
 /**
@@ -61,7 +62,7 @@ export default function Contact({strings}) {
                     flexWrap: 'wrap',
                     width: '100%'
                 }}>
-                    <a href={SiteConfig.links.mailTo} style={{
+                    <Link to={SiteConfig.routes.feedback} style={{
                         padding: '12px 24px',
                         borderRadius: '100px',
                         background: 'var(--md-sys-color-primary)',
@@ -73,7 +74,7 @@ export default function Contact({strings}) {
                         maxWidth: '200px'
                     }}>
                         {strings.contact.email}
-                    </a>
+                    </Link>
 
                     <a href={SiteConfig.links.linkedin} target="_blank" rel="noreferrer" style={{
                         padding: '12px 24px',
