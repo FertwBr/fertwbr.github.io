@@ -19,7 +19,7 @@ import {
 
 /**
  * Map of tag keys to visual style settings used by badges and timeline indicators.
- * Keys are lowercase tag identifiers (e.g. "stable", "beta", "alpha", "rc", "pre-release").
+ * Keys are lowercase tag identifiers.
  * Each entry contains:
  * - bg: background color
  * - color: foreground color
@@ -50,11 +50,6 @@ const TAG_STYLE_CONFIG = {
 /**
  * Get the style configuration for a tag/type key.
  *
- * Normalizes the input to lowercase and returns:
- * - exact match from TAG_STYLE_CONFIG if available
- * - fallback pattern matches for keys that include 'beta', 'alpha', 'rc', or 'pre-release'
- * - the 'default' style otherwise
- *
  * @param {string|undefined|null} tagKey - Tag or release type (case-insensitive).
  * @returns {{bg: string, color: string, border: string, highlight: string}} Style config for the provided tag.
  */
@@ -73,7 +68,7 @@ const getTagStyle = (tagKey) => {
 /**
  * VersionBadge component
  *
- * Renders a small badge representing the release channel/type (e.g. stable, beta, alpha, rc, pre-release).
+ * Renders a small badge representing the release channel/type.
  *
  * @param {Object} props
  * @param {string} props.type - Release type key used to determine visual style.
@@ -106,15 +101,17 @@ const VersionBadge = ({type, text}) => {
  * and renders the changelog content as Markdown.
  *
  * @param {Object} props
- * @param {Object} props.v - Version object parsed from the changelog. Expected shape:
- * { id: string|number, version: string, date: string, type: string, tags: string[], content: string }
- * @param {number} props.index - Index of this item in the list (used for animation delay and initial open).
- * @param {boolean} props.isActive - Whether this item is currently active/in-view (used for styling).
- * @param {Object} props.strings - Localization strings used inside the item (e.g. released label).
+ * @param {Object} props.v - Version object parsed from the changelog.
+ * @param {number} props.index - Index of this item in the list.
+ * @param {boolean} props.isActive - Whether this item is currently active/in-view.
+ * @param {Object} props.strings - Localization strings used inside the item.
  * @param {boolean} [props.forceOpen] - If true, the item starts expanded regardless of its index.
- * @returns {JSX.Element} A motion-wrapped changelog item card with header, badges and Markdown content.
+ * @param {boolean} [props.isFullScreenMode] - If true, drops the card UI and renders as a full page article.
+ * @param {Function} [props.onOpenSingle] - Callback to open the item in full screen mode.
+ * @param {Function} [props.onShare] - Callback to trigger the share API for this specific version.
+ * @returns {JSX.Element} A motion-wrapped changelog item card or a flat full-screen layout.
  */
-const ChangelogItem = ({v, index, isActive, strings, forceOpen}) => {
+const ChangelogItem = ({v, index, isActive, strings, forceOpen, isFullScreenMode, onOpenSingle, onShare}) => {
     const [isOpen, setIsOpen] = useState(forceOpen || index === 0);
     const badgeStyle = getTagStyle(v.type);
 
@@ -128,6 +125,39 @@ const ChangelogItem = ({v, index, isActive, strings, forceOpen}) => {
 
     const platformTags = ['Wear OS', 'Android XR', 'Phone', 'Tablet', 'Web', 'Website'];
     const excludeTags = ['Wear OS', 'Android XR', 'Phone', 'Tablet', 'Web', 'Website', 'Beta', 'Alpha', 'RC', 'Pre-release'];
+
+    if (isFullScreenMode) {
+        return (
+            <div id={`ver-${v.id}`} style={{marginBottom: '40px'}}>
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    color: 'var(--md-sys-color-on-surface-variant)',
+                    fontSize: '1rem',
+                    marginBottom: '24px'
+                }}>
+                    <span className="material-symbols-outlined" style={{fontSize: '18px'}}>calendar_today</span>
+                    {strings.released || "Released"} {v.date}
+                </div>
+
+                <div style={{display: 'flex', gap: '8px', marginBottom: '32px', flexWrap: 'wrap'}}>
+                    {v.tags.filter(t => !excludeTags.includes(t)).map(tag => (
+                        <span key={tag} style={{
+                            fontSize: '0.85rem', padding: '6px 14px', borderRadius: '100px',
+                            background: 'var(--md-sys-color-surface-container-high)',
+                            color: 'var(--md-sys-color-on-surface-variant)',
+                            border: '1px solid var(--md-sys-color-outline-variant)', fontWeight: 500
+                        }}>{tag}</span>
+                    ))}
+                </div>
+
+                <div className="markdown-body" style={{fontSize: '1.15rem'}}>
+                    <ReactMarkdown rehypePlugins={[rehypeRaw]}>{v.content}</ReactMarkdown>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <motion.div
@@ -174,13 +204,53 @@ const ChangelogItem = ({v, index, isActive, strings, forceOpen}) => {
                             color: 'var(--md-sys-color-on-surface-variant)', fontSize: '0.9rem'
                         }}>
                             <span className="material-symbols-outlined" style={{fontSize: '16px'}}>calendar_today</span>
-                            {strings.released} {v.date}
+                            {strings.released || "Released"} {v.date}
                         </div>
                     </div>
-                    <span className="material-symbols-outlined" style={{
-                        transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s',
-                        color: 'var(--md-sys-color-on-surface-variant)'
-                    }}>expand_more</span>
+                    <div style={{display: 'flex', alignItems: 'center', gap: '4px'}}>
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                if (onShare) onShare(v);
+                            }}
+                            style={{
+                                background: 'transparent',
+                                border: 'none',
+                                color: 'var(--md-sys-color-on-surface-variant)',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                padding: '8px',
+                                borderRadius: '50%'
+                            }}
+                            title={strings.share_tooltip || "Share this update"}
+                        >
+                            <span className="material-symbols-outlined" style={{fontSize: '20px'}}>share</span>
+                        </button>
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                if (onOpenSingle) onOpenSingle();
+                            }}
+                            style={{
+                                background: 'transparent',
+                                border: 'none',
+                                color: 'var(--md-sys-color-primary)',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                padding: '8px',
+                                borderRadius: '50%'
+                            }}
+                            title={strings.open_full_screen || "Open in full screen"}
+                        >
+                            <span className="material-symbols-outlined" style={{fontSize: '20px'}}>open_in_new</span>
+                        </button>
+                        <span className="material-symbols-outlined" style={{
+                            transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s',
+                            color: 'var(--md-sys-color-on-surface-variant)', padding: '8px'
+                        }}>expand_more</span>
+                    </div>
                 </div>
 
                 <AnimatePresence>
@@ -219,7 +289,7 @@ const ChangelogItem = ({v, index, isActive, strings, forceOpen}) => {
  *
  * @param {Object} props
  * @param {string} props.markdownContent - Initial changelog Markdown content.
- * @param {Object} props.appConfig - Application configuration (e.g. appName, appId, playStoreLink).
+ * @param {Object} props.appConfig - Application configuration.
  * @param {Object} props.strings - Localization strings used by the component.
  * @param {Function} [props.onNavigate] - Optional navigation callback for promo actions.
  * @returns {JSX.Element}
@@ -280,6 +350,29 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
         }
     };
 
+    const handleOpenSingle = (id) => {
+        const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : '';
+        navigate(`${basePath}/changelog/${id}`);
+    };
+
+    const handleShare = (version) => {
+        const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : '';
+        const shareUrl = `${window.location.origin}${basePath}/changelog/${version.id}`;
+
+        if (navigator.share) {
+            navigator.share({
+                title: `${appConfig?.appName} Update ${version.version}`,
+                url: shareUrl
+            }).catch(() => {
+            });
+        } else {
+            navigator.clipboard.writeText(shareUrl).then(() => {
+                alert(strings.changelog?.link_copied || "Link copied to clipboard!");
+            }).catch(() => {
+            });
+        }
+    };
+
     const allTags = useMemo(() => {
         const tags = new Set();
         versions.forEach(v => v.tags.forEach(t => tags.add(t)));
@@ -287,8 +380,9 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
     }, [versions]);
 
     const filteredVersions = useMemo(() => {
-        if (isFullScreenMode) {
-            return versions.filter(v => v.version.toLowerCase().replace(/[^a-z0-9]/g, '-') === versionId.toLowerCase() || v.id === versionId.toLowerCase());
+        if (isFullScreenMode && versionId) {
+            const safeVersionId = versionId.replace(/[^a-z0-9]/gi, '-').toLowerCase();
+            return versions.filter(v => v.id === safeVersionId);
         }
 
         return versions.filter(v => {
@@ -427,7 +521,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                         fontWeight: 700
                     }}>
                         <span className="material-symbols-outlined" style={{fontSize: '18px'}}>history</span>
-                        <span>{isFullScreenMode ? 'Update Details' : 'Changelog'}</span>
+                        <span>{isFullScreenMode ? (strings.changelog?.update_details || 'Update Details') : (strings.changelog?.title || 'Changelog')}</span>
                     </div>
                 </div>
 
@@ -439,11 +533,11 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                 fontWeight: 800,
                                 margin: 0,
                                 lineHeight: 1.1
-                            }}>Update {filteredVersions[0].version.replace('Version ', '')}</h1>
+                            }}>{appConfig?.appName} {filteredVersions[0].version.replace('Version ', '')}</h1>
                             <div style={{
                                 display: 'flex',
-                                alignItems: 'flex-start',
-                                gap: '16px',
+                                alignItems: 'center',
+                                gap: '12px',
                                 flexWrap: 'wrap',
                                 marginTop: '8px'
                             }}>
@@ -451,7 +545,12 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                         style={{padding: '8px 16px', fontSize: '0.9rem', borderRadius: '100px'}}>
                                     <span className="material-symbols-outlined"
                                           style={{fontSize: '18px'}}>arrow_back</span>
-                                    View All Updates
+                                    {strings.changelog?.view_all || "View All Updates"}
+                                </button>
+                                <button onClick={() => handleShare(filteredVersions[0])} className="btn-outline"
+                                        style={{padding: '8px 16px', fontSize: '0.9rem', borderRadius: '100px'}}>
+                                    <span className="material-symbols-outlined" style={{fontSize: '18px'}}>share</span>
+                                    {strings.changelog?.share_update || "Share Update"}
                                 </button>
                                 <AnimatePresence>
                                     {isAiTranslated && <AutoTranslateBadge onClick={() => setShowTranslateInfo(true)}/>}
@@ -465,7 +564,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                 fontWeight: 800,
                                 margin: 0,
                                 lineHeight: 1.1
-                            }}>{strings.changelog.title}</h1>
+                            }}>{strings.changelog?.title || 'Changelog'}</h1>
                             <div style={{display: 'flex', alignItems: 'flex-start', gap: '16px', flexWrap: 'wrap'}}>
                                 <p style={{
                                     fontSize: '1.1rem',
@@ -473,7 +572,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                     margin: 0,
                                     maxWidth: '700px'
                                 }}>
-                                    {strings.changelog.subtitle}
+                                    {strings.changelog?.subtitle || 'Track the evolution of the application.'}
                                 </p>
                                 <AnimatePresence>
                                     {isAiTranslated && <AutoTranslateBadge onClick={() => setShowTranslateInfo(true)}/>}
@@ -496,7 +595,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                     <input
                                         type="text"
                                         className="search-input-high-contrast"
-                                        placeholder={strings.changelog.search_placeholder}
+                                        placeholder={strings.changelog?.search_placeholder || "Search updates..."}
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
                                     />
@@ -529,7 +628,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                             </div>
 
                             <div className="mobile-toc-wrapper" style={{display: 'none'}}>
-                                <PageTableOfContents title={strings.changelog.jump_to} isMobile={true}>
+                                <PageTableOfContents title={strings.changelog?.jump_to || "Jump to"} isMobile={true}>
                                     {renderTocButtons()}
                                 </PageTableOfContents>
                             </div>
@@ -548,11 +647,13 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                             isFullScreenMode ? (
                                 <ChangelogItem key={filteredVersions[0].id} v={filteredVersions[0]} index={0}
                                                isActive={true}
-                                               strings={strings.changelog} forceOpen={true}/>
+                                               strings={strings.changelog || {}} forceOpen={true}
+                                               isFullScreenMode={true}/>
                             ) : (
                                 filteredVersions.slice(0, visibleCount).map((v, index) => (
                                     <ChangelogItem key={v.id} v={v} index={index} isActive={activeId === v.id}
-                                                   strings={strings.changelog}/>
+                                                   strings={strings.changelog || {}} isFullScreenMode={false}
+                                                   onOpenSingle={() => handleOpenSingle(v.id)} onShare={handleShare}/>
                                 ))
                             )
                         ) : (
@@ -563,10 +664,10 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                             }}>
                                 <span className="material-symbols-outlined"
                                       style={{fontSize: '48px', marginBottom: '16px', opacity: 0.5}}>search_off</span>
-                                <p>{isFullScreenMode ? "Version not found." : strings.changelog.no_results}</p>
+                                <p>{isFullScreenMode ? (strings.changelog?.version_not_found || "Version not found.") : (strings.changelog?.no_results || "No results found.")}</p>
                                 {isFullScreenMode && (
                                     <button onClick={handleViewAll} className="btn-glow" style={{marginTop: '24px'}}>
-                                        Back to Changelog
+                                        {strings.changelog?.back_to_changelog || "Back to Changelog"}
                                     </button>
                                 )}
                             </div>
@@ -587,7 +688,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                 borderStyle: 'dashed',
                                 opacity: 0.7
                             }}>
-                                {strings.changelog.load_more} ({filteredVersions.length - visibleCount})
+                                {strings.changelog?.load_more || "Load More"} ({filteredVersions.length - visibleCount})
                             </button>
                         </div>
                     )}
@@ -614,28 +715,28 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                 }}>
                                     <span className="material-symbols-outlined"
                                           style={{fontSize: '18px'}}>explore</span>
-                                    <span>Explore More</span>
+                                    <span>{strings.changelog?.explore_more || "Explore More"}</span>
                                 </div>
 
                                 <div style={{display: 'flex', flexDirection: 'column', gap: '24px'}}>
                                     {latestVersion && !searchQuery && (
                                         <LatestReleaseCard
                                             version={latestVersion}
-                                            strings={strings.changelog}
+                                            strings={strings.changelog || {}}
                                             link={appConfig?.playStoreLink}
                                         />
                                     )}
                                     <BetaProgramCard
-                                        strings={strings.changelog.beta_program}
+                                        strings={strings.changelog?.beta_program || {}}
                                         betaLink={betaLink}
                                     />
                                     <WearOSCard
-                                        strings={strings.changelog.wear_os_promo}
+                                        strings={strings.changelog?.wear_os_promo || {}}
                                         isAvailable={hasWearApp}
                                         link={appConfig?.playStoreLink}
                                     />
                                     <PlusPromoCard
-                                        strings={strings.changelog.plus_promo}
+                                        strings={strings.changelog?.plus_promo || {}}
                                         onNavigate={onNavigate}
                                     />
                                 </div>
@@ -657,12 +758,12 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                         {!isPortfolio && latestVersion && !searchQuery && (
                             <LatestReleaseCard
                                 version={latestVersion}
-                                strings={strings.changelog}
+                                strings={strings.changelog || {}}
                                 link={appConfig?.playStoreLink}
                             />
                         )}
 
-                        <PageTableOfContents title={strings.changelog.on_this_page} isMobile={false}>
+                        <PageTableOfContents title={strings.changelog?.on_this_page || "On this page"} isMobile={false}>
                             {renderTocButtons()}
                         </PageTableOfContents>
 
@@ -687,22 +788,22 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                 }}>
                                     <span className="material-symbols-outlined"
                                           style={{fontSize: '18px'}}>explore</span>
-                                    <span>Explore More</span>
+                                    <span>{strings.changelog?.explore_more || "Explore More"}</span>
                                 </div>
                                 <div style={{display: 'flex', flexDirection: 'column', gap: '20px'}}>
                                     <BetaProgramCard
-                                        strings={strings.changelog.beta_program}
+                                        strings={strings.changelog?.beta_program || {}}
                                         betaLink={betaLink}
                                     />
 
                                     <WearOSCard
-                                        strings={strings.changelog.wear_os_promo}
+                                        strings={strings.changelog?.wear_os_promo || {}}
                                         isCompass={isCompass}
                                         link={appConfig?.playStoreLink}
                                     />
 
                                     <PlusPromoCard
-                                        strings={strings.changelog.plus_promo}
+                                        strings={strings.changelog?.plus_promo || {}}
                                         onNavigate={onNavigate}
                                     />
                                 </div>
@@ -711,7 +812,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                     </div>
                 )}
 
-                <BackToTop strings={strings.changelog}/>
+                <BackToTop strings={strings.changelog || {}}/>
 
                 <style>{`
                   @media (max-width: 1000px) {
