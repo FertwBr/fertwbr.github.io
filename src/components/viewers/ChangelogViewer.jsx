@@ -2,6 +2,7 @@ import React, {useState, useEffect, useMemo} from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import {motion, AnimatePresence} from 'framer-motion';
+import {useParams, useNavigate} from 'react-router-dom';
 import {parseChangelog} from '../../utils/changelogParser';
 import {loadPageContent} from '../../utils/contentLoader';
 import {useLanguage} from '../../context/LanguageContext';
@@ -110,11 +111,18 @@ const VersionBadge = ({type, text}) => {
  * @param {number} props.index - Index of this item in the list (used for animation delay and initial open).
  * @param {boolean} props.isActive - Whether this item is currently active/in-view (used for styling).
  * @param {Object} props.strings - Localization strings used inside the item (e.g. released label).
+ * @param {boolean} [props.forceOpen] - If true, the item starts expanded regardless of its index.
  * @returns {JSX.Element} A motion-wrapped changelog item card with header, badges and Markdown content.
  */
-const ChangelogItem = ({v, index, isActive, strings}) => {
-    const [isOpen, setIsOpen] = useState(index === 0);
+const ChangelogItem = ({v, index, isActive, strings, forceOpen}) => {
+    const [isOpen, setIsOpen] = useState(forceOpen || index === 0);
     const badgeStyle = getTagStyle(v.type);
+
+    useEffect(() => {
+        if (forceOpen) {
+            setIsOpen(true);
+        }
+    }, [forceOpen]);
 
     const timelineColor = badgeStyle.highlight;
 
@@ -218,13 +226,16 @@ const ChangelogItem = ({v, index, isActive, strings}) => {
  */
 export default function ChangelogViewer({markdownContent: initialMarkdown, appConfig, strings, onNavigate}) {
     const {language} = useLanguage();
+    const {versionId} = useParams();
+    const navigate = useNavigate();
+
     const [markdown, setMarkdown] = useState(initialMarkdown);
     const [versions, setVersions] = useState([]);
     const [isAiTranslated, setIsAiTranslated] = useState(false);
     const [showTranslateInfo, setShowTranslateInfo] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [visibleCount, setVisibleCount] = useState(10);
-    const [activeId, setActiveId] = useState(null);
+    const [activeId, setActiveId] = useState(versionId || null);
     const [selectedTags, setSelectedTags] = useState([]);
 
     const isCompass = appConfig?.appName?.toLowerCase().includes('compass');
@@ -232,6 +243,8 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
     const isPortfolio = appConfig?.appId === 'io.github.fertwbr.portfolio' || !appConfig?.playStoreLink;
     const betaLink = appConfig?.playStoreLink?.replace('/store/apps/details?id=', '/apps/testing/') || appConfig?.playStoreLink;
     const hasWearApp = isCompass || isPulse;
+
+    const isFullScreenMode = !!versionId;
 
     useEffect(() => {
         setMarkdown(initialMarkdown);
@@ -257,6 +270,16 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
         }
     };
 
+    const handleViewAll = () => {
+        if (isCompass) {
+            navigate('/pixelcompass/changelog');
+        } else if (isPulse) {
+            navigate('/pixelpulse/changelog');
+        } else {
+            navigate('/changelog');
+        }
+    };
+
     const allTags = useMemo(() => {
         const tags = new Set();
         versions.forEach(v => v.tags.forEach(t => tags.add(t)));
@@ -264,16 +287,22 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
     }, [versions]);
 
     const filteredVersions = useMemo(() => {
+        if (isFullScreenMode) {
+            return versions.filter(v => v.version.toLowerCase().replace(/[^a-z0-9]/g, '-') === versionId.toLowerCase() || v.id === versionId.toLowerCase());
+        }
+
         return versions.filter(v => {
             const matchesSearch = !searchQuery || v.version.toLowerCase().includes(searchQuery.toLowerCase()) || v.content.toLowerCase().includes(searchQuery.toLowerCase());
             const matchesTags = selectedTags.length === 0 || selectedTags.every(t => v.tags.includes(t));
             return matchesSearch && matchesTags;
         });
-    }, [versions, searchQuery, selectedTags]);
+    }, [versions, searchQuery, selectedTags, isFullScreenMode, versionId]);
 
     const latestVersion = versions[0];
 
     useEffect(() => {
+        if (isFullScreenMode) return;
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) setActiveId(entry.target.id.replace('ver-', ''));
@@ -285,7 +314,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
             if (el) observer.observe(el);
         });
         return () => observer.disconnect();
-    }, [filteredVersions, visibleCount]);
+    }, [filteredVersions, visibleCount, isFullScreenMode]);
 
     const scrollToVersion = (id) => {
         const targetIndex = filteredVersions.findIndex(v => v.id === id);
@@ -398,30 +427,60 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                         fontWeight: 700
                     }}>
                         <span className="material-symbols-outlined" style={{fontSize: '18px'}}>history</span>
-                        <span>Changelog</span>
+                        <span>{isFullScreenMode ? 'Update Details' : 'Changelog'}</span>
                     </div>
                 </div>
-                <div style={{display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '12px'}}>
-                    <h1 style={{
-                        fontSize: '3rem',
-                        fontWeight: 800,
-                        margin: 0,
-                        lineHeight: 1.1
-                    }}>{strings.changelog.title}</h1>
 
-                    <div style={{display: 'flex', alignItems: 'flex-start', gap: '16px', flexWrap: 'wrap'}}>
-                        <p style={{
-                            fontSize: '1.1rem',
-                            color: 'var(--md-sys-color-on-surface-variant)',
-                            margin: 0,
-                            maxWidth: '700px'
-                        }}>
-                            {strings.changelog.subtitle}
-                        </p>
-                        <AnimatePresence>
-                            {isAiTranslated && <AutoTranslateBadge onClick={() => setShowTranslateInfo(true)}/>}
-                        </AnimatePresence>
-                    </div>
+                <div style={{display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '12px'}}>
+                    {isFullScreenMode && filteredVersions.length > 0 ? (
+                        <>
+                            <h1 style={{
+                                fontSize: '3rem',
+                                fontWeight: 800,
+                                margin: 0,
+                                lineHeight: 1.1
+                            }}>Update {filteredVersions[0].version.replace('Version ', '')}</h1>
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'flex-start',
+                                gap: '16px',
+                                flexWrap: 'wrap',
+                                marginTop: '8px'
+                            }}>
+                                <button onClick={handleViewAll} className="btn-outline"
+                                        style={{padding: '8px 16px', fontSize: '0.9rem', borderRadius: '100px'}}>
+                                    <span className="material-symbols-outlined"
+                                          style={{fontSize: '18px'}}>arrow_back</span>
+                                    View All Updates
+                                </button>
+                                <AnimatePresence>
+                                    {isAiTranslated && <AutoTranslateBadge onClick={() => setShowTranslateInfo(true)}/>}
+                                </AnimatePresence>
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <h1 style={{
+                                fontSize: '3rem',
+                                fontWeight: 800,
+                                margin: 0,
+                                lineHeight: 1.1
+                            }}>{strings.changelog.title}</h1>
+                            <div style={{display: 'flex', alignItems: 'flex-start', gap: '16px', flexWrap: 'wrap'}}>
+                                <p style={{
+                                    fontSize: '1.1rem',
+                                    color: 'var(--md-sys-color-on-surface-variant)',
+                                    margin: 0,
+                                    maxWidth: '700px'
+                                }}>
+                                    {strings.changelog.subtitle}
+                                </p>
+                                <AnimatePresence>
+                                    {isAiTranslated && <AutoTranslateBadge onClick={() => setShowTranslateInfo(true)}/>}
+                                </AnimatePresence>
+                            </div>
+                        </>
+                    )}
                 </div>
             </div>
 
@@ -429,62 +488,73 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
 
                 <div style={{flex: 1, minWidth: 0}}>
 
-                    <div style={{marginBottom: '40px', display: 'flex', flexDirection: 'column', gap: '16px'}}>
+                    {!isFullScreenMode && (
+                        <>
+                            <div style={{marginBottom: '40px', display: 'flex', flexDirection: 'column', gap: '16px'}}>
+                                <div className="search-input-wrapper">
+                                    <span className="material-symbols-outlined search-icon-absolute">search</span>
+                                    <input
+                                        type="text"
+                                        className="search-input-high-contrast"
+                                        placeholder={strings.changelog.search_placeholder}
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                    />
+                                </div>
 
-                        <div className="search-input-wrapper">
-                            <span className="material-symbols-outlined search-icon-absolute">search</span>
-                            <input
-                                type="text"
-                                className="search-input-high-contrast"
-                                placeholder={strings.changelog.search_placeholder}
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                            />
-                        </div>
+                                {allTags.length > 0 && (
+                                    <div className="filter-tags-container">
+                                        {allTags.map(tag => {
+                                            const isSelected = selectedTags.includes(tag);
+                                            const style = getTagStyle(tag);
 
-                        {allTags.length > 0 && (
-                            <div className="filter-tags-container">
-                                {allTags.map(tag => {
-                                    const isSelected = selectedTags.includes(tag);
-                                    const style = getTagStyle(tag);
-
-                                    return (
-                                        <button
-                                            key={tag}
-                                            onClick={() => toggleTag(tag)}
-                                            className="filter-tag"
-                                            style={{
-                                                backgroundColor: isSelected ? style.bg : 'transparent',
-                                                borderColor: isSelected ? style.border : 'var(--md-sys-color-outline-variant)',
-                                                color: isSelected ? style.color : 'var(--md-sys-color-on-surface-variant)',
-                                                fontWeight: isSelected ? 700 : 500
-                                            }}
-                                        >
-                                            {tag}
-                                        </button>
-                                    );
-                                })}
+                                            return (
+                                                <button
+                                                    key={tag}
+                                                    onClick={() => toggleTag(tag)}
+                                                    className="filter-tag"
+                                                    style={{
+                                                        backgroundColor: isSelected ? style.bg : 'transparent',
+                                                        borderColor: isSelected ? style.border : 'var(--md-sys-color-outline-variant)',
+                                                        color: isSelected ? style.color : 'var(--md-sys-color-on-surface-variant)',
+                                                        fontWeight: isSelected ? 700 : 500
+                                                    }}
+                                                >
+                                                    {tag}
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+                                )}
                             </div>
+
+                            <div className="mobile-toc-wrapper" style={{display: 'none'}}>
+                                <PageTableOfContents title={strings.changelog.jump_to} isMobile={true}>
+                                    {renderTocButtons()}
+                                </PageTableOfContents>
+                            </div>
+                        </>
+                    )}
+
+                    <div style={{position: 'relative', paddingLeft: isFullScreenMode ? '0' : '40px'}}>
+                        {!isFullScreenMode && (
+                            <div style={{
+                                position: 'absolute', left: '11px', top: 0, bottom: 0, width: '2px',
+                                background: 'var(--md-sys-color-outline-variant)', opacity: 0.3
+                            }}></div>
                         )}
-                    </div>
-
-                    <div className="mobile-toc-wrapper" style={{display: 'none'}}>
-                        <PageTableOfContents title={strings.changelog.jump_to} isMobile={true}>
-                            {renderTocButtons()}
-                        </PageTableOfContents>
-                    </div>
-
-                    <div style={{position: 'relative', paddingLeft: '40px'}}>
-                        <div style={{
-                            position: 'absolute', left: '11px', top: 0, bottom: 0, width: '2px',
-                            background: 'var(--md-sys-color-outline-variant)', opacity: 0.3
-                        }}></div>
 
                         {filteredVersions.length > 0 ? (
-                            filteredVersions.slice(0, visibleCount).map((v, index) => (
-                                <ChangelogItem key={v.id} v={v} index={index} isActive={activeId === v.id}
-                                               strings={strings.changelog}/>
-                            ))
+                            isFullScreenMode ? (
+                                <ChangelogItem key={filteredVersions[0].id} v={filteredVersions[0]} index={0}
+                                               isActive={true}
+                                               strings={strings.changelog} forceOpen={true}/>
+                            ) : (
+                                filteredVersions.slice(0, visibleCount).map((v, index) => (
+                                    <ChangelogItem key={v.id} v={v} index={index} isActive={activeId === v.id}
+                                                   strings={strings.changelog}/>
+                                ))
+                            )
                         ) : (
                             <div style={{
                                 padding: '40px',
@@ -493,12 +563,17 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                             }}>
                                 <span className="material-symbols-outlined"
                                       style={{fontSize: '48px', marginBottom: '16px', opacity: 0.5}}>search_off</span>
-                                <p>{strings.changelog.no_results}</p>
+                                <p>{isFullScreenMode ? "Version not found." : strings.changelog.no_results}</p>
+                                {isFullScreenMode && (
+                                    <button onClick={handleViewAll} className="btn-glow" style={{marginTop: '24px'}}>
+                                        Back to Changelog
+                                    </button>
+                                )}
                             </div>
                         )}
                     </div>
 
-                    {visibleCount < filteredVersions.length && (
+                    {!isFullScreenMode && visibleCount < filteredVersions.length && (
                         <div style={{
                             textAlign: 'center',
                             marginTop: '40px',
@@ -517,7 +592,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                         </div>
                     )}
 
-                    {!isPortfolio && (
+                    {!isPortfolio && !isFullScreenMode && (
                         <div className="mobile-extra-content"
                              style={{display: 'none', marginTop: '80px', marginBottom: '100px'}}>
                             <div style={{
@@ -569,63 +644,72 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                     )}
                 </div>
 
-                <div className="desktop-toc-wrapper"
-                     style={{display: 'flex', flexDirection: 'column', gap: '20px', width: '320px', minWidth: '320px'}}>
+                {!isFullScreenMode && (
+                    <div className="desktop-toc-wrapper"
+                         style={{
+                             display: 'flex',
+                             flexDirection: 'column',
+                             gap: '20px',
+                             width: '320px',
+                             minWidth: '320px'
+                         }}>
 
-                    {!isPortfolio && latestVersion && !searchQuery && (
-                        <LatestReleaseCard
-                            version={latestVersion}
-                            strings={strings.changelog}
-                            link={appConfig?.playStoreLink}
-                        />
-                    )}
+                        {!isPortfolio && latestVersion && !searchQuery && (
+                            <LatestReleaseCard
+                                version={latestVersion}
+                                strings={strings.changelog}
+                                link={appConfig?.playStoreLink}
+                            />
+                        )}
 
-                    <PageTableOfContents title={strings.changelog.on_this_page} isMobile={false}>
-                        {renderTocButtons()}
-                    </PageTableOfContents>
+                        <PageTableOfContents title={strings.changelog.on_this_page} isMobile={false}>
+                            {renderTocButtons()}
+                        </PageTableOfContents>
 
-                    {!isPortfolio && (
-                        <div style={{
-                            marginTop: '20px',
-                            padding: '24px',
-                            borderRadius: '24px',
-                            background: 'linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 100%)',
-                            border: '1px solid var(--md-sys-color-outline-variant)'
-                        }}>
+                        {!isPortfolio && (
                             <div style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '8px',
-                                marginBottom: '20px',
-                                color: 'var(--md-sys-color-on-surface-variant)',
-                                fontSize: '0.85rem',
-                                textTransform: 'uppercase',
-                                letterSpacing: '1px',
-                                fontWeight: 600
+                                marginTop: '20px',
+                                padding: '24px',
+                                borderRadius: '24px',
+                                background: 'linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 100%)',
+                                border: '1px solid var(--md-sys-color-outline-variant)'
                             }}>
-                                <span className="material-symbols-outlined" style={{fontSize: '18px'}}>explore</span>
-                                <span>Explore More</span>
-                            </div>
-                            <div style={{display: 'flex', flexDirection: 'column', gap: '20px'}}>
-                                <BetaProgramCard
-                                    strings={strings.changelog.beta_program}
-                                    betaLink={betaLink}
-                                />
+                                <div style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '8px',
+                                    marginBottom: '20px',
+                                    color: 'var(--md-sys-color-on-surface-variant)',
+                                    fontSize: '0.85rem',
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '1px',
+                                    fontWeight: 600
+                                }}>
+                                    <span className="material-symbols-outlined"
+                                          style={{fontSize: '18px'}}>explore</span>
+                                    <span>Explore More</span>
+                                </div>
+                                <div style={{display: 'flex', flexDirection: 'column', gap: '20px'}}>
+                                    <BetaProgramCard
+                                        strings={strings.changelog.beta_program}
+                                        betaLink={betaLink}
+                                    />
 
-                                <WearOSCard
-                                    strings={strings.changelog.wear_os_promo}
-                                    isCompass={isCompass}
-                                    link={appConfig?.playStoreLink}
-                                />
+                                    <WearOSCard
+                                        strings={strings.changelog.wear_os_promo}
+                                        isCompass={isCompass}
+                                        link={appConfig?.playStoreLink}
+                                    />
 
-                                <PlusPromoCard
-                                    strings={strings.changelog.plus_promo}
-                                    onNavigate={onNavigate}
-                                />
+                                    <PlusPromoCard
+                                        strings={strings.changelog.plus_promo}
+                                        onNavigate={onNavigate}
+                                    />
+                                </div>
                             </div>
-                        </div>
-                    )}
-                </div>
+                        )}
+                    </div>
+                )}
 
                 <BackToTop strings={strings.changelog}/>
 
