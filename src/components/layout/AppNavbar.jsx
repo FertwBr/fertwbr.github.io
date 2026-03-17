@@ -74,16 +74,25 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
     const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const lastScrollY = useRef(0);
     const mobileMenuRef = useRef(null);
     const navigate = useNavigate();
     const location = useLocation();
     const is404 = activePage === '404';
 
+    const isDesktopSpace = windowWidth > 1000;
+
     const visibleNavItems = NAV_ITEMS.filter(item => {
         if (item.id === 'overview' && !config.enableDocs) return false;
         return strings && strings[item.id];
     });
+
+    useEffect(() => {
+        const handleResize = () => setWindowWidth(window.innerWidth);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     useEffect(() => {
         if (isMobileMenuOpen) document.body.style.overflow = 'hidden';
@@ -163,75 +172,95 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
                     style={{
                         ...GLASS_STYLE(isScrolled),
                         pointerEvents: 'auto',
-                        padding: '6px',
+                        padding: isDesktopSpace ? '10px 24px 10px 12px' : '6px',
                         display: 'flex',
                         alignItems: 'center',
-                        borderRadius: '100px',
-                        height: '56px',
+                        borderRadius: isDesktopSpace ? '100px' : '100px',
+                        height: isDesktopSpace ? '64px' : '56px',
                         flexShrink: 1,
-                        maxWidth: '100%'
+                        maxWidth: isDesktopSpace ? '1200px' : '100%',
+                        width: isDesktopSpace ? '100%' : 'auto',
+                        justifyContent: isDesktopSpace ? 'space-between' : 'flex-start',
+                        transition: 'all 0.3s ease'
                     }}
                 >
-                    <motion.button
-                        layout="position"
-                        onClick={handleBackAction}
-                        aria-label={activePage === config.defaultPage ? "Close app" : strings?.back || "Back"}
-                        style={{
-                            background: 'var(--md-sys-color-secondary-container)',
-                            border: 'none',
-                            borderRadius: '50%',
-                            width: 42,
-                            height: 42,
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            cursor: 'pointer',
-                            color: 'var(--md-sys-color-on-secondary-container)',
-                            flexShrink: 0,
-                            marginRight: 10
-                        }}
-                        whileTap={{scale: 0.9}}
-                    >
-                        <motion.span
-                            key={activePage === config.defaultPage ? 'close' : 'back'}
-                            initial={{rotate: -90, opacity: 0}}
-                            animate={{rotate: 0, opacity: 1}}
-                            className="material-symbols-outlined"
-                            style={{fontSize: '22px'}}
+                    <div style={{display: 'flex', alignItems: 'center'}}>
+                        <motion.button
+                            layout="position"
+                            onClick={handleBackAction}
+                            aria-label={activePage === config.defaultPage ? "Close app" : strings?.back || "Back"}
+                            style={{
+                                background: isDesktopSpace ? 'var(--md-sys-color-surface-container-high)' : 'var(--md-sys-color-secondary-container)',
+                                border: isDesktopSpace ? '1px solid var(--md-sys-color-outline-variant)' : 'none',
+                                borderRadius: '50%',
+                                width: isDesktopSpace ? 44 : 42,
+                                height: isDesktopSpace ? 44 : 42,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                cursor: 'pointer',
+                                color: isDesktopSpace ? 'var(--md-sys-color-on-surface)' : 'var(--md-sys-color-on-secondary-container)',
+                                flexShrink: 0,
+                                marginRight: isDesktopSpace ? 16 : 10,
+                                transition: 'background 0.2s, color 0.2s'
+                            }}
+                            whileHover={isDesktopSpace ? {
+                                background: 'var(--md-sys-color-secondary-container)',
+                                color: 'var(--md-sys-color-on-secondary-container)'
+                            } : {}}
+                            whileTap={{scale: 0.9}}
                         >
-                            {activePage === config.defaultPage ? 'close' : 'arrow_back'}
-                        </motion.span>
-                    </motion.button>
+                            <motion.span
+                                key={activePage === config.defaultPage ? 'close' : 'back'}
+                                initial={{rotate: -90, opacity: 0}}
+                                animate={{rotate: 0, opacity: 1}}
+                                className="material-symbols-outlined"
+                                style={{fontSize: '22px'}}
+                            >
+                                {activePage === config.defaultPage ? 'close' : 'arrow_back'}
+                            </motion.span>
+                        </motion.button>
 
-                    <div
-                        onClick={() => !is404 && handleNavClick(config.defaultPage)}
-                        role={!is404 ? "button" : undefined}
-                        style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: 12,
-                            cursor: is404 ? 'default' : 'pointer',
-                            paddingRight: '14px',
-                            paddingLeft: '6px'
-                        }}
-                    >
-                        {config.materialIcon ? (
-                            <span className="material-symbols-outlined"
-                                  style={{fontSize: '26px', color: 'var(--md-sys-color-primary)'}}>
-                                {config.materialIcon}
+                        <div
+                            onClick={() => !is404 && handleNavClick(config.defaultPage)}
+                            role={!is404 ? "button" : undefined}
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: 12,
+                                cursor: is404 ? 'default' : 'pointer',
+                                paddingRight: isDesktopSpace ? '0' : '14px',
+                                paddingLeft: isDesktopSpace ? '0' : '6px'
+                            }}
+                        >
+                            {config.materialIcon ? (
+                                <span className="material-symbols-outlined"
+                                      style={{
+                                          fontSize: isDesktopSpace ? '28px' : '26px',
+                                          color: 'var(--md-sys-color-primary)'
+                                      }}>
+                                    {config.materialIcon}
+                                </span>
+                            ) : (
+                                <img src={config.appIcon} alt="" style={{
+                                    width: isDesktopSpace ? 32 : 30,
+                                    height: isDesktopSpace ? 32 : 30,
+                                    borderRadius: 8
+                                }}/>
+                            )}
+                            <span style={{
+                                fontWeight: isDesktopSpace ? 800 : 700,
+                                fontSize: isDesktopSpace ? '1.1rem' : '0.95rem',
+                                whiteSpace: 'nowrap',
+                                color: 'var(--md-sys-color-on-surface)',
+                                letterSpacing: isDesktopSpace ? '-0.5px' : '0'
+                            }}>
+                                {config.appName}
                             </span>
-                        ) : (
-                            <img src={config.appIcon} alt="" style={{width: 30, height: 30, borderRadius: 8}}/>
-                        )}
-                        <span style={{
-                            fontWeight: 700,
-                            fontSize: '0.95rem',
-                            whiteSpace: 'nowrap',
-                            color: 'var(--md-sys-color-on-surface)'
-                        }}>
-                            {config.appName}
-                        </span>
+                        </div>
                     </div>
+
+                    <div id="appbar-search-portal" className="appbar-search-portal"></div>
 
                     {!is404 && (
                         <div className="desktop-menu" style={{display: 'flex', gap: '6px', paddingLeft: '8px'}}>
@@ -248,8 +277,8 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
                                             border: 'none',
                                             borderRadius: '100px',
                                             padding: '10px 18px',
-                                            fontSize: '0.88rem',
-                                            fontWeight: 500,
+                                            fontSize: '0.9rem',
+                                            fontWeight: 600,
                                             cursor: 'pointer',
                                             display: 'flex',
                                             alignItems: 'center',
@@ -271,21 +300,8 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
                                                 }}
                                             />
                                         )}
-                                        <span
-                                            style={{
-                                                width: 26,
-                                                height: 26,
-                                                borderRadius: '50%',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                                background: isActive ? 'var(--md-sys-color-primary)' : 'transparent',
-                                                color: isActive ? 'var(--md-sys-color-on-primary)' : 'inherit'
-                                            }}
-                                        >
-                                            <span className="material-symbols-outlined" style={{fontSize: '18px'}}>
-                                                {item.icon}
-                                            </span>
+                                        <span className="material-symbols-outlined" style={{fontSize: '20px'}}>
+                                            {item.icon}
                                         </span>
                                         {strings?.[item.id]}
                                     </button>
@@ -294,6 +310,8 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
                         </div>
                     )}
                 </motion.div>
+
+                <div id="appbar-bottom-portal" className="appbar-bottom-portal"></div>
 
                 {!is404 && (
                     <motion.div
@@ -408,11 +426,27 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
                 )}
 
                 <style>{`
-                  .desktop-menu { display: flex; }
-                  .mobile-toggle-wrapper { display: none !important; }
-                  @media (max-width: 850px) {
+                  .appbar-search-portal {
+                      display: flex;
+                      flex: 1;
+                      min-width: 0;
+                      margin: 0 24px;
+                      justify-content: center;
+                  }
+                  .appbar-bottom-portal {
+                      width: 100%;
+                      display: flex;
+                      justify-content: center;
+                      pointer-events: auto;
+                  }
+                  @media (max-width: 1000px) {
                     .desktop-menu { display: none !important; }
+                    .appbar-search-portal { display: none !important; }
+                    .appbar-bottom-portal { display: none !important; }
                     .mobile-toggle-wrapper { display: flex !important; }
+                  }
+                  @media (min-width: 1001px) {
+                    .mobile-toggle-wrapper { display: none !important; }
                   }
                 `}</style>
             </motion.nav>
