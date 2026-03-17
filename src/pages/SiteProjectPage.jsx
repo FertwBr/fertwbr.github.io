@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {AnimatePresence} from 'framer-motion';
+import {useLocation} from 'react-router-dom';
 import GeometricSpinner from '../components/common/GeometricSpinner.jsx';
 import ErrorDisplay from '../components/common/ErrorDisplay';
 import {useLanguage} from '../context/LanguageContext';
@@ -38,6 +39,9 @@ import HashScrollHandler from '../components/common/HashScrollHandler';
  */
 export default function SiteProjectPage({forcedTab}) {
     const {content} = useLanguage();
+    const location = useLocation();
+
+    const forceLoading = new URLSearchParams(location.search).get('testLoading') === 'true';
 
     const configWithRoute = {
         ...siteProjectConfig,
@@ -86,7 +90,7 @@ export default function SiteProjectPage({forcedTab}) {
     };
 
     const renderContent = () => {
-        if (isLoading) return <GeometricSpinner/>;
+        if (isLoading || forceLoading) return <GeometricSpinner/>;
         if (error) return <ErrorDisplay error={error} onRetry={() => window.location.reload()}/>;
         if (!markdownContent) return <div style={{height: '60vh', flex: 1}}></div>;
 

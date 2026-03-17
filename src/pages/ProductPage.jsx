@@ -45,6 +45,9 @@ export default function ProductPage({config, HomeComponent, translationKey, forc
     const {content} = useLanguage();
     const t = content[translationKey];
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const forceLoading = new URLSearchParams(location.search).get('testLoading') === 'true';
 
     const routeBasePath = config.appId.includes('pixelpulse') ? '/pixelpulse' : '/pixelcompass';
     const configWithRoute = {...config, routeBasePath, defaultPage: forcedTab || config.defaultPage};
@@ -86,7 +89,7 @@ export default function ProductPage({config, HomeComponent, translationKey, forc
     const renderContent = () => {
         if (activeTab === 'index') return null;
 
-        if (isLoading) {
+        if (isLoading || forceLoading) {
             return <GeometricSpinner/>;
         }
 
