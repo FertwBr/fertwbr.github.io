@@ -198,6 +198,8 @@ export default {
         in_this_update: "En esta actualización",
         auto_translated_badge: "Traducido Automáticamente",
         auto_translated_tooltip: "Traducido por un sistema de IA para su comodidad.",
+        translate_badge_restore: "Traducir",
+        translate_badge_restore_tooltip: "Traducir el contenido a su idioma actual.",
         translate_modal_title: "Traducido Automáticamente",
         translate_modal_desc: "Este contenido fue traducido automáticamente por un sistema de IA para ayudarle a mantenerse actualizado. Algunos términos técnicos o matices pueden ser ligeramente inexactos.",
         translate_modal_show_original: "Mostrar Original (Inglés)",

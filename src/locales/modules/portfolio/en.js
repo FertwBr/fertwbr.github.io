@@ -198,6 +198,8 @@ export default {
         in_this_update: "In this update",
         auto_translated_badge: "Auto Translated",
         auto_translated_tooltip: "Translated by an AI system for your convenience.",
+        translate_badge_restore: "Translate",
+        translate_badge_restore_tooltip: "Translate content to your current language.",
         translate_modal_title: "Auto Translated",
         translate_modal_desc: "This content was automatically translated by an AI system to help you stay updated. Some technical terms or nuances might be slightly inaccurate.",
         translate_modal_show_original: "Show Original (English)",

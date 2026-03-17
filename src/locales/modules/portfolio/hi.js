@@ -197,6 +197,8 @@ export default {
         in_this_update: "इस अपडेट में",
         auto_translated_badge: "स्वतः अनुवादित",
         auto_translated_tooltip: "आपकी सुविधा के लिए एक AI सिस्टम द्वारा अनुवादित।",
+        translate_badge_restore: "Traducir",
+        translate_badge_restore_tooltip: "Traducir el contenido a su idioma actual.",
         translate_modal_title: "स्वतः अनुवादित",
         translate_modal_desc: "आपको अपडेट रखने में मदद के लिए इस सामग्री का स्वचालित रूप से एक AI सिस्टम द्वारा अनुवाद किया गया था। कुछ तकनीकी शब्द या बारीकियाँ थोड़ी गलत हो सकती हैं।",
         translate_modal_show_original: "मूल (अंग्रेज़ी) दिखाएँ",

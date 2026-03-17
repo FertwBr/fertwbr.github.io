@@ -197,6 +197,8 @@ export default {
         in_this_update: "この更新について",
         auto_translated_badge: "自動翻訳",
         auto_translated_tooltip: "お客様の利便性のためにAIシステムによって翻訳されています。",
+        translate_badge_restore: "翻訳",
+        translate_badge_restore_tooltip: "コンテンツを現在の言語に翻訳します。",
         translate_modal_title: "自動翻訳",
         translate_modal_desc: "このコンテンツは、最新情報を提供するためにAIシステムによって自動的に翻訳されました。一部の専門用語やニュアンスが若干不正確な場合があります。",
         translate_modal_show_original: "オリジナル（英語）を表示",

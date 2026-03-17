@@ -197,6 +197,8 @@ export default {
         in_this_update: "In diesem Update",
         auto_translated_badge: "Automatisch übersetzt",
         auto_translated_tooltip: "Für Ihren Komfort von einem KI-System übersetzt.",
+        translate_badge_restore: "Übersetzen",
+        translate_badge_restore_tooltip: "Den Inhalt in Ihre aktuelle Sprache übersetzen.",
         translate_modal_title: "Automatisch übersetzt",
         translate_modal_desc: "Dieser Inhalt wurde automatisch von einem KI-System übersetzt, damit Sie auf dem Laufenden bleiben. Einige Fachbegriffe oder Nuancen könnten leicht ungenau sein.",
         translate_modal_show_original: "Original anzeigen (Englisch)",
