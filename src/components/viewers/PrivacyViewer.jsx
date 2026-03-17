@@ -47,7 +47,14 @@ export default function PrivacyViewer({markdownContent, appConfig, strings}) {
     };
 
     return (
-        <div style={{display: 'flex', flexDirection: 'column', width: '100%'}}>
+        <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100%',
+            maxWidth: '1280px',
+            margin: '0 auto',
+            padding: '0 24px'
+        }}>
             <ViewerHeader
                 appName={appConfig?.appName}
                 icon="verified_user"
