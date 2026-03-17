@@ -1,17 +1,8 @@
-/**
- * Pixel Compass application strings (English).
- * Includes features, changelogs, widgets info, and privacy content specific to the Compass app.
- */
+// src/locales/modules/pixel_compass/en.js
 export default {
     nav: {
-        index: "Overview",
-        plus: "Pixel Compass+",
-        changelog: "Updates",
-        roadmap: "Roadmap",
-        privacy: "Privacy",
-        help: "Help",
-        overview: "Docs",
-        back: "Back to Portfolio"
+        index: "Overview", plus: "Pixel Compass+", changelog: "Updates", roadmap: "Roadmap",
+        privacy: "Privacy", help: "Help", overview: "Docs", back: "Back to Portfolio"
     },
     hero: {
         title: "Your Smart Compass for Phone & Watch",
@@ -19,9 +10,7 @@ export default {
         download: "Download on Play Store"
     },
     new_features: {
-        label: "New in v1.15 Beta",
-        title: "Unified Experience",
-        view_history: "View Full History",
+        label: "New in v1.15 Beta", title: "Unified Experience", view_history: "View Full History",
         items: [
             {
                 icon: "responsive_layout",
@@ -78,8 +67,7 @@ export default {
         ]
     },
     features: {
-        title: "Precision Toolkit",
-        cta_project: "Explore Technical Overview",
+        title: "Precision Toolkit", cta_project: "Explore Technical Overview",
         items: [
             {
                 title: "Precision Navigation",
@@ -115,9 +103,7 @@ export default {
         faq_title: "Common Questions"
     },
     privacy_section: {
-        title: "Privacy First",
-        cta_policy: "Read Policy",
-        cta_tech: "Tech Details",
+        title: "Privacy First", cta_policy: "Read Policy", cta_tech: "Tech Details",
         cards: [
             {
                 icon: "location_off",
@@ -141,38 +127,17 @@ export default {
             }
         ]
     },
-    footer: {
-        links: "Useful Links",
-        rights: "Pixel Compass. All rights reserved.",
-        theme_title: "Theme & Appearance"
+    store_footer: {
+        tagline: "Native Android Experience",
+        title: "Find your way.",
+        subtitle: "Precision, beauty, and utility combined in one app.",
+        button_sub: "Download on",
+        button_main: "Google Play",
+        bottom_note: "Works on Phones, Tablets & Foldables"
     },
+
     changelog: {
-        title: "Version History",
         subtitle: "Track the evolution of Pixel Compass. Every feature, improvement, and fix detailed below.",
-        search_placeholder: "Search features, versions...",
-        latest_release: "Latest Release",
-        released: "Released",
-        update_now: "Update Now",
-        on_this_page: "On This Page",
-        read_more: "Read Release Notes",
-        collapse: "Collapse",
-        back_to_top: "Back to Top",
-        "update_details": "Update Details",
-        "view_all": "View All Updates",
-        "share_update": "Share Update",
-        "jump_to": "Jump to",
-        "version_not_found": "Version not found.",
-        "no_results": "No results found.",
-        "back_to_changelog": "Back to Changelog",
-        "load_more": "Load More",
-        "explore_more": "Explore More",
-        "link_copied": "Link copied to clipboard!",
-        "open_full_screen": "Open in full screen",
-        "share_tooltip": "Share this update",
-        "previous_update": "Previous Update",
-        "next_update": "Next Update",
-        "table_of_contents": "Table of Contents",
-        "in_this_update": "In this update",
         plus_promo: {
             title: "Support Development",
             subtitle: "Unlock widgets, customization and help us build new features.",
@@ -191,46 +156,5 @@ export default {
             cta: "View on Watch",
             badge: "Companion"
         }
-    },
-    roadmap_page: {
-        title: "Product Roadmap",
-        subtitle: "See what we've built and where we're heading next.",
-        suggest_btn: "Suggest a Feature",
-        toc_title: "Timeline"
-    },
-    privacy_page: {
-        page_title: "Privacy Policy",
-        last_updated: "Last Updated:",
-        table_of_contents: "Table of Contents",
-        contact_title: "Have Questions?",
-        contact_desc: "If you have any concerns about your data, please contact us.",
-        contact_btn: "Contact Support",
-        print_btn: "Print Policy"
-    },
-    help_page: {
-        page_title: "Help & FAQ",
-        subtitle: "Find answers and learn how to get the most out of Pixel Compass.",
-        search_placeholder: "Search for answers...",
-        table_of_contents: "Topics",
-        contact_title: "Still stuck?",
-        contact_desc: "Can't find what you're looking for? Our team is here to help.",
-        contact_btn: "Contact Support",
-        no_results: "No topics found matching your search."
-    },
-    overview_page: {
-        title: "Technical Overview",
-        subtitle: "Deep dive into the architecture, sensors, and engineering.",
-        github_btn: "View on GitHub",
-        toc_title: "On This Page",
-        dynamic_docs_note: "This overview is generated dynamically from Markdown files to ensure it's always up-to-date with the latest codebase changes.",
-        about_docs_title: "About this docs"
-    },
-    store_footer: {
-        tagline: "Native Android Experience",
-        title: "Find your way.",
-        subtitle: "Precision, beauty, and utility combined in one app.",
-        button_sub: "Download on",
-        button_main: "Google Play",
-        bottom_note: "Works on Phones, Tablets & Foldables"
-    },
+    }
 };

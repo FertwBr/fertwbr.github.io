@@ -1,17 +1,8 @@
-/**
- * Pixel Pulse application strings (English).
- * Includes features, changelogs, plus promo, and privacy content specific to the Pulse app.
- */
+// src/locales/modules/pixel_pulse/en.js
 export default {
     nav: {
-        index: "Overview",
-        plus: "Pixel Pulse+",
-        changelog: "Updates",
-        roadmap: "Roadmap",
-        privacy: "Privacy",
-        help: "Help",
-        overview: "Docs",
-        back: "Back to Portfolio"
+        index: "Overview", plus: "Pixel Pulse+", changelog: "Updates", roadmap: "Roadmap",
+        privacy: "Privacy", help: "Help", overview: "Docs", back: "Back to Portfolio"
     },
     hero: {
         title: "Your Smart Sound & Hearing Coach",
@@ -19,9 +10,7 @@ export default {
         download: "Download on Play Store"
     },
     new_features: {
-        label: "New in v1.17",
-        title: "Deep Customization",
-        view_history: "View Full History",
+        label: "New in v1.17", title: "Deep Customization", view_history: "View Full History",
         items: [
             {
                 icon: "edit_attributes",
@@ -65,11 +54,7 @@ export default {
                 title: "CSV Export",
                 desc: "Full data ownership. Export your history for detailed analysis."
             },
-            {
-                icon: "palette",
-                title: "9 Premium Themes",
-                desc: "Unlock Emerald, Sunset, and pure black AMOLED modes."
-            },
+            {icon: "palette", title: "9 Premium Themes", desc: "Unlock Emerald, Sunset, and pure black AMOLED modes."},
             {
                 icon: "equalizer",
                 title: "Pro Weighting",
@@ -78,25 +63,18 @@ export default {
         ]
     },
     features: {
-        title: "A Powerful Toolkit, Free for Everyone",
-        cta_project: "Explore Technical Overview",
+        title: "A Powerful Toolkit, Free for Everyone", cta_project: "Explore Technical Overview",
         items: [
             {
                 title: "Expressive Real-Time Meter",
                 desc: "Animated gauge with dynamic color shifts from calm blues to warning reds."
             },
-            {
-                title: "Session History",
-                desc: "Save measurements and analyze details with interactive charts."
-            },
+            {title: "Session History", desc: "Save measurements and analyze details with interactive charts."},
             {
                 title: "Precision Calibration",
                 desc: "Tune the sensor against a reference device for professional accuracy."
             },
-            {
-                title: "Material You",
-                desc: "Adapts to your wallpaper's color palette for a unique look."
-            }
+            {title: "Material You", desc: "Adapts to your wallpaper's color palette for a unique look."}
         ]
     },
     plus: {
@@ -115,9 +93,7 @@ export default {
         faq_title: "Common Questions"
     },
     privacy_section: {
-        title: "Privacy First",
-        cta_policy: "Read Privacy Policy",
-        cta_tech: "Technical Details",
+        title: "Privacy First", cta_policy: "Read Privacy Policy", cta_tech: "Technical Details",
         cards: [
             {
                 icon: "mic_off",
@@ -141,38 +117,17 @@ export default {
             }
         ]
     },
-    footer: {
-        rights: "Pixel Pulse. All rights reserved.",
-        links: "Useful Links",
-        theme_title: "Theme & Appearance"
+    store_footer: {
+        tagline: "Designed for Android",
+        title: "Ready to measure?",
+        subtitle: "Join other users in protecting their hearing with Pixel Pulse.",
+        button_sub: "Get it on",
+        button_main: "Google Play",
+        bottom_note: "Requires Android 13 or newer"
     },
+
     changelog: {
-        title: "Version History",
         subtitle: "Track the evolution of Pixel Pulse. Every feature, improvement, and fix detailed below.",
-        search_placeholder: "Search features, versions (e.g. 1.15, Beta)...",
-        latest_release: "Latest Release",
-        released: "Released",
-        update_now: "Update Now",
-        on_this_page: "On This Page",
-        read_more: "Read Release Notes",
-        collapse: "Collapse",
-        back_to_top: "Back to Top",
-        "update_details": "Update Details",
-        "view_all": "View All Updates",
-        "share_update": "Share Update",
-        "jump_to": "Jump to",
-        "version_not_found": "Version not found.",
-        "no_results": "No results found.",
-        "back_to_changelog": "Back to Changelog",
-        "load_more": "Load More",
-        "explore_more": "Explore More",
-        "link_copied": "Link copied to clipboard!",
-        "open_full_screen": "Open in full screen",
-        "share_tooltip": "Share this update",
-        "previous_update": "Previous Update",
-        "next_update": "Next Update",
-        "table_of_contents": "Table of Contents",
-        "in_this_update": "In this update",
         plus_promo: {
             title: "Support Development",
             subtitle: "Unlock auto-monitoring and help us build new features.",
@@ -191,46 +146,5 @@ export default {
             cta: "View on Watch",
             badge: "Companion"
         }
-    },
-    privacy_page: {
-        page_title: "Privacy Policy",
-        last_updated: "Last Updated:",
-        table_of_contents: "Table of Contents",
-        contact_title: "Have Questions?",
-        contact_desc: "If you have any concerns about your data, please contact us.",
-        contact_btn: "Contact Support",
-        print_btn: "Print Policy"
-    },
-    help_page: {
-        page_title: "Help & FAQ",
-        subtitle: "Find answers and learn how to get the most out of Pixel Pulse.",
-        search_placeholder: "Search for answers (e.g. Calibration, Export)...",
-        table_of_contents: "Topics",
-        contact_title: "Still stuck?",
-        contact_desc: "Can't find what you're looking for? Our team is here to help.",
-        contact_btn: "Contact Support",
-        no_results: "No topics found matching your search."
-    },
-    roadmap_page: {
-        title: "Product Roadmap",
-        subtitle: "See what we've built and where we're heading next.",
-        suggest_btn: "Suggest a Feature",
-        toc_title: "Timeline"
-    },
-    overview_page: {
-        title: "Technical Overview",
-        subtitle: "Deep dive into the architecture, tech stack, and privacy engineering.",
-        github_btn: "View on GitHub",
-        toc_title: "On This Page",
-        dynamic_docs_note: "This overview is generated dynamically from Markdown files to ensure it's always up-to-date with the latest codebase changes.",
-        about_docs_title: "About this docs"
-    },
-    store_footer: {
-        tagline: "Designed for Android",
-        title: "Ready to measure?",
-        subtitle: "Join other users in protecting their hearing with Pixel Pulse.",
-        button_sub: "Get it on",
-        button_main: "Google Play",
-        bottom_note: "Requires Android 13 or newer"
     }
 };
