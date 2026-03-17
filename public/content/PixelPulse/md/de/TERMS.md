@@ -4,7 +4,119 @@
 
 Bitte lesen Sie diese Nutzungsbedingungen („Bedingungen“) sorgfältig durch, bevor Sie die mobile Anwendung Pixel Pulse (der „Dienst“) nutzen, die von **fertwbr** („uns“, „wir“ oder „unser“) betrieben wird.
 
-Durch den Zugriff auf oder die Nutzung des Dienstes erklären Sie sich mit diesen Bedingungen einverstanden. Wenn Sie mit irgendeinem Teil der Bedingungen nicht einverstanden sind, dürfen Sie nicht auf den Dienst zugreifen.
+Durch den Zugriff auf oder die Nutzung des Dienstes erklären Sie sich mit# Nutzungsbedingungen für Pixel Pulse
+
+**Zuletzt aktualisiert:** 17. März 2026
+
+Bitte lesen Sie diese Nutzungsbedingungen ("Bedingungen") sorgfältig durch, bevor Sie die mobile Anwendung Pixel Pulse (
+der "Dienst") nutzen, die vom **fertwbr** ("uns", "wir" oder "unser") betrieben wird.
+
+Durch den Zugriff auf den oder die Nutzung des Dienstes erklären Sie sich mit diesen Bedingungen einverstanden. Wenn Sie
+mit irgendeinem Teil der Bedingungen nicht einverstanden sind, dürfen Sie nicht auf den Dienst zugreifen.
+
+## 1. Lizenz
+
+Vorbehaltlich Ihrer Einhaltung dieser Bedingungen gewähren wir Ihnen eine beschränkte, nicht exklusive, nicht
+übertragbare, widerrufliche Lizenz zum Herunterladen, Installieren und Nutzen der Anwendung auf Ihren persönlichen
+Mobilgeräten, und zwar ausschließlich für Ihre persönlichen, nicht kommerziellen Zwecke.
+
+## 2. Haftungsausschluss (Genauigkeit & Sicherheit)
+
+**2.1 Kein medizinisches Gerät:**
+
+Der Dienst wird nur zu Informations- und Bildungszwecken bereitgestellt. Er ist **kein** kalibriertes medizinisches
+Gerät oder ein professionelles Schallpegelmessgerät der Klasse 1.
+
+**2.2 Messgenauigkeit:**
+
+Dezibelwerte können je nach Hardware (Mikrofon) Ihres spezifischen Geräts, Schutzhüllen oder Schmutz erheblich
+variieren. Wir garantieren nicht für die Genauigkeit, Vollständigkeit oder Zuverlässigkeit jeglicher Messungen.
+
+**2.3 Gesundheit & Sicherheit:**
+
+Verlassen Sie sich nicht ausschließlich auf diese App, um festzustellen, ob eine Umgebung für Ihr Gehör sicher ist.
+Verwenden Sie in bekanntermaßen lauten Umgebungen immer einen professionellen Gehörschutz. Wir haften nicht für
+Hörverlust oder Schäden, die aus dem Vertrauen auf die Daten der App resultieren.
+
+**2.4 Haftungsausschluss für algorithmische Erkenntnisse:**
+
+Einige Funktionen des Dienstes bieten automatisierte Analysen, Expositionsschätzungen und Risikoeinblicke auf der
+Grundlage allgemeiner akustischer Gesundheitsrichtlinien (wie z. B. internationaler Empfehlungen zur öffentlichen
+Gesundheit). Diese Erkenntnisse werden algorithmisch generiert und sind nur für Bildungszwecke bestimmt. Sie sollten *
+*nicht** als medizinischer Rat, Diagnose oder professionelle Gesundheitsberatung interpretiert werden.
+
+## 3. premium-Funktionen (Pixel Pulse+)
+
+* **Einmaliger Kauf:** Pixel Pulse+ wird als einmaliger Kauf ("Lifetime-Lizenz") angeboten. Es handelt sich nicht um ein
+  wiederkehrendes Abonnement.
+* **Rückerstattungen:** Rückerstattungen werden ausschließlich über die standardmäßigen Rückerstattungsrichtlinien des
+  Google Play Store abgewickelt.
+* **Verfügbarkeit:** Wir behalten uns das Recht vor, jeden Aspekt der premium-Funktionen jederzeit zu ändern,
+  auszusetzen oder einzustellen, obwohl wir angemessene Anstrengungen unternehmen werden, um die Funktionalität für
+  bestehende Käufer aufrechtzuerhalten.
+
+## 4. Wearable- und Multi-Geräte-Ökosystem
+
+Pixel Pulse kann über mehrere Geräte innerhalb Ihres persönlichen Geräte-Ökosystems hinweg betrieben werden,
+einschließlich kompatibler Android-Telefone und **Wear OS**-Smartwatches.
+
+Die Anwendung kann berechnete Expositionsdaten zwischen Geräten mithilfe des Android Wearable Data Layer-Systems
+synchronisieren. Diese Synchronisierung erfolgt direkt zwischen den eigenen Geräten des Benutzers (über Bluetooth oder
+lokale Konnektivität) und beinhaltet keine Speicherung oder Verarbeitung dieser Daten auf Servern, die vom fertwbr
+betrieben werden.
+
+Wenn die Uhr vorübergehend die Verbindung zum Telefon verliert, kann sie weiterhin lokal Messungen aufzeichnen und diese
+später synchronisieren, sobald die Verbindung wiederhergestellt ist.
+
+## 5. Geistiges Eigentum
+
+Der Dienst und seine ursprünglichen Inhalte (ausgenommen von Benutzern bereitgestellte Inhalte), Merkmale und Funktionen
+sind und bleiben das ausschließliche Eigentum des fertwbr und seiner Lizenzgeber. Der Dienst ist durch Urheberrechts-
+und andere Gesetze sowohl in Brasilien als auch in anderen Ländern geschützt.
+
+## 6. Haftungsbeschränkung
+
+In keinem Fall haftet der fertwbr für indirekte, zufällige, besondere, Folge- oder Strafschäden, einschließlich, aber
+nicht beschränkt auf entgangenen Gewinn, Datenverlust, Nutzungsverlust, Verlust von Goodwill oder andere immaterielle
+Verluste, die aus Ihrem Zugriff auf den oder Ihrer Nutzung des oder Ihrer Unfähigkeit zum Zugriff auf den oder zur
+Nutzung des Dienstes resultieren.
+
+## 7. Geltendes Recht
+
+Diese Bedingungen unterliegen den Gesetzen von **Brasilien** und werden in Übereinstimmung mit diesen ausgelegt, ohne
+Rücksicht auf deren kollisionsrechtliche Bestimmungen.
+
+Dies schließt anwendbare digitale Schutzvorschriften wie die **Lei Geral de Proteção de Dados (LGPD)** und das **Lei nº
+15.211/2025** ein, das allgemein als **"ECA Digital"** bezeichnet wird und die Schutzprinzipien des brasilianischen
+Estatuto da Criança e do Adolescente (ECA) auf digitale Dienste und Online-Plattformen ausweitet.
+
+## 8. Digitale Sicherheit und Jugendschutz
+
+In Übereinstimmung mit den brasilianischen Vorschriften zum digitalen Schutz, einschließlich des **ECA Digital (Lei nº
+15.211/2025)**, folgt Pixel Pulse den Grundsätzen des Privacy-by-Design, die darauf abzielen, die Erfassung
+personenbezogener Daten zu minimieren.
+
+Die Anwendung:
+
+* führt **kein** Verhaltens-Profiling von Benutzern durch
+* führt **kein** dienstübergreifendes Tracking durch
+* verwendet **keine** Werbekennungen oder zielgerichtete Werbung
+* verarbeitet in erster Linie technische Messdaten lokal auf dem Gerät des Benutzers
+
+Diese Maßnahmen tragen dazu bei, dass der Dienst für ein breites Publikum, einschließlich jugendlicher Benutzer,
+geeignet bleibt.
+
+## 9. Änderungen
+
+Wir behalten uns das Recht vor, diese Bedingungen nach unserem alleinigen Ermessen jederzeit zu ändern oder zu ersetzen.
+Wenn eine Überarbeitung wesentlich ist, werden wir versuchen, mindestens 30 Tage im Voraus über die App oder unsere
+Website eine Benachrichtigung bereitzustellen, bevor neue Bedingungen in Kraft treten. Was eine wesentliche Änderung
+darstellt, wird nach unserem alleinigen Ermessen bestimmt.
+
+## 10. Kontaktieren Sie uns
+
+Wenn Sie Fragen zu diesen Bedingungen haben, kontaktieren Sie uns bitte unter: *
+*[contact@fertwbr.com](mailto:contact@fertwbr.com)** diesen Bedingungen einverstanden. Wenn Sie mit irgendeinem Teil der Bedingungen nicht einverstanden sind, dürfen Sie nicht auf den Dienst zugreifen.
 
 ## 1. Lizenz
 
