@@ -20,9 +20,7 @@ import {
 } from './changelog/SidebarCards';
 
 /**
- * Configuration object defining styles for various changelog tags.
- * @constant
- * @type {Object.<string, {bg: string, color: string, border: string, highlight: string}>}
+ * Configuration object defining styles for various changelog tags using dynamic MD3 colors.
  */
 const TAG_STYLE_CONFIG = {
     stable: {
@@ -31,23 +29,38 @@ const TAG_STYLE_CONFIG = {
         border: 'transparent',
         highlight: 'var(--md-sys-color-primary)'
     },
-    beta: {bg: 'rgba(255, 183, 77, 0.15)', color: '#FFB74D', border: '#FFB74D', highlight: '#FFB74D'},
-    alpha: {bg: 'rgba(239, 83, 80, 0.15)', color: '#EF5350', border: '#EF5350', highlight: '#EF5350'},
-    rc: {bg: 'rgba(171, 71, 188, 0.15)', color: '#AB47BC', border: '#AB47BC', highlight: '#AB47BC'},
-    'pre-release': {bg: 'rgba(79, 195, 247, 0.15)', color: '#4FC3F7', border: '#4FC3F7', highlight: '#4FC3F7'},
-    default: {
+    beta: {
+        bg: 'var(--md-sys-color-tertiary-container)',
+        color: 'var(--md-sys-color-on-tertiary-container)',
+        border: 'var(--md-sys-color-tertiary)',
+        highlight: 'var(--md-sys-color-tertiary)'
+    },
+    alpha: {
+        bg: 'var(--md-sys-color-error-container)',
+        color: 'var(--md-sys-color-on-error-container)',
+        border: 'var(--md-sys-color-error)',
+        highlight: 'var(--md-sys-color-error)'
+    },
+    rc: {
         bg: 'var(--md-sys-color-secondary-container)',
         color: 'var(--md-sys-color-on-secondary-container)',
-        border: 'transparent',
+        border: 'var(--md-sys-color-secondary)',
         highlight: 'var(--md-sys-color-secondary)'
+    },
+    'pre-release': {
+        bg: 'var(--md-sys-color-surface-variant)',
+        color: 'var(--md-sys-color-on-surface-variant)',
+        border: 'var(--md-sys-color-outline)',
+        highlight: 'var(--md-sys-color-outline)'
+    },
+    default: {
+        bg: 'var(--md-sys-color-surface-container-highest)',
+        color: 'var(--md-sys-color-on-surface)',
+        border: 'transparent',
+        highlight: 'var(--md-sys-color-outline)'
     }
 };
 
-/**
- * Retrieves the associated style object for a given tag type.
- * @param {string} tagKey - The key or name of the tag (e.g., 'beta', 'stable').
- * @returns {{bg: string, color: string, border: string, highlight: string}} The computed style configuration.
- */
 const getTagStyle = (tagKey) => {
     const key = tagKey?.toLowerCase() || 'default';
     if (TAG_STYLE_CONFIG[key]) return TAG_STYLE_CONFIG[key];
@@ -58,13 +71,6 @@ const getTagStyle = (tagKey) => {
     return TAG_STYLE_CONFIG.default;
 };
 
-/**
- * Renders a stylized badge indicating the version type or platform tag.
- * @param {Object} props - The component props.
- * @param {string} props.type - The release type used to determine the badge style.
- * @param {string} [props.text] - The display text. Falls back to the 'type' if not provided.
- * @returns {JSX.Element} The rendered version badge.
- */
 const VersionBadge = ({type, text}) => {
     const style = getTagStyle(type);
     return (
@@ -87,17 +93,6 @@ const VersionBadge = ({type, text}) => {
     );
 };
 
-/**
- * Renders an expandable card displaying the details of a single changelog release.
- * @param {Object} props - The component props.
- * @param {Object} props.v - The version data object containing id, type, tags, date, and content.
- * @param {number} props.index - The current index of this item in the rendered list.
- * @param {boolean} props.isActive - Whether this specific card is currently active/highlighted.
- * @param {Object} props.strings - Localized string definitions.
- * @param {Function} props.onOpenSingle - Callback triggered when the full-screen action is clicked.
- * @param {Function} props.onShare - Callback triggered to initiate the share flow.
- * @returns {JSX.Element} The changelog item card component.
- */
 const ChangelogItem = ({v, index, isActive, strings, onOpenSingle, onShare}) => {
     const [isOpen, setIsOpen] = useState(index === 0);
     const badgeStyle = getTagStyle(v.type);
@@ -220,17 +215,6 @@ const ChangelogItem = ({v, index, isActive, strings, onOpenSingle, onShare}) => 
     );
 };
 
-/**
- * Full Screen Article Component displaying a detailed view of a specific changelog.
- *
- * @param {Object} props - The component props.
- * @param {Object} props.v - The active version data object.
- * @param {Object|null} props.prevVersion - The previous chronological version data object.
- * @param {Object|null} props.nextVersion - The next chronological version data object.
- * @param {Object} props.strings - Localized string definitions.
- * @param {Function} props.onOpenSingle - Callback for internal routing to sequential updates.
- * @returns {JSX.Element} The Full Screen Article component.
- */
 const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle}) => {
     const headers = useMemo(() => {
         const regex = /^####\s+(.+)$/gm;
@@ -271,10 +255,9 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
             className="full-screen-article"
         >
             <div className="article-layout">
-                <div className="glass-card article-main-content" style={{
-                    padding: 'clamp(24px, 5vw, 48px)',
+                {/* Removido glass-card e padding fixo aqui para fluir naturalmente com a tela */}
+                <div className="article-main-content" style={{
                     position: 'relative',
-                    overflow: 'hidden',
                     display: 'flex',
                     flexDirection: 'column',
                     gap: '40px'
@@ -349,7 +332,7 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
                         )}
                     </div>
 
-                    <div className="markdown-body article-typography">
+                    <div className="markdown-body">
                         <ReactMarkdown rehypePlugins={[rehypeRaw]} components={MarkdownComponents}>
                             {v.content}
                         </ReactMarkdown>
@@ -677,23 +660,25 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
     };
 
     const renderTocButtons = () => (
-        filteredVersions.map(v => (
-            <button key={v.id} onClick={() => scrollToVersion(v.id)}
-                    className={`toc-pill-btn ${activeId === v.id ? 'active' : 'inactive'}`}>
-                <span className="toc-pill-text">
-                    {v.version.replace('Version ', '')}
-                </span>
-                {v.type !== 'stable' && (
-                    <span style={{
-                        fontSize: '0.65rem', padding: '2px 6px', borderRadius: '4px',
-                        background: v.type === 'beta' ? 'rgba(255, 183, 77, 0.2)' : v.type === 'alpha' ? 'rgba(239, 83, 80, 0.2)' : 'rgba(171, 71, 188, 0.2)',
-                        color: v.type === 'beta' ? '#FFB74D' : v.type === 'alpha' ? '#EF5350' : '#AB47BC'
-                    }}>
-                        {v.type === 'rc' ? 'RC' : v.type.substring(0, 1).toUpperCase()}
+        filteredVersions.map(v => {
+            const style = getTagStyle(v.type);
+            return (
+                <button key={v.id} onClick={() => scrollToVersion(v.id)}
+                        className={`toc-pill-btn ${activeId === v.id ? 'active' : 'inactive'}`}>
+                    <span className="toc-pill-text">
+                        {v.version.replace('Version ', '')}
                     </span>
-                )}
-            </button>
-        ))
+                    {v.type !== 'stable' && (
+                        <span style={{
+                            fontSize: '0.65rem', padding: '2px 6px', borderRadius: '4px',
+                            background: style.bg, color: style.color
+                        }}>
+                            {v.type === 'rc' ? 'RC' : v.type.substring(0, 1).toUpperCase()}
+                        </span>
+                    )}
+                </button>
+            )
+        })
     );
 
     const desktopSearchInput = isDesktop && !isFullScreenMode ? (
@@ -879,7 +864,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                 </div>
                             </div>
 
-                            <div className="mobile-toc-wrapper" style={{display: 'none'}}>
+                            <div className="mobile-toc-wrapper">
                                 <PageTableOfContents title={strings.changelog?.jump_to || "Jump to"} isMobile={true}>
                                     {renderTocButtons()}
                                 </PageTableOfContents>
