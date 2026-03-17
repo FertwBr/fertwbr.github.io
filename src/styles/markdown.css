@@ -1,36 +1,147 @@
+/* src/styles/markdown.css */
 .markdown-body {
     color: var(--md-sys-color-on-surface);
     line-height: 1.8;
     font-size: 1.1rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+    color: var(--md-sys-color-on-surface);
+    font-weight: 700;
+    margin-top: 2em;
+    margin-bottom: 1em;
+    letter-spacing: -0.02em;
 }
 
 .markdown-body h1 {
     font-size: 2.5rem;
-    margin: 0 0 1.5rem 0;
     color: var(--md-sys-color-primary);
+    letter-spacing: -0.04em;
+    font-weight: 800;
 }
 
 .markdown-body h2 {
     font-size: 2rem;
-    margin: 3rem 0 1rem 0;
     border-bottom: 1px solid var(--md-sys-color-outline-variant);
-    padding: 0 0 0.5rem 0;
+    padding-bottom: 0.5em;
+    color: var(--md-sys-color-primary);
+}
+
+.markdown-body h3 {
+    font-size: 1.5rem;
+}
+
+.markdown-body h4 {
+    font-size: 1.25rem;
 }
 
 .markdown-body p {
-    margin: 0 0 1.5rem 0;
+    margin-bottom: 1.5em;
+    color: var(--md-sys-color-on-surface-variant);
 }
 
 .markdown-body a {
     color: var(--md-sys-color-primary);
     text-decoration: none;
     border-bottom: 1px dashed var(--md-sys-color-primary);
+    transition: all 0.2s ease;
+}
+
+.markdown-body a:hover {
+    color: var(--md-sys-color-on-primary-container);
+    background: var(--md-sys-color-primary-container);
+    border-bottom-style: solid;
 }
 
 .markdown-body blockquote {
     border-left: 4px solid var(--md-sys-color-primary);
-    padding: 0 0 0 1rem;
-    margin: 0;
+    padding: 1rem 1.5rem;
+    margin: 1.5em 0;
+    background: var(--md-sys-color-surface-container);
+    border-radius: 0 16px 16px 0;
     color: var(--md-sys-color-on-surface-variant);
     font-style: italic;
+}
+
+.markdown-body blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+    margin-bottom: 1.5em;
+    padding-left: 1.5em;
+    color: var(--md-sys-color-on-surface-variant);
+}
+
+.markdown-body li {
+    margin-bottom: 0.5em;
+}
+
+.markdown-body strong {
+    color: var(--md-sys-color-on-surface);
+    font-weight: 600;
+}
+
+.markdown-body code {
+    background: var(--md-sys-color-surface-container-high);
+    color: var(--md-sys-color-on-surface);
+    padding: 0.2em 0.4em;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 0.9em;
+    border: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.markdown-body pre {
+    background: var(--md-sys-color-surface-container-low);
+    padding: 1.5rem;
+    border-radius: 16px;
+    overflow-x: auto;
+    margin-bottom: 1.5em;
+    border: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.markdown-body pre code {
+    background: transparent;
+    padding: 0;
+    border: none;
+    color: var(--md-sys-color-on-surface-variant);
+}
+
+.markdown-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5em;
+}
+
+.markdown-body th,
+.markdown-body td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    text-align: left;
+}
+
+.markdown-body th {
+    font-weight: 600;
+    color: var(--md-sys-color-on-surface);
+    background: var(--md-sys-color-surface-container);
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 1.5em;
+    border-radius: 12px;
+    border: 1px solid var(--md-sys-color-outline-variant);
+}
+.table-wrapper table {
+    margin-bottom: 0;
+    border: none;
 }
