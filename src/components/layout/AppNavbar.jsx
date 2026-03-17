@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {motion, AnimatePresence} from 'framer-motion';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useLocation} from 'react-router-dom';
 
 /**
  * Configuration for navigation items displayed in the navbar.
@@ -77,6 +77,7 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
     const lastScrollY = useRef(0);
     const mobileMenuRef = useRef(null);
     const navigate = useNavigate();
+    const location = useLocation();
     const is404 = activePage === '404';
 
     const visibleNavItems = NAV_ITEMS.filter(item => {
@@ -131,6 +132,13 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
 
     const handleBackAction = () => {
         const isAtAppRoot = activePage === config.defaultPage || activePage === 'index';
+
+        if (location.pathname.includes('/changelog/')) {
+            const basePath = location.pathname.split('/changelog/')[0];
+            navigate(`${basePath}/changelog`);
+            return;
+        }
+
         if (isAtAppRoot) {
             navigate('/');
         } else {
