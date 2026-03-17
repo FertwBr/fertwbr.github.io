@@ -1,0 +1,108 @@
+.btn-glow {
+    position: relative;
+    background: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+    padding: 16px 32px;
+    border-radius: 100px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    outline: none;
+}
+
+.btn-glow:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px -5px rgba(var(--md-sys-color-primary-rgb), 0.4);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid var(--md-sys-color-outline);
+    color: var(--md-sys-color-on-surface);
+    padding: 16px 32px;
+    border-radius: 100px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    outline: none;
+}
+
+.btn-outline:hover {
+    border-color: var(--md-sys-color-primary);
+    color: var(--md-sys-color-primary);
+    background: rgba(var(--md-sys-color-primary-rgb), 0.08);
+}
+
+.last-updated-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: rgba(var(--md-sys-color-primary-rgb), 0.12);
+    color: var(--md-sys-color-primary);
+    border: 1px solid rgba(var(--md-sys-color-primary-rgb), 0.3);
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin: 12px 0 0 0;
+}
+
+.toc-dropdown-container {
+    width: 100%;
+}
+
+.toc-dropdown-list {
+    width: 100% !important;
+    box-sizing: border-box;
+}
+
+.desktop-toc-wrapper button {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.filter-tags-container {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 16px 0 0 0;
+}
+
+.filter-tag {
+    background: transparent;
+    border: 1px solid var(--md-sys-color-outline-variant);
+    color: var(--md-sys-color-on-surface-variant);
+    padding: 8px 16px;
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    outline: none;
+}
+
+.filter-tag:hover {
+    border-color: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-surface);
+    background: rgba(var(--md-sys-color-primary-rgb), 0.05);
+}
+
+.filter-tag.active {
+    background: var(--md-sys-color-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
+    border-color: transparent;
+    font-weight: 600;
+}

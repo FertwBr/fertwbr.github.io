@@ -1,0 +1,36 @@
+:root {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color-scheme: light dark;
+
+    --md-sys-color-surface: #0f1115;
+    --md-sys-color-surface-container-rgb: 27, 27, 31;
+    --md-sys-color-surface-container-high-rgb: 43, 41, 48;
+    --md-sys-color-on-surface: #e2e2e6;
+    --md-sys-color-on-surface-variant: #cac4d0;
+
+    --md-sys-color-primary: #d0bcff;
+    --md-sys-color-primary-rgb: 208, 188, 255;
+    --md-sys-color-on-primary: #381e72;
+    --md-sys-color-primary-container: #4f378b;
+    --md-sys-color-on-primary-container: #eaddff;
+
+    --md-sys-color-secondary-container: #4a4458;
+    --md-sys-color-on-secondary-container: #e8def8;
+
+    --md-sys-color-surface-container: #1b1b1f;
+    --md-sys-color-surface-container-high: #2b2930;
+    --md-sys-color-surface-container-low: #1b1b1f;
+    --md-sys-color-surface-container-highest: #36343b;
+
+    --md-sys-color-outline: #938f99;
+    --md-sys-color-outline-variant: #49454f;
+    --md-sys-color-tertiary: #efb8c8;
+
+    --glass-bg: rgba(27, 27, 31, 0.7);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+    --nav-height: 80px;
+    --shadow-glow: 0 0 80px rgba(var(--md-sys-color-primary-rgb), 0.15);
+
+    transition: background-color 0.5s ease, color 0.5s ease;
+}

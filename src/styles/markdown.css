@@ -1,0 +1,36 @@
+.markdown-body {
+    color: var(--md-sys-color-on-surface);
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+.markdown-body h1 {
+    font-size: 2.5rem;
+    margin: 0 0 1.5rem 0;
+    color: var(--md-sys-color-primary);
+}
+
+.markdown-body h2 {
+    font-size: 2rem;
+    margin: 3rem 0 1rem 0;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    padding: 0 0 0.5rem 0;
+}
+
+.markdown-body p {
+    margin: 0 0 1.5rem 0;
+}
+
+.markdown-body a {
+    color: var(--md-sys-color-primary);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--md-sys-color-primary);
+}
+
+.markdown-body blockquote {
+    border-left: 4px solid var(--md-sys-color-primary);
+    padding: 0 0 0 1rem;
+    margin: 0;
+    color: var(--md-sys-color-on-surface-variant);
+    font-style: italic;
+}

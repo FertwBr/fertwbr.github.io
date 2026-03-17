@@ -1,0 +1,90 @@
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+    width: 100%;
+    position: relative;
+}
+
+.page-content-wrapper {
+    flex: 1;
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.page-content-padding {
+    padding: 140px 0 0 0;
+}
+
+@media (max-width: 768px) {
+    .page-content-padding {
+        padding: 110px 0 0 0;
+    }
+}
+
+.bg-fixed {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background: radial-gradient(circle at 15% 50%, var(--md-sys-color-primary-container), transparent 40%),
+    radial-gradient(circle at 85% 30%, var(--md-sys-color-secondary-container), transparent 40%);
+    filter: blur(90px);
+    opacity: 0.3;
+    transition: background 0.8s ease;
+}
+
+.grid-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-image: linear-gradient(rgba(128, 128, 128, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(128, 128, 128, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(circle at center, black 40%, transparent 90%);
+    pointer-events: none;
+}
+
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: var(--glass-border);
+    box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.1);
+    border-radius: 32px;
+}
+
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+}
+
+.app-page-container {
+    padding: 140px 0 0 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 768px) {
+    .app-page-container {
+        padding: 100px 0 0 0;
+    }
+}
+
+.page-header-container {
+    margin: 0 0 40px 0;
+    padding: 0 0 32px 0;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.header-intro {
+    margin: 24px 0 0 0;
+    color: var(--md-sys-color-on-surface-variant);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 900px;
+}
