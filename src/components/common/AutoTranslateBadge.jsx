@@ -36,18 +36,7 @@ export default function AutoTranslateBadge({onClick, isShowingOriginal}) {
             animate={{opacity: 1, scale: 1}}
             transition={{duration: 0.3}}
             onClick={onClick}
-            className="btn-outline"
-            style={{
-                padding: '8px 16px',
-                fontSize: '0.9rem',
-                borderRadius: '100px',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                cursor: 'pointer',
-                margin: 0,
-                whiteSpace: 'nowrap'
-            }}
+            className="btn-outline auto-translate-badge"
             whileHover={{scale: 1.02, backgroundColor: 'rgba(var(--md-sys-color-on-surface-rgb), 0.05)'}}
             whileTap={{scale: 0.98}}
             title={tooltipText}

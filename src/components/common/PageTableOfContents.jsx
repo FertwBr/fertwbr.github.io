@@ -1,6 +1,16 @@
 import React, {useState} from 'react';
 import {motion, AnimatePresence} from 'framer-motion';
 
+/**
+ * A table of contents component to navigate within long pages.
+ * Supports a collapsible mode for mobile layouts.
+ *
+ * @param {Object} props
+ * @param {string} props.title - The title of the Table of Contents.
+ * @param {React.ReactNode} props.children - The TOC links or content.
+ * @param {boolean} props.isMobile - Whether the component should render in the collapsible mobile mode.
+ * @returns {JSX.Element}
+ */
 export default function PageTableOfContents({title, children, isMobile}) {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -9,21 +19,7 @@ export default function PageTableOfContents({title, children, isMobile}) {
             <div style={{marginBottom: '32px'}}>
                 <button
                     onClick={() => setIsOpen(!isOpen)}
-                    className="glass-card"
-                    style={{
-                        width: '100%',
-                        padding: '18px 20px',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        cursor: 'pointer',
-                        border: '1px solid var(--md-sys-color-outline-variant)',
-                        color: 'var(--md-sys-color-on-surface)',
-                        borderRadius: '20px',
-                        background: 'linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%)',
-                        backdropFilter: 'blur(16px)',
-                        transition: 'all 0.25s cubic-bezier(.2,.8,.2,1)'
-                    }}
+                    className="glass-card toc-mobile-btn"
                 >
                     <span style={{
                         fontWeight: 600,
@@ -53,16 +49,7 @@ export default function PageTableOfContents({title, children, isMobile}) {
                             animate={{height: 'auto', opacity: 1}}
                             exit={{height: 0, opacity: 0}}
                             transition={{duration: 0.25, ease: [0.2, 0, 0, 1]}}
-                            className="glass-card"
-                            style={{
-                                marginTop: '10px',
-                                overflow: 'hidden',
-                                border: '1px solid var(--md-sys-color-outline-variant)',
-                                borderRadius: '20px',
-                                background: 'linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01))',
-                                backdropFilter: 'blur(18px)',
-                                padding: 0
-                            }}
+                            className="glass-card toc-mobile-dropdown"
                         >
                             <div
                                 onClick={() => setIsOpen(false)}
@@ -83,22 +70,10 @@ export default function PageTableOfContents({title, children, isMobile}) {
 
     return (
         <motion.div
-            className="glass-card"
+            className="glass-card toc-desktop-card"
             initial={{opacity: 0, y: 8}}
             animate={{opacity: 1, y: 0}}
             transition={{duration: 0.35, ease: [0.2, 0, 0, 1]}}
-            style={{
-                width: '100%',
-                padding: '26px',
-                borderRadius: '28px',
-                border: '1px solid var(--md-sys-color-outline-variant)',
-                background: 'linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.01))',
-                backdropFilter: 'blur(20px)',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '18px',
-                position: 'relative'
-            }}
         >
             <div
                 style={{

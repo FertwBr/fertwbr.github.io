@@ -1,5 +1,19 @@
 import React from 'react';
 
+/**
+ * Standardized header component for viewer pages (Changelog, Terms, Privacy, etc.)
+ *
+ * @param {Object} props
+ * @param {string} props.appName - Name of the application (e.g. Pixel Pulse)
+ * @param {string} props.icon - Material Symbols icon name
+ * @param {string} props.title - Main title of the viewer
+ * @param {string} [props.subtitle] - Optional subtitle text
+ * @param {string} [props.lastUpdated] - Optional last updated date string
+ * @param {string} [props.lastUpdatedText] - Localized label for "Last Updated"
+ * @param {React.ReactNode} [props.actionNode] - Optional component (like a button) rendered on the right side
+ * @param {React.ReactNode} [props.introNode] - Optional introductory Markdown content rendered below the title
+ * @returns {JSX.Element}
+ */
 export default function ViewerHeader({
                                          appName,
                                          icon,
@@ -22,7 +36,7 @@ export default function ViewerHeader({
                             <span>{title}</span>
                         </div>
                     </div>
-                    <h1 className="viewer-title" style={!subtitle ? {fontSize: '2.5rem'} : {}}>{title}</h1>
+                    <h1 className={`viewer-title ${!subtitle ? 'viewer-title-large' : ''}`}>{title}</h1>
                     {subtitle && <p className="viewer-subtitle">{subtitle}</p>}
                     {lastUpdated && (
                         <div className="last-updated-badge">

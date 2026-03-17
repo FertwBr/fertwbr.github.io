@@ -1,6 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import {motion, AnimatePresence} from 'framer-motion';
 
+/**
+ * A floating action button that scrolls the page back to the top.
+ *
+ * @param {Object} props - Component props.
+ * @param {string} [props.tooltip] - Optional tooltip text.
+ * @param {boolean} [props.isShifted] - If true, shifts the button higher to avoid overlapping other elements (like mobile bottom navigation).
+ * @returns {JSX.Element} The rendered button.
+ */
 export default function BackToTop({tooltip, isShifted}) {
     const [visible, setVisible] = useState(false);
 
@@ -22,31 +30,6 @@ export default function BackToTop({tooltip, isShifted}) {
                     title={tooltip || "Back to Top"}
                 >
                     <span className="material-symbols-outlined">arrow_upward</span>
-                    <style>{`
-                        .back-to-top-btn {
-                            position: fixed; 
-                            bottom: 30px; 
-                            right: 30px; 
-                            z-index: 99;
-                            width: 56px; 
-                            height: 56px; 
-                            border-radius: 16px;
-                            background: var(--md-sys-color-primary); 
-                            border: none;
-                            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-                            color: var(--md-sys-color-on-primary); 
-                            cursor: pointer;
-                            display: flex; 
-                            align-items: center; 
-                            justify-content: center;
-                            transition: bottom 0.4s cubic-bezier(0.2, 0, 0, 1), transform 0.2s, background 0.2s;
-                        }
-                        @media (max-width: 1000px) {
-                            .back-to-top-btn.shifted {
-                                bottom: 180px;
-                            }
-                        }
-                    `}</style>
                 </motion.button>
             )}
         </AnimatePresence>

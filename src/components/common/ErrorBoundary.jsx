@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, {useState} from 'react';
+import {motion, AnimatePresence} from 'framer-motion';
 import en from '../../locales/en';
 
 const SAFE_STRINGS = {
@@ -24,8 +24,9 @@ const SAFE_STRINGS = {
  * @param {Object} props - Component props.
  * @param {Error} props.error - The error object thrown.
  * @param {Function} props.resetError - Function to reset the error boundary state.
+ * @returns {JSX.Element}
  */
-const ErrorUI = ({ error, resetError }) => {
+const ErrorUI = ({error, resetError}) => {
     const [showDetails, setShowDetails] = useState(false);
     const [copied, setCopied] = useState(false);
 
@@ -42,43 +43,20 @@ const ErrorUI = ({ error, resetError }) => {
     };
 
     return (
-        <div style={{
-            position: 'relative',
-            minHeight: '100vh',
-            width: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '24px',
-            boxSizing: 'border-box',
-            overflow: 'hidden',
-            backgroundColor: '#141218',
-            color: '#E6E1E5'
-        }}>
+        <div className="error-boundary-container">
             <div className="bg-fixed"></div>
             <div className="grid-overlay"></div>
 
             <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ type: "spring", duration: 0.8 }}
-                className="glass-card"
-                style={{
-                    maxWidth: '600px',
-                    width: '100%',
-                    padding: '40px',
-                    textAlign: 'center',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    border: '1px solid var(--md-sys-color-error-container)',
-                    boxShadow: '0 20px 60px rgba(0,0,0,0.4)'
-                }}
+                initial={{scale: 0.9, opacity: 0}}
+                animate={{scale: 1, opacity: 1}}
+                transition={{type: "spring", duration: 0.8}}
+                className="glass-card error-boundary-card"
             >
                 <motion.div
-                    initial={{ rotate: -10 }}
-                    animate={{ rotate: 10 }}
-                    transition={{ repeat: Infinity, repeatType: "reverse", duration: 2 }}
+                    initial={{rotate: -10}}
+                    animate={{rotate: 10}}
+                    transition={{repeat: Infinity, repeatType: "reverse", duration: 2}}
                     style={{
                         width: '80px', height: '80px', borderRadius: '50%',
                         background: 'var(--md-sys-color-error-container)',
@@ -87,23 +65,40 @@ const ErrorUI = ({ error, resetError }) => {
                         marginBottom: '24px'
                     }}
                 >
-                    <span className="material-symbols-outlined" style={{ fontSize: '40px' }}>pest_control</span>
+                    <span className="material-symbols-outlined" style={{fontSize: '40px'}}>pest_control</span>
                 </motion.div>
 
-                <h1 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '16px', color: 'var(--md-sys-color-on-surface)' }}>
+                <h1 style={{
+                    fontSize: '2rem',
+                    fontWeight: 800,
+                    marginBottom: '16px',
+                    color: 'var(--md-sys-color-on-surface)'
+                }}>
                     {content.error?.title || SAFE_STRINGS.error.title}
                 </h1>
 
-                <p style={{ fontSize: '1.1rem', color: 'var(--md-sys-color-on-surface-variant)', marginBottom: '32px', lineHeight: 1.6 }}>
+                <p style={{
+                    fontSize: '1.1rem',
+                    color: 'var(--md-sys-color-on-surface-variant)',
+                    marginBottom: '32px',
+                    lineHeight: 1.6
+                }}>
                     {content.error?.desc_1 || SAFE_STRINGS.error.desc_1} <br/>
                     {content.error?.desc_2 || SAFE_STRINGS.error.desc_2}
                 </p>
 
-                <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center', width: '100%', marginBottom: '32px' }}>
+                <div style={{
+                    display: 'flex',
+                    gap: '16px',
+                    flexWrap: 'wrap',
+                    justifyContent: 'center',
+                    width: '100%',
+                    marginBottom: '32px'
+                }}>
                     <button
                         onClick={handleReload}
                         className="btn-glow"
-                        style={{ background: 'var(--md-sys-color-error)', color: 'var(--md-sys-color-on-error)' }}
+                        style={{background: 'var(--md-sys-color-error)', color: 'var(--md-sys-color-on-error)'}}
                     >
                         <span className="material-symbols-outlined">refresh</span>
                         {content.error?.reload || SAFE_STRINGS.error.reload}
@@ -118,7 +113,7 @@ const ErrorUI = ({ error, resetError }) => {
                     </button>
                 </div>
 
-                <div style={{ width: '100%' }}>
+                <div style={{width: '100%'}}>
                     <button
                         onClick={() => setShowDetails(!showDetails)}
                         style={{
@@ -129,25 +124,22 @@ const ErrorUI = ({ error, resetError }) => {
                         }}
                     >
                         {showDetails ? (content.error?.hide_details || SAFE_STRINGS.error.hide_details) : (content.error?.show_details || SAFE_STRINGS.error.show_details)}
-                        <span className="material-symbols-outlined" style={{ fontSize: '18px', transform: showDetails ? 'rotate(180deg)' : 'rotate(0deg)', transition: '0.3s' }}>expand_more</span>
+                        <span className="material-symbols-outlined" style={{
+                            fontSize: '18px',
+                            transform: showDetails ? 'rotate(180deg)' : 'rotate(0deg)',
+                            transition: '0.3s'
+                        }}>expand_more</span>
                     </button>
 
                     <AnimatePresence>
                         {showDetails && (
                             <motion.div
-                                initial={{ height: 0, opacity: 0 }}
-                                animate={{ height: 'auto', opacity: 1 }}
-                                exit={{ height: 0, opacity: 0 }}
-                                style={{ overflow: 'hidden', marginTop: '16px' }}
+                                initial={{height: 0, opacity: 0}}
+                                animate={{height: 'auto', opacity: 1}}
+                                exit={{height: 0, opacity: 0}}
+                                style={{overflow: 'hidden', marginTop: '16px'}}
                             >
-                                <div style={{
-                                    background: 'rgba(0,0,0,0.3)',
-                                    borderRadius: '16px',
-                                    padding: '16px',
-                                    textAlign: 'left',
-                                    border: '1px solid rgba(255,255,255,0.1)',
-                                    position: 'relative'
-                                }}>
+                                <div className="error-details-box">
                                     <button
                                         onClick={handleCopy}
                                         style={{
@@ -159,24 +151,16 @@ const ErrorUI = ({ error, resetError }) => {
                                             display: 'flex', alignItems: 'center', gap: '6px'
                                         }}
                                     >
-                    <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>
-                      {copied ? 'check' : 'content_copy'}
-                    </span>
+                                        <span className="material-symbols-outlined" style={{fontSize: '16px'}}>
+                                            {copied ? 'check' : 'content_copy'}
+                                        </span>
                                         {copied ? (content.error?.copied || SAFE_STRINGS.error.copied) : (content.error?.copy || SAFE_STRINGS.error.copy)}
                                     </button>
 
-                                    <code style={{
-                                        fontFamily: 'monospace',
-                                        fontSize: '0.85rem',
-                                        color: '#FFB4AB',
-                                        whiteSpace: 'pre-wrap',
-                                        wordBreak: 'break-word',
-                                        display: 'block',
-                                        marginTop: '24px'
-                                    }}>
+                                    <code className="error-code-text">
                                         {error?.toString()}
                                         <br/><br/>
-                                        <span style={{ opacity: 0.6, fontSize: '0.75rem' }}>{error?.stack}</span>
+                                        <span style={{opacity: 0.6, fontSize: '0.75rem'}}>{error?.stack}</span>
                                     </code>
                                 </div>
                             </motion.div>
@@ -196,11 +180,11 @@ const ErrorUI = ({ error, resetError }) => {
 class ErrorBoundary extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { hasError: false, error: null };
+        this.state = {hasError: false, error: null};
     }
 
     static getDerivedStateFromError(error) {
-        return { hasError: true, error };
+        return {hasError: true, error};
     }
 
     componentDidCatch(error, errorInfo) {
@@ -208,12 +192,12 @@ class ErrorBoundary extends React.Component {
     }
 
     resetError = () => {
-        this.setState({ hasError: false, error: null });
+        this.setState({hasError: false, error: null});
     };
 
     render() {
         if (this.state.hasError) {
-            return <ErrorUI error={this.state.error} resetError={this.resetError} />;
+            return <ErrorUI error={this.state.error} resetError={this.resetError}/>;
         }
 
         return this.props.children;
