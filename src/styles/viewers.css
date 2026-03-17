@@ -98,6 +98,7 @@
     margin-top: 24px;
     background: var(--md-sys-color-surface-container-high);
     width: 100%;
+    border-radius: 24px;
 }
 
 .viewer-sidebar-card-title {
@@ -124,6 +125,17 @@
     align-items: center;
     gap: 12px;
     margin-bottom: 12px;
+}
+
+.card-icon-container {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--md-sys-color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--md-sys-color-on-primary);
 }
 
 .card-icon {
@@ -157,6 +169,51 @@
     background: transparent;
     color: var(--md-sys-color-on-surface-variant);
     font-weight: 500;
+}
+
+.toc-btn.inactive:hover {
+    background: rgba(var(--md-sys-color-on-surface-rgb), 0.05);
+    color: var(--md-sys-color-on-surface);
+}
+
+/* Pill specific styling for changelog items */
+.toc-pill-btn {
+    display: flex;
+    width: 100%;
+    text-align: left;
+    padding: 12px 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.toc-pill-btn.active {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--md-sys-color-primary);
+    font-weight: 600;
+    border-left: 3px solid var(--md-sys-color-primary);
+}
+
+.toc-pill-btn.inactive {
+    background: transparent;
+    color: var(--md-sys-color-on-surface-variant);
+    font-weight: 400;
+    border-left: 3px solid transparent;
+}
+
+.toc-pill-btn.inactive:hover {
+    background: rgba(var(--md-sys-color-on-surface-rgb), 0.05);
+    color: var(--md-sys-color-on-surface);
+}
+
+.toc-pill-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 180px;
 }
 
 .rich-text p {
