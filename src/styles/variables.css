@@ -5,6 +5,7 @@
     color-scheme: light dark;
 
     --md-sys-color-surface: #0f1115;
+    --md-sys-color-surface-rgb: 15, 17, 21;
     --md-sys-color-surface-container-rgb: 27, 27, 31;
     --md-sys-color-surface-container-high-rgb: 43, 41, 48;
     --md-sys-color-on-surface: #e2e2e6;
