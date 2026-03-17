@@ -30,10 +30,12 @@ const mergeModules = (target, source) => {
 /**
  * Aggregator for English localization resources.
  * Combines universal shared strings with app-specific overrides.
+ * By merging 'shared' into every app, we guarantee that common components
+ * (like TermsViewer, PrivacyViewer, and Feedback) always have their strings available.
  */
 export default {
     ...mergeModules(shared, portfolio),
     pixel_pulse: mergeModules(shared, pixel_pulse),
     pixel_compass: mergeModules(shared, pixel_compass),
-    apps_home: apps_home
+    apps_home: mergeModules(shared, apps_home)
 };

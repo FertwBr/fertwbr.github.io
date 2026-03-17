@@ -1,61 +1,40 @@
-/**
- * Core portfolio localization strings (Spanish).
- */
+// src/locales/modules/portfolio/es.js
 export default {
     nav: {
         index: "Inicio",
         overview: "Documentación",
-        changelog: "Historial de cambios",
-        roadmap: "Hoja de ruta",
+        changelog: "Registro de Cambios",
+        roadmap: "Hoja de Ruta",
         privacy: "Privacidad",
+        terms: "Términos de Uso",
         help: "Ayuda",
         back: "Volver"
-    },
-    common: {
-        offline: "Actualmente no tienes conexión.",
-    },
-    redirect: {
-        launching: "Iniciando aplicación...",
-        did_open: "¿Se abrió la aplicación?",
-        open_again: "Abrir aplicación de nuevo",
-        get_on_store: "Disponible en Play Store"
-    },
-    error: {
-        title: "Error del sistema",
-        desc_1: "Algo inesperado ocurrió en el núcleo de la aplicación.",
-        desc_2: "No te preocupes, no se perdieron datos.",
-        reload: "Reiniciar sistema",
-        home: "Volver al inicio",
-        show_details: "Mostrar detalles técnicos",
-        hide_details: "Ocultar detalles técnicos",
-        copy: "Copiar",
-        copied: "Copiado"
     },
     hero: {
         greeting: "Hola, soy",
         name: "Fernando Vaz",
         role_prefix: "Desarrollo",
         roles: ["Aplicaciones Android", "Sistemas Backend", "Experiencias de Usuario", "Soluciones Digitales"],
-        cta_primary: "Ver proyectos",
-        cta_secondary: "Contacto"
+        cta_primary: "Ver Proyectos",
+        cta_secondary: "Contácteme"
     },
     not_found: {
-        page_title: "Página no encontrada",
+        page_title: "Página No Encontrada",
         title: "404",
-        subtitle: "¡Ups! Hacia el vacío.",
-        message: "La página que buscas no existe actualmente.",
-        suggestion_title: "¿Buscabas esto?",
-        suggestion_desc: "Basándonos en tu enlace, creemos que querías ir a",
+        subtitle: "¡Vaya! Entramos en el vacío.",
+        message: "La página que está buscando no existe actualmente.",
+        suggestion_title: "¿Buscaba esto?",
+        suggestion_desc: "Basado en su enlace, creemos que deseaba ir a",
         suggestion_btn: "Sí, ir allí",
-        home_btn: "Ir al inicio",
-        apps_btn: "Ver aplicaciones"
+        home_btn: "Ir al Inicio",
+        apps_btn: "Ver Aplicaciones"
     },
     about: {
-        title: "Sobre mí",
-        subtitle: "Donde la ingeniería se une al diseño",
+        title: "Sobre Mí",
+        subtitle: "Donde la Ingeniería se encuentra con el Diseño",
         bio: {
             p1: {
-                start: "Soy Fernando Vaz, ingeniero de software graduado por la ",
+                start: "Soy Fernando Vaz, un Ingeniero de Software graduado en ",
                 highlight: "UniCesumar",
                 end: ", apasionado por la intersección entre el código robusto y el diseño intuitivo."
             },
@@ -68,28 +47,24 @@ export default {
             }
         },
         cta_work: "Ver mi trabajo",
-        stats: {
-            exp: "Años de exp.",
-            projects: "Proyectos",
-            clients: "Clientes felices"
-        },
+        stats: {exp: "Años Exp.", projects: "Proyectos", clients: "Clientes Satisfechos"},
         cards: {
-            education: {title: "Educación", value: "Grado en Ing. de Software", sub: "UniCesumar"},
+            education: {title: "Educación", value: "Licenciatura en Ingeniería de Software", sub: "UniCesumar"},
             location: {title: "Ubicación", value: "Salvador, Brasil", sub: "GMT-3"},
-            stack: {title: "Stack principal", value: "Kotlin & Java", sub: "Dev Full Cycle"}
+            stack: {title: "Stack Principal", value: "Kotlin y Java", sub: "Desarrollo de Ciclo Completo"}
         }
     },
     projects: {
-        title: "Trabajos seleccionados",
+        title: "Trabajos Seleccionados",
         subtitle: "Una muestra de profundidad técnica y resolución creativa de problemas.",
-        view_project: "Ver caso de estudio",
-        source_code: "Código fuente",
+        view_project: "Ver Estudio de Caso",
+        source_code: "Código Fuente",
         items: [
             {
                 id: "pixel_pulse",
                 title: "Pixel Pulse",
                 category: "Ingeniería Android",
-                desc: "Sonómetro avanzado con análisis FFT en tiempo real, persistencia con Room Database y servicios en segundo plano optimizados para batería mediante WorkManager.",
+                desc: "Medidor de nivel de sonido avanzado con análisis FFT en tiempo real, persistencia en Room Database y servicios en segundo plano optimizados para batería a través de WorkManager.",
                 tags: ["Kotlin", "Compose", "FFT", "Room"],
                 icon_url: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Pulse/art/phone.svg",
                 link: "/PixelPulse?page=index",
@@ -100,9 +75,9 @@ export default {
             {
                 id: "pixel_compass",
                 title: "Pixel Compass",
-                category: "Wear OS & Mobile",
-                desc: "Herramienta de navegación premium con algoritmos de fusión de sensores, widgets Jetpack Glance y arquitectura multimódulo para una clara separación de responsabilidades.",
-                tags: ["Wear OS", "Sensors", "Glance", "Retrofit"],
+                category: "Wear OS y Dispositivos Móviles",
+                desc: "Herramienta de navegación premium con algoritmos de fusión de sensores, widgets de Jetpack Glance y arquitectura multimodular para una separación clara de responsabilidades.",
+                tags: ["Wear OS", "Sensores", "Glance", "Retrofit"],
                 icon_url: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/phone.svg",
                 link: "/PixelCompass?page=index",
                 repo: "https://github.com/fertwbr/PixelCompass",
@@ -111,9 +86,9 @@ export default {
             },
             {
                 id: "portfolio_site",
-                title: "Este portafolio",
+                title: "Este Portafolio",
                 category: "Ingeniería Web",
-                desc: "Un análisis profundo de la arquitectura de este sitio. Construido con React, Material Design 3 y un motor de Markdown personalizado.",
+                desc: "Una inmersión profunda en la arquitectura de este mismo sitio. Creado con React, Material Design 3 y un motor Markdown personalizado.",
                 tags: ["React", "Vite", "Material 3", "Framer Motion"],
                 icon: "web",
                 link: "/site/overview",
@@ -124,7 +99,7 @@ export default {
                 id: "box_idea",
                 title: "boxIdea",
                 category: "Web Full Stack",
-                desc: "Plataforma de innovación corporativa que permite a los equipos enviar, votar y seguir ideas. Construida con Spring Boot Security y PostgreSQL.",
+                desc: "Plataforma de innovación corporativa que permite a los equipos enviar, votar y rastrear ideas. Creada con Spring Boot Security y PostgreSQL.",
                 tags: ["Spring Boot", "Java", "PostgreSQL", "JWT"],
                 link: "https://github.com/FertwBr/boxIdea",
                 repo: "https://github.com/FertwBr/boxIdea",
@@ -133,167 +108,22 @@ export default {
             }
         ]
     },
-    tech: {
-        title: "Tecnologías",
-        subtitle: "Herramientas que utilizo para dar vida a las ideas"
-    },
+    tech: {title: "Tecnologías", subtitle: "Herramientas que utilizo para dar vida a las ideas"},
     github: {
-        title: "Código Abierto",
-        view_profile: "Ver Perfil de GitHub",
-        languages: "Lenguajes Más Utilizados",
+        title: "Código Abierto", view_profile: "Ver Perfil de GitHub", languages: "Idiomas Más Utilizados",
         default_bio: "Desarrollando soluciones para Android y la Web.",
         stats: {
-            contributions: "Contribuciones del Año",
+            contributions: "Contribuciones Anuales",
             repos: "Repositorios",
-            stars: "Total de Estrellas",
+            stars: "Estrellas Totales",
             followers: "Seguidores"
         }
     },
-
     contact: {
-        title: "Trabajemos juntos",
-        desc: "¿Tienes un proyecto en mente o quieres hablar sobre lo último en tecnología Android?",
+        title: "Trabajemos Juntos",
+        desc: "¿Tiene un proyecto en mente o desea discutir lo último en tecnología Android?",
         email: "Enviar e-mail",
         linkedin: "LinkedIn",
         github: "GitHub"
-    },
-    footer: {
-        rights: "Todos los derechos reservados.",
-        built: "Diseñado y desarrollado por Fernando Vaz 🇧🇷",
-        useful_links: "Enlaces Útiles",
-        social_title: "Conectar",
-        appearance: {
-            title: "Tema y Apariencia",
-            language_selector: "Idioma",
-            en: "Inglés",
-            pt: "Portugués",
-            theme_mode: "Modo",
-            mode_auto: "Automático",
-            mode_light: "Claro",
-            mode_dark: "Oscuro"
-        }
-    },
-    terms_page: {
-        page_title: "Términos de Uso",
-        last_updated: "Última Actualización:",
-        print_btn: "Imprimir Términos",
-        table_of_contents: "Índice",
-        contact_title: "¿Preguntas sobre estos Términos?",
-        contact_desc: "Si tiene alguna pregunta o inquietud con respecto a estos Términos de Uso, comuníquese con nuestro equipo de soporte.",
-        contact_btn: "Contactar al Soporte"
-    },
-    changelog: {
-        title: "Historial de Versiones",
-        subtitle: "Siga la evolución del sitio. Aquí encontrará un registro detallado de nuevas características, mejoras y correcciones para cada versión.",
-        search_placeholder: "Buscar características, versiones...",
-        latest_release: "Último Lanzamiento",
-        released: "Lanzado",
-        update_now: "Actualizar Ahora",
-        on_this_page: "En Esta Página",
-        read_more: "Leer Notas de Lanzamiento",
-        collapse: "Contraer",
-        back_to_top: "Volver Arriba",
-        update_details: "Detalles de la Actualización",
-        view_all: "Ver Todas las Actualizaciones",
-        share_update: "Compartir Actualización",
-        jump_to: "Ir a",
-        version_not_found: "Versión no encontrada.",
-        no_results: "No se encontraron resultados.",
-        back_to_changelog: "Volver al Changelog",
-        load_more: "Cargar Más",
-        explore_more: "Explorar Más",
-        link_copied: "¡Enlace copiado al portapapeles!",
-        open_full_screen: "Abrir en pantalla completa",
-        share_tooltip: "Compartir esta actualización",
-        previous_update: "Actualización Anterior",
-        next_update: "Próxima Actualización",
-        table_of_contents: "Tabla de Contenidos",
-        in_this_update: "En esta actualización",
-        auto_translated_badge: "Traducido Automáticamente",
-        auto_translated_tooltip: "Traducido por un sistema de IA para su comodidad.",
-        translate_badge_restore: "Traducir",
-        translate_badge_restore_tooltip: "Traducir el contenido a su idioma actual.",
-        translate_modal_title: "Traducido Automáticamente",
-        translate_modal_desc: "Este contenido fue traducido automáticamente por un sistema de IA para ayudarle a mantenerse actualizado. Algunos términos técnicos o matices pueden ser ligeramente inexactos.",
-        translate_modal_show_original: "Mostrar Original (Inglés)",
-        translate_modal_keep_translation: "Mantener Traducción"
-    },
-    overview_page: {
-        title: "Resumen técnico",
-        subtitle: "Análisis profundo de la arquitectura y el stack.",
-        github_btn: "Ver en GitHub",
-        toc_title: "En esta página",
-        dynamic_docs_note: "Esta descripción general se genera dinámicamente a partir de archivos Markdown para garantizar que esté siempre actualizada con los últimos cambios en la base de código.",
-        about_docs_title: "Acerca de esta documentación"
-    },
-    feedback: {
-        title: "Enviar comentarios",
-        subtitle: "Ayúdenos a mejorar. Reportes de errores, solicitudes de funciones o simplemente un saludo.",
-        form: {
-            project_label: "Proyecto",
-            type_label: "Tema",
-            platform_label: "Plataforma",
-            email_label: "Dirección de correo electrónico",
-            email_placeholder: "su@email.com",
-            email_error: "Por favor, introduzca una dirección de correo electrónico válida.",
-            description_label: "Mensaje",
-            description_placeholder: "Describa lo que sucedió o comparta su idea...",
-            description_error: "El mensaje debe tener al menos 15 caracteres.",
-            include_device_info: "Incluir información del dispositivo (Navegador/SO)",
-            send_button: "Enviar comentarios",
-            draft_recovered: "Borrador recuperado",
-            discard_draft: "Descartar borrador"
-        },
-        success: {
-            title: "¡Mensaje enviado!",
-            message: "Su mensaje ha sido enviado con éxito a support@fertwbr.com. Se ha enviado una copia de confirmación a {email}.",
-            error_title: "Error en el envío",
-            error_message: "Encontramos un error de red al intentar enviar su mensaje. Por favor, inténtelo de nuevo.",
-            btn_retry: "Reintentar",
-            btn_edit: "Editar mensaje",
-            btn_home: "Volver al inicio"
-        },
-        projects: {
-            pixelpulse: "Pixel Pulse",
-            pixelcompass: "Pixel Compass",
-            portfolio: "Sitio de portafolio"
-        },
-        platforms: {
-            android: "Android (Teléfono)",
-            wearos: "Wear OS",
-            web: "Web / Sitio"
-        },
-        types: {
-            general: "Comentarios generales",
-            bug: "Reporte de error",
-            feature: "Solicitud de función",
-            translation: "Problema de traducción",
-            ui: "Sugerencia de interfaz",
-            other: "Otro"
-        },
-        guidance: {
-            label: "Consejo",
-            default_general: "¡Le escuchamos! Comparta sus pensamientos.",
-            default_bug: "Describa los pasos para que ocurra el error.",
-            default_feature: "¿Cómo mejoraría esta función su experiencia?",
-            default_translation: "¿En qué pantalla aparece el texto incorrecto?",
-            short_text: "Por favor, proporcione un poco más de detalle para que podamos entender mejor.",
-            crash: "Si la aplicación falló, ¿vio algún código o mensaje de error?",
-            screenshot: "Una imagen vale más que mil palabras. Considere adjuntar una captura de pantalla.",
-            translation_keyword: "Mencionar el idioma específico y la frase incorrecta nos ayuda a corregirlo rápido.",
-            steps_received: "¡Perfecto! Conocer los pasos nos ayuda a reproducir el problema.",
-            error_received: "Gracias por incluir los detalles del error.",
-            location_received: "Excelente, conocer la ubicación en la pantalla es muy útil.",
-            idea_received: "¡Es una idea interesante! Cuéntenos más sobre cómo funcionaría.",
-            great_detail: "¡Gran detalle! Esto nos ayuda significativamente a entender."
-        },
-        keywords: {
-            crash: "crash,cerrar,detener,bloqueo,congelar,lag,roto,pantalla blanca",
-            error: "error,código,fallo,excepción,0x,número,mensaje",
-            steps: "paso,primero,luego,después,cuando,clic,tocar,presionar,deslizar",
-            screen: "pantalla,página,vista,ventana,diálogo,pestaña,tarjeta,menú,navbar,pie de página",
-            correction: "texto,palabra,error tipográfico,falso,incorrecto,malo,ortografía,gramática,traducir,idioma",
-            idea: "añadir,crear,deseo,gustaría,podría,debería,mejor,nuevo,función,modo"
-        }
     }
 };

@@ -1,182 +1,147 @@
-/**
- * Pixel Compass application strings (Japanese).
- * Includes features, changelogs, widgets info, and privacy content specific to the Compass app.
- */
+// src/locales/modules/pixel_compass/ja.js
 export default {
     nav: {
-        index: "概要",
-        plus: "Pixel Compass+",
-        changelog: "更新履歴",
-        roadmap: "ロードマップ",
-        privacy: "プライバシー",
-        help: "ヘルプ",
-        overview: "ドキュメント",
-        back: "ポートフォリオに戻る"
+        index: "概要", plus: "Pixel Compass+", changelog: "更新", roadmap: "ロードマップ",
+        privacy: "プライバシー", help: "ヘルプ", overview: "ドキュメント", back: "ポートフォリオに戻る"
     },
     hero: {
-        title: "スマートフォンと腕時計のためのスマートコンパス",
-        subtitle: "スタイル、精度、そして Material 3 の魔法を。Android のための究極のナビゲーションパートナー。",
-        download: "Play Store でダウンロード"
+        title: "スマートフォンと時計のためのスマートコンパス",
+        subtitle: "スタイル、精度、そしてMaterial 3の魔法のタッチで世界をナビゲートします。Android向けの究極のナビゲーション・バディ。",
+        download: "Google Play でダウンロード"
     },
     new_features: {
-        label: "v1.15 ベータの新機能",
-        title: "統合された体験",
-        view_history: "全履歴を表示",
+        label: "v1.15 Betaの新機能", title: "統合された体験", view_history: "完全な履歴を表示",
         items: [
             {
                 icon: "responsive_layout",
                 title: "レスポンシブレイアウト",
-                desc: "折りたたみデバイスやタブレットに最適化された、完全に再設計された「ようこそ」および「プラン」画面。"
+                desc: "折りたたみ式デバイスとタブレット向けに最適化された、完全に再設計された「ようこそ」および「プラン」画面。"
             },
             {
                 icon: "error",
-                title: "よりスマートなエラー処理",
-                desc: "気象 API のエラーを、明確で役立つメッセージと共に適切に処理するようになりました。"
+                title: "よりスマートなエラー",
+                desc: "アプリは、明確で役立つメッセージを使用して、天気APIエラーを適切に処理するようになりました。"
             },
             {
                 icon: "palette",
-                title: "ビジュアルの磨き上げ",
-                desc: "AMOLED テーマのサーフェスカラーを更新し、動的なステータスバーのスクリムを追加。"
+                title: "視覚的な洗練",
+                desc: "AMOLEDテーマの表面色を更新し、動的なステータスバースクリムを追加しました。"
             }
         ]
     },
     plus_teaser: {
-        title: "体験をさらに高める",
-        description: "**Pixel Compass+** にアップグレードして、精度を追求したプロ仕様のツールセットをアンロックしましょう。強力なウィジェット、高度な環境データ、インタラクティブなチャートへの排他的なアクセスが可能になります。",
-        cta: "Pixel Compass+ を詳しく見る",
+        title: "体験を向上させる",
+        description: "**Pixel Compass+** にアップグレードして、精度を高めるために設計されたプロフェッショナルグレードのツールスイートのロックを解除します。強力なウィジェット、高度な環境データ、およびインタラクティブなグラフへの排他的なアクセスを取得します。",
+        cta: "Pixel Compass+ を発見する",
         items: [
             {
                 icon: "widgets",
                 title: "ウィジェットスイート",
-                desc: "ホーム画面用の限定された時計、天気、コンパスウィジェット。"
+                desc: "ホーム画面専用の時計、天気、コンパスウィジェット。"
             },
             {
                 icon: "query_stats",
-                title: "予測チャート",
-                desc: "カードをタップして、雨、風、UV の時間ごとの傾向を表示。"
+                title: "予報チャート",
+                desc: "カードをタップすると、雨、風、UVの1時間ごとの傾向が表示されます。"
             },
             {
                 icon: "insights",
-                title: "スマートインサイト",
-                desc: "「まもなく雨が降ります」や「高い UV 指数」などのプロアクティブなアラート。"
+                title: "スマートな洞察",
+                desc: "「まもなく雨が降ります」や「高UVインデックス」などのプロアクティブなアラート。"
             },
             {
                 icon: "air",
-                title: "気圧計と風速",
-                desc: "コンパス上でのリアルタイムの気圧追跡と風向表示。"
+                title: "気圧計と風",
+                desc: "リアルタイムの気圧追跡とコンパス上の風向。"
             },
             {
                 icon: "wb_sunny",
                 title: "太陽と月",
-                desc: "日の出、日の入り、および太陽の軌道追跡の正確な時間。"
+                desc: "日の出、日の入りの正確な時刻と、太陽の軌道追跡。"
             },
             {
                 icon: "speed",
-                title: "高精度",
-                desc: "天気と高度のデータ更新が、無料版に比べて最大 4 倍高速になります。"
+                title: "正確",
+                desc: "天気と標高データの更新は、無料版の最大4倍の速さです。"
             }
         ]
     },
     features: {
-        title: "精度ツールキット",
-        cta_project: "技術概要を調べる",
+        title: "プレシジョンツールキット", cta_project: "技術概要を探索する",
         items: [
             {
-                title: "高精度ナビゲーション",
-                desc: "プロ仕様の精度と触覚フィードバックにより、磁北と真北を切り替えます。"
+                title: "正確なナビゲーション",
+                desc: "プロの精度と触覚フィードバックを使用して、磁北と真北を切り替えます。"
             },
             {
                 title: "スマート環境",
-                desc: "Insight Engine 4.0 による高度、気温、UV 指数のリアルタイム監視とアラート。"
+                desc: "リアルタイムの高度、温度、UVインデックスと、プロアクティブなInsight Engine 4.0アラート。"
             },
             {
-                title: "革新的なレベルツール",
-                desc: "波紋エフェクトや流体ウェーブなどの表現力豊かなアニメーションで表面の水平を確認。"
+                title: "革新的な水準器ツール",
+                desc: "表現力豊かなアニメーション（波紋効果や流体の波）で表面の水平度を確認します。"
             },
             {
                 title: "アダプティブウィジェット",
-                desc: "1x1 からフルパネルまでインテリジェントにリサイズされる美しいホーム画面ウィジェット。"
+                desc: "1x1からフルパネルまでインテリジェントにサイズ変更される美しいホーム画面ウィジェット。"
             }
         ]
     },
     plus: {
-        title: "究極の体験をアンロック",
-        desc: "限定ウィジェット、高度な予測チャート、クラウド壁紙を入手し、広告を削除します。",
-        cta: "Pixel Compass+ を詳しく見る"
+        title: "究極の体験をロック解除",
+        desc: "専用ウィジェット、高度な予報チャート、クラウド壁紙を入手し、広告を削除します。",
+        cta: "Pixel Compass+ を発見する"
     },
     plus_page: {
-        title: "体験をさらに高める",
+        title: "体験を向上させる",
         badge: "柔軟なオプション",
-        cta: "今すぐアンロック",
-        disclaimer: "サブスクリプションまたは買い切りオプションが利用可能です。",
-        why_title: "なぜ Plus を選ぶのか？",
-        features_title: "Plus の利点",
-        features_subtitle: "瞬時に入手できるパワーを可視化。",
+        cta: "今すぐロック解除",
+        disclaimer: "サブスクリプションまたは無期限のオプションを利用できます。",
+        why_title: "Plusを選ぶ理由",
+        features_title: "Plusの利点",
+        features_subtitle: "瞬時に得られるパワーを視覚化します。",
         faq_title: "よくある質問"
     },
     privacy_section: {
-        title: "プライバシー優先",
-        cta_policy: "ポリシーを読む",
-        cta_tech: "技術詳細",
+        title: "プライバシーファースト", cta_policy: "ポリシーを読む", cta_tech: "技術詳細",
         cards: [
             {
                 icon: "location_off",
-                title: "隠れたトラッキングなし",
-                desc: "位置情報は、アプリがアクティブな時のナビゲーションと天気にのみ使用されます。"
+                title: "隠れた追跡なし",
+                desc: "位置情報は、アプリがアクティブな場合のナビゲーションと天気のためにのみ使用されます。"
             },
             {
                 icon: "phonelink_lock",
-                title: "デバイス上での処理",
-                desc: "センサーデータはすべてデバイス内でローカルに処理されます。"
+                title: "デバイス内処理",
+                desc: "センサーデータは、デバイス上で完全にローカルに処理されます。"
             },
             {
                 icon: "cloud_off",
-                title: "透明性の高いデータ",
-                desc: "位置履歴や支払い詳細をサーバーに保存することはありません。"
+                title: "透明なデータ",
+                desc: "お客様のロケーション履歴や支払い詳細をサーバーに保存することはありません。"
             },
             {
                 icon: "block",
                 title: "広告なし",
-                desc: "すべてのユーザーに対してサードパーティ広告を表示せず、クリーンで高速な体験を提供。"
+                desc: "よりクリーンで高速なエクスペリエンスを提供するため、すべてのユーザーにサードパーティの広告を表示しません。"
             }
         ]
     },
-    footer: {
-        links: "便利なリンク",
-        rights: "Pixel Compass. All rights reserved.",
-        theme_title: "テーマと外観"
+    store_footer: {
+        tagline: "ネイティブAndroidエクスペリエンス",
+        title: "道を見つける。",
+        subtitle: "精度、美しさ、実用性が1つのアプリに組み合わされています。",
+        button_sub: "ダウンロード:",
+        button_main: "Google Play",
+        bottom_note: "スマートフォン、タブレット、折りたたみ式デバイスで動作します"
     },
+
     changelog: {
-        title: "バージョン履歴",
-        subtitle: "Pixel Compassの進化を追跡します。すべての機能、改善点、修正点が以下に詳述されています。",
-        search_placeholder: "機能、バージョンを検索...",
-        latest_release: "最新リリース",
-        released: "リリース日",
-        update_now: "今すぐ更新",
-        on_this_page: "このページ内",
-        read_more: "リリースノートを読む",
-        collapse: "折りたたむ",
-        back_to_top: "トップに戻る",
-        "update_details": "更新の詳細",
-        "view_all": "すべての更新を表示",
-        "share_update": "更新を共有",
-        "jump_to": "ジャンプ",
-        "version_not_found": "バージョンが見つかりません。",
-        "no_results": "結果が見つかりません。",
-        "back_to_changelog": "Changelogに戻る",
-        "load_more": "さらに読み込む",
-        "explore_more": "さらに探す",
-        "link_copied": "リンクをクリップボードにコピーしました！",
-        "open_full_screen": "全画面で開く",
-        "share_tooltip": "この更新を共有する",
-        "previous_update": "前の更新",
-        "next_update": "次の更新",
-        "table_of_contents": "目次",
-        "in_this_update": "この更新について",
+        subtitle: "Pixel Compassの進化を追跡します。すべての機能、改善、修正の詳細は以下にあります。",
         plus_promo: {
-            title: "開発をサポート",
-            subtitle: "ウィジェットやカスタマイズのロックを解除し、新機能の構築にご協力ください。",
-            cta: "Pixel Compass+を入手"
+            title: "開発を支援",
+            subtitle: "ウィジェット、カスタマイズのロックを解除し、新機能の構築を支援してください。",
+            cta: "Pixel Compass+ を入手"
         },
         beta_program: {
             title: "ベータ版に参加",
@@ -185,52 +150,11 @@ export default {
             badge: "早期アクセス"
         },
         wear_os_promo: {
-            title: "Wear OS体験",
-            subtitle_available: "手首から直接ナビゲート。シームレスな統合。",
-            subtitle_coming: "2026年第1四半期に手首に登場。",
-            cta: "ウォッチで表示",
+            title: "Wear OS エクスペリエンス",
+            subtitle_available: "手首から直接ナビゲートします。シームレスな統合。",
+            subtitle_coming: "2026年第1四半期に手首に登場します。",
+            cta: "時計で見る",
             badge: "コンパニオン"
         }
-    },
-    roadmap_page: {
-        title: "製品ロードマップ",
-        subtitle: "これまで構築したものと、今後の展望をご覧ください。",
-        suggest_btn: "機能を提案する",
-        toc_title: "タイムライン"
-    },
-    privacy_page: {
-        page_title: "プライバシーポリシー",
-        last_updated: "最終更新日：",
-        table_of_contents: "目次",
-        contact_title: "ご質問がありますか？",
-        contact_desc: "データに関する懸念がある場合は、お問い合わせください。",
-        contact_btn: "サポートに連絡",
-        print_btn: "ポリシーを印刷"
-    },
-    help_page: {
-        page_title: "ヘルプと FAQ",
-        subtitle: "答えを見つけて、Pixel Compass を最大限に活用する方法を学びましょう。",
-        search_placeholder: "答えを検索...",
-        table_of_contents: "トピック",
-        contact_title: "お困りですか？",
-        contact_desc: "お探しのものが見つかりませんか？私たちのチームがお手伝いします。",
-        contact_btn: "サポートに連絡",
-        no_results: "検索に一致するトピックが見つかりませんでした。"
-    },
-    overview_page: {
-        title: "技術概要",
-        subtitle: "アーキテクチャ、センサー、およびエンジニアリングを深く掘り下げます。",
-        github_btn: "GitHub で表示",
-        toc_title: "このページの内容",
-        dynamic_docs_note: "この概要はMarkdownファイルから動的に生成されており、コードベースの最新の変更に合わせて常に最新の状態が保たれるようになっています。",
-        about_docs_title: "このドキュメントについて"
-    },
-    store_footer: {
-        tagline: "ネイティブなAndroid体験",
-        title: "進むべき道を見つける。",
-        subtitle: "精度、美しさ、実用性を一つのアプリに。",
-        button_sub: "ダウンロード：",
-        button_main: "Google Play",
-        bottom_note: "スマートフォン、タブレット、フォルダブルに対応"
     }
 };

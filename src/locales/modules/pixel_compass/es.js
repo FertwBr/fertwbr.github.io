@@ -1,185 +1,150 @@
-/**
- * Pixel Compass application strings (Spanish).
- * Includes features, changelogs, widgets info, and privacy content specific to the Compass app.
- */
+// src/locales/modules/pixel_compass/es.js
 export default {
     nav: {
-        index: "Visión General",
-        plus: "Pixel Compass+",
-        changelog: "Actualizaciones",
-        roadmap: "Hoja de Ruta",
-        privacy: "Privacidad",
-        help: "Ayuda",
-        overview: "Docs",
-        back: "Volver al Portafolio"
+        index: "Visión General", plus: "Pixel Compass+", changelog: "Actualizaciones", roadmap: "Hoja de Ruta",
+        privacy: "Privacidad", help: "Ayuda", overview: "Documentación", back: "Volver al Portafolio"
     },
     hero: {
         title: "Su Brújula Inteligente para Teléfono y Reloj",
-        subtitle: "Navegue por su mundo con estilo, precisión y un toque de la magia de Material 3. El compañero de navegación definitivo para Android.",
-        download: "Descargar en Play Store"
+        subtitle: "Navegue por su mundo con estilo, precisión y un toque de magia de Material 3. El compañero de navegación definitivo para Android.",
+        download: "Descargar en Google Play"
     },
     new_features: {
-        label: "Nuevo en v1.15 Beta",
-        title: "Experiencia Unificada",
-        view_history: "Ver Historial Completo",
+        label: "Nuevo en v1.15 Beta", title: "Experiencia Unificada", view_history: "Ver Historial Completo",
         items: [
             {
                 icon: "responsive_layout",
-                title: "Diseños Responsivos",
+                title: "Diseños Adaptables",
                 desc: "Pantallas de 'Bienvenida' y 'Plan' completamente rediseñadas y optimizadas para dispositivos plegables y tabletas."
             },
             {
                 icon: "error",
-                title: "Errores más Inteligentes",
-                desc: "La aplicación ahora gestiona los errores de la API de clima con mensajes claros y útiles."
+                title: "Errores Más Inteligentes",
+                desc: "La aplicación ahora maneja elegantemente los errores de la API de clima con mensajes claros y útiles."
             },
             {
                 icon: "palette",
-                title: "Refinamiento Visual",
-                desc: "Colores de superficie del Tema AMOLED actualizados y adición de protecciones dinámicas para la barra de estado."
+                title: "Pulido Visual",
+                desc: "Colores de superficie actualizados para el Tema AMOLED y adición de atenuadores dinámicos en la barra de estado."
             }
         ]
     },
     plus_teaser: {
-        title: "Eleve su Experiencia",
-        description: "Actualice a **Pixel Compass+** y desbloquee un conjunto de herramientas de nivel profesional diseñadas para la precisión. Obtenga acceso exclusivo a widgets potentes, datos ambientales avanzados y gráficos interactivos.",
+        title: "Eleve Su Experiencia",
+        description: "Actualice a **Pixel Compass+** y desbloquee un conjunto de herramientas de nivel profesional diseñadas para la precisión. Obtenga acceso exclusivo a potentes widgets, datos ambientales avanzados y gráficos interactivos.",
         cta: "Descubra Pixel Compass+",
         items: [
             {
                 icon: "widgets",
-                title: "Suite de Widgets",
+                title: "Conjunto de Widgets",
                 desc: "Widgets exclusivos de Reloj, Clima y Brújula para su pantalla de inicio."
             },
             {
                 icon: "query_stats",
-                title: "Gráficos de Pronóstico",
-                desc: "Toque cualquier tarjeta para revelar tendencias por hora de Lluvia, Viento y UV."
+                title: "Gráficos de Previsión",
+                desc: "Toque cualquier tarjeta para revelar tendencias por hora para Lluvia, Viento y UV."
             },
             {
                 icon: "insights",
                 title: "Información Inteligente",
-                desc: "Alertas proactivas como 'La lluvia comenzará pronto' o 'Índice UV alto'."
+                desc: "Alertas proactivas como 'La lluvia comenzará pronto' o 'Índice UV Alto'."
             },
             {
                 icon: "air",
                 title: "Barómetro y Viento",
-                desc: "Seguimiento de la presión en tiempo real y dirección del viento directamente en la brújula."
+                desc: "Seguimiento de la presión en tiempo real y dirección del viento en la brújula."
             },
             {
                 icon: "wb_sunny",
                 title: "Sol y Luna",
-                desc: "Horarios precisos de amanecer, atardecer y seguimiento de la trayectoria solar."
+                desc: "Horarios precisos para el amanecer, el atardecer y el seguimiento de la trayectoria solar."
             },
             {
                 icon: "speed",
-                title: "Precisión Superior",
-                desc: "Actualizaciones de datos de clima y altitud hasta 4 veces más rápidas que en la versión gratuita."
+                title: "Preciso",
+                desc: "Actualizaciones de datos meteorológicos y de elevación hasta 4 veces más rápidas que la versión gratuita."
             }
         ]
     },
     features: {
-        title: "Herramientas de Precisión",
-        cta_project: "Explorar Visión General Técnica",
+        title: "Kit de Herramientas de Precisión", cta_project: "Explorar la Descripción Técnica General",
         items: [
             {
                 title: "Navegación de Precisión",
-                desc: "Alterne entre el Norte Magnético y el Norte Real con precisión profesional y respuesta háptica."
+                desc: "Alterne entre el Norte Magnético y el Norte Verdadero con precisión profesional y respuesta háptica."
             },
             {
                 title: "Entorno Inteligente",
-                desc: "Altitud, temperatura e índice UV en tiempo real con alertas proactivas de Insight Engine 4.0."
+                desc: "Altitud en tiempo real, temperatura e índice UV con alertas proactivas de Insight Engine 4.0."
             },
             {
                 title: "Herramienta de Nivel Innovadora",
-                desc: "Verifique la nivelación de superficies con animaciones expresivas: efectos de ondas y fluidos."
+                desc: "Compruebe los niveles de la superficie con animaciones expresivas: efectos de ondas y fluidos."
             },
             {
-                title: "Widgets Adaptativos",
-                desc: "Hermosos widgets para la pantalla de inicio que cambian de tamaño de forma inteligente, desde 1x1 hasta paneles completos."
+                title: "Widgets Adaptables",
+                desc: "Hermosos widgets para la pantalla de inicio que se redimensionan de manera inteligente desde 1x1 hasta paneles completos."
             }
         ]
     },
     plus: {
         title: "Desbloquee la Experiencia Definitiva",
-        desc: "Obtenga widgets exclusivos, gráficos de pronóstico avanzados, fondos de pantalla en la nube y elimine los anuncios.",
+        desc: "Obtenga widgets exclusivos, gráficos de previsión avanzados, fondos de pantalla en la nube y elimine los anuncios.",
         cta: "Descubra Pixel Compass+"
     },
     plus_page: {
-        title: "Eleve su Experiencia",
+        title: "Eleve Su Experiencia",
         badge: "Opciones Flexibles",
         cta: "Desbloquear Ahora",
-        disclaimer: "Opciones de suscripción o de por vida disponibles.",
-        why_title: "¿Por qué elegir Plus?",
+        disclaimer: "Opciones de suscripción o de acceso vitalicio disponibles.",
+        why_title: "¿Por qué elegir la versión Plus?",
         features_title: "La Ventaja Plus",
         features_subtitle: "Visualice el poder que obtiene al instante.",
-        faq_title: "Preguntas Frecuentes"
+        faq_title: "Preguntas Comunes"
     },
     privacy_section: {
-        title: "Privacidad Primero",
-        cta_policy: "Leer Política",
-        cta_tech: "Detalles Técnicos",
+        title: "Privacidad Primero", cta_policy: "Leer Política", cta_tech: "Detalles Técnicos",
         cards: [
             {
                 icon: "location_off",
                 title: "Sin Rastreo Oculto",
-                desc: "La ubicación solo se utiliza para navegación y clima cuando la aplicación está activa."
+                desc: "La ubicación solo se utiliza para la navegación y el clima cuando la aplicación está activa."
             },
             {
                 icon: "phonelink_lock",
                 title: "Procesamiento en el Dispositivo",
-                desc: "Los datos de los sensores se procesan íntegramente de forma local en su dispositivo."
+                desc: "Los datos de los sensores se procesan completamente de forma local en su dispositivo."
             },
             {
                 icon: "cloud_off",
                 title: "Datos Transparentes",
-                desc: "No almacenamos su historial de ubicación ni detalles de pago en nuestros servidores."
+                desc: "No almacenamos su historial de ubicación ni sus datos de pago en nuestros servidores."
             },
             {
                 icon: "block",
                 title: "Sin Anuncios",
-                desc: "Sin anuncios de terceros para todos los usuarios, garantizando una experiencia más limpia y rápida."
+                desc: "Sin anuncios de terceros para todos los usuarios, con el fin de ofrecer una experiencia más limpia y rápida."
             }
         ]
     },
-    footer: {
-        links: "Enlaces Útiles",
-        rights: "Pixel Compass. Todos los derechos reservados.",
-        theme_title: "Tema y Apariencia"
+    store_footer: {
+        tagline: "Experiencia Nativa de Android",
+        title: "Encuentre su camino.",
+        subtitle: "Precisión, belleza y utilidad combinadas en una sola aplicación.",
+        button_sub: "Descargar en",
+        button_main: "Google Play",
+        bottom_note: "Funciona en Teléfonos, Tabletas y Dispositivos Plegables"
     },
+
     changelog: {
-        title: "Historial de Versiones",
         subtitle: "Siga la evolución de Pixel Compass. Cada función, mejora y corrección se detalla a continuación.",
-        search_placeholder: "Buscar características, versiones...",
-        latest_release: "Último Lanzamiento",
-        released: "Lanzado",
-        update_now: "Actualizar Ahora",
-        on_this_page: "En Esta Página",
-        read_more: "Leer Notas de Lanzamiento",
-        collapse: "Contraer",
-        back_to_top: "Volver Arriba",
-        "update_details": "Detalles de la Actualización",
-        "view_all": "Ver Todas las Actualizaciones",
-        "share_update": "Compartir Actualización",
-        "jump_to": "Ir a",
-        "version_not_found": "Versión no encontrada.",
-        "no_results": "No se encontraron resultados.",
-        "back_to_changelog": "Volver al Changelog",
-        "load_more": "Cargar Más",
-        "explore_more": "Explorar Más",
-        "link_copied": "¡Enlace copiado al portapapeles!",
-        "open_full_screen": "Abrir en pantalla completa",
-        "share_tooltip": "Compartir esta actualización",
-        "previous_update": "Actualización Anterior",
-        "next_update": "Próxima Actualización",
-        "table_of_contents": "Tabla de Contenidos",
-        "in_this_update": "En esta actualización",
         plus_promo: {
             title: "Apoyar el Desarrollo",
             subtitle: "Desbloquee widgets, personalización y ayúdenos a crear nuevas funciones.",
             cta: "Obtener Pixel Compass+"
         },
         beta_program: {
-            title: "Unirse a la Beta",
+            title: "Únase a la versión Beta",
             subtitle: "Pruebe nuevas funciones antes de que se lancen públicamente.",
             cta: "Unirse al Programa Beta",
             badge: "Acceso Anticipado"
@@ -189,48 +154,7 @@ export default {
             subtitle_available: "Navegue directamente desde su muñeca. Integración perfecta.",
             subtitle_coming: "Llegará a su muñeca en el primer trimestre de 2026.",
             cta: "Ver en el Reloj",
-            badge: "Complemento"
+            badge: "Compañero"
         }
-    },
-    roadmap_page: {
-        title: "Roteiro del Producto",
-        subtitle: "Vea lo que hemos construido y hacia dónde nos dirigimos.",
-        suggest_btn: "Sugerir una Función",
-        toc_title: "Cronología"
-    },
-    privacy_page: {
-        page_title: "Política de Privacidad",
-        last_updated: "Última Actualización:",
-        table_of_contents: "Índice",
-        contact_title: "¿Tiene Preguntas?",
-        contact_desc: "Si tiene alguna inquietud sobre sus datos, por favor contáctenos.",
-        contact_btn: "Contactar Soporte",
-        print_btn: "Imprimir Política"
-    },
-    help_page: {
-        page_title: "Ayuda y FAQ",
-        subtitle: "Encuentre respuestas y aprenda a sacar el máximo provecho de Pixel Compass.",
-        search_placeholder: "Buscar respuestas...",
-        table_of_contents: "Temas",
-        contact_title: "¿Sigue atascado?",
-        contact_desc: "¿No encuentra lo que busca? Nuestro equipo está aquí para ayudar.",
-        contact_btn: "Contactar Soporte",
-        no_results: "No se encontraron temas que coincidan con su búsqueda."
-    },
-    overview_page: {
-        title: "Visión General Técnica",
-        subtitle: "Análisis profundo de la arquitectura, sensores e ingeniería.",
-        github_btn: "Ver en GitHub",
-        toc_title: "En esta Página",
-        dynamic_docs_note: "Esta descripción general se genera dinámicamente a partir de archivos Markdown para garantizar que esté siempre actualizada con los últimos cambios en la base de código.",
-        about_docs_title: "Acerca de esta documentación"
-    },
-    store_footer: {
-        tagline: "Experiencia Nativa de Android",
-        title: "Encuentra tu camino.",
-        subtitle: "Precisión, belleza y utilidad combinadas en una sola aplicación.",
-        button_sub: "Disponible en",
-        button_main: "Google Play",
-        bottom_note: "Funciona en teléfonos, tablets y plegables"
     }
 };

@@ -1,118 +1,100 @@
-/**
- * Pixel Pulse application strings (Portuguese).
- * Inclui funcionalidades, changelogs, além de conteúdo promo e de privacidade específico para o app Pulse.
- */
+// src/locales/modules/pixel_pulse/pt.js
 export default {
     nav: {
-        index: "Visão Geral",
-        plus: "Pixel Pulse+",
-        changelog: "Atualizações",
-        roadmap: "Cronograma",
-        privacy: "Privacidade",
-        help: "Ajuda",
-        overview: "Documentação",
-        back: "Voltar ao Portfólio"
+        index: "Visão Geral", plus: "Pixel Pulse+", changelog: "Atualizações", roadmap: "Roteiro",
+        privacy: "Privacidade", help: "Ajuda", overview: "Documentação", back: "Voltar ao Portfólio"
     },
     hero: {
-        title: "O seu Instrutor Inteligente de Som e Audição",
-        subtitle: "Meça o seu mundo com estilo e precisão. Design sofisticado para Android.",
-        download: "Descarregar na Play Store"
+        title: "O seu Assistente Inteligente de Som e Audição",
+        subtitle: "Meça o seu mundo com estilo e precisão. Lindamente projetado para Android.",
+        download: "Baixar no Google Play"
     },
     new_features: {
-        label: "Novidades na v1.17",
-        title: "Personalização Profunda",
-        view_history: "Ver Histórico Completo",
+        label: "Novo na v1.17", title: "Personalização Profunda", view_history: "Ver Histórico Completo",
         items: [
             {
                 icon: "edit_attributes",
-                title: "Editor de Barra de Ferramentas",
-                desc: "Arraste e solte para personalizar o seu espaço de trabalho. Posicione as ferramentas mais utilizadas exatamente onde precisa delas."
+                title: "Editor da Barra de Ferramentas",
+                desc: "Arraste e solte para personalizar a sua área de trabalho. Coloque as suas ferramentas mais usadas exatamente onde você precisa delas."
             },
             {
                 icon: "palette",
                 title: "9 Novos Temas",
-                desc: "Do Esmeralda ao Pôr do Sol. Inclui um modo AMOLED black absoluto para poupar bateria durante as medições."
+                desc: "Desde Esmeralda até Pôr do Sol. Além de um verdadeiro modo AMOLED preto para economizar bateria enquanto você mede."
             },
             {
                 icon: "share",
-                title: "Exportação de Imagem",
-                desc: "Partilhe os seus gráficos e estatísticas de sessão como imagens elegantes diretamente nas redes sociais."
+                title: "Exportação de Imagens",
+                desc: "Compartilhe os seus gráficos e estatísticas de sessão como belas imagens diretamente nas redes sociais."
             }
         ]
     },
     plus_teaser: {
         title: "Desbloqueie a Experiência Definitiva",
-        description: "Passe do estado reativo ao proativo com a análise automatizada. Atualize para o **Pixel Pulse+** para proteger a sua saúde auditiva de forma contínua.",
+        description: "Passe de reativo a proativo com análise automatizada. Atualize para o **Pixel Pulse+** e proteja a sua saúde auditiva continuamente.",
         cta: "Descubra o Pixel Pulse+",
         items: [
             {
                 icon: "shield",
                 title: "Orçamento de Ruído",
-                desc: "O acompanhamento semanal baseado na OMS garante que permaneça dentro dos limites seguros."
+                desc: "O acompanhamento semanal com base nas diretrizes da OMS garante que você permaneça dentro dos limites seguros."
             },
             {
                 icon: "notifications_active",
                 title: "Alertas Proativos",
-                desc: "Receba notificações antes que ocorram danos, através de verificações inteligentes em segundo plano."
+                desc: "Seja notificado antes que os danos ocorram por meio de verificações inteligentes em segundo plano."
             },
             {
                 icon: "auto_awesome",
-                title: "Monitorização Automática",
-                desc: "Acompanhamento eficiente da exposição em segundo plano sem esgotar a bateria."
+                title: "Monitoramento Automático",
+                desc: "Acompanhamento eficiente da exposição em segundo plano, sem esgotar a bateria."
             },
             {
                 icon: "table_chart",
-                title: "Exportação CSV",
-                desc: "Propriedade total dos dados. Exporte o seu histórico para uma análise detalhada."
+                title: "Exportação para CSV",
+                desc: "Posse total dos dados. Exporte o seu histórico para análises detalhadas."
             },
             {
                 icon: "palette",
-                title: "9 Temas Premium",
-                desc: "Desbloqueie os modos Esmeralda, Pôr do Sol e AMOLED black puro."
+                title: "9 Temas premium",
+                desc: "Desbloqueie os modos Esmeralda, Pôr do Sol e AMOLED preto puro."
             },
             {
                 icon: "equalizer",
                 title: "Ponderação Profissional",
-                desc: "Aceda às ponderações C e Z para medições técnicas."
+                desc: "Acesse a Ponderação C e a Ponderação Z para medições técnicas."
             }
         ]
     },
     features: {
-        title: "Um Conjunto de Ferramentas Poderoso, Gratuito para Todos",
-        cta_project: "Explorar Visão Geral Técnica",
+        title: "Um Kit de Ferramentas Poderoso, Gratuito para Todos", cta_project: "Explorar a Visão Geral Técnica",
         items: [
             {
-                title: "Medidor em Tempo Real Expressivo",
-                desc: "Indicador animado com mudanças de cor dinâmicas, do azul sereno ao vermelho de alerta."
+                title: "Medidor Expresso em Tempo Real",
+                desc: "Medidor animado com mudanças dinâmicas de cores, desde azuis calmos até vermelhos de advertência."
             },
-            {
-                title: "Histórico de Sessões",
-                desc: "Guarde as medições e analise os detalhes com gráficos interativos."
-            },
+            {title: "Histórico de Sessões", desc: "Salve as medições e analise os detalhes com gráficos interativos."},
             {
                 title: "Calibração de Precisão",
-                desc: "Ajuste o sensor com base num dispositivo de referência para obter precisão profissional."
+                desc: "Ajuste o sensor com base em um dispositivo de referência para obter precisão profissional."
             },
-            {
-                title: "Material You",
-                desc: "Adapta-se à paleta de cores do seu papel de parede para um visual exclusivo."
-            }
+            {title: "Material You", desc: "Adapta-se à paleta de cores do seu papel de parede para um visual único."}
         ]
     },
     plus: {
         title: "Desbloqueie a Experiência Definitiva",
-        desc: "Passe do estado reativo ao proativo com a análise automatizada.",
+        desc: "Passe de reativo a proativo com a análise automatizada.",
         cta: "Descubra o Pixel Pulse+"
     },
     plus_page: {
-        title: "Eleve a Sua Experiência",
+        title: "Eleve a sua experiência",
         badge: "Compra Única",
         cta: "Desbloquear Acesso Vitalício",
         disclaimer: "Sem assinaturas. Sem taxas ocultas.",
-        why_title: "Porquê uma Compra Única?",
+        why_title: "Por que escolher uma Compra Única?",
         features_title: "A Vantagem Plus",
-        features_subtitle: "Visualize o poder que obtém instantaneamente.",
-        faq_title: "Perguntas Frequentes"
+        features_subtitle: "A visualização do poder que você obtém instantaneamente.",
+        faq_title: "Perguntas Comuns"
     },
     privacy_section: {
         title: "Privacidade em Primeiro Lugar",
@@ -121,65 +103,44 @@ export default {
         cards: [
             {
                 icon: "mic_off",
-                title: "Nenhum Áudio é Gravado",
-                desc: "O áudio bruto é processado instantaneamente e descartado. Nunca guardamos as suas conversas."
+                title: "Nenhum Áudio Gravado",
+                desc: "O áudio bruto é processado instantaneamente e descartado. Nós nunca salvamos as suas conversas."
             },
             {
                 icon: "phonelink_lock",
                 title: "Apenas no Dispositivo",
-                desc: "Toda a análise ocorre no seu telemóvel. Os seus dados nunca saem do seu dispositivo."
+                desc: "Toda a análise acontece no seu telefone. Os seus dados nunca saem do seu dispositivo."
             },
             {
                 icon: "block",
                 title: "Sem Anúncios ou Rastreadores",
-                desc: "Uma experiência limpa, sem rastreio de terceiros ou publicidade invasiva."
+                desc: "Uma experiência limpa, sem rastreamento de terceiros ou publicidade invasiva."
             },
             {
                 icon: "visibility",
                 title: "Armazenamento Transparente",
-                desc: "Tem o controlo total. Exporte ou elimine o seu histórico de sessões a qualquer momento."
+                desc: "Você possui controle total. Exporte ou exclua o seu histórico de sessões a qualquer momento."
             }
         ]
     },
-    footer: {
-        rights: "Pixel Pulse. Todos os direitos reservados.",
-        links: "Ligações Úteis",
-        theme_title: "Tema e Aparência"
+    store_footer: {
+        tagline: "Projetado para Android",
+        title: "Pronto para medir?",
+        subtitle: "Junte-se a outros usuários e proteja a sua audição com o Pixel Pulse.",
+        button_sub: "Baixar no",
+        button_main: "Google Play",
+        bottom_note: "Requer o Android 13 ou superior"
     },
+
     changelog: {
-        title: "Histórico de Versões",
-        subtitle: "Acompanhe a evolução do Pixel Pulse. Todos os recursos, melhorias e correções estão detalhados abaixo.",
-        search_placeholder: "Pesquisar recursos, versões (ex. 1.15, Beta)...",
-        latest_release: "Último Lançamento",
-        released: "Lançado",
-        update_now: "Atualizar Agora",
-        on_this_page: "Nesta Página",
-        read_more: "Ler Notas de Lançamento",
-        collapse: "Recolher",
-        back_to_top: "Voltar ao Topo",
-        "update_details": "Detalhes da Atualização",
-        "view_all": "Ver Todas as Atualizações",
-        "share_update": "Compartilhar Atualização",
-        "jump_to": "Ir para",
-        "version_not_found": "Versão não encontrada.",
-        "no_results": "Nenhum resultado encontrado.",
-        "back_to_changelog": "Voltar ao Changelog",
-        "load_more": "Carregar Mais",
-        "explore_more": "Explorar Mais",
-        "link_copied": "Link copiado para a área de transferência!",
-        "open_full_screen": "Abrir em tela cheia",
-        "share_tooltip": "Compartilhar esta atualização",
-        "previous_update": "Atualização Anterior",
-        "next_update": "Próxima Atualização",
-        "table_of_contents": "Índice",
-        "in_this_update": "Nesta atualização",
+        subtitle: "Acompanhe a evolução do Pixel Pulse. Cada recurso, melhoria e correção detalhados abaixo.",
         plus_promo: {
             title: "Apoiar o Desenvolvimento",
             subtitle: "Desbloqueie o monitoramento automático e ajude-nos a criar novos recursos.",
             cta: "Obter o Pixel Pulse+"
         },
         beta_program: {
-            title: "Participar do Beta",
+            title: "Participar da versão Beta",
             subtitle: "Teste novos recursos antes que sejam lançados publicamente.",
             cta: "Participar do Programa Beta",
             badge: "Acesso Antecipado"
@@ -187,50 +148,9 @@ export default {
         wear_os_promo: {
             title: "Experiência Wear OS",
             subtitle_available: "Meça os níveis diretamente do seu pulso. Integração perfeita.",
-            subtitle_coming: "Chegando ao seu pulso no 1º trimestre de 2026.",
+            subtitle_coming: "Chegará ao seu pulso no primeiro trimestre de 2026.",
             cta: "Ver no Relógio",
-            badge: "Complementar"
+            badge: "Companheiro"
         }
-    },
-    privacy_page: {
-        page_title: "Política de Privacidade",
-        last_updated: "Última Atualização:",
-        table_of_contents: "Índice",
-        contact_title: "Tem Dúvidas?",
-        contact_desc: "Se tiver alguma preocupação sobre os seus dados, por favor contacte-nos.",
-        contact_btn: "Contactar Suporte",
-        print_btn: "Imprimir Política"
-    },
-    help_page: {
-        page_title: "Ajuda e FAQ",
-        subtitle: "Encontre respostas e aprenda a tirar o máximo partido do Pixel Pulse.",
-        search_placeholder: "Pesquisar respostas (ex: Calibração, Exportação)...",
-        table_of_contents: "Tópicos",
-        contact_title: "Ainda precisa de ajuda?",
-        contact_desc: "Não encontra o que procura? A nossa equipa está aqui para ajudar.",
-        contact_btn: "Contactar Suporte",
-        no_results: "Nenhum tópico encontrado para a sua pesquisa."
-    },
-    roadmap_page: {
-        title: "Cronograma do Produto",
-        subtitle: "Veja o que já construímos e para onde vamos a seguir.",
-        suggest_btn: "Sugerir uma Funcionalidade",
-        toc_title: "Linha do Tempo"
-    },
-    overview_page: {
-        title: "Visão Geral Técnica",
-        subtitle: "Análise profunda da arquitetura, stack tecnológica e engenharia de privacidade.",
-        github_btn: "Ver no GitHub",
-        toc_title: "Nesta Página",
-        dynamic_docs_note: "Esta visão geral é gerada dinamicamente a partir de arquivos Markdown para garantir que esteja sempre atualizada com as últimas alterações na base de código.",
-        about_docs_title: "Sobre esta documentação"
-    },
-    store_footer: {
-        tagline: "Projetado para Android",
-        title: "Pronto para medir?",
-        subtitle: "Junte-se a outros usuários na proteção da audição com o Pixel Pulse.",
-        button_sub: "Disponível no",
-        button_main: "Google Play",
-        bottom_note: "Requer Android 13 ou superior"
     }
 };

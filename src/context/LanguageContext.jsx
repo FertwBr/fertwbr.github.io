@@ -17,9 +17,9 @@ const languages = { en, pt, de, ja, hi, es };
  * Recursively merges the properties of the source object into the target object.
  * Used to fill missing translations with the default language (English).
  *
- * @param {Object} base - The default object (usually English).
- * @param {Object} override - The target object with translations.
- * @returns {Object} A new object with merged properties.
+ * @param {Object} base - The default fallback object (usually English).
+ * @param {Object} override - The target object with local translations.
+ * @returns {Object} A new object with merged properties ensuring no missing keys.
  */
 function deepMerge(base, override) {
   if (!override) return base;
@@ -34,6 +34,13 @@ function deepMerge(base, override) {
       }
     }
   }
+
+  for (const key in override) {
+    if (!(key in base)) {
+      result[key] = override[key];
+    }
+  }
+
   return result;
 }
 
@@ -62,6 +69,10 @@ export function LanguageProvider({ children }) {
     }
   }, []);
 
+  /**
+   * Detects the user's browser language and applies it if supported.
+   * Otherwise, defaults to English.
+   */
   const detectAndSetLanguage = () => {
     const browserLang = navigator.language.split('-')[0];
     const targetLang = languages[browserLang] ? browserLang : 'en';
@@ -71,6 +82,10 @@ export function LanguageProvider({ children }) {
     setIsAuto(true);
   };
 
+  /**
+   * Manually sets the application language or resets to auto-detection.
+   * @param {string} langCode - The ISO language code (e.g., 'en', 'pt', or 'auto').
+   */
   const changeLanguage = (langCode) => {
     if (langCode === 'auto') {
       localStorage.removeItem(STORAGE_KEY);
