@@ -946,7 +946,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                     )}
 
                     <div
-                        className={`changelog-list-container content-padder ${!hideOnScroll ? 'padded' : ''} ${isFullScreenMode ? 'full-screen' : ''}`}>
+                        className={`changelog-list-container content-padder ${!hideOnScroll && !isFullScreenMode ? 'padded' : ''} ${isFullScreenMode ? 'full-screen' : ''}`}>
                         {!isFullScreenMode && (
                             <div className="timeline-line"></div>
                         )}
@@ -1188,6 +1188,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                   
                   .horizontal-chips {
                     display: flex;
+                    justify-content: flex-start;
                     overflow-x: auto;
                     gap: 8px;
                     padding-bottom: 12px;
@@ -1216,7 +1217,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                     margin-top: 60px;
                     border-top: 1px solid var(--md-sys-color-outline-variant);
                     padding-top: 40px;
-                    margin-bottom: 80px;
+                    margin-bottom: 24px;
                     width: 100%;
                   }
                   
