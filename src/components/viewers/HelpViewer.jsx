@@ -76,23 +76,17 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
     };
 
     const desktopSearchPortal = isDesktop ? (
-        <div style={{width: '100%', position: 'relative'}}>
+        <div style={{position: 'relative', width: '100%'}}>
             <span className="material-symbols-outlined" style={{
-                position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)',
-                color: 'var(--md-sys-color-on-surface-variant)', zIndex: 2, fontSize: '20px'
+                position: 'absolute', left: '20px', top: '50%', transform: 'translateY(-50%)',
+                color: 'var(--md-sys-color-on-surface-variant)', zIndex: 2, fontSize: '24px'
             }}>search</span>
             <input
                 type="text"
+                className="desktop-search-input"
                 placeholder={strings.help_page.search_placeholder}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                style={{
-                    width: '100%', height: '40px', padding: '0 16px 0 40px',
-                    borderRadius: '20px', border: 'none',
-                    background: 'var(--md-sys-color-surface-container-highest)',
-                    color: 'var(--md-sys-color-on-surface)',
-                    fontSize: '0.95rem', outline: 'none'
-                }}
             />
         </div>
     ) : null;
@@ -185,14 +179,6 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
                 <BackToTop strings={strings.changelog}/>
                 <style>{`
                   .rich-text h1 { display: none; }
-                  .rich-text h3 { 
-                    font-size: 1.3rem; margin-top: 2em; margin-bottom: 1em; 
-                    color: var(--md-sys-color-primary); font-weight: 600; 
-                  }
-                  .rich-text p { margin-bottom: 1.2em; line-height: 1.7; color: var(--md-sys-color-on-surface-variant); font-size: 1.05rem; }
-                  .rich-text ul, .rich-text ol { margin-bottom: 1.5em; padding-left: 1.5em; }
-                  .rich-text li { margin-bottom: 0.5em; color: var(--md-sys-color-on-surface-variant); }
-                  .rich-text strong { color: var(--md-sys-color-on-surface); font-weight: 700; }
                   .rich-text blockquote { 
                     border-left: 4px solid var(--md-sys-color-primary); 
                     margin-left: 0; padding-left: 20px; 

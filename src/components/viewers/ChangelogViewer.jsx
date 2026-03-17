@@ -77,7 +77,7 @@ const VersionBadge = ({type, text}) => {
             color: style.color,
             border: style.border !== 'transparent' ? `1px solid ${style.border}` : 'none',
             textTransform: 'uppercase',
-            letterSpacing: '0.5px',
+            letterSpacing: '0.03em',
             display: 'inline-flex',
             alignItems: 'center',
             whiteSpace: 'nowrap'
@@ -139,7 +139,7 @@ const ChangelogItem = ({v, index, isActive, strings, onOpenSingle, onShare}) => 
                                 fontSize: '1.5rem',
                                 fontWeight: 800,
                                 margin: 0,
-                                letterSpacing: '-0.5px',
+                                letterSpacing: '-0.03em',
                                 wordBreak: 'break-word',
                                 color: isActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface)'
                             }}>
@@ -314,7 +314,7 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
                             color: 'var(--md-sys-color-primary)',
                             fontSize: '1.2rem',
                             fontWeight: 800,
-                            letterSpacing: '-0.5px'
+                            letterSpacing: '-0.03em'
                         }}>
                             <span className="material-symbols-outlined" style={{fontSize: '28px'}}>verified</span>
                             {strings.released || "Released"} {v.date}
@@ -342,7 +342,7 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
                                     color: 'var(--md-sys-color-on-surface-variant)',
                                     marginBottom: '16px',
                                     textTransform: 'uppercase',
-                                    letterSpacing: '1px'
+                                    letterSpacing: '0.03em'
                                 }}>
                                     {strings.in_this_update || "In this update"}
                                 </div>
@@ -386,7 +386,7 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
                                 fontSize: '1rem',
                                 fontWeight: 700,
                                 textTransform: 'uppercase',
-                                letterSpacing: '1px'
+                                letterSpacing: '0.03em'
                             }}>
                                 <span className="material-symbols-outlined" style={{fontSize: '24px'}}>segment</span>
                                 {strings.table_of_contents || "Table of Contents"}
@@ -1007,7 +1007,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                     color: 'var(--md-sys-color-on-surface-variant)',
                                     fontSize: '0.85rem',
                                     textTransform: 'uppercase',
-                                    letterSpacing: '1px',
+                                    letterSpacing: '0.03em',
                                     fontWeight: 600
                                 }}>
                                     <span className="material-symbols-outlined"
@@ -1056,7 +1056,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                     color: 'var(--md-sys-color-on-surface-variant)',
                                     fontSize: '0.85rem',
                                     textTransform: 'uppercase',
-                                    letterSpacing: '1px',
+                                    letterSpacing: '0.03em',
                                     fontWeight: 600
                                 }}>
                                     <span className="material-symbols-outlined"
@@ -1079,23 +1079,6 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                 <BackToTop strings={strings.changelog || {}} isShifted={!hideOnScroll && !isFullScreenMode}/>
 
                 <style>{`
-                  .desktop-search-input {
-                      width: 100%;
-                      height: 48px;
-                      padding: 0 16px 0 52px;
-                      border-radius: 24px;
-                      border: 1px solid var(--md-sys-color-outline-variant);
-                      background: var(--md-sys-color-surface-container-highest);
-                      color: var(--md-sys-color-on-surface);
-                      font-size: 1rem;
-                      outline: none;
-                      transition: all 0.3s;
-                  }
-                  .desktop-search-input:focus {
-                      border-color: var(--md-sys-color-primary);
-                      background: var(--md-sys-color-surface-container);
-                      box-shadow: 0 0 0 4px rgba(var(--md-sys-color-primary-rgb), 0.1);
-                  }
                   @media (max-width: 1000px) {
                     .desktop-toc-wrapper { display: none !important; }
                     .changelog-layout { display: block !important; }
@@ -1272,7 +1255,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                       font-size: 0.75rem;
                       color: var(--md-sys-color-on-surface-variant);
                       text-transform: uppercase;
-                      letter-spacing: 1px;
+                      letter-spacing: 0.03em;
                       white-space: nowrap;
                       overflow: hidden;
                       text-overflow: ellipsis;
