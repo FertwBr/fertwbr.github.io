@@ -175,7 +175,7 @@ const ChangelogItem = ({v, index, isActive, strings, onOpenSingle, onShare}) => 
                             className="icon-action-btn primary"
                             title={strings.open_full_screen || "Open in full screen"}
                         >
-                            <span className="material-symbols-outlined" style={{fontSize: '20px'}}>open_in_new</span>
+                            <span className="material-symbols-outlined" style={{fontSize: '20px'}}>fullscreen</span>
                         </button>
                         <div className="icon-expand" style={{
                             transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)'

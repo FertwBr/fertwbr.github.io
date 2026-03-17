@@ -166,7 +166,7 @@ export const LatestReleaseCard = ({version, strings, link}) => {
                 </span>
 
                 <span className="material-symbols-outlined">
-                    system_update
+                    download
                 </span>
             </a>
 
