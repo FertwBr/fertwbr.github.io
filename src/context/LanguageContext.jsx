@@ -45,6 +45,31 @@ function deepMerge(base, override) {
 }
 
 /**
+ * Distributes the shared module across all app-specific modules.
+ * This guarantees that `content.feedback` or `content.pixel_pulse.feedback`
+ * always exists in the target language before fallback is applied.
+ */
+function buildContent(rawLang, defaultLang) {
+  const mergedLang = deepMerge(defaultLang, rawLang);
+
+  const shared = mergedLang.shared || {};
+  const portfolio = mergedLang.portfolio || {};
+  const pixel_pulse = mergedLang.pixel_pulse || {};
+  const pixel_compass = mergedLang.pixel_compass || {};
+  const apps_home = mergedLang.apps_home || {};
+
+  return {
+    ...shared,
+    ...portfolio,
+    shared,
+    portfolio,
+    pixel_pulse: deepMerge(shared, pixel_pulse),
+    pixel_compass: deepMerge(shared, pixel_compass),
+    apps_home: deepMerge(shared, apps_home)
+  };
+}
+
+/**
  * Provides language state and content to the application.
  * Automatically falls back to English for missing keys using deep merge.
  *
@@ -54,7 +79,7 @@ function deepMerge(base, override) {
  */
 export function LanguageProvider({ children }) {
   const [language, setLanguage] = useState('en');
-  const [content, setContent] = useState(en);
+  const [content, setContent] = useState(() => buildContent(en, en));
   const [isAuto, setIsAuto] = useState(true);
 
   useEffect(() => {
@@ -62,7 +87,7 @@ export function LanguageProvider({ children }) {
 
     if (savedLang && languages[savedLang]) {
       setLanguage(savedLang);
-      setContent(deepMerge(en, languages[savedLang]));
+      setContent(buildContent(languages[savedLang], en));
       setIsAuto(false);
     } else {
       detectAndSetLanguage();
@@ -78,7 +103,7 @@ export function LanguageProvider({ children }) {
     const targetLang = languages[browserLang] ? browserLang : 'en';
 
     setLanguage(targetLang);
-    setContent(deepMerge(en, languages[targetLang]));
+    setContent(buildContent(languages[targetLang], en));
     setIsAuto(true);
   };
 
@@ -95,7 +120,7 @@ export function LanguageProvider({ children }) {
 
     if (languages[langCode]) {
       setLanguage(langCode);
-      setContent(deepMerge(en, languages[langCode]));
+      setContent(buildContent(languages[langCode], en));
       setIsAuto(false);
       localStorage.setItem(STORAGE_KEY, langCode);
     }
