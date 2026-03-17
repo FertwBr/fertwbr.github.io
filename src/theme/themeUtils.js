@@ -1,7 +1,9 @@
-import { themeFromSourceColor, applyTheme, hexFromArgb } from '@material/material-color-utilities';
-import { config } from '../config';
+// src/theme/themeUtils.js
+import {themeFromSourceColor, applyTheme, hexFromArgb} from '@material/material-color-utilities';
+import {config} from '../config';
 
 const GLOBAL_THEME_KEY = 'fertwbr-global-theme';
+const GLOBAL_THEME_MODE_KEY = 'fertwbr-theme-mode';
 
 /**
  * Converts a hex string to an RGB string "r, g, b".
@@ -30,7 +32,7 @@ const argbToHex = (argb) => {
  * @returns {Object} Palette with primary, secondary, tertiary colors.
  */
 function getThemePalette(hexColor) {
-    if (!hexColor) return { primary: '#BDBDBD', secondary: '#E0E0E0', tertiary: '#EEEEEE' };
+    if (!hexColor) return {primary: '#BDBDBD', secondary: '#E0E0E0', tertiary: '#EEEEEE'};
     try {
         const theme = themeFromSourceColor(parseInt(hexColor.replace('#', ''), 16));
         return {
@@ -39,7 +41,7 @@ function getThemePalette(hexColor) {
             tertiary: hexFromArgb(theme.palettes.tertiary.tone(40))
         };
     } catch (error) {
-        return { primary: '#BDBDBD', secondary: '#E0E0E0', tertiary: '#EEEEEE' };
+        return {primary: '#BDBDBD', secondary: '#E0E0E0', tertiary: '#EEEEEE'};
     }
 }
 
@@ -49,6 +51,56 @@ function getThemePalette(hexColor) {
  */
 export function getSavedTheme() {
     return localStorage.getItem(GLOBAL_THEME_KEY);
+}
+
+/**
+ * Retrieves the saved theme mode.
+ * @returns {string} The saved mode (auto, light, dark).
+ */
+export function getThemeMode() {
+    return localStorage.getItem(GLOBAL_THEME_MODE_KEY) || 'auto';
+}
+
+/**
+ * Sets the theme mode.
+ * @param {string} mode
+ */
+export function setThemeMode(mode) {
+    if (mode === 'auto') {
+        localStorage.removeItem(GLOBAL_THEME_MODE_KEY);
+    } else {
+        localStorage.setItem(GLOBAL_THEME_MODE_KEY, mode);
+    }
+    updateTheme();
+}
+
+/**
+ * Checks if dark mode is active based on mode selection.
+ * @returns {boolean} True if dark mode is active.
+ */
+export function isDarkMode() {
+    const mode = getThemeMode();
+    if (mode === 'dark') return true;
+    if (mode === 'light') return false;
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+}
+
+/**
+ * Sets up listeners for OS theme changes.
+ */
+export function setupThemeListener() {
+    if (window.matchMedia) {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+            if (getThemeMode() === 'auto') {
+                updateTheme();
+            }
+        });
+        window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => {
+            if (getThemeMode() === 'auto') {
+                updateTheme();
+            }
+        });
+    }
 }
 
 /**
@@ -82,36 +134,39 @@ export function getSeedColor() {
  * Applies the current theme to the document root variables.
  */
 export function updateTheme() {
-    const isDark = true;
+    const isDark = isDarkMode();
     const seedColor = getSeedColor();
 
     if (!seedColor) return;
 
     try {
         const theme = themeFromSourceColor(parseInt(seedColor.replace('#', ''), 16));
-        applyTheme(theme, { dark: isDark, target: document.documentElement });
+        applyTheme(theme, {dark: isDark, target: document.documentElement});
 
-        const scheme = theme.schemes.dark;
+        const scheme = isDark ? theme.schemes.dark : theme.schemes.light;
         const root = document.documentElement;
+        const schemeJson = scheme.toJSON();
 
-        const surface = hexFromArgb(scheme.surface);
-        const surfaceContainer = scheme.surfaceContainer ? hexFromArgb(scheme.surfaceContainer) : surface;
+        if (!schemeJson.surfaceContainer) {
+            const neutralPalette = theme.palettes.neutral;
+            schemeJson.surfaceContainerLowest = neutralPalette.tone(isDark ? 4 : 100);
+            schemeJson.surfaceContainerLow = neutralPalette.tone(isDark ? 10 : 96);
+            schemeJson.surfaceContainer = neutralPalette.tone(isDark ? 12 : 94);
+            schemeJson.surfaceContainerHigh = neutralPalette.tone(isDark ? 17 : 92);
+            schemeJson.surfaceContainerHighest = neutralPalette.tone(isDark ? 22 : 90);
+        }
 
         const metaThemeColor = document.querySelector("meta[name=theme-color]");
         if (metaThemeColor) {
-            metaThemeColor.setAttribute("content", surface);
+            metaThemeColor.setAttribute("content", argbToHex(schemeJson.surface));
         }
 
-        for (const [key, value] of Object.entries(scheme.toJSON())) {
+        for (const [key, value] of Object.entries(schemeJson)) {
             const token = key.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
-            root.style.setProperty(`--md-sys-color-${token}`, argbToHex(value));
+            const hex = argbToHex(value);
+            root.style.setProperty(`--md-sys-color-${token}`, hex);
+            root.style.setProperty(`--md-sys-color-${token}-rgb`, hexToRgb(hex));
         }
-
-        root.style.setProperty('--md-sys-color-surface-rgb', hexToRgb(surface));
-        root.style.setProperty('--md-sys-color-surface-container-rgb', hexToRgb(surfaceContainer));
-        root.style.setProperty('--md-sys-color-primary-rgb', hexToRgb(hexFromArgb(scheme.primary)));
-        root.style.setProperty('--md-sys-color-on-surface-rgb', hexToRgb(hexFromArgb(scheme.onSurface)));
-        root.style.setProperty('--md-sys-color-outline-rgb', hexToRgb(hexFromArgb(scheme.outline)));
 
     } catch (error) {
         console.error("Theme update failed", error);
@@ -123,25 +178,35 @@ export function updateTheme() {
  * @param {string} hexColor
  * @param {boolean} isDark
  */
-export function applyMaterialTheme(hexColor, isDark = true) {
+export function applyMaterialTheme(hexColor, isDark = isDarkMode()) {
     try {
         const theme = themeFromSourceColor(parseInt(hexColor.replace('#', ''), 16));
         const scheme = isDark ? theme.schemes.dark : theme.schemes.light;
         const root = document.documentElement;
+        const schemeJson = scheme.toJSON();
 
-        const surface = hexFromArgb(scheme.surface);
+        if (!schemeJson.surfaceContainer) {
+            const neutralPalette = theme.palettes.neutral;
+            schemeJson.surfaceContainerLowest = neutralPalette.tone(isDark ? 4 : 100);
+            schemeJson.surfaceContainerLow = neutralPalette.tone(isDark ? 10 : 96);
+            schemeJson.surfaceContainer = neutralPalette.tone(isDark ? 12 : 94);
+            schemeJson.surfaceContainerHigh = neutralPalette.tone(isDark ? 17 : 92);
+            schemeJson.surfaceContainerHighest = neutralPalette.tone(isDark ? 22 : 90);
+        }
 
         const metaThemeColor = document.querySelector("meta[name=theme-color]");
         if (metaThemeColor) {
-            metaThemeColor.setAttribute("content", surface);
+            metaThemeColor.setAttribute("content", argbToHex(schemeJson.surface));
         }
 
-        for (const [key, value] of Object.entries(scheme.toJSON())) {
+        for (const [key, value] of Object.entries(schemeJson)) {
             const token = key.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
-            root.style.setProperty(`--md-sys-color-${token}`, argbToHex(value));
+            const hex = argbToHex(value);
+            root.style.setProperty(`--md-sys-color-${token}`, hex);
+            root.style.setProperty(`--md-sys-color-${token}-rgb`, hexToRgb(hex));
         }
     } catch (e) {
-        console.error(e);
+        console.error("Theme apply error", e);
     }
 }
 
@@ -179,7 +244,7 @@ export function getThemeOptions() {
  * @param {boolean} isDark
  * @returns {string} Hex color.
  */
-export function getSurfaceColor(hexColor, isDark = true) {
+export function getSurfaceColor(hexColor, isDark = isDarkMode()) {
     try {
         const theme = themeFromSourceColor(parseInt(hexColor.replace('#', ''), 16));
         const scheme = isDark ? theme.schemes.dark : theme.schemes.light;
