@@ -272,78 +272,125 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
             transition={{type: "spring", stiffness: 200, damping: 20}}
             className="full-screen-article"
         >
-            <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                color: 'var(--md-sys-color-on-surface-variant)',
-                fontSize: '1rem',
-                marginBottom: '24px'
-            }}>
-                <span className="material-symbols-outlined" style={{fontSize: '18px'}}>calendar_today</span>
-                {strings.released || "Released"} {v.date}
-            </div>
-
-            <div style={{display: 'flex', gap: '8px', marginBottom: '40px', flexWrap: 'wrap'}}>
-                {v.tags.filter(t => !excludeTags.includes(t)).map(tag => (
-                    <span key={tag} className="content-tag"
-                          style={{fontSize: '0.85rem', padding: '6px 14px'}}>{tag}</span>
-                ))}
-            </div>
-
             <div className="article-layout">
-                {headers.length > 0 && (
-                    <div className="mobile-article-toc">
+                <div className="glass-card article-main-content" style={{
+                    padding: 'clamp(24px, 5vw, 48px)',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '40px'
+                }}>
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '24px',
+                        background: 'linear-gradient(135deg, rgba(var(--md-sys-color-primary-rgb), 0.08) 0%, transparent 100%)',
+                        padding: 'clamp(24px, 4vw, 40px)',
+                        borderRadius: '24px',
+                        border: '1px solid rgba(var(--md-sys-color-primary-rgb), 0.1)',
+                        position: 'relative'
+                    }}>
                         <div style={{
-                            fontSize: '0.85rem',
-                            fontWeight: 600,
-                            color: 'var(--md-sys-color-on-surface-variant)',
-                            marginBottom: '12px',
-                            textTransform: 'uppercase',
-                            letterSpacing: '1px'
+                            position: 'absolute',
+                            left: 0,
+                            top: '32px',
+                            bottom: '32px',
+                            width: '4px',
+                            background: 'var(--md-sys-color-primary)',
+                            borderRadius: '0 4px 4px 0'
+                        }}/>
+
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '12px',
+                            color: 'var(--md-sys-color-primary)',
+                            fontSize: '1.2rem',
+                            fontWeight: 800,
+                            letterSpacing: '-0.5px'
                         }}>
-                            {strings.in_this_update || "In this update"}
+                            <span className="material-symbols-outlined" style={{fontSize: '28px'}}>verified</span>
+                            {strings.released || "Released"} {v.date}
                         </div>
-                        <div className="horizontal-chips">
-                            {headers.map(h => (
-                                <button key={h.id} onClick={() => scrollToSection(h.id)} className="toc-chip">
-                                    {h.title}
-                                </button>
+
+                        <div style={{display: 'flex', gap: '8px', flexWrap: 'wrap'}}>
+                            {v.tags.filter(t => !excludeTags.includes(t)).map(tag => (
+                                <span key={tag} style={{
+                                    fontSize: '0.85rem',
+                                    padding: '6px 16px',
+                                    background: 'var(--md-sys-color-surface-container)',
+                                    color: 'var(--md-sys-color-on-surface)',
+                                    borderRadius: '100px',
+                                    fontWeight: 600,
+                                    border: '1px solid var(--md-sys-color-outline-variant)'
+                                }}>{tag}</span>
                             ))}
                         </div>
-                    </div>
-                )}
 
-                <div className="markdown-body article-typography">
-                    <ReactMarkdown rehypePlugins={[rehypeRaw]} components={MarkdownComponents}>
-                        {v.content}
-                    </ReactMarkdown>
+                        {headers.length > 0 && (
+                            <div className="mobile-article-toc" style={{ marginTop: '8px' }}>
+                                <div style={{
+                                    fontSize: '0.85rem',
+                                    fontWeight: 700,
+                                    color: 'var(--md-sys-color-on-surface-variant)',
+                                    marginBottom: '16px',
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '1px'
+                                }}>
+                                    {strings.in_this_update || "In this update"}
+                                </div>
+                                <div className="horizontal-chips" style={{ margin: '0 -24px', padding: '0 24px' }}>
+                                    {headers.map(h => (
+                                        <button key={h.id} onClick={() => scrollToSection(h.id)} className="toc-chip" style={{
+                                            background: 'var(--md-sys-color-surface)',
+                                            color: 'var(--md-sys-color-on-surface)',
+                                            border: '1px solid var(--md-sys-color-outline-variant)'
+                                        }}>
+                                            {h.title}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="markdown-body article-typography">
+                        <ReactMarkdown rehypePlugins={[rehypeRaw]} components={MarkdownComponents}>
+                            {v.content}
+                        </ReactMarkdown>
+                    </div>
                 </div>
 
                 {headers.length > 0 && (
                     <div className="desktop-article-toc">
-                        <div style={{
+                        <div className="glass-card" style={{
                             position: 'sticky',
                             top: '140px',
-                            background: 'rgba(var(--md-sys-color-surface-container-rgb), 0.3)',
-                            padding: '24px',
-                            borderRadius: '32px',
-                            border: '1px solid var(--md-sys-color-outline-variant)'
+                            padding: '32px',
+                            borderRadius: '32px'
                         }}>
-                            <h3 style={{
-                                margin: '0 0 16px 0',
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '12px',
+                                margin: '0 0 24px 0',
+                                color: 'var(--md-sys-color-primary)',
                                 fontSize: '1rem',
-                                color: 'var(--md-sys-color-on-surface)'
+                                fontWeight: 700,
+                                textTransform: 'uppercase',
+                                letterSpacing: '1px'
                             }}>
+                                <span className="material-symbols-outlined" style={{fontSize: '24px'}}>segment</span>
                                 {strings.table_of_contents || "Table of Contents"}
-                            </h3>
+                            </div>
                             <ul style={{
                                 listStyle: 'none',
                                 padding: 0,
                                 margin: 0,
                                 display: 'flex',
                                 flexDirection: 'column',
-                                gap: '12px'
+                                gap: '16px'
                             }}>
                                 {headers.map(h => (
                                     <li key={h.id}>
@@ -353,9 +400,11 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
                                             textAlign: 'left',
                                             cursor: 'pointer',
                                             color: 'var(--md-sys-color-on-surface-variant)',
-                                            fontSize: '0.9rem',
+                                            fontSize: '0.95rem',
+                                            fontWeight: 500,
                                             padding: 0,
-                                            transition: 'color 0.2s'
+                                            transition: 'color 0.2s',
+                                            lineHeight: 1.4
                                         }} className="toc-link-btn">
                                             {h.title}
                                         </button>
