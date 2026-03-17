@@ -9,7 +9,8 @@ export const appsHomeConfig = {
     themeColor: "#4FA3D1",
 
     portfolioUrl: "https://fertwbr.com",
-    heroGradient: 'linear-gradient(135deg, #e0e0e0 0%, #ffffff 50%, #a0a0a0 100%)',
+
+    heroGradient: 'linear-gradient(135deg, var(--md-sys-color-on-surface) 0%, var(--md-sys-color-primary) 50%, var(--md-sys-color-on-surface-variant) 100%)',
 
     staggerDelay: 0.1,
     springTransition: {
