@@ -105,13 +105,9 @@ const ChangelogItem = ({v, index, isActive, strings, onOpenSingle, onShare}) => 
             transition={{delay: index * 0.05}}
             style={{marginBottom: '40px', position: 'relative'}}
         >
-            <div style={{
-                position: 'absolute', left: '-46px', top: '24px',
-                width: '14px', height: '14px', borderRadius: '50%',
+            <div className="timeline-dot" style={{
                 background: v.type === 'stable' ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface)',
-                border: `3px solid ${timelineColor}`,
-                zIndex: 2, boxShadow: `0 0 0 4px var(--md-sys-color-surface)`,
-                transition: 'all 0.3s ease'
+                border: `3px solid ${timelineColor}`
             }}/>
 
             <div className="glass-card" style={{
@@ -329,7 +325,7 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
                         </div>
 
                         {headers.length > 0 && (
-                            <div className="mobile-article-toc" style={{ marginTop: '8px' }}>
+                            <div className="mobile-article-toc" style={{marginTop: '8px'}}>
                                 <div style={{
                                     fontSize: '0.85rem',
                                     fontWeight: 700,
@@ -340,13 +336,14 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
                                 }}>
                                     {strings.in_this_update || "In this update"}
                                 </div>
-                                <div className="horizontal-chips" style={{ margin: '0 -24px', padding: '0 24px' }}>
+                                <div className="horizontal-chips" style={{margin: '0 -24px', padding: '0 24px'}}>
                                     {headers.map(h => (
-                                        <button key={h.id} onClick={() => scrollToSection(h.id)} className="toc-chip" style={{
-                                            background: 'var(--md-sys-color-surface)',
-                                            color: 'var(--md-sys-color-on-surface)',
-                                            border: '1px solid var(--md-sys-color-outline-variant)'
-                                        }}>
+                                        <button key={h.id} onClick={() => scrollToSection(h.id)} className="toc-chip"
+                                                style={{
+                                                    background: 'var(--md-sys-color-surface)',
+                                                    color: 'var(--md-sys-color-on-surface)',
+                                                    border: '1px solid var(--md-sys-color-outline-variant)'
+                                                }}>
                                             {h.title}
                                         </button>
                                     ))}
@@ -894,17 +891,9 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                         </>
                     )}
 
-                    <div style={{position: 'relative', paddingLeft: isFullScreenMode ? '0' : '48px'}}>
+                    <div className={`changelog-list-container ${isFullScreenMode ? 'full-screen' : ''}`}>
                         {!isFullScreenMode && (
-                            <div style={{
-                                position: 'absolute',
-                                left: '15px',
-                                top: '24px',
-                                bottom: '24px',
-                                width: '2px',
-                                background: 'linear-gradient(to bottom, var(--md-sys-color-outline-variant) 0%, transparent 100%)',
-                                opacity: 0.3
-                            }}></div>
+                            <div className="timeline-line"></div>
                         )}
 
                         {filteredVersions.length > 0 ? (
@@ -943,12 +932,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                     </div>
 
                     {!isFullScreenMode && visibleCount < filteredVersions.length && (
-                        <div style={{
-                            textAlign: 'center',
-                            marginTop: '40px',
-                            paddingBottom: '20px',
-                            paddingLeft: '48px'
-                        }}>
+                        <div className="load-more-container">
                             <button onClick={() => setVisibleCount(prev => prev + 10)} className="btn-outline" style={{
                                 width: '100%',
                                 padding: '16px',
@@ -1290,6 +1274,54 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                   .markdown-body ul { padding-left: 1.2em; list-style-type: disc; color: var(--md-sys-color-on-surface-variant); }
                   .markdown-body li { margin-bottom: 0.8em; }
                   .markdown-body li strong { color: var(--md-sys-color-on-surface); font-weight: 600; }
+                  
+                  .changelog-list-container {
+                      position: relative;
+                      padding-left: 48px;
+                  }
+                  .changelog-list-container.full-screen {
+                      padding-left: 0;
+                  }
+                  .timeline-line {
+                      position: absolute;
+                      left: 15px;
+                      top: 24px;
+                      bottom: 24px;
+                      width: 2px;
+                      background: linear-gradient(to bottom, var(--md-sys-color-outline-variant) 0%, transparent 100%);
+                      opacity: 0.3;
+                  }
+                  .timeline-dot {
+                      position: absolute;
+                      left: -46px;
+                      top: 24px;
+                      width: 14px;
+                      height: 14px;
+                      border-radius: 50%;
+                      z-index: 2;
+                      box-shadow: 0 0 0 4px var(--md-sys-color-surface);
+                      transition: all 0.3s ease;
+                  }
+                  .load-more-container {
+                      text-align: center;
+                      margin-top: 40px;
+                      padding-bottom: 20px;
+                      padding-left: 48px;
+                  }
+                  @media (max-width: 768px) {
+                      .changelog-list-container {
+                          padding-left: 0;
+                      }
+                      .timeline-line {
+                          display: none;
+                      }
+                      .timeline-dot {
+                          display: none;
+                      }
+                      .load-more-container {
+                          padding-left: 0;
+                      }
+                  }
                 `}</style>
             </div>
         </div>
