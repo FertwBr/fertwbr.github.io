@@ -504,7 +504,12 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
             }
         }, 100);
 
-        const handleResize = () => setIsDesktop(window.innerWidth > 1000);
+        const handleResize = () => {
+            const activeElement = document.activeElement;
+            const isInputFocused = activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA');
+            if (isInputFocused) return;
+            setIsDesktop(window.innerWidth > 1000);
+        };
         window.addEventListener('resize', handleResize);
 
         return () => {
@@ -531,9 +536,12 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
 
             setIsSticky(currentScrollY > 150);
 
-            if (currentScrollY > lastScrollY.current && currentScrollY > 150) {
+            const activeElement = document.activeElement;
+            const isInputFocused = activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA');
+
+            if (currentScrollY > lastScrollY.current && currentScrollY > 150 && !isInputFocused) {
                 setHideOnScroll(true);
-            } else if (currentScrollY < lastScrollY.current) {
+            } else if (currentScrollY < lastScrollY.current || isInputFocused) {
                 setHideOnScroll(false);
             }
 

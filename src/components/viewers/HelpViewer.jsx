@@ -31,7 +31,12 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
             }
         }, 100);
 
-        const handleResize = () => setIsDesktop(window.innerWidth > 1000);
+        const handleResize = () => {
+            const activeElement = document.activeElement;
+            const isInputFocused = activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA');
+            if (isInputFocused) return;
+            setIsDesktop(window.innerWidth > 1000);
+        };
         window.addEventListener('resize', handleResize);
 
         return () => {

@@ -89,7 +89,12 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
     });
 
     useEffect(() => {
-        const handleResize = () => setWindowWidth(window.innerWidth);
+        const handleResize = () => {
+            const activeElement = document.activeElement;
+            const isInputFocused = activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA');
+            if (isInputFocused) return;
+            setWindowWidth(window.innerWidth);
+        };
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
@@ -123,9 +128,12 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
             const currentScrollY = window.scrollY;
             setIsScrolled(currentScrollY > 20);
 
-            if (currentScrollY > lastScrollY.current && currentScrollY > 100 && !isMobileMenuOpen) {
+            const activeElement = document.activeElement;
+            const isInputFocused = activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA');
+
+            if (currentScrollY > lastScrollY.current && currentScrollY > 100 && !isMobileMenuOpen && !isInputFocused) {
                 setIsVisible(false);
-            } else if (currentScrollY < lastScrollY.current || currentScrollY < 50) {
+            } else if (currentScrollY < lastScrollY.current || currentScrollY < 50 || isInputFocused) {
                 setIsVisible(true);
             }
             lastScrollY.current = currentScrollY;
