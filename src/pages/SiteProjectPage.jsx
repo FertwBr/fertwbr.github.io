@@ -36,7 +36,7 @@ import HashScrollHandler from '../components/common/HashScrollHandler';
  * Returns:
  * - JSX layout including AppNavbar, PageBackground, page content and AppFooter.
  */
-export default function SiteProjectPage({ forcedTab }) {
+export default function SiteProjectPage({forcedTab}) {
     const {content} = useLanguage();
 
     const configWithRoute = {
@@ -45,10 +45,10 @@ export default function SiteProjectPage({ forcedTab }) {
         defaultPage: forcedTab || siteProjectConfig.defaultPage
     };
 
-    const { activeTab, handleNavigation } = useTabState(configWithRoute);
+    const {activeTab, handleNavigation} = useTabState(configWithRoute);
 
     const [activeColor] = useState(() => getSeedColor());
-    const surfaceColor = getSurfaceColor(activeColor, true);
+    const surfaceColor = getSurfaceColor(activeColor);
 
     const {markdownContent, isLoading, error} = useMarkdownLoader(activeTab, siteProjectConfig);
 
@@ -61,7 +61,7 @@ export default function SiteProjectPage({ forcedTab }) {
     });
 
     useEffect(() => {
-        applyMaterialTheme(activeColor, true);
+        applyMaterialTheme(activeColor);
     }, [activeColor]);
 
     const t = {
@@ -86,8 +86,8 @@ export default function SiteProjectPage({ forcedTab }) {
     };
 
     const renderContent = () => {
-        if (isLoading) return <GeometricSpinner />;
-        if (error) return <ErrorDisplay error={error} onRetry={() => window.location.reload()} />;
+        if (isLoading) return <GeometricSpinner/>;
+        if (error) return <ErrorDisplay error={error} onRetry={() => window.location.reload()}/>;
         if (!markdownContent) return <div style={{height: '60vh', flex: 1}}></div>;
 
         const commonProps = {
@@ -98,15 +98,18 @@ export default function SiteProjectPage({ forcedTab }) {
         };
 
         switch (activeTab) {
-            case 'changelog': return <ChangelogViewer {...commonProps} />;
-            case 'overview': return <OverviewViewer {...commonProps} />;
-            default: return <OverviewViewer {...commonProps} />;
+            case 'changelog':
+                return <ChangelogViewer {...commonProps} />;
+            case 'overview':
+                return <OverviewViewer {...commonProps} />;
+            default:
+                return <OverviewViewer {...commonProps} />;
         }
     };
 
     return (
         <div className="page-wrapper">
-            <HashScrollHandler />
+            <HashScrollHandler/>
 
             <PageBackground/>
 

@@ -22,7 +22,7 @@ import PlusViewer from "../components/viewers/PlusViewer";
 import PageTransition from '../components/layout/PageTransition';
 import {handleContactSupport} from "../utils/navigationUtils.js";
 import HashScrollHandler from '../components/common/HashScrollHandler';
-import TermsViewer from "../components/viewers/TermsViewer.jsx"; // Import here
+import TermsViewer from "../components/viewers/TermsViewer.jsx";
 
 /**
  * ProductPage React component.
@@ -54,7 +54,7 @@ export default function ProductPage({config, HomeComponent, translationKey, forc
 
     const {markdownContent, isLoading, error} = useMarkdownLoader(activeTab, config);
 
-    const surfaceColor = getSurfaceColor(activeColor, true);
+    const surfaceColor = getSurfaceColor(activeColor);
 
     usePageMetadata({
         title: `${config.appName} - ${activeTab === 'index' ? 'Home' : activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}`,
@@ -80,7 +80,7 @@ export default function ProductPage({config, HomeComponent, translationKey, forc
     };
 
     useEffect(() => {
-        applyMaterialTheme(activeColor, true);
+        applyMaterialTheme(activeColor);
     }, [activeColor]);
 
     const renderContent = () => {
