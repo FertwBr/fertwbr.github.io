@@ -11,6 +11,10 @@ import {handleContactSupport} from '../../utils/navigationUtils';
 import ViewerHeader from '../common/ViewerHeader';
 import ViewerSidebar from '../common/ViewerSidebar';
 
+/**
+ * Renders the Terms of Use document, parsed from Markdown.
+ * Extracted into sections for easier navigation via TOC.
+ */
 export default function TermsViewer({markdownContent, appConfig, strings}) {
     const [data, setData] = useState({lastUpdated: '', intro: null, sections: []});
     const navigate = useNavigate();
@@ -41,23 +45,15 @@ export default function TermsViewer({markdownContent, appConfig, strings}) {
 
     const onSupportClick = () => {
         handleContactSupport('support', navigate, {
-            source: appConfig?.appId || 'pixel_app',
+            source: appConfig?.appId || 'portfolio',
             platform: 'android'
         });
     };
 
-    const t = strings?.terms_page || {
-        page_title: "Terms of Use",
-        last_updated: "Last Updated:",
-        print_btn: "Print Terms",
-        table_of_contents: "Table of Contents",
-        contact_title: "Questions about these Terms?",
-        contact_desc: "If you have any questions or concerns regarding these Terms of Use, please contact our support team.",
-        contact_btn: "Contact Support"
-    };
+    const t = strings?.terms_page || {};
 
     return (
-        <div style={{display: 'flex', flexDirection: 'column', width: '100%', maxWidth: '1280px', margin: '0 auto', padding: '0 24px'}}>
+        <div style={{display: 'flex', flexDirection: 'column', width: '100%'}}>
             <ViewerHeader
                 appName={appConfig?.appName}
                 icon="gavel"
@@ -66,7 +62,7 @@ export default function TermsViewer({markdownContent, appConfig, strings}) {
                 lastUpdatedText={t.last_updated}
                 actionNode={
                     <button onClick={() => window.print()} className="btn-outline"
-                            style={{borderRadius: '100px', padding: '10px 24px', fontSize: '0.9rem'}}>
+                            style={{padding: '10px 24px', fontSize: '0.9rem'}}>
                         <span className="material-symbols-outlined" style={{fontSize: '18px'}}>print</span>
                         {t.print_btn}
                     </button>
@@ -114,7 +110,7 @@ export default function TermsViewer({markdownContent, appConfig, strings}) {
                     </PageTableOfContents>
                 </ViewerSidebar>
 
-                <BackToTop strings={strings.changelog}/>
+                <BackToTop strings={strings?.changelog}/>
             </div>
         </div>
     );
