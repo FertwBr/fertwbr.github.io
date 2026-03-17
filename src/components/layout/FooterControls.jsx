@@ -18,14 +18,23 @@ const LANGUAGE_FLAGS = {
 
 const MenuItem = ({active, onClick, children, leading}) => {
     const [isHovered, setIsHovered] = useState(false);
+
     return (
         <button
             onClick={onClick}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             style={{
-                background: active ? 'var(--md-sys-color-secondary-container)' : (isHovered ? 'var(--md-sys-color-surface-container-highest)' : 'transparent'),
-                color: active ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-surface)',
+                background: active
+                    ? 'var(--md-sys-color-secondary-container)'
+                    : (isHovered
+                        ? 'var(--md-sys-color-surface-container-highest)'
+                        : 'transparent'),
+
+                color: active
+                    ? 'var(--md-sys-color-on-secondary-container)'
+                    : 'var(--md-sys-color-on-surface)',
+
                 border: 'none',
                 padding: '12px 14px',
                 textAlign: 'left',
@@ -52,9 +61,11 @@ const MenuItem = ({active, onClick, children, leading}) => {
                     {leading}
                 </div>
             )}
+
             <span style={{flex: 1}}>
                 {children}
             </span>
+
             {active && (
                 <span className="material-symbols-outlined" style={{fontSize: '18px'}}>
                     check
@@ -66,6 +77,7 @@ const MenuItem = ({active, onClick, children, leading}) => {
 
 const DropdownButton = ({icon, label, isOpen, onClick, children}) => {
     const [isHovered, setIsHovered] = useState(false);
+
     return (
         <div style={{position: 'relative'}}>
             <button
@@ -73,7 +85,10 @@ const DropdownButton = ({icon, label, isOpen, onClick, children}) => {
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
                 style={{
-                    background: isOpen || isHovered ? 'var(--md-sys-color-surface-container-highest)' : 'var(--md-sys-color-surface-container-high)',
+                    background: isOpen || isHovered
+                        ? 'var(--md-sys-color-surface-container-highest)'
+                        : 'var(--md-sys-color-surface-container-high)',
+
                     border: '1px solid var(--md-sys-color-outline-variant)',
                     color: 'var(--md-sys-color-on-surface)',
                     padding: '10px 18px',
@@ -89,37 +104,48 @@ const DropdownButton = ({icon, label, isOpen, onClick, children}) => {
                     boxShadow: isOpen ? '0 2px 8px rgba(0,0,0,0.12)' : 'none'
                 }}
             >
-                <span className="material-symbols-outlined" style={{fontSize: '20px'}}>{icon}</span>
+                <span className="material-symbols-outlined" style={{fontSize: '20px'}}>
+                    {icon}
+                </span>
+
                 {label}
-                <span className="material-symbols-outlined" style={{
-                    fontSize: '18px',
-                    transition: 'transform 0.3s cubic-bezier(0.2, 0, 0, 1)',
-                    transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)'
-                }}>
+
+                <span
+                    className="material-symbols-outlined"
+                    style={{
+                        fontSize: '18px',
+                        transition: 'transform 0.3s cubic-bezier(0.2,0,0,1)',
+                        transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)'
+                    }}
+                >
                     expand_less
                 </span>
             </button>
 
-            <div style={{
-                position: 'absolute',
-                bottom: 'calc(100% + 10px)',
-                left: 0,
-                background: 'var(--md-sys-color-surface-container-high)',
-                borderRadius: '20px',
-                padding: '10px',
-                boxShadow: '0 10px 32px rgba(0,0,0,0.22)',
-                display: 'flex',
-                flexDirection: 'column',
-                minWidth: '240px',
-                zIndex: 100,
-                border: '1px solid var(--md-sys-color-outline-variant)',
-                opacity: isOpen ? 1 : 0,
-                visibility: isOpen ? 'visible' : 'hidden',
-                transform: isOpen ? 'translateY(0) scale(1)' : 'translateY(12px) scale(0.94)',
-                transformOrigin: 'bottom left',
-                transition: 'all 0.22s cubic-bezier(0.2, 0, 0, 1)',
-                gap: '2px'
-            }}>
+            <div
+                style={{
+                    position: 'absolute',
+                    bottom: 'calc(100% + 10px)',
+                    left: 0,
+                    background: 'var(--md-sys-color-surface-container-high)',
+                    borderRadius: '20px',
+                    padding: '10px',
+                    boxShadow: '0 10px 32px rgba(0,0,0,0.22)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    minWidth: '240px',
+                    zIndex: 100,
+                    border: '1px solid var(--md-sys-color-outline-variant)',
+                    opacity: isOpen ? 1 : 0,
+                    visibility: isOpen ? 'visible' : 'hidden',
+                    transform: isOpen
+                        ? 'translateY(0) scale(1)'
+                        : 'translateY(12px) scale(0.94)',
+                    transformOrigin: 'bottom left',
+                    transition: 'all 0.22s cubic-bezier(0.2,0,0,1)',
+                    gap: '2px'
+                }}
+            >
                 {children}
             </div>
         </div>
@@ -128,6 +154,7 @@ const DropdownButton = ({icon, label, isOpen, onClick, children}) => {
 
 export default function FooterControls({title}) {
     const {changeLanguage, language, availableLanguages, isAuto: isLangAuto} = useLanguage();
+
     const themes = getThemeOptions();
     const savedTheme = getSavedTheme();
     const isThemeAuto = !savedTheme;
@@ -141,31 +168,58 @@ export default function FooterControls({title}) {
                 setActiveMenu(null);
             }
         };
+
         document.addEventListener("mousedown", handleClickOutside);
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-    const toggleMenu = (menu) => setActiveMenu(activeMenu === menu ? null : menu);
+    const toggleMenu = (menu) => {
+        setActiveMenu(activeMenu === menu ? null : menu);
+    };
 
     return (
-        <div ref={controlsRef}
-             style={{display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'flex-start'}}>
+        <div
+            ref={controlsRef}
+            style={{
+                display: 'flex',
+                flexDirection: 'column',
+
+                /* CORREÇÃO DO ESPAÇAMENTO */
+                gap: '24px',
+
+                alignItems: 'flex-start'
+            }}
+        >
             {title && (
-                <h3 style={{
-                    fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '1.5px',
-                    color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 700
-                }}>
+                <h3
+                    style={{
+                        fontSize: '0.8rem',
+                        textTransform: 'uppercase',
+                        letterSpacing: '1.5px',
+                        color: 'var(--md-sys-color-on-surface-variant)',
+                        fontWeight: 700,
+
+                        /* evita margens padrão inconsistentes */
+                        margin: 0
+                    }}
+                >
                     {title}
                 </h3>
             )}
 
-            <div style={{display: 'flex', gap: '12px', flexWrap: 'wrap'}}>
+            <div style={{
+                display: 'flex',
+                gap: '12px',
+                flexWrap: 'wrap'
+            }}>
+
                 <DropdownButton
                     icon="palette"
                     label={isThemeAuto ? 'Auto' : 'Theme'}
                     isOpen={activeMenu === 'theme'}
                     onClick={() => toggleMenu('theme')}
                 >
+
                     <MenuItem
                         active={isThemeAuto}
                         onClick={() => {
@@ -213,13 +267,14 @@ export default function FooterControls({title}) {
                                         height: '12px',
                                         borderRadius: '50%',
                                         background: 'rgba(255,255,255,0.85)'
-                                    }}></div>
+                                    }}/>
                                 </div>
                             }
                         >
                             {t.name}
                         </MenuItem>
                     ))}
+
                 </DropdownButton>
 
                 <DropdownButton
@@ -228,6 +283,7 @@ export default function FooterControls({title}) {
                     isOpen={activeMenu === 'lang'}
                     onClick={() => toggleMenu('lang')}
                 >
+
                     <MenuItem
                         active={isLangAuto}
                         onClick={() => {
@@ -267,7 +323,9 @@ export default function FooterControls({title}) {
                             {LANGUAGE_LABELS[code]}
                         </MenuItem>
                     ))}
+
                 </DropdownButton>
+
             </div>
         </div>
     );
