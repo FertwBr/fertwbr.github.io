@@ -8,6 +8,7 @@ import React, { useState, useEffect } from 'react';
  * @param {string} props.appId - Android Package Name.
  * @param {Object} props.fallback - Fallback rating object { value, count }.
  * @param {'compact' | 'expanded'} [props.variant='expanded'] - Display style.
+ * @returns {JSX.Element}
  */
 export default function RatingBadge({ appId, fallback, variant = 'expanded' }) {
     const [data, setData] = useState(null);
@@ -61,25 +62,7 @@ export default function RatingBadge({ appId, fallback, variant = 'expanded' }) {
             href={`https://play.google.com/store/apps/details?id=${appId}`}
             target="_blank"
             rel="noopener noreferrer"
-            style={{
-                textDecoration: 'none',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '6px 14px',
-                background: 'var(--md-sys-color-surface-container-high)',
-                border: '1px solid var(--md-sys-color-outline-variant)',
-                borderRadius: '50px',
-                cursor: 'pointer',
-                transition: 'all 0.2s ease',
-                marginTop: '0'
-            }}
-            onMouseOver={(e) => {
-                e.currentTarget.style.background = 'var(--md-sys-color-surface-container-highest)';
-            }}
-            onMouseOut={(e) => {
-                e.currentTarget.style.background = 'var(--md-sys-color-surface-container-high)';
-            }}
+            className="rating-badge-container"
         >
             <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                 <span style={{ fontWeight: 700, color: 'var(--md-sys-color-on-surface)', fontSize: '0.9rem' }}>{display.value}</span>

@@ -4,11 +4,11 @@ import { motion } from 'framer-motion';
 /**
  * PixelWatchFrame
  * High-fidelity CSS reproduction of the Google Pixel Watch.
- * Features a domed glass effect, stainless steel case, and realistic reflections.
  *
  * @param {Object} props
  * @param {React.ReactNode} props.children - Content to render inside the screen.
- * @param {string} [props.style] - Inline styles.
+ * @param {Object} [props.style] - Inline styles.
+ * @returns {JSX.Element}
  */
 export default function PixelWatchFrame({ children, style }) {
     return (
@@ -27,24 +27,11 @@ export default function PixelWatchFrame({ children, style }) {
                 ...style
             }}
         >
-            <div style={{
-                position: 'absolute',
-                inset: 0,
-                borderRadius: '50%',
-                background: 'linear-gradient(135deg, #d4d4d4 0%, #ffffff 40%, #9e9e9e 100%)',
-                boxShadow: '0 25px 50px -10px rgba(0,0,0,0.3), inset 0 -4px 8px rgba(0,0,0,0.2)',
-                zIndex: 1
-            }} />
+            {/* Stainless Steel Case */}
+            <div className="watch-case-gradient" />
 
-            <div style={{
-                position: 'absolute',
-                inset: '3px',
-                borderRadius: '50%',
-                background: '#000000',
-                zIndex: 2,
-                overflow: 'hidden',
-                boxShadow: 'inset 0 0 20px rgba(255,255,255,0.1)'
-            }}>
+            {/* Glass & Screen */}
+            <div className="watch-screen-black">
                 <div style={{
                     position: 'absolute',
                     inset: '38px',
@@ -59,6 +46,7 @@ export default function PixelWatchFrame({ children, style }) {
                     {children}
                 </div>
 
+                {/* Subtle Dome Reflections */}
                 <div style={{
                     position: 'absolute',
                     top: '-50%', left: '-50%', right: '-50%', bottom: '50%',
@@ -88,19 +76,20 @@ export default function PixelWatchFrame({ children, style }) {
                 transform: 'translateY(-50%)',
                 width: '14px',
                 height: '48px',
-                background: 'linear-gradient(90deg, #8e8e8e 0%, #f0f0f0 40%, #8e8e8e 100%)',
+                background: 'linear-gradient(90deg, var(--md-sys-color-outline) 0%, var(--md-sys-color-surface-container-highest) 40%, var(--md-sys-color-outline) 100%)',
                 borderRadius: '6px',
                 boxShadow: '2px 0 6px rgba(0,0,0,0.3)',
                 zIndex: 0
             }} />
 
+            {/* Button Detail */}
             <div style={{
                 position: 'absolute',
                 right: '-4px',
                 top: '28%',
                 width: '4px',
                 height: '32px',
-                background: '#8e8e8e',
+                background: 'var(--md-sys-color-outline)',
                 borderRadius: '2px',
                 zIndex: 0
             }} />

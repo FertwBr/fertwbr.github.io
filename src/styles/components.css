@@ -274,3 +274,60 @@
     gap: 18px;
     position: relative;
 }
+
+.rating-badge-container {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background-color: var(--md-sys-color-surface-container-high);
+    border: 1px solid var(--md-sys-color-outline-variant);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 0;
+}
+
+.rating-badge-container:hover {
+    background-color: var(--md-sys-color-surface-container-highest);
+}
+
+.pixel-device-container {
+    background-color: #000000;
+    border-radius: 42px;
+    position: relative;
+    box-shadow: 0 0 0 2px var(--md-sys-color-outline-variant), 0 0 0 4px var(--md-sys-color-surface-container-highest), 0 30px 80px -20px rgba(0,0,0,0.6);
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.pixel-screen-content {
+    width: 100%;
+    height: 100%;
+    background-color: var(--md-sys-color-surface);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    border-radius: 36px;
+}
+
+.watch-case-gradient {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--md-sys-color-outline-variant) 0%, var(--md-sys-color-surface-container-highest) 40%, var(--md-sys-color-outline) 100%);
+    box-shadow: 0 25px 50px -10px rgba(0,0,0,0.3), inset 0 -4px 8px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.watch-screen-black {
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    background-color: #000000;
+    z-index: 2;
+    overflow: hidden;
+    box-shadow: inset 0 0 20px rgba(255,255,255,0.1);
+}

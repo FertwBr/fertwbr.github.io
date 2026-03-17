@@ -1,10 +1,11 @@
+// src/components/ui/CustomSelect.jsx
 /**
  * @file CustomSelect.jsx
  * @description Custom Select component with animations and Glassmorphism styling. Replaces the native select for a consistent look.
  */
 
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, {useState, useEffect, useRef} from 'react';
+import {motion, AnimatePresence} from 'framer-motion';
 import PropTypes from 'prop-types';
 
 /**
@@ -16,10 +17,10 @@ import PropTypes from 'prop-types';
  * @param {string} props.label - The label displayed above the input.
  * @param {string} props.value - The currently selected value.
  * @param {function(string): void} props.onChange - Callback invoked when an option is selected.
- * @param {SelectOption[]} props.options - Array of objects with {value, label}.
+ * @param {Array} props.options - Array of objects with {value, label}.
  * @returns {JSX.Element} The custom Select element.
  */
-const CustomSelect = ({ label, value, onChange, options }) => {
+const CustomSelect = ({label, value, onChange, options}) => {
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef(null);
 
@@ -40,7 +41,7 @@ const CustomSelect = ({ label, value, onChange, options }) => {
         <div className="input-wrapper" ref={containerRef}>
             {label && <label className="input-label">{label}</label>}
 
-            <div style={{ position: 'relative', width: '100%' }}>
+            <div style={{position: 'relative', width: '100%'}}>
                 <button
                     type="button"
                     onClick={() => setIsOpen(!isOpen)}
@@ -72,16 +73,23 @@ const CustomSelect = ({ label, value, onChange, options }) => {
                 <AnimatePresence>
                     {isOpen && (
                         <motion.div
-                            initial={{ opacity: 0, y: -10, scale: 0.98 }}
-                            animate={{ opacity: 1, y: 4, scale: 1 }}
-                            exit={{ opacity: 0, y: -10, scale: 0.98 }}
-                            transition={{ duration: 0.2, ease: "easeOut" }}
+                            initial={{opacity: 0, y: -10, scale: 0.98}}
+                            animate={{opacity: 1, y: 4, scale: 1}}
+                            exit={{opacity: 0, y: -10, scale: 0.98}}
+                            transition={{duration: 0.2, ease: "easeOut"}}
                             style={{
-                                position: 'absolute', top: '100%', left: 0, right: 0,
+                                position: 'absolute',
+                                top: '100%',
+                                left: 0,
+                                right: 0,
                                 background: 'var(--md-sys-color-surface-container-high)',
                                 border: '1px solid var(--md-sys-color-outline-variant)',
-                                borderRadius: '16px', padding: '8px', zIndex: 100,
-                                boxShadow: '0 8px 32px rgba(0,0,0,0.4)', maxHeight: '250px', overflowY: 'auto'
+                                borderRadius: '16px',
+                                padding: '8px',
+                                zIndex: 100,
+                                boxShadow: '0 8px 32px rgba(var(--md-sys-color-shadow-rgb), 0.4)',
+                                maxHeight: '250px',
+                                overflowY: 'auto'
                             }}
                         >
                             {options.map((opt) => (
@@ -100,7 +108,7 @@ const CustomSelect = ({ label, value, onChange, options }) => {
                                         alignItems: 'center', justifyContent: 'space-between'
                                     }}
                                     onMouseEnter={(e) => {
-                                        if (value !== opt.value) e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+                                        if (value !== opt.value) e.currentTarget.style.background = 'rgba(var(--md-sys-color-on-surface-rgb), 0.05)';
                                     }}
                                     onMouseLeave={(e) => {
                                         if (value !== opt.value) e.currentTarget.style.background = 'transparent';
@@ -108,7 +116,8 @@ const CustomSelect = ({ label, value, onChange, options }) => {
                                 >
                                     {opt.label}
                                     {value === opt.value && (
-                                        <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>check</span>
+                                        <span className="material-symbols-outlined"
+                                              style={{fontSize: '20px'}}>check</span>
                                     )}
                                 </div>
                             ))}
