@@ -1,3 +1,4 @@
+// src/components/viewers/RoadmapViewer.jsx
 import React, {useState, useEffect} from 'react';
 import {motion} from 'framer-motion';
 import {useNavigate} from 'react-router-dom';
@@ -23,13 +24,13 @@ export default function RoadmapViewer({markdownContent, appConfig, strings}) {
     }, [markdownContent]);
 
     return (
-        <div style={{paddingBottom: '80px', width: '100%', overflowX: 'hidden'}}>
+        <div className="viewer-container" style={{paddingBottom: '80px', overflowX: 'hidden'}}>
 
             <ViewerHeader
                 appName={appConfig?.appName}
                 icon="map"
-                title={strings.roadmap_page.title}
-                subtitle={strings.roadmap_page.subtitle}
+                title={strings.roadmap_page?.title || "Roadmap"}
+                subtitle={strings.roadmap_page?.subtitle}
             />
 
             <div style={{maxWidth: '1000px', margin: '0 auto'}}>
@@ -70,7 +71,8 @@ export default function RoadmapViewer({markdownContent, appConfig, strings}) {
                                 zIndex: 1
                             }}>
                                 <div className="roadmap-node-icon" style={{background: accentColor}}>
-                                    <span className="material-symbols-outlined" style={{fontSize: '28px'}}>
+                                    <span className="material-symbols-outlined"
+                                          style={{fontSize: '28px', color: 'var(--md-sys-color-on-primary)'}}>
                                         {icon}
                                     </span>
                                 </div>
@@ -78,7 +80,8 @@ export default function RoadmapViewer({markdownContent, appConfig, strings}) {
                                     <h2 style={{
                                         fontSize: 'clamp(1.6rem, 4vw, 2rem)',
                                         margin: 0,
-                                        fontWeight: 700
+                                        fontWeight: 700,
+                                        color: 'var(--md-sys-color-on-surface)'
                                     }}>{section.title}</h2>
                                 </div>
                             </div>
@@ -178,7 +181,12 @@ export default function RoadmapViewer({markdownContent, appConfig, strings}) {
                     <span className="material-symbols-outlined" style={{fontSize: '32px'}}>lightbulb</span>
                 </div>
 
-                <h3 style={{fontSize: '1.8rem', marginBottom: '12px', fontWeight: 700}}>Have a Feature Request?</h3>
+                <h3 style={{
+                    fontSize: '1.8rem',
+                    marginBottom: '12px',
+                    fontWeight: 700,
+                    color: 'var(--md-sys-color-on-surface)'
+                }}>{strings.roadmap_page?.contact_title || "Have a Feature Request?"}</h3>
                 <p style={{
                     color: 'var(--md-sys-color-on-surface-variant)',
                     marginBottom: '32px',
@@ -186,8 +194,7 @@ export default function RoadmapViewer({markdownContent, appConfig, strings}) {
                     maxWidth: '500px',
                     lineHeight: 1.6
                 }}>
-                    {appConfig?.appName || "Our app"} is built for you. Help us shape the future by sharing your ideas
-                    directly with the developer.
+                    {strings.roadmap_page?.contact_desc || "Help us shape the future by sharing your ideas directly with the developer."}
                 </p>
 
                 <button
@@ -195,7 +202,8 @@ export default function RoadmapViewer({markdownContent, appConfig, strings}) {
                     className="btn-glow"
                     style={{padding: '16px 32px', fontSize: '1rem'}}
                 >
-                    {strings.roadmap_page.suggest_btn} <span className="material-symbols-outlined">arrow_forward</span>
+                    {strings.roadmap_page?.suggest_btn || "Suggest a Feature"} <span
+                    className="material-symbols-outlined">arrow_forward</span>
                 </button>
             </div>
         </div>

@@ -75,21 +75,18 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
 
     const onSupportClick = () => {
         handleContactSupport('support', navigate, {
-            source: appConfig?.appId || 'pixel_compass',
+            source: appConfig?.appId || 'portfolio',
             platform: 'android'
         });
     };
 
     const desktopSearchPortal = isDesktop ? (
-        <div style={{position: 'relative', width: '100%'}}>
-            <span className="material-symbols-outlined" style={{
-                position: 'absolute', left: '20px', top: '50%', transform: 'translateY(-50%)',
-                color: 'var(--md-sys-color-on-surface-variant)', zIndex: 2, fontSize: '24px'
-            }}>search</span>
+        <div className="search-input-wrapper">
+            <span className="material-symbols-outlined search-icon-absolute">search</span>
             <input
                 type="text"
                 className="desktop-search-input"
-                placeholder={strings.help_page.search_placeholder}
+                placeholder={strings.help_page?.search_placeholder || "Search..."}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -97,44 +94,34 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
     ) : null;
 
     return (
-        <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            width: '100%',
-            maxWidth: '1280px',
-            margin: '0 auto',
-            padding: '0 24px'
-        }}>
+        <div className="viewer-container">
             {desktopSearchPortal && portalNode && createPortal(desktopSearchPortal, portalNode)}
 
             <ViewerHeader
                 appName={appConfig?.appName}
                 icon="help"
-                title={strings.help_page.page_title}
-                subtitle={strings.help_page.subtitle}
+                title={strings.help_page?.page_title || "Help"}
+                subtitle={strings.help_page?.subtitle}
             />
 
             <div className="viewer-layout">
                 <div className="viewer-main-content">
                     {!isDesktop && (
-                        <div className="search-input-wrapper" style={{marginBottom: '40px', position: 'relative'}}>
-                            <span className="material-symbols-outlined" style={{
-                                position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)',
-                                color: '#ffffff', zIndex: 2
-                            }}>search</span>
-
+                        <div className="search-input-wrapper" style={{marginBottom: '40px'}}>
+                            <span className="material-symbols-outlined search-icon-absolute">search</span>
                             <input
                                 type="text"
                                 className="search-input-high-contrast"
-                                placeholder={strings.help_page.search_placeholder}
+                                placeholder={strings.help_page?.search_placeholder || "Search..."}
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                             />
                         </div>
                     )}
 
-                    <div className="mobile-toc-wrapper" style={{display: 'none'}}>
-                        <PageTableOfContents title={strings.help_page.table_of_contents} isMobile={true}>
+                    <div className="mobile-toc-wrapper">
+                        <PageTableOfContents title={strings.help_page?.table_of_contents || "Table of Contents"}
+                                             isMobile={true}>
                             {renderTocItems()}
                         </PageTableOfContents>
                     </div>
@@ -163,25 +150,30 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
                         ) : (
                             <div style={{textAlign: 'center', padding: '60px', opacity: 0.7}}>
                                 <span className="material-symbols-outlined"
-                                      style={{fontSize: '48px', marginBottom: '16px'}}>search_off</span>
-                                <p>{strings.help_page.no_results}</p>
+                                      style={{
+                                          fontSize: '48px',
+                                          marginBottom: '16px',
+                                          color: 'var(--md-sys-color-on-surface-variant)'
+                                      }}>search_off</span>
+                                <p style={{color: 'var(--md-sys-color-on-surface-variant)'}}>{strings.help_page?.no_results || "No results found."}</p>
                             </div>
                         )}
                     </div>
                 </div>
 
                 <ViewerSidebar
-                    cardTitle={strings.help_page.contact_title}
-                    cardDesc={strings.help_page.contact_desc}
-                    cardBtnText={strings.help_page.contact_btn}
+                    cardTitle={strings.help_page?.contact_title || "Questions?"}
+                    cardDesc={strings.help_page?.contact_desc || "Need more help?"}
+                    cardBtnText={strings.help_page?.contact_btn || "Contact Support"}
                     onBtnClick={onSupportClick}
                 >
-                    <PageTableOfContents title={strings.help_page.table_of_contents} isMobile={false}>
+                    <PageTableOfContents title={strings.help_page?.table_of_contents || "Table of Contents"}
+                                         isMobile={false}>
                         {renderTocItems()}
                     </PageTableOfContents>
                 </ViewerSidebar>
 
-                <BackToTop strings={strings.changelog}/>
+                <BackToTop strings={strings.changelog || {}}/>
                 <style>{`
                   .rich-text h1 { display: none; }
                   .rich-text blockquote { 

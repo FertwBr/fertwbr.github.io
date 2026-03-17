@@ -242,10 +242,6 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
         return matches;
     }, [v.content]);
 
-    /**
-     * Smooth scrolls the window to a specified section element based on its ID.
-     * @param {string} id - The DOM element ID to scroll to.
-     */
     const scrollToSection = (id) => {
         const el = document.getElementById(id);
         if (el) {
@@ -257,10 +253,6 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
 
     const excludeTags = ['Wear OS', 'Android XR', 'Phone', 'Tablet', 'Web', 'Website', 'Beta', 'Alpha', 'RC', 'Pre-release'];
 
-    /**
-     * Custom components mapping for ReactMarkdown to inject IDs into specific heading elements.
-     * @type {Object}
-     */
     const MarkdownComponents = {
         h4: ({node, ...props}) => {
             const childrenArray = React.Children.toArray(props.children);
@@ -348,12 +340,7 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
                                 </div>
                                 <div className="horizontal-chips" style={{margin: '0 -24px', padding: '0 24px'}}>
                                     {headers.map(h => (
-                                        <button key={h.id} onClick={() => scrollToSection(h.id)} className="toc-chip"
-                                                style={{
-                                                    background: 'var(--md-sys-color-surface)',
-                                                    color: 'var(--md-sys-color-on-surface)',
-                                                    border: '1px solid var(--md-sys-color-outline-variant)'
-                                                }}>
+                                        <button key={h.id} onClick={() => scrollToSection(h.id)} className="toc-chip">
                                             {h.title}
                                         </button>
                                     ))}
@@ -451,16 +438,6 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
     );
 };
 
-/**
- * Main viewer component capable of rendering standard list or full-screen views of the changelog.
- *
- * @param {Object} props - The component props.
- * @param {string} props.markdownContent - The raw markdown text containing changelog data.
- * @param {Object} props.appConfig - General application configuration data (e.g., playStoreLink).
- * @param {Object} props.strings - Complete localized string map.
- * @param {Function} props.onNavigate - Callback for external navigation handlers.
- * @returns {JSX.Element} The rendered ChangelogViewer application.
- */
 export default function ChangelogViewer({markdownContent: initialMarkdown, appConfig, strings, onNavigate}) {
     const {language} = useLanguage();
     const {versionId} = useParams();
@@ -551,11 +528,6 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
         return () => window.removeEventListener('scroll', handleScroll);
     }, [isFullScreenMode]);
 
-    /**
-     * Reverts translated changelog to its original English state by reloading local content.
-     * Maps the localized active version ID back to its English equivalent using semantic version numbers.
-     * @async
-     */
     const handleRevertToEnglish = async () => {
         try {
             const originalContent = await loadPageContent('changelog', appConfig, 'en');
@@ -588,11 +560,6 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
         }
     };
 
-    /**
-     * Restores the translated changelog state by reloading local content for the current language.
-     * Maps the active version ID back to its translated equivalent using semantic version numbers.
-     * @async
-     */
     const handleRestoreTranslation = async () => {
         try {
             const translatedContent = await loadPageContent('changelog', appConfig, language);
@@ -625,28 +592,17 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
         }
     };
 
-    /**
-     * Navigates back to the root changelog path removing the active version parameter.
-     */
     const handleViewAll = () => {
         if (isCompass) navigate('/pixelcompass/changelog');
         else if (isPulse) navigate('/pixelpulse/changelog');
         else navigate('/changelog');
     };
 
-    /**
-     * Navigates to a specific version for full-screen detailed view.
-     * @param {string} id - The ID of the version to navigate to.
-     */
     const handleOpenSingle = (id) => {
         const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : '';
         navigate(`${basePath}/changelog/${id}`);
     };
 
-    /**
-     * Handles sharing functionality, defaulting to native share on supported platforms.
-     * @param {Object} version - The active version data to generate a specific link.
-     */
     const handleShare = (version) => {
         const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : '';
         const shareUrl = `${window.location.origin}${basePath}/changelog/${version.id}`;
@@ -701,10 +657,6 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
         return () => observer.disconnect();
     }, [filteredVersions, visibleCount, isFullScreenMode]);
 
-    /**
-     * Programmatically scrolls to a specific active version element in the list view.
-     * @param {string} id - The target version ID to focus.
-     */
     const scrollToVersion = (id) => {
         const targetIndex = filteredVersions.findIndex(v => v.id === id);
         if (targetIndex !== -1) {
@@ -720,18 +672,10 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
         }
     };
 
-    /**
-     * Toggles an active filter tag state.
-     * @param {string} tag - The specific tag string to toggle.
-     */
     const toggleTag = (tag) => {
         setSelectedTags(prev => prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]);
     };
 
-    /**
-     * Generates table of content navigation buttons relative to filtered versions.
-     * @returns {JSX.Element[]} List of interactive Table of Content nodes.
-     */
     const renderTocButtons = () => (
         filteredVersions.map(v => (
             <button key={v.id} onClick={() => scrollToVersion(v.id)}
@@ -742,7 +686,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                 {v.type !== 'stable' && (
                     <span style={{
                         fontSize: '0.65rem', padding: '2px 6px', borderRadius: '4px',
-                        background: v.type === 'beta' ? '#FFB74D20' : v.type === 'alpha' ? '#EF535020' : '#AB47BC20',
+                        background: v.type === 'beta' ? 'rgba(255, 183, 77, 0.2)' : v.type === 'alpha' ? 'rgba(239, 83, 80, 0.2)' : 'rgba(171, 71, 188, 0.2)',
                         color: v.type === 'beta' ? '#FFB74D' : v.type === 'alpha' ? '#EF5350' : '#AB47BC'
                     }}>
                         {v.type === 'rc' ? 'RC' : v.type.substring(0, 1).toUpperCase()}
@@ -754,10 +698,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
 
     const desktopSearchInput = isDesktop && !isFullScreenMode ? (
         <div style={{position: 'relative', width: '100%'}}>
-            <span className="material-symbols-outlined" style={{
-                position: 'absolute', left: '20px', top: '50%', transform: 'translateY(-50%)',
-                color: 'var(--md-sys-color-on-surface-variant)', zIndex: 2, fontSize: '24px'
-            }}>search</span>
+            <span className="material-symbols-outlined search-icon-absolute">search</span>
             <input
                 type="text"
                 className="desktop-search-input"
@@ -801,7 +742,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
     ) : null;
 
     return (
-        <div style={{width: '100%', maxWidth: '1280px', margin: '0 auto', padding: '0 24px'}}>
+        <div className="viewer-container">
             {desktopSearchInput && searchPortalNode && createPortal(desktopSearchInput, searchPortalNode)}
             {desktopFilters && bottomPortalNode && createPortal(desktopFilters, bottomPortalNode)}
 
@@ -829,7 +770,8 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                 }}>auto_awesome</span>
                                 <h3 style={{
                                     margin: 0,
-                                    fontSize: '1.2rem'
+                                    fontSize: '1.2rem',
+                                    color: 'var(--md-sys-color-on-surface)'
                                 }}>{strings.changelog?.translate_modal_title || 'Auto Translated'}</h3>
                             </div>
                             <p style={{
@@ -896,9 +838,9 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                 }
             />
 
-            <div className="changelog-layout" style={{display: 'flex', gap: '60px', alignItems: 'flex-start'}}>
+            <div className="changelog-layout viewer-layout">
 
-                <div style={{flex: 1, minWidth: 0}}>
+                <div className="viewer-main-content">
                     {!isFullScreenMode && !isDesktop && (
                         <>
                             <div ref={containerRef} style={{
@@ -1040,9 +982,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                 </div>
 
                 {!isFullScreenMode && (
-                    <div className="desktop-toc-wrapper" style={{
-                        display: 'flex', flexDirection: 'column', gap: '20px', width: '320px', minWidth: '320px'
-                    }}>
+                    <div className="desktop-toc-wrapper viewer-sidebar-container">
                         {!isPortfolio && latestVersion && !searchQuery && (
                             <LatestReleaseCard version={latestVersion} strings={strings.changelog || {}}
                                                link={appConfig?.playStoreLink}/>
@@ -1053,7 +993,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                         {!isPortfolio && (
                             <div style={{
                                 marginTop: '20px', padding: '24px', borderRadius: '32px',
-                                background: 'linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 100%)',
+                                background: 'linear-gradient(135deg, rgba(var(--md-sys-color-on-surface-rgb), 0.03) 0%, transparent 100%)',
                                 border: '1px solid var(--md-sys-color-outline-variant)'
                             }}>
                                 <div style={{
@@ -1085,481 +1025,6 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                 )}
 
                 <BackToTop strings={strings.changelog || {}} isShifted={!hideOnScroll && !isFullScreenMode}/>
-
-                <style>{`
-                  @media (max-width: 1000px) {
-                    .desktop-toc-wrapper { display: none !important; }
-                    .changelog-layout { display: block !important; }
-                    .mobile-toc-wrapper { display: block !important; margin-bottom: 30px; }
-                    .mobile-extra-content { display: block !important; }
-                    .article-layout { flex-direction: column; }
-                    .desktop-article-toc { display: none; }
-                  }
-                  @media (min-width: 1001px) {
-                    .mobile-article-toc { display: none; }
-                    .article-layout { display: grid; grid-template-columns: 1fr 300px; gap: 40px; align-items: start; }
-                  }
-                  
-                  .changelog-item-header {
-                      padding: 24px;
-                      cursor: pointer;
-                      background: transparent;
-                      display: flex;
-                      justify-content: space-between;
-                      align-items: flex-start;
-                      gap: 16px;
-                      transition: background 0.3s;
-                  }
-                  
-                  .changelog-item-header.open {
-                      background: rgba(255,255,255,0.02);
-                  }
-                  
-                  .changelog-item-actions {
-                      display: flex;
-                      align-items: center;
-                      gap: 8px;
-                      flex-shrink: 0;
-                  }
-                  
-                  @media (max-width: 600px) {
-                      .changelog-item-header {
-                          flex-direction: column;
-                      }
-                      .changelog-item-actions {
-                          width: 100%;
-                          justify-content: flex-end;
-                          padding-top: 16px;
-                          border-top: 1px solid var(--md-sys-color-outline-variant);
-                      }
-                  }
-                  
-                  .icon-action-btn {
-                      background: var(--md-sys-color-surface-container);
-                      border: none;
-                      color: var(--md-sys-color-on-surface-variant);
-                      cursor: pointer;
-                      display: flex;
-                      align-items: center;
-                      justify-content: center;
-                      width: 48px;
-                      height: 48px;
-                      border-radius: 16px;
-                      transition: all 0.2s;
-                  }
-                  
-                  .icon-action-btn:hover {
-                      background: var(--md-sys-color-surface-container-high);
-                      color: var(--md-sys-color-on-surface);
-                  }
-                  
-                  .icon-action-btn.primary {
-                      background: var(--md-sys-color-primary-container);
-                      color: var(--md-sys-color-on-primary-container);
-                  }
-                  
-                  .icon-action-btn.primary:hover {
-                      background: var(--md-sys-color-primary);
-                      color: var(--md-sys-color-on-primary);
-                  }
-                  
-                  .icon-expand {
-                      display: flex;
-                      align-items: center;
-                      justify-content: center;
-                      width: 48px;
-                      height: 48px;
-                      border-radius: 24px;
-                      background: transparent;
-                      color: var(--md-sys-color-on-surface-variant);
-                      transition: transform 0.3s, background 0.2s;
-                  }
-                  
-                  .changelog-item-header:hover .icon-expand {
-                      background: var(--md-sys-color-surface-container-highest);
-                  }
-                  
-                  .content-tag {
-                    font-size: 0.75rem; padding: 6px 12px; border-radius: 100px;
-                    background: var(--md-sys-color-surface-container-high);
-                    color: var(--md-sys-color-on-surface-variant);
-                    border: 1px solid var(--md-sys-color-outline-variant); font-weight: 500;
-                  }
-                  
-                  .horizontal-chips {
-                    display: flex;
-                    justify-content: flex-start;
-                    overflow-x: auto;
-                    gap: 8px;
-                    padding-bottom: 12px;
-                    scrollbar-width: none;
-                    -ms-overflow-style: none;
-                    scroll-snap-type: x mandatory;
-                  }
-                  .horizontal-chips::-webkit-scrollbar { display: none; }
-                  
-                  .toc-chip {
-                    scroll-snap-align: start;
-                    flex-shrink: 0;
-                    white-space: nowrap; background: var(--md-sys-color-surface-container);
-                    border: 1px solid var(--md-sys-color-outline-variant); color: var(--md-sys-color-on-surface);
-                    padding: 8px 16px; border-radius: 100px; font-size: 0.85rem; cursor: pointer;
-                    transition: all 0.2s;
-                  }
-                  
-                  .toc-chip:active {
-                      transform: scale(0.95);
-                  }
-                  
-                  .toc-link-btn:hover { color: var(--md-sys-color-primary) !important; }
-                  
-                  .sequential-nav-wrapper {
-                    margin-top: 60px;
-                    border-top: 1px solid var(--md-sys-color-outline-variant);
-                    padding-top: 40px;
-                    margin-bottom: 24px;
-                    width: 100%;
-                  }
-                  
-                  .sequential-nav {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: flex-start;
-                    gap: 16px;
-                  }
-                  
-                  .seq-btn {
-                    display: flex;
-                    align-items: center;
-                    gap: 16px;
-                    background: var(--md-sys-color-surface-container);
-                    border: 1px solid var(--md-sys-color-outline-variant);
-                    padding: 16px 24px;
-                    border-radius: 24px;
-                    cursor: pointer;
-                    transition: all 0.2s;
-                    color: var(--md-sys-color-on-surface);
-                    max-width: 45%;
-                    min-width: 200px;
-                  }
-                  
-                  .seq-btn.next-btn {
-                      margin-left: auto;
-                  }
-                  
-                  .seq-btn:hover { 
-                      background: var(--md-sys-color-surface-container-high); 
-                      border-color: var(--md-sys-color-primary); 
-                  }
-                  
-                  .seq-text {
-                      display: flex;
-                      flex-direction: column;
-                      min-width: 0;
-                      overflow: hidden;
-                      flex: 1;
-                  }
-                  
-                  .seq-label {
-                      font-size: 0.75rem;
-                      color: var(--md-sys-color-on-surface-variant);
-                      text-transform: uppercase;
-                      letter-spacing: 0.03em;
-                      white-space: nowrap;
-                      overflow: hidden;
-                      text-overflow: ellipsis;
-                      margin-bottom: 4px;
-                  }
-                  
-                  .seq-title {
-                      font-size: 1rem;
-                      font-weight: 700;
-                      white-space: nowrap;
-                      overflow: hidden;
-                      text-overflow: ellipsis;
-                  }
-
-                  @media (max-width: 600px) {
-                      .sequential-nav {
-                          flex-direction: column;
-                          align-items: stretch;
-                          gap: 12px;
-                      }
-                      .seq-btn {
-                          max-width: 100%;
-                          width: 100%;
-                          padding: 14px 16px;
-                      }
-                      .seq-btn.next-btn {
-                          margin-left: 0;
-                      }
-                  }
-                  
-                  .article-typography h4 {
-                    font-size: 1.5rem !important; margin-top: 2.5em !important; 
-                    padding-bottom: 0.5em; border-bottom: 2px solid var(--md-sys-color-surface-container-highest);
-                  }
-                  .article-typography p, .article-typography li { font-size: 1.1rem; line-height: 1.7; }
-                  
-                  .markdown-body h4 {
-                    font-size: 1.3rem; margin-top: 2em; margin-bottom: 1em; padding-bottom: 0.5em;
-                    border-bottom: 1px solid var(--md-sys-color-outline-variant); color: var(--md-sys-color-primary);
-                    display: flex; align-items: center; gap: 8px;
-                  }
-                  .markdown-body ul { padding-left: 1.2em; list-style-type: disc; color: var(--md-sys-color-on-surface-variant); }
-                  .markdown-body li { margin-bottom: 0.8em; }
-                  .markdown-body li strong { color: var(--md-sys-color-on-surface); font-weight: 600; }
-                  
-                  .changelog-list-container {
-                      position: relative;
-                      padding-left: 48px;
-                  }
-                  .changelog-list-container.full-screen {
-                      padding-left: 0;
-                  }
-                  .timeline-line {
-                      position: absolute;
-                      left: 15px;
-                      top: 24px;
-                      bottom: 24px;
-                      width: 2px;
-                      background: linear-gradient(to bottom, var(--md-sys-color-outline-variant) 0%, transparent 100%);
-                      opacity: 0.3;
-                  }
-                  .timeline-dot {
-                      position: absolute;
-                      left: -46px;
-                      top: 24px;
-                      width: 14px;
-                      height: 14px;
-                      border-radius: 50%;
-                      z-index: 2;
-                      box-shadow: 0 0 0 4px var(--md-sys-color-surface);
-                      transition: all 0.3s ease;
-                  }
-                  .load-more-container {
-                      text-align: center;
-                      margin-top: 40px;
-                      padding-bottom: 20px;
-                      padding-left: 48px;
-                  }
-                  
-                  .loose-search-container {
-                      display: flex;
-                      flex-direction: column;
-                      gap: 16px;
-                      z-index: 90;
-                  }
-                  
-                  .mobile-blur-backdrop {
-                      display: none;
-                  }
-
-                  .search-pill {
-                      background: var(--md-sys-color-surface-container-highest);
-                      border: 1px solid transparent;
-                      border-radius: 28px;
-                      display: flex;
-                      align-items: center;
-                      height: 52px;
-                      padding: 0 16px;
-                      transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
-                      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-                      position: relative;
-                  }
-                  
-                  .search-pill:focus-within {
-                      background: var(--md-sys-color-surface-container);
-                      border-color: var(--md-sys-color-primary);
-                      box-shadow: 0 0 0 4px rgba(var(--md-sys-color-primary-rgb), 0.1), 0 8px 24px rgba(0,0,0,0.12);
-                      transform: translateY(-1px);
-                  }
-
-                  .search-pill input {
-                      background: transparent;
-                      border: none;
-                      color: var(--md-sys-color-on-surface);
-                      padding: 0 16px;
-                      width: 100%;
-                      height: 100%;
-                      outline: none;
-                      font-size: 1rem;
-                      font-weight: 500;
-                  }
-                  
-                  .search-pill input::placeholder {
-                      color: var(--md-sys-color-on-surface-variant);
-                  }
-                  
-                  .search-icon {
-                      color: var(--md-sys-color-primary);
-                      margin-left: 8px;
-                      font-size: 24px;
-                      transition: opacity 0.3s;
-                      opacity: 0.7;
-                  }
-                  
-                  .search-pill:focus-within .search-icon {
-                      opacity: 1;
-                  }
-
-                  .loose-filters {
-                      display: flex;
-                      gap: 10px;
-                      flex-wrap: wrap;
-                      margin: 0;
-                      padding: 4px 0;
-                  }
-                  
-                  .filter-tag-pill {
-                      padding: 10px 20px;
-                      border-radius: 100px;
-                      font-size: 0.9rem;
-                      font-weight: 600;
-                      cursor: pointer;
-                      border: 2px solid transparent;
-                      background: var(--md-sys-color-surface-container-high);
-                      color: var(--md-sys-color-on-surface-variant);
-                      transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
-                  }
-                  
-                  .filter-tag-pill:hover {
-                      background: var(--md-sys-color-surface-container-highest);
-                      color: var(--md-sys-color-on-surface);
-                      transform: translateY(-2px);
-                  }
-                  
-                  .filter-tag-pill.selected {
-                      background: var(--md-sys-color-primary) !important;
-                      color: var(--md-sys-color-on-primary) !important;
-                      box-shadow: 0 4px 16px rgba(var(--md-sys-color-primary-rgb), 0.4) !important;
-                      border-color: transparent !important;
-                  }
-                  
-                  .content-padder {
-                      transition: padding-bottom 0.4s cubic-bezier(0.2, 0, 0, 1);
-                      padding-bottom: 0px;
-                  }
-                  
-                  @media (max-width: 1000px) {
-                      .search-pill {
-                          height: 64px;
-                          border-radius: 32px;
-                          padding: 0 20px;
-                      }
-                      
-                      .search-pill input {
-                          font-size: 1.15rem;
-                      }
-                      
-                      .search-icon {
-                          font-size: 28px;
-                      }
-
-                      .loose-search-container {
-                          position: fixed;
-                          bottom: 24px;
-                          left: 16px;
-                          right: 16px;
-                          width: calc(100% - 32px);
-                          flex-direction: column-reverse;
-                          transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1), opacity 0.4s;
-                      }
-                      
-                      .mobile-blur-backdrop {
-                          display: block;
-                          position: absolute;
-                          inset: -60px -16px -24px -16px; 
-                          background: linear-gradient(to top, rgba(15, 17, 21, 0.95) 40%, rgba(15, 17, 21, 0.5) 70%, transparent 100%);
-                          backdrop-filter: blur(12px);
-                          -webkit-backdrop-filter: blur(12px);
-                          mask-image: linear-gradient(to top, black 60%, transparent 100%);
-                          -webkit-mask-image: linear-gradient(to top, black 60%, transparent 100%);
-                          z-index: -1;
-                          pointer-events: none;
-                      }
-
-                      .loose-search-container.hide-on-scroll {
-                          transform: translateY(150%);
-                          opacity: 0;
-                          pointer-events: none;
-                      }
-                      
-                      .loose-filters {
-                          flex-wrap: nowrap;
-                          overflow-x: auto;
-                          padding-bottom: 8px;
-                          -webkit-overflow-scrolling: touch;
-                          scrollbar-width: none;
-                      }
-                      
-                      .loose-filters::-webkit-scrollbar {
-                          display: none;
-                      }
-                      
-                      .filter-tag-pill {
-                          flex-shrink: 0;
-                      }
-                      
-                      .content-padder.padded {
-                          padding-bottom: 180px;
-                      }
-                  }
-                  
-                  @media (min-width: 1001px) {
-                      .loose-search-container {
-                          position: relative;
-                          margin-bottom: 40px;
-                          transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1), opacity 0.4s;
-                      }
-                      
-                      .loose-search-container.is-sticky {
-                          position: fixed;
-                          top: 80px;
-                          left: 50%;
-                          transform: translateX(-50%);
-                          z-index: 90;
-                          width: calc(100% - 64px);
-                          max-width: 720px;
-                          background: transparent;
-                      }
-                      
-                      .loose-search-container.is-sticky::before {
-                          content: "";
-                          position: absolute;
-                          inset: -16px -24px -24px -24px;
-                          background: rgba(var(--md-sys-color-surface-rgb), 0.85);
-                          backdrop-filter: blur(16px);
-                          -webkit-backdrop-filter: blur(16px);
-                          mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-                          -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-                          z-index: -1;
-                          border-radius: 24px;
-                          pointer-events: none;
-                      }
-
-                      .loose-search-container.is-sticky.hide-on-scroll {
-                          transform: translate(-50%, -150%);
-                          opacity: 0;
-                          pointer-events: none;
-                      }
-                  }
-                  
-                  @media (max-width: 768px) {
-                      .changelog-list-container {
-                          padding-left: 0;
-                      }
-                      .timeline-line {
-                          display: none;
-                      }
-                      .timeline-dot {
-                          display: none;
-                      }
-                      .load-more-container {
-                          padding-left: 0;
-                      }
-                  }
-                `}</style>
             </div>
         </div>
     );

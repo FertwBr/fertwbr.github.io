@@ -271,27 +271,28 @@ export default function OverviewViewer({markdownContent, appConfig, strings}) {
     );
 
     return (
-        <div style={{height: '100%', display: 'flex', flexDirection: 'column', minHeight: 0}}>
+        <div className="viewer-container">
             <ViewerHeader
                 appName={appConfig?.appName}
                 icon="terminal"
-                title={strings.overview_page.title}
-                subtitle={strings.overview_page.subtitle}
+                title={strings.overview_page?.title || "Technical Overview"}
+                subtitle={strings.overview_page?.subtitle}
                 actionNode={
                     appConfig?.sourceLink && (
                         <a href={appConfig.sourceLink} target="_blank" rel="noreferrer" className="btn-glow">
-                            <span className="material-symbols-outlined">code</span> {strings.overview_page.github_btn}
+                            <span
+                                className="material-symbols-outlined">code</span> {strings.overview_page?.github_btn || "View Source"}
                         </a>
                     )
                 }
             />
 
-            <div className="viewer-layout" style={{flex: 1}}>
+            <div className="viewer-layout">
 
                 <div className="viewer-main-content" style={{display: 'flex', flexDirection: 'column'}}>
 
-                    <div className="mobile-toc-wrapper" style={{display: 'none'}}>
-                        <PageTableOfContents title={strings.overview_page.toc_title} isMobile={true}>
+                    <div className="mobile-toc-wrapper">
+                        <PageTableOfContents title={strings.overview_page?.toc_title || "Contents"} isMobile={true}>
                             {renderTocItems()}
                         </PageTableOfContents>
                     </div>
@@ -301,10 +302,8 @@ export default function OverviewViewer({markdownContent, appConfig, strings}) {
                             if (section.type === 'tech-stack') {
                                 return (
                                     <motion.div
-                                        key={section.id}
-                                        id={section.id}
-                                        initial={{opacity: 0}}
-                                        whileInView={{opacity: 1}}
+                                        key={section.id} id={section.id}
+                                        initial={{opacity: 0}} whileInView={{opacity: 1}}
                                         viewport={{once: true, margin: "-100px"}}
                                         style={{marginBottom: '100px'}}
                                     >
@@ -315,11 +314,9 @@ export default function OverviewViewer({markdownContent, appConfig, strings}) {
 
                                         {section.intro && (
                                             <div style={{
-                                                marginBottom: '40px',
-                                                fontSize: '1.1rem',
+                                                marginBottom: '40px', fontSize: '1.1rem',
                                                 color: 'var(--md-sys-color-on-surface-variant)',
-                                                lineHeight: 1.6,
-                                                maxWidth: '70ch'
+                                                lineHeight: 1.6, maxWidth: '70ch'
                                             }}>
                                                 <ReactMarkdown>{section.intro}</ReactMarkdown>
                                             </div>
@@ -340,12 +337,9 @@ export default function OverviewViewer({markdownContent, appConfig, strings}) {
 
                             return (
                                 <motion.div
-                                    key={section.id}
-                                    id={section.id}
-                                    initial={{opacity: 0, y: 30}}
-                                    whileInView={{opacity: 1, y: 0}}
-                                    viewport={{once: true, margin: "-100px"}}
-                                    transition={{delay: 0.1}}
+                                    key={section.id} id={section.id}
+                                    initial={{opacity: 0, y: 30}} whileInView={{opacity: 1, y: 0}}
+                                    viewport={{once: true, margin: "-100px"}} transition={{delay: 0.1}}
                                     style={{marginBottom: '100px'}}
                                 >
                                     {section.type !== 'intro' && (
@@ -356,10 +350,8 @@ export default function OverviewViewer({markdownContent, appConfig, strings}) {
                                     )}
 
                                     <div style={section.type === 'intro' ? {
-                                        fontSize: '1.25rem',
-                                        lineHeight: 1.8,
-                                        color: 'var(--md-sys-color-on-surface-variant)',
-                                        maxWidth: '80ch'
+                                        fontSize: '1.25rem', lineHeight: 1.8,
+                                        color: 'var(--md-sys-color-on-surface-variant)', maxWidth: '80ch'
                                     } : {}}>
                                         <ReactMarkdown rehypePlugins={[rehypeRaw]} components={MarkdownComponents}>
                                             {section.content}
@@ -373,19 +365,19 @@ export default function OverviewViewer({markdownContent, appConfig, strings}) {
 
                 <ViewerSidebar
                     cardIcon="info"
-                    cardTitle={strings.overview_page.about_docs_title || "About"}
-                    cardDesc={strings.overview_page.dynamic_docs_note}
+                    cardTitle={strings.overview_page?.about_docs_title || "About"}
+                    cardDesc={strings.overview_page?.dynamic_docs_note || "Dynamic docs note"}
                     customCardStyle={{
-                        background: 'linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%)',
+                        background: 'linear-gradient(180deg, rgba(var(--md-sys-color-on-surface-rgb), 0.03) 0%, transparent 100%)',
                         borderRadius: '24px'
                     }}
                 >
-                    <PageTableOfContents title={strings.overview_page.toc_title} isMobile={false}>
+                    <PageTableOfContents title={strings.overview_page?.toc_title || "Contents"} isMobile={false}>
                         {renderTocItems()}
                     </PageTableOfContents>
                 </ViewerSidebar>
 
-                <BackToTop strings={strings.changelog}/>
+                <BackToTop strings={strings.changelog || {}}/>
             </div>
         </div>
     );

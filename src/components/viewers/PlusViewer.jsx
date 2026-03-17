@@ -64,7 +64,7 @@ const FeatureCard = ({feature, isMobile}) => (
                 </span>
             </div>
 
-            <div style={{width: '100%'}}>
+            <div style={{width: '100%', color: 'var(--md-sys-color-on-surface)'}}>
                 <h4 style={{
                     fontSize: isMobile ? '1.1rem' : '1.2rem',
                     margin: '0 0 8px 0',
@@ -72,7 +72,7 @@ const FeatureCard = ({feature, isMobile}) => (
                 }}>
                     {feature.title}
                 </h4>
-                <div style={{
+                <div className="markdown-body" style={{
                     margin: 0,
                     fontSize: isMobile ? '0.95rem' : '1rem',
                     opacity: 0.8,
@@ -97,7 +97,7 @@ const ComparisonTable = ({data, isMobile}) => {
                         borderRadius: '16px',
                         border: '1px solid var(--md-sys-color-outline-variant)',
                         overflow: 'hidden',
-                        boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
+                        boxShadow: '0 1px 3px rgba(var(--md-sys-color-shadow-rgb), 0.05)'
                     }}>
                         <div style={{
                             padding: '16px 20px',
@@ -115,7 +115,8 @@ const ComparisonTable = ({data, isMobile}) => {
                                 display: 'flex',
                                 justifyContent: 'space-between',
                                 alignItems: 'center',
-                                padding: '12px 20px'
+                                padding: '12px 20px',
+                                color: 'var(--md-sys-color-on-surface)'
                             }}>
                                 <span style={{
                                     fontSize: '0.8rem',
@@ -132,7 +133,8 @@ const ComparisonTable = ({data, isMobile}) => {
                                     justifyContent: 'space-between',
                                     alignItems: 'center',
                                     padding: '12px 20px',
-                                    backgroundColor: 'rgba(0,0,0,0.02)'
+                                    backgroundColor: 'rgba(var(--md-sys-color-on-surface-rgb), 0.02)',
+                                    color: 'var(--md-sys-color-on-surface)'
                                 }}>
                                     <span style={{
                                         fontSize: '0.8rem',
@@ -177,36 +179,28 @@ const ComparisonTable = ({data, isMobile}) => {
     }
 
     return (
-        <div style={{
-            width: '100%',
-            overflowX: 'auto',
-            borderRadius: '24px',
-            border: '1px solid var(--md-sys-color-outline-variant)',
-            background: 'var(--md-sys-color-surface)',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
-        }}>
-            <table style={{width: '100%', borderCollapse: 'collapse', minWidth: '600px'}}>
+        <div className="plus-compare-table">
+            <table>
                 <thead>
                 <tr style={{background: 'var(--md-sys-color-surface-container)'}}>
-                    <th style={{padding: '24px', textAlign: 'left', width: '40%'}}>Feature</th>
-                    <th style={{padding: '24px', textAlign: 'center'}}>Free</th>
-                    <th style={{padding: '24px', textAlign: 'center', color: 'var(--md-sys-color-primary)'}}>Plus</th>
-                    {hasLegacy && <th style={{padding: '24px', textAlign: 'center', opacity: 0.7}}>Legacy</th>}
+                    <th style={{width: '40%', color: 'var(--md-sys-color-on-surface)'}}>Feature</th>
+                    <th style={{color: 'var(--md-sys-color-on-surface)'}}>Free</th>
+                    <th style={{color: 'var(--md-sys-color-primary)'}}>Plus</th>
+                    {hasLegacy && <th style={{color: 'var(--md-sys-color-on-surface)', opacity: 0.7}}>Legacy</th>}
                 </tr>
                 </thead>
                 <tbody>
                 {data.map((row, i) => (
                     <tr key={i} style={{borderTop: '1px solid var(--md-sys-color-outline-variant)'}}>
-                        <td style={{padding: '20px 24px', fontWeight: 600}}>{row.feature}</td>
-                        <td style={{padding: '20px', textAlign: 'center', opacity: 0.7}}>{row.col1}</td>
+                        <td style={{fontWeight: 600, color: 'var(--md-sys-color-on-surface)'}}>{row.feature}</td>
+                        <td style={{opacity: 0.7, color: 'var(--md-sys-color-on-surface)'}}>{row.col1}</td>
                         <td style={{
-                            padding: '20px',
-                            textAlign: 'center',
                             fontWeight: 800,
                             color: 'var(--md-sys-color-primary)',
                             fontSize: '1.1rem'
                         }}>{row.col2}</td>
-                        {hasLegacy && <td style={{padding: '20px', textAlign: 'center', opacity: 0.6}}>{row.col3}</td>}
+                        {hasLegacy &&
+                            <td style={{opacity: 0.6, color: 'var(--md-sys-color-on-surface)'}}>{row.col3}</td>}
                     </tr>
                 ))}
                 </tbody>
@@ -223,7 +217,8 @@ const TextBlockSection = ({data}) => {
                 fontSize: '2.2rem',
                 fontWeight: 800,
                 marginBottom: '40px',
-                textAlign: 'center'
+                textAlign: 'center',
+                color: 'var(--md-sys-color-on-surface)'
             }}>{data.title}</h2>
             <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px'}}>
                 {data.items.map((item, i) => (
@@ -252,7 +247,12 @@ const TextBlockSection = ({data}) => {
                                     <span className="material-symbols-outlined">{item.icon}</span>
                                 </div>
                             )}
-                            <h3 style={{fontSize: '1.25rem', fontWeight: 700, margin: 0}}>{item.title}</h3>
+                            <h3 style={{
+                                fontSize: '1.25rem',
+                                fontWeight: 700,
+                                margin: 0,
+                                color: 'var(--md-sys-color-on-surface)'
+                            }}>{item.title}</h3>
                         </div>
                         <div className="markdown-body" style={{opacity: 0.8, lineHeight: 1.6}}>
                             <ReactMarkdown>{item.content}</ReactMarkdown>
@@ -300,33 +300,36 @@ export default function PlusViewer({markdownContent, appConfig, strings}) {
     const gradientButtonCheck = {
         background: `linear-gradient(135deg, ${appConfig?.seedColor || 'var(--md-sys-color-primary)'}, var(--md-sys-color-tertiary))`,
         color: '#ffffff',
-        boxShadow: '0 8px 24px rgba(0,0,0,0.2)'
+        boxShadow: '0 8px 24px rgba(var(--md-sys-color-shadow-rgb), 0.2)'
     };
 
     return (
-        <div style={{width: '100%', maxWidth: '1280px', margin: '0 auto', padding: '0 20px 100px 20px'}}>
+        <div className="viewer-container" style={{paddingBottom: '100px'}}>
 
             <div className="plus-hero-container">
                 <div>
                     <motion.div initial={{opacity: 0, y: 20}} animate={{opacity: 1, y: 0}} transition={{duration: 0.6}}>
                         <span className="plus-badge">
-                            {strings.plus_page.badge || 'PLUS'}
+                            {strings.plus_page?.badge || 'PLUS'}
                         </span>
                         <h1 className="viewer-title" style={{margin: '24px 0'}}>
-                            {strings.plus_page.title}
+                            {strings.plus_page?.title || 'Upgrade to Plus'}
                         </h1>
                         <div className="markdown-body" style={{fontSize: '1.2rem', opacity: 0.8, marginBottom: '40px'}}>
                             <ReactMarkdown>{content.intro}</ReactMarkdown>
                         </div>
 
                         <motion.button
-                            whileHover={{scale: 1.05, boxShadow: '0 12px 32px rgba(0,0,0,0.3)'}}
+                            whileHover={{
+                                scale: 1.05,
+                                boxShadow: '0 12px 32px rgba(var(--md-sys-color-shadow-rgb), 0.3)'
+                            }}
                             whileTap={{scale: 0.95}}
                             onClick={handleBuy}
                             className="plus-cta-btn"
                             style={gradientButtonCheck}
                         >
-                            {strings.plus_page.cta}
+                            {strings.plus_page?.cta || 'Get Plus'}
                             <span className="material-symbols-outlined">arrow_forward</span>
                         </motion.button>
                     </motion.div>
@@ -339,7 +342,7 @@ export default function PlusViewer({markdownContent, appConfig, strings}) {
                         transition={{duration: 0.8, type: 'spring'}}
                         style={{transform: isMobile ? 'scale(0.85)' : 'none'}}
                     >
-                        <GooglePixel borderColor="#202020">
+                        <GooglePixel style={{border: '4px solid var(--md-sys-color-outline-variant)'}}>
                             <GetScreenForFeature
                                 featureIcon={heroFeatureIcon}
                                 seedColor={appConfig?.seedColor}
@@ -371,7 +374,13 @@ export default function PlusViewer({markdownContent, appConfig, strings}) {
 
             {content.comparison.length > 0 && (
                 <div style={{marginTop: '120px'}}>
-                    <h2 style={{fontSize: '2.5rem', fontWeight: 800, textAlign: 'center', marginBottom: '40px'}}>
+                    <h2 style={{
+                        fontSize: '2.5rem',
+                        fontWeight: 800,
+                        textAlign: 'center',
+                        marginBottom: '40px',
+                        color: 'var(--md-sys-color-on-surface)'
+                    }}>
                         Compare Editions
                     </h2>
                     <ComparisonTable data={content.comparison} isMobile={isMobile}/>
@@ -389,10 +398,17 @@ export default function PlusViewer({markdownContent, appConfig, strings}) {
                     <h2 style={{
                         fontSize: '2.5rem',
                         fontWeight: 800,
-                        marginBottom: '24px'
+                        marginBottom: '24px',
+                        color: 'var(--md-sys-color-on-surface)'
                     }}>{content.whySection.title}</h2>
                     {content.whySection.intro && (
-                        <div style={{maxWidth: '700px', margin: '0 auto 40px auto', opacity: 0.8, fontSize: '1.1rem'}}>
+                        <div style={{
+                            maxWidth: '700px',
+                            margin: '0 auto 40px auto',
+                            opacity: 0.8,
+                            fontSize: '1.1rem',
+                            color: 'var(--md-sys-color-on-surface)'
+                        }}>
                             <ReactMarkdown>{content.whySection.intro}</ReactMarkdown>
                         </div>
                     )}
@@ -419,9 +435,11 @@ export default function PlusViewer({markdownContent, appConfig, strings}) {
                                 <h3 style={{
                                     fontSize: '1.25rem',
                                     fontWeight: 700,
-                                    marginBottom: '12px'
+                                    marginBottom: '12px',
+                                    color: 'var(--md-sys-color-on-surface)'
                                 }}>{item.title}</h3>
-                                <div style={{opacity: 0.7, fontSize: '1rem', lineHeight: 1.6}}>
+                                <div className="markdown-body"
+                                     style={{opacity: 0.7, fontSize: '1rem', lineHeight: 1.6}}>
                                     <ReactMarkdown components={{p: 'span'}}>{item.desc}</ReactMarkdown>
                                 </div>
                             </motion.div>
@@ -445,7 +463,7 @@ export default function PlusViewer({markdownContent, appConfig, strings}) {
                         marginBottom: '16px',
                         color: 'var(--md-sys-color-on-surface)'
                     }}>
-                        {strings.plus.title}
+                        {strings.plus_page?.title || 'Ready for Plus?'}
                     </h2>
 
                     <p style={{
@@ -455,7 +473,7 @@ export default function PlusViewer({markdownContent, appConfig, strings}) {
                         lineHeight: 1.6,
                         color: 'var(--md-sys-color-on-surface-variant)'
                     }}>
-                        {strings.plus.desc}
+                        {strings.plus_page?.subtitle || 'Get the full potential.'}
                     </p>
 
                     <div style={{display: 'flex', justifyContent: 'center'}}>
@@ -466,10 +484,10 @@ export default function PlusViewer({markdownContent, appConfig, strings}) {
                             className="plus-cta-btn"
                             style={{
                                 ...gradientButtonCheck,
-                                boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                                boxShadow: '0 4px 12px rgba(var(--md-sys-color-shadow-rgb), 0.15)'
                             }}
                         >
-                            {strings.plus_page.cta}
+                            {strings.plus_page?.cta || 'Get Plus'}
                             <span className="material-symbols-outlined" style={{fontSize: '24px'}}>
                                 arrow_forward
                             </span>

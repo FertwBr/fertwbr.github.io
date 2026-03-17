@@ -11,10 +11,6 @@ import {handleContactSupport} from '../../utils/navigationUtils';
 import ViewerHeader from '../common/ViewerHeader';
 import ViewerSidebar from '../common/ViewerSidebar';
 
-/**
- * Renders the Terms of Use document, parsed from Markdown.
- * Extracted into sections for easier navigation via TOC.
- */
 export default function TermsViewer({markdownContent, appConfig, strings}) {
     const [data, setData] = useState({lastUpdated: '', intro: null, sections: []});
     const navigate = useNavigate();
@@ -57,14 +53,14 @@ export default function TermsViewer({markdownContent, appConfig, strings}) {
             <ViewerHeader
                 appName={appConfig?.appName}
                 icon="gavel"
-                title={t.page_title}
+                title={t.page_title || "Terms of Use"}
                 lastUpdated={data.lastUpdated}
-                lastUpdatedText={t.last_updated}
+                lastUpdatedText={t.last_updated || "Last Updated:"}
                 actionNode={
                     <button onClick={() => window.print()} className="btn-outline"
                             style={{padding: '10px 24px', fontSize: '0.9rem'}}>
                         <span className="material-symbols-outlined" style={{fontSize: '18px'}}>print</span>
-                        {t.print_btn}
+                        {t.print_btn || "Print Terms"}
                     </button>
                 }
                 introNode={data.intro &&
@@ -73,8 +69,8 @@ export default function TermsViewer({markdownContent, appConfig, strings}) {
 
             <div className="viewer-layout">
                 <div className="viewer-main-content">
-                    <div className="mobile-toc-wrapper" style={{display: 'none'}}>
-                        <PageTableOfContents title={t.table_of_contents} isMobile={true}>
+                    <div className="mobile-toc-wrapper">
+                        <PageTableOfContents title={t.table_of_contents || "Table of Contents"} isMobile={true}>
                             {renderTocItems()}
                         </PageTableOfContents>
                     </div>
@@ -100,12 +96,12 @@ export default function TermsViewer({markdownContent, appConfig, strings}) {
                 </div>
 
                 <ViewerSidebar
-                    cardTitle={t.contact_title}
-                    cardDesc={t.contact_desc}
-                    cardBtnText={t.contact_btn}
+                    cardTitle={t.contact_title || "Questions about these Terms?"}
+                    cardDesc={t.contact_desc || "If you have any questions or concerns regarding these Terms of Use, please contact our support team."}
+                    cardBtnText={t.contact_btn || "Contact Support"}
                     onBtnClick={onSupportClick}
                 >
-                    <PageTableOfContents title={t.table_of_contents} isMobile={false}>
+                    <PageTableOfContents title={t.table_of_contents || "Table of Contents"} isMobile={false}>
                         {renderTocItems()}
                     </PageTableOfContents>
                 </ViewerSidebar>

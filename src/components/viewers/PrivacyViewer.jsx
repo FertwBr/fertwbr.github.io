@@ -41,31 +41,26 @@ export default function PrivacyViewer({markdownContent, appConfig, strings}) {
 
     const onSupportClick = () => {
         handleContactSupport('support', navigate, {
-            source: appConfig?.appId || 'pixel_compass',
+            source: appConfig?.appId || 'portfolio',
             platform: 'android'
         });
     };
 
+    const t = strings?.privacy_page || {};
+
     return (
-        <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            width: '100%',
-            maxWidth: '1280px',
-            margin: '0 auto',
-            padding: '0 24px'
-        }}>
+        <div className="viewer-container">
             <ViewerHeader
                 appName={appConfig?.appName}
                 icon="verified_user"
-                title={strings.privacy_page.page_title}
+                title={t.page_title || "Privacy Policy"}
                 lastUpdated={data.lastUpdated}
-                lastUpdatedText={strings.privacy_page.last_updated}
+                lastUpdatedText={t.last_updated || "Last Updated:"}
                 actionNode={
                     <button onClick={() => window.print()} className="btn-outline"
                             style={{borderRadius: '100px', padding: '10px 24px', fontSize: '0.9rem'}}>
                         <span className="material-symbols-outlined" style={{fontSize: '18px'}}>print</span>
-                        {strings.privacy_page.print_btn}
+                        {t.print_btn || "Print Policy"}
                     </button>
                 }
                 introNode={data.intro &&
@@ -74,8 +69,8 @@ export default function PrivacyViewer({markdownContent, appConfig, strings}) {
 
             <div className="viewer-layout">
                 <div className="viewer-main-content">
-                    <div className="mobile-toc-wrapper" style={{display: 'none'}}>
-                        <PageTableOfContents title={strings.privacy_page.table_of_contents} isMobile={true}>
+                    <div className="mobile-toc-wrapper">
+                        <PageTableOfContents title={t.table_of_contents || "Table of Contents"} isMobile={true}>
                             {renderTocItems()}
                         </PageTableOfContents>
                     </div>
@@ -96,17 +91,17 @@ export default function PrivacyViewer({markdownContent, appConfig, strings}) {
                 </div>
 
                 <ViewerSidebar
-                    cardTitle={strings.privacy_page.contact_title}
-                    cardDesc={strings.privacy_page.contact_desc}
-                    cardBtnText={strings.privacy_page.contact_btn}
+                    cardTitle={t.contact_title || "Privacy Questions?"}
+                    cardDesc={t.contact_desc || "Contact us for privacy related questions."}
+                    cardBtnText={t.contact_btn || "Contact Support"}
                     onBtnClick={onSupportClick}
                 >
-                    <PageTableOfContents title={strings.privacy_page.table_of_contents} isMobile={false}>
+                    <PageTableOfContents title={t.table_of_contents || "Table of Contents"} isMobile={false}>
                         {renderTocItems()}
                     </PageTableOfContents>
                 </ViewerSidebar>
 
-                <BackToTop strings={strings.changelog}/>
+                <BackToTop strings={strings?.changelog}/>
             </div>
         </div>
     );
