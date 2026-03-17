@@ -1,3 +1,4 @@
+// src/components/layout/AppNavbar.jsx
 import React, {useState, useEffect, useRef} from 'react';
 import {motion, AnimatePresence} from 'framer-motion';
 import {useNavigate, useLocation} from 'react-router-dom';
@@ -33,7 +34,10 @@ const GLASS_STYLE = (isScrolled, isActive = false) => ({
     backdropFilter: 'blur(24px)',
     WebkitBackdropFilter: 'blur(24px)',
     border: '1px solid var(--md-sys-color-outline-variant)',
-    boxShadow: isScrolled ? '0 10px 40px rgba(0,0,0,0.18)' : '0 4px 16px rgba(0,0,0,0.08)',
+    // Corrigido para adaptar o contraste da sombra ao Light/Dark mode
+    boxShadow: isScrolled
+        ? '0 10px 40px rgba(var(--md-sys-color-shadow-rgb), 0.18)'
+        : '0 4px 16px rgba(var(--md-sys-color-shadow-rgb), 0.08)',
     transform: 'translateZ(0)',
     willChange: 'transform, opacity'
 });
@@ -61,14 +65,6 @@ const MENU_CONTAINER_VARIANTS = {
 /**
  * AppNavbar Component.
  * A responsive, glassmorphic navigation bar.
- *
- * @component
- * @param {object} props - Component props.
- * @param {object} props.config - Configuration object for the app.
- * @param {string} props.activePage - The ID of the currently active page.
- * @param {Function} props.onNavigate - Callback function triggered when a nav item is clicked.
- * @param {object} props.strings - Localization strings for labels.
- * @returns {React.ReactElement} The rendered Navbar.
  */
 export default function AppNavbar({config, activePage, onNavigate, strings}) {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -183,13 +179,13 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
                         padding: isDesktopSpace ? '10px 24px 10px 12px' : '6px',
                         display: 'flex',
                         alignItems: 'center',
-                        borderRadius: isDesktopSpace ? '100px' : '100px',
+                        borderRadius: '100px',
                         height: isDesktopSpace ? '64px' : '56px',
                         flexShrink: 1,
                         maxWidth: isDesktopSpace ? '1200px' : '100%',
                         width: isDesktopSpace ? '100%' : 'auto',
                         justifyContent: isDesktopSpace ? 'space-between' : 'flex-start',
-                        transition: 'all 0.3s ease'
+                        transition: 'border-radius 0.3s ease, height 0.3s ease, width 0.3s ease'
                     }}
                 >
                     <div style={{display: 'flex', alignItems: 'center'}}>
@@ -278,22 +274,7 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
                                     <button
                                         key={item.id}
                                         onClick={() => handleNavClick(item.id)}
-                                        style={{
-                                            position: 'relative',
-                                            background: 'transparent',
-                                            color: isActive ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface-variant)',
-                                            border: 'none',
-                                            borderRadius: '100px',
-                                            padding: '10px 18px',
-                                            fontSize: '0.9rem',
-                                            fontWeight: 600,
-                                            cursor: 'pointer',
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            gap: '8px',
-                                            zIndex: 1,
-                                            minWidth: 'fit-content'
-                                        }}
+                                        className={`nav-link ${isActive ? 'active' : ''}`}
                                     >
                                         {isActive && (
                                             <motion.span
@@ -391,21 +372,7 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
                                             key={item.id}
                                             variants={MENU_ITEM_VARIANTS}
                                             onClick={() => handleNavClick(item.id)}
-                                            style={{
-                                                background: activePage === item.id ? 'var(--md-sys-color-secondary-container)' : 'var(--md-sys-color-surface-container-high)',
-                                                color: activePage === item.id ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-surface)',
-                                                border: 'none',
-                                                borderRadius: '18px',
-                                                padding: '16px',
-                                                fontSize: '1rem',
-                                                fontWeight: 500,
-                                                cursor: 'pointer',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                gap: '16px',
-                                                textAlign: 'left',
-                                                width: '100%'
-                                            }}
+                                            className={`mobile-nav-item ${activePage === item.id ? 'active' : ''}`}
                                             whileTap={{scale: 0.97}}
                                         >
                                             <span
@@ -417,7 +384,8 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
                                                     display: 'flex',
                                                     alignItems: 'center',
                                                     justifyContent: 'center',
-                                                    color: 'var(--md-sys-color-primary)'
+                                                    color: 'var(--md-sys-color-primary)',
+                                                    flexShrink: 0
                                                 }}
                                             >
                                                 <span className="material-symbols-outlined">
