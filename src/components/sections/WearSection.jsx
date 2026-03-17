@@ -6,9 +6,11 @@ import {PulseWatchScreen, CompassWatchScreen} from './MockWatchScreens';
 /**
  * Section highlighting Wear OS capabilities with dual watch visuals.
  *
- * @param {Object} pulseConfig - Pixel Pulse configuration.
- * @param {Object} compassConfig - Pixel Compass configuration.
- * @param {Object} texts - Text content for title and subtitle.
+ * @param {Object} props
+ * @param {Object} props.pulseConfig - Pixel Pulse configuration.
+ * @param {Object} props.compassConfig - Pixel Compass configuration.
+ * @param {Object} props.texts - Text content for title and subtitle.
+ * @returns {JSX.Element}
  */
 export default function WearSection({pulseConfig, compassConfig, texts}) {
     return (
@@ -27,7 +29,8 @@ export default function WearSection({pulseConfig, compassConfig, texts}) {
                 <div style={{
                     display: 'inline-flex', alignItems: 'center', gap: '8px',
                     padding: '6px 16px', borderRadius: '100px',
-                    background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)',
+                    background: 'rgba(var(--md-sys-color-on-surface-rgb), 0.05)',
+                    border: '1px solid rgba(var(--md-sys-color-on-surface-rgb), 0.1)',
                     marginBottom: '24px'
                 }}>
                     <span className="material-symbols-outlined" style={{fontSize: '18px'}}>watch</span>

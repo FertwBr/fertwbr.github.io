@@ -8,9 +8,11 @@ import {useNavigate} from 'react-router-dom';
  * Features expanding panels, depth parallax effects, and dynamic focus states.
  * Fully responsive: Horizontal split on Desktop, Vertical split on Mobile.
  *
- * @param {Object} pulseConfig - Configuration for Pixel Pulse app.
- * @param {Object} compassConfig - Configuration for Pixel Compass app.
- * @param {Object} texts - Localized texts for actions.
+ * @param {Object} props
+ * @param {Object} props.pulseConfig - Configuration for Pixel Pulse app.
+ * @param {Object} props.compassConfig - Configuration for Pixel Compass app.
+ * @param {Object} props.texts - Localized texts for actions.
+ * @returns {JSX.Element}
  */
 export default function SplitChoice({pulseConfig, compassConfig, texts}) {
     const [focusedSide, setFocusedSide] = useState(null);
@@ -49,7 +51,7 @@ export default function SplitChoice({pulseConfig, compassConfig, texts}) {
             display: 'flex',
             flexDirection: isMobile ? 'column' : 'row',
             overflow: 'hidden',
-            background: '#000',
+            background: 'var(--md-sys-color-surface)',
             marginTop: '0'
         }} onMouseLeave={handleLeave}>
 
@@ -62,14 +64,15 @@ export default function SplitChoice({pulseConfig, compassConfig, texts}) {
                 isMobile={isMobile}
                 onHover={() => handleHover('left')}
                 onClick={() => handleClick('left', '/pixelpulse')}
-                gradient="linear-gradient(135deg, var(--md-sys-color-primary-container), #1a1a1f)"
+                gradient="linear-gradient(135deg, var(--md-sys-color-primary-container), var(--md-sys-color-surface-container))"
                 accentColor="var(--md-sys-color-primary)"
+                onAccentColor="var(--md-sys-color-on-primary)"
             />
 
             <div style={{
                 width: isMobile ? '100%' : '1px',
                 height: isMobile ? '1px' : '100%',
-                background: 'rgba(255,255,255,0.1)',
+                background: 'var(--md-sys-color-outline-variant)',
                 zIndex: 10,
                 position: 'relative',
                 display: 'flex',
@@ -85,9 +88,9 @@ export default function SplitChoice({pulseConfig, compassConfig, texts}) {
                     style={{
                         position: 'absolute',
                         [isMobile ? 'height' : 'width']: '4px',
-                        background: '#fff',
+                        background: 'var(--md-sys-color-on-surface)',
                         borderRadius: '2px',
-                        boxShadow: '0 0 20px rgba(255,255,255,0.5)'
+                        boxShadow: '0 0 20px rgba(var(--md-sys-color-on-surface-rgb), 0.3)'
                     }}
                 />
             </div>
@@ -101,8 +104,9 @@ export default function SplitChoice({pulseConfig, compassConfig, texts}) {
                 isMobile={isMobile}
                 onHover={() => handleHover('right')}
                 onClick={() => handleClick('right', '/pixelcompass')}
-                gradient="linear-gradient(225deg, var(--md-sys-color-tertiary-container), #1a1a1f)"
+                gradient="linear-gradient(225deg, var(--md-sys-color-tertiary-container), var(--md-sys-color-surface-container))"
                 accentColor="var(--md-sys-color-tertiary)"
+                onAccentColor="var(--md-sys-color-on-tertiary)"
             />
         </div>
     );
@@ -118,7 +122,8 @@ function SplitPanel({
                         onHover,
                         onClick,
                         gradient,
-                        accentColor
+                        accentColor,
+                        onAccentColor
                     }) {
     const flexGrowValue = isFocused ? 3 : isDimmed ? 1 : 1.5;
 
@@ -129,7 +134,7 @@ function SplitPanel({
             onClick={onClick}
             animate={{
                 flexGrow: flexGrowValue,
-                filter: isDimmed ? 'grayscale(0.8) brightness(0.4)' : 'grayscale(0) brightness(1)'
+                filter: isDimmed ? 'grayscale(0.8) brightness(0.7)' : 'grayscale(0) brightness(1)'
             }}
             transition={{type: "spring", stiffness: 150, damping: 25}}
             style={{
@@ -151,14 +156,14 @@ function SplitPanel({
                 animate={{
                     scale: isFocused ? 1.2 : 1,
                     [isMobile ? 'y' : 'x']: isFocused ? (side === 'first' ? -50 : 50) : 0,
-                    opacity: isFocused ? 0.1 : 0.05
+                    opacity: isFocused ? 0.08 : 0.03
                 }}
                 transition={{duration: 0.8}}
                 style={{
                     position: 'absolute',
                     fontSize: isMobile ? '20vw' : '15vw',
                     fontWeight: 900,
-                    color: '#fff',
+                    color: 'var(--md-sys-color-on-surface)',
                     whiteSpace: 'nowrap',
                     pointerEvents: 'none',
                     userSelect: 'none',
@@ -190,7 +195,7 @@ function SplitPanel({
                         width: 'clamp(60px, 8vw, 120px)',
                         borderRadius: '22px',
                         marginBottom: isMobile ? '12px' : '32px',
-                        boxShadow: `0 20px 50px -10px ${isFocused ? accentColor : 'rgba(0,0,0,0.3)'}`
+                        boxShadow: `0 20px 50px -10px ${isFocused ? accentColor : 'rgba(var(--md-sys-color-shadow-rgb), 0.3)'}`
                     }}
                 />
 
@@ -222,7 +227,7 @@ function SplitPanel({
                                 fontWeight: 500,
                                 color: 'var(--md-sys-color-on-surface-variant)',
                                 display: isMobile && !isFocused ? 'none' : 'block'
-                            }}>`
+                            }}>
                                 {actionText}
                             </p>
 
@@ -231,12 +236,12 @@ function SplitPanel({
                                 padding: '12px 32px',
                                 borderRadius: '100px',
                                 background: accentColor,
-                                color: '#fff',
+                                color: onAccentColor,
                                 fontWeight: 600,
                                 display: 'inline-flex',
                                 alignItems: 'center',
                                 gap: '8px',
-                                boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
+                                boxShadow: '0 4px 15px rgba(var(--md-sys-color-shadow-rgb), 0.2)',
                                 opacity: isMobile && !isFocused ? 0 : 1
                             }}>
                                 Explore

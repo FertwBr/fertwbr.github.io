@@ -26,7 +26,7 @@ export default function HomePrivacy({strings, onNavigate}) {
                         className="glass-card"
                         onClick={() => onNavigate('privacy')}
                         style={{padding: '28px'}}
-                        whileHover={{y: -5, cursor: 'pointer', backgroundColor: 'rgba(255,255,255,0.03)'}}
+                        whileHover={{y: -5, cursor: 'pointer', backgroundColor: 'rgba(var(--md-sys-color-on-surface-rgb), 0.05)'}}
                     >
                   <span className="material-symbols-outlined"
                         style={{fontSize: '36px', color: 'var(--md-sys-color-primary)', marginBottom: '16px'}}>

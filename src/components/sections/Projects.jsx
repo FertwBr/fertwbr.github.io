@@ -6,8 +6,9 @@ import {Link, useNavigate} from "react-router-dom";
  * Projects Section Component.
  * Displays a list of projects with 3D tilt effects and glassmorphism.
  *
- * @param {object} props - Component props.
- * @param {object} props.t - Translations for the projects section.
+ * @param {Object} props - Component props.
+ * @param {Object} props.t - Translations for the projects section.
+ * @returns {JSX.Element}
  */
 export default function Projects({t}) {
     return (
@@ -160,7 +161,7 @@ function ProjectCard({project, t, index}) {
                             style={{
                                 width: 'clamp(100px, 20vw, 140px)',
                                 height: 'auto',
-                                filter: 'drop-shadow(0 15px 30px rgba(0,0,0,0.3))',
+                                filter: 'drop-shadow(0 15px 30px rgba(var(--md-sys-color-shadow-rgb), 0.3))',
                                 objectFit: 'contain'
                             }}
                         />

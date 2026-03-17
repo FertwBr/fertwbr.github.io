@@ -101,7 +101,7 @@ export default function Hero({t}) {
                         borderRadius: '50%',
                         padding: '4px',
                         background: 'linear-gradient(135deg, var(--md-sys-color-primary), var(--md-sys-color-tertiary))',
-                        boxShadow: '0 20px 50px rgba(var(--md-sys-color-shadow-rgb, 0,0,0), 0.3)',
+                        boxShadow: '0 20px 50px rgba(var(--md-sys-color-shadow-rgb), 0.3)',
                         position: 'relative'
                     }}
                 >
