@@ -1,61 +1,200 @@
-# Política de Privacidad de Pixel Pulse
+# Política de Privacidad para Pixel Pulse
 
-**Última actualización:** 06 de enero de 2026
+**Última Actualización:** 17 de marzo de 2026
 
-¡Bienvenido a Pixel Pulse! Esta Política de Privacidad explica cómo **fertwbr** ("nosotros", "nos" o "nuestro") maneja la información cuando usted utiliza nuestras aplicaciones móviles y para dispositivos vestibles Pixel Pulse (el "Servicio").
+¡Bienvenido a Pixel Pulse! Esta Política de Privacidad explica cómo el **fertwbr** ("nosotros", "nos" o "nuestro")
+maneja la información cuando usted utiliza nuestras aplicaciones móviles y portátiles Pixel Pulse (el "Servicio").
 
-## 1. Información que procesamos
+Nuestro compromiso es con su privacidad. El Servicio está diseñado para funcionar principalmente mediante el *
+*procesamiento local en su dispositivo**, para minimizar la transmisión externa de datos siempre que sea posible.
 
-Nuestro compromiso es con su privacidad. El Servicio está diseñado para funcionar casi totalmente de forma local en su dispositivo.
+Esta política también refleja el cumplimiento de las regulaciones brasileñas de privacidad, incluyendo la **Lei Geral de
+Proteção de Dados (LGPD)** y la **Lei nº 15.211/2025 ("ECA Digital")**, la cual establece protecciones adicionales para
+menores en entornos digitales.
 
-**a) Datos de audio (Acceso al micrófono):**
-* **Finalidad:** La funcionalidad central del Servicio requiere acceso al micrófono de su dispositivo para medir el nivel de presión sonora ambiental (decibelios).
-* **Procesamiento:** Estos datos de audio se procesan **en tiempo real, totalmente de forma local en su dispositivo**. El audio sin procesar se descarta inmediatamente después de calcular el nivel de decibelios. **No almacenamos, grabamos ni transmitimos su audio sin procesar fuera de su dispositivo.**
-* **Activador de recopilación:** El acceso al micrófono está activo cuando:
-    1.  Usted está utilizando activamente la aplicación (primer plano).
-    2.  Usted habilita explícitamente el **Monitoreo en segundo plano** o las **Sesiones en vivo**. En estos casos, la aplicación se activa periódicamente o ejecuta un **Foreground Service** para muestrear los niveles de sonido mientras la aplicación está cerrada o la pantalla está apagada. Siempre se mostrará una notificación persistente cuando el monitoreo en segundo plano esté activo.
+## 1. Información que Procesamos
 
-**b) Datos de sesión y exposición (Almacenados localmente):**
-* **Finalidad:** Proporcionar historial, gráficos y análisis de salud relacionados con su entorno sonoro.
-* **Datos almacenados:** Esto incluye marcas de tiempo (*timestamps*), duración, valores de decibelios calculados (mín/prom/máx) y métricas de dosis de exposición.
-* **Almacenamiento:** Estos datos se almacenan en una **base de datos local y privada en su dispositivo**. No se nos transmiten a nosotros ni a ningún servidor en la nube gestionado por nosotros. Usted tiene control total para eliminar estos datos en cualquier momento a través de la configuración de la aplicación.
+### a) Datos de Audio (Acceso al Micrófono)
 
-**c) Sincronización con Wear OS:**
-* **Finalidad:** Permitirle ver los datos grabados en su reloj dentro de la aplicación del teléfono.
-* **Método:** Si utiliza la aplicación complementaria para Wear OS, los datos calculados (no el audio sin procesar) se transfieren directamente entre su reloj y el teléfono utilizando la API local *Android Wearable Data Layer* (vía Bluetooth o Wi-Fi). Estos datos permanecen dentro del ecosistema de su dispositivo personal.
+**Propósito:**
 
-**d) Información de compras en la aplicación (Pixel Pulse+):**
-* **Finalidad:** Desbloquear funciones **Premium** mediante una **compra única**.
-* **Datos procesados por Google Play:** Todas las transacciones de compra son procesadas directamente por el **sistema de facturación de Google Play**. Nosotros **no** recopilamos ni almacenamos su información de pago. Solo recibimos un token de confirmación para verificar el estado de su licencia.
+La funcionalidad principal del Servicio requiere el acceso al micrófono de su dispositivo para medir los niveles de
+presión sonora ambiental (decibelios).
+
+**Procesamiento:**
+
+Las señales de audio se procesan **en tiempo real localmente en su dispositivo** con el fin de calcular los niveles de
+decibelios.
+
+La señal de audio sin procesar se descarta inmediatamente después de que se calcula la medición.
+
+**Nosotros no almacenamos, grabamos ni transmitimos audio sin procesar fuera de su dispositivo.**
+
+**Desencadenante de Recopilación:**
+
+El acceso al micrófono puede estar activo cuando:
+
+1. Usted está utilizando activamente la aplicación.
+2. Usted habilita el **Monitoreo en Segundo Plano** (Background Monitoring) o las **Sesiones en Vivo** (Live Sessions).
+3. La medición se está ejecutando en un dispositivo **Wear OS** conectado.
+
+Siempre se mostrará una notificación persistente cuando la medición en segundo plano esté activa.
+
+### b) Datos de Sesión y Exposición (Almacenados Localmente)
+
+**Propósito:**
+
+Para proporcionar gráficos, historial, análisis de exposición e información sobre la seguridad auditiva.
+
+**Datos Almacenados:**
+
+* marcas de tiempo (timestamps)
+* duración de la exposición
+* valores calculados de decibelios (mín. / prom. / máx.)
+* métricas de dosis de exposición
+* resúmenes analíticos derivados de las sesiones grabadas
+
+**Almacenamiento:**
+
+Esta información se almacena **localmente en una base de datos privada en su dispositivo**.
+
+**No se transmite a los servidores operados por el fertwbr**.
+
+Los usuarios pueden eliminar estos datos en cualquier momento utilizando las herramientas de gestión de datos de la
+aplicación.
+
+### c) Sincronización con Wear OS
+
+Si usted utiliza la aplicación complementaria Wear OS, los datos de medición calculados pueden sincronizarse entre su
+reloj y su teléfono.
+
+Esta sincronización se produce utilizando la **Android Wearable Data Layer API**, la cual transfiere datos directamente
+entre sus dispositivos personales a través de Bluetooth, Wi-Fi u otros métodos de conectividad local.
+
+El audio sin procesar **nunca se transfiere** entre dispositivos.
+
+### d) Rutinas Definidas por el Usuario
+
+El Servicio puede permitir a los usuarios configurar rutinas personales, tales como **horarios de trabajo o períodos de
+sueño**.
+
+Estas configuraciones ayudan a generar alertas contextuales e información analítica.
+
+Toda la información de la rutina se almacena **solo localmente en su dispositivo** y nunca se transmite a nuestros
+servidores.
+
+### e) Información de Compra en la Aplicación (Pixel Pulse+)
+
+Las características premium se desbloquean a través de una **compra única** procesada en su totalidad por la *
+*Facturación de Google Play** (Google Play Billing).
+
+Nosotros no recopilamos ni almacenamos detalles de pago.
+
+Solo recibimos un token de validación de licencia de Google Play para confirmar el estado de la compra.
+
+### f) Comentarios, Registros y Datos de Diagnóstico Opcionales
+
+La aplicación proporciona una **herramienta de soporte opcional en la aplicación** que permite a los usuarios enviar
+comentarios.
+
+El envío de comentarios es **completamente voluntario**.
+
+Los usuarios pueden elegir incluir:
+
+* una dirección de e-mail de contacto
+* comentarios escritos
+* capturas de pantalla o archivos adjuntos
+* información de diagnóstico opcional
+
+La información de diagnóstico puede incluir detalles técnicos como:
+
+* modelo del dispositivo
+* versión de Android
+* versión de la aplicación
+* configuraciones de idioma / región
+
+Esta información se utiliza únicamente para la solución de problemas y la mejora del Servicio.
+
+Los usuarios pueden editar o eliminar la información antes de enviarla.
 
 ## 2. Permisos
 
+La aplicación puede solicitar los siguientes permisos:
+
 * **Micrófono:** Requerido para medir los niveles de sonido.
-* **Notificaciones:** Requeridas para enviarle alertas si la exposición al sonido excede los umbrales seguros (recomendaciones de la OMS) y para mostrar el indicador persistente cuando los servicios en segundo plano están en ejecución.
-* **Foreground Service:** Requerido para mantener el motor de medición funcionando con precisión cuando la pantalla está apagada.
+* **Notificaciones:** Utilizada para alertas de exposición e indicadores de servicio en primer plano.
+* **Servicio en Primer Plano:** Requerido para mantener mediciones precisas mientras la pantalla está apagada.
 
-## 3. Intercambio y divulgación de información
+## 3. Compartición y Divulgación de Información
 
-No vendemos, alquilamos ni compartimos su información personal o datos de sesión. Dado que todos los datos centrales se procesan y almacenan localmente en su dispositivo, no tenemos acceso a ellos para compartirlos con terceros.
+Nosotros **no** vendemos, alquilamos ni compartimos información personal con anunciantes.
 
-## 4. Seguridad, retención y eliminación de datos
+Dado que la mayor parte de los datos de la aplicación se procesa y almacena localmente en el dispositivo del usuario, el
+fertwbr generalmente **no tiene acceso a los datos de medición del usuario**.
 
-* **Seguridad:** Sus datos están protegidos por el *sandbox* de seguridad estándar del sistema operativo **Android**.
-* **Retención:** Los datos se conservan en su dispositivo solo mientras mantenga instalada la aplicación.
-* **Eliminación:** Puede eliminar todos los datos de exposición a través de la pantalla "Configuración > Exposición sonora > Gestión de datos". Desinstalar la aplicación también eliminará permanentemente todos los datos almacenados localmente.
+La información solo puede compartirse en las siguientes circunstancias limitadas:
 
-## 5. Exención de responsabilidad médica
+* cuando un usuario envía voluntariamente comentarios de soporte
+* cuando lo exija la ley o una solicitud legal válida
 
-Pixel Pulse **no es un dispositivo médico**. Los datos y análisis proporcionados son solo para fines informativos y se basan en una calibración genérica. No deben utilizarse para diagnósticos médicos profesionales ni como sustituto de equipos de protección auditiva profesional en entornos industriales.
+## 4. Seguridad, Retención y Eliminación de Datos
 
-## 6. Privacidad infantil
+### Seguridad
 
-El Servicio no está destinado a menores de 13 años. No recopilamos intencionalmente información de identificación personal de niños.
+Los datos de exposición local pueden estar protegidos mediante mecanismos de encriptación soportados por el sistema
+operativo Android y bibliotecas nativas.
+
+### Retención
+
+Los datos se retienen en el dispositivo del usuario durante el tiempo que el usuario decida conservarlos.
+
+### Integración de Copias de Seguridad del Sistema
+
+Algunos dispositivos pueden incluir automáticamente los datos de la aplicación en **copias de seguridad del sistema
+Android** (por ejemplo, copias de seguridad de Google o copias de seguridad de Google Drive).
+
+Estas copias de seguridad están **controladas en su totalidad por el sistema operativo del dispositivo y la
+configuración de la cuenta del usuario**, no por el fertwbr.
+
+Pixel Pulse **no accede, gestiona ni almacena estas copias de seguridad**.
+
+Los usuarios pueden controlar el comportamiento de las copias de seguridad a través de la configuración de su
+dispositivo.
+
+### Eliminación
+
+Los usuarios pueden eliminar los datos de exposición grabados en cualquier momento a través de las herramientas de
+gestión de datos en la aplicación.
+
+Al desinstalar la aplicación, también se eliminarán los datos almacenados localmente en el dispositivo.
+
+## 5. Descargo de Responsabilidad Médica
+
+Pixel Pulse **no es un dispositivo médico**.
+
+Los datos y la información proporcionados son estimaciones informativas y no deben utilizarse para un diagnóstico médico
+profesional ni como sustituto de un equipo de protección auditiva profesional.
+
+## 6. Privacidad de los Niños
+
+El Servicio no está destinado a niños menores de **13** años.
+
+Sin embargo, la aplicación puede ser accesible para usuarios adolescentes dependiendo de la configuración de
+distribución de la plataforma.
+
+De acuerdo con las regulaciones brasileñas de protección digital, incluyendo el **ECA Digital (Lei nº 15.211/2025)**, la
+aplicación está diseñada para minimizar el procesamiento de datos personales y no implementa seguimiento de
+comportamiento ni sistemas de publicidad.
 
 ## 7. Cambios en esta Política de Privacidad
 
-Podemos actualizar nuestra Política de Privacidad. Le notificaremos cualquier cambio significativo publicando la nueva Política en esta página, actualizando la fecha de "Última actualización" y/o a través de una notificación en la aplicación.
+Podemos actualizar esta Política de Privacidad periódicamente.
+
+Los cambios significativos se comunicarán actualizando la política en esta página y actualizando la fecha de "Última
+Actualización".
 
 ## 8. Contáctenos
 
-Si tiene alguna pregunta sobre esta Política de Privacidad, contáctenos en: **fertwbr@programmer.net**
+Si tiene alguna pregunta sobre esta Política de Privacidad, por favor contáctenos en:
+
+**[contact@fertwbr.com](mailto:contact@fertwbr.com)**
