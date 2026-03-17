@@ -22,11 +22,10 @@ import FeedbackPage from "./pages/FeedbackPage";
 import {pixelPulseConfig} from './pages/pixel-pulse/PixelPulseConfig';
 import {pixelCompassConfig} from './pages/pixel-compass/PixelCompassConfig';
 import {siteProjectConfig} from './config';
+import {setupThemeListener} from './theme/themeUtils';
 
 /**
  * Determines which Home component to render based on the hostname.
- * - apps.fertwbr.com -> AppsHome
- * - fertwbr.com (or others) -> PortfolioHome
  */
 const DomainAwareHome = () => {
     const hostname = window.location.hostname;
@@ -58,6 +57,7 @@ function AnimatedRoutes() {
     const compassIds = Object.keys(pixelCompassConfig.pages);
 
     useEffect(() => {
+        setupThemeListener();
         console.log(
             "%c Designed & Engineered by Fernando Vaz ",
             "background: #1a1a1a; color: #d0bcff; border-radius: 4px; padding: 8px; font-size: 14px; font-weight: bold; border: 1px solid #d0bcff;"
