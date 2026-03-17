@@ -6,6 +6,8 @@ import {parseOverview} from '../../utils/overviewParser';
 import BackToTop from '../common/BackToTop';
 import PageTableOfContents from '../common/PageTableOfContents';
 import {useSectionScroll} from "../../hooks/useSectionScroll";
+import ViewerHeader from '../common/ViewerHeader';
+import ViewerSidebar from '../common/ViewerSidebar';
 
 /**
  * Maps a tech category string to a Material Symbol icon name.
@@ -257,23 +259,9 @@ export default function OverviewViewer({markdownContent, appConfig, strings}) {
 
     const renderTocItems = () => (
         data.sections.map((section) => (
-            <button key={section.id} onClick={() => scrollToSection(section.id)} style={{
-                textAlign: 'left',
-                background: activeSection === section.id ? 'var(--md-sys-color-secondary-container)' : 'transparent',
-                border: 'none',
-                padding: '12px 16px',
-                borderRadius: '12px',
-                cursor: 'pointer',
-                fontSize: '0.9rem',
-                color: activeSection === section.id ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-surface-variant)',
-                fontWeight: activeSection === section.id ? 700 : 500,
-                transition: 'all 0.2s',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                width: '100%',
-                marginBottom: '4px'
-            }}>
+            <button key={section.id} onClick={() => scrollToSection(section.id)}
+                    className={`toc-btn ${activeSection === section.id ? 'active' : 'inactive'}`}
+                    style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
                 {section.title}
                 {activeSection === section.id && (
                     <span className="material-symbols-outlined" style={{fontSize: '16px'}}>arrow_left</span>
@@ -284,59 +272,25 @@ export default function OverviewViewer({markdownContent, appConfig, strings}) {
 
     return (
         <div style={{height: '100%', display: 'flex', flexDirection: 'column', minHeight: 0}}>
-            <div style={{
-                marginBottom: '60px',
-                paddingBottom: '32px',
-                borderBottom: '1px solid var(--md-sys-color-outline-variant)',
-                flexShrink: 0
-            }}>
-                <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    flexWrap: 'wrap',
-                    gap: '24px'
-                }}>
-                    <div style={{flex: 1, minWidth: '300px'}}>
-                        <div style={{
-                            display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px',
-                            color: 'var(--md-sys-color-on-surface-variant)', fontSize: '0.9rem', fontWeight: 500
-                        }}>
-                            <span>{appConfig?.appName}</span>
-                            <span className="material-symbols-outlined" style={{fontSize: '16px'}}>chevron_right</span>
-                            <div style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '6px',
-                                color: 'var(--md-sys-color-primary)',
-                                fontWeight: 700
-                            }}>
-                                <span className="material-symbols-outlined" style={{fontSize: '18px'}}>terminal</span>
-                                <span>{strings.overview_page.title}</span>
-                            </div>
-                        </div>
-                        <h1 style={{
-                            fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 800, margin: 0,
-                            lineHeight: 1.1, letterSpacing: '-1px', color: 'var(--md-sys-color-on-surface)'
-                        }}>{strings.overview_page.title}</h1>
-                        <p style={{
-                            fontSize: '1.15rem', color: 'var(--md-sys-color-on-surface-variant)', marginTop: '16px',
-                            maxWidth: '700px', lineHeight: 1.6
-                        }}>{strings.overview_page.subtitle}</p>
-                    </div>
-                    {appConfig?.sourceLink && (
+            <ViewerHeader
+                appName={appConfig?.appName}
+                icon="terminal"
+                title={strings.overview_page.title}
+                subtitle={strings.overview_page.subtitle}
+                actionNode={
+                    appConfig?.sourceLink && (
                         <a href={appConfig.sourceLink} target="_blank" rel="noreferrer" className="btn-glow">
                             <span className="material-symbols-outlined">code</span> {strings.overview_page.github_btn}
                         </a>
-                    )}
-                </div>
-            </div>
+                    )
+                }
+            />
 
-            <div style={{display: 'flex', gap: '80px', flex: 1, alignItems: 'flex-start'}}>
+            <div className="viewer-layout" style={{flex: 1}}>
 
-                <div style={{flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0}}>
+                <div className="viewer-main-content" style={{display: 'flex', flexDirection: 'column'}}>
 
-                    <div className="mobile-toc-wrapper" style={{display: 'none', marginBottom: '40px'}}>
+                    <div className="mobile-toc-wrapper" style={{display: 'none'}}>
                         <PageTableOfContents title={strings.overview_page.toc_title} isMobile={true}>
                             {renderTocItems()}
                         </PageTableOfContents>
@@ -417,47 +371,21 @@ export default function OverviewViewer({markdownContent, appConfig, strings}) {
                     </div>
                 </div>
 
-                <div className="desktop-toc-wrapper" style={{
-                    width: '300px', flexShrink: 0, position: 'sticky', top: '100px',
-                    display: 'flex', flexDirection: 'column', gap: '24px'
-                }}>
+                <ViewerSidebar
+                    cardIcon="info"
+                    cardTitle={strings.overview_page.about_docs_title || "About"}
+                    cardDesc={strings.overview_page.dynamic_docs_note}
+                    customCardStyle={{
+                        background: 'linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%)',
+                        borderRadius: '24px'
+                    }}
+                >
                     <PageTableOfContents title={strings.overview_page.toc_title} isMobile={false}>
                         {renderTocItems()}
                     </PageTableOfContents>
-
-                    <div className="glass-card" style={{
-                        padding: '24px',
-                        borderRadius: '24px',
-                        border: '1px solid var(--md-sys-color-outline-variant)',
-                        background: 'linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%)'
-                    }}>
-                        <div style={{display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px'}}>
-                            <span className="material-symbols-outlined"
-                                  style={{color: 'var(--md-sys-color-primary)'}}>info</span>
-                            <span style={{
-                                fontWeight: 700,
-                                fontSize: '0.9rem'
-                            }}>{strings.overview_page.about_docs_title || "About"}</span>
-                        </div>
-                        <p style={{
-                            fontSize: '0.85rem',
-                            color: 'var(--md-sys-color-on-surface-variant)',
-                            lineHeight: 1.5,
-                            margin: 0
-                        }}>
-                            {strings.overview_page.dynamic_docs_note}
-                        </p>
-                    </div>
-                </div>
+                </ViewerSidebar>
 
                 <BackToTop strings={strings.changelog}/>
-
-                <style>{`
-                  @media (max-width: 1200px) {
-                    .desktop-toc-wrapper { display: none !important; }
-                    .mobile-toc-wrapper { display: block !important; }
-                  }
-                `}</style>
             </div>
         </div>
     );
