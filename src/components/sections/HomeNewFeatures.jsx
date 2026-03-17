@@ -52,13 +52,13 @@ const getIconForText = (text) => {
  * Component that displays the latest features from the changelog.
  *
  * Attempts to load the localized changelog first. If that fails (e.g., file doesn't exist),
- * it falls back to the English version ('en'). If both fail, it renders nothing
- * (or falls back to props provided strings via the parent component logic).
+ * it falls back to the English version ('en'). If both fail, it renders nothing.
  *
  * @param {Object} props - Component props.
  * @param {Object} props.appConfig - Configuration object for the app (used to locate Markdown files).
  * @param {Object} props.strings - Fallback strings if no changelog is found or for labels.
  * @param {Function} props.onNavigate - Callback to handle navigation to the full changelog page.
+ * @returns {JSX.Element}
  */
 export default function HomeNewFeatures({appConfig, strings, onNavigate}) {
     const {language} = useLanguage();
@@ -147,14 +147,14 @@ export default function HomeNewFeatures({appConfig, strings, onNavigate}) {
             style={{marginBottom: '120px'}}
         >
             <motion.div variants={fadeInUp} style={{textAlign: 'center', marginBottom: '48px'}}>
-         <span style={{
-             color: 'var(--md-sys-color-primary)',
-             fontWeight: 700,
-             letterSpacing: '1.5px',
-             textTransform: 'uppercase'
-         }}>
-            {versionLabel}
-         </span>
+                 <span style={{
+                     color: 'var(--md-sys-color-primary)',
+                     fontWeight: 700,
+                     letterSpacing: '1.5px',
+                     textTransform: 'uppercase'
+                 }}>
+                    {versionLabel}
+                 </span>
                 <h2 style={{fontSize: 'clamp(2rem, 6vw, 3rem)', marginTop: '12px'}}>{strings.title}</h2>
             </motion.div>
 
@@ -178,13 +178,13 @@ export default function HomeNewFeatures({appConfig, strings, onNavigate}) {
                             flexDirection: 'column',
                             justifyContent: 'flex-start'
                         }}
-                        whileHover={{scale: 1.02, backgroundColor: 'rgba(255,255,255,0.03)'}}
+                        whileHover={{scale: 1.02, backgroundColor: 'rgba(var(--md-sys-color-on-surface-rgb), 0.05)'}}
                         whileTap={{scale: 0.98}}
                     >
-             <span className="material-symbols-outlined"
-                   style={{fontSize: '40px', color: 'var(--md-sys-color-primary)', marginBottom: '20px'}}>
-               {item.icon}
-             </span>
+                         <span className="material-symbols-outlined"
+                               style={{fontSize: '40px', color: 'var(--md-sys-color-primary)', marginBottom: '20px'}}>
+                           {item.icon}
+                         </span>
                         <h3 style={{fontSize: '1.3rem', marginBottom: '12px', lineHeight: 1.3}}>{item.title}</h3>
 
                         <div style={{

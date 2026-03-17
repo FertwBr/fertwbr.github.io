@@ -4,11 +4,13 @@ import {appsHomeConfig} from '../../pages/apps-home/AppsHomeConfig';
 
 /**
  * AppsHero
- * * Renders the animated hero section text for the Apps Portal.
+ * Renders the animated hero section text for the Apps Portal.
  * Uses a masked gradient text effect and staggered animations.
  *
- * @param {string} title - The main hero title text.
- * @param {string} subtitle - The subtitle/intro text.
+ * @param {Object} props - Component props
+ * @param {string} props.title - The main hero title text.
+ * @param {string} props.subtitle - The subtitle/intro text.
+ * @returns {JSX.Element}
  */
 export default function AppsHero({title, subtitle}) {
     return (
@@ -29,8 +31,8 @@ export default function AppsHero({title, subtitle}) {
                     gap: '12px',
                     padding: '8px 20px',
                     borderRadius: '100px',
-                    background: 'rgba(255,255,255,0.05)',
-                    border: '1px solid rgba(255,255,255,0.1)',
+                    background: 'rgba(var(--md-sys-color-on-surface-rgb), 0.05)',
+                    border: '1px solid rgba(var(--md-sys-color-on-surface-rgb), 0.1)',
                     marginBottom: '24px'
                 }}>
                     <span className="material-symbols-outlined"

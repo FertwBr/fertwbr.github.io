@@ -7,7 +7,9 @@ import {appsHomeConfig} from '../../pages/apps-home/AppsHomeConfig';
  * Renders supplementary content at the bottom of the Apps Home page.
  * Includes the simulation disclaimer, shared tech stack highlights, and a link to the main portfolio.
  *
- * @param {Object} t - Localized strings object for the footer_extra section.
+ * @param {Object} props - Component props
+ * @param {Object} props.t - Localized strings object for the footer_extra section.
+ * @returns {JSX.Element}
  */
 export default function AppsHomeExtra({t}) {
     const techStack = [
@@ -22,7 +24,7 @@ export default function AppsHomeExtra({t}) {
             position: 'relative',
             zIndex: 2,
             padding: '40px 24px 80px',
-            background: '#000',
+            background: 'var(--md-sys-color-surface-container-highest)', /* Adaptável ao tema claro/escuro */
             color: 'var(--md-sys-color-on-surface)',
             display: 'flex',
             flexDirection: 'column',
@@ -31,20 +33,26 @@ export default function AppsHomeExtra({t}) {
         }}>
             <motion.p
                 initial={{opacity: 0}}
-                whileInView={{opacity: 0.4}}
+                whileInView={{opacity: 0.8}}
                 viewport={{once: true}}
                 style={{
                     fontSize: '0.75rem',
                     maxWidth: '600px',
                     textAlign: 'center',
                     fontStyle: 'italic',
-                    letterSpacing: '0.5px'
+                    letterSpacing: '0.5px',
+                    color: 'var(--md-sys-color-on-surface-variant)'
                 }}
             >
                 * {t.disclaimer}
             </motion.p>
 
-            <div style={{width: '100%', maxWidth: '800px', height: '1px', background: 'rgba(255,255,255,0.1)'}}/>
+            <div style={{
+                width: '100%',
+                maxWidth: '800px',
+                height: '1px',
+                background: 'var(--md-sys-color-outline-variant)'
+            }}/>
 
             <div style={{textAlign: 'center'}}>
                 <h4 style={{
@@ -52,7 +60,7 @@ export default function AppsHomeExtra({t}) {
                     textTransform: 'uppercase',
                     letterSpacing: '2px',
                     marginBottom: '32px',
-                    color: 'rgba(255,255,255,0.6)'
+                    color: 'var(--md-sys-color-on-surface-variant)'
                 }}>
                     {t.tech_title}
                 </h4>
@@ -74,9 +82,9 @@ export default function AppsHomeExtra({t}) {
                             <div style={{
                                 width: '48px', height: '48px',
                                 borderRadius: '50%',
-                                background: 'rgba(255,255,255,0.08)',
+                                background: 'rgba(var(--md-sys-color-on-surface-rgb), 0.08)',
                                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                border: '1px solid rgba(255,255,255,0.1)'
+                                border: '1px solid rgba(var(--md-sys-color-on-surface-rgb), 0.1)'
                             }}>
                                 <span className="material-symbols-outlined"
                                       style={{fontSize: '24px', color: 'var(--md-sys-color-primary)'}}>
@@ -100,9 +108,9 @@ export default function AppsHomeExtra({t}) {
                     gap: '12px',
                     padding: '12px 28px',
                     borderRadius: '100px',
-                    border: '1px solid rgba(255,255,255,0.2)',
+                    border: '1px solid var(--md-sys-color-outline)',
                     background: 'transparent',
-                    color: '#fff',
+                    color: 'var(--md-sys-color-on-surface)',
                     marginTop: '20px',
                     cursor: 'pointer'
                 }}

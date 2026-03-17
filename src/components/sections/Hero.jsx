@@ -1,7 +1,7 @@
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { useState, useEffect } from "react";
+import {motion, useScroll, useTransform, useSpring} from "framer-motion";
+import {useState, useEffect} from "react";
 import ScrollToLink from "../ui/ScrollToLink";
-import { SiteConfig } from '../../utils/siteConstants';
+import {SiteConfig} from '../../utils/siteConstants';
 
 /**
  * Hero section component.
@@ -11,15 +11,15 @@ import { SiteConfig } from '../../utils/siteConstants';
  * @param {Object} props.t - Translations object for the Hero section.
  * @returns {JSX.Element} The rendered Hero section.
  */
-export default function Hero({ t }) {
-    const { scrollY } = useScroll();
+export default function Hero({t}) {
+    const {scrollY} = useScroll();
 
     const yFast = useTransform(scrollY, [0, 1000], [0, -300]);
     const ySlow = useTransform(scrollY, [0, 1000], [0, -150]);
     const yReverse = useTransform(scrollY, [0, 1000], [0, 100]);
 
     const yTextRange = useTransform(scrollY, [0, 500], [0, 150]);
-    const smoothY = useSpring(yTextRange, { stiffness: 100, damping: 20 });
+    const smoothY = useSpring(yTextRange, {stiffness: 100, damping: 20});
     const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
     const [roleIndex, setRoleIndex] = useState(0);
@@ -43,12 +43,12 @@ export default function Hero({ t }) {
             boxSizing: 'border-box'
         }}>
             <motion.div
-                style={{ y: yFast, position: 'absolute', top: '10%', left: '5%', zIndex: 0, pointerEvents: 'none' }}
+                style={{y: yFast, position: 'absolute', top: '10%', left: '5%', zIndex: 0, pointerEvents: 'none'}}
             >
                 <motion.div
-                    animate={{ y: [0, -20, 0], rotate: [0, 5, 0] }}
-                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                    style={{ opacity: 0.1 }}
+                    animate={{y: [0, -20, 0], rotate: [0, 5, 0]}}
+                    transition={{duration: 5, repeat: Infinity, ease: "easeInOut"}}
+                    style={{opacity: 0.1}}
                 >
                     <span className="material-symbols-outlined" style={{
                         fontSize: 'clamp(60px, 15vw, 100px)',
@@ -58,12 +58,12 @@ export default function Hero({ t }) {
             </motion.div>
 
             <motion.div
-                style={{ y: ySlow, position: 'absolute', bottom: '15%', right: '5%', zIndex: 0, pointerEvents: 'none' }}
+                style={{y: ySlow, position: 'absolute', bottom: '15%', right: '5%', zIndex: 0, pointerEvents: 'none'}}
             >
                 <motion.div
-                    animate={{ y: [0, 30, 0], rotate: [0, -10, 0] }}
-                    transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-                    style={{ opacity: 0.1 }}
+                    animate={{y: [0, 30, 0], rotate: [0, -10, 0]}}
+                    transition={{duration: 7, repeat: Infinity, ease: "easeInOut"}}
+                    style={{opacity: 0.1}}
                 >
                     <span className="material-symbols-outlined" style={{
                         fontSize: 'clamp(80px, 18vw, 120px)',
@@ -73,12 +73,12 @@ export default function Hero({ t }) {
             </motion.div>
 
             <motion.div
-                style={{ y: yReverse, position: 'absolute', top: '20%', right: '10%', zIndex: 0, pointerEvents: 'none' }}
+                style={{y: yReverse, position: 'absolute', top: '20%', right: '10%', zIndex: 0, pointerEvents: 'none'}}
             >
                 <motion.div
-                    animate={{ scale: [1, 1.1, 1], rotate: [0, 5, 0] }}
-                    transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                    style={{ opacity: 0.05 }}
+                    animate={{scale: [1, 1.1, 1], rotate: [0, 5, 0]}}
+                    transition={{duration: 8, repeat: Infinity, ease: "easeInOut"}}
+                    style={{opacity: 0.05}}
                 >
                     <span className="material-symbols-outlined" style={{
                         fontSize: 'clamp(100px, 20vw, 140px)',
@@ -88,12 +88,12 @@ export default function Hero({ t }) {
             </motion.div>
 
             <motion.div
-                style={{ y: smoothY, opacity, textAlign: 'center', zIndex: 10, maxWidth: '900px', width: '100%' }}
+                style={{y: smoothY, opacity, textAlign: 'center', zIndex: 10, maxWidth: '900px', width: '100%'}}
             >
                 <motion.div
-                    initial={{ scale: 0, rotate: -180 }}
-                    animate={{ scale: 1, rotate: 0 }}
-                    transition={{ type: "spring", duration: 1.2 }}
+                    initial={{scale: 0, rotate: -180}}
+                    animate={{scale: 1, rotate: 0}}
+                    transition={{type: "spring", duration: 1.2}}
                     style={{
                         width: 'clamp(120px, 30vw, 160px)',
                         height: 'clamp(120px, 30vw, 160px)',
@@ -101,7 +101,7 @@ export default function Hero({ t }) {
                         borderRadius: '50%',
                         padding: '4px',
                         background: 'linear-gradient(135deg, var(--md-sys-color-primary), var(--md-sys-color-tertiary))',
-                        boxShadow: '0 20px 50px rgba(0,0,0,0.3)',
+                        boxShadow: '0 20px 50px rgba(var(--md-sys-color-shadow-rgb, 0,0,0), 0.3)',
                         position: 'relative'
                     }}
                 >
@@ -119,9 +119,9 @@ export default function Hero({ t }) {
                 </motion.div>
 
                 <motion.h1
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
+                    initial={{opacity: 0, y: 20}}
+                    animate={{opacity: 1, y: 0}}
+                    transition={{delay: 0.2}}
                     style={{
                         fontSize: 'clamp(2.2rem, 8vw, 4.5rem)',
                         fontWeight: 800,
@@ -130,13 +130,13 @@ export default function Hero({ t }) {
                         color: 'var(--md-sys-color-on-surface)'
                     }}
                 >
-                    {t.greeting} <span className="text-gradient" style={{ display: 'block' }}>{t.name}</span>
+                    {t.greeting} <span className="text-gradient" style={{display: 'block'}}>{t.name}</span>
                 </motion.h1>
 
                 <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.4 }}
+                    initial={{opacity: 0}}
+                    animate={{opacity: 1}}
+                    transition={{delay: 0.4}}
                     style={{
                         fontSize: 'clamp(1.1rem, 4vw, 1.6rem)',
                         color: 'var(--md-sys-color-on-surface-variant)',
@@ -145,14 +145,14 @@ export default function Hero({ t }) {
                     }}
                 >
                     {t.role_prefix} <span
-                    style={{ color: 'var(--md-sys-color-primary)', fontWeight: 600 }}>{t.roles[roleIndex]}</span>
+                    style={{color: 'var(--md-sys-color-primary)', fontWeight: 600}}>{t.roles[roleIndex]}</span>
                 </motion.div>
 
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.6 }}
-                    style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}
+                    initial={{opacity: 0, y: 20}}
+                    animate={{opacity: 1, y: 0}}
+                    transition={{delay: 0.6}}
+                    style={{display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap'}}
                 >
                     <ScrollToLink
                         href="#projects"
@@ -167,7 +167,7 @@ export default function Hero({ t }) {
                         }}
                     >
                         {t.cta_primary} <span className="material-symbols-outlined"
-                                              style={{ fontSize: '20px' }}>arrow_downward</span>
+                                              style={{fontSize: '20px'}}>arrow_downward</span>
                     </ScrollToLink>
 
                     <a
@@ -183,14 +183,14 @@ export default function Hero({ t }) {
                         }}
                     >
                         {t.cta_secondary} <span className="material-symbols-outlined"
-                                                style={{ fontSize: '20px' }}>mail</span>
+                                                style={{fontSize: '20px'}}>mail</span>
                     </a>
                 </motion.div>
             </motion.div>
 
             <motion.div
-                animate={{ y: [0, 10, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
+                animate={{y: [0, 10, 0]}}
+                transition={{duration: 2, repeat: Infinity}}
                 style={{
                     position: 'absolute',
                     bottom: '30px',
