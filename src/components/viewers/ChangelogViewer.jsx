@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useMemo, useRef} from 'react';
+import {createPortal} from 'react-dom';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import {motion, AnimatePresence} from 'framer-motion';
@@ -9,6 +10,7 @@ import {useLanguage} from '../../context/LanguageContext';
 import BackToTop from '../common/BackToTop';
 import PageTableOfContents from '../common/PageTableOfContents';
 import AutoTranslateBadge from '../common/AutoTranslateBadge';
+import ViewerHeader from '../common/ViewerHeader';
 
 import {
     LatestReleaseCard,
@@ -67,10 +69,18 @@ const VersionBadge = ({type, text}) => {
     const style = getTagStyle(type);
     return (
         <span style={{
-            fontSize: '0.65rem', fontWeight: 700, padding: '4px 8px', borderRadius: '6px',
-            background: style.bg, color: style.color, border: style.border !== 'transparent' ? `1px solid ${style.border}` : 'none',
-            textTransform: 'uppercase', letterSpacing: '0.5px', display: 'inline-flex',
-            alignItems: 'center', whiteSpace: 'nowrap'
+            fontSize: '0.65rem',
+            fontWeight: 700,
+            padding: '4px 8px',
+            borderRadius: '6px',
+            background: style.bg,
+            color: style.color,
+            border: style.border !== 'transparent' ? `1px solid ${style.border}` : 'none',
+            textTransform: 'uppercase',
+            letterSpacing: '0.5px',
+            display: 'inline-flex',
+            alignItems: 'center',
+            whiteSpace: 'nowrap'
         }}>
             {text || type}
         </span>
@@ -325,7 +335,7 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
                         </div>
 
                         {headers.length > 0 && (
-                            <div className="mobile-article-toc" style={{ marginTop: '8px' }}>
+                            <div className="mobile-article-toc" style={{marginTop: '8px'}}>
                                 <div style={{
                                     fontSize: '0.85rem',
                                     fontWeight: 700,
@@ -336,13 +346,14 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
                                 }}>
                                     {strings.in_this_update || "In this update"}
                                 </div>
-                                <div className="horizontal-chips" style={{ margin: '0 -24px', padding: '0 24px' }}>
+                                <div className="horizontal-chips" style={{margin: '0 -24px', padding: '0 24px'}}>
                                     {headers.map(h => (
-                                        <button key={h.id} onClick={() => scrollToSection(h.id)} className="toc-chip" style={{
-                                            background: 'var(--md-sys-color-surface)',
-                                            color: 'var(--md-sys-color-on-surface)',
-                                            border: '1px solid var(--md-sys-color-outline-variant)'
-                                        }}>
+                                        <button key={h.id} onClick={() => scrollToSection(h.id)} className="toc-chip"
+                                                style={{
+                                                    background: 'var(--md-sys-color-surface)',
+                                                    color: 'var(--md-sys-color-on-surface)',
+                                                    border: '1px solid var(--md-sys-color-outline-variant)'
+                                                }}>
                                             {h.title}
                                         </button>
                                     ))}
@@ -467,7 +478,12 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
 
     const [hideOnScroll, setHideOnScroll] = useState(false);
     const [isSticky, setIsSticky] = useState(false);
+    const containerRef = useRef(null);
     const lastScrollY = useRef(0);
+
+    const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1000);
+    const [searchPortalNode, setSearchPortalNode] = useState(null);
+    const [bottomPortalNode, setBottomPortalNode] = useState(null);
 
     const isCompass = appConfig?.appName?.toLowerCase().includes('compass');
     const isPulse = appConfig?.appName?.toLowerCase().includes('pulse');
@@ -476,6 +492,26 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
     const hasWearApp = isCompass || isPulse;
 
     const isFullScreenMode = !!versionId;
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const searchNode = document.getElementById('appbar-search-portal');
+            const bottomNode = document.getElementById('appbar-bottom-portal');
+            if (searchNode || bottomNode) {
+                if (searchNode) setSearchPortalNode(searchNode);
+                if (bottomNode) setBottomPortalNode(bottomNode);
+                if (searchNode && bottomNode) clearInterval(interval);
+            }
+        }, 100);
+
+        const handleResize = () => setIsDesktop(window.innerWidth > 1000);
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            clearInterval(interval);
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     useEffect(() => {
         setMarkdown(initialMarkdown);
@@ -644,7 +680,6 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
 
     useEffect(() => {
         if (isFullScreenMode) return;
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) setActiveId(entry.target.id.replace('ver-', ''));
@@ -691,15 +726,9 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
      */
     const renderTocButtons = () => (
         filteredVersions.map(v => (
-            <button key={v.id} onClick={() => scrollToVersion(v.id)} style={{
-                display: 'flex', width: '100%', textAlign: 'left', padding: '12px 16px',
-                background: activeId === v.id ? 'rgba(255,255,255,0.05)' : 'transparent', border: 'none',
-                color: activeId === v.id ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface-variant)',
-                fontWeight: activeId === v.id ? 600 : 400,
-                borderLeft: activeId === v.id ? `3px solid var(--md-sys-color-primary)` : '3px solid transparent',
-                justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', borderRadius: '4px'
-            }}>
-                <span style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '180px'}}>
+            <button key={v.id} onClick={() => scrollToVersion(v.id)}
+                    className={`toc-pill-btn ${activeId === v.id ? 'active' : 'inactive'}`}>
+                <span className="toc-pill-text">
                     {v.version.replace('Version ', '')}
                 </span>
                 {v.type !== 'stable' && (
@@ -715,32 +744,72 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
         ))
     );
 
+    const desktopSearchInput = isDesktop && !isFullScreenMode ? (
+        <div style={{position: 'relative', width: '100%'}}>
+            <span className="material-symbols-outlined" style={{
+                position: 'absolute', left: '20px', top: '50%', transform: 'translateY(-50%)',
+                color: 'var(--md-sys-color-on-surface-variant)', zIndex: 2, fontSize: '24px'
+            }}>search</span>
+            <input
+                type="text"
+                className="desktop-search-input"
+                placeholder={strings.changelog?.search_placeholder || "Search updates..."}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+            />
+        </div>
+    ) : null;
+
+    const desktopFilters = isDesktop && !isFullScreenMode && allTags.length > 0 ? (
+        <div style={{
+            display: 'flex', gap: '8px', width: '100%',
+            overflowX: 'auto', scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch',
+            justifyContent: 'center'
+        }}>
+            {allTags.map(tag => {
+                const isSelected = selectedTags.includes(tag);
+                return (
+                    <button
+                        key={`desk-${tag}`} onClick={() => toggleTag(tag)}
+                        style={{
+                            padding: '8px 16px',
+                            borderRadius: '16px',
+                            fontSize: '0.85rem',
+                            fontWeight: 600,
+                            cursor: 'pointer',
+                            background: isSelected ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-high)',
+                            color: isSelected ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)',
+                            border: isSelected ? '1px solid var(--md-sys-color-primary)' : '1px solid var(--md-sys-color-outline-variant)',
+                            transition: 'all 0.2s',
+                            whiteSpace: 'nowrap',
+                            flexShrink: 0
+                        }}
+                    >
+                        {tag}
+                    </button>
+                );
+            })}
+        </div>
+    ) : null;
+
     return (
-        <div>
+        <div style={{width: '100%', maxWidth: '1280px', margin: '0 auto', padding: '0 24px'}}>
+            {desktopSearchInput && searchPortalNode && createPortal(desktopSearchInput, searchPortalNode)}
+            {desktopFilters && bottomPortalNode && createPortal(desktopFilters, bottomPortalNode)}
+
             <AnimatePresence>
                 {showTranslateInfo && (
                     <div style={{
-                        position: 'fixed',
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        zIndex: 9999,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        background: 'rgba(0,0,0,0.6)',
-                        backdropFilter: 'blur(4px)'
+                        position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 9999,
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)'
                     }}>
                         <motion.div
                             initial={{scale: 0.9, opacity: 0}} animate={{scale: 1, opacity: 1}}
                             exit={{scale: 0.9, opacity: 0}}
                             className="glass-card"
                             style={{
-                                width: '90%',
-                                maxWidth: '400px',
-                                padding: '32px',
-                                borderRadius: '32px',
+                                width: '90%', maxWidth: '400px', padding: '32px', borderRadius: '32px',
                                 border: '1px solid var(--md-sys-color-outline-variant)',
                                 background: 'var(--md-sys-color-surface-container)'
                             }}
@@ -777,122 +846,87 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                 )}
             </AnimatePresence>
 
-            <div className="page-header-container">
-                <div style={{
-                    display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px',
-                    color: 'var(--md-sys-color-on-surface-variant)', fontSize: '0.95rem', fontWeight: 500
-                }}>
-                    <span>{appConfig?.appName}</span>
-                    <span className="material-symbols-outlined" style={{fontSize: '16px'}}>chevron_right</span>
-                    <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '6px',
-                        color: 'var(--md-sys-color-primary)',
-                        fontWeight: 700
-                    }}>
-                        <span className="material-symbols-outlined" style={{fontSize: '18px'}}>history</span>
-                        <span>{isFullScreenMode ? (strings.changelog?.update_details || 'Update Details') : (strings.changelog?.title || 'Changelog')}</span>
-                    </div>
-                </div>
-
-                <div style={{display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '12px'}}>
-                    {isFullScreenMode && filteredVersions.length > 0 ? (
-                        <>
-                            <h1 style={{fontSize: '3rem', fontWeight: 800, margin: 0, lineHeight: 1.1}}>
-                                Update {filteredVersions[0].version.replace('Version ', '')}
-                            </h1>
-                            <div style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '12px',
-                                flexWrap: 'wrap',
-                                marginTop: '8px'
-                            }}>
-                                <button onClick={handleViewAll} className="btn-outline"
-                                        style={{padding: '8px 16px', fontSize: '0.9rem', borderRadius: '100px'}}>
-                                    <span className="material-symbols-outlined"
-                                          style={{fontSize: '18px'}}>arrow_back</span>
-                                    {strings.changelog?.view_all || "View All Updates"}
-                                </button>
-                                <button onClick={() => handleShare(filteredVersions[0])} className="btn-outline"
-                                        style={{padding: '8px 16px', fontSize: '0.9rem', borderRadius: '100px'}}>
-                                    <span className="material-symbols-outlined" style={{fontSize: '18px'}}>share</span>
-                                    {strings.changelog?.share_update || "Share Update"}
-                                </button>
-                                <AnimatePresence>
-                                    {(isAiTranslated || isShowingOriginal) &&
-                                        <AutoTranslateBadge isShowingOriginal={isShowingOriginal}
-                                                            onClick={() => isShowingOriginal ? handleRestoreTranslation() : setShowTranslateInfo(true)}/>}
-                                </AnimatePresence>
-                            </div>
-                        </>
+            <ViewerHeader
+                appName={appConfig?.appName}
+                icon="history"
+                title={isFullScreenMode ? `Update ${filteredVersions[0]?.version.replace('Version ', '')}` : (strings.changelog?.title || 'Changelog')}
+                subtitle={!isFullScreenMode ? (strings.changelog?.subtitle || 'Track the evolution of the application.') : undefined}
+                actionNode={
+                    isFullScreenMode && filteredVersions.length > 0 ? (
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '12px',
+                            flexWrap: 'wrap',
+                            marginTop: '8px'
+                        }}>
+                            <button onClick={handleViewAll} className="btn-outline"
+                                    style={{padding: '8px 16px', fontSize: '0.9rem', borderRadius: '100px'}}>
+                                <span className="material-symbols-outlined" style={{fontSize: '18px'}}>arrow_back</span>
+                                {strings.changelog?.view_all || "View All Updates"}
+                            </button>
+                            <button onClick={() => handleShare(filteredVersions[0])} className="btn-outline"
+                                    style={{padding: '8px 16px', fontSize: '0.9rem', borderRadius: '100px'}}>
+                                <span className="material-symbols-outlined" style={{fontSize: '18px'}}>share</span>
+                                {strings.changelog?.share_update || "Share Update"}
+                            </button>
+                            <AnimatePresence>
+                                {(isAiTranslated || isShowingOriginal) &&
+                                    <AutoTranslateBadge isShowingOriginal={isShowingOriginal}
+                                                        onClick={() => isShowingOriginal ? handleRestoreTranslation() : setShowTranslateInfo(true)}/>}
+                            </AnimatePresence>
+                        </div>
                     ) : (
-                        <>
-                            <h1 style={{
-                                fontSize: '3rem',
-                                fontWeight: 800,
-                                margin: 0,
-                                lineHeight: 1.1
-                            }}>{strings.changelog?.title || 'Changelog'}</h1>
-                            <div style={{display: 'flex', alignItems: 'flex-start', gap: '16px', flexWrap: 'wrap'}}>
-                                <p style={{
-                                    fontSize: '1.1rem',
-                                    color: 'var(--md-sys-color-on-surface-variant)',
-                                    margin: 0,
-                                    maxWidth: '700px'
-                                }}>
-                                    {strings.changelog?.subtitle || 'Track the evolution of the application.'}
-                                </p>
-                                <AnimatePresence>
-                                    {(isAiTranslated || isShowingOriginal) &&
-                                        <AutoTranslateBadge isShowingOriginal={isShowingOriginal}
-                                                            onClick={() => isShowingOriginal ? handleRestoreTranslation() : setShowTranslateInfo(true)}/>}
-                                </AnimatePresence>
-                            </div>
-                        </>
-                    )}
-                </div>
-            </div>
+                        <div style={{display: 'flex', alignItems: 'flex-start', gap: '16px', flexWrap: 'wrap'}}>
+                            <AnimatePresence>
+                                {(isAiTranslated || isShowingOriginal) &&
+                                    <AutoTranslateBadge isShowingOriginal={isShowingOriginal}
+                                                        onClick={() => isShowingOriginal ? handleRestoreTranslation() : setShowTranslateInfo(true)}/>}
+                            </AnimatePresence>
+                        </div>
+                    )
+                }
+            />
 
             <div className="changelog-layout" style={{display: 'flex', gap: '60px', alignItems: 'flex-start'}}>
 
                 <div style={{flex: 1, minWidth: 0}}>
-                    {!isFullScreenMode && (
+                    {!isFullScreenMode && !isDesktop && (
                         <>
-                            <div className={`loose-search-container ${isSticky ? 'is-sticky' : ''} ${hideOnScroll ? 'hide-on-scroll' : ''}`}>
-                                <div className="mobile-blur-backdrop"></div>
-                                <div className="search-pill">
-                                    <span className="material-symbols-outlined search-icon">search</span>
-                                    <input
-                                        type="text"
-                                        placeholder={strings.changelog?.search_placeholder || "Search updates..."}
-                                        value={searchQuery}
-                                        onChange={(e) => setSearchQuery(e.target.value)}
-                                    />
-                                </div>
-
-                                {allTags.length > 0 && (
-                                    <div className="loose-filters">
-                                        {allTags.map(tag => {
-                                            const isSelected = selectedTags.includes(tag);
-                                            const style = getTagStyle(tag);
-                                            return (
-                                                <button
-                                                    key={tag} onClick={() => toggleTag(tag)}
-                                                    className={`filter-tag-pill ${isSelected ? 'selected' : ''}`}
-                                                    style={isSelected ? {
-                                                        backgroundColor: style.bg,
-                                                        borderColor: style.border !== 'transparent' ? style.border : style.bg,
-                                                        color: style.color
-                                                    } : {}}
-                                                >
-                                                    {tag}
-                                                </button>
-                                            );
-                                        })}
+                            <div ref={containerRef} style={{
+                                position: 'relative',
+                                height: isSticky && window.innerWidth > 1000 ? '96px' : 'auto'
+                            }}>
+                                <div
+                                    className={`loose-search-container ${isSticky ? 'is-sticky' : ''} ${hideOnScroll ? 'hide-on-scroll' : ''}`}
+                                >
+                                    <div className="mobile-blur-backdrop"></div>
+                                    <div className="search-pill">
+                                        <span className="material-symbols-outlined search-icon">search</span>
+                                        <input
+                                            type="text"
+                                            placeholder={strings.changelog?.search_placeholder || "Search updates..."}
+                                            value={searchQuery}
+                                            onChange={(e) => setSearchQuery(e.target.value)}
+                                        />
                                     </div>
-                                )}
+
+                                    {allTags.length > 0 && (
+                                        <div className="loose-filters">
+                                            {allTags.map(tag => {
+                                                const isSelected = selectedTags.includes(tag);
+                                                return (
+                                                    <button
+                                                        key={tag} onClick={() => toggleTag(tag)}
+                                                        className={`filter-tag-pill ${isSelected ? 'selected' : ''}`}
+                                                    >
+                                                        {tag}
+                                                    </button>
+                                                );
+                                            })}
+                                        </div>
+                                    )}
+                                </div>
                             </div>
 
                             <div className="mobile-toc-wrapper" style={{display: 'none'}}>
@@ -903,7 +937,8 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                         </>
                     )}
 
-                    <div className={`changelog-list-container content-padder ${!hideOnScroll ? 'padded' : ''} ${isFullScreenMode ? 'full-screen' : ''}`}>
+                    <div
+                        className={`changelog-list-container content-padder ${!hideOnScroll ? 'padded' : ''} ${isFullScreenMode ? 'full-screen' : ''}`}>
                         {!isFullScreenMode && (
                             <div className="timeline-line"></div>
                         )}
@@ -927,9 +962,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                             )
                         ) : (
                             <div style={{
-                                padding: '40px',
-                                textAlign: 'center',
-                                color: 'var(--md-sys-color-on-surface-variant)'
+                                padding: '40px', textAlign: 'center', color: 'var(--md-sys-color-on-surface-variant)'
                             }}>
                                 <span className="material-symbols-outlined"
                                       style={{fontSize: '48px', marginBottom: '16px', opacity: 0.5}}>search_off</span>
@@ -988,11 +1021,8 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                     )}
                                     <BetaProgramCard strings={strings.changelog?.beta_program || {}}
                                                      betaLink={betaLink}/>
-                                    <WearOSCard
-                                        strings={strings.changelog?.wear_os_promo || {}}
-                                        isAvailable={hasWearApp}
-                                        link={appConfig?.playStoreLink}
-                                    />
+                                    <WearOSCard strings={strings.changelog?.wear_os_promo || {}}
+                                                isAvailable={hasWearApp} link={appConfig?.playStoreLink}/>
                                     <PlusPromoCard strings={strings.changelog?.plus_promo || {}}
                                                    onNavigate={onNavigate}/>
                                 </div>
@@ -1003,11 +1033,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
 
                 {!isFullScreenMode && (
                     <div className="desktop-toc-wrapper" style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '20px',
-                        width: '320px',
-                        minWidth: '320px'
+                        display: 'flex', flexDirection: 'column', gap: '20px', width: '320px', minWidth: '320px'
                     }}>
                         {!isPortfolio && latestVersion && !searchQuery && (
                             <LatestReleaseCard version={latestVersion} strings={strings.changelog || {}}
@@ -1040,11 +1066,8 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                 <div style={{display: 'flex', flexDirection: 'column', gap: '20px'}}>
                                     <BetaProgramCard strings={strings.changelog?.beta_program || {}}
                                                      betaLink={betaLink}/>
-                                    <WearOSCard
-                                        strings={strings.changelog?.wear_os_promo || {}}
-                                        isAvailable={hasWearApp}
-                                        link={appConfig?.playStoreLink}
-                                    />
+                                    <WearOSCard strings={strings.changelog?.wear_os_promo || {}}
+                                                isAvailable={hasWearApp} link={appConfig?.playStoreLink}/>
                                     <PlusPromoCard strings={strings.changelog?.plus_promo || {}}
                                                    onNavigate={onNavigate}/>
                                 </div>
@@ -1053,9 +1076,26 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                     </div>
                 )}
 
-                <BackToTop strings={strings.changelog || {}} isShifted={!hideOnScroll && !isFullScreenMode} />
+                <BackToTop strings={strings.changelog || {}} isShifted={!hideOnScroll && !isFullScreenMode}/>
 
                 <style>{`
+                  .desktop-search-input {
+                      width: 100%;
+                      height: 48px;
+                      padding: 0 16px 0 52px;
+                      border-radius: 24px;
+                      border: 1px solid var(--md-sys-color-outline-variant);
+                      background: var(--md-sys-color-surface-container-highest);
+                      color: var(--md-sys-color-on-surface);
+                      font-size: 1rem;
+                      outline: none;
+                      transition: all 0.3s;
+                  }
+                  .desktop-search-input:focus {
+                      border-color: var(--md-sys-color-primary);
+                      background: var(--md-sys-color-surface-container);
+                      box-shadow: 0 0 0 4px rgba(var(--md-sys-color-primary-rgb), 0.1);
+                  }
                   @media (max-width: 1000px) {
                     .desktop-toc-wrapper { display: none !important; }
                     .changelog-layout { display: block !important; }
@@ -1325,20 +1365,22 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
 
                   .search-pill {
                       background: var(--md-sys-color-surface-container-highest);
-                      border: 2px solid transparent;
+                      border: 1px solid transparent;
                       border-radius: 28px;
                       display: flex;
                       align-items: center;
-                      height: 56px;
-                      padding: 0 8px;
+                      height: 52px;
+                      padding: 0 16px;
                       transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
-                      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+                      position: relative;
                   }
                   
                   .search-pill:focus-within {
-                      border-color: var(--md-sys-color-primary);
                       background: var(--md-sys-color-surface-container);
-                      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+                      border-color: var(--md-sys-color-primary);
+                      box-shadow: 0 0 0 4px rgba(var(--md-sys-color-primary-rgb), 0.1), 0 8px 24px rgba(0,0,0,0.12);
+                      transform: translateY(-1px);
                   }
 
                   .search-pill input {
@@ -1349,7 +1391,8 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                       width: 100%;
                       height: 100%;
                       outline: none;
-                      font-size: 1.05rem;
+                      font-size: 1rem;
+                      font-weight: 500;
                   }
                   
                   .search-pill input::placeholder {
@@ -1357,13 +1400,15 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                   }
                   
                   .search-icon {
-                      color: var(--md-sys-color-on-surface-variant);
-                      margin-left: 12px;
-                      transition: color 0.3s;
+                      color: var(--md-sys-color-primary);
+                      margin-left: 8px;
+                      font-size: 24px;
+                      transition: opacity 0.3s;
+                      opacity: 0.7;
                   }
                   
                   .search-pill:focus-within .search-icon {
-                      color: var(--md-sys-color-primary);
+                      opacity: 1;
                   }
 
                   .loose-filters {
@@ -1380,15 +1425,23 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                       font-size: 0.9rem;
                       font-weight: 600;
                       cursor: pointer;
-                      border: 1px solid var(--md-sys-color-outline-variant);
-                      background: var(--md-sys-color-surface-container);
+                      border: 2px solid transparent;
+                      background: var(--md-sys-color-surface-container-high);
                       color: var(--md-sys-color-on-surface-variant);
                       transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
                   }
                   
                   .filter-tag-pill:hover {
-                      background: var(--md-sys-color-surface-container-high);
-                      border-color: var(--md-sys-color-outline);
+                      background: var(--md-sys-color-surface-container-highest);
+                      color: var(--md-sys-color-on-surface);
+                      transform: translateY(-2px);
+                  }
+                  
+                  .filter-tag-pill.selected {
+                      background: var(--md-sys-color-primary) !important;
+                      color: var(--md-sys-color-on-primary) !important;
+                      box-shadow: 0 4px 16px rgba(var(--md-sys-color-primary-rgb), 0.4) !important;
+                      border-color: transparent !important;
                   }
                   
                   .content-padder {
@@ -1397,6 +1450,20 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                   }
                   
                   @media (max-width: 1000px) {
+                      .search-pill {
+                          height: 64px;
+                          border-radius: 32px;
+                          padding: 0 20px;
+                      }
+                      
+                      .search-pill input {
+                          font-size: 1.15rem;
+                      }
+                      
+                      .search-icon {
+                          font-size: 28px;
+                      }
+
                       .loose-search-container {
                           position: fixed;
                           bottom: 24px;
@@ -1410,8 +1477,8 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                       .mobile-blur-backdrop {
                           display: block;
                           position: absolute;
-                          inset: -50px -16px -24px -16px; 
-                          background: linear-gradient(to top, rgba(15, 17, 21, 0.9) 40%, rgba(15, 17, 21, 0.4) 70%, transparent 100%);
+                          inset: -60px -16px -24px -16px; 
+                          background: linear-gradient(to top, rgba(15, 17, 21, 0.95) 40%, rgba(15, 17, 21, 0.5) 70%, transparent 100%);
                           backdrop-filter: blur(12px);
                           -webkit-backdrop-filter: blur(12px);
                           mask-image: linear-gradient(to top, black 60%, transparent 100%);
@@ -1443,21 +1510,46 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                       }
                       
                       .content-padder.padded {
-                          padding-bottom: 140px;
+                          padding-bottom: 180px;
                       }
                   }
                   
                   @media (min-width: 1001px) {
                       .loose-search-container {
                           position: relative;
-                          margin-bottom: 32px;
+                          margin-bottom: 40px;
+                          transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1), opacity 0.4s;
                       }
                       
                       .loose-search-container.is-sticky {
-                          position: sticky;
-                          top: 96px;
+                          position: fixed;
+                          top: 80px;
+                          left: 50%;
+                          transform: translateX(-50%);
                           z-index: 90;
+                          width: calc(100% - 64px);
+                          max-width: 720px;
                           background: transparent;
+                      }
+                      
+                      .loose-search-container.is-sticky::before {
+                          content: "";
+                          position: absolute;
+                          inset: -16px -24px -24px -24px;
+                          background: rgba(var(--md-sys-color-surface-rgb), 0.85);
+                          backdrop-filter: blur(16px);
+                          -webkit-backdrop-filter: blur(16px);
+                          mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+                          -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+                          z-index: -1;
+                          border-radius: 24px;
+                          pointer-events: none;
+                      }
+
+                      .loose-search-container.is-sticky.hide-on-scroll {
+                          transform: translate(-50%, -150%);
+                          opacity: 0;
+                          pointer-events: none;
                       }
                   }
                   

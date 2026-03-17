@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useMemo} from 'react';
+import {createPortal} from 'react-dom';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import {motion} from 'framer-motion';
@@ -8,6 +9,8 @@ import BackToTop from '../common/BackToTop';
 import PageTableOfContents from '../common/PageTableOfContents';
 import {useSectionScroll} from '../../hooks/useSectionScroll';
 import {handleContactSupport} from '../../utils/navigationUtils';
+import ViewerHeader from '../common/ViewerHeader';
+import ViewerSidebar from '../common/ViewerSidebar';
 
 export default function HelpViewer({markdownContent, strings, appConfig}) {
     const [data, setData] = useState({sections: []});
@@ -15,6 +18,27 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
     const navigate = useNavigate();
 
     const {activeSection, setActiveSection, scrollToSection} = useSectionScroll('');
+
+    const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1000);
+    const [portalNode, setPortalNode] = useState(null);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const node = document.getElementById('appbar-search-portal');
+            if (node) {
+                setPortalNode(node);
+                clearInterval(interval);
+            }
+        }, 100);
+
+        const handleResize = () => setIsDesktop(window.innerWidth > 1000);
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            clearInterval(interval);
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     useEffect(() => {
         if (markdownContent) {
@@ -37,18 +61,7 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
             <button
                 key={section.id}
                 onClick={() => scrollToSection(section.id)}
-                style={{
-                    display: 'block', width: '100%', textAlign: 'left',
-                    background: activeSection === section.id ? 'var(--md-sys-color-secondary-container)' : 'transparent',
-                    border: 'none',
-                    padding: '10px 16px',
-                    borderRadius: '8px',
-                    color: activeSection === section.id ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-surface-variant)',
-                    fontWeight: activeSection === section.id ? 700 : 500,
-                    marginBottom: '4px',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease'
-                }}
+                className={`toc-btn ${activeSection === section.id ? 'active' : 'inactive'}`}
             >
                 {section.title === 'Introduction' ? 'Overview' : section.title}
             </button>
@@ -62,63 +75,69 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
         });
     };
 
+    const desktopSearchPortal = isDesktop ? (
+        <div style={{width: '100%', position: 'relative'}}>
+            <span className="material-symbols-outlined" style={{
+                position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)',
+                color: 'var(--md-sys-color-on-surface-variant)', zIndex: 2, fontSize: '20px'
+            }}>search</span>
+            <input
+                type="text"
+                placeholder={strings.help_page.search_placeholder}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                style={{
+                    width: '100%', height: '40px', padding: '0 16px 0 40px',
+                    borderRadius: '20px', border: 'none',
+                    background: 'var(--md-sys-color-surface-container-highest)',
+                    color: 'var(--md-sys-color-on-surface)',
+                    fontSize: '0.95rem', outline: 'none'
+                }}
+            />
+        </div>
+    ) : null;
+
     return (
-        <div style={{display: 'flex', flexDirection: 'column', minHeight: 0}}>
-            <div style={{
-                marginBottom: '40px',
-                paddingBottom: '20px',
-                borderBottom: '1px solid var(--md-sys-color-outline-variant)',
-            }}>
-                <div style={{
-                    display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px',
-                    color: 'var(--md-sys-color-on-surface-variant)', fontSize: '0.9rem', fontWeight: 500
-                }}>
-                    <span>{appConfig?.appName}</span>
-                    <span className="material-symbols-outlined" style={{fontSize: '16px'}}>chevron_right</span>
-                    <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '6px',
-                        color: 'var(--md-sys-color-primary)',
-                        fontWeight: 700
-                    }}>
-                        <span className="material-symbols-outlined" style={{fontSize: '18px'}}>help</span>
-                        <span>{strings.help_page.page_title}</span>
-                    </div>
-                </div>
+        <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100%',
+            maxWidth: '1280px',
+            margin: '0 auto',
+            padding: '0 24px'
+        }}>
+            {desktopSearchPortal && portalNode && createPortal(desktopSearchPortal, portalNode)}
 
-                <h1 style={{
-                    fontSize: 'clamp(2.5rem, 5vw, 3rem)',
-                    fontWeight: 800, margin: 0, lineHeight: 1.1, letterSpacing: '-1px'
-                }}>{strings.help_page.page_title}</h1>
-                <p style={{
-                    fontSize: '1.1rem',
-                    color: 'var(--md-sys-color-on-surface-variant)',
-                    marginTop: '12px',
-                    maxWidth: '700px'
-                }}>{strings.help_page.subtitle}</p>
-            </div>
+            <ViewerHeader
+                appName={appConfig?.appName}
+                icon="help"
+                title={strings.help_page.page_title}
+                subtitle={strings.help_page.subtitle}
+            />
 
-            <div className="help-layout" style={{display: 'flex', gap: '60px', flex: 1, alignItems: 'flex-start'}}>
-                <div style={{flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0}}>
-                    <div className="search-input-wrapper" style={{marginBottom: '40px'}}>
-                        <span className="material-symbols-outlined" style={{
-                            position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)',
-                            color: '#ffffff', zIndex: 2
-                        }}>search</span>
+            <div className="viewer-layout">
+                <div className="viewer-main-content">
+                    {!isDesktop && (
+                        <div className="search-input-wrapper" style={{marginBottom: '40px', position: 'relative'}}>
+                            <span className="material-symbols-outlined" style={{
+                                position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)',
+                                color: '#ffffff', zIndex: 2
+                            }}>search</span>
 
-                        <input
-                            type="text"
-                            className="search-input-high-contrast"
-                            placeholder={strings.help_page.search_placeholder}
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                        />
-                    </div>
+                            <input
+                                type="text"
+                                className="search-input-high-contrast"
+                                placeholder={strings.help_page.search_placeholder}
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                            />
+                        </div>
+                    )}
 
                     <div className="mobile-toc-wrapper" style={{display: 'none'}}>
-                        <PageTableOfContents title={strings.help_page.table_of_contents}
-                                             isMobile={true}>{renderTocItems()}</PageTableOfContents>
+                        <PageTableOfContents title={strings.help_page.table_of_contents} isMobile={true}>
+                            {renderTocItems()}
+                        </PageTableOfContents>
                     </div>
 
                     <div className="help-content-scroll">
@@ -130,17 +149,10 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
                                     initial={{opacity: 0, y: 20}}
                                     animate={{opacity: 1, y: 0}}
                                     transition={{delay: index * 0.1}}
-                                    style={{
-                                        marginBottom: '40px',
-                                        paddingBottom: '40px',
-                                        borderBottom: index !== filteredSections.length - 1 ? '1px solid var(--md-sys-color-outline-variant)' : 'none'
-                                    }}>
+                                    className={`viewer-section ${index !== filteredSections.length - 1 ? 'viewer-section-bordered' : ''}`}
+                                >
                                     {section.id !== 'introduction' && (
-                                        <h2 style={{
-                                            fontSize: '1.8rem', marginBottom: '24px',
-                                            color: 'var(--md-sys-color-on-surface)',
-                                            fontWeight: 700, letterSpacing: '-0.5px'
-                                        }}>
+                                        <h2 className="viewer-section-title">
                                             {section.title}
                                         </h2>
                                     )}
@@ -159,55 +171,16 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
                     </div>
                 </div>
 
-                <div className="desktop-toc-wrapper" style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '24px',
-                    width: '300px',
-                    position: 'sticky',
-                    top: '100px'
-                }}>
-                    <PageTableOfContents title={strings.help_page.table_of_contents}
-                                         isMobile={false}>{renderTocItems()}</PageTableOfContents>
-
-                    <div className="glass-card" style={{
-                        padding: '24px',
-                        background: 'var(--md-sys-color-surface-container-high)',
-                        border: '1px solid var(--md-sys-color-outline-variant)',
-                        width: '100%'
-                    }}>
-                        <div style={{display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px'}}>
-                            <div style={{
-                                width: '40px',
-                                height: '40px',
-                                borderRadius: '50%',
-                                background: 'var(--md-sys-color-primary)',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                color: 'var(--md-sys-color-on-primary)'
-                            }}><span className="material-symbols-outlined">support_agent</span></div>
-                            <h4 style={{margin: 0, fontSize: '1rem'}}>{strings.help_page.contact_title}</h4>
-                        </div>
-                        <p style={{
-                            fontSize: '0.9rem',
-                            color: 'var(--md-sys-color-on-surface-variant)',
-                            marginBottom: '16px',
-                            lineHeight: 1.5
-                        }}>
-                            {strings.help_page.contact_desc}
-                        </p>
-                        <button onClick={onSupportClick} className="btn-outline" style={{
-                            width: '100%',
-                            justifyContent: 'center',
-                            background: 'rgba(255,255,255,0.05)',
-                            border: 'none',
-                            cursor: 'pointer'
-                        }}>
-                            {strings.help_page.contact_btn}
-                        </button>
-                    </div>
-                </div>
+                <ViewerSidebar
+                    cardTitle={strings.help_page.contact_title}
+                    cardDesc={strings.help_page.contact_desc}
+                    cardBtnText={strings.help_page.contact_btn}
+                    onBtnClick={onSupportClick}
+                >
+                    <PageTableOfContents title={strings.help_page.table_of_contents} isMobile={false}>
+                        {renderTocItems()}
+                    </PageTableOfContents>
+                </ViewerSidebar>
 
                 <BackToTop strings={strings.changelog}/>
                 <style>{`
@@ -226,11 +199,6 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
                     background: var(--md-sys-color-surface-container);
                     padding: 16px; border-radius: 0 12px 12px 0;
                     font-style: italic;
-                  }
-                  @media (max-width: 1000px) {
-                    .desktop-toc-wrapper { display: none !important; }
-                    .help-layout { display: block !important; }
-                    .mobile-toc-wrapper { display: block !important; }
                   }
                 `}</style>
             </div>
