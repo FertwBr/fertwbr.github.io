@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, {useState, useEffect, useMemo, useRef} from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import {motion, AnimatePresence} from 'framer-motion';
@@ -34,10 +34,10 @@ const TAG_STYLE_CONFIG = {
     rc: {bg: 'rgba(171, 71, 188, 0.15)', color: '#AB47BC', border: '#AB47BC', highlight: '#AB47BC'},
     'pre-release': {bg: 'rgba(79, 195, 247, 0.15)', color: '#4FC3F7', border: '#4FC3F7', highlight: '#4FC3F7'},
     default: {
-        bg: 'var(--md-sys-color-primary-container)',
-        color: 'var(--md-sys-color-primary)',
-        border: 'var(--md-sys-color-primary)',
-        highlight: 'var(--md-sys-color-primary)'
+        bg: 'var(--md-sys-color-secondary-container)',
+        color: 'var(--md-sys-color-on-secondary-container)',
+        border: 'transparent',
+        highlight: 'var(--md-sys-color-secondary)'
     }
 };
 
@@ -68,7 +68,7 @@ const VersionBadge = ({type, text}) => {
     return (
         <span style={{
             fontSize: '0.65rem', fontWeight: 700, padding: '4px 8px', borderRadius: '6px',
-            background: style.bg, color: style.color, border: `1px solid ${style.border}`,
+            background: style.bg, color: style.color, border: style.border !== 'transparent' ? `1px solid ${style.border}` : 'none',
             textTransform: 'uppercase', letterSpacing: '0.5px', display: 'inline-flex',
             alignItems: 'center', whiteSpace: 'nowrap'
         }}>
@@ -325,7 +325,7 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
                         </div>
 
                         {headers.length > 0 && (
-                            <div className="mobile-article-toc" style={{marginTop: '8px'}}>
+                            <div className="mobile-article-toc" style={{ marginTop: '8px' }}>
                                 <div style={{
                                     fontSize: '0.85rem',
                                     fontWeight: 700,
@@ -336,14 +336,13 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
                                 }}>
                                     {strings.in_this_update || "In this update"}
                                 </div>
-                                <div className="horizontal-chips" style={{margin: '0 -24px', padding: '0 24px'}}>
+                                <div className="horizontal-chips" style={{ margin: '0 -24px', padding: '0 24px' }}>
                                     {headers.map(h => (
-                                        <button key={h.id} onClick={() => scrollToSection(h.id)} className="toc-chip"
-                                                style={{
-                                                    background: 'var(--md-sys-color-surface)',
-                                                    color: 'var(--md-sys-color-on-surface)',
-                                                    border: '1px solid var(--md-sys-color-outline-variant)'
-                                                }}>
+                                        <button key={h.id} onClick={() => scrollToSection(h.id)} className="toc-chip" style={{
+                                            background: 'var(--md-sys-color-surface)',
+                                            color: 'var(--md-sys-color-on-surface)',
+                                            border: '1px solid var(--md-sys-color-outline-variant)'
+                                        }}>
                                             {h.title}
                                         </button>
                                     ))}
@@ -466,6 +465,10 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
     const [activeId, setActiveId] = useState(versionId || null);
     const [selectedTags, setSelectedTags] = useState([]);
 
+    const [hideOnScroll, setHideOnScroll] = useState(false);
+    const [isSticky, setIsSticky] = useState(false);
+    const lastScrollY = useRef(0);
+
     const isCompass = appConfig?.appName?.toLowerCase().includes('compass');
     const isPulse = appConfig?.appName?.toLowerCase().includes('pulse');
     const isPortfolio = appConfig?.appId === 'io.github.fertwbr.portfolio' || !appConfig?.playStoreLink;
@@ -484,6 +487,25 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
             setVersions(parseChangelog(markdown));
         }
     }, [markdown]);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (isFullScreenMode) return;
+            const currentScrollY = window.scrollY;
+
+            setIsSticky(currentScrollY > 150);
+
+            if (currentScrollY > lastScrollY.current && currentScrollY > 150) {
+                setHideOnScroll(true);
+            } else if (currentScrollY < lastScrollY.current) {
+                setHideOnScroll(false);
+            }
+
+            lastScrollY.current = currentScrollY;
+        };
+        window.addEventListener('scroll', handleScroll, {passive: true});
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [isFullScreenMode]);
 
     /**
      * Reverts translated changelog to its original English state by reloading local content.
@@ -838,42 +860,32 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                 <div style={{flex: 1, minWidth: 0}}>
                     {!isFullScreenMode && (
                         <>
-                            <div className="glass-card" style={{
-                                marginBottom: '40px',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                gap: '16px',
-                                padding: '24px',
-                                borderRadius: '32px',
-                                border: '1px solid var(--md-sys-color-outline-variant)',
-                                background: 'linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 100%)',
-                                backdropFilter: 'blur(12px)',
-                                WebkitBackdropFilter: 'blur(12px)'
-                            }}>
-                                <div className="search-input-wrapper">
-                                    <span className="material-symbols-outlined search-icon-absolute">search</span>
+                            <div className={`loose-search-container ${isSticky ? 'is-sticky' : ''} ${hideOnScroll ? 'hide-on-scroll' : ''}`}>
+                                <div className="mobile-blur-backdrop"></div>
+                                <div className="search-pill">
+                                    <span className="material-symbols-outlined search-icon">search</span>
                                     <input
-                                        type="text" className="search-input-high-contrast"
+                                        type="text"
                                         placeholder={strings.changelog?.search_placeholder || "Search updates..."}
-                                        value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
                                     />
                                 </div>
 
                                 {allTags.length > 0 && (
-                                    <div className="filter-tags-container">
+                                    <div className="loose-filters">
                                         {allTags.map(tag => {
                                             const isSelected = selectedTags.includes(tag);
                                             const style = getTagStyle(tag);
                                             return (
                                                 <button
-                                                    key={tag} onClick={() => toggleTag(tag)} className="filter-tag"
-                                                    style={{
-                                                        backgroundColor: isSelected ? style.bg : 'transparent',
-                                                        borderColor: isSelected ? style.border : 'var(--md-sys-color-outline-variant)',
-                                                        color: isSelected ? style.color : 'var(--md-sys-color-on-surface-variant)',
-                                                        fontWeight: isSelected ? 700 : 500,
-                                                        transition: 'all 0.2s cubic-bezier(0.2, 0, 0, 1)'
-                                                    }}
+                                                    key={tag} onClick={() => toggleTag(tag)}
+                                                    className={`filter-tag-pill ${isSelected ? 'selected' : ''}`}
+                                                    style={isSelected ? {
+                                                        backgroundColor: style.bg,
+                                                        borderColor: style.border !== 'transparent' ? style.border : style.bg,
+                                                        color: style.color
+                                                    } : {}}
                                                 >
                                                     {tag}
                                                 </button>
@@ -891,7 +903,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                         </>
                     )}
 
-                    <div className={`changelog-list-container ${isFullScreenMode ? 'full-screen' : ''}`}>
+                    <div className={`changelog-list-container content-padder ${!hideOnScroll ? 'padded' : ''} ${isFullScreenMode ? 'full-screen' : ''}`}>
                         {!isFullScreenMode && (
                             <div className="timeline-line"></div>
                         )}
@@ -1041,7 +1053,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                     </div>
                 )}
 
-                <BackToTop strings={strings.changelog || {}}/>
+                <BackToTop strings={strings.changelog || {}} isShifted={!hideOnScroll && !isFullScreenMode} />
 
                 <style>{`
                   @media (max-width: 1000px) {
@@ -1088,15 +1100,6 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                           justify-content: flex-end;
                           padding-top: 16px;
                           border-top: 1px solid var(--md-sys-color-outline-variant);
-                      }
-                      .filter-tags-container {
-                          flex-wrap: nowrap;
-                          overflow-x: auto;
-                          padding-bottom: 8px;
-                          -webkit-overflow-scrolling: touch;
-                      }
-                      .filter-tag {
-                          flex-shrink: 0;
                       }
                   }
                   
@@ -1308,6 +1311,156 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                       padding-bottom: 20px;
                       padding-left: 48px;
                   }
+                  
+                  .loose-search-container {
+                      display: flex;
+                      flex-direction: column;
+                      gap: 16px;
+                      z-index: 90;
+                  }
+                  
+                  .mobile-blur-backdrop {
+                      display: none;
+                  }
+
+                  .search-pill {
+                      background: var(--md-sys-color-surface-container-highest);
+                      border: 2px solid transparent;
+                      border-radius: 28px;
+                      display: flex;
+                      align-items: center;
+                      height: 56px;
+                      padding: 0 8px;
+                      transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+                      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                  }
+                  
+                  .search-pill:focus-within {
+                      border-color: var(--md-sys-color-primary);
+                      background: var(--md-sys-color-surface-container);
+                      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+                  }
+
+                  .search-pill input {
+                      background: transparent;
+                      border: none;
+                      color: var(--md-sys-color-on-surface);
+                      padding: 0 16px;
+                      width: 100%;
+                      height: 100%;
+                      outline: none;
+                      font-size: 1.05rem;
+                  }
+                  
+                  .search-pill input::placeholder {
+                      color: var(--md-sys-color-on-surface-variant);
+                  }
+                  
+                  .search-icon {
+                      color: var(--md-sys-color-on-surface-variant);
+                      margin-left: 12px;
+                      transition: color 0.3s;
+                  }
+                  
+                  .search-pill:focus-within .search-icon {
+                      color: var(--md-sys-color-primary);
+                  }
+
+                  .loose-filters {
+                      display: flex;
+                      gap: 10px;
+                      flex-wrap: wrap;
+                      margin: 0;
+                      padding: 4px 0;
+                  }
+                  
+                  .filter-tag-pill {
+                      padding: 10px 20px;
+                      border-radius: 100px;
+                      font-size: 0.9rem;
+                      font-weight: 600;
+                      cursor: pointer;
+                      border: 1px solid var(--md-sys-color-outline-variant);
+                      background: var(--md-sys-color-surface-container);
+                      color: var(--md-sys-color-on-surface-variant);
+                      transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+                  }
+                  
+                  .filter-tag-pill:hover {
+                      background: var(--md-sys-color-surface-container-high);
+                      border-color: var(--md-sys-color-outline);
+                  }
+                  
+                  .content-padder {
+                      transition: padding-bottom 0.4s cubic-bezier(0.2, 0, 0, 1);
+                      padding-bottom: 0px;
+                  }
+                  
+                  @media (max-width: 1000px) {
+                      .loose-search-container {
+                          position: fixed;
+                          bottom: 24px;
+                          left: 16px;
+                          right: 16px;
+                          width: calc(100% - 32px);
+                          flex-direction: column-reverse;
+                          transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1), opacity 0.4s;
+                      }
+                      
+                      .mobile-blur-backdrop {
+                          display: block;
+                          position: absolute;
+                          inset: -50px -16px -24px -16px; 
+                          background: linear-gradient(to top, rgba(15, 17, 21, 0.9) 40%, rgba(15, 17, 21, 0.4) 70%, transparent 100%);
+                          backdrop-filter: blur(12px);
+                          -webkit-backdrop-filter: blur(12px);
+                          mask-image: linear-gradient(to top, black 60%, transparent 100%);
+                          -webkit-mask-image: linear-gradient(to top, black 60%, transparent 100%);
+                          z-index: -1;
+                          pointer-events: none;
+                      }
+
+                      .loose-search-container.hide-on-scroll {
+                          transform: translateY(150%);
+                          opacity: 0;
+                          pointer-events: none;
+                      }
+                      
+                      .loose-filters {
+                          flex-wrap: nowrap;
+                          overflow-x: auto;
+                          padding-bottom: 8px;
+                          -webkit-overflow-scrolling: touch;
+                          scrollbar-width: none;
+                      }
+                      
+                      .loose-filters::-webkit-scrollbar {
+                          display: none;
+                      }
+                      
+                      .filter-tag-pill {
+                          flex-shrink: 0;
+                      }
+                      
+                      .content-padder.padded {
+                          padding-bottom: 140px;
+                      }
+                  }
+                  
+                  @media (min-width: 1001px) {
+                      .loose-search-container {
+                          position: relative;
+                          margin-bottom: 32px;
+                      }
+                      
+                      .loose-search-container.is-sticky {
+                          position: sticky;
+                          top: 96px;
+                          z-index: 90;
+                          background: transparent;
+                      }
+                  }
+                  
                   @media (max-width: 768px) {
                       .changelog-list-container {
                           padding-left: 0;
