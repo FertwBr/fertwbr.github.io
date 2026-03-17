@@ -53,7 +53,7 @@ export default function TermsViewer({markdownContent, appConfig, strings}) {
     const t = strings?.terms_page || {};
 
     return (
-        <div style={{display: 'flex', flexDirection: 'column', width: '100%'}}>
+        <div className="viewer-container">
             <ViewerHeader
                 appName={appConfig?.appName}
                 icon="gavel"
