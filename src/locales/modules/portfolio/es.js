@@ -159,15 +159,28 @@ export default {
     },
     footer: {
         rights: "Todos los derechos reservados.",
-        built: "Diseñado y construido por Fernando Vaz 🇧🇷",
-        useful_links: "Enlaces útiles",
+        built: "Diseñado y desarrollado por Fernando Vaz 🇧🇷",
+        useful_links: "Enlaces Útiles",
         social_title: "Conectar",
         appearance: {
-            title: "Tema y apariencia",
+            title: "Tema y Apariencia",
             language_selector: "Idioma",
-            en: "English",
-            pt: "Português"
+            en: "Inglés",
+            pt: "Portugués",
+            theme_mode: "Modo",
+            mode_auto: "Automático",
+            mode_light: "Claro",
+            mode_dark: "Oscuro"
         }
+    },
+    terms_page: {
+        page_title: "Términos de Uso",
+        last_updated: "Última Actualización:",
+        print_btn: "Imprimir Términos",
+        table_of_contents: "Índice",
+        contact_title: "¿Preguntas sobre estos Términos?",
+        contact_desc: "Si tiene alguna pregunta o inquietud con respecto a estos Términos de Uso, comuníquese con nuestro equipo de soporte.",
+        contact_btn: "Contactar al Soporte"
     },
     changelog: {
         title: "Historial de Versiones",

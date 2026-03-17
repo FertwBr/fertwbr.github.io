@@ -159,15 +159,28 @@ export default {
     },
     footer: {
         rights: "Todos os direitos reservados.",
-        built: "Projetado e Construído por Fernando Vaz 🇧🇷",
+        built: "Projetado e desenvolvido por Fernando Vaz 🇧🇷",
         useful_links: "Links Úteis",
-        social_title: "Conectar",
+        social_title: "Conecte-se",
         appearance: {
             title: "Tema e Aparência",
             language_selector: "Idioma",
-            en: "English",
-            pt: "Português"
+            en: "Inglês",
+            pt: "Português",
+            theme_mode: "Modo",
+            mode_auto: "Automático",
+            mode_light: "Claro",
+            mode_dark: "Escuro"
         }
+    },
+    terms_page: {
+        page_title: "Termos de Uso",
+        last_updated: "Última Atualização:",
+        print_btn: "Imprimir Termos",
+        table_of_contents: "Índice",
+        contact_title: "Dúvidas sobre estes Termos?",
+        contact_desc: "Se você tiver alguma dúvida ou preocupação em relação a estes Termos de Uso, entre em contato com a nossa equipe de suporte.",
+        contact_btn: "Contatar Suporte"
     },
     changelog: {
         title: "Histórico de Versões",

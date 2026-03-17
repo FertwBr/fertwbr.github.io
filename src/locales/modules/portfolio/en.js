@@ -1,3 +1,4 @@
+// src/locales/en.js
 /**
  * Core portfolio localization strings (English).
  * Includes common UI elements, hero section, about, and general site navigation.
@@ -9,6 +10,7 @@ export default {
         changelog: "Changelog",
         roadmap: "Roadmap",
         privacy: "Privacy",
+        terms: "Terms of Use",
         help: "Help",
         back: "Back"
     },
@@ -166,8 +168,21 @@ export default {
             title: "Theme & Appearance",
             language_selector: "Language",
             en: "English",
-            pt: "Português"
+            pt: "Português",
+            theme_mode: "Mode",
+            mode_auto: "Auto",
+            mode_light: "Light",
+            mode_dark: "Dark"
         }
+    },
+    terms_page: {
+        page_title: "Terms of Use",
+        last_updated: "Last Updated:",
+        print_btn: "Print Terms",
+        table_of_contents: "Table of Contents",
+        contact_title: "Questions about these Terms?",
+        contact_desc: "If you have any questions or concerns regarding these Terms of Use, please contact our support team.",
+        contact_btn: "Contact Support"
     },
     changelog: {
         title: "Version History",

@@ -158,15 +158,28 @@ export default {
     },
     footer: {
         rights: "सर्वाधिकार सुरक्षित।",
-        built: "Fernando Vaz द्वारा डिज़ाइन और निर्मित 🇧🇷",
-        useful_links: "उपयोगी लिंक्स",
+        built: "Fernando Vaz द्वारा डिज़ाइन और विकसित 🇧🇷",
+        useful_links: "उपयोगी लिंक",
         social_title: "जुड़ें",
         appearance: {
-            title: "थीम और उपस्थिति",
+            title: "थीम और स्वरूप",
             language_selector: "भाषा",
-            en: "English",
-            pt: "Português"
+            en: "अंग्रेज़ी",
+            pt: "पुर्तगाली",
+            theme_mode: "मोड",
+            mode_auto: "ऑटो",
+            mode_light: "लाइट",
+            mode_dark: "डार्क"
         }
+    },
+    terms_page: {
+        page_title: "उपयोग की शर्तें",
+        last_updated: "अंतिम अपडेट:",
+        print_btn: "शर्तें प्रिंट करें",
+        table_of_contents: "विषय सूची",
+        contact_title: "इन शर्तों के बारे में प्रश्न?",
+        contact_desc: "यदि इन उपयोग की शर्तों के संबंध में आपके कोई प्रश्न या चिंताएँ हैं, तो कृपया हमारी सहायता टीम से संपर्क करें।",
+        contact_btn: "सहायता टीम से संपर्क करें"
     },
     changelog: {
         title: "संस्करण इतिहास",

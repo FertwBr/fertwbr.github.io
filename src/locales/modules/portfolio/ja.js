@@ -157,16 +157,29 @@ export default {
         github: "GitHub"
     },
     footer: {
-        rights: "All rights reserved.",
-        built: "Designed & Built by Fernando Vaz 🇧🇷",
-        useful_links: "便利なリンク",
-        social_title: "SNS",
+        rights: "全著作権所有。",
+        built: "Fernando Vaz によるデザイン・開発 🇧🇷",
+        useful_links: "役立つリンク",
+        social_title: "コネクト",
         appearance: {
             title: "テーマと外観",
             language_selector: "言語",
-            en: "English",
-            pt: "Português"
+            en: "英語",
+            pt: "ポルトガル語",
+            theme_mode: "モード",
+            mode_auto: "自動",
+            mode_light: "ライト",
+            mode_dark: "ダーク"
         }
+    },
+    terms_page: {
+        page_title: "利用規約",
+        last_updated: "最終更新日:",
+        print_btn: "規約を印刷",
+        table_of_contents: "目次",
+        contact_title: "本規約に関するお問い合わせ",
+        contact_desc: "これらの利用規約に関してご質問やご懸念がある場合は、サポートチームまでお問い合わせください。",
+        contact_btn: "サポートにお問い合わせ"
     },
     changelog: {
         title: "バージョン履歴",

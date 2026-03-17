@@ -158,15 +158,28 @@ export default {
     },
     footer: {
         rights: "Alle Rechte vorbehalten.",
-        built: "Entworfen & Erstellt von Fernando Vaz 🇧🇷",
+        built: "Entworfen und entwickelt von Fernando Vaz 🇧🇷",
         useful_links: "Nützliche Links",
         social_title: "Verbinden",
         appearance: {
             title: "Design & Erscheinungsbild",
             language_selector: "Sprache",
-            en: "English",
-            pt: "Português"
+            en: "Englisch",
+            pt: "Portugiesisch",
+            theme_mode: "Modus",
+            mode_auto: "Automatisch",
+            mode_light: "Hell",
+            mode_dark: "Dunkel"
         }
+    },
+    terms_page: {
+        page_title: "Nutzungsbedingungen",
+        last_updated: "Letzte Aktualisierung:",
+        print_btn: "Bedingungen drucken",
+        table_of_contents: "Inhaltsverzeichnis",
+        contact_title: "Fragen zu diesen Bedingungen?",
+        contact_desc: "Wenn Sie Fragen oder Bedenken bezüglich dieser Nutzungsbedingungen haben, wenden Sie sich bitte an unser Support-Team.",
+        contact_btn: "Support kontaktieren"
     },
     changelog: {
         title: "Versionsverlauf",
