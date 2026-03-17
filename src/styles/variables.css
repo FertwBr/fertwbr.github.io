@@ -1,3 +1,4 @@
+/* src/styles/variables.css */
 :root {
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
@@ -7,6 +8,7 @@
     --md-sys-color-surface-container-rgb: 27, 27, 31;
     --md-sys-color-surface-container-high-rgb: 43, 41, 48;
     --md-sys-color-on-surface: #e2e2e6;
+    --md-sys-color-on-surface-rgb: 226, 226, 230;
     --md-sys-color-on-surface-variant: #cac4d0;
 
     --md-sys-color-primary: #d0bcff;
@@ -27,8 +29,16 @@
     --md-sys-color-outline-variant: #49454f;
     --md-sys-color-tertiary: #efb8c8;
 
-    --glass-bg: rgba(27, 27, 31, 0.7);
-    --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+    --md-sys-color-error: #ffb4ab;
+    --md-sys-color-error-rgb: 255, 180, 171;
+    --md-sys-color-on-error: #690005;
+    --md-sys-color-error-container: #93000a;
+    --md-sys-color-on-error-container: #ffdad6;
+
+    --md-sys-color-shadow-rgb: 0, 0, 0;
+
+    --glass-bg: rgba(var(--md-sys-color-surface-container-rgb), 0.7);
+    --glass-border: 1px solid rgba(var(--md-sys-color-on-surface-rgb), 0.08);
     --nav-height: 80px;
     --shadow-glow: 0 0 80px rgba(var(--md-sys-color-primary-rgb), 0.15);
 
