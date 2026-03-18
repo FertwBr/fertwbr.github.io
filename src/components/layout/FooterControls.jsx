@@ -211,7 +211,7 @@ export default function FooterControls({title}) {
 
     const getThemeName = (themeObj) => {
         if (!themeObj) return "Theme";
-        return content.footer?.themes?.[themeObj.value] || themeObj.name;
+        return content.footer?.themes?.[themeObj.name.toLowerCase()] || themeObj.name;
     };
 
     const currentThemeObj = themes.find(t => t.value === savedTheme);

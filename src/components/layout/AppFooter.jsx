@@ -1,4 +1,3 @@
-// src/components/layout/AppFooter.jsx
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {motion} from 'framer-motion';
@@ -29,7 +28,7 @@ export default function AppFooter({strings, onNavigate, activePage, isPortfolio 
             <div className="footer-content">
                 <div className="footer-grid">
                     <div style={{display: 'flex', flexDirection: 'column', gap: '24px'}}>
-                        <h3 className="footer-heading">
+                        <h3 className="footer-heading" style={{margin: 0}}>
                             {t.footer?.links || globalFooter.useful_links}
                         </h3>
                         <div className="footer-links-group">
@@ -57,7 +56,7 @@ export default function AppFooter({strings, onNavigate, activePage, isPortfolio 
                 <div className="footer-divider"/>
                 <div className="footer-bottom">
                     <div style={{display: 'flex', flexDirection: 'column', gap: '4px'}}>
-                        <p className="footer-rights-text">{t.footer?.rights}</p>
+                        <p className="footer-rights-text">{t.footer?.rights || globalFooter.rights}</p>
                         <div className="footer-meta-text">
                             <span>&copy; {SiteConfig.getCopyrightYear()} {SiteConfig.meta.author}</span>
                             <span style={{opacity: 0.5}}>•</span>
