@@ -18,15 +18,16 @@ const LANGUAGE_LABELS = {
 };
 
 /**
- * Maps language codes to flag emojis.
+ * Maps language codes to FlagCDN country codes.
+ * Usando imagens diretas resolve o bloqueio de renderização de emojis no Windows.
  */
 const LANGUAGE_FLAGS = {
-    en: "🇺🇸",
-    pt: "🇧🇷",
-    de: "🇩🇪",
-    ja: "🇯🇵",
-    hi: "🇮🇳",
-    es: "🇪🇸"
+    en: "us",
+    pt: "br",
+    de: "de",
+    ja: "jp",
+    hi: "in",
+    es: "es"
 };
 
 const MenuItem = ({active, onClick, children, leading}) => {
@@ -412,9 +413,13 @@ export default function FooterControls({title}) {
                                 setActiveMenu(null);
                             }}
                             leading={
-                                <span style={{fontSize: '20px'}}>
-                                    {LANGUAGE_FLAGS[code] || "🌐"}
-                                </span>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '22px' }}>
+                                    <img
+                                        src={`https://flagcdn.com/w40/${LANGUAGE_FLAGS[code]}.png`}
+                                        alt={`${code} flag`}
+                                        style={{ width: '100%', borderRadius: '2px', display: 'block', boxShadow: '0 0 2px rgba(0,0,0,0.2)' }}
+                                    />
+                                </div>
                             }
                         >
                             {content.footer?.appearance?.[code] || LANGUAGE_LABELS[code]}

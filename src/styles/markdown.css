@@ -3,7 +3,7 @@
     color: var(--md-sys-color-on-surface);
     line-height: 1.8;
     font-size: 1.1rem;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', 'Noto Color Emoji', sans-serif;
 }
 
 .markdown-body h1,

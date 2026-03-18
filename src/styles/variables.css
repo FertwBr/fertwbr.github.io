@@ -1,6 +1,6 @@
 /* src/styles/variables.css */
 :root {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', 'Noto Color Emoji', sans-serif;
     line-height: 1.6;
     color-scheme: light dark;
 
