@@ -51,3 +51,265 @@
     background-color: var(--md-sys-color-secondary-container);
     color: var(--md-sys-color-on-secondary-container);
 }
+
+.main-glass-nav {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.nav-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.nav-brand-area {
+    display: flex;
+    align-items: center;
+}
+
+.nav-underline-indicator {
+    position: absolute;
+    bottom: -4px;
+    left: 16px;
+    right: 16px;
+    height: 3px;
+    background: var(--md-sys-color-primary);
+    border-radius: 3px;
+}
+
+.nav-right-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.appbar-search-portal {
+    display: flex;
+    justify-content: flex-end;
+    max-width: 400px;
+    width: 100%;
+    transition: max-width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.desktop-menu {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.nav-back-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    border-radius: 50%;
+    transition: background 0.2s, color 0.2s;
+}
+
+.nav-brand-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-brand-icon {
+    color: var(--md-sys-color-primary);
+}
+
+.nav-brand-image {
+    border-radius: 8px;
+}
+
+.nav-brand-text {
+    white-space: nowrap;
+    color: var(--md-sys-color-on-surface);
+}
+
+.desktop-filter-btn {
+    display: none;
+}
+
+@media (max-width: 1000px) {
+    .main-glass-nav {
+        flex-direction: row;
+        padding: 6px;
+        border-radius: 100px;
+        width: auto;
+        justify-content: flex-start;
+    }
+    .nav-top-row {
+        justify-content: flex-start;
+        width: auto;
+        min-height: 42px;
+    }
+    .nav-back-btn {
+        background: var(--md-sys-color-secondary-container);
+        border: none;
+        width: 42px;
+        height: 42px;
+        color: var(--md-sys-color-on-secondary-container);
+        margin-right: 10px;
+    }
+    .nav-brand-container {
+        padding-right: 14px;
+        padding-left: 6px;
+    }
+    .nav-brand-icon {
+        font-size: 26px;
+    }
+    .nav-brand-image {
+        width: 30px;
+        height: 30px;
+    }
+    .nav-brand-text {
+        font-weight: 700;
+        font-size: 0.95rem;
+    }
+    .desktop-menu {
+        display: none !important;
+    }
+    .appbar-search-portal {
+        display: none !important;
+    }
+    .mobile-toggle-wrapper {
+        display: flex !important;
+    }
+    .appbar-bottom-portal {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .appbar-bottom-portal:not(:empty) {
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid rgba(150, 150, 150, 0.15);
+    }
+    .appbar-bottom-portal:empty {
+        display: none !important;
+    }
+}
+
+@media (min-width: 1001px) {
+    .main-glass-nav {
+        background: var(--desktop-bg);
+        border-bottom: var(--desktop-border);
+        box-shadow: var(--desktop-shadow);
+        backdrop-filter: var(--desktop-backdrop);
+        -webkit-backdrop-filter: var(--desktop-backdrop);
+        border-radius: 0;
+        position: relative;
+    }
+    .nav-top-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 32px;
+        height: 64px;
+        max-width: 1600px;
+        margin: 0 auto;
+        width: 100%;
+        gap: 24px;
+    }
+    .nav-brand-area {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        justify-content: flex-start;
+        min-width: 0;
+    }
+    .desktop-menu {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        justify-content: center;
+        flex: auto;
+    }
+    .nav-right-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex: 1;
+        justify-content: flex-end;
+        min-width: 0;
+    }
+    .desktop-filter-btn.visible {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(var(--md-sys-color-on-surface-rgb), 0.05);
+        border: 1px solid var(--md-sys-color-outline-variant);
+        color: var(--md-sys-color-on-surface);
+        width: 48px;
+        height: 48px;
+        border-radius: 24px;
+        cursor: pointer;
+        transition: background 0.2s, border-color 0.2s;
+        flex-shrink: 0;
+    }
+    .desktop-filter-btn.active, .desktop-filter-btn:hover {
+        background: var(--md-sys-color-secondary-container);
+        color: var(--md-sys-color-on-secondary-container);
+        border-color: transparent;
+    }
+    .appbar-bottom-portal {
+        position: absolute;
+        top: calc(100% + 12px);
+        right: 32px;
+        width: max-content;
+        min-width: 320px;
+        max-width: calc(100vw - 64px);
+        background: rgba(var(--md-sys-color-surface-container-high-rgb), 0.98);
+        backdrop-filter: blur(32px);
+        -webkit-backdrop-filter: blur(32px);
+        border: 1px solid var(--md-sys-color-outline-variant);
+        border-radius: 24px;
+        padding: 24px;
+        box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-12px);
+        transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        z-index: 150;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        pointer-events: auto;
+    }
+    .appbar-bottom-portal.open {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+    .appbar-bottom-portal:empty {
+        display: none !important;
+    }
+    .nav-back-btn {
+        background: var(--md-sys-color-surface-container-high);
+        border: 1px solid var(--md-sys-color-outline-variant);
+        width: 40px;
+        height: 40px;
+        color: var(--md-sys-color-on-surface);
+        margin-right: 16px;
+    }
+    .nav-brand-icon {
+        font-size: 26px;
+    }
+    .nav-brand-image {
+        width: 28px;
+        height: 28px;
+    }
+    .nav-brand-text {
+        font-weight: 800;
+        font-size: 1.05rem;
+        letter-spacing: -0.5px;
+    }
+    .mobile-toggle-wrapper {
+        display: none !important;
+    }
+}
