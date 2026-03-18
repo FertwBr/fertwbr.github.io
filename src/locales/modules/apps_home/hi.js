@@ -2,6 +2,7 @@ export default {
   meta_title: "के ऐप्स | Pixel Pulse & Compass",
   hero_title: "सटीक उपकरण।",
   hero_subtitle: "अत्याधुनिक इंजीनियरिंग। नेटिव Material Design।",
+  scroll_explore: "एक्सप्लोर करने के लिए स्क्रॉल करें",
 
   pulse_section: {
     title: "अदृश्य को देखें।",
@@ -44,11 +45,18 @@ export default {
 
   split_choice: {
     pulse_action: "अपने ऑडियो पर महारत हासिल करें।",
-    compass_action: "अपना रास्ता खोजें।"
+    compass_action: "अपना रास्ता खोजें।",
+    explore: "एक्सप्लोर करें"
   },
   footer_extra: {
     disclaimer: "स्क्रीन चित्र सिम्युलेटेड हैं। डिवाइस की क्षमता और सॉफ़्टवेयर संस्करण के आधार पर UI विज़ुअल और एनिमेशन भिन्न हो सकते हैं।",
     tech_title: "आधुनिक Android मानकों के साथ निर्मित",
-    portfolio_cta: "इंजीनियर से मिलें"
+    portfolio_cta: "इंजीनियर से मिलें",
+    tech_stack: {
+      kotlin: "Kotlin First",
+      compose: "Jetpack Compose",
+      md3: "Material Design 3",
+      privacy: "गोपनीयता पर केंद्रित"
+    }
   }
 };

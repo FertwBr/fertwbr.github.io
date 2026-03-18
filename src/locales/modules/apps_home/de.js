@@ -2,6 +2,7 @@ export default {
   meta_title: "Apps | Pixel Pulse & Compass",
   hero_title: "Präzisionsinstrumente.",
   hero_subtitle: "Spitzentechnologie. Natives Material Design.",
+  scroll_explore: "Scrollen zum Entdecken",
 
   pulse_section: {
     title: "Das Unsichtbare visualisieren.",
@@ -44,11 +45,18 @@ export default {
 
   split_choice: {
     pulse_action: "Meistern Sie Ihr Audio.",
-    compass_action: "Finden Sie Ihren Weg."
+    compass_action: "Finden Sie Ihren Weg.",
+    explore: "Entdecken"
   },
   footer_extra: {
     disclaimer: "Bildschirmdarstellungen simuliert. UI-Grafiken und Animationen können je nach Gerätekapazität und Softwareversion variieren.",
     tech_title: "Gebaut nach modernen Android-Standards",
-    portfolio_cta: "Treffen Sie den Ingenieur"
+    portfolio_cta: "Treffen Sie den Ingenieur",
+    tech_stack: {
+      kotlin: "Kotlin First",
+      compose: "Jetpack Compose",
+      md3: "Material Design 3",
+      privacy: "Fokus auf Datenschutz"
+    }
   }
 };

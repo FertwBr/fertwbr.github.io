@@ -13,10 +13,10 @@ import {appsHomeConfig} from '../../pages/apps-home/AppsHomeConfig';
  */
 export default function AppsHomeExtra({t}) {
     const techStack = [
-        {label: "Kotlin First", icon: "code_blocks"},
-        {label: "Jetpack Compose", icon: "layers"},
-        {label: "Material Design 3", icon: "palette"},
-        {label: "Privacy Focused", icon: "security"}
+        {label: t.tech_stack?.kotlin || "Kotlin First", icon: "code_blocks"},
+        {label: t.tech_stack?.compose || "Jetpack Compose", icon: "layers"},
+        {label: t.tech_stack?.md3 || "Material Design 3", icon: "palette"},
+        {label: t.tech_stack?.privacy || "Privacy Focused", icon: "security"}
     ];
 
     return (

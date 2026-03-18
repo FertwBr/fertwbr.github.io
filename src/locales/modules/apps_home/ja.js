@@ -2,6 +2,7 @@ export default {
   meta_title: "のアプリ | Pixel Pulse & Compass",
   hero_title: "精密機器。",
   hero_subtitle: "最先端のエンジニアリング。ネイティブ Material Design。",
+  scroll_explore: "スクロールして探索",
 
   pulse_section: {
     title: "不可視を可視化する。",
@@ -44,11 +45,18 @@ export default {
 
   split_choice: {
     pulse_action: "オーディオを極める。",
-    compass_action: "道を見つける。"
+    compass_action: "道を見つける。",
+    explore: "探索"
   },
   footer_extra: {
     disclaimer: "画面イメージはシミュレーションです。UIのビジュアルやアニメーションは、デバイスの性能やソフトウェアのバージョンによって異なる場合があります。",
     tech_title: "最新の Android 標準で構築",
-    portfolio_cta: "エンジニア紹介"
+    portfolio_cta: "エンジニア紹介",
+    tech_stack: {
+      kotlin: "Kotlin First",
+      compose: "Jetpack Compose",
+      md3: "Material Design 3",
+      privacy: "プライバシー重視"
+    }
   }
 };
