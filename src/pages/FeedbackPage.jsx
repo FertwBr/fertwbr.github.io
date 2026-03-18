@@ -61,14 +61,14 @@ export default function FeedbackPage() {
             case 'pixelpulse':
                 return {
                     config: pixelPulseConfig,
-                    strings: content.pixel_pulse,
+                    strings: content.pixel_pulse || {},
                     backPath: '/pixelpulse',
                     isPortfolio: false
                 };
             case 'pixelcompass':
                 return {
                     config: pixelCompassConfig,
-                    strings: content.pixel_compass,
+                    strings: content.pixel_compass || {},
                     backPath: '/pixelcompass',
                     isPortfolio: false
                 };
@@ -580,8 +580,23 @@ export default function FeedbackPage() {
                 </AnimatePresence>
             </main>
 
-            <AppFooter strings={projectContext.strings} onNavigate={handleNavigation} activePage="feedback"
-                       isPortfolio={projectContext.isPortfolio}/>
+            <AppFooter
+                strings={{
+                    ...projectContext.strings,
+                    footer: projectContext.strings?.footer || content.footer,
+                    nav: projectContext.strings?.nav || content.nav || {
+                        overview: content.overview_page?.title || 'Overview',
+                        changelog: content.changelog?.title || 'Changelog',
+                        roadmap: content.roadmap_page?.title || 'Roadmap',
+                        privacy: content.privacy_page?.page_title || 'Privacy Policy',
+                        terms: content.terms_page?.page_title || 'Terms of Use',
+                        help: content.help_page?.page_title || 'Help & FAQ'
+                    }
+                }}
+                onNavigate={handleNavigation}
+                activePage="feedback"
+                isPortfolio={projectContext.isPortfolio}
+            />
             <style>{`
                 .mobile-toggle-wrapper { display: none !important; }
                 .input-wrapper { display: flex; flexDirection: column; gap: 8px; }

@@ -85,7 +85,7 @@ export default function AppsHome() {
                 </div>
             </main>
 
-            <Footer/>
+            <Footer t={content.footer}/>
         </div>
     );
 }

@@ -43,7 +43,7 @@ import TermsViewer from "../components/viewers/TermsViewer.jsx";
  */
 export default function ProductPage({config, HomeComponent, translationKey, forcedTab}) {
     const {content} = useLanguage();
-    const t = content[translationKey];
+    const t = content[translationKey] || {};
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -184,7 +184,18 @@ export default function ProductPage({config, HomeComponent, translationKey, forc
             </main>
 
             <AppFooter
-                strings={t}
+                strings={{
+                    ...t,
+                    footer: t?.footer || content.footer,
+                    nav: t?.nav || content.nav || {
+                        overview: content.overview_page?.title || 'Overview',
+                        changelog: content.changelog?.title || 'Changelog',
+                        roadmap: content.roadmap_page?.title || 'Roadmap',
+                        privacy: content.privacy_page?.page_title || 'Privacy Policy',
+                        terms: content.terms_page?.page_title || 'Terms of Use',
+                        help: content.help_page?.page_title || 'Help & FAQ'
+                    }
+                }}
                 onNavigate={onNavigate}
                 activePage={activeTab}
             />

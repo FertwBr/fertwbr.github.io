@@ -70,13 +70,13 @@ export default function SiteProjectPage({forcedTab}) {
 
     const t = {
         nav: {
-            overview: "Docs",
-            changelog: "Changelog",
-            back: "Back to Portfolio"
+            overview: content.site_project?.nav?.overview || content.overview_page?.title || "Docs",
+            changelog: content.site_project?.nav?.changelog || content.changelog?.title || "Changelog",
+            back: content.site_project?.nav?.back || "Back to Portfolio"
         },
         footer: {
-            links: "Documentation",
-            rights: "Portfolio Source Code"
+            links: content.site_project?.footer?.links || content.footer?.useful_links || "Documentation",
+            rights: content.site_project?.footer?.rights || content.footer?.rights || "Portfolio Source Code"
         },
         changelog: content.changelog,
         overview_page: content.overview_page || {}

@@ -170,7 +170,17 @@ export default function PortfolioHome() {
                 </main>
 
                 <AppFooter
-                    strings={content}
+                    strings={{
+                        ...content,
+                        nav: content.nav || {
+                            overview: content.overview_page?.title || 'Overview',
+                            changelog: content.changelog?.title || 'Changelog',
+                            roadmap: content.roadmap_page?.title || 'Roadmap',
+                            privacy: content.privacy_page?.page_title || 'Privacy Policy',
+                            terms: content.terms_page?.page_title || 'Terms of Use',
+                            help: content.help_page?.page_title || 'Help & FAQ'
+                        }
+                    }}
                     onNavigate={handleFooterNavigation}
                     activePage="index"
                     isPortfolio={true}
