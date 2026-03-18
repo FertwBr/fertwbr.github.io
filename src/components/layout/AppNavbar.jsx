@@ -93,7 +93,9 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
     useEffect(() => {
         if (!bottomPortalRef.current) return;
         const checkChildren = () => {
-            setHasFilters(bottomPortalRef.current.childNodes.length > 0);
+            if (bottomPortalRef.current) {
+                setHasFilters(bottomPortalRef.current.childNodes.length > 0);
+            }
         };
         checkChildren();
         const observer = new MutationObserver(checkChildren);
@@ -104,7 +106,9 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
     useEffect(() => {
         if (!searchPortalRef.current) return;
         const checkSearch = () => {
-            setHasSearch(searchPortalRef.current.childNodes.length > 0);
+            if (searchPortalRef.current) {
+                setHasSearch(searchPortalRef.current.childNodes.length > 0);
+            }
         };
         checkSearch();
         const observer = new MutationObserver(checkSearch);
@@ -171,8 +175,8 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
         else onNavigate(config.defaultPage || 'index');
     };
 
-    const desktopBg = isScrolled ? 'rgba(var(--md-sys-color-surface-container-rgb), 0.85)' : 'transparent';
-    const desktopBorder = isScrolled ? '1px solid var(--md-sys-color-outline-variant)' : '1px solid transparent';
+    const desktopBg = isScrolled ? 'rgba(var(--md-sys-color-surface-container-rgb), 0.85)' : 'rgba(0, 0, 0, 0)';
+    const desktopBorder = isScrolled ? '1px solid var(--md-sys-color-outline-variant)' : '1px solid rgba(0, 0, 0, 0)';
     const desktopShadow = isScrolled ? '0 10px 40px rgba(var(--md-sys-color-shadow-rgb), 0.12)' : 'none';
     const desktopBackdrop = isScrolled ? 'blur(24px)' : 'none';
 
@@ -211,7 +215,7 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
                                 aria-label={activePage === config.defaultPage ? "Close app" : strings?.back || "Back"}
                                 className="nav-back-btn"
                                 whileHover={isDesktopSpace ? {
-                                    background: 'var(--md-sys-color-secondary-container)',
+                                    backgroundColor: 'var(--md-sys-color-secondary-container)',
                                     color: 'var(--md-sys-color-on-secondary-container)'
                                 } : {}}
                                 whileTap={{scale: 0.9}}
@@ -221,17 +225,18 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
                                     initial={{rotate: -90, opacity: 0}}
                                     animate={{rotate: 0, opacity: 1}}
                                     className="material-symbols-outlined"
-                                    style={{fontSize: '22px'}}
+                                    style={{fontSize: '24px'}}
                                 >
                                     {activePage === config.defaultPage ? 'close' : 'arrow_back'}
                                 </motion.span>
                             </motion.button>
 
-                            <div
+                            <motion.div
                                 onClick={() => !is404 && handleNavClick(config.defaultPage)}
                                 role={!is404 ? "button" : undefined}
                                 className="nav-brand-container"
                                 style={{ cursor: is404 ? 'default' : 'pointer' }}
+                                whileTap={!is404 ? {scale: 0.97} : {}}
                             >
                                 {config.materialIcon ? (
                                     <span className="material-symbols-outlined nav-brand-icon">
@@ -243,7 +248,7 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
                                 <span className="nav-brand-text">
                                     {config.appName}
                                 </span>
-                            </div>
+                            </motion.div>
                         </div>
 
                         {!is404 && (
@@ -314,7 +319,7 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
                                 layout="position"
                                 onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
                                 style={{
-                                    background: isMobileMenuOpen ? 'var(--md-sys-color-secondary-container)' : 'transparent',
+                                    backgroundColor: isMobileMenuOpen ? 'var(--md-sys-color-secondary-container)' : 'rgba(0, 0, 0, 0)',
                                     border: 'none',
                                     borderRadius: '50%',
                                     width: 42,
@@ -365,7 +370,7 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
                                                     width: 34,
                                                     height: 34,
                                                     borderRadius: '50%',
-                                                    background: 'var(--md-sys-color-primary-container)',
+                                                    backgroundColor: 'var(--md-sys-color-primary-container)',
                                                     display: 'flex',
                                                     alignItems: 'center',
                                                     justifyContent: 'center',
