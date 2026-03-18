@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, {useState, useEffect, useMemo, useRef} from 'react';
 import {createPortal} from 'react-dom';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
@@ -12,6 +12,16 @@ import {handleContactSupport} from '../../utils/navigationUtils';
 import ViewerHeader from '../common/ViewerHeader';
 import ViewerSidebar from '../common/ViewerSidebar';
 
+/**
+ * Component to view help and FAQ documentation interactively.
+ * Includes scroll-hide mobile search, dynamic desktop portal search, and section tracking.
+ *
+ * @param {Object} props
+ * @param {string} props.markdownContent
+ * @param {Object} props.strings
+ * @param {Object} props.appConfig
+ * @returns {JSX.Element}
+ */
 export default function HelpViewer({markdownContent, strings, appConfig}) {
     const [data, setData] = useState({sections: []});
     const [searchQuery, setSearchQuery] = useState('');
@@ -21,6 +31,11 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
 
     const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1000);
     const [portalNode, setPortalNode] = useState(null);
+
+    const [hideOnScroll, setHideOnScroll] = useState(false);
+    const [isSticky, setIsSticky] = useState(false);
+    const containerRef = useRef(null);
+    const lastScrollY = useRef(0);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -54,6 +69,36 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
             }
         }
     }, [markdownContent, setActiveSection]);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = Math.max(0, window.scrollY);
+
+            setIsSticky(currentScrollY > 150);
+
+            const activeElement = document.activeElement;
+            const isInputFocused = activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA');
+
+            const documentHeight = document.documentElement.scrollHeight;
+            const windowHeight = window.innerHeight;
+            const isAtBottom = currentScrollY + windowHeight >= documentHeight - 60;
+
+            if (currentScrollY <= 0 || isInputFocused) {
+                setHideOnScroll(false);
+            } else if (isAtBottom) {
+                setHideOnScroll(true);
+            } else if (currentScrollY > lastScrollY.current && currentScrollY > 150) {
+                setHideOnScroll(true);
+            } else if (currentScrollY < lastScrollY.current) {
+                setHideOnScroll(false);
+            }
+
+            lastScrollY.current = currentScrollY;
+        };
+
+        window.addEventListener('scroll', handleScroll, {passive: true});
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     const filteredSections = useMemo(() => {
         if (!searchQuery) return data.sections;
@@ -107,15 +152,23 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
             <div className="viewer-layout">
                 <div className="viewer-main-content">
                     {!isDesktop && (
-                        <div className="search-input-wrapper" style={{marginBottom: '40px'}}>
-                            <span className="material-symbols-outlined search-icon-absolute">search</span>
-                            <input
-                                type="text"
-                                className="search-input-high-contrast"
-                                placeholder={strings.help_page?.search_placeholder || "Search..."}
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                            />
+                        <div ref={containerRef} style={{
+                            position: 'relative',
+                            height: isSticky && window.innerWidth > 1000 ? '96px' : 'auto'
+                        }}>
+                            <div
+                                className={`loose-search-container ${isSticky ? 'is-sticky' : ''} ${hideOnScroll ? 'hide-on-scroll' : ''}`}>
+                                <div className="mobile-blur-backdrop"></div>
+                                <div className="search-pill">
+                                    <span className="material-symbols-outlined search-icon">search</span>
+                                    <input
+                                        type="text"
+                                        placeholder={strings.help_page?.search_placeholder || "Search..."}
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                    />
+                                </div>
+                            </div>
                         </div>
                     )}
 
@@ -126,7 +179,7 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
                         </PageTableOfContents>
                     </div>
 
-                    <div className="help-content-scroll">
+                    <div className={`help-content-scroll ${!hideOnScroll && !isDesktop ? 'padded' : ''}`}>
                         {filteredSections.length > 0 ? (
                             filteredSections.map((section, index) => (
                                 <motion.div
@@ -173,7 +226,7 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
                     </PageTableOfContents>
                 </ViewerSidebar>
 
-                <BackToTop strings={strings.changelog || {}}/>
+                <BackToTop strings={strings.changelog || {}} isShifted={!hideOnScroll}/>
                 <style>{`
                   .rich-text h1 { display: none; }
                   .rich-text blockquote { 
