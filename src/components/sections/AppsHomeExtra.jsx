@@ -23,44 +23,23 @@ export default function AppsHomeExtra({t}) {
         <section style={{
             position: 'relative',
             zIndex: 2,
-            padding: '40px 24px 80px',
-            background: 'var(--md-sys-color-surface-container-highest)', /* Adaptável ao tema claro/escuro */
+            padding: '60px 24px 40px',
+            background: 'var(--md-sys-color-surface-container-low)',
             color: 'var(--md-sys-color-on-surface)',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: '60px'
+            gap: '32px',
+            borderTop: '1px solid var(--md-sys-color-outline-variant)'
         }}>
-            <motion.p
-                initial={{opacity: 0}}
-                whileInView={{opacity: 0.8}}
-                viewport={{once: true}}
-                style={{
-                    fontSize: '0.75rem',
-                    maxWidth: '600px',
-                    textAlign: 'center',
-                    fontStyle: 'italic',
-                    letterSpacing: '0.5px',
-                    color: 'var(--md-sys-color-on-surface-variant)'
-                }}
-            >
-                * {t.disclaimer}
-            </motion.p>
-
-            <div style={{
-                width: '100%',
-                maxWidth: '800px',
-                height: '1px',
-                background: 'var(--md-sys-color-outline-variant)'
-            }}/>
-
-            <div style={{textAlign: 'center'}}>
+            <div style={{textAlign: 'center', width: '100%', maxWidth: '800px'}}>
                 <h4 style={{
-                    fontSize: '0.9rem',
+                    fontSize: '0.85rem',
                     textTransform: 'uppercase',
-                    letterSpacing: '2px',
-                    marginBottom: '32px',
-                    color: 'var(--md-sys-color-on-surface-variant)'
+                    letterSpacing: '1.5px',
+                    marginBottom: '24px',
+                    color: 'var(--md-sys-color-on-surface-variant)',
+                    fontWeight: 600
                 }}>
                     {t.tech_title}
                 </h4>
@@ -69,29 +48,43 @@ export default function AppsHomeExtra({t}) {
                     display: 'flex',
                     flexWrap: 'wrap',
                     justifyContent: 'center',
-                    gap: '40px'
+                    gap: '16px'
                 }}>
                     {techStack.map((item, index) => (
                         <motion.div
                             key={index}
-                            initial={{opacity: 0, y: 20}}
+                            initial={{opacity: 0, y: 10}}
                             whileInView={{opacity: 1, y: 0}}
                             transition={{delay: index * 0.1}}
-                            style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px'}}
+                            whileHover={{y: -2, backgroundColor: 'var(--md-sys-color-surface-container-high)'}}
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '10px',
+                                padding: '8px 16px 8px 8px',
+                                borderRadius: '100px',
+                                background: 'var(--md-sys-color-surface-container)',
+                                border: '1px solid var(--md-sys-color-outline-variant)'
+                            }}
                         >
                             <div style={{
-                                width: '48px', height: '48px',
+                                width: '32px',
+                                height: '32px',
                                 borderRadius: '50%',
-                                background: 'rgba(var(--md-sys-color-on-surface-rgb), 0.08)',
-                                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                border: '1px solid rgba(var(--md-sys-color-on-surface-rgb), 0.1)'
+                                background: 'var(--md-sys-color-primary-container)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: 'var(--md-sys-color-on-primary-container)'
                             }}>
-                                <span className="material-symbols-outlined"
-                                      style={{fontSize: '24px', color: 'var(--md-sys-color-primary)'}}>
+                                <span className="material-symbols-outlined" style={{fontSize: '18px'}}>
                                     {item.icon}
                                 </span>
                             </div>
-                            <span style={{fontSize: '0.9rem', fontWeight: 500}}>{item.label}</span>
+                            <span
+                                style={{fontSize: '0.85rem', fontWeight: 500, color: 'var(--md-sys-color-on-surface)'}}>
+                                {item.label}
+                            </span>
                         </motion.div>
                     ))}
                 </div>
@@ -99,25 +92,51 @@ export default function AppsHomeExtra({t}) {
 
             <motion.a
                 href={appsHomeConfig.portfolioUrl}
-                whileHover={{scale: 1.05}}
+                whileHover={{scale: 1.05, backgroundColor: 'var(--md-sys-color-secondary-container)'}}
                 whileTap={{scale: 0.95}}
                 style={{
                     textDecoration: 'none',
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: '12px',
-                    padding: '12px 28px',
+                    gap: '10px',
+                    padding: '10px 24px',
                     borderRadius: '100px',
                     border: '1px solid var(--md-sys-color-outline)',
                     background: 'transparent',
                     color: 'var(--md-sys-color-on-surface)',
-                    marginTop: '20px',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    fontSize: '0.95rem',
+                    marginTop: '8px'
                 }}
             >
-                <span className="material-symbols-outlined">person_search</span>
+                <span className="material-symbols-outlined" style={{fontSize: '20px'}}>person_search</span>
                 <span style={{fontWeight: 600}}>{t.portfolio_cta}</span>
             </motion.a>
+
+            <div style={{
+                width: '100%',
+                maxWidth: '600px',
+                height: '1px',
+                background: 'var(--md-sys-color-outline-variant)',
+                opacity: 0.5,
+                margin: '16px 0 8px 0'
+            }}/>
+
+            <motion.p
+                initial={{opacity: 0}}
+                whileInView={{opacity: 0.7}}
+                viewport={{once: true}}
+                style={{
+                    fontSize: '0.75rem',
+                    maxWidth: '600px',
+                    textAlign: 'center',
+                    margin: 0,
+                    lineHeight: 1.5,
+                    color: 'var(--md-sys-color-on-surface-variant)'
+                }}
+            >
+                * {t.disclaimer}
+            </motion.p>
         </section>
     );
 }
