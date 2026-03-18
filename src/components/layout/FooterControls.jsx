@@ -209,6 +209,16 @@ export default function FooterControls({title}) {
         dark: "dark_mode"
     };
 
+    const getThemeName = (themeObj) => {
+        if (!themeObj) return "Theme";
+        return content.footer?.themes?.[themeObj.value] || themeObj.name;
+    };
+
+    const currentThemeObj = themes.find(t => t.value === savedTheme);
+    const themeButtonLabel = isThemeAuto
+        ? (content.footer?.appearance?.mode_auto || "Auto")
+        : getThemeName(currentThemeObj);
+
     return (
         <div
             ref={controlsRef}
@@ -301,7 +311,7 @@ export default function FooterControls({title}) {
 
                 <DropdownButton
                     icon="palette"
-                    label={isThemeAuto ? 'Auto' : 'Theme'}
+                    label={themeButtonLabel}
                     isOpen={activeMenu === 'theme'}
                     onClick={() => toggleMenu('theme')}
                 >
@@ -318,7 +328,7 @@ export default function FooterControls({title}) {
                             </span>
                         }
                     >
-                        Auto
+                        {content.footer?.appearance?.mode_auto || "Auto"}
                     </MenuItem>
 
                     <div style={{
@@ -357,7 +367,7 @@ export default function FooterControls({title}) {
                                 </div>
                             }
                         >
-                            {t.name}
+                            {getThemeName(t)}
                         </MenuItem>
                     ))}
 
@@ -382,7 +392,7 @@ export default function FooterControls({title}) {
                             </span>
                         }
                     >
-                        Auto
+                        {content.footer?.appearance?.mode_auto || "Auto"}
                     </MenuItem>
 
                     <div style={{
