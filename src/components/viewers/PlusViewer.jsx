@@ -1,10 +1,18 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import ReactMarkdown from 'react-markdown';
-import {motion} from 'framer-motion';
+import {motion, AnimatePresence} from 'framer-motion';
 import GooglePixel from '../ui/GooglePixel';
 import GetScreenForFeature from '../sections/PlusFeatureVisuals';
 import {parsePlusMarkdown} from '../../utils/plusParser';
 
+/**
+ * Renders a group of features with a category title.
+ *
+ * @param {Object} props
+ * @param {Object} props.group
+ * @param {boolean} props.isMobile
+ * @returns {JSX.Element}
+ */
 const FeatureGroup = ({group, isMobile}) => (
     <div style={{marginBottom: '40px'}}>
         {group.category && (
@@ -28,6 +36,14 @@ const FeatureGroup = ({group, isMobile}) => (
     </div>
 );
 
+/**
+ * Renders an individual feature card.
+ *
+ * @param {Object} props
+ * @param {Object} props.feature
+ * @param {boolean} props.isMobile
+ * @returns {JSX.Element}
+ */
 const FeatureCard = ({feature, isMobile}) => (
     <motion.div
         initial={{opacity: 0, y: 20}}
@@ -85,6 +101,14 @@ const FeatureCard = ({feature, isMobile}) => (
     </motion.div>
 );
 
+/**
+ * Renders a comparison table between editions.
+ *
+ * @param {Object} props
+ * @param {Array} props.data
+ * @param {boolean} props.isMobile
+ * @returns {JSX.Element}
+ */
 const ComparisonTable = ({data, isMobile}) => {
     const hasLegacy = data[0] && data[0].col3;
 
@@ -209,6 +233,13 @@ const ComparisonTable = ({data, isMobile}) => {
     );
 };
 
+/**
+ * Renders a generic text block section.
+ *
+ * @param {Object} props
+ * @param {Object} props.data
+ * @returns {JSX.Element|null}
+ */
 const TextBlockSection = ({data}) => {
     if (!data) return null;
     return (
@@ -264,9 +295,23 @@ const TextBlockSection = ({data}) => {
     );
 };
 
+/**
+ * Main component to view the Plus promotional page.
+ * Implements a dynamic floating CTA button with directional scroll tracking.
+ *
+ * @param {Object} props
+ * @param {string} props.markdownContent
+ * @param {Object} props.appConfig
+ * @param {Object} props.strings
+ * @returns {JSX.Element|null}
+ */
 export default function PlusViewer({markdownContent, appConfig, strings}) {
     const [content, setContent] = useState(null);
     const [isMobile, setIsMobile] = useState(false);
+    const [ctaVisible, setCtaVisible] = useState({top: true, bottom: false});
+
+    const topCtaRef = useRef(null);
+    const bottomCtaRef = useRef(null);
 
     const heroFeatureIcon = appConfig?.name === 'Pixel Compass' ? 'explore' : 'equalizer';
 
@@ -278,6 +323,35 @@ export default function PlusViewer({markdownContent, appConfig, strings}) {
         window.addEventListener('resize', checkMobile);
         return () => window.removeEventListener('resize', checkMobile);
     }, [markdownContent]);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                setCtaVisible((prev) => {
+                    const nextState = {...prev};
+                    entries.forEach((entry) => {
+                        if (entry.target === topCtaRef.current) {
+                            if (entry.isIntersecting) {
+                                nextState.top = true;
+                            } else {
+                                nextState.top = entry.boundingClientRect.top >= 0;
+                            }
+                        }
+                        if (entry.target === bottomCtaRef.current) {
+                            nextState.bottom = entry.isIntersecting;
+                        }
+                    });
+                    return nextState;
+                });
+            },
+            {threshold: 0, rootMargin: "0px"}
+        );
+
+        if (topCtaRef.current) observer.observe(topCtaRef.current);
+        if (bottomCtaRef.current) observer.observe(bottomCtaRef.current);
+
+        return () => observer.disconnect();
+    }, [content]);
 
     const handleBuy = () => {
         const scheme = appConfig?.scheme;
@@ -303,8 +377,47 @@ export default function PlusViewer({markdownContent, appConfig, strings}) {
         boxShadow: '0 8px 24px rgba(var(--md-sys-color-shadow-rgb), 0.2)'
     };
 
+    const showFloatingBtn = !ctaVisible.top && !ctaVisible.bottom;
+
     return (
         <div className="viewer-container" style={{paddingBottom: '100px'}}>
+
+            <AnimatePresence>
+                {showFloatingBtn && (
+                    <motion.div
+                        initial={{y: 100, opacity: 0, x: '-50%'}}
+                        animate={{y: 0, opacity: 1, x: '-50%'}}
+                        exit={{y: 100, opacity: 0, x: '-50%'}}
+                        transition={{type: "spring", stiffness: 400, damping: 30}}
+                        style={{
+                            position: 'fixed',
+                            bottom: '24px',
+                            left: '50%',
+                            zIndex: 90,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            width: 'calc(100% - 32px)',
+                            maxWidth: '400px'
+                        }}
+                    >
+                        <button
+                            onClick={handleBuy}
+                            className="plus-cta-btn"
+                            style={{
+                                ...gradientButtonCheck,
+                                width: '100%',
+                                justifyContent: 'center',
+                                boxShadow: '0 8px 32px rgba(var(--md-sys-color-shadow-rgb), 0.4)',
+                                padding: '16px 24px'
+                            }}
+                        >
+                            <span className="material-symbols-outlined" style={{fontSize: '24px'}}>diamond</span>
+                            {strings.plus_page?.cta || 'Get Plus'}
+                        </button>
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
             <div className="plus-hero-container">
                 <div>
@@ -319,19 +432,21 @@ export default function PlusViewer({markdownContent, appConfig, strings}) {
                             <ReactMarkdown>{content.intro}</ReactMarkdown>
                         </div>
 
-                        <motion.button
-                            whileHover={{
-                                scale: 1.05,
-                                boxShadow: '0 12px 32px rgba(var(--md-sys-color-shadow-rgb), 0.3)'
-                            }}
-                            whileTap={{scale: 0.95}}
-                            onClick={handleBuy}
-                            className="plus-cta-btn"
-                            style={gradientButtonCheck}
-                        >
-                            {strings.plus_page?.cta || 'Get Plus'}
-                            <span className="material-symbols-outlined">arrow_forward</span>
-                        </motion.button>
+                        <div ref={topCtaRef} style={{display: 'inline-flex'}}>
+                            <motion.button
+                                whileHover={{
+                                    scale: 1.05,
+                                    boxShadow: '0 12px 32px rgba(var(--md-sys-color-shadow-rgb), 0.3)'
+                                }}
+                                whileTap={{scale: 0.95}}
+                                onClick={handleBuy}
+                                className="plus-cta-btn"
+                                style={gradientButtonCheck}
+                            >
+                                {strings.plus_page?.cta || 'Get Plus'}
+                                <span className="material-symbols-outlined">arrow_forward</span>
+                            </motion.button>
+                        </div>
                     </motion.div>
                 </div>
 
@@ -476,7 +591,7 @@ export default function PlusViewer({markdownContent, appConfig, strings}) {
                         {strings.plus_page?.subtitle || 'Get the full potential.'}
                     </p>
 
-                    <div style={{display: 'flex', justifyContent: 'center'}}>
+                    <div ref={bottomCtaRef} style={{display: 'flex', justifyContent: 'center'}}>
                         <motion.button
                             whileHover={{scale: 1.05}}
                             whileTap={{scale: 0.95}}

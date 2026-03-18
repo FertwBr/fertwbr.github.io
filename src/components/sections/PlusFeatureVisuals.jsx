@@ -3,8 +3,9 @@ import {motion} from 'framer-motion';
 
 /**
  * Visual component for Sound Wave animation.
- * @param {Object} props - Component props.
- * @param {string} props.seedColor - Color for the visualization.
+ *
+ * @param {Object} props
+ * @param {string} props.seedColor
  * @returns {JSX.Element}
  */
 const SoundWaveVisual = ({seedColor}) => (
@@ -63,8 +64,9 @@ const SoundWaveVisual = ({seedColor}) => (
 
 /**
  * Visual component for Compass animation.
- * @param {Object} props - Component props.
- * @param {string} props.seedColor - Color for the visualization.
+ *
+ * @param {Object} props
+ * @param {string} props.seedColor
  * @returns {JSX.Element}
  */
 const CompassVisual = ({seedColor}) => (
@@ -142,8 +144,8 @@ const CompassVisual = ({seedColor}) => (
  * Returns the appropriate feature screen visualization based on app ID.
  *
  * @param {Object} props
- * @param {string} props.seedColor - Theme seed color.
- * @param {string} props.appId - Application Identifier.
+ * @param {string} props.seedColor
+ * @param {string} props.appId
  * @returns {JSX.Element}
  */
 export default function GetScreenForFeature({seedColor, appId}) {

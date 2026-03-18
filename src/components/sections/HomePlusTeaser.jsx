@@ -3,16 +3,13 @@ import {motion} from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 
 /**
- * HomePlusTeaser component
- *
- * Renders a promotional teaser section using provided localized `strings`.
+ * Renders a promotional teaser section using provided localized strings.
  *
  * @param {Object} props
- * @param {Object} props.strings - Localized text and content for the teaser. Expected shape:
- * { title: string, description: string (markdown), items: Array<{icon: string, title: string, desc: string}>, cta: string }
- * @param {Function} props.onNavigate - Callback invoked with a route key (e.g. 'plus') when CTA is clicked.
- * @param {Object} [props.appConfig] - App configuration, may include `seedColor` used as accent color.
- * @returns {JSX.Element|null} The teaser section or null if `strings` is not provided.
+ * @param {Object} props.strings
+ * @param {Function} props.onNavigate
+ * @param {Object} [props.appConfig]
+ * @returns {JSX.Element|null}
  */
 export default function HomePlusTeaser({strings, onNavigate, appConfig}) {
     if (!strings) return null;
