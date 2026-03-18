@@ -47,7 +47,7 @@ export default function SplitChoice({pulseConfig, compassConfig, texts}) {
             position: 'relative',
             width: '100%',
             height: '85vh',
-            minHeight: '600px',
+            minHeight: '700px',
             display: 'flex',
             flexDirection: isMobile ? 'column' : 'row',
             overflow: 'hidden',
@@ -59,12 +59,13 @@ export default function SplitChoice({pulseConfig, compassConfig, texts}) {
                 side="first"
                 config={pulseConfig}
                 actionText={texts.pulse_action}
+                exploreText={texts.explore}
                 isFocused={focusedSide === 'left'}
                 isDimmed={focusedSide === 'right'}
                 isMobile={isMobile}
                 onHover={() => handleHover('left')}
                 onClick={() => handleClick('left', '/pixelpulse')}
-                gradient="linear-gradient(135deg, var(--md-sys-color-primary-container), var(--md-sys-color-surface-container))"
+                gradient="linear-gradient(135deg, var(--md-sys-color-primary-container), var(--md-sys-color-surface-container-high))"
                 accentColor="var(--md-sys-color-primary)"
                 onAccentColor="var(--md-sys-color-on-primary)"
             />
@@ -99,12 +100,13 @@ export default function SplitChoice({pulseConfig, compassConfig, texts}) {
                 side="second"
                 config={compassConfig}
                 actionText={texts.compass_action}
+                exploreText={texts.explore}
                 isFocused={focusedSide === 'right'}
                 isDimmed={focusedSide === 'left'}
                 isMobile={isMobile}
                 onHover={() => handleHover('right')}
                 onClick={() => handleClick('right', '/pixelcompass')}
-                gradient="linear-gradient(225deg, var(--md-sys-color-tertiary-container), var(--md-sys-color-surface-container))"
+                gradient="linear-gradient(225deg, var(--md-sys-color-tertiary-container), var(--md-sys-color-surface-container-high))"
                 accentColor="var(--md-sys-color-tertiary)"
                 onAccentColor="var(--md-sys-color-on-tertiary)"
             />
@@ -116,6 +118,7 @@ function SplitPanel({
                         side,
                         config,
                         actionText,
+                        exploreText,
                         isFocused,
                         isDimmed,
                         isMobile,
@@ -125,7 +128,7 @@ function SplitPanel({
                         accentColor,
                         onAccentColor
                     }) {
-    const flexGrowValue = isFocused ? 3 : isDimmed ? 1 : 1.5;
+    const flexGrowValue = isFocused ? 3.5 : isDimmed ? 0.8 : 1.5;
 
     return (
         <motion.div
@@ -134,9 +137,9 @@ function SplitPanel({
             onClick={onClick}
             animate={{
                 flexGrow: flexGrowValue,
-                filter: isDimmed ? 'grayscale(0.8) brightness(0.7)' : 'grayscale(0) brightness(1)'
+                opacity: isDimmed ? 0.6 : 1
             }}
-            transition={{type: "spring", stiffness: 150, damping: 25}}
+            transition={{type: "spring", stiffness: 120, damping: 20}}
             style={{
                 flexBasis: 0,
                 width: isMobile ? '100%' : 'auto',
@@ -149,25 +152,49 @@ function SplitPanel({
                 justifyContent: 'center',
                 cursor: 'pointer',
                 overflow: 'hidden',
-                willChange: 'flex-grow'
+                willChange: 'flex-grow',
+                filter: isDimmed ? 'grayscale(0.9) brightness(0.6)' : 'grayscale(0) brightness(1)'
             }}
         >
+            <motion.div
+                animate={{
+                    scale: isFocused ? 1.5 : 1,
+                    opacity: isFocused ? 0.15 : 0.05,
+                    rotate: isFocused ? 15 : 0
+                }}
+                transition={{duration: 1.5, ease: "easeOut"}}
+                style={{
+                    position: 'absolute',
+                    width: '600px',
+                    height: '600px',
+                    borderRadius: '50%',
+                    background: `radial-gradient(circle, ${accentColor} 0%, transparent 70%)`,
+                    top: side === 'first' ? '-10%' : 'auto',
+                    bottom: side === 'second' ? '-10%' : 'auto',
+                    left: side === 'first' ? '-10%' : 'auto',
+                    right: side === 'second' ? '-10%' : 'auto',
+                    pointerEvents: 'none',
+                    zIndex: 0
+                }}
+            />
+
             <motion.h1
                 animate={{
-                    scale: isFocused ? 1.2 : 1,
-                    [isMobile ? 'y' : 'x']: isFocused ? (side === 'first' ? -50 : 50) : 0,
-                    opacity: isFocused ? 0.08 : 0.03
+                    scale: isFocused ? 1.3 : 1,
+                    [isMobile ? 'y' : 'x']: isFocused ? (side === 'first' ? -60 : 60) : 0,
+                    opacity: isFocused ? 0.06 : 0.02
                 }}
                 transition={{duration: 0.8}}
                 style={{
                     position: 'absolute',
-                    fontSize: isMobile ? '20vw' : '15vw',
+                    fontSize: isMobile ? '25vw' : '18vw',
                     fontWeight: 900,
                     color: 'var(--md-sys-color-on-surface)',
                     whiteSpace: 'nowrap',
                     pointerEvents: 'none',
                     userSelect: 'none',
-                    zIndex: 0
+                    zIndex: 0,
+                    letterSpacing: '-0.05em'
                 }}
             >
                 {config.appName.split(' ')[1].toUpperCase()}
@@ -175,79 +202,146 @@ function SplitPanel({
 
             <motion.div
                 layout
-                animate={{scale: isFocused ? 1.05 : 1}}
+                animate={{scale: isFocused ? 1.1 : 1, y: isFocused ? -10 : 0}}
+                transition={{type: "spring", stiffness: 200, damping: 25}}
                 style={{
                     position: 'relative',
                     zIndex: 2,
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    padding: '20px',
+                    padding: '24px',
                     textAlign: 'center',
                     width: '100%'
                 }}
             >
-                <motion.img
-                    layoutId={`icon-${config.appId}`}
-                    src={config.appIcon}
-                    alt={config.appName}
-                    style={{
-                        width: 'clamp(60px, 8vw, 120px)',
-                        borderRadius: '22px',
-                        marginBottom: isMobile ? '12px' : '32px',
-                        boxShadow: `0 20px 50px -10px ${isFocused ? accentColor : 'rgba(var(--md-sys-color-shadow-rgb), 0.3)'}`
+                <motion.div
+                    animate={{
+                        y: isFocused ? [0, -8, 0] : 0
                     }}
-                />
-
-                <motion.h2
-                    layout
-                    style={{
-                        fontSize: 'clamp(1.5rem, 4vw, 3.5rem)',
-                        margin: 0,
-                        fontWeight: 800,
-                        color: 'var(--md-sys-color-on-surface)',
-                        lineHeight: 1.1
+                    transition={{
+                        duration: 3,
+                        repeat: isFocused ? Infinity : 0,
+                        ease: "easeInOut"
                     }}
                 >
-                    {config.appName}
-                </motion.h2>
+                    <motion.img
+                        layoutId={`icon-${config.appId}`}
+                        src={config.appIcon}
+                        alt={config.appName}
+                        style={{
+                            width: 'clamp(70px, 9vw, 140px)',
+                            borderRadius: '28px',
+                            marginBottom: isMobile ? '16px' : '40px',
+                            boxShadow: isFocused
+                                ? `0 30px 60px -15px ${accentColor}`
+                                : '0 20px 40px -10px rgba(var(--md-sys-color-shadow-rgb), 0.2)',
+                            border: '1px solid rgba(255,255,255,0.1)'
+                        }}
+                    />
+                </motion.div>
+
+                <motion.div
+                    animate={{opacity: isFocused ? 1 : 0.8}}
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        gap: '8px'
+                    }}
+                >
+                    <div style={{
+                        padding: '4px 12px',
+                        borderRadius: '100px',
+                        background: 'rgba(var(--md-sys-color-on-surface-rgb), 0.05)',
+                        backdropFilter: 'blur(8px)',
+                        WebkitBackdropFilter: 'blur(8px)',
+                        border: '1px solid rgba(var(--md-sys-color-on-surface-rgb), 0.1)',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        marginBottom: '8px',
+                        opacity: isFocused ? 1 : 0,
+                        transform: `translateY(${isFocused ? '0px' : '10px'})`,
+                        transition: 'all 0.4s ease'
+                    }}>
+                        <span style={{
+                            fontSize: '0.75rem',
+                            fontWeight: 700,
+                            textTransform: 'uppercase',
+                            letterSpacing: '1px',
+                            color: accentColor
+                        }}>
+                            {config.appName.split(' ')[0]}
+                        </span>
+                    </div>
+
+                    <motion.h2
+                        layout
+                        style={{
+                            fontSize: 'clamp(1.8rem, 4.5vw, 4rem)',
+                            margin: 0,
+                            fontWeight: 800,
+                            color: 'var(--md-sys-color-on-surface)',
+                            lineHeight: 1.1,
+                            letterSpacing: '-1px'
+                        }}
+                    >
+                        {config.appName}
+                    </motion.h2>
+                </motion.div>
 
                 <AnimatePresence>
                     {(isFocused || isMobile) && (
                         <motion.div
-                            initial={{opacity: 0, height: 0}}
-                            animate={{opacity: 1, height: 'auto'}}
-                            exit={{opacity: 0, height: 0}}
-                            transition={{delay: 0.1}}
-                            style={{overflow: 'hidden'}}
+                            initial={{opacity: 0, height: 0, y: 20}}
+                            animate={{opacity: 1, height: 'auto', y: 0}}
+                            exit={{opacity: 0, height: 0, y: 10}}
+                            transition={{delay: 0.15, type: "spring", stiffness: 200, damping: 20}}
+                            style={{
+                                overflow: 'visible',
+                                padding: '10px 40px 50px 40px',
+                                margin: '-10px -40px -50px -40px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center'
+                            }}
                         >
                             <p style={{
-                                fontSize: 'clamp(1rem, 2vw, 1.25rem)',
-                                marginTop: '12px',
+                                fontSize: 'clamp(1.1rem, 2.2vw, 1.4rem)',
+                                marginTop: '16px',
                                 fontWeight: 500,
                                 color: 'var(--md-sys-color-on-surface-variant)',
-                                display: isMobile && !isFocused ? 'none' : 'block'
+                                display: isMobile && !isFocused ? 'none' : 'block',
+                                maxWidth: '400px',
+                                lineHeight: 1.4
                             }}>
                                 {actionText}
                             </p>
 
-                            <div style={{
-                                marginTop: '24px',
-                                padding: '12px 32px',
-                                borderRadius: '100px',
-                                background: accentColor,
-                                color: onAccentColor,
-                                fontWeight: 600,
-                                display: 'inline-flex',
-                                alignItems: 'center',
-                                gap: '8px',
-                                boxShadow: '0 4px 15px rgba(var(--md-sys-color-shadow-rgb), 0.2)',
-                                opacity: isMobile && !isFocused ? 0 : 1
-                            }}>
-                                Explore
+                            <motion.div
+                                whileHover={{scale: 1.05}}
+                                whileTap={{scale: 0.95}}
+                                style={{
+                                    marginTop: '32px',
+                                    padding: '16px 40px',
+                                    borderRadius: '100px',
+                                    background: accentColor,
+                                    color: onAccentColor,
+                                    fontWeight: 700,
+                                    fontSize: '1.1rem',
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: '12px',
+                                    boxShadow: `0 8px 25px -5px ${accentColor}`,
+                                    opacity: isMobile && !isFocused ? 0 : 1,
+                                    pointerEvents: isMobile && !isFocused ? 'none' : 'auto'
+                                }}
+                            >
+                                {exploreText || 'Explore'}
                                 <span className="material-symbols-outlined"
-                                      style={{fontSize: '20px'}}>arrow_forward</span>
-                            </div>
+                                      style={{fontSize: '22px'}}>arrow_forward</span>
+                            </motion.div>
                         </motion.div>
                     )}
                 </AnimatePresence>
