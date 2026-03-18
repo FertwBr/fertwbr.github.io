@@ -21,7 +21,7 @@ const NAV_ITEMS = [
 const SPRING_TRANSITION = {type: "spring", stiffness: 400, damping: 30};
 
 /**
- * Generates the glassmorphism style object based on scroll and active state (Mobile mainly).
+ * Generates the glassmorphism style object based on scroll and active state.
  * @param {boolean} isScrolled - Whether the user has scrolled down past the threshold.
  * @param {boolean} [isActive=false] - Whether the mobile menu is currently active.
  * @returns {React.CSSProperties} The style object.
@@ -52,6 +52,15 @@ const MENU_CONTAINER_VARIANTS = {
     exit: {opacity: 0, transition: {duration: 0.1}}
 };
 
+/**
+ * Main application navigation bar with dynamic scroll and mobile menu support.
+ * @param {Object} props
+ * @param {Object} props.config - Configuration object for the current application.
+ * @param {string} props.activePage - The currently active route identifier.
+ * @param {Function} props.onNavigate - Callback function to trigger navigation.
+ * @param {Object} props.strings - Localized string mappings.
+ * @returns {JSX.Element}
+ */
 export default function AppNavbar({config, activePage, onNavigate, strings}) {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
@@ -99,7 +108,7 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
         };
         checkChildren();
         const observer = new MutationObserver(checkChildren);
-        observer.observe(bottomPortalRef.current, { childList: true, subtree: true });
+        observer.observe(bottomPortalRef.current, {childList: true, subtree: true});
         return () => observer.disconnect();
     }, []);
 
@@ -112,14 +121,16 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
         };
         checkSearch();
         const observer = new MutationObserver(checkSearch);
-        observer.observe(searchPortalRef.current, { childList: true, subtree: true });
+        observer.observe(searchPortalRef.current, {childList: true, subtree: true});
         return () => observer.disconnect();
     }, []);
 
     useEffect(() => {
         if (isMobileMenuOpen) document.body.style.overflow = 'hidden';
         else document.body.style.overflow = '';
-        return () => { document.body.style.overflow = ''; };
+        return () => {
+            document.body.style.overflow = '';
+        };
     }, [isMobileMenuOpen]);
 
     useEffect(() => {
@@ -142,17 +153,26 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
 
     useEffect(() => {
         const handleScroll = () => {
-            const currentScrollY = window.scrollY;
+            const currentScrollY = Math.max(0, window.scrollY);
             setIsScrolled(currentScrollY > 20);
 
             const activeElement = document.activeElement;
             const isInputFocused = activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA');
 
-            if (currentScrollY > lastScrollY.current && currentScrollY > 100 && !isMobileMenuOpen && !isInputFocused && !isFiltersOpen) {
+            const documentHeight = document.documentElement.scrollHeight;
+            const windowHeight = window.innerHeight;
+            const isAtBottom = currentScrollY + windowHeight >= documentHeight - 60;
+
+            if (currentScrollY <= 0 || isInputFocused) {
+                setIsVisible(true);
+            } else if (isAtBottom && !isMobileMenuOpen && !isFiltersOpen) {
                 setIsVisible(false);
-            } else if (currentScrollY < lastScrollY.current || currentScrollY < 50 || isInputFocused) {
+            } else if (currentScrollY > lastScrollY.current && currentScrollY > 100 && !isMobileMenuOpen && !isFiltersOpen) {
+                setIsVisible(false);
+            } else if (currentScrollY < lastScrollY.current || currentScrollY < 50) {
                 setIsVisible(true);
             }
+
             lastScrollY.current = currentScrollY;
         };
         window.addEventListener('scroll', handleScroll, {passive: true});
@@ -235,7 +255,7 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
                                 onClick={() => !is404 && handleNavClick(config.defaultPage)}
                                 role={!is404 ? "button" : undefined}
                                 className="nav-brand-container"
-                                style={{ cursor: is404 ? 'default' : 'pointer' }}
+                                style={{cursor: is404 ? 'default' : 'pointer'}}
                                 whileTap={!is404 ? {scale: 0.97} : {}}
                             >
                                 {config.materialIcon ? (
@@ -243,7 +263,7 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
                                         {config.materialIcon}
                                     </span>
                                 ) : (
-                                    <img src={config.appIcon} alt="" className="nav-brand-image" />
+                                    <img src={config.appIcon} alt="" className="nav-brand-image"/>
                                 )}
                                 <span className="nav-brand-text">
                                     {config.appName}
@@ -289,7 +309,8 @@ export default function AppNavbar({config, activePage, onNavigate, strings}) {
                         </div>
                     </div>
 
-                    <div id="appbar-bottom-portal" ref={bottomPortalRef} className={`appbar-bottom-portal ${isFiltersOpen ? 'open' : ''}`}></div>
+                    <div id="appbar-bottom-portal" ref={bottomPortalRef}
+                         className={`appbar-bottom-portal ${isFiltersOpen ? 'open' : ''}`}></div>
                 </motion.div>
 
                 {!is404 && (

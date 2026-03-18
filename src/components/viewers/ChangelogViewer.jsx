@@ -255,7 +255,6 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
             className="full-screen-article"
         >
             <div className="article-layout">
-                {/* Removido glass-card e padding fixo aqui para fluir naturalmente com a tela */}
                 <div className="article-main-content" style={{
                     position: 'relative',
                     display: 'flex',
@@ -421,6 +420,15 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
     );
 };
 
+/**
+ * Component to view changelog history and specific versions interactively.
+ * @param {Object} props
+ * @param {string} props.markdownContent - Raw markdown text containing changelog data.
+ * @param {Object} props.appConfig - Configuration object for the target application.
+ * @param {Object} props.strings - Localized string mappings.
+ * @param {Function} props.onNavigate - Callback function to trigger internal routing.
+ * @returns {JSX.Element}
+ */
 export default function ChangelogViewer({markdownContent: initialMarkdown, appConfig, strings, onNavigate}) {
     const {language} = useLanguage();
     const {versionId} = useParams();
@@ -492,16 +500,24 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
     useEffect(() => {
         const handleScroll = () => {
             if (isFullScreenMode) return;
-            const currentScrollY = window.scrollY;
+            const currentScrollY = Math.max(0, window.scrollY);
 
             setIsSticky(currentScrollY > 150);
 
             const activeElement = document.activeElement;
             const isInputFocused = activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA');
 
-            if (currentScrollY > lastScrollY.current && currentScrollY > 150 && !isInputFocused) {
+            const documentHeight = document.documentElement.scrollHeight;
+            const windowHeight = window.innerHeight;
+            const isAtBottom = currentScrollY + windowHeight >= documentHeight - 60;
+
+            if (currentScrollY <= 0 || isInputFocused) {
+                setHideOnScroll(false);
+            } else if (isAtBottom) {
                 setHideOnScroll(true);
-            } else if (currentScrollY < lastScrollY.current || isInputFocused) {
+            } else if (currentScrollY > lastScrollY.current && currentScrollY > 150) {
+                setHideOnScroll(true);
+            } else if (currentScrollY < lastScrollY.current) {
                 setHideOnScroll(false);
             }
 
