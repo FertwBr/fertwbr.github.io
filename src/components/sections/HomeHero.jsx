@@ -6,10 +6,11 @@ import RatingBadge from '../ui/RatingBadge';
  * HomeHero component.
  * Displays the main app introduction, animated background elements, and CTA buttons.
  *
- * @param {Object} props - Component props.
- * @param {Object} props.appConfig - Application configuration.
- * @param {Object} props.strings - Localized strings.
- * @param {Function} props.onNavigate - Navigation callback.
+ * @param {Object} props
+ * @param {Object} props.appConfig
+ * @param {Object} props.strings
+ * @param {Function} props.onNavigate
+ * @returns {JSX.Element}
  */
 export default function HomeHero({appConfig, strings, onNavigate}) {
     const {scrollY} = useScroll();
@@ -29,7 +30,7 @@ export default function HomeHero({appConfig, strings, onNavigate}) {
 
     return (
         <section style={{
-            minHeight: '100vh',
+            minHeight: '100dvh',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
