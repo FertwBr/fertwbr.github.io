@@ -40,7 +40,9 @@ export default {
 
     wear_section: {
         title: "Untethered Power.",
-        subtitle: "Full capability. Zero tethering. A standalone experience designed for your wrist."
+        subtitle: "Full capability. Zero tethering. A standalone experience designed for your wrist.",
+        pulse_label: "Standalone Monitoring",
+        compass_label: "Wrist Navigation"
     },
 
     split_choice: {

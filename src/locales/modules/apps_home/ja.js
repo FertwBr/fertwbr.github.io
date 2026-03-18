@@ -40,7 +40,9 @@ export default {
 
   wear_section: {
     title: "解き放たれた力。",
-    subtitle: "フル機能。テザリング不要。手首のために設計されたスタンドアロン体験。"
+    subtitle: "フル機能。テザリング不要。手首のために設計されたスタンドアロン体験。",
+    pulse_label: "スタンドアロン・モニタリング",
+    compass_label: "リストナビゲーション"
   },
 
   split_choice: {

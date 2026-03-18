@@ -40,7 +40,9 @@ export default {
 
   wear_section: {
     title: "Ungebundene Kraft.",
-    subtitle: "Volle Kapazität. Null Bindung. Ein eigenständiges Erlebnis, entwickelt für Ihr Handgelenk."
+    subtitle: "Volle Kapazität. Null Bindung. Ein eigenständiges Erlebnis, entwickelt für Ihr Handgelenk.",
+    pulse_label: "Eigenständige Überwachung",
+    compass_label: "Handgelenk-Navigation"
   },
 
   split_choice: {

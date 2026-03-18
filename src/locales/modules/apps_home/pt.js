@@ -40,7 +40,9 @@ export default {
 
   wear_section: {
     title: "Poder Sem Amarras.",
-    subtitle: "Capacidade total. Sem dependências. Uma experiência independente projetada para o seu pulso."
+    subtitle: "Capacidade total. Sem dependências. Uma experiência independente projetada para o seu pulso.",
+    pulse_label: "Monitoramento Independente",
+    compass_label: "Navegação no Pulso"
   },
 
   split_choice: {

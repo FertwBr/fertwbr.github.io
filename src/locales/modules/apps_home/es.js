@@ -40,7 +40,9 @@ export default {
 
   wear_section: {
     title: "Poder sin Ataduras.",
-    subtitle: "Capacidad total. Cero dependencia. Una experiencia independiente diseñada para tu muñeca."
+    subtitle: "Capacidad total. Cero dependencia. Una experiencia independiente diseñada para tu muñeca.",
+    pulse_label: "Monitoreo Independiente",
+    compass_label: "Navegación en la Muñeca"
   },
 
   split_choice: {

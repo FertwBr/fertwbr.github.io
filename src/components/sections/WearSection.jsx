@@ -9,7 +9,7 @@ import {PulseWatchScreen, CompassWatchScreen} from './MockWatchScreens';
  * @param {Object} props
  * @param {Object} props.pulseConfig - Pixel Pulse configuration.
  * @param {Object} props.compassConfig - Pixel Compass configuration.
- * @param {Object} props.texts - Text content for title and subtitle.
+ * @param {Object} props.texts - Text content for title, subtitle, and labels.
  * @returns {JSX.Element}
  */
 export default function WearSection({pulseConfig, compassConfig, texts}) {
@@ -68,7 +68,7 @@ export default function WearSection({pulseConfig, compassConfig, texts}) {
                     </PixelWatchFrame>
                     <div style={{textAlign: 'center'}}>
                         <h3 style={{fontSize: '1.5rem', fontWeight: 700, margin: '0 0 8px'}}>{pulseConfig.appName}</h3>
-                        <p style={{margin: 0, opacity: 0.7}}>Standalone Monitoring</p>
+                        <p style={{margin: 0, opacity: 0.7}}>{texts.pulse_label}</p>
                     </div>
                 </div>
 
@@ -82,7 +82,7 @@ export default function WearSection({pulseConfig, compassConfig, texts}) {
                             fontWeight: 700,
                             margin: '0 0 8px'
                         }}>{compassConfig.appName}</h3>
-                        <p style={{margin: 0, opacity: 0.7}}>Wrist Navigation</p>
+                        <p style={{margin: 0, opacity: 0.7}}>{texts.compass_label}</p>
                     </div>
                 </div>
             </div>
