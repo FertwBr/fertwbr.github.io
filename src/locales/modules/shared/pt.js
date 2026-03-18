@@ -1,4 +1,3 @@
-// src/locales/shared/pt.js
 /**
  * Strings de localização compartilhadas principais.
  * Inclui elementos de interface de usuário comuns, estados de erro, formulários e páginas de visualização universais.
@@ -38,6 +37,24 @@ export default {
             mode_auto: "Automático",
             mode_light: "Claro",
             mode_dark: "Escuro"
+        },
+        themes: {
+            default: "Padrão",
+            blue: "Azul",
+            green: "Verde",
+            purple: "Roxo",
+            orange: "Laranja",
+            red: "Vermelho",
+            pink: "Rosa",
+            yellow: "Amarelo",
+            teal: "Azul-petróleo",
+            cyan: "Ciano",
+            indigo: "Índigo",
+            lime: "Limão",
+            brown: "Marrom",
+            grey: "Cinza",
+            black: "Preto",
+            white: "Branco"
         }
     },
     terms_page: {

@@ -38,6 +38,24 @@ export default {
             mode_auto: "自動",
             mode_light: "ライト",
             mode_dark: "ダーク"
+        },
+        themes: {
+            default: "デフォルト",
+            blue: "ブルー",
+            green: "グリーン",
+            purple: "パープル",
+            orange: "オレンジ",
+            red: "レッド",
+            pink: "ピンク",
+            yellow: "イエロー",
+            teal: "ティール",
+            cyan: "シアン",
+            indigo: "インディゴ",
+            lime: "ライム",
+            brown: "ブラウン",
+            grey: "グレー",
+            black: "ブラック",
+            white: "ホワイト"
         }
     },
     terms_page: {

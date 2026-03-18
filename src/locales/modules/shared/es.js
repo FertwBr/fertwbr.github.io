@@ -38,6 +38,24 @@ export default {
             mode_auto: "Automático",
             mode_light: "Claro",
             mode_dark: "Oscuro"
+        },
+        themes: {
+            default: "Predeterminado",
+            blue: "Azul",
+            green: "Verde",
+            purple: "Morado",
+            orange: "Naranja",
+            red: "Rojo",
+            pink: "Rosa",
+            yellow: "Amarillo",
+            teal: "Verde azulado",
+            cyan: "Cian",
+            indigo: "Índigo",
+            lime: "Lima",
+            brown: "Marrón",
+            grey: "Gris",
+            black: "Negro",
+            white: "Blanco"
         }
     },
     terms_page: {

@@ -38,6 +38,24 @@ export default {
             mode_auto: "स्वचालित",
             mode_light: "लाइट",
             mode_dark: "डार्क"
+        },
+        themes: {
+            default: "डिफ़ॉल्ट",
+            blue: "नीला",
+            green: "हरा",
+            purple: "बैंगनी",
+            orange: "नारंगी",
+            red: "लाल",
+            pink: "गुलाबी",
+            yellow: "पीला",
+            teal: "टील",
+            cyan: "सियान",
+            indigo: "इंडिगो",
+            lime: "लाइम",
+            brown: "भूरा",
+            grey: "सलेटी",
+            black: "काला",
+            white: "सफेद"
         }
     },
     terms_page: {

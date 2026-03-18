@@ -1,4 +1,3 @@
-// src/locales/shared/en.js
 /**
  * Core shared localization strings.
  * Includes common UI elements, error states, forms, and universal viewer pages.
@@ -38,6 +37,24 @@ export default {
             mode_auto: "Auto",
             mode_light: "Light",
             mode_dark: "Dark"
+        },
+        themes: {
+            default: "Default",
+            blue: "Blue",
+            green: "Green",
+            purple: "Purple",
+            orange: "Orange",
+            red: "Red",
+            pink: "Pink",
+            yellow: "Yellow",
+            teal: "Teal",
+            cyan: "Cyan",
+            indigo: "Indigo",
+            lime: "Lime",
+            brown: "Brown",
+            grey: "Grey",
+            black: "Black",
+            white: "White"
         }
     },
     terms_page: {

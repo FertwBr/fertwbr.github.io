@@ -38,6 +38,24 @@ export default {
             mode_auto: "Automatisch",
             mode_light: "Hell",
             mode_dark: "Dunkel"
+        },
+        themes: {
+            default: "Standard",
+            blue: "Blau",
+            green: "Grün",
+            purple: "Violett",
+            orange: "Orange",
+            red: "Rot",
+            pink: "Rosa",
+            yellow: "Gelb",
+            teal: "Blaugrün",
+            cyan: "Cyan",
+            indigo: "Indigo",
+            lime: "Limette",
+            brown: "Braun",
+            grey: "Grau",
+            black: "Schwarz",
+            white: "Weiß"
         }
     },
     terms_page: {
