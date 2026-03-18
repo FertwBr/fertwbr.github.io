@@ -6,9 +6,10 @@ import RatingBadge from '../ui/RatingBadge';
 
 /**
  * A section displaying an app on a phone device with scroll-triggered animations.
- * Integrates a compact rating badge next to the app name with corrected alignment.
+ * Integrates a compact rating badge next to the app name.
+ * Space is optimized so the device peeks into the viewport on initial load.
  *
- * @param {Object} config - App configuration object containing rating fallback.
+ * @param {Object} config - App configuration object.
  * @param {string} title - Section title.
  * @param {Array<string>} points - List of key feature points.
  * @param {boolean} reversed - If true, places text on left and phone on right.
@@ -20,9 +21,9 @@ export default function ScrollDeviceSection({config, title, points, reversed = f
         offset: ["start end", "end start"]
     });
 
-    const y = useTransform(scrollYProgress, [0, 1], [150, -150]);
-    const rotate = useTransform(scrollYProgress, [0, 1], reversed ? [-10, 10] : [10, -10]);
-    const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+    const y = useTransform(scrollYProgress, [0, 1], [40, -40]);
+    const rotate = useTransform(scrollYProgress, [0, 1], reversed ? [-5, 5] : [5, -5]);
+    const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.5, 1, 1, 0.5]);
 
     const isPulse = config.scheme === 'pixelpulse';
     const accentColor = isPulse ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-tertiary)';
@@ -31,19 +32,19 @@ export default function ScrollDeviceSection({config, title, points, reversed = f
         <section
             ref={containerRef}
             style={{
-                minHeight: '100vh',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                padding: '80px 24px',
+                padding: '40px 24px 80px',
                 position: 'relative',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                zIndex: 3
             }}
         >
             <div style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                gap: '80px',
+                gap: '40px',
                 maxWidth: '1200px',
                 width: '100%',
                 alignItems: 'center',
@@ -99,12 +100,13 @@ export default function ScrollDeviceSection({config, title, points, reversed = f
                     <motion.h2
                         initial={{opacity: 0, x: reversed ? -30 : 30}}
                         whileInView={{opacity: 1, x: 0}}
-                        transition={{duration: 0.8}}
+                        transition={{duration: 0.6}}
+                        viewport={{once: true, margin: "-100px"}}
                         style={{
-                            fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+                            fontSize: 'clamp(2.2rem, 5vw, 3.8rem)',
                             fontWeight: 800,
-                            lineHeight: 1.1,
-                            marginBottom: '40px',
+                            lineHeight: 1.15,
+                            marginBottom: '32px',
                             color: 'var(--md-sys-color-on-surface)'
                         }}
                     >
@@ -117,28 +119,30 @@ export default function ScrollDeviceSection({config, title, points, reversed = f
                                 key={i}
                                 initial={{opacity: 0, y: 20}}
                                 whileInView={{opacity: 1, y: 0}}
-                                transition={{delay: 0.2 + (i * 0.1)}}
+                                transition={{delay: i * 0.1}}
+                                viewport={{once: true, margin: "-50px"}}
                                 style={{
                                     display: 'flex',
                                     alignItems: 'start',
-                                    gap: '20px'
+                                    gap: '16px'
                                 }}
                             >
                                 <div style={{
                                     marginTop: '4px',
                                     width: '24px', height: '24px',
                                     borderRadius: '50%',
-                                    background: accentColor,
+                                    background: `rgba(${isPulse ? 'var(--md-sys-color-primary-rgb)' : 'var(--md-sys-color-tertiary-rgb)'}, 0.15)`,
                                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                                     flexShrink: 0
                                 }}>
                                     <span className="material-symbols-outlined" style={{
                                         fontSize: '16px',
-                                        color: 'var(--md-sys-color-on-primary)'
+                                        color: accentColor,
+                                        fontWeight: 600
                                     }}>check</span>
                                 </div>
                                 <span style={{
-                                    fontSize: '1.2rem',
+                                    fontSize: '1.15rem',
                                     fontWeight: 500,
                                     lineHeight: 1.5,
                                     color: 'var(--md-sys-color-on-surface-variant)'

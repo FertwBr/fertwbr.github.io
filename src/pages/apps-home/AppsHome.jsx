@@ -46,10 +46,11 @@ export default function AppsHome() {
             <PageBackground/>
 
             <main style={{flex: 1}}>
-                <div style={{paddingTop: '140px', paddingBottom: '0'}}>
+                <div style={{paddingTop: '120px', paddingBottom: '0'}}>
                     <AppsHero
                         title={t.hero_title}
                         subtitle={t.hero_subtitle}
+                        scrollText={t.scroll_explore}
                     />
 
                     <ScrollDeviceSection
