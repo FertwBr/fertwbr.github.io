@@ -40,22 +40,15 @@ export default {
             mode_dark: "डार्क"
         },
         themes: {
-            default: "डिफ़ॉल्ट",
-            blue: "नीला",
-            green: "हरा",
-            purple: "बैंगनी",
-            orange: "नारंगी",
-            red: "लाल",
-            pink: "गुलाबी",
-            yellow: "पीला",
-            teal: "टील",
-            cyan: "सियान",
-            indigo: "इंडिगो",
-            lime: "लाइम",
-            brown: "भूरा",
-            grey: "सलेटी",
-            black: "काला",
-            white: "सफेद"
+            "m3 purple": "M3 बैंगनी",
+            "crimson": "क्रिमसन",
+            "teal": "टील",
+            "forest": "फॉरेस्ट",
+            "emerald": "एमराल्ड",
+            "amber": "एम्बर",
+            "coral": "कोरल",
+            "rose": "रोज़",
+            "magenta": "मैजेंटा"
         }
     },
     terms_page: {

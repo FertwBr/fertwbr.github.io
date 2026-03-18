@@ -10,7 +10,7 @@ import {
 import {useLanguage} from '../../context/LanguageContext';
 
 /**
- * Maps language codes to friendly display labels.
+ * Maps language codes to friendly display labels as a fallback.
  */
 const LANGUAGE_LABELS = {
     en: "English", pt: "Português", de: "Deutsch",
@@ -210,8 +210,9 @@ export default function FooterControls({title}) {
     };
 
     const getThemeName = (themeObj) => {
-        if (!themeObj) return "Theme";
-        return content.footer?.themes?.[themeObj.name.toLowerCase()] || themeObj.name;
+        if (!themeObj) return content.footer?.appearance?.title || "Theme";
+        const themeKey = (themeObj.name || themeObj.id || themeObj.value || "").toLowerCase();
+        return content.footer?.themes?.[themeKey] || themeObj.name || "Theme";
     };
 
     const currentThemeObj = themes.find(t => t.value === savedTheme);
@@ -375,7 +376,7 @@ export default function FooterControls({title}) {
 
                 <DropdownButton
                     icon="translate"
-                    label={LANGUAGE_LABELS[language] || language.toUpperCase()}
+                    label={content.footer?.appearance?.[language] || LANGUAGE_LABELS[language] || language.toUpperCase()}
                     isOpen={activeMenu === 'lang'}
                     onClick={() => toggleMenu('lang')}
                 >
@@ -416,7 +417,7 @@ export default function FooterControls({title}) {
                                 </span>
                             }
                         >
-                            {LANGUAGE_LABELS[code]}
+                            {content.footer?.appearance?.[code] || LANGUAGE_LABELS[code]}
                         </MenuItem>
                     ))}
 

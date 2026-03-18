@@ -39,22 +39,15 @@ export default {
             mode_dark: "Dark"
         },
         themes: {
-            default: "Default",
-            blue: "Blue",
-            green: "Green",
-            purple: "Purple",
-            orange: "Orange",
-            red: "Red",
-            pink: "Pink",
-            yellow: "Yellow",
-            teal: "Teal",
-            cyan: "Cyan",
-            indigo: "Indigo",
-            lime: "Lime",
-            brown: "Brown",
-            grey: "Grey",
-            black: "Black",
-            white: "White"
+            "m3 purple": "M3 Purple",
+            "crimson": "Crimson",
+            "teal": "Teal",
+            "forest": "Forest",
+            "emerald": "Emerald",
+            "amber": "Amber",
+            "coral": "Coral",
+            "rose": "Rose",
+            "magenta": "Magenta"
         }
     },
     terms_page: {

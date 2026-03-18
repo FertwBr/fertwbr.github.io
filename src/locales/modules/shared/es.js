@@ -40,22 +40,15 @@ export default {
             mode_dark: "Oscuro"
         },
         themes: {
-            default: "Predeterminado",
-            blue: "Azul",
-            green: "Verde",
-            purple: "Morado",
-            orange: "Naranja",
-            red: "Rojo",
-            pink: "Rosa",
-            yellow: "Amarillo",
-            teal: "Verde azulado",
-            cyan: "Cian",
-            indigo: "Índigo",
-            lime: "Lima",
-            brown: "Marrón",
-            grey: "Gris",
-            black: "Negro",
-            white: "Blanco"
+            "m3 purple": "Morado M3",
+            "crimson": "Carmesí",
+            "teal": "Verde azulado",
+            "forest": "Bosque",
+            "emerald": "Esmeralda",
+            "amber": "Ámbar",
+            "coral": "Coral",
+            "rose": "Rosa",
+            "magenta": "Magenta"
         }
     },
     terms_page: {

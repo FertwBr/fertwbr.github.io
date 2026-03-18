@@ -40,22 +40,15 @@ export default {
             mode_dark: "ダーク"
         },
         themes: {
-            default: "デフォルト",
-            blue: "ブルー",
-            green: "グリーン",
-            purple: "パープル",
-            orange: "オレンジ",
-            red: "レッド",
-            pink: "ピンク",
-            yellow: "イエロー",
-            teal: "ティール",
-            cyan: "シアン",
-            indigo: "インディゴ",
-            lime: "ライム",
-            brown: "ブラウン",
-            grey: "グレー",
-            black: "ブラック",
-            white: "ホワイト"
+            "m3 purple": "M3 パープル",
+            "crimson": "クリムゾン",
+            "teal": "ティール",
+            "forest": "フォレスト",
+            "emerald": "エメラルド",
+            "amber": "アンバー",
+            "coral": "コーラル",
+            "rose": "ローズ",
+            "magenta": "マゼンタ"
         }
     },
     terms_page: {

@@ -40,22 +40,15 @@ export default {
             mode_dark: "Dunkel"
         },
         themes: {
-            default: "Standard",
-            blue: "Blau",
-            green: "Grün",
-            purple: "Violett",
-            orange: "Orange",
-            red: "Rot",
-            pink: "Rosa",
-            yellow: "Gelb",
-            teal: "Blaugrün",
-            cyan: "Cyan",
-            indigo: "Indigo",
-            lime: "Limette",
-            brown: "Braun",
-            grey: "Grau",
-            black: "Schwarz",
-            white: "Weiß"
+            "m3 purple": "M3 Lila",
+            "crimson": "Karmesinrot",
+            "teal": "Blaugrün",
+            "forest": "Waldgrün",
+            "emerald": "Smaragd",
+            "amber": "Bernstein",
+            "coral": "Koralle",
+            "rose": "Rose",
+            "magenta": "Magenta"
         }
     },
     terms_page: {
