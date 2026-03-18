@@ -2,12 +2,12 @@ import React, { useMemo } from 'react';
 
 /**
  * Renders a smart flag image based on the provided language code and the user's local timezone.
- * Dynamically maps broad languages (like Spanish or English) to specific regional flags.
+ * Dynamically maps broad languages to specific regional flags without relying on OS emojis.
  *
- * @param {Object} props - The component properties.
- * @param {string} props.languageCode - The standard ISO language code (e.g., 'en', 'es', 'pt').
- * @param {string} [props.width='40'] - The requested width for the FlagCDN image.
- * @returns {JSX.Element} An image element containing the geographically relevant flag.
+ * @param {Object} props
+ * @param {string} props.languageCode
+ * @param {string} [props.width='40']
+ * @returns {JSX.Element}
  */
 export default function DynamicLanguageFlag({ languageCode, width = '40' }) {
     const flagCode = useMemo(() => {
@@ -47,10 +47,20 @@ export default function DynamicLanguageFlag({ languageCode, width = '40' }) {
                 return 'br';
 
             case 'en':
-                if (tz.includes('Europe/')) return 'gb';
+                if (tz.includes('Europe/London') || tz.includes('Europe/Belfast')) return 'gb';
+                if (tz.includes('Europe/Dublin')) return 'ie';
                 if (tz.includes('Australia/')) return 'au';
-                if (tz.includes('Pacific/Auckland')) return 'nz';
-                if (tz.includes('Toronto') || tz.includes('Vancouver') || tz.includes('Edmonton')) return 'ca';
+                if (tz.includes('Pacific/Auckland') || tz.includes('Pacific/Chatham')) return 'nz';
+                if (tz.includes('Africa/Johannesburg')) return 'za';
+                if (tz.includes('Asia/Singapore')) return 'sg';
+                if (tz.includes('America/Jamaica')) return 'jm';
+                if (tz.includes('America/Toronto') ||
+                    tz.includes('America/Vancouver') ||
+                    tz.includes('America/Edmonton') ||
+                    tz.includes('America/Winnipeg') ||
+                    tz.includes('America/Halifax') ||
+                    tz.includes('America/St_Johns') ||
+                    tz.includes('America/Regina')) return 'ca';
                 return 'us';
 
             case 'de':
