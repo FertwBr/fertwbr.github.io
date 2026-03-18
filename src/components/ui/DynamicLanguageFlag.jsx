@@ -1,0 +1,81 @@
+import React, { useMemo } from 'react';
+
+/**
+ * Renders a smart flag image based on the provided language code and the user's local timezone.
+ * Dynamically maps broad languages (like Spanish or English) to specific regional flags.
+ *
+ * @param {Object} props - The component properties.
+ * @param {string} props.languageCode - The standard ISO language code (e.g., 'en', 'es', 'pt').
+ * @param {string} [props.width='40'] - The requested width for the FlagCDN image.
+ * @returns {JSX.Element} An image element containing the geographically relevant flag.
+ */
+export default function DynamicLanguageFlag({ languageCode, width = '40' }) {
+    const flagCode = useMemo(() => {
+        let tz = '';
+        try {
+            tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+        } catch (e) {
+            tz = '';
+        }
+
+        switch (languageCode) {
+            case 'es':
+                if (tz.includes('Europe/Madrid') || tz.includes('Canary')) return 'es';
+                if (tz.includes('Argentina')) return 'ar';
+                if (tz.includes('Bogota')) return 'co';
+                if (tz.includes('Lima') || tz.includes('Rio_Branco')) return 'pe';
+                if (tz.includes('Santiago') || tz.includes('Punta_Arenas')) return 'cl';
+                if (tz.includes('Caracas')) return 've';
+                if (tz.includes('Guayaquil')) return 'ec';
+                if (tz.includes('Guatemala')) return 'gt';
+                if (tz.includes('Havana')) return 'cu';
+                if (tz.includes('La_Paz') || tz.includes('Porto_Velho')) return 'bo';
+                if (tz.includes('Santo_Domingo')) return 'do';
+                if (tz.includes('Tegucigalpa')) return 'hn';
+                if (tz.includes('Asuncion') || tz.includes('Campo_Grande') || tz.includes('Cuiaba')) return 'py';
+                if (tz.includes('El_Salvador')) return 'sv';
+                if (tz.includes('Managua')) return 'ni';
+                if (tz.includes('Costa_Rica')) return 'cr';
+                if (tz.includes('Puerto_Rico')) return 'pr';
+                if (tz.includes('Panama')) return 'pa';
+                if (tz.includes('Montevideo')) return 'uy';
+                if (tz.includes('America/')) return 'mx';
+                return 'es';
+
+            case 'pt':
+                if (tz.includes('Europe/') || tz.includes('Africa/')) return 'pt';
+                return 'br';
+
+            case 'en':
+                if (tz.includes('Europe/')) return 'gb';
+                if (tz.includes('Australia/')) return 'au';
+                if (tz.includes('Pacific/Auckland')) return 'nz';
+                if (tz.includes('Toronto') || tz.includes('Vancouver') || tz.includes('Edmonton')) return 'ca';
+                return 'us';
+
+            case 'de':
+                if (tz.includes('Vienna')) return 'at';
+                if (tz.includes('Zurich')) return 'ch';
+                return 'de';
+
+            case 'ja': return 'jp';
+            case 'hi': return 'in';
+
+            default:
+                return languageCode;
+        }
+    }, [languageCode]);
+
+    return (
+        <img
+            src={`https://flagcdn.com/w${width}/${flagCode}.png`}
+            alt={`${languageCode} regional flag`}
+            style={{
+                width: '100%',
+                borderRadius: '2px',
+                display: 'block',
+                boxShadow: '0 0 2px rgba(0,0,0,0.2)'
+            }}
+        />
+    );
+}

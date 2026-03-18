@@ -8,6 +8,7 @@ import {
     setThemeMode
 } from '../../theme/themeUtils';
 import {useLanguage} from '../../context/LanguageContext';
+import DynamicLanguageFlag from '../ui/DynamicLanguageFlag';
 
 /**
  * Maps language codes to friendly display labels as a fallback.
@@ -15,19 +16,6 @@ import {useLanguage} from '../../context/LanguageContext';
 const LANGUAGE_LABELS = {
     en: "English", pt: "Português", de: "Deutsch",
     ja: "日本語", hi: "हिन्दी", es: "Español"
-};
-
-/**
- * Maps language codes to FlagCDN country codes.
- * Usando imagens diretas resolve o bloqueio de renderização de emojis no Windows.
- */
-const LANGUAGE_FLAGS = {
-    en: "us",
-    pt: "br",
-    de: "de",
-    ja: "jp",
-    hi: "in",
-    es: "es"
 };
 
 const MenuItem = ({active, onClick, children, leading}) => {
@@ -414,11 +402,7 @@ export default function FooterControls({title}) {
                             }}
                             leading={
                                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '22px' }}>
-                                    <img
-                                        src={`https://flagcdn.com/w40/${LANGUAGE_FLAGS[code]}.png`}
-                                        alt={`${code} flag`}
-                                        style={{ width: '100%', borderRadius: '2px', display: 'block', boxShadow: '0 0 2px rgba(0,0,0,0.2)' }}
-                                    />
+                                    <DynamicLanguageFlag languageCode={code} />
                                 </div>
                             }
                         >
