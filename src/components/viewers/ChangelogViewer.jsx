@@ -727,6 +727,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                 onClick: handleViewAll
             } : null}
             lastUpdated={isFullScreenMode ? filteredVersions[0]?.date : undefined}
+            lastUpdatedShort={isFullScreenMode ? filteredVersions[0]?.shortDate : undefined}
             lastUpdatedText={strings.changelog?.released || "Released"}
             actionNode={
                 <div className="header-action-buttons">

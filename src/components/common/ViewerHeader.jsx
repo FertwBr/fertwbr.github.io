@@ -11,6 +11,7 @@ import {useNavigate} from 'react-router-dom';
  * @param {string} props.title - Main title of the viewer
  * @param {string} [props.subtitle] - Optional subtitle text
  * @param {string} [props.lastUpdated] - Optional last updated date string
+ * @param {string} [props.lastUpdatedShort] - Optional short version of last updated date string
  * @param {string} [props.lastUpdatedText] - Localized label for "Last Updated"
  * @param {React.ReactNode} [props.actionNode] - Optional component (like a button) rendered on the right side
  * @param {React.ReactNode} [props.introNode] - Optional introductory Markdown content rendered below the title
@@ -23,6 +24,7 @@ export default function ViewerHeader({
                                          title,
                                          subtitle,
                                          lastUpdated,
+                                         lastUpdatedShort,
                                          lastUpdatedText,
                                          actionNode,
                                          introNode,
@@ -60,8 +62,7 @@ export default function ViewerHeader({
                                     className="breadcrumb-link"
                                     title={middleCrumb.label}
                                 >
-                                    <span
-                                        className="material-symbols-outlined breadcrumb-icon hide-on-small-desktop">folder</span>
+                                    <span className="material-symbols-outlined breadcrumb-icon hide-on-small-desktop">folder</span>
                                     <span>{middleCrumb.label}</span>
                                 </button>
                                 <span className="material-symbols-outlined breadcrumb-separator">chevron_right</span>
@@ -73,8 +74,7 @@ export default function ViewerHeader({
                             className="breadcrumb-link current"
                             title={title}
                         >
-                            <span
-                                className="material-symbols-outlined breadcrumb-icon hide-on-small-desktop">{icon}</span>
+                            <span className="material-symbols-outlined breadcrumb-icon hide-on-small-desktop">{icon}</span>
                             <span>{title}</span>
                         </button>
                     </nav>
@@ -93,7 +93,8 @@ export default function ViewerHeader({
                         {lastUpdated && (
                             <div className="last-updated-badge" title={`${lastUpdatedText} ${lastUpdated}`}>
                                 <span className="material-symbols-outlined badge-icon">update</span>
-                                <span className="header-btn-text">{lastUpdatedText} {lastUpdated}</span>
+                                <span className="badge-text-long">{lastUpdatedText} {lastUpdated}</span>
+                                <span className="badge-text-short">{lastUpdatedShort || lastUpdated}</span>
                             </div>
                         )}
                     </div>
