@@ -1,3 +1,4 @@
+/* src/components/viewers/ChangelogViewer.jsx */
 import React, {useState, useEffect, useMemo, useRef} from 'react';
 import {createPortal} from 'react-dom';
 import ReactMarkdown from 'react-markdown';
@@ -262,8 +263,6 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
         }
     };
 
-    const excludeTags = ['Wear OS', 'Android XR', 'Phone', 'Tablet', 'Web', 'Website', 'Beta', 'Alpha', 'RC', 'Pre-release'];
-
     const MarkdownComponents = {
         h4: ({node, ...props}) => {
             const childrenArray = React.Children.toArray(props.children);
@@ -274,161 +273,95 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
     };
 
     return (
-        <motion.article
-            layoutId={`changelog-card-${v.id}`}
-            initial={{opacity: 0, scale: 0.98}}
-            animate={{opacity: 1, scale: 1}}
-            transition={{type: "spring", stiffness: 200, damping: 20}}
-            className="full-screen-article"
-        >
-            <div className="article-layout">
-                <div className="article-main-content" style={{
-                    position: 'relative',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '40px'
-                }}>
-                    <div style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '24px',
-                        background: 'linear-gradient(135deg, rgba(var(--md-sys-color-primary-rgb), 0.08) 0%, transparent 100%)',
-                        padding: 'clamp(24px, 4vw, 40px)',
-                        borderRadius: '24px',
-                        border: '1px solid rgba(var(--md-sys-color-primary-rgb), 0.1)',
-                        position: 'relative'
-                    }}>
-                        <div style={{
-                            position: 'absolute',
-                            left: 0,
-                            top: '32px',
-                            bottom: '32px',
-                            width: '4px',
-                            background: 'var(--md-sys-color-primary)',
-                            borderRadius: '0 4px 4px 0'
-                        }}/>
+        <>
+            <motion.main
+                layoutId={`changelog-card-${v.id}`}
+                initial={{opacity: 0, scale: 0.98}}
+                animate={{opacity: 1, scale: 1}}
+                transition={{type: "spring", stiffness: 200, damping: 20}}
+                className="viewer-main-content"
+            >
+                <div className="mobile-toc-wrapper">
+                    <PageTableOfContents title={strings.table_of_contents || "Table of Contents"} isMobile={true}>
+                        <div className="toc-scroll-area" data-lenis-prevent="true">
+                            {headers.map(h => (
+                                <button
+                                    key={h.id}
+                                    onClick={() => scrollToSection(h.id)}
+                                    className="toc-item-btn inactive"
+                                >
+                                    <span className="toc-item-text">{h.title}</span>
+                                </button>
+                            ))}
+                        </div>
+                    </PageTableOfContents>
+                </div>
 
+                <div className="markdown-body rich-text">
+                    <ReactMarkdown rehypePlugins={[rehypeRaw]} components={MarkdownComponents}>
+                        {v.content}
+                    </ReactMarkdown>
+                </div>
+
+                <div className="sequential-nav-wrapper">
+                    <div className="sequential-nav">
+                        {nextVersion && (
+                            <button onClick={() => onOpenSingle(nextVersion.id)} className="seq-btn prev-btn">
+                                <span className="material-symbols-outlined">arrow_back</span>
+                                <div className="seq-text" style={{alignItems: 'flex-start'}}>
+                                    <span className="seq-label">{strings.next_update || "Next Update"}</span>
+                                    <span className="seq-title">{nextVersion.version.replace('Version ', '')}</span>
+                                </div>
+                            </button>
+                        )}
+
+                        {prevVersion && (
+                            <button onClick={() => onOpenSingle(prevVersion.id)} className="seq-btn next-btn"
+                                    style={{marginLeft: nextVersion ? 'auto' : '0'}}>
+                                <div className="seq-text" style={{alignItems: 'flex-end'}}>
+                                    <span className="seq-label">{strings.previous_update || "Previous Update"}</span>
+                                    <span className="seq-title">{prevVersion.version.replace('Version ', '')}</span>
+                                </div>
+                                <span className="material-symbols-outlined">arrow_forward</span>
+                            </button>
+                        )}
+                    </div>
+                </div>
+            </motion.main>
+
+            {headers.length > 0 && (
+                <aside className="desktop-toc-wrapper viewer-sidebar-container">
+                    <div className="sidebar-base-card">
                         <div style={{
                             display: 'flex',
                             alignItems: 'center',
                             gap: '12px',
+                            marginBottom: '24px',
                             color: 'var(--md-sys-color-primary)',
-                            fontSize: '1.2rem',
-                            fontWeight: 800,
-                            letterSpacing: '-0.03em'
+                            fontSize: '1rem',
+                            fontWeight: 700,
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.03em'
                         }}>
-                            <span className="material-symbols-outlined" style={{fontSize: '28px'}}>verified</span>
-                            {strings.released || "Released"} {v.date}
+                            <span className="material-symbols-outlined" style={{fontSize: '24px'}}>segment</span>
+                            {strings.table_of_contents || "Table of Contents"}
                         </div>
 
-                        <div style={{display: 'flex', gap: '8px', flexWrap: 'wrap'}}>
-                            {v.tags.filter(t => !excludeTags.includes(t)).map(tag => (
-                                <span key={tag} style={{
-                                    fontSize: '0.85rem',
-                                    padding: '6px 16px',
-                                    background: 'var(--md-sys-color-surface-container)',
-                                    color: 'var(--md-sys-color-on-surface)',
-                                    borderRadius: '100px',
-                                    fontWeight: 600,
-                                    border: '1px solid var(--md-sys-color-outline-variant)'
-                                }}>{tag}</span>
+                        <div className="toc-scroll-area" data-lenis-prevent="true">
+                            {headers.map(h => (
+                                <button
+                                    key={h.id}
+                                    onClick={() => scrollToSection(h.id)}
+                                    className="toc-item-btn inactive"
+                                >
+                                    <span className="toc-item-text">{h.title}</span>
+                                </button>
                             ))}
                         </div>
-
-                        {headers.length > 0 && (
-                            <div className="mobile-article-toc" style={{marginTop: '8px'}}>
-                                <div style={{
-                                    fontSize: '0.85rem',
-                                    fontWeight: 700,
-                                    color: 'var(--md-sys-color-on-surface-variant)',
-                                    marginBottom: '16px',
-                                    textTransform: 'uppercase',
-                                    letterSpacing: '0.03em'
-                                }}>
-                                    {strings.in_this_update || "In this update"}
-                                </div>
-                                <div className="horizontal-chips" style={{margin: '0 -24px', padding: '0 24px'}}>
-                                    {headers.map(h => (
-                                        <button key={h.id} onClick={() => scrollToSection(h.id)} className="toc-chip">
-                                            {h.title}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
                     </div>
-
-                    <div className="markdown-body">
-                        <ReactMarkdown rehypePlugins={[rehypeRaw]} components={MarkdownComponents}>
-                            {v.content}
-                        </ReactMarkdown>
-                    </div>
-                </div>
-
-                {headers.length > 0 && (
-                    <aside className="desktop-article-toc">
-                        <div className="glass-card" style={{
-                            position: 'sticky',
-                            top: '140px',
-                            padding: '32px',
-                            borderRadius: '32px'
-                        }}>
-                            <div style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '12px',
-                                margin: '0 0 24px 0',
-                                color: 'var(--md-sys-color-primary)',
-                                fontSize: '1rem',
-                                fontWeight: 700,
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.03em'
-                            }}>
-                                <span className="material-symbols-outlined" style={{fontSize: '24px'}}>segment</span>
-                                {strings.table_of_contents || "Table of Contents"}
-                            </div>
-
-                            <div className="toc-scroll-area" data-lenis-prevent="true">
-                                {headers.map(h => (
-                                    <button
-                                        key={h.id}
-                                        onClick={() => scrollToSection(h.id)}
-                                        className="toc-item-btn inactive"
-                                    >
-                                        <span className="toc-item-text">{h.title}</span>
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-                    </aside>
-                )}
-            </div>
-
-            <div className="sequential-nav-wrapper">
-                <div className="sequential-nav">
-                    {nextVersion && (
-                        <button onClick={() => onOpenSingle(nextVersion.id)} className="seq-btn prev-btn">
-                            <span className="material-symbols-outlined">arrow_back</span>
-                            <div className="seq-text" style={{alignItems: 'flex-start'}}>
-                                <span className="seq-label">{strings.next_update || "Next Update"}</span>
-                                <span className="seq-title">{nextVersion.version.replace('Version ', '')}</span>
-                            </div>
-                        </button>
-                    )}
-
-                    {prevVersion && (
-                        <button onClick={() => onOpenSingle(prevVersion.id)} className="seq-btn next-btn"
-                                style={{marginLeft: nextVersion ? 'auto' : '0'}}>
-                            <div className="seq-text" style={{alignItems: 'flex-end'}}>
-                                <span className="seq-label">{strings.previous_update || "Previous Update"}</span>
-                                <span className="seq-title">{prevVersion.version.replace('Version ', '')}</span>
-                            </div>
-                            <span className="material-symbols-outlined">arrow_forward</span>
-                        </button>
-                    )}
-                </div>
-            </div>
-        </motion.article>
+                </aside>
+            )}
+        </>
     );
 };
 
@@ -814,229 +747,218 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
             <ViewerHeader
                 appName={appConfig?.appName}
                 icon="history"
-                title={isFullScreenMode ? `Update ${filteredVersions[0]?.version.replace('Version ', '')}` : (strings.changelog?.title || 'Changelog')}
+                title={isFullScreenMode ? `${filteredVersions[0]?.version.replace('Version ', '')}` : (strings.changelog?.title || 'Changelog')}
                 subtitle={!isFullScreenMode ? (strings.changelog?.subtitle || 'Track the evolution of the application.') : undefined}
+                middleCrumb={isFullScreenMode ? {
+                    label: strings.changelog?.title || 'Changelog',
+                    onClick: handleViewAll
+                } : null}
+                lastUpdated={isFullScreenMode ? filteredVersions[0]?.date : undefined}
+                lastUpdatedText={strings.changelog?.released || "Released"}
                 actionNode={
-                    isFullScreenMode && filteredVersions.length > 0 ? (
-                        <div style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '12px',
-                            flexWrap: 'wrap',
-                            marginTop: '8px'
-                        }}>
-                            <button onClick={handleViewAll} className="btn-outline"
-                                    style={{padding: '8px 16px', fontSize: '0.9rem', borderRadius: '100px'}}>
-                                <span className="material-symbols-outlined" style={{fontSize: '18px'}}>arrow_back</span>
-                                {strings.changelog?.view_all || "View All Updates"}
+                    <div className="header-action-buttons">
+                        {isFullScreenMode && filteredVersions.length > 0 && (
+                            <button onClick={() => handleShare(filteredVersions[0])} className="header-icon-btn"
+                                    title={strings.changelog?.share_update || "Share Update"}>
+                                <span className="material-symbols-outlined">share</span>
                             </button>
-                            <button onClick={() => handleShare(filteredVersions[0])} className="btn-outline"
-                                    style={{padding: '8px 16px', fontSize: '0.9rem', borderRadius: '100px'}}>
-                                <span className="material-symbols-outlined" style={{fontSize: '18px'}}>share</span>
-                                {strings.changelog?.share_update || "Share Update"}
-                            </button>
-                            <AnimatePresence>
-                                {(isAiTranslated || isShowingOriginal) &&
-                                    <AutoTranslateBadge isShowingOriginal={isShowingOriginal}
-                                                        onClick={() => isShowingOriginal ? handleRestoreTranslation() : setShowTranslateInfo(true)}/>}
-                            </AnimatePresence>
-                        </div>
-                    ) : (
-                        <div style={{display: 'flex', alignItems: 'flex-start', gap: '16px', flexWrap: 'wrap'}}>
-                            <AnimatePresence>
-                                {(isAiTranslated || isShowingOriginal) &&
-                                    <AutoTranslateBadge isShowingOriginal={isShowingOriginal}
-                                                        onClick={() => isShowingOriginal ? handleRestoreTranslation() : setShowTranslateInfo(true)}/>}
-                            </AnimatePresence>
-                        </div>
-                    )
+                        )}
+                        <AnimatePresence>
+                            {(isAiTranslated || isShowingOriginal) &&
+                                <AutoTranslateBadge isShowingOriginal={isShowingOriginal}
+                                                    onClick={() => isShowingOriginal ? handleRestoreTranslation() : setShowTranslateInfo(true)}/>}
+                        </AnimatePresence>
+                    </div>
                 }
             />
 
             <div className="changelog-layout viewer-layout">
+                {isFullScreenMode && filteredVersions.length > 0 ? (
+                    <FullScreenArticle
+                        key={`fs-${filteredVersions[0].id}`}
+                        v={filteredVersions[0]}
+                        prevVersion={prevVersionObj}
+                        nextVersion={nextVersionObj}
+                        strings={strings.changelog || {}}
+                        onOpenSingle={handleOpenSingle}
+                    />
+                ) : (
+                    <>
+                        <main className="viewer-main-content">
+                            {!isDesktop && (
+                                <>
+                                    <div ref={containerRef} style={{
+                                        position: 'relative',
+                                        height: isSticky && window.innerWidth > 1000 ? '96px' : 'auto'
+                                    }}>
+                                        <div
+                                            className={`loose-search-container ${isSticky ? 'is-sticky' : ''} ${hideOnScroll ? 'hide-on-scroll' : ''}`}
+                                        >
+                                            <div className="mobile-blur-backdrop"></div>
+                                            <div className="search-pill">
+                                                <span className="material-symbols-outlined search-icon">search</span>
+                                                <input
+                                                    type="text"
+                                                    placeholder={strings.changelog?.search_placeholder || "Search updates..."}
+                                                    value={searchQuery}
+                                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                                />
+                                            </div>
 
-                <main className="viewer-main-content">
-                    {!isFullScreenMode && !isDesktop && (
-                        <>
-                            <div ref={containerRef} style={{
-                                position: 'relative',
-                                height: isSticky && window.innerWidth > 1000 ? '96px' : 'auto'
-                            }}>
-                                <div
-                                    className={`loose-search-container ${isSticky ? 'is-sticky' : ''} ${hideOnScroll ? 'hide-on-scroll' : ''}`}
-                                >
-                                    <div className="mobile-blur-backdrop"></div>
-                                    <div className="search-pill">
-                                        <span className="material-symbols-outlined search-icon">search</span>
-                                        <input
-                                            type="text"
-                                            placeholder={strings.changelog?.search_placeholder || "Search updates..."}
-                                            value={searchQuery}
-                                            onChange={(e) => setSearchQuery(e.target.value)}
-                                        />
+                                            {allTags.length > 0 && (
+                                                <div className="loose-filters">
+                                                    {allTags.map(tag => {
+                                                        const isSelected = selectedTags.includes(tag);
+                                                        return (
+                                                            <button
+                                                                key={tag} onClick={() => toggleTag(tag)}
+                                                                className={`filter-tag-pill ${isSelected ? 'selected' : ''}`}
+                                                            >
+                                                                {tag}
+                                                            </button>
+                                                        );
+                                                    })}
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
 
-                                    {allTags.length > 0 && (
-                                        <div className="loose-filters">
-                                            {allTags.map(tag => {
-                                                const isSelected = selectedTags.includes(tag);
-                                                return (
-                                                    <button
-                                                        key={tag} onClick={() => toggleTag(tag)}
-                                                        className={`filter-tag-pill ${isSelected ? 'selected' : ''}`}
-                                                    >
-                                                        {tag}
-                                                    </button>
-                                                );
-                                            })}
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
+                                    <div className="mobile-toc-wrapper">
+                                        <PageTableOfContents title={strings.changelog?.jump_to || "Jump to"}
+                                                             isMobile={true}>
+                                            {renderTocButtons()}
+                                        </PageTableOfContents>
+                                    </div>
+                                </>
+                            )}
 
-                            <div className="mobile-toc-wrapper">
-                                <PageTableOfContents title={strings.changelog?.jump_to || "Jump to"} isMobile={true}>
-                                    {renderTocButtons()}
-                                </PageTableOfContents>
-                            </div>
-                        </>
-                    )}
+                            <div
+                                className={`changelog-list-container content-padder ${!hideOnScroll ? 'padded' : ''}`}>
+                                <div className="timeline-line"></div>
 
-                    <div
-                        className={`changelog-list-container content-padder ${!hideOnScroll && !isFullScreenMode ? 'padded' : ''} ${isFullScreenMode ? 'full-screen' : ''}`}>
-                        {!isFullScreenMode && (
-                            <div className="timeline-line"></div>
-                        )}
-
-                        {filteredVersions.length > 0 ? (
-                            isFullScreenMode ? (
-                                <FullScreenArticle
-                                    key={`fs-${filteredVersions[0].id}`}
-                                    v={filteredVersions[0]}
-                                    prevVersion={prevVersionObj}
-                                    nextVersion={nextVersionObj}
-                                    strings={strings.changelog || {}}
-                                    onOpenSingle={handleOpenSingle}
-                                />
-                            ) : (
-                                filteredVersions.slice(0, visibleCount).map((v, index) => (
-                                    <ChangelogItem key={v.id} v={v} index={index} isActive={activeId === v.id}
-                                                   strings={strings.changelog || {}}
-                                                   onOpenSingle={() => handleOpenSingle(v.id)} onShare={handleShare}/>
-                                ))
-                            )
-                        ) : (
-                            <div style={{
-                                padding: '40px', textAlign: 'center', color: 'var(--md-sys-color-on-surface-variant)'
-                            }}>
-                                <span className="material-symbols-outlined"
-                                      style={{fontSize: '48px', marginBottom: '16px', opacity: 0.5}}>search_off</span>
-                                <p>{isFullScreenMode ? (strings.changelog?.version_not_found || "Version not found.") : (strings.changelog?.no_results || "No results found.")}</p>
-                                {isFullScreenMode && (
-                                    <button onClick={handleViewAll} className="btn-glow" style={{marginTop: '24px'}}>
-                                        {strings.changelog?.back_to_changelog || "Back to Changelog"}
-                                    </button>
+                                {filteredVersions.length > 0 ? (
+                                    filteredVersions.slice(0, visibleCount).map((v, index) => (
+                                        <ChangelogItem key={v.id} v={v} index={index} isActive={activeId === v.id}
+                                                       strings={strings.changelog || {}}
+                                                       onOpenSingle={() => handleOpenSingle(v.id)}
+                                                       onShare={handleShare}/>
+                                    ))
+                                ) : (
+                                    <div style={{
+                                        padding: '40px',
+                                        textAlign: 'center',
+                                        color: 'var(--md-sys-color-on-surface-variant)'
+                                    }}>
+                                        <span className="material-symbols-outlined"
+                                              style={{
+                                                  fontSize: '48px',
+                                                  marginBottom: '16px',
+                                                  opacity: 0.5
+                                              }}>search_off</span>
+                                        <p>{strings.changelog?.no_results || "No results found."}</p>
+                                    </div>
                                 )}
                             </div>
-                        )}
-                    </div>
 
-                    {!isFullScreenMode && visibleCount < filteredVersions.length && (
-                        <div className="load-more-container">
-                            <button onClick={() => setVisibleCount(prev => prev + 10)} className="btn-outline" style={{
-                                width: '100%',
-                                padding: '16px',
-                                borderRadius: '100px',
-                                borderStyle: 'dashed',
-                                opacity: 0.7
-                            }}>
-                                {strings.changelog?.load_more || "Load More"} ({filteredVersions.length - visibleCount})
-                            </button>
-                        </div>
-                    )}
+                            {visibleCount < filteredVersions.length && (
+                                <div className="load-more-container">
+                                    <button onClick={() => setVisibleCount(prev => prev + 10)} className="btn-outline"
+                                            style={{
+                                                width: '100%',
+                                                padding: '16px',
+                                                borderRadius: '100px',
+                                                borderStyle: 'dashed',
+                                                opacity: 0.7
+                                            }}>
+                                        {strings.changelog?.load_more || "Load More"} ({filteredVersions.length - visibleCount})
+                                    </button>
+                                </div>
+                            )}
 
-                    {!isPortfolio && !isFullScreenMode && (
-                        <div className="mobile-extra-content"
-                             style={{display: 'none', marginTop: '80px', marginBottom: '100px'}}>
-                            <div style={{
-                                background: 'rgba(var(--md-sys-color-surface-container-rgb), 0.5)',
-                                borderRadius: '32px',
-                                padding: '24px',
-                                border: '1px solid var(--md-sys-color-outline-variant)'
-                            }}>
+                            {!isPortfolio && (
+                                <div className="mobile-extra-content"
+                                     style={{display: 'none', marginTop: '80px', marginBottom: '100px'}}>
+                                    <div style={{
+                                        background: 'rgba(var(--md-sys-color-surface-container-rgb), 0.5)',
+                                        borderRadius: '32px',
+                                        padding: '24px',
+                                        border: '1px solid var(--md-sys-color-outline-variant)'
+                                    }}>
+                                        <div style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '8px',
+                                            marginBottom: '20px',
+                                            color: 'var(--md-sys-color-on-surface-variant)',
+                                            fontSize: '0.85rem',
+                                            textTransform: 'uppercase',
+                                            letterSpacing: '0.03em',
+                                            fontWeight: 600
+                                        }}>
+                                            <span className="material-symbols-outlined"
+                                                  style={{fontSize: '18px'}}>explore</span>
+                                            <span>{strings.changelog?.explore_more || "Explore More"}</span>
+                                        </div>
+                                        <div style={{display: 'flex', flexDirection: 'column', gap: '24px'}}>
+                                            {latestVersion && !searchQuery && (
+                                                <LatestReleaseCard version={latestVersion}
+                                                                   strings={strings.changelog || {}}
+                                                                   link={appConfig?.playStoreLink}/>
+                                            )}
+                                            <BetaProgramCard strings={strings.changelog?.beta_program || {}}
+                                                             betaLink={betaLink}/>
+                                            <WearOSCard strings={strings.changelog?.wear_os_promo || {}}
+                                                        isAvailable={hasWearApp} link={appConfig?.playStoreLink}/>
+                                            <PlusPromoCard strings={strings.changelog?.plus_promo || {}}
+                                                           onNavigate={onNavigate}/>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </main>
+
+                        <aside className="desktop-toc-wrapper viewer-sidebar-container">
+                            {!isPortfolio && latestVersion && !searchQuery && (
+                                <LatestReleaseCard version={latestVersion} strings={strings.changelog || {}}
+                                                   link={appConfig?.playStoreLink}/>
+                            )}
+                            <PageTableOfContents title={strings.changelog?.on_this_page || "On this page"}
+                                                 isMobile={false}>
+                                {renderTocButtons()}
+                            </PageTableOfContents>
+                            {!isPortfolio && (
                                 <div style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '8px',
-                                    marginBottom: '20px',
-                                    color: 'var(--md-sys-color-on-surface-variant)',
-                                    fontSize: '0.85rem',
-                                    textTransform: 'uppercase',
-                                    letterSpacing: '0.03em',
-                                    fontWeight: 600
+                                    marginTop: '20px', padding: '24px', borderRadius: '32px',
+                                    background: 'linear-gradient(135deg, rgba(var(--md-sys-color-on-surface-rgb), 0.03) 0%, transparent 100%)',
+                                    border: '1px solid var(--md-sys-color-outline-variant)'
                                 }}>
-                                    <span className="material-symbols-outlined"
-                                          style={{fontSize: '18px'}}>explore</span>
-                                    <span>{strings.changelog?.explore_more || "Explore More"}</span>
+                                    <div style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '8px',
+                                        marginBottom: '20px',
+                                        color: 'var(--md-sys-color-on-surface-variant)',
+                                        fontSize: '0.85rem',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '0.03em',
+                                        fontWeight: 600
+                                    }}>
+                                        <span className="material-symbols-outlined"
+                                              style={{fontSize: '18px'}}>explore</span>
+                                        <span>{strings.changelog?.explore_more || "Explore More"}</span>
+                                    </div>
+                                    <div style={{display: 'flex', flexDirection: 'column', gap: '20px'}}>
+                                        <BetaProgramCard strings={strings.changelog?.beta_program || {}}
+                                                         betaLink={betaLink}/>
+                                        <WearOSCard strings={strings.changelog?.wear_os_promo || {}}
+                                                    isAvailable={hasWearApp} link={appConfig?.playStoreLink}/>
+                                        <PlusPromoCard strings={strings.changelog?.plus_promo || {}}
+                                                       onNavigate={onNavigate}/>
+                                    </div>
                                 </div>
-                                <div style={{display: 'flex', flexDirection: 'column', gap: '24px'}}>
-                                    {latestVersion && !searchQuery && (
-                                        <LatestReleaseCard version={latestVersion} strings={strings.changelog || {}}
-                                                           link={appConfig?.playStoreLink}/>
-                                    )}
-                                    <BetaProgramCard strings={strings.changelog?.beta_program || {}}
-                                                     betaLink={betaLink}/>
-                                    <WearOSCard strings={strings.changelog?.wear_os_promo || {}}
-                                                isAvailable={hasWearApp} link={appConfig?.playStoreLink}/>
-                                    <PlusPromoCard strings={strings.changelog?.plus_promo || {}}
-                                                   onNavigate={onNavigate}/>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                </main>
-
-                {!isFullScreenMode && (
-                    <aside className="desktop-toc-wrapper viewer-sidebar-container">
-                        {!isPortfolio && latestVersion && !searchQuery && (
-                            <LatestReleaseCard version={latestVersion} strings={strings.changelog || {}}
-                                               link={appConfig?.playStoreLink}/>
-                        )}
-                        <PageTableOfContents title={strings.changelog?.on_this_page || "On this page"} isMobile={false}>
-                            {renderTocButtons()}
-                        </PageTableOfContents>
-                        {!isPortfolio && (
-                            <div style={{
-                                marginTop: '20px', padding: '24px', borderRadius: '32px',
-                                background: 'linear-gradient(135deg, rgba(var(--md-sys-color-on-surface-rgb), 0.03) 0%, transparent 100%)',
-                                border: '1px solid var(--md-sys-color-outline-variant)'
-                            }}>
-                                <div style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '8px',
-                                    marginBottom: '20px',
-                                    color: 'var(--md-sys-color-on-surface-variant)',
-                                    fontSize: '0.85rem',
-                                    textTransform: 'uppercase',
-                                    letterSpacing: '0.03em',
-                                    fontWeight: 600
-                                }}>
-                                    <span className="material-symbols-outlined"
-                                          style={{fontSize: '18px'}}>explore</span>
-                                    <span>{strings.changelog?.explore_more || "Explore More"}</span>
-                                </div>
-                                <div style={{display: 'flex', flexDirection: 'column', gap: '20px'}}>
-                                    <BetaProgramCard strings={strings.changelog?.beta_program || {}}
-                                                     betaLink={betaLink}/>
-                                    <WearOSCard strings={strings.changelog?.wear_os_promo || {}}
-                                                isAvailable={hasWearApp} link={appConfig?.playStoreLink}/>
-                                    <PlusPromoCard strings={strings.changelog?.plus_promo || {}}
-                                                   onNavigate={onNavigate}/>
-                                </div>
-                            </div>
-                        )}
-                    </aside>
+                            )}
+                        </aside>
+                    </>
                 )}
 
                 <BackToTop strings={strings.changelog || {}} isShifted={!hideOnScroll && !isFullScreenMode}/>

@@ -1,3 +1,4 @@
+/* src/components/viewers/HelpViewer.jsx */
 import React, {useState, useEffect, useMemo, useRef} from 'react';
 import {createPortal} from 'react-dom';
 import ReactMarkdown from 'react-markdown';
@@ -154,7 +155,7 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
             />
 
             <div className="viewer-layout">
-                <div className="viewer-main-content">
+                <main className="viewer-main-content">
                     {!isDesktop && (
                         <div ref={containerRef} style={{
                             position: 'relative',
@@ -186,7 +187,7 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
                     <div className={`help-content-scroll ${!hideOnScroll && !isDesktop ? 'padded' : ''}`}>
                         {filteredSections.length > 0 ? (
                             filteredSections.map((section, index) => (
-                                <motion.div
+                                <motion.article
                                     key={section.id}
                                     id={section.id}
                                     initial={{opacity: 0, y: 20}}
@@ -202,7 +203,7 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
                                     <div className="markdown-body rich-text">
                                         <ReactMarkdown rehypePlugins={[rehypeRaw]}>{section.content}</ReactMarkdown>
                                     </div>
-                                </motion.div>
+                                </motion.article>
                             ))
                         ) : (
                             <div style={{textAlign: 'center', padding: '60px', opacity: 0.7}}>
@@ -216,7 +217,7 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
                             </div>
                         )}
                     </div>
-                </div>
+                </main>
 
                 <ViewerSidebar
                     cardTitle={strings.help_page?.contact_title || "Questions?"}
