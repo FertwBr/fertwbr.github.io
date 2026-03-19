@@ -33,15 +33,15 @@
 
 .viewer-header-main {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
 }
 
 @media (min-width: 1001px) {
     .viewer-header-main {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: flex-start;
         gap: 20px;
     }
 }
@@ -51,6 +51,8 @@
     flex-direction: column;
     align-items: flex-start;
     margin-bottom: 0;
+    flex: 1 1 200px;
+    min-width: 0;
 }
 
 .viewer-breadcrumb {
@@ -140,6 +142,7 @@
     line-height: 1.1;
     letter-spacing: -0.04em;
     color: var(--md-sys-color-on-surface);
+    word-break: break-word;
 }
 
 .viewer-subtitle {
@@ -157,7 +160,7 @@
     justify-content: flex-start;
     flex-wrap: wrap;
     gap: 12px;
-    width: 100%;
+    flex: 0 1 auto;
     margin-top: 0;
 }
 
