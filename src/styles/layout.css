@@ -32,7 +32,7 @@
 
 @media (max-width: 768px) {
     .page-content-padding {
-        padding: 80px 0 0 0;
+        padding: 120px 0 0 0;
     }
 }
 
@@ -82,7 +82,7 @@
 
 @media (max-width: 768px) {
     .app-page-container {
-        padding: 80px 0 0 0;
+        padding: 120px 0 0 0;
     }
 }
 
@@ -259,7 +259,7 @@
 
 @media (max-width: 768px) {
     .app-layout-container {
-        padding: 80px 16px 60px 16px;
+        padding: 120px 16px 60px 16px;
     }
 }
 

@@ -139,6 +139,7 @@
     flex-wrap: wrap;
     gap: 12px;
     width: 100%;
+    margin-top: 12px;
 }
 
 @media (min-width: 1001px) {
@@ -233,7 +234,7 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 16px;
+    padding: 12px 20px;
     background: transparent;
     border: 1px solid var(--md-sys-color-outline-variant);
     border-radius: 100px;
@@ -242,13 +243,23 @@
     color: var(--md-sys-color-on-surface-variant);
 }
 
+.badge-text-long {
+    display: inline;
+}
+
+.badge-text-short {
+    display: none;
+}
+
 @media (max-width: 600px) {
     .last-updated-badge {
-        padding: 8px 12px;
+        padding: 10px 16px;
     }
-
-    .last-updated-badge .badge-icon {
-        margin: 0;
+    .badge-text-long {
+        display: none;
+    }
+    .badge-text-short {
+        display: inline;
     }
 }
 
