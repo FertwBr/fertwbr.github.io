@@ -1,4 +1,3 @@
-/* src/components/common/AutoTranslateBadge.jsx */
 import React from 'react';
 import {motion} from 'framer-motion';
 import {useLanguage} from '../../context/LanguageContext';
@@ -30,8 +29,6 @@ export default function AutoTranslateBadge({onClick, isShowingOriginal}) {
         ? (content?.changelog?.translate_badge_restore_tooltip || "Translate content to your current language.")
         : (content?.changelog?.auto_translated_tooltip || "Translated by an AI system for your convenience.");
 
-    const iconName = isShowingOriginal ? "translate" : "auto_awesome";
-
     return (
         <motion.button
             initial={{opacity: 0, scale: 0.95}}
@@ -43,9 +40,9 @@ export default function AutoTranslateBadge({onClick, isShowingOriginal}) {
             style={{color: 'var(--md-sys-color-primary)'}}
         >
             <span className="material-symbols-outlined" style={{fontSize: '20px'}}>
-                {iconName}
+                translate
             </span>
-            {badgeText}
+            <span className="header-btn-text">{badgeText}</span>
         </motion.button>
     );
 }
