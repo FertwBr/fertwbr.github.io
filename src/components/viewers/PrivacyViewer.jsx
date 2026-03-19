@@ -70,9 +70,9 @@ export default function PrivacyViewer({markdownContent, appConfig, strings}) {
                     lastUpdatedText={t.last_updated || "Last Updated:"}
                     actionNode={
                         <div className="header-action-buttons">
-                            <button onClick={() => window.print()} className="header-ghost-btn">
+                            <button onClick={() => window.print()} className="header-ghost-btn" title={t.print_btn || "Print Policy"}>
                                 <span className="material-symbols-outlined" style={{fontSize: '20px'}}>print</span>
-                                {t.print_btn || "Print Policy"}
+                                <span className="header-btn-text">{t.print_btn || "Print Policy"}</span>
                             </button>
                         </div>
                     }
