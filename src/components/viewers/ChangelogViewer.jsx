@@ -273,7 +273,7 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
 
     return (
         <>
-            <motion.main
+            <motion.article
                 layoutId={`changelog-card-${v.id}`}
                 initial={{opacity: 0, scale: 0.98}}
                 animate={{opacity: 1, scale: 1}}
@@ -326,7 +326,7 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
                         )}
                     </div>
                 </div>
-            </motion.main>
+            </motion.article>
 
             {headers.length > 0 && (
                 <aside className="desktop-toc-wrapper viewer-sidebar-container">
@@ -380,6 +380,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
     const [isAiTranslated, setIsAiTranslated] = useState(false);
     const [isShowingOriginal, setIsShowingOriginal] = useState(false);
     const [showTranslateInfo, setShowTranslateInfo] = useState(false);
+    const [hasSeenTranslateInfo, setHasSeenTranslateInfo] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [visibleCount, setVisibleCount] = useState(10);
     const [activeId, setActiveId] = useState(versionId || null);
@@ -401,6 +402,8 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
     const hasWearApp = isCompass || isPulse;
 
     const isFullScreenMode = !!versionId;
+
+    const excludeTags = ['Wear OS', 'Android XR', 'Phone', 'Tablet', 'Web', 'Website', 'Beta', 'Alpha', 'RC', 'Pre-release'];
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -529,6 +532,17 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
             }
         } catch (e) {
             console.error("Failed to load translated content", e);
+        }
+    };
+
+    const handleTranslateClick = () => {
+        if (isShowingOriginal) {
+            handleRestoreTranslation();
+        } else if (!hasSeenTranslateInfo) {
+            setShowTranslateInfo(true);
+            setHasSeenTranslateInfo(true);
+        } else {
+            handleRevertToEnglish();
         }
     };
 
@@ -688,6 +702,14 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
         </div>
     ) : null;
 
+    const tagsNode = isFullScreenMode && filteredVersions.length > 0 ? (
+        <div style={{display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '8px'}}>
+            {filteredVersions[0].tags.filter(t => !excludeTags.includes(t)).map(tag => (
+                <span key={tag} className="content-tag">{tag}</span>
+            ))}
+        </div>
+    ) : null;
+
     return (
         <div className="viewer-container">
             {desktopSearchInput && searchPortalNode && createPortal(desktopSearchInput, searchPortalNode)}
@@ -748,6 +770,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                 icon="history"
                 title={isFullScreenMode ? `${filteredVersions[0]?.version.replace('Version ', '')}` : (strings.changelog?.title || 'Changelog')}
                 subtitle={!isFullScreenMode ? (strings.changelog?.subtitle || 'Track the evolution of the application.') : undefined}
+                introNode={tagsNode}
                 middleCrumb={isFullScreenMode ? {
                     label: strings.changelog?.title || 'Changelog',
                     onClick: handleViewAll
@@ -759,7 +782,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                         <AnimatePresence>
                             {(isAiTranslated || isShowingOriginal) &&
                                 <AutoTranslateBadge isShowingOriginal={isShowingOriginal}
-                                                    onClick={() => isShowingOriginal ? handleRestoreTranslation() : setShowTranslateInfo(true)}/>}
+                                                    onClick={handleTranslateClick}/>}
                         </AnimatePresence>
                         {isFullScreenMode && filteredVersions.length > 0 && (
                             <button onClick={() => handleShare(filteredVersions[0])} className="header-icon-btn"
@@ -783,7 +806,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                     />
                 ) : (
                     <>
-                        <main className="viewer-main-content">
+                        <div className="viewer-main-content">
                             {!isDesktop && (
                                 <>
                                     <div ref={containerRef} style={{
@@ -914,7 +937,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                     </div>
                                 </div>
                             )}
-                        </main>
+                        </div>
 
                         <aside className="desktop-toc-wrapper viewer-sidebar-container">
                             {!isPortfolio && latestVersion && !searchQuery && (
