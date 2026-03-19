@@ -1,14 +1,16 @@
+/* src/components/common/AutoTranslateBadge.jsx */
 import React from 'react';
 import {motion} from 'framer-motion';
 import {useLanguage} from '../../context/LanguageContext';
 
 /**
  * A clickable badge indicating content was translated by AI, or offering to translate.
+ * Uses styling consistent with the new viewer header actions.
  *
- * @param {Object} props - Component props.
- * @param {Function} props.onClick - Handler triggered when the badge is clicked.
- * @param {boolean} props.isShowingOriginal - Indicates if the original non-translated content is currently shown.
- * @returns {JSX.Element|null} The rendered badge.
+ * @param {Object} props
+ * @param {Function} props.onClick
+ * @param {boolean} props.isShowingOriginal
+ * @returns {JSX.Element|null}
  */
 export default function AutoTranslateBadge({onClick, isShowingOriginal}) {
     const {language, content} = useLanguage();
@@ -36,16 +38,14 @@ export default function AutoTranslateBadge({onClick, isShowingOriginal}) {
             animate={{opacity: 1, scale: 1}}
             transition={{duration: 0.3}}
             onClick={onClick}
-            className="btn-outline auto-translate-badge"
-            whileHover={{scale: 1.02, backgroundColor: 'rgba(var(--md-sys-color-on-surface-rgb), 0.05)'}}
-            whileTap={{scale: 0.98}}
+            className="header-ghost-btn"
             title={tooltipText}
+            style={{color: 'var(--md-sys-color-primary)'}}
         >
-            <span className="material-symbols-outlined"
-                  style={{fontSize: '18px', color: 'var(--md-sys-color-primary)'}}>
+            <span className="material-symbols-outlined" style={{fontSize: '20px'}}>
                 {iconName}
             </span>
-            <span style={{fontWeight: 600}}>{badgeText}</span>
+            {badgeText}
         </motion.button>
     );
 }

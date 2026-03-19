@@ -1,4 +1,3 @@
-/* src/components/viewers/ChangelogViewer.jsx */
 import React, {useState, useEffect, useMemo, useRef} from 'react';
 import {createPortal} from 'react-dom';
 import ReactMarkdown from 'react-markdown';
@@ -757,17 +756,17 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                 lastUpdatedText={strings.changelog?.released || "Released"}
                 actionNode={
                     <div className="header-action-buttons">
+                        <AnimatePresence>
+                            {(isAiTranslated || isShowingOriginal) &&
+                                <AutoTranslateBadge isShowingOriginal={isShowingOriginal}
+                                                    onClick={() => isShowingOriginal ? handleRestoreTranslation() : setShowTranslateInfo(true)}/>}
+                        </AnimatePresence>
                         {isFullScreenMode && filteredVersions.length > 0 && (
                             <button onClick={() => handleShare(filteredVersions[0])} className="header-icon-btn"
                                     title={strings.changelog?.share_update || "Share Update"}>
                                 <span className="material-symbols-outlined">share</span>
                             </button>
                         )}
-                        <AnimatePresence>
-                            {(isAiTranslated || isShowingOriginal) &&
-                                <AutoTranslateBadge isShowingOriginal={isShowingOriginal}
-                                                    onClick={() => isShowingOriginal ? handleRestoreTranslation() : setShowTranslateInfo(true)}/>}
-                        </AnimatePresence>
                     </div>
                 }
             />
