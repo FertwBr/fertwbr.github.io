@@ -11,6 +11,7 @@ import ScrollDeviceSection from '../../components/sections/ScrollDeviceSection';
 import WearSection from '../../components/sections/WearSection';
 import SplitChoice from '../../components/sections/SplitChoice';
 import AppsHomeExtra from '../../components/sections/AppsHomeExtra';
+import AppLayout from '../../components/layout/AppLayout';
 
 /**
  * AppsHome page component.
@@ -37,17 +38,11 @@ export default function AppsHome() {
     const getPlusLabel = content.footer_extra?.plus_promo?.cta || "Get Plus";
 
     return (
-        <div style={{
-            minHeight: '100dvh',
-            width: '100%',
-            position: 'relative',
-            overflowX: 'hidden',
-            display: 'flex',
-            flexDirection: 'column'
-        }}>
-            <PageBackground/>
-
-            <main style={{flex: 1}}>
+        <AppLayout
+            background={<PageBackground/>}
+            footer={<Footer t={content.footer}/>}
+        >
+            <main className="app-main-content" style={{flex: 1}}>
                 <div style={{paddingTop: '120px', paddingBottom: '0'}}>
                     <AppsHero
                         title={t.hero_title}
@@ -90,8 +85,6 @@ export default function AppsHome() {
                     />
                 </div>
             </main>
-
-            <Footer t={content.footer}/>
-        </div>
+        </AppLayout>
     );
 }

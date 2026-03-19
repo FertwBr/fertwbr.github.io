@@ -18,25 +18,8 @@ import PageTransition from '../components/layout/PageTransition';
 import ChangelogViewer from '../components/viewers/ChangelogViewer';
 import OverviewViewer from '../components/viewers/OverviewViewer';
 import HashScrollHandler from '../components/common/HashScrollHandler';
+import AppLayout from '../components/layout/AppLayout.jsx';
 
-/**
- * SiteProjectPage React component.
- *
- * Renders documentation pages for the site project using layout components
- * and dynamic theming. Loads Markdown content for the currently active tab
- * and displays a spinner, an error display, or the appropriate viewer
- * (overview or changelog).
- *
- * Side effects:
- * - Applies a Material theme based on a generated seed color.
- * - Updates page metadata (title, theme color, favicon).
- *
- * Hooks used:
- * - useLanguage, useTabState, useMarkdownLoader, usePageMetadata.
- *
- * Returns:
- * - JSX layout including AppNavbar, PageBackground, page content and AppFooter.
- */
 export default function SiteProjectPage({forcedTab}) {
     const {content} = useLanguage();
     const location = useLocation();
@@ -105,46 +88,25 @@ export default function SiteProjectPage({forcedTab}) {
             case 'changelog':
                 return <ChangelogViewer {...commonProps} />;
             case 'overview':
-                return <OverviewViewer {...commonProps} />;
             default:
                 return <OverviewViewer {...commonProps} />;
         }
     };
 
     return (
-        <div className="page-wrapper">
-            <HashScrollHandler/>
-
-            <PageBackground/>
-
-            <AppNavbar
-                config={navbarConfig}
-                activePage={activeTab}
-                onNavigate={handleNavigation}
-                strings={t.nav}
-            />
-
-            <main className="page-content-wrapper">
-                <AnimatePresence mode="wait">
-                    <PageTransition key={activeTab}>
-                        <div className="page-content-padding" style={{
-                            width: '100%',
-                            boxSizing: 'border-box',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            flex: 1,
-                            maxWidth: '1600px',
-                            margin: '0 auto',
-                            paddingLeft: '16px',
-                            paddingRight: '16px'
-                        }}>
-                            {renderContent()}
-                        </div>
-                    </PageTransition>
-                </AnimatePresence>
-            </main>
-
-            <AppFooter strings={t} onNavigate={handleNavigation} activePage={activeTab} isPortfolio={true}/>
-        </div>
+        <AppLayout
+            background={<><HashScrollHandler/><PageBackground/></>}
+            navbar={<AppNavbar config={navbarConfig} activePage={activeTab} onNavigate={handleNavigation}
+                               strings={t.nav}/>}
+            footer={<AppFooter strings={t} onNavigate={handleNavigation} activePage={activeTab} isPortfolio={true}/>}
+        >
+            <AnimatePresence mode="wait">
+                <PageTransition key={activeTab}>
+                    <div className="app-layout-container">
+                        {renderContent()}
+                    </div>
+                </PageTransition>
+            </AnimatePresence>
+        </AppLayout>
     );
 }

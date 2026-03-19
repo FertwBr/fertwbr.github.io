@@ -13,6 +13,7 @@ import CustomSelect from "../components/ui/CustomSelect.jsx";
 import {siteProjectConfig} from "../config.js";
 import {pixelCompassConfig} from "./pixel-compass/PixelCompassConfig.js";
 import {pixelPulseConfig} from "./pixel-pulse/PixelPulseConfig.js";
+import AppLayout from '../components/layout/AppLayout';
 
 /**
  * Converts a File object to a Base64 string.
@@ -248,12 +249,31 @@ export default function FeedbackPage() {
     const getTypeLabel = (val) => t.types?.[val] || val;
 
     return (
-        <div className="page-wrapper">
-            <PageBackground/>
-            <AppNavbar config={projectContext.config} activePage="feedback" onNavigate={handleNavigation}
-                       strings={{back: t.success?.btn_home || "Back"}}/>
-
-            <main className="page-content-wrapper" style={{
+        <AppLayout
+            background={<PageBackground/>}
+            navbar={<AppNavbar config={projectContext.config} activePage="feedback" onNavigate={handleNavigation}
+                               strings={{back: t.success?.btn_home || "Back"}}/>}
+            footer={
+                <AppFooter
+                    strings={{
+                        ...projectContext.strings,
+                        footer: projectContext.strings?.footer || content.footer,
+                        nav: projectContext.strings?.nav || content.nav || {
+                            overview: content.overview_page?.title || 'Overview',
+                            changelog: content.changelog?.title || 'Changelog',
+                            roadmap: content.roadmap_page?.title || 'Roadmap',
+                            privacy: content.privacy_page?.page_title || 'Privacy Policy',
+                            terms: content.terms_page?.page_title || 'Terms of Use',
+                            help: content.help_page?.page_title || 'Help & FAQ'
+                        }
+                    }}
+                    onNavigate={handleNavigation}
+                    activePage="feedback"
+                    isPortfolio={projectContext.isPortfolio}
+                />
+            }
+        >
+            <main className="app-main-content" style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 padding: '120px 16px 60px 16px', flex: 1
             }}>
@@ -604,24 +624,6 @@ export default function FeedbackPage() {
                 </AnimatePresence>
             </main>
 
-            <AppFooter
-                strings={{
-                    ...projectContext.strings,
-                    footer: projectContext.strings?.footer || content.footer,
-                    nav: projectContext.strings?.nav || content.nav || {
-                        overview: content.overview_page?.title || 'Overview',
-                        changelog: content.changelog?.title || 'Changelog',
-                        roadmap: content.roadmap_page?.title || 'Roadmap',
-                        privacy: content.privacy_page?.page_title || 'Privacy Policy',
-                        terms: content.terms_page?.page_title || 'Terms of Use',
-                        help: content.help_page?.page_title || 'Help & FAQ'
-                    }
-                }}
-                onNavigate={handleNavigation}
-                activePage="feedback"
-                isPortfolio={projectContext.isPortfolio}
-            />
-
             <style>{`
                 .mobile-toggle-wrapper { display: none !important; }
                 
@@ -961,6 +963,6 @@ export default function FeedbackPage() {
                     .upload-btn { width: 100%; }
                 }
             `}</style>
-        </div>
+        </AppLayout>
     );
 }

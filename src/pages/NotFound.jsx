@@ -11,6 +11,7 @@ import AppNavbar from '../components/layout/AppNavbar';
 import Footer from '../components/layout/Footer';
 import PageBackground from '../components/layout/PageBackground';
 import PageTransition from '../components/layout/PageTransition';
+import AppLayout from '../components/layout/AppLayout';
 
 const SITE_MAP = [
     {keywords: ['pixelpulse/changelog', 'pulse/changelog'], path: '/pixelpulse/changelog', name: 'Pixel Pulse Updates'},
@@ -73,24 +74,14 @@ export default function NotFound() {
     };
 
     return (
-        <div style={{
-            position: 'relative',
-            width: '100%',
-            minHeight: '100dvh',
-            display: 'flex',
-            flexDirection: 'column'
-        }}>
-            <PageBackground/>
-
-            <AppNavbar
-                config={errorNavbarConfig}
-                activePage="404"
-                onNavigate={() => navigate('/')}
-                strings={{}}
-            />
-
+        <AppLayout
+            background={<PageBackground/>}
+            navbar={<AppNavbar config={errorNavbarConfig} activePage="404" onNavigate={() => navigate('/')}
+                               strings={{}}/>}
+            footer={<Footer t={tFooter}/>}
+        >
             <PageTransition className="flex-grow-1" style={{flex: 1, display: 'flex', flexDirection: 'column'}}>
-                <main style={{
+                <main className="app-main-content" style={{
                     flex: 1,
                     display: 'flex',
                     alignItems: 'center',
@@ -107,15 +98,15 @@ export default function NotFound() {
                             transition={{type: "spring"}}
                             style={{marginBottom: '24px'}}
                         >
-              <span className="material-symbols-outlined" style={{
-                  fontSize: '80px',
-                  color: 'var(--md-sys-color-error)',
-                  background: 'var(--md-sys-color-error-container)',
-                  padding: '24px',
-                  borderRadius: '32px'
-              }}>
-                broken_image
-              </span>
+                            <span className="material-symbols-outlined" style={{
+                                fontSize: '80px',
+                                color: 'var(--md-sys-color-error)',
+                                background: 'var(--md-sys-color-error-container)',
+                                padding: '24px',
+                                borderRadius: '32px'
+                            }}>
+                              broken_image
+                            </span>
                         </motion.div>
 
                         <h1 style={{
@@ -164,10 +155,13 @@ export default function NotFound() {
                                         display: 'flex', alignItems: 'center', justifyContent: 'center',
                                         flexShrink: 0
                                     }}>
-                    <span className="material-symbols-outlined"
-                          style={{color: 'var(--md-sys-color-on-primary-container)', fontSize: '24px'}}>
-                      auto_awesome
-                    </span>
+                                        <span className="material-symbols-outlined"
+                                              style={{
+                                                  color: 'var(--md-sys-color-on-primary-container)',
+                                                  fontSize: '24px'
+                                              }}>
+                                          auto_awesome
+                                        </span>
                                     </div>
 
                                     <div style={{flex: 1, minWidth: '200px'}}>
@@ -216,12 +210,9 @@ export default function NotFound() {
                                 Pixel Pulse
                             </Link>
                         </div>
-
                     </div>
                 </main>
             </PageTransition>
-
-            <Footer t={tFooter}/>
-        </div>
+        </AppLayout>
     );
 }

@@ -13,6 +13,7 @@ import Projects from '../components/sections/Projects';
 import TechStack from '../components/sections/TechStack';
 import GitHubStats from '../components/sections/GitHubStats';
 import AppFooter from '../components/layout/AppFooter';
+import AppLayout from '../components/layout/AppLayout';
 
 /**
  * PortfolioHome component
@@ -66,15 +67,29 @@ export default function PortfolioHome() {
     };
 
     return (
-        <PageTransition>
-            <PageBackground/>
-            <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                minHeight: '100dvh',
-                width: '100%'
-            }}>
-                <main style={{flex: 1, width: '100%'}}>
+        <AppLayout
+            background={<PageBackground/>}
+            footer={
+                <AppFooter
+                    strings={{
+                        ...content,
+                        nav: content.nav || {
+                            overview: content.overview_page?.title || 'Overview',
+                            changelog: content.changelog?.title || 'Changelog',
+                            roadmap: content.roadmap_page?.title || 'Roadmap',
+                            privacy: content.privacy_page?.page_title || 'Privacy Policy',
+                            terms: content.terms_page?.page_title || 'Terms of Use',
+                            help: content.help_page?.page_title || 'Help & FAQ'
+                        }
+                    }}
+                    onNavigate={handleFooterNavigation}
+                    activePage="index"
+                    isPortfolio={true}
+                />
+            }
+        >
+            <PageTransition>
+                <main className="app-main-content" style={{flex: 1, width: '100%'}}>
                     <Hero t={content.hero}/>
 
                     <About t={content.about}/>
@@ -168,24 +183,7 @@ export default function PortfolioHome() {
 
                     <TechStack t={content.tech}/>
                 </main>
-
-                <AppFooter
-                    strings={{
-                        ...content,
-                        nav: content.nav || {
-                            overview: content.overview_page?.title || 'Overview',
-                            changelog: content.changelog?.title || 'Changelog',
-                            roadmap: content.roadmap_page?.title || 'Roadmap',
-                            privacy: content.privacy_page?.page_title || 'Privacy Policy',
-                            terms: content.terms_page?.page_title || 'Terms of Use',
-                            help: content.help_page?.page_title || 'Help & FAQ'
-                        }
-                    }}
-                    onNavigate={handleFooterNavigation}
-                    activePage="index"
-                    isPortfolio={true}
-                />
-            </div>
-        </PageTransition>
+            </PageTransition>
+        </AppLayout>
     );
 }

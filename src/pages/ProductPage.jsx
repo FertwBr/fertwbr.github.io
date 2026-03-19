@@ -23,24 +23,8 @@ import PageTransition from '../components/layout/PageTransition';
 import {handleContactSupport} from "../utils/navigationUtils.js";
 import HashScrollHandler from '../components/common/HashScrollHandler';
 import TermsViewer from "../components/viewers/TermsViewer.jsx";
+import AppLayout from "../components/layout/AppLayout.jsx";
 
-/**
- * ProductPage React component.
- *
- * Loads and renders product-related pages (overview, changelog, help, privacy, roadmap, plus)
- * based on the active tab from `useTabState`. Handles:
- * - Markdown loading via `useMarkdownLoader`
- * - theme application (`applyMaterialTheme`, `getSeedColor`, `getSurfaceColor`)
- * - page metadata (`usePageMetadata`)
- * - navigation including special "feedback" handling via `handleContactSupport`
- * - Uses HashScrollHandler for robust anchor linking.
- *
- * Props:
- * - {Object} config - application configuration (appId, appName, faviconUrl, etc.)
- * - {React.Component} HomeComponent - component to render for the home/index tab
- * - {string} translationKey - key used to retrieve localized strings from the language context
- * - {string} forcedTab - optional tab to force loading
- */
 export default function ProductPage({config, HomeComponent, translationKey, forcedTab}) {
     const {content} = useLanguage();
     const t = content[translationKey] || {};
@@ -65,14 +49,9 @@ export default function ProductPage({config, HomeComponent, translationKey, forc
         themeColor: surfaceColor,
         favicon: config.faviconUrl,
         type: 'product',
-        product: {
-            appName: config.appName
-        }
+        product: {appName: config.appName}
     });
 
-    /**
-     * Unified navigation handler.
-     */
     const onNavigate = (id) => {
         if (id === 'feedback') {
             const source = config.appId.includes('pixelpulse') ? 'pixelpulse' : 'pixelcompass';
@@ -89,24 +68,12 @@ export default function ProductPage({config, HomeComponent, translationKey, forc
     const renderContent = () => {
         if (activeTab === 'index') return null;
 
-        if (isLoading || forceLoading) {
-            return <GeometricSpinner/>;
-        }
-
-        if (error) {
-            return <ErrorDisplay error={error} onRetry={() => window.location.reload()}/>;
-        }
-
-        if (!markdownContent) {
-            return <div style={{height: '60vh', flex: 1}}></div>;
-        }
+        if (isLoading || forceLoading) return <GeometricSpinner/>;
+        if (error) return <ErrorDisplay error={error} onRetry={() => window.location.reload()}/>;
+        if (!markdownContent) return <div style={{height: '60vh', flex: 1}}></div>;
 
         const commonProps = {
-            markdownContent,
-            appConfig: config,
-            seedColor: activeColor,
-            strings: t,
-            onNavigate: onNavigate
+            markdownContent, appConfig: config, seedColor: activeColor, strings: t, onNavigate: onNavigate
         };
 
         switch (activeTab) {
@@ -126,22 +93,13 @@ export default function ProductPage({config, HomeComponent, translationKey, forc
                 return <PlusViewer {...commonProps} />;
             default:
                 return (
-                    <div style={{
-                        maxWidth: '800px',
-                        margin: '0 auto',
-                        paddingBottom: '60px',
-                        width: '100%',
-                        boxSizing: 'border-box',
-                        flex: 1,
-                        paddingLeft: '20px',
-                        paddingRight: '20px'
-                    }}>
+                    <main className="app-main-content">
                         <div className="glass-card" style={{padding: 'clamp(24px, 5vw, 40px)', borderRadius: '24px'}}>
                             <div className="markdown-body">
                                 <ReactMarkdown rehypePlugins={[rehypeRaw]}>{markdownContent}</ReactMarkdown>
                             </div>
                         </div>
-                    </div>
+                    </main>
                 );
         }
     };
@@ -149,56 +107,33 @@ export default function ProductPage({config, HomeComponent, translationKey, forc
     const isHome = activeTab === 'index';
 
     return (
-        <div className="page-wrapper">
-            <HashScrollHandler/>
-
-            <PageBackground/>
-
-            <AppNavbar
-                config={config}
-                activePage={activeTab}
-                onNavigate={onNavigate}
-                strings={t.nav}
-            />
-
-            <main className="page-content-wrapper">
-                <AnimatePresence mode="wait">
-                    <PageTransition key={`${config.appId}_${activeTab}`}>
-                        <div className={!isHome ? "page-content-padding" : ""} style={{
-                            width: '100%',
-                            boxSizing: 'border-box',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            flex: 1,
-                            maxWidth: ['changelog', 'privacy', 'help', 'roadmap', 'overview', 'plus'].includes(activeTab) ? '1600px' : '100%',
-                            margin: '0 auto',
-                            paddingLeft: isHome ? '0' : '16px',
-                            paddingRight: isHome ? '0' : '16px'
-                        }}>
-                            {isHome ? (
-                                <HomeComponent onNavigate={onNavigate} strings={t}/>
-                            ) : renderContent()}
+        <AppLayout
+            background={<><HashScrollHandler/><PageBackground/></>}
+            navbar={<AppNavbar config={config} activePage={activeTab} onNavigate={onNavigate} strings={t.nav}/>}
+            footer={<AppFooter strings={{
+                ...t, footer: t?.footer || content.footer, nav: t?.nav || content.nav || {
+                    overview: content.overview_page?.title || 'Overview',
+                    changelog: content.changelog?.title || 'Changelog',
+                    roadmap: content.roadmap_page?.title || 'Roadmap',
+                    privacy: content.privacy_page?.page_title || 'Privacy Policy',
+                    terms: content.terms_page?.page_title || 'Terms of Use',
+                    help: content.help_page?.page_title || 'Help & FAQ'
+                }
+            }} onNavigate={onNavigate} activePage={activeTab}/>}
+        >
+            <AnimatePresence mode="wait">
+                <PageTransition key={`${config.appId}_${activeTab}`}>
+                    {isHome ? (
+                        <main className="app-main-content" style={{padding: 0}}>
+                            <HomeComponent onNavigate={onNavigate} strings={t}/>
+                        </main>
+                    ) : (
+                        <div className="app-layout-container">
+                            {renderContent()}
                         </div>
-                    </PageTransition>
-                </AnimatePresence>
-            </main>
-
-            <AppFooter
-                strings={{
-                    ...t,
-                    footer: t?.footer || content.footer,
-                    nav: t?.nav || content.nav || {
-                        overview: content.overview_page?.title || 'Overview',
-                        changelog: content.changelog?.title || 'Changelog',
-                        roadmap: content.roadmap_page?.title || 'Roadmap',
-                        privacy: content.privacy_page?.page_title || 'Privacy Policy',
-                        terms: content.terms_page?.page_title || 'Terms of Use',
-                        help: content.help_page?.page_title || 'Help & FAQ'
-                    }
-                }}
-                onNavigate={onNavigate}
-                activePage={activeTab}
-            />
-        </div>
+                    )}
+                </PageTransition>
+            </AnimatePresence>
+        </AppLayout>
     );
 }
