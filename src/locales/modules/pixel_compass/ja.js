@@ -90,7 +90,8 @@ export default {
     plus: {
         title: "究極の体験をロック解除",
         desc: "専用ウィジェット、高度な予報チャート、クラウド壁紙を入手し、広告を削除します。",
-        cta: "Pixel Compass+ を発見する"
+        cta: "Pixel Compass+ を発見する",
+        get_plus: "Plus を入手"
     },
     plus_page: {
         title: "体験を向上させる",

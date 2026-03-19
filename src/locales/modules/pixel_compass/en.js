@@ -1,4 +1,3 @@
-// src/locales/modules/pixel_compass/en.js
 export default {
     nav: {
         index: "Overview", plus: "Pixel Compass+", changelog: "Updates", roadmap: "Roadmap",
@@ -90,7 +89,8 @@ export default {
     plus: {
         title: "Unlock the Ultimate Experience",
         desc: "Get exclusive widgets, advanced forecast charts, cloud wallpapers, and remove ads.",
-        cta: "Discover Pixel Compass+"
+        cta: "Discover Pixel Compass+",
+        get_plus: "Get Plus"
     },
     plus_page: {
         title: "Elevate Your Experience",

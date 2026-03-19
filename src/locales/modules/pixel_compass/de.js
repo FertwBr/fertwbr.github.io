@@ -90,7 +90,8 @@ export default {
     plus: {
         title: "Das Ultimative Erlebnis Freischalten",
         desc: "Erhalten Sie exklusive Widgets, erweiterte Vorhersage-Diagramme, Cloud-Hintergrundbilder und entfernen Sie die Werbung.",
-        cta: "Pixel Compass+ entdecken"
+        cta: "Pixel Compass+ entdecken",
+        get_plus: "Plus holen"
     },
     plus_page: {
         title: "Erhöhen Sie Ihr Erlebnis",

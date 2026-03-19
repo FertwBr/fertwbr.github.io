@@ -90,7 +90,8 @@ export default {
     plus: {
         title: "अंतिम अनुभव को अनलॉक करें",
         desc: "विशेष विजेट, उन्नत पूर्वानुमान चार्ट, क्लाउड वॉलपेपर प्राप्त करें और विज्ञापन हटाएँ।",
-        cta: "Pixel Compass+ खोजें"
+        cta: "Pixel Compass+ खोजें",
+        get_plus: "Plus प्राप्त करें"
     },
     plus_page: {
         title: "अपने अनुभव को बढ़ाएं",

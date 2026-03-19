@@ -90,7 +90,8 @@ export default {
     plus: {
         title: "Desbloqueie a Experiência Definitiva",
         desc: "Obtenha widgets exclusivos, gráficos de previsão avançados, papéis de parede em nuvem e remova anúncios.",
-        cta: "Descubra o Pixel Compass+"
+        cta: "Descubra o Pixel Compass+",
+        get_plus: "Obter o Plus"
     },
     plus_page: {
         title: "Eleve a sua experiência",
