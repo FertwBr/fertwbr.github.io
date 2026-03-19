@@ -62,7 +62,8 @@ export default function ViewerHeader({
                                     className="breadcrumb-link"
                                     title={middleCrumb.label}
                                 >
-                                    <span className="material-symbols-outlined breadcrumb-icon hide-on-small-desktop">folder</span>
+                                    <span
+                                        className="material-symbols-outlined breadcrumb-icon hide-on-small-desktop">folder</span>
                                     <span>{middleCrumb.label}</span>
                                 </button>
                                 <span className="material-symbols-outlined breadcrumb-separator">chevron_right</span>
@@ -74,22 +75,26 @@ export default function ViewerHeader({
                             className="breadcrumb-link current"
                             title={title}
                         >
-                            <span className="material-symbols-outlined breadcrumb-icon hide-on-small-desktop">{icon}</span>
+                            <span
+                                className="material-symbols-outlined breadcrumb-icon hide-on-small-desktop">{icon}</span>
                             <span>{title}</span>
                         </button>
                     </nav>
 
                     <h1 className={`viewer-title ${!subtitle ? 'viewer-title-large' : ''}`}>{title}</h1>
                     {subtitle && <p className="viewer-subtitle">{subtitle}</p>}
+
+                    {/* Movido para dentro da text-area para corrigir a ordem e espaçamento no mobile */}
+                    {introNode && (
+                        <div className="header-intro">
+                            <div className="markdown-body rich-text">{introNode}</div>
+                        </div>
+                    )}
                 </div>
 
                 {(lastUpdated || actionNode) && (
                     <div className="viewer-header-actions-area">
-                        {actionNode && (
-                            <div className="viewer-header-actions">
-                                {actionNode}
-                            </div>
-                        )}
+                        {/* A Data agora vem ANTES das ações */}
                         {lastUpdated && (
                             <div className="last-updated-badge" title={`${lastUpdatedText} ${lastUpdated}`}>
                                 <span className="material-symbols-outlined badge-icon">update</span>
@@ -97,14 +102,14 @@ export default function ViewerHeader({
                                 <span className="badge-text-short">{lastUpdatedShort || lastUpdated}</span>
                             </div>
                         )}
+                        {actionNode && (
+                            <div className="viewer-header-actions">
+                                {actionNode}
+                            </div>
+                        )}
                     </div>
                 )}
             </div>
-            {introNode && (
-                <div className="header-intro">
-                    <div className="markdown-body rich-text">{introNode}</div>
-                </div>
-            )}
         </header>
     );
 }
