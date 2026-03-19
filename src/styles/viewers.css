@@ -8,8 +8,8 @@
 }
 
 .viewer-header-container {
-    margin-bottom: 40px;
-    padding: 40px 0 40px 0;
+    margin-bottom: 32px;
+    padding: 0 0 24px 0;
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -34,14 +34,14 @@
 .viewer-header-main {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 24px;
 }
 
 @media (min-width: 1001px) {
     .viewer-header-main {
         flex-direction: row;
         justify-content: space-between;
-        align-items: flex-end;
+        align-items: flex-start;
     }
 }
 
@@ -56,6 +56,13 @@
     align-items: center;
     gap: 4px;
     margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 1000px) {
+    .viewer-breadcrumb {
+        display: none !important;
+    }
 }
 
 .breadcrumb-link {
@@ -98,6 +105,16 @@
     font-size: 18px;
 }
 
+.hide-on-small-desktop {
+    display: inline-flex;
+}
+
+@media (max-width: 1200px) {
+    .hide-on-small-desktop {
+        display: none !important;
+    }
+}
+
 .viewer-title {
     font-size: clamp(2.2rem, 5vw, 3.8rem);
     margin: 0 0 12px 0;
@@ -117,14 +134,18 @@
 
 .viewer-header-actions-area {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    width: 100%;
 }
 
 @media (min-width: 1001px) {
     .viewer-header-actions-area {
-        align-items: flex-end;
+        width: auto;
+        justify-content: flex-end;
+        margin-top: 4px;
     }
 }
 
@@ -140,6 +161,25 @@
     align-items: center;
     gap: 12px;
     flex-wrap: wrap;
+}
+
+.header-btn-text {
+    display: inline-flex;
+    white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+    .header-btn-text {
+        display: none !important;
+    }
+
+    .header-ghost-btn {
+        padding: 0 !important;
+        width: 48px;
+        height: 48px;
+        border-radius: 50% !important;
+        justify-content: center;
+    }
 }
 
 .header-ghost-btn {
@@ -200,12 +240,15 @@
     font-size: 0.85rem;
     font-weight: 600;
     color: var(--md-sys-color-on-surface-variant);
-    margin-top: 24px;
 }
 
-@media (min-width: 1001px) {
+@media (max-width: 600px) {
     .last-updated-badge {
-        margin-top: 0;
+        padding: 8px 12px;
+    }
+
+    .last-updated-badge .badge-icon {
+        margin: 0;
     }
 }
 
