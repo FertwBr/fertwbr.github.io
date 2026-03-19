@@ -11,7 +11,7 @@ import React from 'react';
  * @param {string} props.cardDesc - Description text of the CTA card
  * @param {string} [props.cardBtnText] - Optional button text for the CTA card
  * @param {Function} [props.onBtnClick] - Click handler for the CTA button
- * @param {Object} [props.customCardStyle] - Optional inline overrides for the CTA card styling
+ * @param {Object}[props.customCardStyle] - Optional inline overrides for the CTA card styling
  * @returns {JSX.Element}
  */
 export default function ViewerSidebar({
@@ -24,23 +24,25 @@ export default function ViewerSidebar({
                                           customCardStyle
                                       }) {
     return (
-        <aside className="desktop-toc-wrapper viewer-sidebar-container">
-            {children}
-            <div className="sidebar-base-card viewer-sidebar-card" style={customCardStyle}>
-                {cardIcon ? (
-                    <div className="viewer-sidebar-card-header">
-                        <span className="material-symbols-outlined card-icon">{cardIcon}</span>
-                        <span className="card-title-text">{cardTitle}</span>
-                    </div>
-                ) : (
-                    <h4 className="viewer-sidebar-card-title">{cardTitle}</h4>
-                )}
-                <p className="viewer-sidebar-card-desc">{cardDesc}</p>
-                {cardBtnText && (
-                    <button onClick={onBtnClick} className="btn-outline viewer-sidebar-btn">
-                        {cardBtnText}
-                    </button>
-                )}
+        <aside className="app-sidebar-fixed desktop-toc-wrapper">
+            <div className="app-sidebar-sticky-inner viewer-sidebar-container">
+                {children}
+                <div className="sidebar-base-card viewer-sidebar-card" style={customCardStyle}>
+                    {cardIcon ? (
+                        <div className="viewer-sidebar-card-header">
+                            <span className="material-symbols-outlined card-icon">{cardIcon}</span>
+                            <span className="card-title-text">{cardTitle}</span>
+                        </div>
+                    ) : (
+                        <h4 className="viewer-sidebar-card-title">{cardTitle}</h4>
+                    )}
+                    <p className="viewer-sidebar-card-desc">{cardDesc}</p>
+                    {cardBtnText && (
+                        <button onClick={onBtnClick} className="btn-outline viewer-sidebar-btn">
+                            {cardBtnText}
+                        </button>
+                    )}
+                </div>
             </div>
         </aside>
     );
