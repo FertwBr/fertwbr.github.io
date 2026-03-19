@@ -51,7 +51,7 @@ export default function ViewerHeader({
                             title={appName}
                         >
                             <span className="material-symbols-outlined breadcrumb-icon">home</span>
-                            <span className="hide-on-small-desktop">{appName}</span>
+                            <span className="hide-text-step-1">{appName}</span>
                         </button>
                         <span className="material-symbols-outlined breadcrumb-separator">chevron_right</span>
 
@@ -62,9 +62,8 @@ export default function ViewerHeader({
                                     className="breadcrumb-link"
                                     title={middleCrumb.label}
                                 >
-                                    <span
-                                        className="material-symbols-outlined breadcrumb-icon hide-on-small-desktop">folder</span>
-                                    <span>{middleCrumb.label}</span>
+                                    <span className="material-symbols-outlined breadcrumb-icon">folder</span>
+                                    <span className="hide-text-step-2">{middleCrumb.label}</span>
                                 </button>
                                 <span className="material-symbols-outlined breadcrumb-separator">chevron_right</span>
                             </>
@@ -75,9 +74,8 @@ export default function ViewerHeader({
                             className="breadcrumb-link current"
                             title={title}
                         >
-                            <span
-                                className="material-symbols-outlined breadcrumb-icon hide-on-small-desktop">{icon}</span>
-                            <span>{title}</span>
+                            <span className="material-symbols-outlined breadcrumb-icon">{icon}</span>
+                            <span className="hide-text-step-3">{title}</span>
                         </button>
                     </nav>
 
