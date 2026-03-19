@@ -8,9 +8,6 @@ import ViewerHeader from '../common/ViewerHeader';
 /**
  * Renders the Roadmap page.
  * Supports dynamic parsing of roadmap Markdown structure.
- *
- * @param {Object} props
- * @returns {JSX.Element}
  */
 export default function RoadmapViewer({markdownContent, appConfig, strings}) {
     const [data, setData] = useState({sections: []});
@@ -35,7 +32,7 @@ export default function RoadmapViewer({markdownContent, appConfig, strings}) {
                 subtitle={strings.roadmap_page?.subtitle}
             />
 
-            <main style={{maxWidth: '1000px', margin: '0 auto'}}>
+            <div className="roadmap-main-content" style={{maxWidth: '1000px', margin: '0 auto'}}>
                 {data.sections.map((section, sIndex) => {
                     if (section.type === 'intro') return null;
 
@@ -160,7 +157,7 @@ export default function RoadmapViewer({markdownContent, appConfig, strings}) {
                         </motion.article>
                     );
                 })}
-            </main>
+            </div>
 
             <aside style={{
                 marginTop: '80px',

@@ -286,17 +286,20 @@ export default function OverviewViewer({markdownContent, appConfig, strings}) {
                 subtitle={strings.overview_page?.subtitle}
                 actionNode={
                     appConfig?.sourceLink && (
-                        <a href={appConfig.sourceLink} target="_blank" rel="noreferrer" className="btn-glow">
-                            <span
-                                className="material-symbols-outlined">code</span> {strings.overview_page?.github_btn || "View Source"}
-                        </a>
+                        <div className="header-action-buttons">
+                            <a href={appConfig.sourceLink} target="_blank" rel="noreferrer" className="header-ghost-btn"
+                               style={{textDecoration: 'none'}}>
+                                <span className="material-symbols-outlined" style={{fontSize: '20px'}}>code</span>
+                                {strings.overview_page?.github_btn || "View Source"}
+                            </a>
+                        </div>
                     )
                 }
             />
 
             <div className="viewer-layout">
 
-                <main className="viewer-main-content">
+                <div className="viewer-main-content">
 
                     <div className="mobile-toc-wrapper">
                         <PageTableOfContents title={strings.overview_page?.toc_title || "Contents"} isMobile={true}>
@@ -368,12 +371,16 @@ export default function OverviewViewer({markdownContent, appConfig, strings}) {
                             );
                         })}
                     </div>
-                </main>
+                </div>
 
                 <ViewerSidebar
                     cardIcon="info"
                     cardTitle={strings.overview_page?.about_docs_title || "About"}
                     cardDesc={strings.overview_page?.dynamic_docs_note || "Dynamic docs note"}
+                    customCardStyle={{
+                        background: 'linear-gradient(180deg, rgba(var(--md-sys-color-on-surface-rgb), 0.03) 0%, transparent 100%)',
+                        borderRadius: '24px'
+                    }}
                 >
                     <PageTableOfContents title={strings.overview_page?.toc_title || "Contents"} isMobile={false}>
                         {renderTocItems()}

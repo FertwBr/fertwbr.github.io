@@ -1,4 +1,3 @@
-/* src/components/viewers/PrivacyViewer.jsx */
 import {motion} from 'framer-motion';
 import {useEffect, useState} from 'react';
 import ReactMarkdown from 'react-markdown';
@@ -81,7 +80,7 @@ export default function PrivacyViewer({markdownContent, appConfig, strings}) {
             />
 
             <div className="viewer-layout">
-                <main className="viewer-main-content">
+                <div className="viewer-main-content">
                     <div className="mobile-toc-wrapper">
                         <PageTableOfContents title={t.table_of_contents || "Table of Contents"} isMobile={true}>
                             {renderTocItems()}
@@ -101,7 +100,7 @@ export default function PrivacyViewer({markdownContent, appConfig, strings}) {
                             </motion.article>
                         ))}
                     </div>
-                </main>
+                </div>
 
                 <ViewerSidebar
                     cardTitle={t.contact_title || "Privacy Questions?"}

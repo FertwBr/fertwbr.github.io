@@ -1,4 +1,3 @@
-/* src/components/viewers/HelpViewer.jsx */
 import React, {useState, useEffect, useMemo, useRef} from 'react';
 import {createPortal} from 'react-dom';
 import ReactMarkdown from 'react-markdown';
@@ -155,7 +154,7 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
             />
 
             <div className="viewer-layout">
-                <main className="viewer-main-content">
+                <div className="viewer-main-content">
                     {!isDesktop && (
                         <div ref={containerRef} style={{
                             position: 'relative',
@@ -217,7 +216,7 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
                             </div>
                         )}
                     </div>
-                </main>
+                </div>
 
                 <ViewerSidebar
                     cardTitle={strings.help_page?.contact_title || "Questions?"}
