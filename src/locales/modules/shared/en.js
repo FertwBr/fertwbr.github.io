@@ -133,6 +133,22 @@ export default {
     feedback: {
         title: "Send Feedback",
         subtitle: "Help us improve. Bug reports, feature requests, or just say hi.",
+        wizard: {
+            step_1: "Step 1 of 4 • Getting Started",
+            step_2: "Step 2 of 4 • Quick Choice",
+            step_3: "Step 3 of 4 • Almost There (~1 min left)",
+            step_4: "Step 4 of 4 • Review & Send",
+            back: "Back",
+            next: "Next",
+            review_title: "Review Your Feedback",
+            info_included: "Included",
+            info_not_included: "Not Included",
+            none: "None",
+            change_file: "Change File",
+            attach_image: "Attach Image",
+            device_info: "Device Info",
+            attachment: "Attachment"
+        },
         form: {
             project_label: "Project",
             type_label: "Topic",

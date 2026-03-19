@@ -134,6 +134,22 @@ export default {
     feedback: {
         title: "Enviar Comentarios",
         subtitle: "Ayúdenos a mejorar. Informes de errores, solicitudes de funciones o simplemente para saludar.",
+        wizard: {
+            step_1: "Paso 1 de 4 • Primeros Pasos",
+            step_2: "Paso 2 de 4 • Elección Rápida",
+            step_3: "Paso 3 de 4 • Casi Listo (~1 min restante)",
+            step_4: "Paso 4 de 4 • Revisar y Enviar",
+            back: "Atrás",
+            next: "Siguiente",
+            review_title: "Revise su Comentario",
+            info_included: "Incluido",
+            info_not_included: "No Incluido",
+            none: "Ninguno",
+            change_file: "Cambiar Archivo",
+            attach_image: "Adjuntar Imagen",
+            device_info: "Información del Dispositivo",
+            attachment: "Adjunto"
+        },
         form: {
             project_label: "Proyecto",
             type_label: "Tema",

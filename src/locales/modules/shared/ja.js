@@ -134,6 +134,22 @@ export default {
     feedback: {
         title: "フィードバックを送信",
         subtitle: "品質向上にご協力ください。バグレポート、機能リクエスト、または単なるご挨拶でも構いません。",
+        wizard: {
+            step_1: "ステップ 1/4 • はじめに",
+            step_2: "ステップ 2/4 • クイック選択",
+            step_3: "ステップ 3/4 • もう少しです（残り約1分）",
+            step_4: "ステップ 4/4 • 確認して送信",
+            back: "戻る",
+            next: "次へ",
+            review_title: "フィードバックの確認",
+            info_included: "含まれる",
+            info_not_included: "含まれない",
+            none: "なし",
+            change_file: "ファイルを変更",
+            attach_image: "画像を添付",
+            device_info: "デバイス情報",
+            attachment: "添付ファイル"
+        },
         form: {
             project_label: "プロジェクト",
             type_label: "トピック",

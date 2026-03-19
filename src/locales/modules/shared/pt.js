@@ -133,6 +133,22 @@ export default {
     feedback: {
         title: "Enviar Feedback",
         subtitle: "Ajude-nos a melhorar. Relatórios de falhas, solicitações de recursos ou apenas diga olá.",
+        wizard: {
+            step_1: "Passo 1 de 4 • Primeiros Passos",
+            step_2: "Passo 2 de 4 • Escolha Rápida",
+            step_3: "Passo 3 de 4 • Quase Lá (~1 min restante)",
+            step_4: "Passo 4 de 4 • Revisar e Enviar",
+            back: "Voltar",
+            next: "Próximo",
+            review_title: "Revise o seu Feedback",
+            info_included: "Incluído",
+            info_not_included: "Não Incluído",
+            none: "Nenhum",
+            change_file: "Alterar Arquivo",
+            attach_image: "Anexar Imagem",
+            device_info: "Informações do Dispositivo",
+            attachment: "Anexo"
+        },
         form: {
             project_label: "Projeto",
             type_label: "Tópico",
