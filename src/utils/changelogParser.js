@@ -19,9 +19,24 @@ export const parseChangelog = (markdown) => {
 
         const dateRegex = /\*\((?:Released )?(.+?)\)\*/;
         let date = "Pending";
+        let shortDate = "Pending";
+
         const dateMatch = section.match(dateRegex);
         if (dateMatch) {
             date = dateMatch[1];
+            try {
+                const d = new Date(date);
+                if (!isNaN(d.getTime())) {
+                    const day = String(d.getDate()).padStart(2, '0');
+                    const month = String(d.getMonth() + 1).padStart(2, '0');
+                    const year = String(d.getFullYear()).slice(-2);
+                    shortDate = `${day}/${month}/${year}`;
+                } else {
+                    shortDate = date;
+                }
+            } catch (e) {
+                shortDate = date;
+            }
         }
 
         let contentStartIndex = 1;
@@ -64,6 +79,7 @@ export const parseChangelog = (markdown) => {
             id: version.replace(/[^a-z0-9]/gi, '-').toLowerCase(),
             version,
             date,
+            shortDate,
             tags: Array.from(tags),
             content: rawContent,
             type
