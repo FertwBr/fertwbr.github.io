@@ -1,4 +1,3 @@
-/* src/components/common/ViewerHeader.jsx */
 import React from 'react';
 import {useNavigate} from 'react-router-dom';
 
@@ -49,7 +48,8 @@ export default function ViewerHeader({
                             className="breadcrumb-link"
                             title={appName}
                         >
-                            {appName}
+                            <span className="material-symbols-outlined breadcrumb-icon">home</span>
+                            <span className="hide-on-small-desktop">{appName}</span>
                         </button>
                         <span className="material-symbols-outlined breadcrumb-separator">chevron_right</span>
 
@@ -60,7 +60,9 @@ export default function ViewerHeader({
                                     className="breadcrumb-link"
                                     title={middleCrumb.label}
                                 >
-                                    {middleCrumb.label}
+                                    <span
+                                        className="material-symbols-outlined breadcrumb-icon hide-on-small-desktop">folder</span>
+                                    <span>{middleCrumb.label}</span>
                                 </button>
                                 <span className="material-symbols-outlined breadcrumb-separator">chevron_right</span>
                             </>
@@ -71,7 +73,8 @@ export default function ViewerHeader({
                             className="breadcrumb-link current"
                             title={title}
                         >
-                            <span className="material-symbols-outlined breadcrumb-icon">{icon}</span>
+                            <span
+                                className="material-symbols-outlined breadcrumb-icon hide-on-small-desktop">{icon}</span>
                             <span>{title}</span>
                         </button>
                     </nav>
@@ -88,9 +91,9 @@ export default function ViewerHeader({
                             </div>
                         )}
                         {lastUpdated && (
-                            <div className="last-updated-badge">
+                            <div className="last-updated-badge" title={`${lastUpdatedText} ${lastUpdated}`}>
                                 <span className="material-symbols-outlined badge-icon">update</span>
-                                <span>{lastUpdatedText} {lastUpdated}</span>
+                                <span className="header-btn-text">{lastUpdatedText} {lastUpdated}</span>
                             </div>
                         )}
                     </div>
