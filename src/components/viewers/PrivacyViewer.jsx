@@ -19,7 +19,7 @@ import ViewerSidebar from '../common/ViewerSidebar';
  * @returns {JSX.Element}
  */
 export default function PrivacyViewer({markdownContent, appConfig, strings}) {
-    const [data, setData] = useState({lastUpdated: '', intro: null, sections:[]});
+    const [data, setData] = useState({lastUpdated: '', intro: null, sections: []});
     const navigate = useNavigate();
 
     const {activeSection, setActiveSection, scrollToSection} = useSectionScroll('');
@@ -70,7 +70,8 @@ export default function PrivacyViewer({markdownContent, appConfig, strings}) {
                     lastUpdatedText={t.last_updated || "Last Updated:"}
                     actionNode={
                         <div className="header-action-buttons">
-                            <button onClick={() => window.print()} className="header-ghost-btn" title={t.print_btn || "Print Policy"}>
+                            <button onClick={() => window.print()} className="header-ghost-btn"
+                                    title={t.print_btn || "Print Policy"}>
                                 <span className="material-symbols-outlined" style={{fontSize: '20px'}}>print</span>
                                 <span className="header-btn-text">{t.print_btn || "Print Policy"}</span>
                             </button>
@@ -93,7 +94,7 @@ export default function PrivacyViewer({markdownContent, appConfig, strings}) {
                                         className={`viewer-section ${index !== data.sections.length - 1 ? 'viewer-section-bordered' : ''}`}>
                             <h2 className="viewer-section-title">{section.title}</h2>
 
-                            <div className="markdown-body rich-text">F
+                            <div className="markdown-body rich-text">
                                 <ReactMarkdown rehypePlugins={[rehypeRaw]}>{section.content}</ReactMarkdown>
                             </div>
                         </motion.article>

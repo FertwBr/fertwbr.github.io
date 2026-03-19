@@ -84,7 +84,6 @@ export default function ViewerHeader({
                     <h1 className={`viewer-title ${!subtitle ? 'viewer-title-large' : ''}`}>{title}</h1>
                     {subtitle && <p className="viewer-subtitle">{subtitle}</p>}
 
-                    {/* Movido para dentro da text-area para corrigir a ordem e espaçamento no mobile */}
                     {introNode && (
                         <div className="header-intro">
                             <div className="markdown-body rich-text">{introNode}</div>
@@ -94,7 +93,6 @@ export default function ViewerHeader({
 
                 {(lastUpdated || actionNode) && (
                     <div className="viewer-header-actions-area">
-                        {/* A Data agora vem ANTES das ações */}
                         {lastUpdated && (
                             <div className="last-updated-badge" title={`${lastUpdatedText} ${lastUpdated}`}>
                                 <span className="material-symbols-outlined badge-icon">update</span>
