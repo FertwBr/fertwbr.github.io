@@ -1,22 +1,12 @@
 import React from 'react';
-import AppNavbar from './AppNavbar';
-import AppFooter from './AppFooter';
 
-export default function AppLayout({children, config, activePage, onNavigate, strings}) {
+export default function AppLayout({navbar, children, footer, background}) {
     return (
-        <div style={{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
-            <AppNavbar
-                config={config}
-                activePage={activePage}
-                onNavigate={onNavigate}
-                strings={strings}
-            />
-
-            <main className="app-page-container">
-                {children}
-            </main>
-
-            <AppFooter strings={strings} onNavigate={onNavigate}/>
+        <div className="app-shell page-wrapper">
+            {background}
+            {navbar}
+            {children}
+            {footer}
         </div>
     );
 }
