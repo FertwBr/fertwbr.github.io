@@ -49,6 +49,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    margin-bottom: 0;
 }
 
 .viewer-breadcrumb {
@@ -136,17 +137,16 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 12px;
     width: 100%;
-    margin-top: 4px;
 }
 
 @media (min-width: 1001px) {
     .viewer-header-actions-area {
         width: auto;
         justify-content: flex-end;
-        margin-top: 0;
         align-self: flex-start;
     }
 }
@@ -244,14 +244,24 @@
     font-size: 0.95rem;
     font-weight: 600;
     color: var(--md-sys-color-on-surface);
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .badge-text-long {
     display: inline;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .badge-text-short {
     display: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 @media (max-width: 600px) {
@@ -265,6 +275,10 @@
 
     .badge-text-short {
         display: inline;
+    }
+
+    .badge-icon {
+        display: none;
     }
 }
 
