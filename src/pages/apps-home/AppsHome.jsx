@@ -19,8 +19,7 @@ import AppsHomeExtra from '../../components/sections/AppsHomeExtra';
  * reads localized content from `useLanguage` and renders the apps home
  * sections: hero, device scroll sections, wear section, split choice, extra info, and footer.
  *
- * @component
- * @returns {JSX.Element} The AppsHome page layout.
+ * @returns {JSX.Element}
  */
 export default function AppsHome() {
     const {content} = useLanguage();
@@ -33,6 +32,9 @@ export default function AppsHome() {
         favicon: appsHomeConfig.faviconUrl,
         type: 'website'
     });
+
+    const exploreLabel = t.split_choice?.explore || "Explore";
+    const getPlusLabel = content.footer_extra?.plus_promo?.cta || "Get Plus";
 
     return (
         <div style={{
@@ -57,6 +59,8 @@ export default function AppsHome() {
                         config={pixelPulseConfig}
                         title={t.pulse_section?.title}
                         points={t.pulse_section?.points || []}
+                        exploreText={`${exploreLabel} Pulse`}
+                        plusText={getPlusLabel}
                         reversed={false}
                     />
 
@@ -64,6 +68,8 @@ export default function AppsHome() {
                         config={pixelCompassConfig}
                         title={t.compass_section?.title}
                         points={t.compass_section?.points || []}
+                        exploreText={`${exploreLabel} Compass`}
+                        plusText={getPlusLabel}
                         reversed={true}
                     />
 

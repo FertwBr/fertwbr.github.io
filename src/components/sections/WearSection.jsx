@@ -1,18 +1,22 @@
 import React from 'react';
 import {motion} from 'framer-motion';
+import {useNavigate} from 'react-router-dom';
 import PixelWatchFrame from '../ui/PixelWatchFrame';
 import {PulseWatchScreen, CompassWatchScreen} from './MockWatchScreens';
 
 /**
  * Section highlighting Wear OS capabilities with dual watch visuals.
+ * The watch frames are interactive and allow direct navigation to the respective apps.
  *
  * @param {Object} props
- * @param {Object} props.pulseConfig - Pixel Pulse configuration.
- * @param {Object} props.compassConfig - Pixel Compass configuration.
- * @param {Object} props.texts - Text content for title, subtitle, and labels.
+ * @param {Object} props.pulseConfig
+ * @param {Object} props.compassConfig
+ * @param {Object} props.texts
  * @returns {JSX.Element}
  */
 export default function WearSection({pulseConfig, compassConfig, texts}) {
+    const navigate = useNavigate();
+
     return (
         <section style={{
             padding: '120px 24px',
@@ -62,7 +66,18 @@ export default function WearSection({pulseConfig, compassConfig, texts}) {
                 maxWidth: '1200px',
                 margin: '0 auto'
             }}>
-                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '32px'}}>
+                <motion.div
+                    onClick={() => navigate('/pixelpulse')}
+                    whileHover={{scale: 1.05, y: -10}}
+                    whileTap={{scale: 0.95}}
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        gap: '32px',
+                        cursor: 'pointer'
+                    }}
+                >
                     <PixelWatchFrame>
                         <PulseWatchScreen/>
                     </PixelWatchFrame>
@@ -70,9 +85,20 @@ export default function WearSection({pulseConfig, compassConfig, texts}) {
                         <h3 style={{fontSize: '1.5rem', fontWeight: 700, margin: '0 0 8px'}}>{pulseConfig.appName}</h3>
                         <p style={{margin: 0, opacity: 0.7}}>{texts.pulse_label}</p>
                     </div>
-                </div>
+                </motion.div>
 
-                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '32px'}}>
+                <motion.div
+                    onClick={() => navigate('/pixelcompass')}
+                    whileHover={{scale: 1.05, y: -10}}
+                    whileTap={{scale: 0.95}}
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        gap: '32px',
+                        cursor: 'pointer'
+                    }}
+                >
                     <PixelWatchFrame>
                         <CompassWatchScreen/>
                     </PixelWatchFrame>
@@ -84,7 +110,7 @@ export default function WearSection({pulseConfig, compassConfig, texts}) {
                         }}>{compassConfig.appName}</h3>
                         <p style={{margin: 0, opacity: 0.7}}>{texts.compass_label}</p>
                     </div>
-                </div>
+                </motion.div>
             </div>
         </section>
     );

@@ -1,21 +1,27 @@
 import React, {useRef} from 'react';
 import {motion, useScroll, useTransform} from 'framer-motion';
+import {useNavigate} from 'react-router-dom';
 import GooglePixel from '../ui/GooglePixel';
 import {PulseMockScreen, CompassMockScreen} from './MockAppScreens';
 import RatingBadge from '../ui/RatingBadge';
 
 /**
  * A section displaying an app on a phone device with scroll-triggered animations.
- * Integrates a compact rating badge next to the app name.
- * Space is optimized so the device peeks into the viewport on initial load.
+ * Provides direct interactive CTAs with high-contrast styling and localized strings.
  *
- * @param {Object} config - App configuration object.
- * @param {string} title - Section title.
- * @param {Array<string>} points - List of key feature points.
- * @param {boolean} reversed - If true, places text on left and phone on right.
+ * @param {Object} props
+ * @param {Object} props.config
+ * @param {string} props.title
+ * @param {Array<string>} props.points
+ * @param {string} props.exploreText
+ * @param {string} props.plusText
+ * @param {boolean} [props.reversed=false]
+ * @returns {JSX.Element}
  */
-export default function ScrollDeviceSection({config, title, points, reversed = false}) {
+export default function ScrollDeviceSection({config, title, points, exploreText, plusText, reversed = false}) {
     const containerRef = useRef(null);
+    const navigate = useNavigate();
+
     const {scrollYProgress} = useScroll({
         target: containerRef,
         offset: ["start end", "end start"]
@@ -27,6 +33,10 @@ export default function ScrollDeviceSection({config, title, points, reversed = f
 
     const isPulse = config.scheme === 'pixelpulse';
     const accentColor = isPulse ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-tertiary)';
+    const accentColorRgb = isPulse ? 'var(--md-sys-color-primary-rgb)' : 'var(--md-sys-color-tertiary-rgb)';
+
+    const handleNavigate = () => navigate(`/${config.scheme}`);
+    const handlePlusNavigate = () => navigate(`/${config.scheme}/plus`);
 
     return (
         <section
@@ -52,8 +62,15 @@ export default function ScrollDeviceSection({config, title, points, reversed = f
             }}>
                 <motion.div
                     className="hardware-accelerated"
-                    style={{y, opacity, zIndex: 2, display: 'flex', justifyContent: 'center'}}>
-                    <motion.div style={{rotate}}>
+                    style={{y, opacity, zIndex: 2, display: 'flex', justifyContent: 'center'}}
+                >
+                    <motion.div
+                        style={{rotate, cursor: 'pointer'}}
+                        whileHover={{scale: 1.05, y: -10, rotate: 0}}
+                        whileTap={{scale: 0.95}}
+                        transition={{type: "spring", stiffness: 300, damping: 20}}
+                        onClick={handleNavigate}
+                    >
                         <GooglePixel>
                             {isPulse ? <PulseMockScreen/> : <CompassMockScreen/>}
                         </GooglePixel>
@@ -90,7 +107,7 @@ export default function ScrollDeviceSection({config, title, points, reversed = f
                             height: '14px',
                             background: 'var(--md-sys-color-outline)',
                             opacity: 0.4
-                        }}></div>
+                        }}/>
 
                         <div style={{display: 'flex', alignItems: 'center', marginTop: '-1px'}}>
                             <RatingBadge appId={config.appId} fallback={config.rating} variant="compact"/>
@@ -131,7 +148,7 @@ export default function ScrollDeviceSection({config, title, points, reversed = f
                                     marginTop: '4px',
                                     width: '24px', height: '24px',
                                     borderRadius: '50%',
-                                    background: `rgba(${isPulse ? 'var(--md-sys-color-primary-rgb)' : 'var(--md-sys-color-tertiary-rgb)'}, 0.15)`,
+                                    background: `rgba(${accentColorRgb}, 0.15)`,
                                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                                     flexShrink: 0
                                 }}>
@@ -152,6 +169,43 @@ export default function ScrollDeviceSection({config, title, points, reversed = f
                             </motion.div>
                         ))}
                     </div>
+
+                    <motion.div
+                        initial={{opacity: 0, y: 20}}
+                        whileInView={{opacity: 1, y: 0}}
+                        transition={{delay: 0.4}}
+                        viewport={{once: true, margin: "-50px"}}
+                        style={{display: 'flex', gap: '16px', marginTop: '40px', flexWrap: 'wrap'}}
+                    >
+                        <motion.button
+                            onClick={handleNavigate}
+                            className="btn-glow"
+                            whileHover={{scale: 1.05, boxShadow: `0 8px 24px rgba(${accentColorRgb}, 0.4)`}}
+                            whileTap={{scale: 0.95}}
+                            style={{
+                                backgroundColor: accentColor,
+                                color: '#ffffff',
+                                textShadow: '0 1px 2px rgba(0,0,0,0.2)'
+                            }}
+                        >
+                            {exploreText} <span className="material-symbols-outlined">arrow_forward</span>
+                        </motion.button>
+
+                        <motion.button
+                            onClick={handlePlusNavigate}
+                            className="btn-outline"
+                            whileHover={{scale: 1.05, backgroundColor: `rgba(${accentColorRgb}, 0.08)`}}
+                            whileTap={{scale: 0.95}}
+                            style={{
+                                backgroundColor: 'var(--md-sys-color-surface-container-high)',
+                                color: 'var(--md-sys-color-on-surface)',
+                                border: '1px solid var(--md-sys-color-outline-variant)'
+                            }}
+                        >
+                            <span className="material-symbols-outlined"
+                                  style={{color: accentColor}}>diamond</span> {plusText}
+                        </motion.button>
+                    </motion.div>
                 </div>
             </div>
         </section>

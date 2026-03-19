@@ -8,10 +8,10 @@ import {appsHomeConfig} from '../../pages/apps-home/AppsHomeConfig';
  * Uses a refined grid background and a bottom spotlight to naturally
  * transition into the first device section, ensuring it's visible on load.
  *
- * @param {Object} props - Component props
- * @param {string} props.title - The main hero title text.
- * @param {string} props.subtitle - The subtitle/intro text.
- * @param {string} props.scrollText - Localized "Scroll to explore" text.
+ * @param {Object} props
+ * @param {string} props.title
+ * @param {string} props.subtitle
+ * @param {string} props.scrollText
  * @returns {JSX.Element}
  */
 export default function AppsHero({title, subtitle, scrollText}) {
