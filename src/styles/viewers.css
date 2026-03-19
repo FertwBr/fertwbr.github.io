@@ -61,12 +61,6 @@
     flex-wrap: wrap;
 }
 
-@media (max-width: 1000px) {
-    .viewer-breadcrumb {
-        display: none !important;
-    }
-}
-
 .breadcrumb-link {
     background: transparent;
     border: none;
@@ -128,6 +122,14 @@
 @media (max-width: 1050px) {
     .hide-text-step-3 {
         display: none !important;
+    }
+
+    .viewer-breadcrumb {
+        margin-bottom: 16px;
+    }
+
+    .breadcrumb-link {
+        padding: 6px 8px;
     }
 }
 
