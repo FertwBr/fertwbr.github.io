@@ -11,6 +11,13 @@ import {handleContactSupport} from '../../utils/navigationUtils';
 import ViewerHeader from '../common/ViewerHeader';
 import ViewerSidebar from '../common/ViewerSidebar';
 
+/**
+ * Component to view the privacy policy documentation interactively.
+ * Includes scroll-hide mobile search, dynamic desktop portal search, and section tracking.
+ *
+ * @param {Object} props
+ * @returns {JSX.Element}
+ */
 export default function PrivacyViewer({markdownContent, appConfig, strings}) {
     const [data, setData] = useState({lastUpdated: '', intro: null, sections: []});
     const navigate = useNavigate();
@@ -28,15 +35,19 @@ export default function PrivacyViewer({markdownContent, appConfig, strings}) {
     }, [markdownContent, setActiveSection]);
 
     const renderTocItems = () => (
-        data.sections.map((section) => (
-            <button
-                key={section.id}
-                onClick={() => scrollToSection(section.id)}
-                className={`toc-btn ${activeSection === section.id ? 'active' : 'inactive'}`}
-            >
-                {section.title}
-            </button>
-        ))
+        <div className="toc-scroll-area" data-lenis-prevent="true">
+            {data.sections.map((section) => (
+                <button
+                    key={section.id}
+                    onClick={() => scrollToSection(section.id)}
+                    className={`toc-item-btn ${activeSection === section.id ? 'active' : ''}`}
+                >
+                    <span className="toc-item-text">
+                        {section.title}
+                    </span>
+                </button>
+            ))}
+        </div>
     );
 
     const onSupportClick = () => {
@@ -49,7 +60,7 @@ export default function PrivacyViewer({markdownContent, appConfig, strings}) {
     const t = strings?.privacy_page || {};
 
     return (
-        <div className="viewer-container">
+        <div className="viewer-container" style={{ minHeight: '80vh' }}>
             <ViewerHeader
                 appName={appConfig?.appName}
                 icon="verified_user"

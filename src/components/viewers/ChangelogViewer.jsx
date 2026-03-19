@@ -20,7 +20,8 @@ import {
 } from './changelog/SidebarCards';
 
 /**
- * Configuration object defining styles for various changelog tags using dynamic MD3 colors.
+ * Configuration object defining styles for various changelog tags.
+ * @type {Record<string, {bg: string, color: string, border: string, highlight: string}>}
  */
 const TAG_STYLE_CONFIG = {
     stable: {
@@ -61,6 +62,12 @@ const TAG_STYLE_CONFIG = {
     }
 };
 
+/**
+ * Retrieves the styling associated with a specific tag type.
+ *
+ * @param {string} tagKey
+ * @returns {Object}
+ */
 const getTagStyle = (tagKey) => {
     const key = tagKey?.toLowerCase() || 'default';
     if (TAG_STYLE_CONFIG[key]) return TAG_STYLE_CONFIG[key];
@@ -71,6 +78,14 @@ const getTagStyle = (tagKey) => {
     return TAG_STYLE_CONFIG.default;
 };
 
+/**
+ * Component to display a visual tag for a version type.
+ *
+ * @param {Object} props
+ * @param {string} props.type
+ * @param {string} [props.text]
+ * @returns {JSX.Element}
+ */
 const VersionBadge = ({type, text}) => {
     const style = getTagStyle(type);
     return (
@@ -93,6 +108,12 @@ const VersionBadge = ({type, text}) => {
     );
 };
 
+/**
+ * Renders an individual changelog item with expandable content.
+ *
+ * @param {Object} props
+ * @returns {JSX.Element}
+ */
 const ChangelogItem = ({v, index, isActive, strings, onOpenSingle, onShare}) => {
     const [isOpen, setIsOpen] = useState(index === 0);
     const badgeStyle = getTagStyle(v.type);
@@ -215,6 +236,12 @@ const ChangelogItem = ({v, index, isActive, strings, onOpenSingle, onShare}) => 
     );
 };
 
+/**
+ * Renders an isolated article layout for a single version.
+ *
+ * @param {Object} props
+ * @returns {JSX.Element}
+ */
 const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle}) => {
     const headers = useMemo(() => {
         const regex = /^####\s+(.+)$/gm;
@@ -360,33 +387,18 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
                                 <span className="material-symbols-outlined" style={{fontSize: '24px'}}>segment</span>
                                 {strings.table_of_contents || "Table of Contents"}
                             </div>
-                            <ul style={{
-                                listStyle: 'none',
-                                padding: 0,
-                                margin: 0,
-                                display: 'flex',
-                                flexDirection: 'column',
-                                gap: '16px'
-                            }}>
+
+                            <div className="toc-scroll-area" data-lenis-prevent="true">
                                 {headers.map(h => (
-                                    <li key={h.id}>
-                                        <button onClick={() => scrollToSection(h.id)} style={{
-                                            background: 'none',
-                                            border: 'none',
-                                            textAlign: 'left',
-                                            cursor: 'pointer',
-                                            color: 'var(--md-sys-color-on-surface-variant)',
-                                            fontSize: '0.95rem',
-                                            fontWeight: 500,
-                                            padding: 0,
-                                            transition: 'color 0.2s',
-                                            lineHeight: 1.4
-                                        }} className="toc-link-btn">
-                                            {h.title}
-                                        </button>
-                                    </li>
+                                    <button
+                                        key={h.id}
+                                        onClick={() => scrollToSection(h.id)}
+                                        className="toc-item-btn inactive"
+                                    >
+                                        <span className="toc-item-text">{h.title}</span>
+                                    </button>
                                 ))}
-                            </ul>
+                            </div>
                         </div>
                     </div>
                 )}
@@ -422,11 +434,8 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
 
 /**
  * Component to view changelog history and specific versions interactively.
+ *
  * @param {Object} props
- * @param {string} props.markdownContent - Raw markdown text containing changelog data.
- * @param {Object} props.appConfig - Configuration object for the target application.
- * @param {Object} props.strings - Localized string mappings.
- * @param {Function} props.onNavigate - Callback function to trigger internal routing.
  * @returns {JSX.Element}
  */
 export default function ChangelogViewer({markdownContent: initialMarkdown, appConfig, strings, onNavigate}) {
@@ -676,25 +685,30 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
     };
 
     const renderTocButtons = () => (
-        filteredVersions.map(v => {
-            const style = getTagStyle(v.type);
-            return (
-                <button key={v.id} onClick={() => scrollToVersion(v.id)}
-                        className={`toc-pill-btn ${activeId === v.id ? 'active' : 'inactive'}`}>
-                    <span className="toc-pill-text">
-                        {v.version.replace('Version ', '')}
-                    </span>
-                    {v.type !== 'stable' && (
-                        <span style={{
-                            fontSize: '0.65rem', padding: '2px 6px', borderRadius: '4px',
-                            background: style.bg, color: style.color
-                        }}>
-                            {v.type === 'rc' ? 'RC' : v.type.substring(0, 1).toUpperCase()}
+        <div className="toc-scroll-area" data-lenis-prevent="true">
+            {filteredVersions.map(v => {
+                const style = getTagStyle(v.type);
+                return (
+                    <button
+                        key={v.id}
+                        onClick={() => scrollToVersion(v.id)}
+                        className={`toc-item-btn ${activeId === v.id ? 'active' : ''}`}
+                    >
+                        <span className="toc-item-text">
+                            {v.version.replace('Version ', '')}
                         </span>
-                    )}
-                </button>
-            )
-        })
+                        {v.type !== 'stable' && (
+                            <span className="toc-item-badge" style={{
+                                background: style.bg,
+                                color: style.color
+                            }}>
+                                {v.type === 'rc' ? 'RC' : v.type.substring(0, 1).toUpperCase()}
+                            </span>
+                        )}
+                    </button>
+                )
+            })}
+        </div>
     );
 
     const desktopSearchInput = isDesktop && !isFullScreenMode ? (
