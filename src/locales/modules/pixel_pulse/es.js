@@ -88,7 +88,8 @@ export default {
     plus: {
         title: "Desbloquee la Experiencia Definitiva",
         desc: "Pase de reactivo a proactivo con el análisis automatizado.",
-        cta: "Descubra Pixel Pulse+"
+        cta: "Descubra Pixel Pulse+",
+        get_plus: "Obtener Plus"
     },
     plus_page: {
         title: "Eleve Su Experiencia",

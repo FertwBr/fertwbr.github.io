@@ -84,7 +84,8 @@ export default {
     plus: {
         title: "究極の体験をロック解除",
         desc: "自動化された分析を使用して、反応的からプロアクティブに移行します。",
-        cta: "Pixel Pulse+ を発見する"
+        cta: "Pixel Pulse+ を発見する",
+        get_plus: "Plus を入手"
     },
     plus_page: {
         title: "体験を向上させる",

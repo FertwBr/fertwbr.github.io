@@ -1,4 +1,3 @@
-// src/locales/modules/pixel_pulse/en.js
 export default {
     nav: {
         index: "Overview", plus: "Pixel Pulse+", changelog: "Updates", roadmap: "Roadmap",
@@ -80,7 +79,8 @@ export default {
     plus: {
         title: "Unlock the Ultimate Experience",
         desc: "Go from reactive to proactive with automated analysis.",
-        cta: "Discover Pixel Pulse+"
+        cta: "Discover Pixel Pulse+",
+        get_plus: "Get Plus"
     },
     plus_page: {
         title: "Elevate Your Experience",

@@ -80,7 +80,8 @@ export default {
     plus: {
         title: "अंतिम अनुभव को अनलॉक करें",
         desc: "स्वचालित विश्लेषण के साथ प्रतिक्रियाशील से सक्रिय बनें।",
-        cta: "Pixel Pulse+ खोजें"
+        cta: "Pixel Pulse+ खोजें",
+        get_plus: "Plus प्राप्त करें"
     },
     plus_page: {
         title: "अपने अनुभव को बढ़ाएं",

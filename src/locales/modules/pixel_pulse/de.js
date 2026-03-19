@@ -90,7 +90,8 @@ export default {
     plus: {
         title: "Das Ultimative Erlebnis Freischalten",
         desc: "Wechseln Sie von reaktiv zu proaktiv mit der automatisierten Analyse.",
-        cta: "Pixel Pulse+ entdecken"
+        cta: "Pixel Pulse+ entdecken",
+        get_plus: "Plus holen"
     },
     plus_page: {
         title: "Erhöhen Sie Ihr Erlebnis",

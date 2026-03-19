@@ -84,7 +84,8 @@ export default {
     plus: {
         title: "Desbloqueie a Experiência Definitiva",
         desc: "Passe de reativo a proativo com a análise automatizada.",
-        cta: "Descubra o Pixel Pulse+"
+        cta: "Descubra o Pixel Pulse+",
+        get_plus: "Obter o Plus"
     },
     plus_page: {
         title: "Eleve a sua experiência",
@@ -127,7 +128,7 @@ export default {
         tagline: "Projetado para Android",
         title: "Pronto para medir?",
         subtitle: "Junte-se a outros usuários e proteja a sua audição com o Pixel Pulse.",
-        button_sub: "Baixar no",
+        button_sub: "Obter no",
         button_main: "Google Play",
         bottom_note: "Requer o Android 13 ou superior"
     },
