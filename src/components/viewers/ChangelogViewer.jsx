@@ -123,7 +123,7 @@ const ChangelogItem = ({v, index, isActive, strings, onOpenSingle, onShare}) => 
     const excludeTags = [...platformTags, 'Beta', 'Alpha', 'RC', 'Pre-release'];
 
     return (
-        <motion.div
+        <motion.article
             id={`ver-${v.id}`}
             layoutId={`changelog-card-${v.id}`}
             initial={{opacity: 0, y: 20}}
@@ -232,7 +232,7 @@ const ChangelogItem = ({v, index, isActive, strings, onOpenSingle, onShare}) => 
                     )}
                 </AnimatePresence>
             </div>
-        </motion.div>
+        </motion.article>
     );
 };
 
@@ -274,7 +274,7 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
     };
 
     return (
-        <motion.div
+        <motion.article
             layoutId={`changelog-card-${v.id}`}
             initial={{opacity: 0, scale: 0.98}}
             animate={{opacity: 1, scale: 1}}
@@ -366,7 +366,7 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
                 </div>
 
                 {headers.length > 0 && (
-                    <div className="desktop-article-toc">
+                    <aside className="desktop-article-toc">
                         <div className="glass-card" style={{
                             position: 'sticky',
                             top: '140px',
@@ -400,7 +400,7 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
                                 ))}
                             </div>
                         </div>
-                    </div>
+                    </aside>
                 )}
             </div>
 
@@ -428,7 +428,7 @@ const FullScreenArticle = ({v, prevVersion, nextVersion, strings, onOpenSingle})
                     )}
                 </div>
             </div>
-        </motion.div>
+        </motion.article>
     );
 };
 
@@ -855,7 +855,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
 
             <div className="changelog-layout viewer-layout">
 
-                <div className="viewer-main-content">
+                <main className="viewer-main-content">
                     {!isFullScreenMode && !isDesktop && (
                         <>
                             <div ref={containerRef} style={{
@@ -994,10 +994,10 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                             </div>
                         </div>
                     )}
-                </div>
+                </main>
 
                 {!isFullScreenMode && (
-                    <div className="desktop-toc-wrapper viewer-sidebar-container">
+                    <aside className="desktop-toc-wrapper viewer-sidebar-container">
                         {!isPortfolio && latestVersion && !searchQuery && (
                             <LatestReleaseCard version={latestVersion} strings={strings.changelog || {}}
                                                link={appConfig?.playStoreLink}/>
@@ -1036,7 +1036,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                 </div>
                             </div>
                         )}
-                    </div>
+                    </aside>
                 )}
 
                 <BackToTop strings={strings.changelog || {}} isShifted={!hideOnScroll && !isFullScreenMode}/>

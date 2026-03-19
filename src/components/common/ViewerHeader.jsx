@@ -1,7 +1,9 @@
 import React from 'react';
+import {useNavigate} from 'react-router-dom';
 
 /**
  * Standardized header component for viewer pages (Changelog, Terms, Privacy, etc.)
+ * Provides an interactive breadcrumb navigation and page title/subtitle.
  *
  * @param {Object} props
  * @param {string} props.appName - Name of the application (e.g. Pixel Pulse)
@@ -24,18 +26,42 @@ export default function ViewerHeader({
                                          actionNode,
                                          introNode
                                      }) {
+    const navigate = useNavigate();
+
+    const handleRootNavigation = () => {
+        if (!appName) return;
+        const normalized = appName.toLowerCase().replace(/\s+/g, '');
+        if (normalized.includes('compass')) navigate('/pixelcompass');
+        else if (normalized.includes('pulse')) navigate('/pixelpulse');
+        else navigate('/');
+    };
+
     return (
-        <div className="viewer-header-container">
+        <header className="viewer-header-container">
             <div className="viewer-header-top">
                 <div>
-                    <div className="viewer-breadcrumb">
-                        <span>{appName}</span>
+                    <nav className="viewer-breadcrumb">
+                        <button
+                            onClick={handleRootNavigation}
+                            style={{
+                                background: 'transparent',
+                                border: 'none',
+                                cursor: 'pointer',
+                                color: 'inherit',
+                                font: 'inherit',
+                                padding: 0,
+                                outline: 'none'
+                            }}
+                            title={`Back to ${appName}`}
+                        >
+                            {appName}
+                        </button>
                         <span className="material-symbols-outlined breadcrumb-separator">chevron_right</span>
                         <div className="viewer-breadcrumb-current">
                             <span className="material-symbols-outlined breadcrumb-icon">{icon}</span>
                             <span>{title}</span>
                         </div>
-                    </div>
+                    </nav>
                     <h1 className={`viewer-title ${!subtitle ? 'viewer-title-large' : ''}`}>{title}</h1>
                     {subtitle && <p className="viewer-subtitle">{subtitle}</p>}
                     {lastUpdated && (
@@ -52,6 +78,6 @@ export default function ViewerHeader({
                     <div className="markdown-body rich-text">{introNode}</div>
                 </div>
             )}
-        </div>
+        </header>
     );
 }

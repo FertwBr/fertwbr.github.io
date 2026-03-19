@@ -24,9 +24,9 @@ export default function ViewerSidebar({
                                           customCardStyle
                                       }) {
     return (
-        <div className="desktop-toc-wrapper viewer-sidebar-container">
+        <aside className="desktop-toc-wrapper viewer-sidebar-container">
             {children}
-            <div className="glass-card viewer-sidebar-card" style={customCardStyle}>
+            <div className="sidebar-base-card viewer-sidebar-card" style={customCardStyle}>
                 {cardIcon ? (
                     <div className="viewer-sidebar-card-header">
                         <span className="material-symbols-outlined card-icon">{cardIcon}</span>
@@ -42,6 +42,6 @@ export default function ViewerSidebar({
                     </button>
                 )}
             </div>
-        </div>
+        </aside>
     );
 }

@@ -296,7 +296,7 @@ export default function OverviewViewer({markdownContent, appConfig, strings}) {
 
             <div className="viewer-layout">
 
-                <div className="viewer-main-content" style={{display: 'flex', flexDirection: 'column'}}>
+                <main className="viewer-main-content">
 
                     <div className="mobile-toc-wrapper">
                         <PageTableOfContents title={strings.overview_page?.toc_title || "Contents"} isMobile={true}>
@@ -308,7 +308,7 @@ export default function OverviewViewer({markdownContent, appConfig, strings}) {
                         {data.sections.map((section, index) => {
                             if (section.type === 'tech-stack') {
                                 return (
-                                    <motion.div
+                                    <motion.article
                                         key={section.id} id={section.id}
                                         initial={{opacity: 0}} whileInView={{opacity: 1}}
                                         viewport={{once: true, margin: "-100px"}}
@@ -338,12 +338,12 @@ export default function OverviewViewer({markdownContent, appConfig, strings}) {
                                                 <TechStackCard key={i} item={item} index={i}/>
                                             ))}
                                         </div>
-                                    </motion.div>
+                                    </motion.article>
                                 );
                             }
 
                             return (
-                                <motion.div
+                                <motion.article
                                     key={section.id} id={section.id}
                                     initial={{opacity: 0, y: 30}} whileInView={{opacity: 1, y: 0}}
                                     viewport={{once: true, margin: "-100px"}} transition={{delay: 0.1}}
@@ -364,20 +364,16 @@ export default function OverviewViewer({markdownContent, appConfig, strings}) {
                                             {section.content}
                                         </ReactMarkdown>
                                     </div>
-                                </motion.div>
+                                </motion.article>
                             );
                         })}
                     </div>
-                </div>
+                </main>
 
                 <ViewerSidebar
                     cardIcon="info"
                     cardTitle={strings.overview_page?.about_docs_title || "About"}
                     cardDesc={strings.overview_page?.dynamic_docs_note || "Dynamic docs note"}
-                    customCardStyle={{
-                        background: 'linear-gradient(180deg, rgba(var(--md-sys-color-on-surface-rgb), 0.03) 0%, transparent 100%)',
-                        borderRadius: '24px'
-                    }}
                 >
                     <PageTableOfContents title={strings.overview_page?.toc_title || "Contents"} isMobile={false}>
                         {renderTocItems()}

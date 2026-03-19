@@ -1,4 +1,3 @@
-// src/components/viewers/RoadmapViewer.jsx
 import React, {useState, useEffect} from 'react';
 import {motion} from 'framer-motion';
 import {useNavigate} from 'react-router-dom';
@@ -9,6 +8,9 @@ import ViewerHeader from '../common/ViewerHeader';
 /**
  * Renders the Roadmap page.
  * Supports dynamic parsing of roadmap Markdown structure.
+ *
+ * @param {Object} props
+ * @returns {JSX.Element}
  */
 export default function RoadmapViewer({markdownContent, appConfig, strings}) {
     const [data, setData] = useState({sections: []});
@@ -33,7 +35,7 @@ export default function RoadmapViewer({markdownContent, appConfig, strings}) {
                 subtitle={strings.roadmap_page?.subtitle}
             />
 
-            <div style={{maxWidth: '1000px', margin: '0 auto'}}>
+            <main style={{maxWidth: '1000px', margin: '0 auto'}}>
                 {data.sections.map((section, sIndex) => {
                     if (section.type === 'intro') return null;
 
@@ -49,7 +51,7 @@ export default function RoadmapViewer({markdownContent, appConfig, strings}) {
                             'schedule';
 
                     return (
-                        <motion.div
+                        <motion.article
                             key={sIndex}
                             initial={{opacity: 0, y: 20}}
                             whileInView={{opacity: 1, y: 0}}
@@ -155,12 +157,12 @@ export default function RoadmapViewer({markdownContent, appConfig, strings}) {
                                     </motion.div>
                                 ))}
                             </div>
-                        </motion.div>
+                        </motion.article>
                     );
                 })}
-            </div>
+            </main>
 
-            <div style={{
+            <aside style={{
                 marginTop: '80px',
                 padding: '40px',
                 borderRadius: '32px',
@@ -205,7 +207,7 @@ export default function RoadmapViewer({markdownContent, appConfig, strings}) {
                     {strings.roadmap_page?.suggest_btn || "Suggest a Feature"} <span
                     className="material-symbols-outlined">arrow_forward</span>
                 </button>
-            </div>
+            </aside>
         </div>
     );
 }
