@@ -11,8 +11,9 @@ import ViewerSidebar from '../common/ViewerSidebar';
 
 /**
  * Maps a tech category string to a Material Symbol icon name.
- * @param {string} category - The category name.
- * @returns {string} The icon name.
+ *
+ * @param {string} category
+ * @returns {string}
  */
 const getIconForCategory = (category) => {
     const normalized = category.toLowerCase();
@@ -49,9 +50,11 @@ const getIconForCategory = (category) => {
 
 /**
  * Renders a single card for a technology stack item.
+ *
  * @param {Object} props
- * @param {Object} props.item - The tech item data {category, stack}.
- * @param {number} props.index - Animation delay index.
+ * @param {Object} props.item
+ * @param {number} props.index
+ * @returns {JSX.Element}
  */
 const TechStackCard = ({item, index}) => {
     return (
@@ -132,9 +135,6 @@ const TechStackCard = ({item, index}) => {
     );
 };
 
-/**
- * Custom renderer for ReactMarkdown to style content professionally and handle tables safely.
- */
 const MarkdownComponents = {
     h3: ({node, ...props}) => (
         <div style={{
@@ -244,6 +244,10 @@ const MarkdownComponents = {
 
 /**
  * Main component to view the Project Overview page.
+ * Implements a synchronized Table of Contents.
+ *
+ * @param {Object} props
+ * @returns {JSX.Element}
  */
 export default function OverviewViewer({markdownContent, appConfig, strings}) {
     const [data, setData] = useState({sections: []});
@@ -258,20 +262,23 @@ export default function OverviewViewer({markdownContent, appConfig, strings}) {
     }, [markdownContent]);
 
     const renderTocItems = () => (
-        data.sections.map((section) => (
-            <button key={section.id} onClick={() => scrollToSection(section.id)}
-                    className={`toc-btn ${activeSection === section.id ? 'active' : 'inactive'}`}
-                    style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-                {section.title}
-                {activeSection === section.id && (
-                    <span className="material-symbols-outlined" style={{fontSize: '16px'}}>arrow_left</span>
-                )}
-            </button>
-        ))
+        <div className="toc-scroll-area" data-lenis-prevent="true">
+            {data.sections.map((section) => (
+                <button
+                    key={section.id}
+                    onClick={() => scrollToSection(section.id)}
+                    className={`toc-item-btn ${activeSection === section.id ? 'active' : ''}`}
+                >
+                    <span className="toc-item-text">
+                        {section.title}
+                    </span>
+                </button>
+            ))}
+        </div>
     );
 
     return (
-        <div className="viewer-container">
+        <div className="viewer-container" style={{minHeight: '80vh'}}>
             <ViewerHeader
                 appName={appConfig?.appName}
                 icon="terminal"

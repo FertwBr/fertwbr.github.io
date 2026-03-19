@@ -107,15 +107,19 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
     }, [data, searchQuery]);
 
     const renderTocItems = () => (
-        filteredSections.map((section) => (
-            <button
-                key={section.id}
-                onClick={() => scrollToSection(section.id)}
-                className={`toc-btn ${activeSection === section.id ? 'active' : 'inactive'}`}
-            >
-                {section.title === 'Introduction' ? 'Overview' : section.title}
-            </button>
-        ))
+        <div className="toc-scroll-area" data-lenis-prevent="true">
+            {filteredSections.map((section) => (
+                <button
+                    key={section.id}
+                    onClick={() => scrollToSection(section.id)}
+                    className={`toc-item-btn ${activeSection === section.id ? 'active' : ''}`}
+                >
+                    <span className="toc-item-text">
+                        {section.title === 'Introduction' ? 'Overview' : section.title}
+                    </span>
+                </button>
+            ))}
+        </div>
     );
 
     const onSupportClick = () => {
@@ -139,7 +143,7 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
     ) : null;
 
     return (
-        <div className="viewer-container">
+        <div className="viewer-container" style={{minHeight: '80vh'}}>
             {desktopSearchPortal && portalNode && createPortal(desktopSearchPortal, portalNode)}
 
             <ViewerHeader
