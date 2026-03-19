@@ -534,20 +534,20 @@ export default function FeedbackPage() {
                             <div className="wizard-footer">
                                 <button
                                     onClick={handlePrevStep}
-                                    className="btn-outline"
+                                    className="btn-outline wizard-nav-btn"
                                     style={{visibility: step > 1 ? 'visible' : 'hidden'}}
                                 >
                                     {wizardStrings.back || "Back"}
                                 </button>
 
                                 {step < 4 ? (
-                                    <button onClick={handleNextStep} className="btn-glow">
+                                    <button onClick={handleNextStep} className="btn-glow wizard-nav-btn">
                                         {wizardStrings.next || "Next"} <span
                                         className="material-symbols-outlined">arrow_forward</span>
                                     </button>
                                 ) : (
                                     <button onClick={handleSend} disabled={sendStatus === 'sending'}
-                                            className="btn-glow">
+                                            className="btn-glow wizard-nav-btn">
                                         {sendStatus === 'sending' ? (
                                             <span className="material-symbols-outlined spin">autorenew</span>
                                         ) : (
@@ -719,6 +719,17 @@ export default function FeedbackPage() {
                     justify-content: space-between;
                     align-items: center;
                     background: rgba(var(--md-sys-color-surface-container-rgb), 0.3);
+                    flex-wrap: wrap; /* Permite que os botões quebrem linha se necessário */
+                    gap: 16px;
+                }
+                
+                .wizard-nav-btn {
+                    min-height: 56px;
+                    padding: 0 32px;
+                    font-size: 1rem;
+                    flex: 1; /* Faz os botões crescerem igualmente */
+                    min-width: 140px; /* Garante que não fiquem minúsculos antes de quebrar */
+                    justify-content: center;
                 }
                 
                 .input-group {
@@ -937,7 +948,14 @@ export default function FeedbackPage() {
                 @media (max-width: 600px) {
                     .wizard-header { padding: 24px 20px 16px 20px; }
                     .wizard-content-area { padding: 20px; }
-                    .wizard-footer { padding: 16px 20px; }
+                    .wizard-footer { 
+                        padding: 20px; 
+                        flex-direction: column-reverse; /* Coloca o "Próximo" em cima do "Voltar" no mobile */
+                    }
+                    .wizard-nav-btn {
+                        width: 100%;
+                        flex: none;
+                    }
                     .type-grid { grid-template-columns: 1fr; }
                     .checkbox-label { width: 100%; }
                     .upload-btn { width: 100%; }
