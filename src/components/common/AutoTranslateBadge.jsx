@@ -25,6 +25,8 @@ export default function AutoTranslateBadge({onClick, isShowingOriginal}) {
         ? (content?.changelog?.translate_badge_restore || "Translate")
         : (content?.changelog?.auto_translated_badge || "Auto Translated");
 
+    const shortText = isShowingOriginal ? "Original" : "Auto";
+
     const tooltipText = isShowingOriginal
         ? (content?.changelog?.translate_badge_restore_tooltip || "Translate content to your current language.")
         : (content?.changelog?.auto_translated_tooltip || "Translated by an AI system for your convenience.");
@@ -35,14 +37,15 @@ export default function AutoTranslateBadge({onClick, isShowingOriginal}) {
             animate={{opacity: 1, scale: 1}}
             transition={{duration: 0.3}}
             onClick={onClick}
-            className="header-ghost-btn"
+            className="header-ghost-btn auto-translate-badge-btn"
             title={tooltipText}
             style={{color: 'var(--md-sys-color-primary)'}}
         >
-            <span className="material-symbols-outlined" style={{fontSize: '20px'}}>
+            <span className="material-symbols-outlined badge-icon" style={{fontSize: '20px'}}>
                 translate
             </span>
-            <span className="header-btn-text">{badgeText}</span>
+            <span className="header-btn-text badge-text-long">{badgeText}</span>
+            <span className="header-btn-text badge-text-short">{shortText}</span>
         </motion.button>
     );
 }
