@@ -12,62 +12,35 @@ import DynamicLanguageFlag from '../ui/DynamicLanguageFlag';
 
 /**
  * Maps language codes to friendly display labels as a fallback.
+ * @type {Record<string, string>}
  */
 const LANGUAGE_LABELS = {
     en: "English", pt: "Português", de: "Deutsch",
     ja: "日本語", hi: "हिन्दी", es: "Español"
 };
 
+/**
+ * Renders a single interactive menu item for the dropdown components.
+ *
+ * @param {Object} props
+ * @param {boolean} props.active
+ * @param {Function} props.onClick
+ * @param {React.ReactNode} props.children
+ * @param {React.ReactNode} [props.leading]
+ * @returns {JSX.Element}
+ */
 const MenuItem = ({active, onClick, children, leading}) => {
-    const [isHovered, setIsHovered] = useState(false);
-
     return (
         <button
             onClick={onClick}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            style={{
-                background: active
-                    ? 'var(--md-sys-color-secondary-container)'
-                    : (isHovered
-                        ? 'var(--md-sys-color-surface-container-highest)'
-                        : 'transparent'),
-
-                color: active
-                    ? 'var(--md-sys-color-on-secondary-container)'
-                    : 'var(--md-sys-color-on-surface)',
-
-                border: 'none',
-                padding: '12px 14px',
-                textAlign: 'left',
-                cursor: 'pointer',
-                borderRadius: '12px',
-                fontSize: '0.92rem',
-                fontWeight: active ? 600 : 500,
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-                transition: 'background 0.2s, transform 0.12s',
-                width: '100%',
-                whiteSpace: 'nowrap',
-                transform: isHovered ? 'scale(1.01)' : 'scale(1)'
-            }}
+            className={`footer-menu-item ${active ? 'active' : ''}`}
         >
             {leading && (
-                <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    minWidth: '28px'
-                }}>
+                <div className="footer-menu-item-leading">
                     {leading}
                 </div>
             )}
-
-            <span style={{flex: 1}}>
-                {children}
-            </span>
-
+            <span style={{flex: 1}}>{children}</span>
             {active && (
                 <span className="material-symbols-outlined" style={{fontSize: '18px'}}>
                     check
@@ -77,87 +50,54 @@ const MenuItem = ({active, onClick, children, leading}) => {
     );
 };
 
-const DropdownButton = ({icon, label, isOpen, onClick, children}) => {
-    const [isHovered, setIsHovered] = useState(false);
-
+/**
+ * Renders a dropdown button that toggles a floating menu.
+ * Employs an inner scroller with Lenis prevention to ensure native scrolling works flawlessly.
+ *
+ * @param {Object} props
+ * @param {string} props.icon
+ * @param {string} props.label
+ * @param {boolean} props.isOpen
+ * @param {Function} props.onClick
+ * @param {string} [props.align='left'] - Determines anchor direction ('left', 'center', 'right').
+ * @param {React.ReactNode} props.children
+ * @returns {JSX.Element}
+ */
+const DropdownButton = ({icon, label, isOpen, onClick, align = 'left', children}) => {
     return (
-        <div style={{position: 'relative'}}>
+        <div className="footer-dropdown-wrapper">
             <button
                 onClick={onClick}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
-                style={{
-                    background: isOpen || isHovered
-                        ? 'var(--md-sys-color-surface-container-highest)'
-                        : 'var(--md-sys-color-surface-container-high)',
-
-                    border: '1px solid var(--md-sys-color-outline-variant)',
-                    color: 'var(--md-sys-color-on-surface)',
-                    padding: '10px 18px',
-                    borderRadius: '999px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '10px',
-                    fontSize: '0.9rem',
-                    fontWeight: 600,
-                    cursor: 'pointer',
-                    transition: 'all 0.2s',
-                    whiteSpace: 'nowrap',
-                    boxShadow: isOpen ? '0 2px 8px rgba(0,0,0,0.12)' : 'none'
-                }}
+                className={`footer-dropdown-btn ${isOpen ? 'open' : ''}`}
             >
                 <span className="material-symbols-outlined" style={{fontSize: '20px'}}>
                     {icon}
                 </span>
-
                 {label}
-
                 <span
-                    className="material-symbols-outlined"
-                    style={{
-                        fontSize: '18px',
-                        transition: 'transform 0.3s cubic-bezier(0.2,0,0,1)',
-                        transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)'
-                    }}
+                    className="material-symbols-outlined footer-dropdown-icon"
+                    style={{transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)'}}
                 >
                     expand_less
                 </span>
             </button>
 
-            <div
-                style={{
-                    position: 'absolute',
-                    bottom: 'calc(100% + 10px)',
-                    left: 0,
-                    background: 'var(--md-sys-color-surface-container-high)',
-                    borderRadius: '20px',
-                    padding: '10px',
-                    boxShadow: '0 10px 32px rgba(var(--md-sys-color-shadow-rgb, 0,0,0), 0.22)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    minWidth: '240px',
-                    zIndex: 100,
-                    border: '1px solid var(--md-sys-color-outline-variant)',
-                    opacity: isOpen ? 1 : 0,
-                    visibility: isOpen ? 'visible' : 'hidden',
-                    transform: isOpen
-                        ? 'translateY(0) scale(1)'
-                        : 'translateY(12px) scale(0.94)',
-                    transformOrigin: 'bottom left',
-                    transition: 'all 0.22s cubic-bezier(0.2,0,0,1)',
-                    gap: '2px'
-                }}
-            >
-                {children}
+            <div className={`footer-dropdown-menu align-${align} ${isOpen ? 'open' : ''}`}>
+                <div className="footer-dropdown-scroll-area" data-lenis-prevent="true">
+                    {children}
+                </div>
             </div>
         </div>
     );
 };
 
 /**
- * Footer controls for managing site theme, mode (light/dark) and language.
+ * Footer controls for managing site theme, appearance mode, and language selection.
+ * Integrates dynamic regional flags based on user timezone.
+ *
  * @param {Object} props
- * @param {string} props.title
+ * @param {string} [props.title]
+ * @returns {JSX.Element}
  */
 export default function FooterControls({title}) {
     const {changeLanguage, language, availableLanguages, isAuto: isLangAuto, content} = useLanguage();
@@ -245,6 +185,7 @@ export default function FooterControls({title}) {
                     label={modeLabels[themeMode] || "Auto"}
                     isOpen={activeMenu === 'mode'}
                     onClick={() => toggleMenu('mode')}
+                    align="left"
                 >
                     <MenuItem
                         active={themeMode === 'auto'}
@@ -304,8 +245,8 @@ export default function FooterControls({title}) {
                     label={themeButtonLabel}
                     isOpen={activeMenu === 'theme'}
                     onClick={() => toggleMenu('theme')}
+                    align="center"
                 >
-
                     <MenuItem
                         active={isThemeAuto}
                         onClick={() => {
@@ -360,7 +301,6 @@ export default function FooterControls({title}) {
                             {getThemeName(t)}
                         </MenuItem>
                     ))}
-
                 </DropdownButton>
 
                 <DropdownButton
@@ -368,8 +308,8 @@ export default function FooterControls({title}) {
                     label={content.footer?.appearance?.[language] || LANGUAGE_LABELS[language] || language.toUpperCase()}
                     isOpen={activeMenu === 'lang'}
                     onClick={() => toggleMenu('lang')}
+                    align="right"
                 >
-
                     <MenuItem
                         active={isLangAuto}
                         onClick={() => {
@@ -401,15 +341,19 @@ export default function FooterControls({title}) {
                                 setActiveMenu(null);
                             }}
                             leading={
-                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '22px' }}>
-                                    <DynamicLanguageFlag languageCode={code} />
+                                <div style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    width: '22px'
+                                }}>
+                                    <DynamicLanguageFlag languageCode={code}/>
                                 </div>
                             }
                         >
                             {content.footer?.appearance?.[code] || LANGUAGE_LABELS[code]}
                         </MenuItem>
                     ))}
-
                 </DropdownButton>
 
             </div>
