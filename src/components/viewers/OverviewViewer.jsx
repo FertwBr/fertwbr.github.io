@@ -278,117 +278,113 @@ export default function OverviewViewer({markdownContent, appConfig, strings}) {
     );
 
     return (
-        <div className="viewer-container" style={{minHeight: '80vh'}}>
-            <ViewerHeader
-                appName={appConfig?.appName}
-                icon="terminal"
-                title={strings.overview_page?.title || "Technical Overview"}
-                subtitle={strings.overview_page?.subtitle}
-                actionNode={
-                    appConfig?.sourceLink && (
-                        <div className="header-action-buttons">
-                            <a href={appConfig.sourceLink} target="_blank" rel="noreferrer" className="header-ghost-btn"
-                               style={{textDecoration: 'none'}}>
-                                <span className="material-symbols-outlined" style={{fontSize: '20px'}}>code</span>
-                                {strings.overview_page?.github_btn || "View Source"}
-                            </a>
-                        </div>
-                    )
-                }
-            />
+        <>
+            <main className="app-main-content viewer-main-content">
+                <ViewerHeader
+                    appName={appConfig?.appName}
+                    icon="terminal"
+                    title={strings.overview_page?.title || "Technical Overview"}
+                    subtitle={strings.overview_page?.subtitle}
+                    actionNode={
+                        appConfig?.sourceLink && (
+                            <div className="header-action-buttons">
+                                <a href={appConfig.sourceLink} target="_blank" rel="noreferrer" className="header-ghost-btn"
+                                   style={{textDecoration: 'none'}}>
+                                    <span className="material-symbols-outlined" style={{fontSize: '20px'}}>code</span>
+                                    {strings.overview_page?.github_btn || "View Source"}
+                                </a>
+                            </div>
+                        )
+                    }
+                />
 
-            <div className="viewer-layout">
+                <div className="mobile-toc-wrapper">
+                    <PageTableOfContents title={strings.overview_page?.toc_title || "Contents"} isMobile={true}>
+                        {renderTocItems()}
+                    </PageTableOfContents>
+                </div>
 
-                <div className="viewer-main-content">
-
-                    <div className="mobile-toc-wrapper">
-                        <PageTableOfContents title={strings.overview_page?.toc_title || "Contents"} isMobile={true}>
-                            {renderTocItems()}
-                        </PageTableOfContents>
-                    </div>
-
-                    <div className="content-scroll">
-                        {data.sections.map((section, index) => {
-                            if (section.type === 'tech-stack') {
-                                return (
-                                    <motion.article
-                                        key={section.id} id={section.id}
-                                        initial={{opacity: 0}} whileInView={{opacity: 1}}
-                                        viewport={{once: true, margin: "-100px"}}
-                                        style={{marginBottom: '100px'}}
-                                    >
-                                        <h2 style={{
-                                            fontSize: '2.2rem', marginBottom: '32px', fontWeight: 800,
-                                            letterSpacing: '-0.5px', color: 'var(--md-sys-color-on-surface)'
-                                        }}>{section.title}</h2>
-
-                                        {section.intro && (
-                                            <div style={{
-                                                marginBottom: '40px', fontSize: '1.1rem',
-                                                color: 'var(--md-sys-color-on-surface-variant)',
-                                                lineHeight: 1.6, maxWidth: '70ch'
-                                            }}>
-                                                <ReactMarkdown>{section.intro}</ReactMarkdown>
-                                            </div>
-                                        )}
-
-                                        <div style={{
-                                            display: 'grid',
-                                            gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
-                                            gap: '24px'
-                                        }}>
-                                            {section.items.map((item, i) => (
-                                                <TechStackCard key={i} item={item} index={i}/>
-                                            ))}
-                                        </div>
-                                    </motion.article>
-                                );
-                            }
-
+                <div className="content-scroll">
+                    {data.sections.map((section, index) => {
+                        if (section.type === 'tech-stack') {
                             return (
                                 <motion.article
                                     key={section.id} id={section.id}
-                                    initial={{opacity: 0, y: 30}} whileInView={{opacity: 1, y: 0}}
-                                    viewport={{once: true, margin: "-100px"}} transition={{delay: 0.1}}
+                                    initial={{opacity: 0}} whileInView={{opacity: 1}}
+                                    viewport={{once: true, margin: "-100px"}}
                                     style={{marginBottom: '100px'}}
                                 >
-                                    {section.type !== 'intro' && (
-                                        <h2 style={{
-                                            fontSize: '2.2rem', marginBottom: '32px', fontWeight: 800,
-                                            letterSpacing: '-0.5px', color: 'var(--md-sys-color-on-surface)'
-                                        }}>{section.title}</h2>
+                                    <h2 style={{
+                                        fontSize: '2.2rem', marginBottom: '32px', fontWeight: 800,
+                                        letterSpacing: '-0.5px', color: 'var(--md-sys-color-on-surface)'
+                                    }}>{section.title}</h2>
+
+                                    {section.intro && (
+                                        <div style={{
+                                            marginBottom: '40px', fontSize: '1.1rem',
+                                            color: 'var(--md-sys-color-on-surface-variant)',
+                                            lineHeight: 1.6, maxWidth: '70ch'
+                                        }}>
+                                            <ReactMarkdown>{section.intro}</ReactMarkdown>
+                                        </div>
                                     )}
 
-                                    <div style={section.type === 'intro' ? {
-                                        fontSize: '1.25rem', lineHeight: 1.8,
-                                        color: 'var(--md-sys-color-on-surface-variant)', maxWidth: '80ch'
-                                    } : {}}>
-                                        <ReactMarkdown rehypePlugins={[rehypeRaw]} components={MarkdownComponents}>
-                                            {section.content}
-                                        </ReactMarkdown>
+                                    <div style={{
+                                        display: 'grid',
+                                        gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+                                        gap: '24px'
+                                    }}>
+                                        {section.items.map((item, i) => (
+                                            <TechStackCard key={i} item={item} index={i}/>
+                                        ))}
                                     </div>
                                 </motion.article>
                             );
-                        })}
-                    </div>
+                        }
+
+                        return (
+                            <motion.article
+                                key={section.id} id={section.id}
+                                initial={{opacity: 0, y: 30}} whileInView={{opacity: 1, y: 0}}
+                                viewport={{once: true, margin: "-100px"}} transition={{delay: 0.1}}
+                                style={{marginBottom: '100px'}}
+                            >
+                                {section.type !== 'intro' && (
+                                    <h2 style={{
+                                        fontSize: '2.2rem', marginBottom: '32px', fontWeight: 800,
+                                        letterSpacing: '-0.5px', color: 'var(--md-sys-color-on-surface)'
+                                    }}>{section.title}</h2>
+                                )}
+
+                                <div style={section.type === 'intro' ? {
+                                    fontSize: '1.25rem', lineHeight: 1.8,
+                                    color: 'var(--md-sys-color-on-surface-variant)', maxWidth: '80ch'
+                                } : {}}>
+                                    <ReactMarkdown rehypePlugins={[rehypeRaw]} components={MarkdownComponents}>
+                                        {section.content}
+                                    </ReactMarkdown>
+                                </div>
+                            </motion.article>
+                        );
+                    })}
                 </div>
+            </main>
 
-                <ViewerSidebar
-                    cardIcon="info"
-                    cardTitle={strings.overview_page?.about_docs_title || "About"}
-                    cardDesc={strings.overview_page?.dynamic_docs_note || "Dynamic docs note"}
-                    customCardStyle={{
-                        background: 'linear-gradient(180deg, rgba(var(--md-sys-color-on-surface-rgb), 0.03) 0%, transparent 100%)',
-                        borderRadius: '24px'
-                    }}
-                >
-                    <PageTableOfContents title={strings.overview_page?.toc_title || "Contents"} isMobile={false}>
-                        {renderTocItems()}
-                    </PageTableOfContents>
-                </ViewerSidebar>
+            <ViewerSidebar
+                cardIcon="info"
+                cardTitle={strings.overview_page?.about_docs_title || "About"}
+                cardDesc={strings.overview_page?.dynamic_docs_note || "Dynamic docs note"}
+                customCardStyle={{
+                    background: 'linear-gradient(180deg, rgba(var(--md-sys-color-on-surface-rgb), 0.03) 0%, transparent 100%)',
+                    borderRadius: '24px'
+                }}
+            >
+                <PageTableOfContents title={strings.overview_page?.toc_title || "Contents"} isMobile={false}>
+                    {renderTocItems()}
+                </PageTableOfContents>
+            </ViewerSidebar>
 
-                <BackToTop strings={strings.changelog || {}}/>
-            </div>
-        </div>
+            <BackToTop strings={strings.changelog || {}}/>
+        </>
     );
 }

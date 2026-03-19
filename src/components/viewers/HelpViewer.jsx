@@ -143,105 +143,103 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
     ) : null;
 
     return (
-        <div className="viewer-container" style={{minHeight: '80vh'}}>
+        <>
             {desktopSearchPortal && portalNode && createPortal(desktopSearchPortal, portalNode)}
 
-            <ViewerHeader
-                appName={appConfig?.appName}
-                icon="help"
-                title={strings.help_page?.page_title || "Help"}
-                subtitle={strings.help_page?.subtitle}
-            />
+            <main className="app-main-content viewer-main-content">
+                <ViewerHeader
+                    appName={appConfig?.appName}
+                    icon="help"
+                    title={strings.help_page?.page_title || "Help"}
+                    subtitle={strings.help_page?.subtitle}
+                />
 
-            <div className="viewer-layout">
-                <div className="viewer-main-content">
-                    {!isDesktop && (
-                        <div ref={containerRef} style={{
-                            position: 'relative',
-                            height: isSticky && window.innerWidth > 1000 ? '96px' : 'auto'
-                        }}>
-                            <div
-                                className={`loose-search-container ${isSticky ? 'is-sticky' : ''} ${hideOnScroll ? 'hide-on-scroll' : ''}`}>
-                                <div className="mobile-blur-backdrop"></div>
-                                <div className="search-pill">
-                                    <span className="material-symbols-outlined search-icon">search</span>
-                                    <input
-                                        type="text"
-                                        placeholder={strings.help_page?.search_placeholder || "Search..."}
-                                        value={searchQuery}
-                                        onChange={(e) => setSearchQuery(e.target.value)}
-                                    />
-                                </div>
+                {!isDesktop && (
+                    <div ref={containerRef} style={{
+                        position: 'relative',
+                        height: isSticky && window.innerWidth > 1000 ? '96px' : 'auto'
+                    }}>
+                        <div
+                            className={`loose-search-container ${isSticky ? 'is-sticky' : ''} ${hideOnScroll ? 'hide-on-scroll' : ''}`}>
+                            <div className="mobile-blur-backdrop"></div>
+                            <div className="search-pill">
+                                <span className="material-symbols-outlined search-icon">search</span>
+                                <input
+                                    type="text"
+                                    placeholder={strings.help_page?.search_placeholder || "Search..."}
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                />
                             </div>
                         </div>
-                    )}
-
-                    <div className="mobile-toc-wrapper">
-                        <PageTableOfContents title={strings.help_page?.table_of_contents || "Table of Contents"}
-                                             isMobile={true}>
-                            {renderTocItems()}
-                        </PageTableOfContents>
                     </div>
+                )}
 
-                    <div className={`help-content-scroll ${!hideOnScroll && !isDesktop ? 'padded' : ''}`}>
-                        {filteredSections.length > 0 ? (
-                            filteredSections.map((section, index) => (
-                                <motion.article
-                                    key={section.id}
-                                    id={section.id}
-                                    initial={{opacity: 0, y: 20}}
-                                    animate={{opacity: 1, y: 0}}
-                                    transition={{delay: index * 0.1}}
-                                    className={`viewer-section ${index !== filteredSections.length - 1 ? 'viewer-section-bordered' : ''}`}
-                                >
-                                    {section.id !== 'introduction' && (
-                                        <h2 className="viewer-section-title">
-                                            {section.title}
-                                        </h2>
-                                    )}
-                                    <div className="markdown-body rich-text">
-                                        <ReactMarkdown rehypePlugins={[rehypeRaw]}>{section.content}</ReactMarkdown>
-                                    </div>
-                                </motion.article>
-                            ))
-                        ) : (
-                            <div style={{textAlign: 'center', padding: '60px', opacity: 0.7}}>
+                <div className="mobile-toc-wrapper">
+                    <PageTableOfContents title={strings.help_page?.table_of_contents || "Table of Contents"}
+                                         isMobile={true}>
+                        {renderTocItems()}
+                    </PageTableOfContents>
+                </div>
+
+                <div className={`help-content-scroll ${!hideOnScroll && !isDesktop ? 'padded' : ''}`}>
+                    {filteredSections.length > 0 ? (
+                        filteredSections.map((section, index) => (
+                            <motion.article
+                                key={section.id}
+                                id={section.id}
+                                initial={{opacity: 0, y: 20}}
+                                animate={{opacity: 1, y: 0}}
+                                transition={{delay: index * 0.1}}
+                                className={`viewer-section ${index !== filteredSections.length - 1 ? 'viewer-section-bordered' : ''}`}
+                            >
+                                {section.id !== 'introduction' && (
+                                    <h2 className="viewer-section-title">
+                                        {section.title}
+                                    </h2>
+                                )}
+                                <div className="markdown-body rich-text">
+                                    <ReactMarkdown rehypePlugins={[rehypeRaw]}>{section.content}</ReactMarkdown>
+                                </div>
+                            </motion.article>
+                        ))
+                    ) : (
+                        <div style={{textAlign: 'center', padding: '60px', opacity: 0.7}}>
                                 <span className="material-symbols-outlined"
                                       style={{
                                           fontSize: '48px',
                                           marginBottom: '16px',
                                           color: 'var(--md-sys-color-on-surface-variant)'
                                       }}>search_off</span>
-                                <p style={{color: 'var(--md-sys-color-on-surface-variant)'}}>{strings.help_page?.no_results || "No results found."}</p>
-                            </div>
-                        )}
-                    </div>
+                            <p style={{color: 'var(--md-sys-color-on-surface-variant)'}}>{strings.help_page?.no_results || "No results found."}</p>
+                        </div>
+                    )}
                 </div>
+            </main>
 
-                <ViewerSidebar
-                    cardTitle={strings.help_page?.contact_title || "Questions?"}
-                    cardDesc={strings.help_page?.contact_desc || "Need more help?"}
-                    cardBtnText={strings.help_page?.contact_btn || "Contact Support"}
-                    onBtnClick={onSupportClick}
-                >
-                    <PageTableOfContents title={strings.help_page?.table_of_contents || "Table of Contents"}
-                                         isMobile={false}>
-                        {renderTocItems()}
-                    </PageTableOfContents>
-                </ViewerSidebar>
+            <ViewerSidebar
+                cardTitle={strings.help_page?.contact_title || "Questions?"}
+                cardDesc={strings.help_page?.contact_desc || "Need more help?"}
+                cardBtnText={strings.help_page?.contact_btn || "Contact Support"}
+                onBtnClick={onSupportClick}
+            >
+                <PageTableOfContents title={strings.help_page?.table_of_contents || "Table of Contents"}
+                                     isMobile={false}>
+                    {renderTocItems()}
+                </PageTableOfContents>
+            </ViewerSidebar>
 
-                <BackToTop strings={strings.changelog || {}} isShifted={!hideOnScroll}/>
-                <style>{`
-                  .rich-text h1 { display: none; }
-                  .rich-text blockquote { 
-                    border-left: 4px solid var(--md-sys-color-primary); 
-                    margin-left: 0; padding-left: 20px; 
-                    background: var(--md-sys-color-surface-container);
-                    padding: 16px; border-radius: 0 12px 12px 0;
-                    font-style: italic;
-                  }
-                `}</style>
-            </div>
-        </div>
+            <BackToTop strings={strings.changelog || {}} isShifted={!hideOnScroll}/>
+            <style>{`
+              .rich-text h1 { display: none; }
+              .rich-text blockquote { 
+                border-left: 4px solid var(--md-sys-color-primary); 
+                margin-left: 0; padding-left: 20px; 
+                background: var(--md-sys-color-surface-container);
+                padding: 16px; border-radius: 0 12px 12px 0;
+                font-style: italic;
+              }
+            `}</style>
+        </>
     );
 }

@@ -1,4 +1,3 @@
-/* src/components/viewers/TermsViewer.jsx */
 import React, {useState, useEffect} from 'react';
 import {motion} from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
@@ -64,66 +63,64 @@ export default function TermsViewer({markdownContent, appConfig, strings}) {
     const t = strings?.terms_page || {};
 
     return (
-        <div className="viewer-container" style={{minHeight: '80vh'}}>
-            <ViewerHeader
-                appName={appConfig?.appName}
-                icon="gavel"
-                title={t.page_title || "Terms of Use"}
-                lastUpdated={data.lastUpdated}
-                lastUpdatedText={t.last_updated || "Last Updated:"}
-                actionNode={
-                    <div className="header-action-buttons">
-                        <button onClick={() => window.print()} className="header-ghost-btn">
-                            <span className="material-symbols-outlined" style={{fontSize: '20px'}}>print</span>
-                            {t.print_btn || "Print Terms"}
-                        </button>
-                    </div>
-                }
-                introNode={data.intro &&
-                    <ReactMarkdown rehypePlugins={[rehypeRaw]}>{data.intro.content}</ReactMarkdown>}
-            />
+        <>
+            <main className="app-main-content viewer-main-content">
+                <ViewerHeader
+                    appName={appConfig?.appName}
+                    icon="gavel"
+                    title={t.page_title || "Terms of Use"}
+                    lastUpdated={data.lastUpdated}
+                    lastUpdatedText={t.last_updated || "Last Updated:"}
+                    actionNode={
+                        <div className="header-action-buttons">
+                            <button onClick={() => window.print()} className="header-ghost-btn">
+                                <span className="material-symbols-outlined" style={{fontSize: '20px'}}>print</span>
+                                {t.print_btn || "Print Terms"}
+                            </button>
+                        </div>
+                    }
+                    introNode={data.intro &&
+                        <ReactMarkdown rehypePlugins={[rehypeRaw]}>{data.intro.content}</ReactMarkdown>}
+                />
 
-            <div className="viewer-layout">
-                <main className="viewer-main-content">
-                    <div className="mobile-toc-wrapper">
-                        <PageTableOfContents title={t.table_of_contents || "Table of Contents"} isMobile={true}>
-                            {renderTocItems()}
-                        </PageTableOfContents>
-                    </div>
-
-                    <div className="terms-sections-container">
-                        {data.sections.map((section, index) => (
-                            <motion.article
-                                key={section.id}
-                                id={section.id}
-                                initial={{opacity: 0, y: 20}}
-                                whileInView={{opacity: 1, y: 0}}
-                                viewport={{once: true, margin: "-100px"}}
-                                className={`viewer-section ${index !== data.sections.length - 1 ? 'viewer-section-bordered' : ''}`}
-                            >
-                                <h2 className="viewer-section-title">{section.title}</h2>
-
-                                <div className="markdown-body rich-text">
-                                    <ReactMarkdown rehypePlugins={[rehypeRaw]}>{section.content}</ReactMarkdown>
-                                </div>
-                            </motion.article>
-                        ))}
-                    </div>
-                </main>
-
-                <ViewerSidebar
-                    cardTitle={t.contact_title || "Questions about these Terms?"}
-                    cardDesc={t.contact_desc || "If you have any questions or concerns regarding these Terms of Use, please contact our support team."}
-                    cardBtnText={t.contact_btn || "Contact Support"}
-                    onBtnClick={onSupportClick}
-                >
-                    <PageTableOfContents title={t.table_of_contents || "Table of Contents"} isMobile={false}>
+                <div className="mobile-toc-wrapper">
+                    <PageTableOfContents title={t.table_of_contents || "Table of Contents"} isMobile={true}>
                         {renderTocItems()}
                     </PageTableOfContents>
-                </ViewerSidebar>
+                </div>
 
-                <BackToTop strings={strings?.changelog}/>
-            </div>
-        </div>
+                <div className="terms-sections-container">
+                    {data.sections.map((section, index) => (
+                        <motion.article
+                            key={section.id}
+                            id={section.id}
+                            initial={{opacity: 0, y: 20}}
+                            whileInView={{opacity: 1, y: 0}}
+                            viewport={{once: true, margin: "-100px"}}
+                            className={`viewer-section ${index !== data.sections.length - 1 ? 'viewer-section-bordered' : ''}`}
+                        >
+                            <h2 className="viewer-section-title">{section.title}</h2>
+
+                            <div className="markdown-body rich-text">
+                                <ReactMarkdown rehypePlugins={[rehypeRaw]}>{section.content}</ReactMarkdown>
+                            </div>
+                        </motion.article>
+                    ))}
+                </div>
+            </main>
+
+            <ViewerSidebar
+                cardTitle={t.contact_title || "Questions about these Terms?"}
+                cardDesc={t.contact_desc || "If you have any questions or concerns regarding these Terms of Use, please contact our support team."}
+                cardBtnText={t.contact_btn || "Contact Support"}
+                onBtnClick={onSupportClick}
+            >
+                <PageTableOfContents title={t.table_of_contents || "Table of Contents"} isMobile={false}>
+                    {renderTocItems()}
+                </PageTableOfContents>
+            </ViewerSidebar>
+
+            <BackToTop strings={strings?.changelog}/>
+        </>
     );
 }
