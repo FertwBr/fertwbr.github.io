@@ -46,6 +46,24 @@ This is the massive, stable release of Pixel Compass Version 1.18. This update c
 * **Global Localization (Shared):**
   * **New Language:** Added comprehensive **Greek (el)** translations across the phone and Wear OS apps, bringing our total supported languages even higher.
 
+## Version 1.18.0 Release Candidate 2
+*(Released March 20, 2026)*
+
+This Release Candidate polishes the new customization engine and introduces a smoother onboarding experience for new users, along with bringing full compass arc configuration directly to the phone app's settings.
+
+#### 📱 Phone
+
+* **New: Policy Onboarding Flow:**
+  * **First-Time Welcome:** New users will now see a clean, welcoming dialogue asking them to review and accept the Privacy Policy and Terms of Use on their first launch.
+  * **Localized Update Summaries:** When policies change, the update dialogue will now show a scrollable, localized summary explaining exactly what was updated, rather than just showing a generic notification.
+* **New: Arc Data Configuration via Settings:**
+  * **Customizable Corners:** Just like the new Wear OS feature, you can now customize the four data arcs (Top Left, Top Right, Bottom Left, Bottom Right) directly from the phone app's Customization Settings menu via a new Bottom Sheet UI.
+* **UI & Layout Polish:**
+  * **Edit Mode Refinements:** The "Add Card" placeholder logic has been made smarter. It will no longer display confusing placeholders if only special/system cards (like the Location pill or Contextual Pager) are hidden.
+  * **Compass Scaling:** Adjusted the internal mathematical layout ratio (`CONTENT_RADIUS_RATIO`) so that the compass dial's inner elements (status icons and calibration buttons) scale perfectly without overlapping the text or edge markings.
+* **Global Localization:**
+  * **Translation Complete:** Completed the translation effort for all the new Arc Position labels and Policy/First-Time user dialogue strings across 24 languages.
+
 ## Version 1.18.0 Release Candidate 1
 *(Released March 16, 2026)*
 
