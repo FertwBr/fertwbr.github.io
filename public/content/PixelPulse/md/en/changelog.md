@@ -1,6 +1,57 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.20.0
+*(Released March 25, 2026)*
+
+This is the final, stable release of Pixel Pulse Version 1.20. This massive update completely transforms the app into a comprehensive, WHO-compliant hearing health tool. It introduces advanced Acoustic Health analytics, automated backups, personalized daily routines, and a completely new in-app support system.
+
+#### 📱 Phone
+
+* **New: Advanced Acoustic Health Engine:**
+  * **WHO Guidelines Integration:** The app now analyzes your sound exposure against official World Health Organization (WHO) thresholds, providing actionable insights for Weekly Leisure Limits, Cognitive Performance, Cardiovascular Risk, and Ear Recovery Time.
+  * **Personalized Daily Routines:** Define your exact Sleep and Work schedules. The app will now specifically monitor "Workplace Stress" and "Pre-Sleep Noise," alerting you if your environment might impact your health or rest.
+  * **Smart Curated Insights:** A brand-new horizontal scrolling carousel on the Exposure Dashboard intelligently filters your data, displaying only the most critical, highest-risk health cards without overwhelming you with duplicates.
+  * **Interactive Health Charts:** Every summary card on the dashboard now features its own dedicated, full-screen Detail View packed with highly interactive, data-driven charts (like the 90-day interactive calendar for Long-Term Trends or the selectable Habit Pattern heatmap).
+* **Core: True Time-Weighted Accuracy & Massive Performance Scaling:**
+  * **True Time-Weighted Accuracy (Major Fix):** The internal exposure calculator has been completely overhauled. Taking frequent short measurements (like during a Live Session) no longer artificially skews your daily or weekly averages. The engine now uses true "time-weighted" averaging for mathematically perfect WHO health insights.
+  * **Massive Performance Scaling:** We've fundamentally re-architected how the Acoustic Health Engine loads data. Heavy analytics are now "lazy-loaded" only when you open a detail screen. Furthermore, the app now leverages optimized SQLite pre-aggregations, offloading heavy math directly to the database to drastically reduce CPU and memory usage.
+* **New: Automated Local Backups:**
+  * **Set and Forget:** You can now schedule automatic backups to run daily, weekly, or monthly.
+  * **Google Drive Integration:** Backups are saved securely in a local folder that fully supports Android's native Google Drive backup, ensuring your exposure history is safe even if you change phones.
+* **New: In-App Feedback & Support System:**
+  * **Seamless Support:** We have completely removed the old method of opening an external email app. You can now submit bug reports, feature requests, and screenshots securely directly from within the app.
+  * **Smart Auto-Replies:** When you submit feedback, you will now instantly receive a beautifully formatted, localized confirmation email acknowledging your request.
+* **New: Custom Monitoring Intervals & Notifications:**
+  * **Total Control:** You can adjust how often the app measures background noise, ranging from every 5 minutes up to every 60 minutes, helping you balance data accuracy with battery life.
+  * **Expanded Text Block Notifications:** System notifications (including ongoing background monitoring alerts and backup statuses) have been upgraded to support expanded text blocks (`BigTextStyle`), ensuring you can comfortably read long alerts directly from your notification tray without truncation.
+  * **Enhanced Live Notifications:** The Live Session notification now dynamically changes color (Green, Yellow, Red) based on your current decibel level, displays a progress bar, and includes a quick "Save" action button.
+* **UI & Layout Polish:**
+  * **Adaptive Large Screen Layouts:** The Exposure screen has been completely rewritten. On large screens (Tablets/Foldables), it now uses a beautiful two-column split layout with responsive background colors and dynamic typography that scales text weight based on danger levels.
+  * **Refinement, UX & Smoother Animations:** Replaced generic click animations with smooth, spring-based scaling for Insight cards. We also introduced the custom `PixelPulseTopBar` featuring animated back buttons and fluid, physics-based transitions.
+  * **Interactive Disabled Settings:** Tapping on a "disabled" settings row (such as a Premium feature) no longer does nothing. It now intelligently intercepts the tap and provides a helpful prompt or explanation.
+  * **Expressive History List:** The Session History list has been redesigned to be cleaner and more modern. Session items now visually display the icon of the device that recorded them (Phone or Watch) for instant clarity.
+  * **Legal & Policy Updates:** A new, clean dialogue will now proactively notify you of any changes to our Privacy Policy or Terms of Use, ensuring you are always informed about your data.
+* **Global Localization:**
+  * **100% Translated:** All features, including the complex Acoustic Health Insights and formatting, have been fully translated into 17 languages.
+
+#### ⌚ Wear OS
+
+* **New: Wear OS Ecosystem Parity:**
+  * **Wrist-Powered Analytics:** Background data collected by your watch now feeds directly into the advanced Acoustic Health Engine, powering insights like Ear Recovery Time and Workplace Stress exactly like the phone app.
+  * **Deep Detail Screens:** Just like the phone app, Wear OS now has dedicated detail screens for Sleep Quality, Acoustic Fatigue, Habit Patterns, and Long-Term Trends, featuring custom charts optimized for circular displays.
+  * **Data-Driven Carousel:** The main Exposure Dashboard acts as a smart, swipeable carousel that prioritizes your most critical Health Insights (e.g., placing a "Poor Sleep" warning front and center).
+* **Core & Performance:**
+  * **True Time-Weighted Accuracy (Shared):** The watch app inherits the massive time-weighted calculation fix. Data recorded on your watch will blend perfectly with your background measurements without skewing long-term averages.
+  * **True Quick Check Reliability:** "Quick Checks" triggered from a Tile or Complication now run directly and silently within an invisible Activity. This guarantees that your instant decibel readings will *always* succeed without failing or getting stuck.
+  * **Optimized 24h Tile:** The "Last 24h" bar chart tile now utilizes pre-aggregated database flows, rendering significantly faster and drastically reducing battery consumption.
+  * **On-Wrist Settings Sync:** Configure your background monitoring interval or your Daily Routine directly from your watch; changes instantly sync to your phone.
+* **UI & Navigation Polish:**
+  * **Visual Overhaul:** The watch app now shares the exact same semantic `WearHealthColors` palette as the phone, ensuring that Danger, Warning, and Excellent states look identical across devices.
+  * **Ongoing Notification Polish:** The background recording notification has been upgraded to properly utilize the Wear OS "Ongoing Activity" system, remaining consistently visible at the bottom of your watch face without buzzing or vibrating unnecessarily.
+  * **Tactile Sliders & Pagers:** Introduced precise haptic "ticks" for all adjustment sliders, and added beautiful, animated "Expressive" pager indicators when swiping through your health dashboard.
+  * **Responsive Typography:** Upgraded text components to use scrolling marquee text for long labels, preventing awkward text-wrapping on small circular screens.
+
 ## Version 1.20.0 Release Candidate 1
 *(Released March 16, 2026)*
 
