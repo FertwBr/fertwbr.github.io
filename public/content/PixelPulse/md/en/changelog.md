@@ -52,6 +52,23 @@ This is the final, stable release of Pixel Pulse Version 1.20. This massive upda
   * **Tactile Sliders & Pagers:** Introduced precise haptic "ticks" for all adjustment sliders, and added beautiful, animated "Expressive" pager indicators when swiping through your health dashboard.
   * **Responsive Typography:** Upgraded text components to use scrolling marquee text for long labels, preventing awkward text-wrapping on small circular screens.
 
+## Version 1.20.0 Release Candidate 2
+*(Released March 20, 2026)*
+
+This Release Candidate focuses heavily on polishing the user interface, introducing a cleaner Session History design, and ensuring a smooth, welcoming onboarding experience for new users.
+
+#### 📱 Phone
+
+* **New: Policy Onboarding Flow:**
+  * **First-Time Welcome:** New users will now be greeted with a clean, welcoming dialogue to review and accept the Privacy Policy and Terms of Use on their first launch.
+  * **Localized Update Summaries:** If our policies change, returning users will see a scrollable, localized summary explaining exactly what was updated, rather than just a generic notification.
+* **UI & UX Polish:**
+  * **Expressive Session History:** The Session History list has been completely revamped following Material 3 Expressive guidelines. We've simplified the metadata, grouped the date and duration, and introduced a cleaner, more concise decibel stats row with softer corner radii and smoother animations.
+  * **Device Source Icons:** Session items now instantly display a device-specific leading icon (Smartphone or Watch) instead of a generic play button, making it instantly clear where the audio was recorded.
+  * **Smart Top Bar:** Settings and sub-screens have been upgraded to use the custom `PixelPulseTopBar`. This brings collapsible large titles, premium gradient text for Plus users, and beautifully animated circular back buttons.
+* **Core & Architecture:**
+  * **Clean Cleanup:** We have fully purged the legacy third-party email intent code, completing the transition to the secure, serverless in-app Feedback API introduced in RC1.
+
 ## Version 1.20.0 Release Candidate 1
 *(Released March 16, 2026)*
 
