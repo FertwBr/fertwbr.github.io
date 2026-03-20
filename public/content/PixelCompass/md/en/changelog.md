@@ -1,6 +1,51 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.18.0
+*(Released March 25, 2026)*
+
+This is the massive, stable release of Pixel Compass Version 1.18. This update completely re-imagines how you customize your compass experience, introduces a powerful new Regional Formats engine, brings deep data customization to Wear OS, and adds a seamless in-app support system.
+
+#### 📱 Phone
+
+* **New: Advanced "Edit Mode" & Customization:**
+  * **Intuitive Drag & Drop:** We have completely rewritten the customization engine. Enter the new dynamic, intuitive, and easy-to-use "Edit Mode" to instantly drag and drop your dynamic cards (Weather, UV, Solar, Location) to rearrange their custom order.
+  * **Visibility Control:** You can now easily customize the visibility of specific cards and status icons. Hidden elements display a smart, dashed placeholder, making it incredibly easy to re-add them exactly where you want.
+  * **Undo, Redo, and Reset:** Made a mistake while editing? The top bar now features a robust history stack with Undo and Redo arrows, allowing you to experiment safely.
+* **New: Weather Icon Styles:**
+  * **Choose Your Look:** You can now customize how weather is displayed across the app and home screen widgets. Choose between 3 distinct types: the classic **Legacy** icons, the colorful **Vibrant** set, or the clean **Immersive** style.
+* **New: Smart Regional Formats Engine:**
+  * **Smarter Auto-Detection:** The automatic region engine has been completely rebuilt. It now intelligently accepts new countries and uses smarter timezone/locale logic to set your default units automatically based on your location.
+  * **Speed Tracking:** **Speed** measurement is now officially supported on both Phone and Wear OS, dynamically adapting to km/h or mph based on your region.
+  * **Auto-Region Globe Icons:** The Regional Preferences menu now displays a dynamic "Globe" icon that visually matches your detected continent (North America, South America, Europe, Asia).
+* **New: Direct In-App Feedback System:**
+  * **No More Third-Party Apps:** We have completely replaced the old method of opening an external email client. You can now submit bug reports, ideas, and screenshots securely and directly from within the app via a new Feedback API.
+  * **Smart Auto-Replies:** When you submit feedback, you will instantly receive a beautifully formatted, localized confirmation email (with full Light/Dark mode support).
+* **UI & UX Polish:**
+  * **Expressive Top Bar:** The `PixelCompassTopBar` has been completely redesigned with major design improvements. It features intelligent title collapsing (preventing text overlap), an animated back button, and expressive Material 3 action buttons.
+  * **Revamped Settings Screens:** We've made massive improvements to the *Customization*, *Dynamic Cards*, and *Display & Units* settings screens. They now feature interactive, real-time preview boards (HUDs) and expressive chip-style tabs, letting you see exactly how your theme, cards, and units will look before applying them.
+  * **Policy Updates:** A new, clean dialogue will proactively notify you of any changes to our Privacy Policy or Terms of Use, featuring a tailored flow for first-time users and localized update summaries.
+* **Core & Stability:**
+  * **Optimized Rendering:** Introduced a new internal mathematical ratio (`CONTENT_RADIUS_RATIO`) ensuring the compass dial, arcs, and central elements scale with absolute perfection on any screen size.
+  * **Modernized Engine:** Upgraded to Gradle 9 and AGP 9, ensuring the app runs with the latest Android performance and stability standards.
+* **Global Localization (Shared):**
+  * **New Language:** Added comprehensive **Greek (el)** translations across the phone and Wear OS apps, bringing our total supported languages even higher.
+
+#### ⌚ Wear OS
+
+* **New: Configurable Compass Arcs:**
+  * **Wrist Customization:** You can now fully customize the four data arcs around the compass dial on your watch (Top Left, Top Right, Bottom Left, Bottom Right).
+  * **New Arc Data Types:** In addition to Altitude, Incline, and GPS, you can now display real-time **Speed**, Barometric **Pressure**, and **Time** directly on the curved arcs of the compass face.
+  * **Instant Reset:** Added a convenient `EdgeButton` to instantly reset your arc customizations back to the default layout.
+* **New: Regional Formats & Unit Control:**
+  * **Wear OS Parity:** The powerful Regional Formats system from the phone is now fully available on your wrist.
+  * **Automatic or Manual:** Toggle a master switch to leave your units on "Automatic", or manually override your preferred Measurement (Metric/Imperial), Temperature, Time Format, and new Pressure units directly from the watch.
+* **UI & UX Polish (Shared):**
+  * **Revamped Settings UI:** We've completely redesigned the Display and Units settings on Wear OS. The app now uses large, full-width buttons, making it much easier to tap and configure your preferences on a small screen.
+  * **Scrolling Text:** Long text labels now utilize a scrolling marquee effect to ensure you can read everything clearly without awkward line breaks or truncation.
+* **Global Localization (Shared):**
+  * **New Language:** Added comprehensive **Greek (el)** translations across the phone and Wear OS apps, bringing our total supported languages even higher.
+
 ## Version 1.18.0 Release Candidate 1
 *(Released March 16, 2026)*
 
