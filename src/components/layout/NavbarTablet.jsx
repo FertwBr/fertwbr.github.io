@@ -1,9 +1,26 @@
-// src/components/layout/NavbarTablet.jsx
 import React, {useState, useEffect, useRef} from 'react';
-import {motion} from 'framer-motion';
+import {motion, AnimatePresence} from 'framer-motion';
 import {useNavigate, useLocation} from 'react-router-dom';
 import {NAV_ITEMS, GLASS_STYLE} from './navShared';
 
+const SMOOTH_SPRING = {
+    type: "spring",
+    stiffness: 450,
+    damping: 35
+};
+
+/**
+ * Tablet navigation component.
+ * Renders a floating horizontal glassmorphism bar with dynamic active indicators
+ * and fluid layout adjustments for search/filter actions.
+ *
+ * @param {Object} props
+ * @param {Object} props.config
+ * @param {string} props.activePage
+ * @param {Function} props.onNavigate
+ * @param {Object} props.strings
+ * @returns {JSX.Element}
+ */
 export default function NavbarTablet({config, activePage, onNavigate, strings}) {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
@@ -93,6 +110,8 @@ export default function NavbarTablet({config, activePage, onNavigate, strings}) 
         else onNavigate(config.defaultPage || 'index');
     };
 
+    const displayTitle = is404 ? '404' : (strings?.[activePage] || config.appName);
+
     return (
         <motion.nav
             initial={{y: 0, opacity: 1}}
@@ -100,10 +119,13 @@ export default function NavbarTablet({config, activePage, onNavigate, strings}) 
             transition={{duration: 0.3, ease: "easeInOut"}}
             style={{
                 position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-                padding: '16px', pointerEvents: 'none', width: '100%'
+                padding: '16px', pointerEvents: 'none', width: '100%',
+                display: 'flex', justifyContent: 'center'
             }}
         >
-            <div
+            <motion.div
+                layout
+                transition={SMOOTH_SPRING}
                 className="main-glass-nav"
                 style={{
                     ...GLASS_STYLE(isScrolled),
@@ -113,57 +135,155 @@ export default function NavbarTablet({config, activePage, onNavigate, strings}) 
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    width: '100%'
+                    width: '100%',
+                    maxWidth: '1200px',
+                    overflow: 'hidden',
+                    gap: '24px'
                 }}
             >
-                <div className="nav-brand-area">
-                    <button onClick={handleBackAction} className="nav-icon-btn-tablet">
-                        <span className="material-symbols-outlined">
-                            {activePage === config.defaultPage ? 'close' : 'arrow_back'}
-                        </span>
-                    </button>
+                <motion.div layout transition={SMOOTH_SPRING} className="nav-brand-area"
+                            style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
+                    <motion.button
+                        layout
+                        onClick={handleBackAction}
+                        className="nav-icon-btn-tablet"
+                        whileTap={{scale: 0.9}}
+                        transition={SMOOTH_SPRING}
+                        style={{
+                            background: 'transparent', border: 'none', cursor: 'pointer',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            color: 'var(--md-sys-color-on-surface)'
+                        }}
+                    >
+                        <AnimatePresence mode="popLayout" initial={false}>
+                            <motion.span
+                                layout="position"
+                                key={activePage === config.defaultPage ? 'close' : 'back'}
+                                initial={{rotate: -90, opacity: 0, scale: 0.5}}
+                                animate={{rotate: 0, opacity: 1, scale: 1}}
+                                exit={{rotate: 90, opacity: 0, scale: 0.5}}
+                                transition={SMOOTH_SPRING}
+                                className="material-symbols-outlined"
+                                style={{fontSize: '24px', display: 'block'}}
+                            >
+                                {activePage === config.defaultPage ? 'close' : 'arrow_back'}
+                            </motion.span>
+                        </AnimatePresence>
+                    </motion.button>
 
-                    <div onClick={() => !is404 && onNavigate(config.defaultPage)} className="nav-brand-container">
-                        {config.materialIcon ? (
-                            <span className="material-symbols-outlined nav-brand-icon">{config.materialIcon}</span>
-                        ) : (
-                            <img src={config.appIcon} alt="" className="nav-brand-image"/>
-                        )}
-                    </div>
-                </div>
+                    <motion.div
+                        layout
+                        onClick={() => !is404 && onNavigate(config.defaultPage)}
+                        className="nav-brand-container"
+                        whileTap={!is404 ? {scale: 0.97} : {}}
+                        transition={SMOOTH_SPRING}
+                        style={{display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', padding: 0}}
+                    >
+                        <motion.div layout transition={SMOOTH_SPRING} style={{display: 'flex', alignItems: 'center'}}>
+                            {config.materialIcon ? (
+                                <span className="material-symbols-outlined nav-brand-icon">{config.materialIcon}</span>
+                            ) : (
+                                <img src={config.appIcon} alt="" className="nav-brand-image"
+                                     style={{width: '28px', height: '28px'}}/>
+                            )}
+                        </motion.div>
+                        <AnimatePresence mode="popLayout" initial={false}>
+                            <motion.span
+                                layout="position"
+                                key={displayTitle}
+                                initial={{opacity: 0, y: 15, filter: "blur(4px)"}}
+                                animate={{opacity: 1, y: 0, filter: "blur(0px)"}}
+                                exit={{opacity: 0, y: -15, filter: "blur(4px)"}}
+                                transition={SMOOTH_SPRING}
+                                className="nav-brand-text"
+                                style={{display: 'inline-block', whiteSpace: 'nowrap'}}
+                            >
+                                {displayTitle}
+                            </motion.span>
+                        </AnimatePresence>
+                    </motion.div>
+                </motion.div>
 
                 {!is404 && (
-                    <div className="tablet-menu">
+                    <motion.div layout transition={SMOOTH_SPRING} className="tablet-menu" style={{
+                        display: 'flex',
+                        gap: '4px',
+                        alignItems: 'center',
+                        flex: 1,
+                        justifyContent: 'center'
+                    }}>
                         {visibleNavItems.map((item) => {
                             const isActive = activePage === item.id;
                             return (
-                                <button
+                                <motion.button
+                                    layout
                                     key={item.id}
                                     onClick={() => onNavigate(item.id)}
-                                    className={`nav-link ${isActive ? 'active' : ''}`}
+                                    whileHover={{backgroundColor: isActive ? 'transparent' : 'rgba(var(--md-sys-color-on-surface-rgb), 0.08)'}}
+                                    whileTap={{scale: 0.95}}
+                                    style={{
+                                        position: 'relative',
+                                        padding: '8px 16px',
+                                        background: 'transparent',
+                                        border: 'none',
+                                        color: isActive ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-surface-variant)',
+                                        fontWeight: isActive ? 600 : 500,
+                                        borderRadius: '100px',
+                                        cursor: 'pointer',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '6px',
+                                        fontSize: '0.9rem',
+                                        outline: 'none',
+                                        whiteSpace: 'nowrap',
+                                        transition: 'color 0.2s ease'
+                                    }}
                                 >
                                     {isActive && (
-                                        <motion.span layoutId="nav-underline-tablet"
-                                                     className="nav-underline-indicator"/>
+                                        <motion.div
+                                            layoutId="tablet-active-pill"
+                                            transition={SMOOTH_SPRING}
+                                            style={{
+                                                position: 'absolute',
+                                                inset: 0,
+                                                backgroundColor: 'var(--md-sys-color-secondary-container)',
+                                                borderRadius: '100px',
+                                                zIndex: 0
+                                            }}
+                                        />
                                     )}
-                                    {strings?.[item.id]}
-                                </button>
+                                    <span className="material-symbols-outlined"
+                                          style={{fontSize: '18px', position: 'relative', zIndex: 1}}>
+                                        {item.icon}
+                                    </span>
+                                    <span style={{position: 'relative', zIndex: 1}}>
+                                        {strings?.[item.id]}
+                                    </span>
+                                </motion.button>
                             );
                         })}
-                    </div>
+                    </motion.div>
                 )}
 
-                <div className={`nav-right-wrapper ${hasSearch ? 'has-search' : 'no-search'}`}>
+                <motion.div layout transition={SMOOTH_SPRING}
+                            className={`nav-right-wrapper ${hasSearch ? 'has-search' : 'no-search'}`}
+                            style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
                     <div id="appbar-search-portal" ref={searchPortalRef} className="appbar-search-portal"></div>
-                    <button
-                        ref={filterBtnRef}
-                        className={`desktop-filter-btn ${hasFilters ? 'visible' : ''} ${isFiltersOpen ? 'active' : ''}`}
-                        onClick={() => setFiltersOpen(!isFiltersOpen)}
-                    >
-                        <span className="material-symbols-outlined">tune</span>
-                    </button>
-                </div>
-            </div>
+                    <AnimatePresence>
+                        <motion.button
+                            layout
+                            ref={filterBtnRef}
+                            className={`desktop-filter-btn ${hasFilters ? 'visible' : ''} ${isFiltersOpen ? 'active' : ''}`}
+                            onClick={() => setFiltersOpen(!isFiltersOpen)}
+                            whileTap={{scale: 0.9}}
+                            transition={SMOOTH_SPRING}
+                        >
+                            <span className="material-symbols-outlined">tune</span>
+                        </motion.button>
+                    </AnimatePresence>
+                </motion.div>
+            </motion.div>
+
             <div id="appbar-bottom-portal" ref={bottomPortalRef}
                  className={`appbar-bottom-portal ${isFiltersOpen ? 'open' : ''}`}></div>
         </motion.nav>
