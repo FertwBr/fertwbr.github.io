@@ -126,7 +126,6 @@ export default function NavbarMobile({config, activePage, onNavigate, strings}) 
 
     return (
         <>
-            {/* Backdrop agora usa classe dedicada para servir de gatilho infalível para fechar */}
             <AnimatePresence>
                 {isMobileMenuOpen && (
                     <motion.div
