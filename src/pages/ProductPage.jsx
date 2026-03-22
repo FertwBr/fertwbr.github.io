@@ -108,6 +108,7 @@ export default function ProductPage({config, HomeComponent, translationKey, forc
 
     return (
         <AppLayout
+            hasRightSidebarPortal={!isHome}
             background={<><HashScrollHandler/><PageBackground/></>}
             navbar={<AppNavbar config={config} activePage={activeTab} onNavigate={onNavigate} strings={t.nav}/>}
             footer={<AppFooter strings={{

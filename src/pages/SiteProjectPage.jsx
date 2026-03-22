@@ -95,6 +95,7 @@ export default function SiteProjectPage({forcedTab}) {
 
     return (
         <AppLayout
+            hasRightSidebarPortal={true}
             background={<><HashScrollHandler/><PageBackground/></>}
             navbar={<AppNavbar config={navbarConfig} activePage={activeTab} onNavigate={handleNavigation}
                                strings={t.nav}/>}
