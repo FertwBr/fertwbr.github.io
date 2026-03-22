@@ -1,3 +1,4 @@
+// src/pages/pixel-compass/PixelCompassHome.jsx
 import React from 'react';
 import {pixelCompassConfig} from './PixelCompassConfig';
 
@@ -24,7 +25,7 @@ import HomeStoreFooter from "../../components/layout/HomeStoreFooter.jsx";
  */
 export default function PixelCompassHome({onNavigate, strings}) {
     return (
-        <div style={{width: '100%', overflowX: 'hidden', boxSizing: 'border-box'}}>
+        <div className="home-wrapper">
 
             <HomeHero
                 appConfig={pixelCompassConfig}
@@ -32,7 +33,7 @@ export default function PixelCompassHome({onNavigate, strings}) {
                 onNavigate={onNavigate}
             />
 
-            <div style={{maxWidth: '1200px', margin: '0 auto', padding: '0 20px', boxSizing: 'border-box'}}>
+            <div className="home-sections-container">
 
                 <HomeNewFeatures
                     appConfig={pixelCompassConfig}

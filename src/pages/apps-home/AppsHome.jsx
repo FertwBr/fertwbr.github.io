@@ -1,3 +1,4 @@
+// src/pages/AppsHome.jsx
 import React from 'react';
 import PageBackground from '../../components/layout/PageBackground';
 import Footer from '../../components/layout/Footer';
@@ -43,7 +44,7 @@ export default function AppsHome() {
             footer={<Footer t={content.footer}/>}
         >
             <main className="app-main-content" style={{flex: 1}}>
-                <div style={{paddingTop: '120px', paddingBottom: '0'}}>
+                <div className="app-page-container">
                     <AppsHero
                         title={t.hero_title}
                         subtitle={t.hero_subtitle}

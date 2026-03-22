@@ -1,3 +1,4 @@
+// src/pages/pixel-pulse/PixelPulseHome.jsx
 import React from 'react';
 import {pixelPulseConfig} from './PixelPulseConfig';
 import HomeHero from '../../components/sections/HomeHero';
@@ -16,13 +17,13 @@ import HomeStoreFooter from "../../components/layout/HomeStoreFooter.jsx";
  *
  * @param {Object} props - Component props.
  * @param {(route: string) => void} props.onNavigate - Navigation callback invoked
- *   when a child component requests navigation.
+ * when a child component requests navigation.
  * @param {Object} props.strings - Localized strings for each section of the page.
  * @returns {JSX.Element} The rendered PixelPulse home page.
  */
 export default function PixelPulseHome({onNavigate, strings}) {
     return (
-        <div style={{width: '100%', overflowX: 'hidden', boxSizing: 'border-box'}}>
+        <div className="home-wrapper">
 
             <HomeHero
                 appConfig={pixelPulseConfig}
@@ -30,7 +31,7 @@ export default function PixelPulseHome({onNavigate, strings}) {
                 onNavigate={onNavigate}
             />
 
-            <div style={{maxWidth: '1200px', margin: '0 auto', padding: '0 20px', boxSizing: 'border-box'}}>
+            <div className="home-sections-container">
 
                 <HomeNewFeatures
                     appConfig={pixelPulseConfig}
