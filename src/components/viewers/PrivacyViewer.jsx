@@ -1,5 +1,6 @@
+import React, {useEffect, useState} from 'react';
+import {createPortal} from 'react-dom';
 import {motion} from 'framer-motion';
-import {useEffect, useState} from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import {useNavigate} from 'react-router-dom';
@@ -23,6 +24,26 @@ export default function PrivacyViewer({markdownContent, appConfig, strings}) {
     const navigate = useNavigate();
 
     const {activeSection, setActiveSection, scrollToSection} = useSectionScroll('');
+    const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1000);
+    const [rightPortalNode, setRightPortalNode] = useState(null);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const rightNode = document.getElementById('right-sidebar-portal');
+            if (rightNode) {
+                setRightPortalNode(rightNode);
+                clearInterval(interval);
+            }
+        }, 100);
+
+        const handleResize = () => setIsDesktop(window.innerWidth > 1000);
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            clearInterval(interval);
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     useEffect(() => {
         if (markdownContent) {
@@ -58,6 +79,21 @@ export default function PrivacyViewer({markdownContent, appConfig, strings}) {
     };
 
     const t = strings?.privacy_page || {};
+
+    const sidebarContent = (
+        <div style={isDesktop ? {padding: '24px 16px'} : {}}>
+            <ViewerSidebar
+                cardTitle={t.contact_title || "Privacy Questions?"}
+                cardDesc={t.contact_desc || "Contact us for privacy related questions."}
+                cardBtnText={t.contact_btn || "Contact Support"}
+                onBtnClick={onSupportClick}
+            >
+                <PageTableOfContents title={t.table_of_contents || "Table of Contents"} isMobile={false}>
+                    {renderTocItems()}
+                </PageTableOfContents>
+            </ViewerSidebar>
+        </div>
+    );
 
     return (
         <>
@@ -102,16 +138,7 @@ export default function PrivacyViewer({markdownContent, appConfig, strings}) {
                 </div>
             </main>
 
-            <ViewerSidebar
-                cardTitle={t.contact_title || "Privacy Questions?"}
-                cardDesc={t.contact_desc || "Contact us for privacy related questions."}
-                cardBtnText={t.contact_btn || "Contact Support"}
-                onBtnClick={onSupportClick}
-            >
-                <PageTableOfContents title={t.table_of_contents || "Table of Contents"} isMobile={false}>
-                    {renderTocItems()}
-                </PageTableOfContents>
-            </ViewerSidebar>
+            {isDesktop && rightPortalNode ? createPortal(sidebarContent, rightPortalNode) : (!isDesktop && sidebarContent)}
 
             <BackToTop strings={strings?.changelog}/>
         </>

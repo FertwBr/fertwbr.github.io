@@ -31,6 +31,7 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
 
     const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1000);
     const [portalNode, setPortalNode] = useState(null);
+    const [rightPortalNode, setRightPortalNode] = useState(null);
 
     const [hideOnScroll, setHideOnScroll] = useState(false);
     const [isSticky, setIsSticky] = useState(false);
@@ -38,11 +39,19 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
     const lastScrollY = useRef(0);
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            const node = document.getElementById('appbar-search-portal');
-            if (node) {
-                setPortalNode(node);
-                clearInterval(interval);
+        const searchInterval = setInterval(() => {
+            const searchNode = document.getElementById('appbar-search-portal');
+            if (searchNode) {
+                setPortalNode(searchNode);
+                clearInterval(searchInterval);
+            }
+        }, 100);
+
+        const rightInterval = setInterval(() => {
+            const rightNode = document.getElementById('right-sidebar-portal');
+            if (rightNode) {
+                setRightPortalNode(rightNode);
+                clearInterval(rightInterval);
             }
         }, 100);
 
@@ -55,7 +64,8 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
         window.addEventListener('resize', handleResize);
 
         return () => {
-            clearInterval(interval);
+            clearInterval(searchInterval);
+            clearInterval(rightInterval);
             window.removeEventListener('resize', handleResize);
         };
     }, []);
@@ -142,6 +152,22 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
         </div>
     ) : null;
 
+    const sidebarContent = (
+        <div style={isDesktop ? {padding: '24px 16px'} : {}}>
+            <ViewerSidebar
+                cardTitle={strings.help_page?.contact_title || "Questions?"}
+                cardDesc={strings.help_page?.contact_desc || "Need more help?"}
+                cardBtnText={strings.help_page?.contact_btn || "Contact Support"}
+                onBtnClick={onSupportClick}
+            >
+                <PageTableOfContents title={strings.help_page?.table_of_contents || "Table of Contents"}
+                                     isMobile={false}>
+                    {renderTocItems()}
+                </PageTableOfContents>
+            </ViewerSidebar>
+        </div>
+    );
+
     return (
         <>
             {desktopSearchPortal && portalNode && createPortal(desktopSearchPortal, portalNode)}
@@ -217,17 +243,7 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
                 </div>
             </main>
 
-            <ViewerSidebar
-                cardTitle={strings.help_page?.contact_title || "Questions?"}
-                cardDesc={strings.help_page?.contact_desc || "Need more help?"}
-                cardBtnText={strings.help_page?.contact_btn || "Contact Support"}
-                onBtnClick={onSupportClick}
-            >
-                <PageTableOfContents title={strings.help_page?.table_of_contents || "Table of Contents"}
-                                     isMobile={false}>
-                    {renderTocItems()}
-                </PageTableOfContents>
-            </ViewerSidebar>
+            {isDesktop && rightPortalNode ? createPortal(sidebarContent, rightPortalNode) : (!isDesktop && sidebarContent)}
 
             <BackToTop strings={strings.changelog || {}} isShifted={!hideOnScroll}/>
             <style>{`

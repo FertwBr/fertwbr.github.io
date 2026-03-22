@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {createPortal} from 'react-dom';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import {motion} from 'framer-motion';
@@ -252,6 +253,28 @@ const MarkdownComponents = {
 export default function OverviewViewer({markdownContent, appConfig, strings}) {
     const [data, setData] = useState({sections: []});
     const {activeSection, setActiveSection, scrollToSection} = useSectionScroll('');
+    const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1000);
+    const [rightPortalNode, setRightPortalNode] = useState(null);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const rightNode = document.getElementById('right-sidebar-portal');
+            if (rightNode) {
+                setRightPortalNode(rightNode);
+                clearInterval(interval);
+            }
+        }, 100);
+
+        const handleResize = () => {
+            setIsDesktop(window.innerWidth > 1000);
+        };
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            clearInterval(interval);
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     useEffect(() => {
         if (markdownContent) {
@@ -259,7 +282,7 @@ export default function OverviewViewer({markdownContent, appConfig, strings}) {
             setData(parsed);
             if (parsed.sections.length > 0) setActiveSection(parsed.sections[0].id);
         }
-    }, [markdownContent]);
+    }, [markdownContent, setActiveSection]);
 
     const renderTocItems = () => (
         <div className="toc-scroll-area" data-lenis-prevent="true">
@@ -274,6 +297,24 @@ export default function OverviewViewer({markdownContent, appConfig, strings}) {
                     </span>
                 </button>
             ))}
+        </div>
+    );
+
+    const sidebarContent = (
+        <div style={isDesktop ? { padding: '24px 16px' } : {}}>
+            <ViewerSidebar
+                cardIcon="info"
+                cardTitle={strings.overview_page?.about_docs_title || "About"}
+                cardDesc={strings.overview_page?.dynamic_docs_note || "Dynamic docs note"}
+                customCardStyle={{
+                    background: 'linear-gradient(180deg, rgba(var(--md-sys-color-on-surface-rgb), 0.03) 0%, transparent 100%)',
+                    borderRadius: '24px'
+                }}
+            >
+                <PageTableOfContents title={strings.overview_page?.toc_title || "Contents"} isMobile={false}>
+                    {renderTocItems()}
+                </PageTableOfContents>
+            </ViewerSidebar>
         </div>
     );
 
@@ -370,19 +411,7 @@ export default function OverviewViewer({markdownContent, appConfig, strings}) {
                 </div>
             </main>
 
-            <ViewerSidebar
-                cardIcon="info"
-                cardTitle={strings.overview_page?.about_docs_title || "About"}
-                cardDesc={strings.overview_page?.dynamic_docs_note || "Dynamic docs note"}
-                customCardStyle={{
-                    background: 'linear-gradient(180deg, rgba(var(--md-sys-color-on-surface-rgb), 0.03) 0%, transparent 100%)',
-                    borderRadius: '24px'
-                }}
-            >
-                <PageTableOfContents title={strings.overview_page?.toc_title || "Contents"} isMobile={false}>
-                    {renderTocItems()}
-                </PageTableOfContents>
-            </ViewerSidebar>
+            {isDesktop && rightPortalNode ? createPortal(sidebarContent, rightPortalNode) : (!isDesktop && sidebarContent)}
 
             <BackToTop strings={strings.changelog || {}}/>
         </>
