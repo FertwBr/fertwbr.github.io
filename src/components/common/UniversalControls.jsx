@@ -1,5 +1,5 @@
 // src/components/common/UniversalControls.jsx
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState, useRef, useEffect, useLayoutEffect} from 'react';
 import {
     getThemeOptions,
     setThemeColor,
@@ -47,28 +47,24 @@ const MenuItem = ({active, onClick, children, leading}) => {
 const SmartDropdown = ({icon, label, isOpen, onClick, align = 'left', children, compact, customIcon}) => {
     const menuRef = useRef(null);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (isOpen && menuRef.current) {
-            requestAnimationFrame(() => {
-                if (!menuRef.current) return;
-                const rect = menuRef.current.getBoundingClientRect();
-                const windowWidth = window.innerWidth;
-
-                if (rect.right > windowWidth - 16) {
-                    menuRef.current.style.left = 'auto';
-                    menuRef.current.style.right = '0';
-                    if (compact) menuRef.current.style.transform = 'none';
-                }
-                else if (rect.left < 16) {
-                    menuRef.current.style.left = '0';
-                    menuRef.current.style.right = 'auto';
-                    if (compact) menuRef.current.style.transform = 'none';
-                }
-            });
-        } else if (menuRef.current) {
             menuRef.current.style.left = '';
             menuRef.current.style.right = '';
             menuRef.current.style.transform = '';
+
+            const rect = menuRef.current.getBoundingClientRect();
+            const windowWidth = window.innerWidth;
+
+            if (rect.right > windowWidth - 16) {
+                menuRef.current.style.left = 'auto';
+                menuRef.current.style.right = '0';
+                if (compact) menuRef.current.style.transform = 'none';
+            } else if (rect.left < 16) {
+                menuRef.current.style.left = '0';
+                menuRef.current.style.right = 'auto';
+                if (compact) menuRef.current.style.transform = 'none';
+            }
         }
     }, [isOpen, compact]);
 
@@ -110,7 +106,6 @@ const SmartDropdown = ({icon, label, isOpen, onClick, align = 'left', children, 
                 )}
             </button>
 
-            {/* As classes originais align-left/center/right voltaram para garantir que o CSS aplique opacity/visibility */}
             <div
                 ref={menuRef}
                 className={`footer-dropdown-menu align-${align} ${isOpen ? 'open' : ''}`}
