@@ -1,7 +1,21 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {useNavigate, useLocation} from 'react-router-dom';
 
-export default function TopBarDesktop({config, activePage, onNavigate, strings, isSidebarExpanded, toggleSidebar}) {
+/**
+ * TopBarDesktop component.
+ * Renders the top application bar for desktop screens.
+ *
+ * @param {Object} props
+ * @param {Object} props.config
+ * @param {string} props.activePage
+ * @param {Function} props.onNavigate
+ * @param {Object} props.strings
+ * @param {boolean} props.isVisible
+ * @param {boolean} props.isExpanded
+ * @param {Function} props.toggleSidebar
+ * @returns {JSX.Element}
+ */
+export default function TopBarDesktop({config, activePage, onNavigate, strings, isVisible, isExpanded, toggleSidebar}) {
     const [hasFilters, setHasFilters] = useState(false);
     const [isFiltersOpen, setFiltersOpen] = useState(false);
     const [hasSearch, setHasSearch] = useState(false);
@@ -83,14 +97,24 @@ export default function TopBarDesktop({config, activePage, onNavigate, strings, 
 
     return (
         <>
-            <header className="top-bar-desktop">
+            <header
+                className="top-bar-desktop"
+                style={{
+                    background: isVisible ? 'var(--md-sys-color-surface-container)' : 'rgba(var(--md-sys-color-surface-rgb), 0.75)',
+                    backdropFilter: isVisible ? 'none' : 'blur(24px)',
+                    WebkitBackdropFilter: isVisible ? 'none' : 'blur(24px)',
+                    borderBottom: 'none',
+                    transition: 'all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)'
+                }}
+            >
                 <div className="top-bar-left">
                     <div className="top-bar-hamburger-wrapper">
                         {!is404 && (
                             <button onClick={toggleSidebar} className="nav-icon-btn">
                                 <span className="material-symbols-outlined" style={{
-                                    transition: 'transform 0.3s',
-                                    transform: isSidebarExpanded ? 'rotate(180deg)' : 'rotate(0deg)'
+                                    transition: 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)',
+                                    transform: isVisible ? 'scale(1)' : 'scale(0.9)',
+                                    opacity: isVisible ? 1 : 0.8
                                 }}>
                                     menu
                                 </span>
@@ -150,13 +174,14 @@ export default function TopBarDesktop({config, activePage, onNavigate, strings, 
             <div style={{
                 position: 'fixed',
                 top: 64,
-                left: isSidebarExpanded ? 280 : 80,
+                left: !isVisible ? 0 : (isExpanded ? 280 : 80),
                 width: 32,
                 height: 32,
                 pointerEvents: 'none',
                 zIndex: 195,
                 background: 'radial-gradient(circle at 100% 100%, transparent 32px, var(--md-sys-color-surface-container) 32px)',
-                transition: 'left 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)'
+                opacity: isVisible ? 1 : 0,
+                transition: 'left 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)'
             }}/>
         </>
     );

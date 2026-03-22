@@ -1,3 +1,4 @@
+// src/components/layout/AppNavbar.jsx
 import React from 'react';
 import NavbarMobile from './NavbarMobile';
 import NavbarTablet from './NavbarTablet';
@@ -13,7 +14,8 @@ import SidebarDesktop from './SidebarDesktop';
  * @param {string} props.activePage
  * @param {Function} props.onNavigate
  * @param {Object} props.strings
- * @param {boolean} [props.isSidebarExpanded]
+ * @param {boolean} [props.isSidebarVisible]
+ * @param {boolean} [props.isDrawerMode]
  * @param {Function} [props.toggleSidebar]
  * @param {number} [props.windowWidth]
  * @returns {JSX.Element}
@@ -23,7 +25,8 @@ export default function AppNavbar({
                                       activePage,
                                       onNavigate,
                                       strings,
-                                      isSidebarExpanded,
+                                      isSidebarVisible,
+                                      isDrawerMode,
                                       toggleSidebar,
                                       windowWidth = window.innerWidth
                                   }) {
@@ -46,12 +49,14 @@ export default function AppNavbar({
                 <>
                     <TopBarDesktop
                         {...commonProps}
-                        isSidebarExpanded={isSidebarExpanded}
+                        isVisible={isSidebarVisible}
+                        isExpanded={isDrawerMode}
                         toggleSidebar={toggleSidebar}
                     />
                     <SidebarDesktop
                         {...commonProps}
-                        isExpanded={isSidebarExpanded}
+                        isVisible={isSidebarVisible}
+                        isExpanded={isDrawerMode}
                     />
                 </>
             )}

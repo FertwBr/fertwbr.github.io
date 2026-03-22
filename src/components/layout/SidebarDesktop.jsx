@@ -1,3 +1,4 @@
+// src/components/layout/SidebarDesktop.jsx
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {motion, AnimatePresence} from 'framer-motion';
@@ -7,15 +8,32 @@ import {SiteConfig} from '../../utils/siteConstants';
 /**
  * SidebarDesktop component.
  * Renders the main navigation sidebar for desktop views with a minimalist footer.
+ *
+ * @param {Object} props
+ * @param {boolean} props.isExpanded
+ * @param {boolean} props.isVisible
+ * @param {Object} props.config
+ * @param {string} props.activePage
+ * @param {Function} props.onNavigate
+ * @param {Object} props.strings
+ * @returns {JSX.Element}
  */
-export default function SidebarDesktop({isExpanded, config, activePage, onNavigate, strings}) {
+export default function SidebarDesktop({isExpanded, isVisible, config, activePage, onNavigate, strings}) {
     const visibleItems = NAV_ITEMS.filter(item => {
         if (item.id === 'overview' && !config?.enableDocs) return false;
         return strings && strings[item.id];
     });
 
     return (
-        <aside className={`app-sidebar-nav ${isExpanded ? 'side-nav-drawer' : 'side-nav-rail'}`}>
+        <aside
+            className={`app-sidebar-nav ${isExpanded ? 'side-nav-drawer' : 'side-nav-rail'}`}
+            style={{
+                transform: isVisible ? 'translateX(0)' : 'translateX(-100%)',
+                opacity: isVisible ? 1 : 0,
+                pointerEvents: isVisible ? 'auto' : 'none',
+                transition: 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)'
+            }}
+        >
             <div className="sidebar-scroll-content">
                 {visibleItems.map(item => {
                     const isActive = activePage === item.id;
