@@ -1,3 +1,4 @@
+// src/components/layout/TopBarDesktop.jsx
 import React, {useState, useEffect, useRef} from 'react';
 import {useNavigate, useLocation} from 'react-router-dom';
 
@@ -97,6 +98,16 @@ export default function TopBarDesktop({config, activePage, onNavigate, strings, 
 
     return (
         <>
+            <style>{`
+                .top-bar-center:not(.search-focused):not(.filter-active) .desktop-filter-btn:not(:hover) {
+                    background-color: var(--md-sys-color-surface-container-highest) !important;
+                }
+                .top-bar-center:not(.search-focused):not(.filter-active) .appbar-search-portal-desktop input[type="text"]:not(:focus),
+                .top-bar-center:not(.search-focused):not(.filter-active) .appbar-search-portal-desktop .desktop-search-input:not(:focus) {
+                    background-color: var(--md-sys-color-surface-container-highest) !important;
+                }
+            `}</style>
+
             <header
                 className="top-bar-desktop"
                 style={{
@@ -104,67 +115,110 @@ export default function TopBarDesktop({config, activePage, onNavigate, strings, 
                     backdropFilter: isVisible ? 'none' : 'blur(24px)',
                     WebkitBackdropFilter: isVisible ? 'none' : 'blur(24px)',
                     borderBottom: 'none',
-                    transition: 'all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)'
+                    transition: 'all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    padding: '0 16px',
+                    width: '100%',
+                    boxSizing: 'border-box'
                 }}
             >
-                <div className="top-bar-left">
-                    <div className="top-bar-hamburger-wrapper">
-                        {!is404 && (
-                            <button onClick={toggleSidebar} className="nav-icon-btn">
-                                <span className="material-symbols-outlined" style={{
-                                    transition: 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)',
-                                    transform: isVisible ? 'scale(1)' : 'scale(0.9)',
-                                    opacity: isVisible ? 1 : 0.8
-                                }}>
-                                    menu
-                                </span>
-                            </button>
-                        )}
-                    </div>
-
-                    <div style={{
+                <div
+                    className="top-bar-left"
+                    style={{
                         display: 'flex',
-                        gap: '8px',
                         alignItems: 'center',
-                        overflow: 'hidden',
-                        whiteSpace: 'nowrap'
-                    }}>
-                        {isDeepPage && (
-                            <button onClick={handleBackAction} className="nav-icon-btn"
-                                    style={{width: '36px', height: '36px'}}>
-                                <span className="material-symbols-outlined" style={{fontSize: '20px'}}>arrow_back</span>
-                            </button>
-                        )}
-                        <div onClick={() => !is404 && onNavigate(config.defaultPage)} className="nav-brand-container"
-                             style={{paddingLeft: isDeepPage ? 0 : '6px'}}>
+                        gap: '12px',
+                        minWidth: isVisible && isExpanded ? '264px' : '0',
+                        transition: 'min-width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)',
+                        flexShrink: 0
+                    }}
+                >
+                    {!is404 && (
+                        <button onClick={toggleSidebar} className="nav-icon-btn" style={{flexShrink: 0}}>
+                            <span className="material-symbols-outlined" style={{
+                                transition: 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)',
+                                transform: isVisible ? 'scale(1)' : 'scale(0.9)',
+                                opacity: isVisible ? 1 : 0.8
+                            }}>
+                                menu
+                            </span>
+                        </button>
+                    )}
+
+                    {isDeepPage && (
+                        <button onClick={handleBackAction} className="nav-icon-btn"
+                                style={{width: '36px', height: '36px', flexShrink: 0}}>
+                            <span className="material-symbols-outlined" style={{fontSize: '20px'}}>arrow_back</span>
+                        </button>
+                    )}
+
+                    {!is404 && (
+                        <div onClick={() => onNavigate(config.defaultPage)}
+                             style={{
+                                 cursor: 'pointer',
+                                 display: 'flex',
+                                 alignItems: 'center',
+                                 justifyContent: 'center',
+                                 padding: '6px',
+                                 borderRadius: '50%',
+                                 transition: 'background 0.2s',
+                                 flexShrink: 0
+                             }}
+                             onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(var(--md-sys-color-on-surface-rgb), 0.08)'}
+                             onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                        >
                             {config.materialIcon ? (
-                                <span className="material-symbols-outlined nav-brand-icon" style={{fontSize: '28px'}}>
+                                <span className="material-symbols-outlined"
+                                      style={{fontSize: '24px', color: 'var(--md-sys-color-primary)'}}>
                                     {config.materialIcon}
                                 </span>
                             ) : (
-                                <img src={config.appIcon} alt="" className="nav-brand-image"
-                                     style={{width: '28px', height: '28px'}}/>
+                                <img src={config.appIcon} alt=""
+                                     style={{width: '24px', height: '24px', objectFit: 'contain'}}/>
                             )}
-                            <span className="nav-brand-text">{config.appName}</span>
                         </div>
-                    </div>
+                    )}
                 </div>
 
                 <div
-                    className={`top-bar-center ${isSearchFocused ? 'search-focused' : ''} ${isFiltersOpen ? 'filter-active' : ''}`}>
-                    <div id="appbar-search-portal" ref={searchPortalRef}
-                         className={`appbar-search-portal-desktop ${hasFilters ? 'has-filters' : ''}`}></div>
+                    className={`top-bar-center ${isSearchFocused ? 'search-focused' : ''} ${isFiltersOpen ? 'filter-active' : ''}`}
+                    style={{
+                        flex: 1,
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        padding: '0 16px'
+                    }}
+                >
+                    <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        width: '100%',
+                        maxWidth: '680px',
+                        position: 'relative'
+                    }}>
+                        <div id="appbar-search-portal" ref={searchPortalRef}
+                             className={`appbar-search-portal-desktop ${hasFilters ? 'has-filters' : ''}`}
+                             style={{flex: 1}}></div>
 
-                    <button
-                        ref={filterBtnRef}
-                        className={`desktop-filter-btn ${hasFilters ? 'visible' : ''} ${isFiltersOpen ? 'active' : ''} ${hasSearch ? 'has-search' : ''}`}
-                        onClick={() => setFiltersOpen(!isFiltersOpen)}
-                    >
-                        <span className="material-symbols-outlined">tune</span>
-                    </button>
+                        <button
+                            ref={filterBtnRef}
+                            className={`desktop-filter-btn ${hasFilters ? 'visible' : ''} ${isFiltersOpen ? 'active' : ''} ${hasSearch ? 'has-search' : ''}`}
+                            onClick={() => setFiltersOpen(!isFiltersOpen)}
+                        >
+                            <span className="material-symbols-outlined">tune</span>
+                        </button>
+                    </div>
                 </div>
 
-                <div className="top-bar-right">
+                <div className="top-bar-right" style={{
+                    width: '64px',
+                    minWidth: '64px',
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    flexShrink: 0
+                }}>
                 </div>
 
                 <div id="appbar-bottom-portal" ref={bottomPortalRef}
