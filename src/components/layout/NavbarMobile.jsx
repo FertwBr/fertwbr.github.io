@@ -1,9 +1,10 @@
 // src/components/layout/NavbarMobile.jsx
 import React, {useState, useEffect, useRef} from 'react';
 import {motion, AnimatePresence} from 'framer-motion';
-import {useNavigate, useLocation} from 'react-router-dom';
+import {useNavigate, useLocation, Link} from 'react-router-dom';
 import {NAV_ITEMS, GLASS_STYLE, SPRING_TRANSITION} from './navShared';
 import {SiteConfig} from '../../utils/siteConstants';
+import UniversalControls from '../common/UniversalControls';
 
 const MENU_ITEM_VARIANTS = {
     hidden: {y: 10, opacity: 0},
@@ -40,7 +41,6 @@ export default function NavbarMobile({config, activePage, onNavigate, strings}) 
     const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const lastScrollY = useRef(0);
-    const mobileMenuRef = useRef(null);
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -61,8 +61,14 @@ export default function NavbarMobile({config, activePage, onNavigate, strings}) 
 
     useEffect(() => {
         const handleClickOutside = (e) => {
-            if (isMobileMenuOpen && mobileMenuRef.current && !mobileMenuRef.current.contains(e.target)) {
-                setMobileMenuOpen(false);
+            if (isMobileMenuOpen) {
+                const clickedMenu = e.target.closest('.mobile-toggle-wrapper');
+                const clickedControls = e.target.closest('.floating-controls-wrapper');
+                const clickedBackdrop = e.target.classList.contains('mobile-nav-backdrop');
+
+                if (clickedBackdrop || (!clickedMenu && !clickedControls)) {
+                    setMobileMenuOpen(false);
+                }
             }
         };
         document.addEventListener('mousedown', handleClickOutside);
@@ -120,20 +126,21 @@ export default function NavbarMobile({config, activePage, onNavigate, strings}) 
 
     return (
         <>
+            {/* Backdrop agora usa classe dedicada para servir de gatilho infalível para fechar */}
             <AnimatePresence>
                 {isMobileMenuOpen && (
                     <motion.div
+                        className="mobile-nav-backdrop"
                         initial={{opacity: 0}}
                         animate={{opacity: 1}}
                         exit={{opacity: 0}}
                         transition={{duration: 0.3}}
-                        onClick={() => setMobileMenuOpen(false)}
                         style={{
                             position: 'fixed',
                             inset: 0,
                             backgroundColor: 'rgba(0, 0, 0, 0.3)',
-                            backdropFilter: 'blur(8px)',
-                            WebkitBackdropFilter: 'blur(8px)',
+                            backdropFilter: 'blur(10px)',
+                            WebkitBackdropFilter: 'blur(10px)',
                             zIndex: 99,
                             pointerEvents: 'auto'
                         }}
@@ -235,7 +242,6 @@ export default function NavbarMobile({config, activePage, onNavigate, strings}) 
 
                     {!is404 && (
                         <motion.div
-                            ref={mobileMenuRef}
                             layout
                             className="mobile-toggle-wrapper"
                             transition={SPRING_TRANSITION}
@@ -271,21 +277,12 @@ export default function NavbarMobile({config, activePage, onNavigate, strings}) 
                                             }}
                                         >
                                             <span style={{
-                                                fontSize: '0.95rem',
+                                                fontSize: '1.05rem',
                                                 fontWeight: 700,
                                                 lineHeight: '1.2',
                                                 color: 'var(--md-sys-color-on-surface)'
                                             }}>
                                                 {config.appName}
-                                            </span>
-                                            <span style={{
-                                                fontSize: '0.75rem',
-                                                fontWeight: 600,
-                                                fontFamily: 'monospace',
-                                                lineHeight: '1.2',
-                                                color: 'var(--md-sys-color-primary)'
-                                            }}>
-                                                v{SiteConfig?.meta?.version || '1.0'}
                                             </span>
                                         </motion.div>
                                     )}
@@ -309,7 +306,7 @@ export default function NavbarMobile({config, activePage, onNavigate, strings}) 
                                         exit={{rotate: 90, opacity: 0}}
                                         className="material-symbols-outlined"
                                     >
-                                        {isMobileMenuOpen ? 'close' : 'menu'}
+                                        {isMobileMenuOpen ? 'keyboard_arrow_down' : 'menu'}
                                     </motion.span>
                                 </motion.button>
                             </div>
@@ -347,6 +344,56 @@ export default function NavbarMobile({config, activePage, onNavigate, strings}) 
                         </motion.div>
                     )}
                 </motion.nav>
+            </AnimatePresence>
+
+            <AnimatePresence>
+                {isMobileMenuOpen && (
+                    <motion.div
+                        className="floating-controls-wrapper"
+                        initial={{y: 80, opacity: 0}}
+                        animate={{y: 0, opacity: 1}}
+                        exit={{y: 80, opacity: 0}}
+                        transition={SMOOTH_SPRING}
+                        style={{
+                            position: 'fixed',
+                            bottom: '24px',
+                            left: '24px',
+                            right: '24px',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            zIndex: 101,
+                            pointerEvents: 'auto'
+                        }}
+                    >
+                        <Link
+                            to={SiteConfig.routes.siteChangelog}
+                            onClick={() => setMobileMenuOpen(false)}
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                height: '44px',
+                                background: 'var(--md-sys-color-surface-container-high)',
+                                padding: '0 20px',
+                                borderRadius: '22px',
+                                textDecoration: 'none',
+                                boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                            }}
+                        >
+                            <span style={{
+                                fontSize: '0.85rem',
+                                fontWeight: 600,
+                                fontFamily: 'monospace',
+                                color: 'var(--md-sys-color-on-surface)'
+                            }}>
+                                v{SiteConfig?.meta?.version || '1.0'}
+                            </span>
+                        </Link>
+
+                        <UniversalControls compact={true}/>
+                    </motion.div>
+                )}
             </AnimatePresence>
         </>
     );
