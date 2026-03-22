@@ -1,4 +1,3 @@
-// src/components/layout/NavbarMobile.jsx
 import React, {useState, useEffect, useRef} from 'react';
 import {motion, AnimatePresence} from 'framer-motion';
 import {useNavigate, useLocation} from 'react-router-dom';
@@ -16,6 +15,16 @@ const MENU_CONTAINER_VARIANTS = {
     exit: {opacity: 0, transition: {duration: 0.1}}
 };
 
+const SMOOTH_SPRING = {
+    type: "spring",
+    stiffness: 450,
+    damping: 35
+};
+
+/**
+ * Mobile navigation component.
+ * Features a dynamic, glassmorphism app bar with synchronized layout animations.
+ */
 export default function NavbarMobile({config, activePage, onNavigate, strings}) {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
@@ -98,6 +107,8 @@ export default function NavbarMobile({config, activePage, onNavigate, strings}) 
         else onNavigate(config.defaultPage || 'index');
     };
 
+    const displayTitle = is404 ? '404' : (strings?.[activePage] || config.appName);
+
     return (
         <AnimatePresence>
             <motion.nav
@@ -112,51 +123,79 @@ export default function NavbarMobile({config, activePage, onNavigate, strings}) 
                 }}
             >
                 <motion.div
+                    layout
                     className="main-glass-nav"
+                    transition={SMOOTH_SPRING}
                     style={{
                         ...GLASS_STYLE(isScrolled),
                         pointerEvents: 'auto',
                         borderRadius: '100px',
-                        padding: '6px',
+                        padding: '6px 18px 6px 6px',
                         flexDirection: 'row',
                         justifyContent: 'flex-start',
-                        width: 'auto'
+                        alignItems: 'center',
+                        width: 'auto',
+                        overflow: 'hidden'
                     }}
                 >
-                    <div className="nav-top-row"
-                         style={{minHeight: '42px', width: 'auto', justifyContent: 'flex-start'}}>
-                        <div className="nav-brand-area">
+                    <motion.div layout className="nav-top-row" transition={SMOOTH_SPRING} style={{minHeight: '42px', width: 'auto', justifyContent: 'flex-start'}}>
+                        <motion.div layout className="nav-brand-area" transition={SMOOTH_SPRING} style={{gap: '12px', alignItems: 'center'}}>
                             <motion.button
-                                layout="position"
+                                layout
                                 onClick={handleBackAction}
                                 className="nav-back-btn"
                                 whileTap={{scale: 0.9}}
+                                transition={SMOOTH_SPRING}
                             >
-                                <motion.span
-                                    key={activePage === config.defaultPage ? 'close' : 'back'}
-                                    initial={{rotate: -90, opacity: 0}}
-                                    animate={{rotate: 0, opacity: 1}}
-                                    className="material-symbols-outlined"
-                                    style={{fontSize: '24px'}}
-                                >
-                                    {activePage === config.defaultPage ? 'close' : 'arrow_back'}
-                                </motion.span>
+                                <AnimatePresence mode="popLayout" initial={false}>
+                                    <motion.span
+                                        layout="position"
+                                        key={activePage === config.defaultPage ? 'close' : 'back'}
+                                        initial={{rotate: -90, opacity: 0, scale: 0.5}}
+                                        animate={{rotate: 0, opacity: 1, scale: 1}}
+                                        exit={{rotate: 90, opacity: 0, scale: 0.5}}
+                                        transition={SMOOTH_SPRING}
+                                        className="material-symbols-outlined"
+                                        style={{fontSize: '24px', display: 'block'}}
+                                    >
+                                        {activePage === config.defaultPage ? 'close' : 'arrow_back'}
+                                    </motion.span>
+                                </AnimatePresence>
                             </motion.button>
+
                             <motion.div
+                                layout
                                 onClick={() => !is404 && onNavigate(config.defaultPage)}
                                 className="nav-brand-container"
                                 whileTap={!is404 ? {scale: 0.97} : {}}
+                                transition={SMOOTH_SPRING}
+                                style={{ gap: '10px', padding: 0 }}
                             >
-                                {config.materialIcon ? (
-                                    <span
-                                        className="material-symbols-outlined nav-brand-icon">{config.materialIcon}</span>
-                                ) : (
-                                    <img src={config.appIcon} alt="" className="nav-brand-image"/>
-                                )}
-                                <span className="nav-brand-text">{config.appName}</span>
+                                <motion.div layout transition={SMOOTH_SPRING} style={{ display: 'flex', alignItems: 'center' }}>
+                                    {config.materialIcon ? (
+                                        <span className="material-symbols-outlined nav-brand-icon">{config.materialIcon}</span>
+                                    ) : (
+                                        <img src={config.appIcon} alt="" className="nav-brand-image"/>
+                                    )}
+                                </motion.div>
+
+                                <AnimatePresence mode="popLayout" initial={false}>
+                                    <motion.span
+                                        layout="position"
+                                        key={displayTitle}
+                                        initial={{ opacity: 0, y: 15, filter: "blur(4px)" }}
+                                        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                                        exit={{ opacity: 0, y: -15, filter: "blur(4px)" }}
+                                        transition={SMOOTH_SPRING}
+                                        className="nav-brand-text"
+                                        style={{ display: 'inline-block', whiteSpace: 'nowrap' }}
+                                    >
+                                        {displayTitle}
+                                    </motion.span>
+                                </AnimatePresence>
                             </motion.div>
-                        </div>
-                    </div>
+                        </motion.div>
+                    </motion.div>
                 </motion.div>
 
                 {!is404 && (
