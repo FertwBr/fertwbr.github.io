@@ -4,7 +4,7 @@ const SidebarBaseCard = ({children, onClick, className = '', style = {}}) => (
     <div
         className={`sidebar-base-card ${onClick ? 'clickable' : ''} ${!style.background ? 'sidebar-base-card-default' : ''} ${className}`}
         onClick={onClick}
-        style={style}
+        style={{ width: '100%', boxSizing: 'border-box', ...style }}
     >
         {children}
     </div>
