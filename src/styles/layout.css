@@ -1,3 +1,4 @@
+/* src/styles/layout.css */
 .page-wrapper {
     display: flex;
     flex-direction: column;
@@ -74,7 +75,7 @@
 }
 
 .app-page-container {
-    padding: 100px 0 0 0;
+    padding: 80px 0 0 0;
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -82,8 +83,22 @@
 
 @media (max-width: 768px) {
     .app-page-container {
-        padding: 120px 0 0 0;
+        padding: 100px 0 0 0;
     }
+}
+
+.home-wrapper {
+    width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+.home-sections-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    box-sizing: border-box;
 }
 
 .page-header-container {
@@ -93,7 +108,7 @@
 }
 
 .header-intro {
-    margin: 12px 0 0 0; /* Espaço drasticamente reduzido */
+    margin: 12px 0 0 0;
     color: var(--md-sys-color-on-surface-variant);
     font-size: 1.1rem;
     line-height: 1.6;
@@ -246,6 +261,39 @@
     position: relative;
 }
 
+.app-body-wrapper {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    margin-top: 0;
+}
+
+@media (min-width: 1001px) {
+    .app-shell {
+        background: var(--md-sys-color-surface-container);
+    }
+
+    .app-body-wrapper {
+        background: var(--md-sys-color-surface);
+        border-top-left-radius: 32px;
+        border: 1px solid var(--md-sys-color-outline-variant);
+        border-bottom: none;
+        border-right: none;
+        margin-top: 64px;
+        transition: margin-left 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        overflow: hidden;
+        flex-direction: column;
+    }
+
+    .app-body-wrapper.with-rail {
+        margin-left: 80px;
+    }
+
+    .app-body-wrapper.with-drawer {
+        margin-left: 280px;
+    }
+}
+
 .app-layout-container {
     display: flex;
     flex-direction: column;
@@ -254,12 +302,12 @@
     max-width: 1600px;
     margin: 0 auto;
     box-sizing: border-box;
-    padding: 140px 24px 80px 24px;
+    padding: 120px 24px 60px 24px;
 }
 
 @media (max-width: 768px) {
     .app-layout-container {
-        padding: 110px 16px 60px 16px;
+        padding: 100px 16px 60px 16px;
     }
 }
 
@@ -267,9 +315,12 @@
     .app-layout-container {
         flex-direction: row;
         align-items: flex-start;
-        gap: 60px;
-        padding-left: 40px;
-        padding-right: 40px;
+        gap: 32px;
+        padding: 24px 24px 80px 24px;
+    }
+
+    .home-sections-container {
+        padding: 0 40px;
     }
 }
 
@@ -295,8 +346,8 @@
 
     .app-sidebar-sticky-inner {
         position: sticky;
-        top: 120px;
-        max-height: calc(100vh - 140px);
+        top: 60px;
+        max-height: calc(100vh - 100px);
         overflow-y: auto;
         overscroll-behavior: contain;
         scrollbar-width: none;
