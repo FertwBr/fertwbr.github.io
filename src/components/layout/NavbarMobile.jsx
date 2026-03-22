@@ -1,0 +1,242 @@
+// src/components/layout/NavbarMobile.jsx
+import React, {useState, useEffect, useRef} from 'react';
+import {motion, AnimatePresence} from 'framer-motion';
+import {useNavigate, useLocation} from 'react-router-dom';
+import {NAV_ITEMS, GLASS_STYLE, SPRING_TRANSITION} from './navShared';
+
+const MENU_ITEM_VARIANTS = {
+    hidden: {y: 10, opacity: 0},
+    show: {y: 0, opacity: 1},
+    exit: {y: -5, opacity: 0}
+};
+
+const MENU_CONTAINER_VARIANTS = {
+    hidden: {opacity: 0},
+    show: {opacity: 1, transition: {staggerChildren: 0.08, delayChildren: 0.1}},
+    exit: {opacity: 0, transition: {duration: 0.1}}
+};
+
+export default function NavbarMobile({config, activePage, onNavigate, strings}) {
+    const [isScrolled, setIsScrolled] = useState(false);
+    const [isVisible, setIsVisible] = useState(true);
+    const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+    const lastScrollY = useRef(0);
+    const mobileMenuRef = useRef(null);
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const is404 = activePage === '404';
+
+    const visibleNavItems = NAV_ITEMS.filter(item => {
+        if (item.id === 'overview' && !config.enableDocs) return false;
+        return strings && strings[item.id];
+    });
+
+    useEffect(() => {
+        if (isMobileMenuOpen) document.body.style.overflow = 'hidden';
+        else document.body.style.overflow = '';
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [isMobileMenuOpen]);
+
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (isMobileMenuOpen && mobileMenuRef.current && !mobileMenuRef.current.contains(e.target)) {
+                setMobileMenuOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener('touchstart', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('touchstart', handleClickOutside);
+        };
+    }, [isMobileMenuOpen]);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = Math.max(0, window.scrollY);
+            setIsScrolled(currentScrollY > 20);
+
+            const activeElement = document.activeElement;
+            const isInputFocused = activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA');
+
+            const documentHeight = document.documentElement.scrollHeight;
+            const windowHeight = window.innerHeight;
+            const isAtBottom = currentScrollY + windowHeight >= documentHeight - 60;
+
+            if (currentScrollY <= 0 || isInputFocused) {
+                setIsVisible(true);
+            } else if (isAtBottom && !isMobileMenuOpen) {
+                setIsVisible(false);
+            } else if (currentScrollY > lastScrollY.current && currentScrollY > 100 && !isMobileMenuOpen) {
+                setIsVisible(false);
+            } else if (currentScrollY < lastScrollY.current || currentScrollY < 50) {
+                setIsVisible(true);
+            }
+            lastScrollY.current = currentScrollY;
+        };
+        window.addEventListener('scroll', handleScroll, {passive: true});
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [isMobileMenuOpen]);
+
+    const handleNavClick = (id) => {
+        onNavigate(id);
+        setMobileMenuOpen(false);
+    };
+
+    const handleBackAction = () => {
+        const isAtAppRoot = activePage === config.defaultPage || activePage === 'index';
+        if (location.pathname.includes('/changelog/')) {
+            const basePath = location.pathname.split('/changelog/')[0];
+            navigate(`${basePath}/changelog`);
+            return;
+        }
+        if (isAtAppRoot) navigate('/');
+        else onNavigate(config.defaultPage || 'index');
+    };
+
+    return (
+        <AnimatePresence>
+            <motion.nav
+                role="navigation"
+                initial={{y: 0, opacity: 1}}
+                animate={{y: isVisible ? 0 : -100, opacity: isVisible ? 1 : 0}}
+                transition={{duration: 0.3, ease: "easeInOut"}}
+                style={{
+                    position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
+                    display: 'flex', justifyContent: 'center', alignItems: 'flex-start',
+                    flexWrap: 'wrap', gap: '12px', padding: '16px', pointerEvents: 'none', width: '100%'
+                }}
+            >
+                <motion.div
+                    className="main-glass-nav"
+                    style={{
+                        ...GLASS_STYLE(isScrolled),
+                        pointerEvents: 'auto',
+                        borderRadius: '100px',
+                        padding: '6px',
+                        flexDirection: 'row',
+                        justifyContent: 'flex-start',
+                        width: 'auto'
+                    }}
+                >
+                    <div className="nav-top-row"
+                         style={{minHeight: '42px', width: 'auto', justifyContent: 'flex-start'}}>
+                        <div className="nav-brand-area">
+                            <motion.button
+                                layout="position"
+                                onClick={handleBackAction}
+                                className="nav-back-btn"
+                                whileTap={{scale: 0.9}}
+                            >
+                                <motion.span
+                                    key={activePage === config.defaultPage ? 'close' : 'back'}
+                                    initial={{rotate: -90, opacity: 0}}
+                                    animate={{rotate: 0, opacity: 1}}
+                                    className="material-symbols-outlined"
+                                    style={{fontSize: '24px'}}
+                                >
+                                    {activePage === config.defaultPage ? 'close' : 'arrow_back'}
+                                </motion.span>
+                            </motion.button>
+                            <motion.div
+                                onClick={() => !is404 && onNavigate(config.defaultPage)}
+                                className="nav-brand-container"
+                                whileTap={!is404 ? {scale: 0.97} : {}}
+                            >
+                                {config.materialIcon ? (
+                                    <span
+                                        className="material-symbols-outlined nav-brand-icon">{config.materialIcon}</span>
+                                ) : (
+                                    <img src={config.appIcon} alt="" className="nav-brand-image"/>
+                                )}
+                                <span className="nav-brand-text">{config.appName}</span>
+                            </motion.div>
+                        </div>
+                    </div>
+                </motion.div>
+
+                {!is404 && (
+                    <motion.div
+                        ref={mobileMenuRef}
+                        layout
+                        className="mobile-toggle-wrapper"
+                        transition={SPRING_TRANSITION}
+                        style={{
+                            ...GLASS_STYLE(isScrolled, isMobileMenuOpen),
+                            pointerEvents: 'auto',
+                            borderRadius: '28px',
+                            overflow: 'hidden',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            width: isMobileMenuOpen ? '100%' : '56px',
+                            height: isMobileMenuOpen ? 'auto' : '56px',
+                        }}
+                    >
+                        <div style={{
+                            display: 'flex',
+                            justifyContent: isMobileMenuOpen ? 'flex-end' : 'center',
+                            padding: '8px',
+                            minWidth: '56px'
+                        }}>
+                            <motion.button
+                                layout="position"
+                                onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+                                className="nav-icon-btn-mobile-toggle"
+                                style={{
+                                    backgroundColor: isMobileMenuOpen ? 'var(--md-sys-color-secondary-container)' : 'transparent',
+                                    color: isMobileMenuOpen ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-surface)'
+                                }}
+                                whileTap={{scale: 0.9}}
+                            >
+                                <motion.span
+                                    key={isMobileMenuOpen ? "close" : "menu"}
+                                    initial={{rotate: -90, opacity: 0}}
+                                    animate={{rotate: 0, opacity: 1}}
+                                    exit={{rotate: 90, opacity: 0}}
+                                    className="material-symbols-outlined"
+                                >
+                                    {isMobileMenuOpen ? 'close' : 'menu'}
+                                </motion.span>
+                            </motion.button>
+                        </div>
+
+                        <AnimatePresence>
+                            {isMobileMenuOpen && (
+                                <motion.div
+                                    id="mobile-menu-items"
+                                    variants={MENU_CONTAINER_VARIANTS}
+                                    initial="hidden" animate="show" exit="exit"
+                                    style={{
+                                        padding: '0 8px 10px 8px',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        gap: '6px'
+                                    }}
+                                >
+                                    {visibleNavItems.map(item => (
+                                        <motion.button
+                                            key={item.id}
+                                            variants={MENU_ITEM_VARIANTS}
+                                            onClick={() => handleNavClick(item.id)}
+                                            className={`mobile-nav-item ${activePage === item.id ? 'active' : ''}`}
+                                            whileTap={{scale: 0.97}}
+                                        >
+                                            <span className="mobile-nav-item-icon">
+                                                <span className="material-symbols-outlined">{item.icon}</span>
+                                            </span>
+                                            <span>{strings?.[item.id]}</span>
+                                        </motion.button>
+                                    ))}
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </motion.div>
+                )}
+            </motion.nav>
+        </AnimatePresence>
+    );
+}
