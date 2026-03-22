@@ -13,7 +13,7 @@ import React, {useState, useEffect} from 'react';
  * @returns {JSX.Element}
  */
 export default function AppLayout({navbar, children, footer, background, hasRightSidebarPortal = false}) {
-    const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+    const [isSidebarVisible, setIsSidebarVisible] = useState(false);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [hasRightContent, setHasRightContent] = useState(false);
     const [footerOffset, setFooterOffset] = useState(0);
@@ -68,14 +68,17 @@ export default function AppLayout({navbar, children, footer, background, hasRigh
         };
     }, []);
 
-    const toggleSidebar = () => setIsSidebarExpanded(!isSidebarExpanded);
+    const toggleSidebar = () => setIsSidebarVisible(!isSidebarVisible);
 
     const hasNavbar = !!navbar;
     const isDesktop = windowWidth > 1000;
-    const bodyClass = (isDesktop && hasNavbar) ? (isSidebarExpanded ? 'with-drawer' : 'with-rail') : '';
+    const isDrawerMode = windowWidth >= 1200;
+
+    const bodyClass = (isDesktop && hasNavbar && isSidebarVisible) ? (isDrawerMode ? 'with-drawer' : 'with-rail') : '';
 
     const enhancedNavbar = hasNavbar ? React.cloneElement(navbar, {
-        isSidebarExpanded,
+        isSidebarVisible,
+        isDrawerMode,
         toggleSidebar,
         windowWidth
     }) : null;
@@ -92,9 +95,15 @@ export default function AppLayout({navbar, children, footer, background, hasRigh
                 className={`app-body-wrapper ${bodyClass}`}
                 style={{
                     marginRight: isDesktop && hasRightContent ? '320px' : '0',
+                    marginLeft: isDesktop && hasNavbar && isSidebarVisible ? (isDrawerMode ? '280px' : '80px') : '0',
                     width: isDesktop && hasRightContent ? 'auto' : '100%',
-                    transition: 'margin 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)',
+                    transition: 'margin 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), border-radius 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), border 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)',
                     borderTopRightRadius: isDesktop && hasRightContent ? '0' : undefined,
+                    borderTopLeftRadius: isDesktop && hasNavbar && isSidebarVisible ? '32px' : '0',
+                    borderTop: 'none',
+                    borderBottom: 'none',
+                    borderRight: 'none',
+                    borderLeft: isDesktop && hasNavbar && isSidebarVisible ? '1px solid var(--md-sys-color-outline-variant)' : 'none',
                     ...((isDesktop && !hasNavbar) ? {
                         marginTop: 0,
                         marginLeft: 0,
