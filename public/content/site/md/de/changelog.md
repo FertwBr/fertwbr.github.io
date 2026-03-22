@@ -1,6 +1,39 @@
 # Versionsverlauf
 Verfolgen Sie die Entwicklung des Portfolios. Hier finden Sie ein detailliertes Protokoll über neue Funktionen, Verbesserungen und Korrekturen für jede Version.
 
+## Version 3.0.0
+*(Veröffentlicht am 22. März 2026)*
+
+Willkommen bei Version 3.0. Dieses große Release ist das Ergebnis monatelanger kontinuierlicher Weiterentwicklung. Es umfasst die vollständige Neugestaltung unserer Navigationsarchitektur, die Einführung eines leistungsstarken mehrstufigen Supportsystems sowie die umfassende Aktualisierung unserer Engines für Internationalisierung und rechtliche Compliance.
+
+#### 🌐 Navigation & Architektur
+* **Neu: Adaptives Navigationssystem:** Wir haben die Websitenavigation komplett neu aufgebaut, damit sie auf allen Geräten wirklich responsiv ist.
+  * **Desktop:** Eine neue `TopBarDesktop` mit fixiertem Header, integrierten Such-/Filterportalen und einer einklappbaren `SidebarDesktop` (Drawer-/Rail-Modi).
+  * **Tablet:** Eine spezielle `NavbarTablet` mit zentrierten Pillen-Menüs und flüssigen `framer-motion`-Layoutübergängen.
+  * **Mobile:** Eine verbesserte `NavbarMobile` mit einem sanften, glasartigen Schiebemenü, zuverlässigem Schließen durch Klicken auf den Hintergrund und schwebenden Schnellzugriffssteuerungen.
+* **Neu: Universelle Steuerungen:** Die alten Footer-Menüs wurden durch eine neue `UniversalControls`-Komponente ersetzt. Sie können nun Ihr Design (Automatisch/Hell/Dunkel) und Ihre Sprache von überall aus bei perfekt synchronisiertem Status ändern.
+* **Fehlerbehebung: Intelligentes "Zurück nach oben":** Die schwebende "Zurück nach oben"-Schaltfläche (FAB) verwendet nun einen `IntersectionObserver`, um den Seiten-Footer automatisch zu erkennen. Sie verschiebt sich sanft nach oben, sodass sie sich niemals mit wichtigen Links überschneidet.
+
+#### 🌍 Internationalisierung & Übersetzung
+* **Neu: Intelligente Benutzererfahrung bei automatischer Übersetzung:** Beim Anzeigen übersetzter Änderungsprotokolle erscheint nun ein interaktives "Automatisch übersetzt"-Abzeichen. Benutzer können auf dieses Abzeichen klicken, um sofort zwischen dem übersetzten Text und dem englischen Originaltext hin- und herzuschalten.
+* **Neu: Geografische Sprachflaggen:** Die standardmäßigen Text-Emojis wurden durch hochwertige `FlagCDN`-Assets (mit Noto Color Emoji als Fallback) ersetzt. Die Website liest nun intelligent Ihre Zeitzone aus, um die geografisch korrekte Flagge für Ihre Sprache anzuzeigen (z. B. Zuordnung von Englisch zu den Flaggen des Vereinigten Königreichs, Irlands, Südafrikas oder Jamaikas basierend auf dem Standort).
+* **Neu: Lokalisierte Designs & gemeinsame Sprachumgebungen:** Designnamen (Wald, Karmesinrot, Lila usw.) sind nun vollständig lokalisiert. Wir haben außerdem eine einheitliche Architektur für "Gemeinsame Sprachumgebungen" eingeführt, um Übersetzungen im gesamten Portfolio und auf den App-Landingpages perfekt zu synchronisieren.
+
+#### 📧 Support & Feedback
+* **Neu: Der Support-Assistent:** Die Feedback-Seite wurde komplett in einen interaktiven 4-Schritte-Assistenten verwandelt. Er führt Sie durch die Auswahl Ihrer App/Plattform, die Kategorisierung Ihres Problems, das sichere Anhängen von Screenshots (via Base64) und die Überprüfung Ihrer Anfrage vor dem Senden.
+* **Neu: Dynamische Support e-mails:** Die automatisierten e-mails (unterstützt von der Resend API) wurden komplett neu gestaltet. Sie verfügen nun über responsive helle und dunkle Designs, um sicherzustellen, dass Ihre Support-Tickets und automatischen Antworten in jedem e-mail-Client perfekt aussehen.
+
+#### 📘 Viewer & Dokumentation
+* **Neu: Vollbild-Routing für Änderungsprotokolle:** Sie können jetzt direkte Links zu bestimmten App-Updates teilen (z. B. `.../changelog/:versionId`). Das Öffnen einer bestimmten Version löst ein übersichtliches Vollbild-Artikellayout aus.
+* **Neu: Plattform-Tags & sequentielle Navigation:** Der Parser für das Änderungsprotokoll extrahiert und rendert nun automatisch plattformspezifische Abzeichen (📱 Telefon, ⌚ Wear OS, 🌐 Web) basierend auf den Abschnittsüberschriften. Vollbildartikel verfügen außerdem über Schaltflächen für "Vorheriges/Nächstes Update" für nahtloses Lesen.
+* **Neu: Ladezustände & fixierte Suche:** Für reibungslose Ladezustände wurden ein neuer Glassmorphismus-`GeometricSpinner` und ein `ChangelogSkeleton` eingeführt. Es wurde eine fixierte Suchleiste hinzugefügt, die sich intelligent ausblendet, wenn Sie nach unten scrollen oder tippen.
+* **Neu: Intelligentes Inhaltsverzeichnis (TOC):** Das Inhaltsverzeichnis auf Dokumentationsseiten wurde auf ein scrollbares, pillenbasiertes Layout mit Indikatoren für den aktiven Zustand und sanfteren Federanimationen aktualisiert.
+
+#### 🎨 Optischer Feinschliff & Scrollytelling
+* **Benutzeroberfläche: Filmerische Hero-Übergänge:** Der `AppsHero`-Abschnitt wurde mit einer Raster-Hintergrundmaske und einem unscharfen unteren Spotlight überarbeitet. Die Geräteanimationen beim "Scrollytelling" verfügen nun über einen subtilen "Spick"-Effekt beim Laden.
+* **Benutzeroberfläche: Weiterentwicklung der geteilten Auswahl:** Der App-Auswahlbildschirm für das "Große Finale" (`SplitChoice`) bietet nun höhere Panels, animierte radiale Akzente, springende Symbole und eine spezielle "Erkunden"-Schaltfläche (CTA).
+* **Benutzeroberfläche: Markdown & Typografie:** Die Rendering-Engine für Markdown wurde komplett überarbeitet. Die Dokumentation bietet nun eine verbesserte Typografie (Poppins-Schriftart), subtile Schatten, benutzerdefinierte Bildlaufleisten sowie sauber gestaltete Tabellen und Codeblöcke.
+
 ## Version 2.8.2
 *(Veröffentlicht am 16. März 2026)*
 

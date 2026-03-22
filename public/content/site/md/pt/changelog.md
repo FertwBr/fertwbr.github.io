@@ -1,6 +1,39 @@
 # Histórico de Versões
 Acompanhe a evolução do portfólio. Aqui você encontrará um registro detalhado de novos recursos, melhorias e correções para cada versão.
 
+## Versão 3.0.0
+*(Lançada em 22 de março de 2026)*
+
+Bem-vindo à Versão 3.0. Esta grande atualização representa meses de refinamento contínuo, com a reconstrução total da nossa arquitetura de navegação, a introdução de um poderoso sistema de suporte em várias etapas e a atualização significativa dos nossos motores de internacionalização e de conformidade legal.
+
+#### 🌐 Navegação e Arquitetura
+* **Novo: Sistema de Navegação Adaptável:** Reconstruímos totalmente a navegação do site para ser verdadeiramente responsiva em todos os dispositivos.
+  * **Desktop:** Uma nova `TopBarDesktop` com um cabeçalho fixo, portais de pesquisa/filtro integrados e uma `SidebarDesktop` recolhível (modos Drawer/Rail).
+  * **Tablet:** Uma `NavbarTablet` dedicada, que apresenta menus em forma de pílula centralizados e transições de layout fluidas com o `framer-motion`.
+  * **Mobile:** Uma `NavbarMobile` aprimorada, com um menu deslizante suave com efeito de vidro, fechamento confiável ao clicar no fundo e controles flutuantes de acesso rápido.
+* **Novo: Controles Universais:** Substituímos os menus de rodapé antigos por um novo componente `UniversalControls`. Agora, você pode alterar o seu Tema (Automático/Claro/Escuro) e o seu Idioma de qualquer lugar, com o estado perfeitamente sincronizado.
+* **Correção: Volta ao Topo Inteligente:** O botão flutuante (FAB) "Voltar ao Topo" agora usa um `IntersectionObserver` para detectar automaticamente o rodapé da página, deslocando-se suavemente para cima para que nunca se sobreponha a links cruciais.
+
+#### 🌍 Internacionalização e Tradução
+* **Novo: Experiência de Tradução Automática Inteligente:** Ao visualizar os registros de alterações traduzidos, um emblema interativo "Traduzido Automaticamente" é exibido. Os usuários podem clicar neste emblema para alternar instantaneamente entre o texto traduzido e o código-fonte original em inglês.
+* **Novo: Bandeiras de Idioma Geográficas:** Substituímos os emojis de texto padrão por ativos `FlagCDN` de alta qualidade (com um substituto Noto Color Emoji). O site agora lê de forma inteligente o seu fuso horário para exibir a bandeira geograficamente correta para o seu idioma (por exemplo, mapeando o inglês para as bandeiras do Reino Unido, da Irlanda, da África do Sul ou da Jamaica com base na localização).
+* **Novo: Temas Localizados e Localidades Compartilhadas:** Os nomes dos temas (Floresta, Carmesim, Roxo, etc.) agora estão totalmente localizados. Também introduzimos uma arquitetura unificada de "Localidade Compartilhada" para sincronizar perfeitamente as traduções em todo o portfólio e nas páginas de destino dos aplicativos.
+
+#### 📧 Suporte e Feedback
+* **Novo: O Assistente de Suporte:** A página de Feedback foi totalmente transformada em um assistente interativo de 4 etapas. Ele orienta você na seleção do seu aplicativo/plataforma, na categorização do seu problema, no anexo seguro de capturas de tela (via Base64) e na revisão da sua solicitação antes do envio.
+* **Novo: E-mails de Suporte Dinâmicos:** Os e-mails automatizados (desenvolvidos pela API Resend) foram totalmente redesenhados. Agora, eles apresentam temas responsivos nos modos Claro e Escuro, garantindo que os seus tíquetes de suporte e as suas respostas automáticas tenham uma aparência perfeita em qualquer cliente de e-mail.
+
+#### 📘 Visualizadores e Documentação
+* **Novo: Roteamento de Registro de Alterações em Tela Cheia:** Agora, você pode compartilhar links diretos para atualizações de aplicativos específicos (por exemplo, `.../changelog/:versionId`). A abertura de uma versão específica aciona um layout de artigo limpo e em tela cheia.
+* **Novo: Tags de Plataforma e Navegação Sequencial:** O analisador do registro de alterações agora extrai e renderiza automaticamente emblemas específicos da plataforma (📱 Telefone, ⌚ Wear OS, 🌐 Web) com base nos cabeçalhos das seções. Os artigos em tela cheia também apresentam botões "Atualização Anterior/Próxima" para uma leitura contínua.
+* **Novo: Estados de Carregamento e Pesquisa Fixa:** Introduzimos um novo `GeometricSpinner` com efeito de vidro e um `ChangelogSkeleton` para estados de carregamento suaves. Adicionamos uma barra de pesquisa fixa que se oculta de forma inteligente ao rolar a página para baixo ou ao digitar.
+* **Novo: Índice Inteligente (TOC):** O índice nas páginas de documentação foi atualizado para um layout rolável em forma de pílula, com indicadores de estado ativo e animações de mola mais suaves.
+
+#### 🎨 Refinamento Visual e Scrollytelling
+* **Interface de Usuário: Transições Cinematográficas de Destaque:** A seção `AppsHero` foi reformulada com uma máscara de fundo em grade e um holofote inferior desfocado. As animações de dispositivos de "Scrollytelling" agora apresentam um efeito sutil de "espiada" no carregamento.
+* **Interface de Usuário: Evolução da Escolha Dividida:** A tela de seleção de aplicativos "Grand Finale" (`SplitChoice`) agora apresenta painéis mais altos, detalhes radiais animados, ícones saltitantes e um botão de chamada para ação (CTA) "Explorar" dedicado.
+* **Interface de Usuário: Markdown e Tipografia:** O motor de renderização de markdown foi totalmente reformulado. A documentação agora apresenta tipografia aprimorada (fonte Poppins), sombras sutis, barras de rolagem personalizadas, além de tabelas e blocos de código com estilo limpo.
+
 ## Versão 2.8.2
 *(Lançado em 16 de março de 2026)*
 

@@ -1,6 +1,39 @@
 # Version History
 Track the evolution of the portfolio. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 3.0.0
+*(Released March 22, 2026)*
+
+Welcome to Version 3.0. This major release represents months of continuous refinement, completely rebuilding our navigation architecture, introducing a powerful multi-step support system, and significantly upgrading our internationalization and legal compliance engines.
+
+#### 🌐 Navigation & Architecture
+* **New: Adaptive Navigation System:** We have completely rebuilt the site's navigation to be truly responsive across all devices.
+  * **Desktop:** A new `TopBarDesktop` with a sticky header, integrated search/filter portals, and a collapsible `SidebarDesktop` (Drawer/Rail modes).
+  * **Tablet:** A dedicated `NavbarTablet` featuring centered pill-menus and fluid `framer-motion` layout transitions.
+  * **Mobile:** An upgraded `NavbarMobile` with a smooth, glass-effect sliding menu, reliable backdrop-click dismissal, and floating quick-access controls.
+* **New: Universal Controls:** Replaced the legacy footer menus with a new `UniversalControls` component. You can now change your Theme (Auto/Light/Dark) and Language from anywhere with perfectly synchronized state.
+* **Fix: Smart Back-to-Top:** The floating "Back to Top" FAB now uses an `IntersectionObserver` to automatically detect the page footer, smoothly shifting upward so it never overlaps with crucial links.
+
+#### 🌍 Internationalization & Translation
+* **New: Smart Auto-Translation UX:** When viewing translated changelogs, an interactive "Auto Translated" badge now appears. Users can click this badge to instantly toggle back and forth between the translated text and the original English source.
+* **New: Geographic Language Flags:** Replaced standard text emojis with high-quality `FlagCDN` assets (with a Noto Color Emoji fallback). The site now intelligently reads your Timezone to display the geographically correct flag for your language (e.g., mapping English to the UK, Ireland, South Africa, or Jamaica flags based on location).
+* **New: Localized Themes & Shared Locales:** Theme names (Forest, Crimson, Purple, etc.) are now fully localized. We also introduced a unified "Shared Locale" architecture to perfectly synchronize translations across the portfolio and app landing pages.
+
+#### 📧 Support & Feedback
+* **New: The Support Wizard:** The Feedback page has been completely transformed into a 4-step interactive wizard. It guides you through selecting your app/platform, categorizing your issue, securely attaching screenshots (via Base64), and reviewing your request before sending.
+* **New: Dynamic Support Emails:** The automated emails (powered by the Resend API) have been fully redesigned. They now feature responsive Light and Dark mode theming, ensuring your support tickets and auto-replies look perfect in any email client.
+
+#### 📘 Viewers & Documentation
+* **New: Full-Screen Changelog Routing:** You can now share direct links to specific app updates (e.g., `.../changelog/:versionId`). Opening a specific version triggers a clean, full-screen article layout.
+* **New: Platform Tags & Sequential Nav:** The Changelog parser now automatically extracts and renders platform-specific badges (📱 Phone, ⌚ Wear OS, 🌐 Web) based on section headers. Full-screen articles also feature "Previous/Next Update" buttons for seamless reading.
+* **New: Loading States & Sticky Search:** Introduced a new glassmorphism `GeometricSpinner` and `ChangelogSkeleton` for smooth loading states. Added a sticky search bar that hides intelligently when scrolling down or when you are typing.
+* **New: Smart Table of Contents (TOC):** The TOC on documentation pages has been upgraded to a scrollable, pill-based layout with active-state indicators and smoother spring animations.
+
+#### 🎨 Visual Polish & Scrollytelling
+* **UI: Cinematic Hero Transitions:** The `AppsHero` section has been revamped with a grid background mask and a blurred bottom spotlight. The "Scrollytelling" device animations now feature a subtle "peek" effect on load.
+* **UI: Split Choice Evolution:** The "Grand Finale" app selection screen (`SplitChoice`) now features taller panels, animated radial accents, bouncing icons, and a dedicated "Explore" CTA button.
+* **UI: Markdown & Typography:** Completely overhauled the markdown rendering engine. Documentation now features improved typography (Poppins font), subtle shadows, custom scrollbars, and cleanly styled tables and code blocks.
+
 ## Version 2.8.2
 *(Released March 16, 2026)*
 
