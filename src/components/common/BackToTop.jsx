@@ -14,36 +14,57 @@ import {motion, AnimatePresence} from 'framer-motion';
  */
 export default function BackToTop({tooltip, isShifted}) {
     const [visible, setVisible] = useState(false);
-    const [bottomOffset, setBottomOffset] = useState(0);
+    const [bottomPos, setBottomPos] = useState(30);
+    const [isTracking, setIsTracking] = useState(false);
     const [rightOffset, setRightOffset] = useState(30);
 
     useEffect(() => {
-        const handleScroll = () => {
+        let ticking = false;
+
+        const calculatePosition = () => {
             setVisible(window.scrollY > 300);
 
-            const footer = document.querySelector('footer');
+            const footer = document.querySelector('footer, .footer-base');
+            const isMobile = window.innerWidth <= 1000;
+
+            const desiredBottom = (isShifted && isMobile) ? 180 : 30;
+            let footerPush = 0;
+
             if (footer) {
                 const footerRect = footer.getBoundingClientRect();
                 const windowHeight = window.innerHeight;
 
                 if (footerRect.top < windowHeight) {
-                    const visibleFooterHeight = windowHeight - footerRect.top;
-                    const compensation = isShifted ? 64 : 16;
-                    setBottomOffset(Math.max(0, visibleFooterHeight - compensation));
-                } else {
-                    setBottomOffset(0);
+                    footerPush = (windowHeight - footerRect.top) + 24;
                 }
+            }
+
+            if (footerPush > desiredBottom) {
+                setBottomPos(footerPush);
+                setIsTracking(true);
+            } else {
+                setBottomPos(desiredBottom);
+                setIsTracking(false);
+            }
+
+            ticking = false;
+        };
+
+        const onScroll = () => {
+            if (!ticking) {
+                window.requestAnimationFrame(calculatePosition);
+                ticking = true;
             }
         };
 
-        window.addEventListener("scroll", handleScroll, {passive: true});
-        window.addEventListener("resize", handleScroll, {passive: true});
+        window.addEventListener("scroll", onScroll, {passive: true});
+        window.addEventListener("resize", calculatePosition, {passive: true});
 
-        handleScroll();
+        calculatePosition();
 
         return () => {
-            window.removeEventListener("scroll", handleScroll);
-            window.removeEventListener("resize", handleScroll);
+            window.removeEventListener("scroll", onScroll);
+            window.removeEventListener("resize", calculatePosition);
         };
     }, [isShifted]);
 
@@ -78,15 +99,20 @@ export default function BackToTop({tooltip, isShifted}) {
         <AnimatePresence>
             {visible && (
                 <motion.button
-                    className={`back-to-top-btn ${isShifted ? 'shifted' : ''}`}
-                    initial={{opacity: 0, scale: 0.8, y: 0}}
-                    animate={{opacity: 1, scale: 1, y: -bottomOffset}}
-                    exit={{opacity: 0, scale: 0.8, y: -bottomOffset}}
+                    className="back-to-top-btn"
+                    initial={{opacity: 0, scale: 0.8}}
+                    animate={{opacity: 1, scale: 1}}
+                    exit={{opacity: 0, scale: 0.8}}
                     transition={{type: "spring", stiffness: 400, damping: 30}}
+
                     style={{
                         right: rightOffset,
-                        transition: 'right 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.2s, background 0.2s'
+                        bottom: `${bottomPos}px`,
+                        transition: isTracking
+                            ? 'right 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.2s'
+                            : 'bottom 0.4s cubic-bezier(0.2, 0, 0, 1), right 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.2s'
                     }}
+
                     onClick={() => window.scrollTo({top: 0, behavior: "smooth"})}
                     title={tooltip || "Back to Top"}
                 >
