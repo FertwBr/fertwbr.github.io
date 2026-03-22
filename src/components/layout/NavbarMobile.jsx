@@ -2,6 +2,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import {motion, AnimatePresence} from 'framer-motion';
 import {useNavigate, useLocation} from 'react-router-dom';
 import {NAV_ITEMS, GLASS_STYLE, SPRING_TRANSITION} from './navShared';
+import {SiteConfig} from '../../utils/siteConstants';
 
 const MENU_ITEM_VARIANTS = {
     hidden: {y: 10, opacity: 0},
@@ -24,6 +25,13 @@ const SMOOTH_SPRING = {
 /**
  * Mobile navigation component.
  * Features a dynamic, glassmorphism app bar with synchronized layout animations.
+ *
+ * @param {Object} props
+ * @param {Object} props.config
+ * @param {string} props.activePage
+ * @param {Function} props.onNavigate
+ * @param {Object} props.strings
+ * @returns {JSX.Element}
  */
 export default function NavbarMobile({config, activePage, onNavigate, strings}) {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -138,8 +146,10 @@ export default function NavbarMobile({config, activePage, onNavigate, strings}) 
                         overflow: 'hidden'
                     }}
                 >
-                    <motion.div layout className="nav-top-row" transition={SMOOTH_SPRING} style={{minHeight: '42px', width: 'auto', justifyContent: 'flex-start'}}>
-                        <motion.div layout className="nav-brand-area" transition={SMOOTH_SPRING} style={{gap: '12px', alignItems: 'center'}}>
+                    <motion.div layout className="nav-top-row" transition={SMOOTH_SPRING}
+                                style={{minHeight: '42px', width: 'auto', justifyContent: 'flex-start'}}>
+                        <motion.div layout className="nav-brand-area" transition={SMOOTH_SPRING}
+                                    style={{gap: '12px', alignItems: 'center'}}>
                             <motion.button
                                 layout
                                 onClick={handleBackAction}
@@ -169,11 +179,13 @@ export default function NavbarMobile({config, activePage, onNavigate, strings}) 
                                 className="nav-brand-container"
                                 whileTap={!is404 ? {scale: 0.97} : {}}
                                 transition={SMOOTH_SPRING}
-                                style={{ gap: '10px', padding: 0 }}
+                                style={{gap: '10px', padding: 0}}
                             >
-                                <motion.div layout transition={SMOOTH_SPRING} style={{ display: 'flex', alignItems: 'center' }}>
+                                <motion.div layout transition={SMOOTH_SPRING}
+                                            style={{display: 'flex', alignItems: 'center'}}>
                                     {config.materialIcon ? (
-                                        <span className="material-symbols-outlined nav-brand-icon">{config.materialIcon}</span>
+                                        <span
+                                            className="material-symbols-outlined nav-brand-icon">{config.materialIcon}</span>
                                     ) : (
                                         <img src={config.appIcon} alt="" className="nav-brand-image"/>
                                     )}
@@ -183,12 +195,12 @@ export default function NavbarMobile({config, activePage, onNavigate, strings}) 
                                     <motion.span
                                         layout="position"
                                         key={displayTitle}
-                                        initial={{ opacity: 0, y: 15, filter: "blur(4px)" }}
-                                        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                                        exit={{ opacity: 0, y: -15, filter: "blur(4px)" }}
+                                        initial={{opacity: 0, y: 15, filter: "blur(4px)"}}
+                                        animate={{opacity: 1, y: 0, filter: "blur(0px)"}}
+                                        exit={{opacity: 0, y: -15, filter: "blur(4px)"}}
                                         transition={SMOOTH_SPRING}
                                         className="nav-brand-text"
-                                        style={{ display: 'inline-block', whiteSpace: 'nowrap' }}
+                                        style={{display: 'inline-block', whiteSpace: 'nowrap'}}
                                     >
                                         {displayTitle}
                                     </motion.span>
@@ -217,17 +229,53 @@ export default function NavbarMobile({config, activePage, onNavigate, strings}) 
                     >
                         <div style={{
                             display: 'flex',
-                            justifyContent: isMobileMenuOpen ? 'flex-end' : 'center',
+                            justifyContent: isMobileMenuOpen ? 'space-between' : 'center',
+                            alignItems: 'center',
                             padding: '8px',
                             minWidth: '56px'
                         }}>
+                            <AnimatePresence>
+                                {isMobileMenuOpen && (
+                                    <motion.div
+                                        initial={{opacity: 0, x: -10}}
+                                        animate={{opacity: 1, x: 0}}
+                                        exit={{opacity: 0, x: -10}}
+                                        transition={{duration: 0.2}}
+                                        style={{
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            paddingLeft: '16px'
+                                        }}
+                                    >
+                                        <span style={{
+                                            fontSize: '0.95rem',
+                                            fontWeight: 700,
+                                            lineHeight: '1.2',
+                                            color: 'var(--md-sys-color-on-surface)'
+                                        }}>
+                                            {config.appName}
+                                        </span>
+                                        <span style={{
+                                            fontSize: '0.75rem',
+                                            fontWeight: 600,
+                                            fontFamily: 'monospace',
+                                            lineHeight: '1.2',
+                                            color: 'var(--md-sys-color-primary)'
+                                        }}>
+                                            v{SiteConfig?.meta?.version || '1.0'}
+                                        </span>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+
                             <motion.button
                                 layout="position"
                                 onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
                                 className="nav-icon-btn-mobile-toggle"
                                 style={{
                                     backgroundColor: isMobileMenuOpen ? 'var(--md-sys-color-secondary-container)' : 'transparent',
-                                    color: isMobileMenuOpen ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-surface)'
+                                    color: isMobileMenuOpen ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-surface)',
+                                    marginLeft: isMobileMenuOpen ? 'auto' : '0'
                                 }}
                                 whileTap={{scale: 0.9}}
                             >
