@@ -97,17 +97,13 @@ export default function AppLayout({navbar, children, footer, background, hasRigh
                     marginRight: isDesktop && hasRightContent ? '320px' : '0',
                     marginLeft: isDesktop && hasNavbar && isSidebarVisible ? (isDrawerMode ? '280px' : '80px') : '0',
                     width: isDesktop && hasRightContent ? 'auto' : '100%',
-                    transition: 'margin 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), border-radius 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), border 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)',
+                    transition: 'margin 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), border-radius 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)',
                     borderTopRightRadius: isDesktop && hasRightContent ? '0' : undefined,
                     borderTopLeftRadius: isDesktop && hasNavbar && isSidebarVisible ? '32px' : '0',
-                    borderTop: 'none',
-                    borderBottom: 'none',
-                    borderRight: 'none',
-                    borderLeft: isDesktop && hasNavbar && isSidebarVisible ? '1px solid var(--md-sys-color-outline-variant)' : 'none',
+                    border: 'none', /* Força a remoção de todas as bordas nativas da classe */
                     ...((isDesktop && !hasNavbar) ? {
                         marginTop: 0,
                         marginLeft: 0,
-                        border: 'none',
                         borderRadius: 0,
                         background: 'transparent'
                     } : {})
