@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 
 /**
  * Main application layout wrapper.
@@ -16,7 +16,7 @@ export default function AppLayout({navbar, children, footer, background, hasRigh
     const [isSidebarVisible, setIsSidebarVisible] = useState(false);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [hasRightContent, setHasRightContent] = useState(false);
-    const [footerOffset, setFooterOffset] = useState(0);
+    const appShellRef = useRef(null);
 
     useEffect(() => {
         const handleResize = () => setWindowWidth(window.innerWidth);
@@ -37,34 +37,63 @@ export default function AppLayout({navbar, children, footer, background, hasRigh
             setHasRightContent(target.childNodes.length > 0);
         });
 
-        observer.observe(target, { childList: true });
+        observer.observe(target, {childList: true});
         setHasRightContent(target.childNodes.length > 0);
 
         return () => observer.disconnect();
     }, [hasRightSidebarPortal]);
 
     useEffect(() => {
-        const handleScroll = () => {
-            const footerElement = document.querySelector('footer');
+        const calculateFooterOffset = () => {
+            const footerElement = document.querySelector('footer, .footer-base');
+            const portalElement = document.getElementById('right-sidebar-portal');
+
             if (footerElement) {
                 const footerRect = footerElement.getBoundingClientRect();
                 const windowHeight = window.innerHeight;
+                let offset = 0;
+
                 if (footerRect.top < windowHeight) {
-                    setFooterOffset(windowHeight - footerRect.top);
-                } else {
-                    setFooterOffset(0);
+                    offset = Math.ceil(windowHeight - footerRect.top);
+                }
+
+                if (appShellRef.current) {
+                    appShellRef.current.style.setProperty('--footer-offset', `${offset}px`);
+                }
+                if (portalElement) {
+                    portalElement.style.bottom = `${offset}px`;
                 }
             }
         };
 
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        window.addEventListener('resize', handleScroll, { passive: true });
+        let ticking = false;
+        const onScroll = () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    calculateFooterOffset();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        };
 
-        handleScroll();
+        window.addEventListener('scroll', onScroll, {passive: true});
+        window.addEventListener('resize', calculateFooterOffset, {passive: true});
+
+        const resizeObserver = new ResizeObserver(() => {
+            calculateFooterOffset();
+        });
+
+        if (document.body) {
+            resizeObserver.observe(document.body);
+        }
+
+        calculateFooterOffset();
 
         return () => {
-            window.removeEventListener('scroll', handleScroll);
-            window.removeEventListener('resize', handleScroll);
+            window.removeEventListener('scroll', onScroll);
+            window.removeEventListener('resize', calculateFooterOffset);
+            resizeObserver.disconnect();
         };
     }, []);
 
@@ -85,8 +114,13 @@ export default function AppLayout({navbar, children, footer, background, hasRigh
 
     return (
         <div
+            ref={appShellRef}
             className="app-shell page-wrapper"
-            style={{ '--footer-offset': `${footerOffset}px` }}
+            style={{
+                display: 'flex',
+                flexDirection: 'column',
+                minHeight: '100dvh'
+            }}
         >
             {background}
             {enhancedNavbar}
@@ -94,13 +128,15 @@ export default function AppLayout({navbar, children, footer, background, hasRigh
             <div
                 className={`app-body-wrapper ${bodyClass}`}
                 style={{
+                    flex: '1 0 auto',
+                    minHeight: '100dvh',
                     marginRight: isDesktop && hasRightContent ? '320px' : '0',
                     marginLeft: isDesktop && hasNavbar && isSidebarVisible ? (isDrawerMode ? '280px' : '80px') : '0',
                     width: isDesktop && hasRightContent ? 'auto' : '100%',
                     transition: 'margin 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), border-radius 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)',
                     borderTopRightRadius: isDesktop && hasRightContent ? '0' : undefined,
                     borderTopLeftRadius: isDesktop && hasNavbar && isSidebarVisible ? '32px' : '0',
-                    border: 'none', /* Força a remoção de todas as bordas nativas da classe */
+                    border: 'none',
                     ...((isDesktop && !hasNavbar) ? {
                         marginTop: 0,
                         marginLeft: 0,
@@ -124,19 +160,15 @@ export default function AppLayout({navbar, children, footer, background, hasRigh
                         position: 'fixed',
                         top: isDesktop ? '64px' : '0',
                         right: isDesktop ? (hasRightContent ? '0' : '-320px') : '0',
-                        bottom: `${footerOffset}px`,
+                        bottom: '0',
                         width: '320px',
-                        background: 'linear-gradient(90deg, var(--md-sys-color-surface) 0%, rgba(var(--md-sys-color-surface-rgb), 0.5) 100%)',
-                        backdropFilter: 'blur(30px)',
-                        WebkitBackdropFilter: 'blur(30px)',
+                        background: 'var(--md-sys-color-surface)',
                         borderLeft: 'none',
                         zIndex: 180,
                         overflowY: 'auto',
                         overscrollBehavior: 'contain',
                         transition: 'right 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)',
-                        display: isDesktop ? 'block' : 'none',
-                        maskImage: 'linear-gradient(to bottom, black calc(100% - 120px), transparent 100%)',
-                        WebkitMaskImage: 'linear-gradient(to bottom, black calc(100% - 120px), transparent 100%)'
+                        display: isDesktop ? 'block' : 'none'
                     }}
                 >
                     <style>{`
