@@ -1,4 +1,3 @@
-// src/components/layout/NavbarMobile.jsx
 import React, {useState, useEffect, useRef} from 'react';
 import {motion, AnimatePresence} from 'framer-motion';
 import {useNavigate, useLocation, Link} from 'react-router-dom';
@@ -171,14 +170,20 @@ export default function NavbarMobile({config, activePage, onNavigate, strings}) 
                             flexDirection: 'row',
                             justifyContent: 'flex-start',
                             alignItems: 'center',
-                            width: 'auto',
+                            flex: 1,
+                            minWidth: 0,
                             overflow: 'hidden'
                         }}
                     >
                         <motion.div layout className="nav-top-row" transition={SMOOTH_SPRING}
-                                    style={{minHeight: '42px', width: 'auto', justifyContent: 'flex-start'}}>
+                                    style={{
+                                        minHeight: '42px',
+                                        width: '100%',
+                                        justifyContent: 'flex-start',
+                                        minWidth: 0
+                                    }}>
                             <motion.div layout className="nav-brand-area" transition={SMOOTH_SPRING}
-                                        style={{gap: '12px', alignItems: 'center'}}>
+                                        style={{gap: '12px', alignItems: 'center', flex: 1, minWidth: 0}}>
                                 <motion.button
                                     layout
                                     onClick={handleBackAction}
@@ -208,7 +213,7 @@ export default function NavbarMobile({config, activePage, onNavigate, strings}) 
                                     className="nav-brand-container"
                                     whileTap={!is404 ? {scale: 0.97} : {}}
                                     transition={SMOOTH_SPRING}
-                                    style={{gap: '10px', padding: 0}}
+                                    style={{gap: '10px', padding: 0, flex: 1, minWidth: 0, overflow: 'hidden'}}
                                 >
                                     <motion.div layout transition={SMOOTH_SPRING}
                                                 style={{display: 'flex', alignItems: 'center'}}>
@@ -229,7 +234,12 @@ export default function NavbarMobile({config, activePage, onNavigate, strings}) 
                                             exit={{opacity: 0, y: -15, filter: "blur(4px)"}}
                                             transition={SMOOTH_SPRING}
                                             className="nav-brand-text"
-                                            style={{display: 'inline-block', whiteSpace: 'nowrap'}}
+                                            style={{
+                                                display: 'block',
+                                                whiteSpace: 'nowrap',
+                                                overflow: 'hidden',
+                                                textOverflow: 'ellipsis'
+                                            }}
                                         >
                                             {displayTitle}
                                         </motion.span>

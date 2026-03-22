@@ -22,7 +22,8 @@ export default function BackToTop({tooltip, isShifted}) {
         let ticking = false;
 
         const calculatePosition = () => {
-            setVisible(window.scrollY > 300);
+            const isMenuOpen = document.body.style.overflow === 'hidden';
+            setVisible(window.scrollY > 300 && !isMenuOpen);
 
             const footer = document.querySelector('footer, .footer-base');
             const isMobile = window.innerWidth <= 1000;
@@ -60,11 +61,15 @@ export default function BackToTop({tooltip, isShifted}) {
         window.addEventListener("scroll", onScroll, {passive: true});
         window.addEventListener("resize", calculatePosition, {passive: true});
 
+        const bodyObserver = new MutationObserver(calculatePosition);
+        bodyObserver.observe(document.body, {attributes: true, attributeFilter: ['style']});
+
         calculatePosition();
 
         return () => {
             window.removeEventListener("scroll", onScroll);
             window.removeEventListener("resize", calculatePosition);
+            bodyObserver.disconnect();
         };
     }, [isShifted]);
 
