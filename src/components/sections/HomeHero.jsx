@@ -29,14 +29,13 @@ export default function HomeHero({appConfig, strings, onNavigate}) {
     const accentColor = isPulse ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-tertiary)';
 
     return (
-        <section style={{
+        <section className="home-hero-section" style={{
             minHeight: '100dvh',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             position: 'relative',
             textAlign: 'center',
-            padding: '80px 20px',
             boxSizing: 'border-box',
             overflow: 'hidden'
         }}>
