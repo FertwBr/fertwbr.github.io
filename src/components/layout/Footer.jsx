@@ -27,7 +27,7 @@ export default function Footer({t}) {
     ];
 
     return (
-        <footer className="footer-base">
+        <footer className="footer-base" style={{position: 'relative', zIndex: 190}}>
             <div className="footer-content">
                 <div className="footer-grid">
                     <div style={{display: 'flex', flexDirection: 'column', gap: '16px'}}>

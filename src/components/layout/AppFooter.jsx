@@ -5,6 +5,15 @@ import {useLanguage} from '../../context/LanguageContext';
 import FooterControls from './FooterControls';
 import {SiteConfig} from '../../utils/siteConstants';
 
+/**
+ * AppFooter component for specific routes.
+ * * @param {Object} props
+ * @param {Object} props.strings
+ * @param {Function} props.onNavigate
+ * @param {string} props.activePage
+ * @param {boolean} [props.isPortfolio]
+ * @returns {JSX.Element}
+ */
 export default function AppFooter({strings, onNavigate, activePage, isPortfolio = false}) {
     const {content} = useLanguage();
     const t = strings || {};
@@ -24,7 +33,7 @@ export default function AppFooter({strings, onNavigate, activePage, isPortfolio 
         : allLinks;
 
     return (
-        <footer className="footer-base">
+        <footer className="footer-base" style={{position: 'relative', zIndex: 190}}>
             <div className="footer-content">
                 <div className="footer-grid">
                     <div style={{display: 'flex', flexDirection: 'column', gap: '24px'}}>

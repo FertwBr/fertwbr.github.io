@@ -1,5 +1,5 @@
 // src/components/common/UniversalControls.jsx
-import React, {useState, useRef, useEffect, useLayoutEffect} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {
     getThemeOptions,
     setThemeColor,
@@ -41,45 +41,40 @@ const MenuItem = ({active, onClick, children, leading}) => {
 };
 
 /**
- * Smart dropdown that automatically adapts between Desktop (Full) and Mobile (Compact) styles.
- * It features dynamic viewport positioning to prevent horizontal overflow on small screens.
+ * Smart dropdown that guarantees upward opening, avoids being cut off horizontally,
+ * and maintains the original CSS animations and behaviors.
  */
 const SmartDropdown = ({icon, label, isOpen, onClick, align = 'left', children, compact, customIcon}) => {
-    const buttonRef = useRef(null);
-    const [dynamicAlign, setDynamicAlign] = useState({});
+    const menuRef = useRef(null);
 
-    useLayoutEffect(() => {
-        if (isOpen && compact && buttonRef.current) {
-            const rect = buttonRef.current.getBoundingClientRect();
-            const viewportWidth = window.innerWidth;
-            const menuWidth = 220;
+    useEffect(() => {
+        if (isOpen && menuRef.current) {
+            requestAnimationFrame(() => {
+                if (!menuRef.current) return;
+                const rect = menuRef.current.getBoundingClientRect();
+                const windowWidth = window.innerWidth;
 
-            let newAlign = {
-                bottom: 'calc(100% + 12px)',
-                zIndex: 200,
-                minWidth: '200px'
-            };
-
-            if (rect.left < (menuWidth / 2)) {
-                newAlign.left = '0';
-                newAlign.transform = 'none';
-            } else if ((viewportWidth - rect.right) < (menuWidth / 2)) {
-                newAlign.right = '0';
-                newAlign.left = 'auto';
-                newAlign.transform = 'none';
-            } else {
-                newAlign.left = '50%';
-                newAlign.transform = 'translateX(-50%)';
-            }
-
-            setDynamicAlign(newAlign);
+                if (rect.right > windowWidth - 16) {
+                    menuRef.current.style.left = 'auto';
+                    menuRef.current.style.right = '0';
+                    if (compact) menuRef.current.style.transform = 'none';
+                }
+                else if (rect.left < 16) {
+                    menuRef.current.style.left = '0';
+                    menuRef.current.style.right = 'auto';
+                    if (compact) menuRef.current.style.transform = 'none';
+                }
+            });
+        } else if (menuRef.current) {
+            menuRef.current.style.left = '';
+            menuRef.current.style.right = '';
+            menuRef.current.style.transform = '';
         }
     }, [isOpen, compact]);
 
     return (
-        <div className="footer-dropdown-wrapper" style={compact ? {position: 'relative'} : undefined}>
+        <div className="footer-dropdown-wrapper" style={{position: 'relative'}}>
             <button
-                ref={buttonRef}
                 onClick={(e) => {
                     e.stopPropagation();
                     onClick();
@@ -115,9 +110,22 @@ const SmartDropdown = ({icon, label, isOpen, onClick, align = 'left', children, 
                 )}
             </button>
 
+            {/* As classes originais align-left/center/right voltaram para garantir que o CSS aplique opacity/visibility */}
             <div
+                ref={menuRef}
                 className={`footer-dropdown-menu align-${align} ${isOpen ? 'open' : ''}`}
-                style={compact ? dynamicAlign : undefined}
+                style={compact ? {
+                    position: 'absolute',
+                    bottom: 'calc(100% + 12px)',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    zIndex: 200,
+                    minWidth: '200px'
+                } : {
+                    position: 'absolute',
+                    bottom: 'calc(100% + 12px)',
+                    zIndex: 200
+                }}
             >
                 <div className="footer-dropdown-scroll-area" data-lenis-prevent="true">
                     {children}
@@ -200,7 +208,9 @@ export default function UniversalControls({compact = false, title}) {
                 display: 'flex',
                 flexDirection: compact ? 'row' : 'column',
                 gap: compact ? '8px' : '24px',
-                alignItems: compact ? 'center' : 'flex-start'
+                alignItems: compact ? 'center' : 'flex-start',
+                position: 'relative',
+                zIndex: activeMenu ? 9999 : 1
             }}
         >
             {!compact && title && (
@@ -230,10 +240,27 @@ export default function UniversalControls({compact = false, title}) {
                     align="left"
                     compact={compact}
                 >
-                    <MenuItem active={themeMode === 'auto'} onClick={() => { setThemeMode('auto'); setActiveMenu(null); }} leading={<span className="material-symbols-outlined" style={{fontSize: '20px'}}>brightness_auto</span>}>{modeLabels.auto}</MenuItem>
-                    <div style={{ height: '1px', background: 'var(--md-sys-color-outline-variant)', margin: '6px 0', opacity: 0.5 }}/>
-                    <MenuItem active={themeMode === 'light'} onClick={() => { setThemeMode('light'); setActiveMenu(null); }} leading={<span className="material-symbols-outlined" style={{fontSize: '20px'}}>light_mode</span>}>{modeLabels.light}</MenuItem>
-                    <MenuItem active={themeMode === 'dark'} onClick={() => { setThemeMode('dark'); setActiveMenu(null); }} leading={<span className="material-symbols-outlined" style={{fontSize: '20px'}}>dark_mode</span>}>{modeLabels.dark}</MenuItem>
+                    <MenuItem active={themeMode === 'auto'} onClick={() => {
+                        setThemeMode('auto');
+                        setActiveMenu(null);
+                    }} leading={<span className="material-symbols-outlined"
+                                      style={{fontSize: '20px'}}>brightness_auto</span>}>{modeLabels.auto}</MenuItem>
+                    <div style={{
+                        height: '1px',
+                        background: 'var(--md-sys-color-outline-variant)',
+                        margin: '6px 0',
+                        opacity: 0.5
+                    }}/>
+                    <MenuItem active={themeMode === 'light'} onClick={() => {
+                        setThemeMode('light');
+                        setActiveMenu(null);
+                    }} leading={<span className="material-symbols-outlined"
+                                      style={{fontSize: '20px'}}>light_mode</span>}>{modeLabels.light}</MenuItem>
+                    <MenuItem active={themeMode === 'dark'} onClick={() => {
+                        setThemeMode('dark');
+                        setActiveMenu(null);
+                    }} leading={<span className="material-symbols-outlined"
+                                      style={{fontSize: '20px'}}>dark_mode</span>}>{modeLabels.dark}</MenuItem>
                 </SmartDropdown>
 
                 <SmartDropdown
@@ -245,10 +272,38 @@ export default function UniversalControls({compact = false, title}) {
                     compact={compact}
                     customIcon={compact ? activeColorCircle : null}
                 >
-                    <MenuItem active={isThemeAuto} onClick={() => { resetTheme(); setActiveMenu(null); }} leading={<span className="material-symbols-outlined" style={{fontSize: '20px'}}>auto_awesome</span>}>{content?.footer?.appearance?.mode_auto || "Auto"}</MenuItem>
-                    <div style={{ height: '1px', background: 'var(--md-sys-color-outline-variant)', margin: '6px 0', opacity: 0.5 }}/>
+                    <MenuItem active={isThemeAuto} onClick={() => {
+                        resetTheme();
+                        setActiveMenu(null);
+                    }} leading={<span className="material-symbols-outlined"
+                                      style={{fontSize: '20px'}}>auto_awesome</span>}>{content?.footer?.appearance?.mode_auto || "Auto"}</MenuItem>
+                    <div style={{
+                        height: '1px',
+                        background: 'var(--md-sys-color-outline-variant)',
+                        margin: '6px 0',
+                        opacity: 0.5
+                    }}/>
                     {themes.map(t => (
-                        <MenuItem key={t.value} active={!isThemeAuto && savedTheme === t.value} onClick={() => { setThemeColor(t.value); setActiveMenu(null); }} leading={<div style={{ width: '30px', height: '30px', borderRadius: '10px', background: `linear-gradient(135deg, ${t.value} 0%, ${t.value} 60%, rgba(var(--md-sys-color-shadow-rgb, 0,0,0), 0.15) 100%)`, border: '1px solid var(--md-sys-color-outline-variant)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><div style={{ width: '12px', height: '12px', borderRadius: '50%', background: 'var(--md-sys-color-on-primary)' }}/></div>}>
+                        <MenuItem key={t.value} active={!isThemeAuto && savedTheme === t.value} onClick={() => {
+                            setThemeColor(t.value);
+                            setActiveMenu(null);
+                        }} leading={<div style={{
+                            width: '30px',
+                            height: '30px',
+                            borderRadius: '10px',
+                            background: `linear-gradient(135deg, ${t.value} 0%, ${t.value} 60%, rgba(var(--md-sys-color-shadow-rgb, 0,0,0), 0.15) 100%)`,
+                            border: '1px solid var(--md-sys-color-outline-variant)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}>
+                            <div style={{
+                                width: '12px',
+                                height: '12px',
+                                borderRadius: '50%',
+                                background: 'var(--md-sys-color-on-primary)'
+                            }}/>
+                        </div>}>
                             {getThemeName(t)}
                         </MenuItem>
                     ))}
@@ -261,12 +316,32 @@ export default function UniversalControls({compact = false, title}) {
                     onClick={() => toggleMenu('lang')}
                     align="right"
                     compact={compact}
-                    customIcon={compact ? <div style={{width:'22px', height:'22px', display:'flex', alignItems:'center', justifyContent:'center'}}><DynamicLanguageFlag languageCode={language}/></div> : null}
+                    customIcon={compact ? <div style={{
+                        width: '22px',
+                        height: '22px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }}><DynamicLanguageFlag languageCode={language}/></div> : null}
                 >
-                    <MenuItem active={isLangAuto} onClick={() => { changeLanguage('auto'); setActiveMenu(null); }} leading={<span className="material-symbols-outlined" style={{fontSize: '20px'}}>auto_awesome</span>}>{content?.footer?.appearance?.mode_auto || "Auto"}</MenuItem>
-                    <div style={{ height: '1px', background: 'var(--md-sys-color-outline-variant)', margin: '6px 0', opacity: 0.5 }}/>
+                    <MenuItem active={isLangAuto} onClick={() => {
+                        changeLanguage('auto');
+                        setActiveMenu(null);
+                    }} leading={<span className="material-symbols-outlined"
+                                      style={{fontSize: '20px'}}>auto_awesome</span>}>{content?.footer?.appearance?.mode_auto || "Auto"}</MenuItem>
+                    <div style={{
+                        height: '1px',
+                        background: 'var(--md-sys-color-outline-variant)',
+                        margin: '6px 0',
+                        opacity: 0.5
+                    }}/>
                     {availableLanguages.map(code => (
-                        <MenuItem key={code} active={!isLangAuto && language === code} onClick={() => { changeLanguage(code); setActiveMenu(null); }} leading={<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '22px' }}><DynamicLanguageFlag languageCode={code}/></div>}>
+                        <MenuItem key={code} active={!isLangAuto && language === code} onClick={() => {
+                            changeLanguage(code);
+                            setActiveMenu(null);
+                        }} leading={<div
+                            style={{display: 'flex', alignItems: 'center', justifyContent: 'center', width: '22px'}}>
+                            <DynamicLanguageFlag languageCode={code}/></div>}>
                             {content?.footer?.appearance?.[code] || LANGUAGE_LABELS[code]}
                         </MenuItem>
                     ))}
