@@ -33,11 +33,12 @@ To maintain documentation across **6 languages** without manual overhead, I engi
 * **Gemini API Integration:** Utilizes the **Google Gemini 3 Flash** model to translate *only* missing version blocks, preserving Markdown structure and technical terminology.
 * **Smart Rate Limiting:** Implements a "save-as-you-go" strategy with delays to respect API quotas while ensuring data persistence.
 
-### 💬 Intelligent Feedback System
-A fully custom feedback engine built from scratch (`/feedback`), designed to reduce friction and improve report quality:
-* **Context-Aware Routing:** The system detects the source app (Pixel Pulse vs. Compass) and pre-fills platform context.
-* **Draft Persistence:** Uses `localStorage` to auto-save user input, preventing data loss during navigation or browser refreshes.
-* **Smart Guidance:** A regex-based utility (`FeedbackUtils`) analyzes user input in real-time to offer tips (e.g., detecting a crash report and suggesting to include error codes).
+### 💬 Serverless Feedback & Support API
+A fully custom, serverless feedback engine built from scratch (`/feedback`), designed to reduce friction and improve report quality:
+* **Cloudflare Functions & Resend:** Deployed a secure Cloudflare Pages Function that handles POST requests and interfaces with the **Resend API** to dispatch support tickets and localized auto-replies.
+* **Interactive Support Wizard:** A 4-step interactive flow that guides users through categorizing issues and securely attaching screenshots via Base64 encoding.
+* **Context-Aware & Drafts:** Detects the source app (Pixel Pulse vs. Compass), pre-fills context, and uses `localStorage` to auto-save user input, preventing data loss.
+* **Dynamic Email Theming:** Automated support emails feature responsive Light and Dark mode theming (`color-scheme`) to adapt to the user's email client.
 
 ### 🎨 Dynamic Material Theming
 * **Real-time Generation:** Uses `@material/material-color-utilities` to generate accessible color schemes from a seed color.
@@ -47,20 +48,20 @@ A fully custom feedback engine built from scratch (`/feedback`), designed to red
 
 ### 🌍 Advanced Internationalization (i18n)
 * **Multi-Language:** Full support for **English, Portuguese, Spanish, German, Hindi, and Japanese**.
-* **Auto-Detection:** Smart detection of browser language with a persistent "Auto" mode option.
-* **Locale Management:** Scalable dictionary system with separate locale files and deep-merge fallback logic.
+* **Smart Language Detection:** Intelligent Timezone parsing to display geographically correct flags (via FlagCDN) and persistent "Auto" mode.
+* **Locale Management:** Scalable dictionary system with separate locale files, deep-merge fallback logic, and fully translated Material theme names.
 
 ### ⚡ UX & Performance
 * **Lenis Scroll:** Integration of `lenis` for smooth inertial scrolling.
+* **Cinematic Scrollytelling:** High-fidelity CSS-only device mocks (Pixel Phones & Watches) with scroll-driven animations and dynamic UI simulations inside the frames.
 * **Resilience:** Custom `ErrorBoundary` for graceful failures and `OfflineNotice` for network state feedback.
 * **Page Transitions:** Orchestrated exit/enter animations using `Framer Motion` and a reusable `PageTransition` component.
-* **Smart Navigation:** Responsive `AppNavbar` with glassmorphism, hide-on-scroll behavior, and context-aware back buttons.
 
 ### 📝 Markdown Content Engine
 The site features a custom-built engine to parse and render Markdown documentation directly:
-* **Custom Parsers:** Utilities to extract structured data (sections, dates, tags, roadmap phases) from raw Markdown files.
-* **Dedicated Viewers:** Specialized components like `ChangelogViewer` and `RoadmapViewer` for rich data visualization.
-* **Async Scroll Handling:** A custom `HashScrollHandler` ensures deep links work correctly even with asynchronous content loading and smooth scrolling libraries.
+* **Full-Screen Routing:** Support for direct links to specific app updates (e.g., `.../changelog/:versionId`) rendering clean, full-screen article layouts.
+* **Platform Tags:** Automatically extracts and renders platform-specific badges (📱 Phone, ⌚ Wear OS) based on markdown section headers.
+* **Async Scroll Handling:** A custom `HashScrollHandler` ensures deep links work correctly even with asynchronous content loading.
 
 ## 📱 Integrated App Ecosystem
 
@@ -73,19 +74,18 @@ The site hosts dedicated environments for my Android projects, featuring **Deep 
 ## 🛠️ Tech Stack
 
 * **Front-end:** React 18 (Vite)
-* **Hosting:** Cloudflare Pages
+* **Hosting:** Cloudflare Pages (Functions/Middleware)
 * **Languages:** JavaScript (ES6+), Node.js (Automation Scripts)
-* **AI Integration:** Google Gemini API (`@google/generative-ai`)
+* **APIs:** Google Gemini API (`@google/generative-ai`), Resend API
 * **Design System:** Material Design 3 (M3)
 * **Animation:** Framer Motion
 * **Scrolling:** Lenis
 * **Routing:** React Router DOM v6
 * **Data Parsing:** Remark / Rehype / Gray-matter
-* **Localization:** Custom Context-based i18n with Fallback
 
 ## 📄 License & Intellectual Property
 
-Copyright © 2025 **Fernando Vaz Bela (fertwbr)**.
+Copyright © 2026 **Fernando Vaz Bela (fertwbr)**.
 
 The source code and design assets in this repository are **not** intended for redistribution, cloning, or commercial use. This project exists solely as a demonstration of professional skills. Please refer to the [LICENSE](LICENSE) file for more details.
 
