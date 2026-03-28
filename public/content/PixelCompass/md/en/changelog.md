@@ -1,6 +1,23 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.18.1
+*(Released March 27, 2026)*
+
+This update focuses on deep internal optimizations, squashing bugs, and refining the user interface to ensure the new 1.18 features run flawlessly. We've completely re-architected the app's internal state management, resulting in a snappier, more stable experience.
+
+#### 📱 Phone
+
+* **UX & UI Polish:**
+  * **Add-Card Menu Readability:** Fixed an issue in Edit Mode where long card names could get cut off in the "Add Card" menu. They now utilize a smooth scrolling marquee effect for perfect readability.
+  * **Independent Weather Rendering:** The dynamic weather cards no longer rely on your Location Permission state to render their layout placeholders. This allows the app to show a clean permission warning banner without breaking the underlying grid structure.
+  * **Top Bar Refinements:** The intelligent Top Bar now uses a centralized color engine, ensuring status indicators (Error, Warning, Success, Info) perfectly match your active Material You theme across all scenarios.
+* **Core & Architecture (Under the Hood):**
+  * **Massive State Refactor:** We've completely rebuilt the Compass Engine's internal architecture. Heavy tasks like Sensor Fusion, Altitude Calibration, Top Bar Status management, and Legal Policy checks have been broken out into dedicated, highly optimized handlers. This drastically reduces the memory footprint and CPU load of the main compass screen.
+  * **Sensor Orchestration:** Introduced a new `CompassSensorOrchestrator` that intelligently fuses magnetometer, accelerometer, and GPS data, providing a more stable and accurate compass heading while reducing battery drain.
+  * **Edit Mode Stability:** Edit mode previews now reliably use a dedicated mock-data pipeline, guaranteeing that changes to your Weather Icon Style or Card Order instantly reflect accurately without interfering with live sensor data.
+  * **Moshi KSP Upgrade:** Upgraded our internal JSON parser (Moshi) to use Kotlin Symbol Processing (KSP) code generation, resulting in slightly faster app startup times.
+
 ## Version 1.18.0
 *(Released March 25, 2026)*
 
