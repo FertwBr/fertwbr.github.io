@@ -1,6 +1,29 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.18.2
+*(Released April 1, 2026)*
+
+This update focuses on refining the new features introduced in 1.18. We've completely rebuilt how the app calculates your speed for significantly better accuracy, and we've overhauled the Wear OS internal engine to match the massive performance gains recently brought to the phone.
+
+#### 📱 Phone
+
+* **Core: True Sensor Fusion for Speed:**
+  * **Real-Time Speed Tracking:** Previously, the app relied purely on GPS to calculate your speed, which could lag or stutter. We've introduced a new "Sensor Fusion" engine that combines your phone's internal Linear Accelerometer with GPS data. This results in incredibly smooth, real-time speed tracking that responds instantly when you accelerate or decelerate.
+* **Core & Architecture (Under the Hood):**
+  * **State Refactor (Continued):** Following up on 1.18.1, we've extracted the heavy UI state logic from the main Compass Screen into a dedicated `CompassScreenStateHolder`. This makes the main screen render faster and prevents unnecessary UI redraws when sensors update.
+
+#### ⌚ Wear OS
+
+* **Core: True Sensor Fusion for Speed (Shared):**
+  * **Precision on the Wrist:** The watch app also inherits the new Linear Acceleration + GPS Sensor Fusion engine. Speed displayed on your custom compass arcs is now much smoother and updates in true real-time.
+* **New: True North Indicator:**
+  * **Visual Confirmation:** When you enable "True North" in the watch settings, a new custom True North icon now appears directly on the compass dial next to your heading, providing clear visual confirmation that magnetic declination is being applied.
+* **Core & Architecture (Under the Hood):**
+  * **Massive State Refactor:** We have brought the massive architectural improvements from the phone directly to your wrist. Heavy tasks like Location Tracking, Altitude Calibration, and User Preferences have been broken out into dedicated, highly optimized handlers (`WearLocationAndCalibrationHandler`, `WearPreferencesHandler`). This drastically reduces the memory footprint and CPU load on the smartwatch, improving battery life.
+  * **Rendering Optimization:** The Wear OS compass dial rendering has been heavily optimized. By utilizing cached bitmaps and vector painters for the compass arrows, the dial now rotates more smoothly and uses less processing power.
+
+
 ## Version 1.18.1
 *(Released March 27, 2026)*
 
