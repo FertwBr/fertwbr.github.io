@@ -1,6 +1,30 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.18.3
+*(Released April 6, 2026)*
+
+This update focuses on a massive redesign of the onboarding experience, opening up widget previews to all users, and implementing strict background battery optimizations.
+
+#### 📱 Phone
+
+* **New: Redesigned Onboarding Flow:**
+  * **Interactive Welcome:** We've completely overhauled the onboarding screens for new users. The flow now features a dynamic, Material 3-based "Welcome" page with responsive backgrounds and an interactive "Core Features" showcase that uses beautiful, animated Canvas illustrations (Compass, Map, and Level).
+  * **Tablet & Landscape Support:** The entire onboarding flow now intelligently splits and adapts its layout when viewed on tablets or in landscape mode, ensuring perfectly scaled visuals and readable text.
+  * **Smoother Animations:** Replaced the previous bouncy page transitions with smooth, consistent crossfades, making the first-time setup feel much more premium.
+* **UX & Polish:**
+  * **Widget Preview Freedom:** Non-Plus users can now fully explore and customize all widget shapes and types (like the Altitude widget or Modern shapes) in the configuration screen. Instead of locking the options, the app now shows a helpful explanatory sheet if you try to save a premium widget to your home screen.
+  * **Altitude Calibration Help:** Added a new "Help" button directly to the Altitude Calibration screen. Tapping it instantly opens the relevant, themed online FAQ for quick troubleshooting.
+* **Core & Battery Optimization:**
+  * **Strict Background Locks:** To prevent unnecessary battery drain, the app now strictly enforces foreground locks on Elevation API calls. If the app is pushed to the background, it will instantly halt elevation requests.
+  * **Smart GPS Priority:** The app now dynamically shifts its GPS priority. It uses "High Accuracy" when you are actively looking at the screen, and automatically drops to "Balanced Power" when updating widgets or background tasks, saving battery.
+  * **Optimized Fetch Policies:** Increased the cooldowns for manual and session-start elevation refreshes, preventing redundant network calls and preserving device resources.
+
+#### ⌚ Wear OS
+
+* **Core & Battery Optimization (Shared):**
+  * **Smart Fetch Policies:** The watch app inherits the new, highly optimized refresh cooldowns for manual altitude calibration, preventing excessive API calls and saving battery life.
+
 ## Version 1.18.2
 *(Released April 1, 2026)*
 
