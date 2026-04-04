@@ -1,3 +1,4 @@
+// AppLayout.jsx
 import React, {useState, useEffect, useRef} from 'react';
 
 /**
@@ -112,6 +113,9 @@ export default function AppLayout({navbar, children, footer, background, hasRigh
         windowWidth
     }) : null;
 
+    const marginLeftAmount = isDesktop && hasNavbar && isSidebarVisible ? (isDrawerMode ? 280 : 80) : 0;
+    const marginRightAmount = isDesktop && hasRightContent ? 320 : 0;
+
     return (
         <div
             ref={appShellRef}
@@ -119,7 +123,8 @@ export default function AppLayout({navbar, children, footer, background, hasRigh
             style={{
                 display: 'flex',
                 flexDirection: 'column',
-                minHeight: '100dvh'
+                minHeight: '100dvh',
+                overflowX: 'hidden'
             }}
         >
             {background}
@@ -130,9 +135,10 @@ export default function AppLayout({navbar, children, footer, background, hasRigh
                 style={{
                     flex: '1 0 auto',
                     minHeight: '100dvh',
-                    marginRight: isDesktop && hasRightContent ? '320px' : '0',
-                    marginLeft: isDesktop && hasNavbar && isSidebarVisible ? (isDrawerMode ? '280px' : '80px') : '0',
-                    width: isDesktop && hasRightContent ? 'auto' : '100%',
+                    marginRight: `${marginRightAmount}px`,
+                    marginLeft: `${marginLeftAmount}px`,
+                    width: `calc(100% - ${marginLeftAmount + marginRightAmount}px)`,
+                    boxSizing: 'border-box',
                     transition: 'margin 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), border-radius 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)',
                     borderTopRightRadius: isDesktop && hasRightContent ? '0' : undefined,
                     borderTopLeftRadius: isDesktop && hasNavbar && isSidebarVisible ? '32px' : '0',
@@ -141,7 +147,8 @@ export default function AppLayout({navbar, children, footer, background, hasRigh
                         marginTop: 0,
                         marginLeft: 0,
                         borderRadius: 0,
-                        background: 'transparent'
+                        background: 'transparent',
+                        width: '100%'
                     } : {})
                 }}
             >
