@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
+import {AnimatePresence} from 'framer-motion';
 import {geminiExpressiveConfig} from './GeminiExpressiveConfig';
 import GeminiExpressiveHome from './GeminiExpressiveHome';
 import AppLayout from '../../components/layout/AppLayout';
@@ -9,8 +10,12 @@ import ChangelogViewer from '../../components/viewers/ChangelogViewer';
 import PrivacyViewer from '../../components/viewers/PrivacyViewer';
 import TermsViewer from '../../components/viewers/TermsViewer';
 import HelpViewer from '../../components/viewers/HelpViewer';
+import GeometricSpinner from '../../components/common/GeometricSpinner';
+import ErrorDisplay from '../../components/common/ErrorDisplay';
+import PageTransition from '../../components/layout/PageTransition';
 import {useLanguage} from '../../context/LanguageContext';
 import {usePageMetadata} from '../../hooks/usePageMetadata';
+import {useMarkdownLoader} from '../../hooks/useMarkdownLoader';
 
 /**
  * Main container page for Gemini Expressive.
@@ -27,6 +32,7 @@ export default function GeminiExpressivePage({forcedTab}) {
     const [currentTab, setCurrentTab] = useState('index');
 
     const localizedStrings = content?.gemini_expressive || {};
+    const combinedStrings = {...content, ...localizedStrings};
 
     useEffect(() => {
         if (forcedTab) {
@@ -37,6 +43,8 @@ export default function GeminiExpressivePage({forcedTab}) {
             setCurrentTab('index');
         }
     }, [pageId, forcedTab]);
+
+    const {markdownContent, isLoading, error} = useMarkdownLoader(currentTab, geminiExpressiveConfig);
 
     const pageConfig = geminiExpressiveConfig.pages[currentTab];
     const pageTitle = pageConfig?.title && currentTab !== 'index'
@@ -54,6 +62,9 @@ export default function GeminiExpressivePage({forcedTab}) {
         }
     });
 
+    /**
+     * @param {string} path
+     */
     const handleNavigate = (path) => {
         if (path === 'index') {
             navigate('/geminiexpressive');
@@ -62,24 +73,37 @@ export default function GeminiExpressivePage({forcedTab}) {
         }
     };
 
+    /**
+     * @returns {JSX.Element|null}
+     */
     const renderContent = () => {
         if (currentTab === 'index') {
             return <GeminiExpressiveHome onNavigate={handleNavigate} strings={localizedStrings}/>;
         }
 
-        if (!pageConfig) return null;
+        if (isLoading) return <GeometricSpinner/>;
+        if (error) return <ErrorDisplay error={error} onRetry={() => window.location.reload()}/>;
+        if (!markdownContent) return <div className="markdown-placeholder"></div>;
+
+        const commonProps = {
+            markdownContent,
+            appConfig: geminiExpressiveConfig,
+            pageConfig,
+            strings: combinedStrings,
+            onNavigate: handleNavigate
+        };
 
         switch (currentTab) {
             case 'changelog':
-                return <ChangelogViewer appConfig={geminiExpressiveConfig} pageConfig={pageConfig}/>;
+                return <ChangelogViewer {...commonProps} />;
             case 'overview':
-                return <OverviewViewer appConfig={geminiExpressiveConfig} pageConfig={pageConfig}/>;
+                return <OverviewViewer {...commonProps} />;
             case 'privacy':
-                return <PrivacyViewer appConfig={geminiExpressiveConfig} pageConfig={pageConfig}/>;
+                return <PrivacyViewer {...commonProps} />;
             case 'terms':
-                return <TermsViewer appConfig={geminiExpressiveConfig} pageConfig={pageConfig}/>;
+                return <TermsViewer {...commonProps} />;
             case 'help':
-                return <HelpViewer appConfig={geminiExpressiveConfig} pageConfig={pageConfig}/>;
+                return <HelpViewer {...commonProps} />;
             default:
                 return null;
         }
@@ -92,7 +116,17 @@ export default function GeminiExpressivePage({forcedTab}) {
             currentTab={currentTab}
             onNavigate={handleNavigate}
         >
-            {renderContent()}
+            <AnimatePresence mode="wait">
+                <PageTransition key={currentTab}>
+                    {currentTab === 'index' ? (
+                        renderContent()
+                    ) : (
+                        <div className="app-layout-container">
+                            {renderContent()}
+                        </div>
+                    )}
+                </PageTransition>
+            </AnimatePresence>
         </AppLayout>
     );
 }

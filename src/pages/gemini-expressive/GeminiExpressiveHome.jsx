@@ -6,7 +6,7 @@ import ExtensionDev from '../../components/sections/tools/ExtensionDev';
 import ExtensionFaq from '../../components/sections/tools/ExtensionFaq';
 import HomeNewFeatures from '../../components/sections/HomeNewFeatures';
 import AppFooter from '../../components/layout/AppFooter';
-import { geminiExpressiveConfig } from './GeminiExpressiveConfig';
+import {geminiExpressiveConfig} from './GeminiExpressiveConfig';
 
 /**
  * GeminiExpressiveHome component
@@ -19,7 +19,7 @@ import { geminiExpressiveConfig } from './GeminiExpressiveConfig';
  * @param {Object} props.strings
  * @returns {JSX.Element}
  */
-export default function GeminiExpressiveHome({ onNavigate, strings }) {
+export default function GeminiExpressiveHome({onNavigate, strings}) {
 
     const newFeaturesStrings = {
         title: strings?.cta_changelog || "Latest Updates",
@@ -41,6 +41,7 @@ export default function GeminiExpressiveHome({ onNavigate, strings }) {
 
                 <ExtensionHowTo
                     strings={strings}
+                    onNavigate={onNavigate}
                 />
 
                 <div className="new-features-wrapper">
