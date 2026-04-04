@@ -5,7 +5,6 @@ import ExtensionHowTo from '../../components/sections/tools/ExtensionHowTo';
 import ExtensionDev from '../../components/sections/tools/ExtensionDev';
 import ExtensionFaq from '../../components/sections/tools/ExtensionFaq';
 import HomeNewFeatures from '../../components/sections/HomeNewFeatures';
-import AppFooter from '../../components/layout/AppFooter';
 import {geminiExpressiveConfig} from './GeminiExpressiveConfig';
 
 /**
@@ -20,7 +19,6 @@ import {geminiExpressiveConfig} from './GeminiExpressiveConfig';
  * @returns {JSX.Element}
  */
 export default function GeminiExpressiveHome({onNavigate, strings}) {
-
     const newFeaturesStrings = {
         title: strings?.cta_changelog || "Latest Updates",
         view_history: strings?.cta_changelog || "Changelog",
@@ -60,12 +58,6 @@ export default function GeminiExpressiveHome({onNavigate, strings}) {
                     strings={strings}
                 />
             </div>
-
-            <AppFooter
-                strings={strings}
-                onNavigate={onNavigate}
-                activePage="index"
-            />
         </div>
     );
 }

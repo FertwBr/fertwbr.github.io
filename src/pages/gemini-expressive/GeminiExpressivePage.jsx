@@ -4,6 +4,8 @@ import {AnimatePresence} from 'framer-motion';
 import {geminiExpressiveConfig} from './GeminiExpressiveConfig';
 import GeminiExpressiveHome from './GeminiExpressiveHome';
 import AppLayout from '../../components/layout/AppLayout';
+import AppNavbar from '../../components/layout/AppNavbar';
+import AppFooter from '../../components/layout/AppFooter';
 import ToolsPageBackground from '../../components/layout/ToolsPageBackground';
 import OverviewViewer from '../../components/viewers/OverviewViewer';
 import ChangelogViewer from '../../components/viewers/ChangelogViewer';
@@ -109,12 +111,28 @@ export default function GeminiExpressivePage({forcedTab}) {
         }
     };
 
+    const navStrings = combinedStrings.nav || {
+        overview: combinedStrings.overview_page?.title || 'Overview',
+        changelog: combinedStrings.changelog?.title || 'Changelog',
+        roadmap: combinedStrings.roadmap_page?.title || 'Roadmap',
+        privacy: combinedStrings.privacy_page?.page_title || 'Privacy Policy',
+        terms: combinedStrings.terms_page?.page_title || 'Terms of Use',
+        help: combinedStrings.help_page?.page_title || 'Help & FAQ'
+    };
+
+    const footerStrings = {
+        ...combinedStrings,
+        footer: combinedStrings.footer,
+        nav: navStrings
+    };
+
     return (
         <AppLayout
+            hasRightSidebarPortal={currentTab !== 'index'}
             background={<ToolsPageBackground opacity={currentTab === 'index' ? 1 : 0.4}/>}
-            appConfig={geminiExpressiveConfig}
-            currentTab={currentTab}
-            onNavigate={handleNavigate}
+            navbar={<AppNavbar config={geminiExpressiveConfig} activePage={currentTab} onNavigate={handleNavigate}
+                               strings={navStrings}/>}
+            footer={<AppFooter strings={footerStrings} onNavigate={handleNavigate} activePage={currentTab}/>}
         >
             <AnimatePresence mode="wait">
                 <PageTransition key={currentTab}>
