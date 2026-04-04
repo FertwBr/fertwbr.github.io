@@ -5,12 +5,12 @@ import {useLocation} from 'react-router-dom';
  * Hook to manage document head metadata (Title, Favicon, Theme Color, Open Graph & JSON-LD).
  *
  * @param {Object} metadata
- * @param {string} metadata.title - Page title.
- * @param {string} metadata.description - Page description for SEO.
- * @param {string} metadata.themeColor - Hex code for browser toolbar color.
- * @param {string} metadata.favicon - URL to the favicon.
- * @param {string} [metadata.type] - 'website', 'profile', or 'product' (for Schema).
- * @param {Object} [metadata.product] - Optional product details for Schema (appName, author).
+ * @param {string} metadata.title
+ * @param {string} metadata.description
+ * @param {string} metadata.themeColor
+ * @param {string} metadata.favicon
+ * @param {string} [metadata.type='website']
+ * @param {Object} [metadata.product]
  */
 export function usePageMetadata({title, description, themeColor, favicon, type = 'website', product}) {
     const location = useLocation();
@@ -26,16 +26,15 @@ export function usePageMetadata({title, description, themeColor, favicon, type =
             } else {
                 const appName = parts[0];
                 const rest = parts.slice(1).filter(p => p.toLowerCase() !== 'home');
-
                 const versionPart = rest.find(p => p.toLowerCase().startsWith('version '));
 
                 if (versionPart) {
                     const version = versionPart.replace(/version\s*/i, '').trim();
-                    formattedTitle = `${version} – Changelog – ${appName}`;
+                    formattedTitle = `${version} - Changelog - ${appName}`;
                 } else if (rest.length === 0) {
                     formattedTitle = appName;
                 } else {
-                    formattedTitle = `${rest.join(' – ')} – ${appName}`;
+                    formattedTitle = `${rest.join(' - ')} - ${appName}`;
                 }
             }
         }
@@ -57,7 +56,7 @@ export function usePageMetadata({title, description, themeColor, favicon, type =
             existingIcons.forEach(el => el.remove());
 
             const link = document.createElement('link');
-            link.type = 'image/png';
+            link.type = favicon.endsWith('.svg') ? 'image/svg+xml' : 'image/png';
             link.rel = 'icon';
             link.href = favicon;
             document.head.appendChild(link);
@@ -103,13 +102,13 @@ export function usePageMetadata({title, description, themeColor, favicon, type =
 
         let schemaData = {};
 
-        if (type === 'product' || (formattedTitle && (formattedTitle.includes('Pixel') || formattedTitle.includes('Compass')))) {
+        if (type === 'product' || type === 'extension' || (formattedTitle && (formattedTitle.includes('Pixel') || formattedTitle.includes('Compass') || formattedTitle.includes('Gemini')))) {
             schemaData = {
                 "@context": "https://schema.org",
                 "@type": "SoftwareApplication",
                 "name": product?.appName || formattedTitle,
-                "operatingSystem": "Android",
-                "applicationCategory": "UtilitiesApplication",
+                "operatingSystem": type === 'extension' ? "Web Browser" : "Android",
+                "applicationCategory": type === 'extension' ? "BrowserExtension" : "UtilitiesApplication",
                 "offers": {
                     "@type": "Offer",
                     "price": "0",

@@ -10,7 +10,16 @@ import PrivacyViewer from '../../components/viewers/PrivacyViewer';
 import TermsViewer from '../../components/viewers/TermsViewer';
 import HelpViewer from '../../components/viewers/HelpViewer';
 import {useLanguage} from '../../context/LanguageContext';
+import {usePageMetadata} from '../../hooks/usePageMetadata';
 
+/**
+ * Main container page for Gemini Expressive.
+ * Handles tab navigation, metadata injection, and component rendering.
+ *
+ * @param {Object} props
+ * @param {string} [props.forcedTab]
+ * @returns {JSX.Element}
+ */
 export default function GeminiExpressivePage({forcedTab}) {
     const {pageId} = useParams();
     const navigate = useNavigate();
@@ -29,6 +38,22 @@ export default function GeminiExpressivePage({forcedTab}) {
         }
     }, [pageId, forcedTab]);
 
+    const pageConfig = geminiExpressiveConfig.pages[currentTab];
+    const pageTitle = pageConfig?.title && currentTab !== 'index'
+        ? `${geminiExpressiveConfig.appName} - ${pageConfig.title}`
+        : geminiExpressiveConfig.appName;
+
+    usePageMetadata({
+        title: pageTitle,
+        description: localizedStrings?.hero_subtitle || "Enhance your Gemini web UI with persistent timeline navigation, intelligent code collapsing, and dynamic Material You theming.",
+        themeColor: geminiExpressiveConfig.seedColor,
+        favicon: geminiExpressiveConfig.appIcon,
+        type: 'extension',
+        product: {
+            appName: geminiExpressiveConfig.appName
+        }
+    });
+
     const handleNavigate = (path) => {
         if (path === 'index') {
             navigate('/geminiexpressive');
@@ -38,25 +63,23 @@ export default function GeminiExpressivePage({forcedTab}) {
     };
 
     const renderContent = () => {
-        const pageConfig = geminiExpressiveConfig.pages[currentTab];
-
         if (currentTab === 'index') {
-            return <GeminiExpressiveHome onNavigate={handleNavigate} strings={localizedStrings} />;
+            return <GeminiExpressiveHome onNavigate={handleNavigate} strings={localizedStrings}/>;
         }
 
         if (!pageConfig) return null;
 
         switch (currentTab) {
             case 'changelog':
-                return <ChangelogViewer appConfig={geminiExpressiveConfig} pageConfig={pageConfig} />;
+                return <ChangelogViewer appConfig={geminiExpressiveConfig} pageConfig={pageConfig}/>;
             case 'overview':
-                return <OverviewViewer appConfig={geminiExpressiveConfig} pageConfig={pageConfig} />;
+                return <OverviewViewer appConfig={geminiExpressiveConfig} pageConfig={pageConfig}/>;
             case 'privacy':
-                return <PrivacyViewer appConfig={geminiExpressiveConfig} pageConfig={pageConfig} />;
+                return <PrivacyViewer appConfig={geminiExpressiveConfig} pageConfig={pageConfig}/>;
             case 'terms':
-                return <TermsViewer appConfig={geminiExpressiveConfig} pageConfig={pageConfig} />;
+                return <TermsViewer appConfig={geminiExpressiveConfig} pageConfig={pageConfig}/>;
             case 'help':
-                return <HelpViewer appConfig={geminiExpressiveConfig} pageConfig={pageConfig} />;
+                return <HelpViewer appConfig={geminiExpressiveConfig} pageConfig={pageConfig}/>;
             default:
                 return null;
         }
@@ -64,7 +87,7 @@ export default function GeminiExpressivePage({forcedTab}) {
 
     return (
         <AppLayout
-            background={<ToolsPageBackground opacity={currentTab === 'index' ? 1 : 0.4} />}
+            background={<ToolsPageBackground opacity={currentTab === 'index' ? 1 : 0.4}/>}
             appConfig={geminiExpressiveConfig}
             currentTab={currentTab}
             onNavigate={handleNavigate}
