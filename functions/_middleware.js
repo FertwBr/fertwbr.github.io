@@ -22,6 +22,12 @@ const routeMeta = {
         description: "Pixel Pulse is a precise decibel meter and sound analyzer for Android and Wear OS.",
         image: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Pulse/art/icon.svg",
         color: "#3BA174"
+    },
+    "tools.fertwbr.com/geminiexpressive": {
+        title: "Gemini Expressive | Browser Extension",
+        description: "Enhances the Gemini web UI with a timeline, collapsible code blocks, and dynamic Material You theming.",
+        image: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/GeminiExpressive/art/icon.svg",
+        color: "#0b57d0"
     }
 };
 
@@ -63,7 +69,7 @@ class HeadRewriter {
       <meta name="twitter:image" content="${this.meta.image}" />
       
       <meta name="theme-color" content="${this.meta.color}" />
-    `, { html: true });
+    `, {html: true});
     }
 }
 
@@ -110,6 +116,12 @@ export async function onRequest(context) {
             matchedMeta = routeMeta["apps.fertwbr.com/pixelpulse"];
         } else {
             matchedMeta = routeMeta["apps.fertwbr.com/"];
+        }
+    } else if (hostname.includes("tools.fertwbr.com")) {
+        if (pathname.startsWith("/geminiexpressive")) {
+            matchedMeta = routeMeta["tools.fertwbr.com/geminiexpressive"];
+        } else {
+            matchedMeta = routeMeta["fertwbr.com/"];
         }
     } else {
         matchedMeta = routeMeta["fertwbr.com/"];
