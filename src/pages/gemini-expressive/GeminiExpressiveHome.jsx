@@ -8,11 +8,6 @@ import HomeNewFeatures from '../../components/sections/HomeNewFeatures';
 import {geminiExpressiveConfig} from './GeminiExpressiveConfig';
 
 /**
- * GeminiExpressiveHome component
- *
- * Serves as the dynamic landing page for the extension.
- * Orchestrates the sections in the proper marketing order.
- *
  * @param {Object} props
  * @param {Function} props.onNavigate
  * @param {Object} props.strings
@@ -52,6 +47,7 @@ export default function GeminiExpressiveHome({onNavigate, strings}) {
 
                 <ExtensionFaq
                     strings={strings}
+                    onNavigate={onNavigate}
                 />
 
                 <ExtensionDev
