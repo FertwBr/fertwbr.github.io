@@ -15,12 +15,14 @@ import AppsHome from './pages/apps-home/AppsHome';
 import NotFound from './pages/NotFound';
 import PixelCompassPage from './pages/pixel-compass/PixelCompassPage';
 import PixelPulsePage from './pages/pixel-pulse/PixelPulsePage';
+import GeminiExpressivePage from './pages/gemini-expressive/GeminiExpressivePage';
 import RedirectToStore from './pages/RedirectToStore';
 import SiteProjectPage from './pages/SiteProjectPage';
 import FeedbackPage from "./pages/FeedbackPage";
 
 import {pixelPulseConfig} from './pages/pixel-pulse/PixelPulseConfig';
 import {pixelCompassConfig} from './pages/pixel-compass/PixelCompassConfig';
+import {geminiExpressiveConfig} from './pages/gemini-expressive/GeminiExpressiveConfig';
 import {siteProjectConfig} from './config';
 import {setupThemeListener} from './theme/themeUtils';
 
@@ -30,8 +32,12 @@ import {setupThemeListener} from './theme/themeUtils';
 const DomainAwareHome = () => {
     const hostname = window.location.hostname;
     const isAppsDomain = hostname.includes('apps.') || hostname.includes('localhost');
-    return isAppsDomain ? <AppsHome/> : <PortfolioHome/>;
+    const isToolsDomain = hostname.includes('tools.');
 
+    if (isToolsDomain) {
+        return <Navigate to="/geminiexpressive" replace/>;
+    }
+    return isAppsDomain ? <AppsHome/> : <PortfolioHome/>;
 };
 
 /**
@@ -55,6 +61,7 @@ function AnimatedRoutes() {
     const siteIds = Object.keys(siteProjectConfig.pages);
     const pulseIds = Object.keys(pixelPulseConfig.pages);
     const compassIds = Object.keys(pixelCompassConfig.pages);
+    const geminiExpressiveIds = Object.keys(geminiExpressiveConfig.pages);
 
     useEffect(() => {
         setupThemeListener();
@@ -115,6 +122,21 @@ function AnimatedRoutes() {
                     element={
                         <RouteNormalizer basePath="/pixelcompass" validIds={compassIds} fallback={<NotFound/>}>
                             <PixelCompassPage/>
+                        </RouteNormalizer>
+                    }
+                />
+
+                <Route path="/geminiexpressive" element={<GeminiExpressivePage/>}/>
+                <Route path="/GeminiExpressive" element={<Navigate to="/geminiexpressive" replace/>}/>
+
+                <Route path="/geminiexpressive/changelog/:versionId"
+                       element={<GeminiExpressivePage forcedTab="changelog"/>}/>
+                <Route
+                    path="/geminiexpressive/:pageId"
+                    element={
+                        <RouteNormalizer basePath="/geminiexpressive" validIds={geminiExpressiveIds}
+                                         fallback={<NotFound/>}>
+                            <GeminiExpressivePage/>
                         </RouteNormalizer>
                     }
                 />
