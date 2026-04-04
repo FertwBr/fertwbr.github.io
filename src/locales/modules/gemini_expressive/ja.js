@@ -1,4 +1,5 @@
 export default {
+    hero_title: "Geminiを体験する\nより良い方法",
     hero_badge: "バージョン 1.0 提供開始",
     hero_subtitle: "GeminiのUIを、永続的なタイムラインナビゲーション、インテリジェントなコード折りたたみ、動的なMaterial Youテーマで強化します。",
     download_primary: "追加",

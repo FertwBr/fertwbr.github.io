@@ -2,9 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {motion} from 'framer-motion';
 
 /**
- * Hero section specifically designed for browser extensions.
- * Implements a responsive split layout and grouped browser detection.
- *
  * @param {Object} props
  * @param {Object} props.config
  * @param {Object} props.strings
@@ -76,10 +73,11 @@ export default function ExtensionHero({config, strings}) {
 
     const primaryData = getBrowserData(browser);
 
-    // Filter out the primary browser from the secondary list
     const otherBrowsers = ['chrome', 'firefox', 'edge']
         .filter(b => b !== browser)
         .map(b => getBrowserData(b));
+
+    const rawTitle = strings?.hero_title || "A Better Way to\nExperience Gemini";
 
     return (
         <section className="extension-hero-section">
@@ -91,7 +89,12 @@ export default function ExtensionHero({config, strings}) {
             >
                 <div className="hero-text-col">
                     <motion.h1 variants={itemVariants} className="hero-title-split">
-                        A Better Way to <br/> Experience Gemini
+                        {rawTitle.split('\n').map((line, i, arr) => (
+                            <React.Fragment key={i}>
+                                {line}
+                                {i !== arr.length - 1 && <br/>}
+                            </React.Fragment>
+                        ))}
                     </motion.h1>
 
                     <motion.p variants={itemVariants} className="hero-subtitle-split">

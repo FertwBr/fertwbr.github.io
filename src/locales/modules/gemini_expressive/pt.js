@@ -1,6 +1,7 @@
 export default {
+    hero_title: "Uma Forma Melhor de\nExperimentar o Gemini",
     hero_badge: "Versão 1.0 Agora Disponível",
-    hero_subtitle: "Melhore a interface do Gemini com navegação por linha do tempo, ocultação inteligente de código e temas dinâmicos Material You.",
+    hero_subtitle: "Melhore a interface do Gemini com navegação por linha do tempo, ocultação inteligente de código e temas dinámicos Material You.",
     download_primary: "Adicionar ao",
     download_secondary: "Também disponível para",
     download_free: "É Grátis",

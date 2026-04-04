@@ -1,4 +1,5 @@
 export default {
+    hero_title: "Eine Bessere Art,\nGemini zu Erleben",
     hero_badge: "Version 1.0 Jetzt Verfügbar",
     hero_subtitle: "Erweitern Sie Ihre Gemini-Benutzeroberfläche mit einer dauerhaften Timeline, intelligenter Code-Reduzierung und dynamischen Material You-Themes.",
     download_primary: "Hinzufügen zu",
@@ -46,10 +47,10 @@ export default {
     cta_privacy: "Datenschutzrichtlinie",
     read_full_guide: "Vollständige Dokumentation",
 
-    changelog: { title: "Änderungsprotokoll" },
-    overview_page: { title: "Übersicht" },
-    privacy_page: { page_title: "Datenschutzrichtlinie" },
-    terms_page: { page_title: "Nutzungsbedingungen" },
-    help_page: { page_title: "Hilfe & FAQ", no_results: "Keine Ergebnisse gefunden." },
-    footer: { built: "Entwickelt von fertwbr", rights: "Alle Rechte vorbehalten." }
+    changelog: {title: "Änderungsprotokoll"},
+    overview_page: {title: "Übersicht"},
+    privacy_page: {page_title: "Datenschutzrichtlinie"},
+    terms_page: {page_title: "Nutzungsbedingungen"},
+    help_page: {page_title: "Hilfe & FAQ", no_results: "Keine Ergebnisse gefunden."},
+    footer: {built: "Entwickelt von fertwbr", rights: "Alle Rechte vorbehalten."}
 };

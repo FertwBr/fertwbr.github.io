@@ -1,4 +1,5 @@
 export default {
+    hero_title: "Gemini का अनुभव करने का\nएक बेहतर तरीका",
     hero_badge: "संस्करण 1.0 अब उपलब्ध",
     hero_subtitle: "परसिस्टेंट टाइमलाइन नेविगेशन, स्मार्ट कोड कोलैप्सिंग और डायनेमिक Material You थीमिंग के साथ अपने Gemini UI को बेहतर बनाएं।",
     download_primary: "इसमें जोड़ें",

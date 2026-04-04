@@ -1,4 +1,5 @@
 export default {
+    hero_title: "A Better Way to\nExperience Gemini",
     hero_badge: "Version 1.0 Now Available",
     hero_subtitle: "Enhance your Gemini web UI with persistent timeline navigation, intelligent code collapsing, and dynamic Material You theming.",
     download_primary: "Add to",
@@ -46,10 +47,10 @@ export default {
     cta_privacy: "Privacy Policy",
     read_full_guide: "Read Full Documentation",
 
-    changelog: { title: "Changelog" },
-    overview_page: { title: "Overview" },
-    privacy_page: { page_title: "Privacy Policy" },
-    terms_page: { page_title: "Terms of Use" },
-    help_page: { page_title: "Help & FAQ", no_results: "No results found." },
-    footer: { built: "Built by fertwbr", rights: "All rights reserved." }
+    changelog: {title: "Changelog"},
+    overview_page: {title: "Overview"},
+    privacy_page: {page_title: "Privacy Policy"},
+    terms_page: {page_title: "Terms of Use"},
+    help_page: {page_title: "Help & FAQ", no_results: "No results found."},
+    footer: {built: "Built by fertwbr", rights: "All rights reserved."}
 };
