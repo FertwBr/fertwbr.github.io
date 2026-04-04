@@ -1,4 +1,3 @@
-/* tools.css */
 .tools-bg-container {
     position: fixed;
     inset: 0;
@@ -72,16 +71,18 @@
 }
 
 .hero-title-split {
-    font-size: clamp(2rem, 8vw, 3rem);
+    font-size: clamp(1.8rem, 6vw, 2.5rem);
     font-weight: 800;
     margin: 0 0 16px 0;
     line-height: 1.1;
     color: var(--md-sys-color-on-surface);
     letter-spacing: -0.03em;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .hero-subtitle-split {
-    font-size: clamp(1rem, 4vw, 1.2rem);
+    font-size: clamp(1rem, 4vw, 1.15rem);
     color: var(--md-sys-color-on-surface-variant);
     margin: 0 0 32px 0;
     line-height: 1.5;
@@ -311,11 +312,11 @@
     }
 
     .hero-title-split {
-        font-size: clamp(3rem, 6vw, 3.5rem);
+        font-size: clamp(2.2rem, 5vw, 3.2rem);
     }
 
     .hero-subtitle-split {
-        font-size: 1.25rem;
+        font-size: 1.15rem;
         max-width: 600px;
     }
 
@@ -389,12 +390,12 @@
     }
 
     .hero-title-split {
-        font-size: clamp(3.5rem, 5vw, 4.5rem);
+        font-size: clamp(2.5rem, 4vw, 3.8rem);
     }
 
     .hero-subtitle-split {
-        font-size: 1.3rem;
-        max-width: 580px;
+        font-size: 1.25rem;
+        max-width: 650px;
     }
 
     .hero-browser-group {
