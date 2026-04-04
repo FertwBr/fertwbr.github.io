@@ -1,8 +1,9 @@
+/* viewers.css */
 .viewer-container {
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 1280px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 24px;
 }
@@ -363,7 +364,7 @@
 @media (min-width: 1001px) {
     .viewer-layout {
         flex-direction: row;
-        gap: 60px;
+        gap: 64px;
         align-items: flex-start;
     }
 

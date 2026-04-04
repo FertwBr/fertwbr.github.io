@@ -1,4 +1,4 @@
-/* src/styles/layout.css */
+/* layout.css */
 .page-wrapper {
     display: flex;
     flex-direction: column;
@@ -95,7 +95,7 @@
 
 .home-sections-container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 24px;
     box-sizing: border-box;
@@ -125,7 +125,7 @@
 }
 
 .footer-content {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -266,6 +266,7 @@
     flex: 1;
     width: 100%;
     margin-top: 0;
+    box-sizing: border-box;
 }
 
 @media (min-width: 1001px) {
@@ -280,17 +281,20 @@
         border-bottom: none;
         border-right: none;
         margin-top: 64px;
-        transition: margin-left 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        transition: margin-left 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
         overflow: hidden;
         flex-direction: column;
+        width: 100%;
     }
 
     .app-body-wrapper.with-rail {
         margin-left: 80px;
+        width: calc(100% - 80px);
     }
 
     .app-body-wrapper.with-drawer {
         margin-left: 280px;
+        width: calc(100% - 280px);
     }
 }
 
@@ -299,7 +303,7 @@
     flex-direction: column;
     flex: 1;
     width: 100%;
-    max-width: 1600px;
+    max-width: 1400px;
     margin: 0 auto;
     box-sizing: border-box;
     padding: 120px 24px 60px 24px;
@@ -315,12 +319,12 @@
     .app-layout-container {
         flex-direction: row;
         align-items: flex-start;
-        gap: 32px;
-        padding: 24px 24px 80px 24px;
+        gap: 48px;
+        padding: 40px 48px 80px 48px;
     }
 
     .home-sections-container {
-        padding: 0 40px;
+        padding: 0 48px;
     }
 }
 

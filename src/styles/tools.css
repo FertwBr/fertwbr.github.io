@@ -1,3 +1,4 @@
+/* tools.css */
 .tools-bg-container {
     position: fixed;
     inset: 0;
@@ -57,7 +58,7 @@
     flex-direction: column;
     align-items: center;
     gap: 32px;
-    max-width: 1200px;
+    max-width: 1400px;
     width: 100%;
     text-align: center;
 }
@@ -443,7 +444,7 @@
 
 .extension-features-section {
     padding: 40px 24px 80px;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -771,13 +772,13 @@
 
 .new-features-wrapper {
     padding: 0 24px;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
 }
 
 .howto-section {
     padding: 80px 24px;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
 }
 
@@ -833,7 +834,7 @@
 
 .dev-section {
     padding: 80px 24px 100px;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
 }
 
