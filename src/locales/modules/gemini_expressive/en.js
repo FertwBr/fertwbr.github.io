@@ -43,5 +43,13 @@ export default {
     faq_a3: "Currently, Mozilla tightly controls which extensions are allowed on Firefox for Android. We are waiting for broader Add-on support before making it available on mobile.",
     cta_overview: "Project Overview",
     cta_changelog: "Changelog",
-    cta_privacy: "Privacy Policy"
+    cta_privacy: "Privacy Policy",
+    read_full_guide: "Read Full Documentation",
+
+    changelog: { title: "Changelog" },
+    overview_page: { title: "Overview" },
+    privacy_page: { page_title: "Privacy Policy" },
+    terms_page: { page_title: "Terms of Use" },
+    help_page: { page_title: "Help & FAQ", no_results: "No results found." },
+    footer: { built: "Built by fertwbr", rights: "All rights reserved." }
 };

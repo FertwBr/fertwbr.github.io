@@ -11,7 +11,7 @@ export default {
     feature_timeline_desc: "Pare de rolar a tela infinitamente. A linha do tempo mapeia toda a sua conversa, permitindo que você pule instantaneamente entre seus prompts e as respostas do Gemini com um único clique. Ela rastreia sua posição ativa de forma inteligente.",
     feature_snippets_title: "Snippets e Atalhos de Prompt",
     feature_snippets_desc: "Economize tempo digitando instruções repetitivas. Crie atalhos personalizados para seus prompts mais usados. Basta digitar seu prefixo (como '/') seguido de sua palavra-chave e a extensão o expandirá instantaneamente.",
-    feature_code_title: "Ocultação e Navegação Inteligente de Código",
+    feature_code_title: "Ocultação e Navegação de Código",
     feature_code_desc: "Mantenha seu espaço de trabalho limpo. Adicione automaticamente botões de recolher/expandir a blocos de código enormes. Use as setas de navegação flutuantes para pular rapidamente entre diferentes segmentos.",
     feature_headers_title: "Cabeçalhos de Código Aprimorados",
     feature_headers_desc: "Reconheça instantaneamente o que você está vendo. A extensão detecta a linguagem de programação, extrai nomes de arquivos diretamente do contexto do código e exibe ícones nativos no cabeçalho.",
@@ -43,5 +43,13 @@ export default {
     faq_a3: "Atualmente, a Mozilla controla rigidamente quais extensões são permitidas no Firefox para Android. Estamos aguardando um suporte mais amplo antes de disponibilizar para celular.",
     cta_overview: "Visão Geral",
     cta_changelog: "Atualizações",
-    cta_privacy: "Política de Privacidade"
+    cta_privacy: "Política de Privacidade",
+    read_full_guide: "Ler a Documentação",
+
+    changelog: {title: "Registro de Alterações"},
+    overview_page: {title: "Visão Geral"},
+    privacy_page: {page_title: "Política de Privacidade"},
+    terms_page: {page_title: "Termos de Uso"},
+    help_page: {page_title: "Ajuda e FAQ", no_results: "Nenhum resultado encontrado."},
+    footer: {built: "Criado por fertwbr", rights: "Todos os direitos reservados."}
 };
