@@ -108,6 +108,9 @@ export default function Hero({t}) {
                     <img
                         src={SiteConfig.assets.avatar}
                         alt="Fernando Vaz"
+                        width="160"
+                        height="160"
+                        fetchPriority="high"
                         style={{
                             width: '100%',
                             height: '100%',
