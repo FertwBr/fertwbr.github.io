@@ -38,8 +38,14 @@ export default function NavbarTablet({config, activePage, onNavigate, strings}) 
     const is404 = activePage === '404';
 
     const visibleNavItems = NAV_ITEMS.filter(item => {
+        if (item.id === 'feedback') return true;
+
+        if (config?.pages && !config.pages[item.id] && item.id !== 'index') {
+            return false;
+        }
+
         if (item.id === 'overview' && !config.enableDocs) return false;
-        return strings && strings[item.id];
+        return strings && (strings[item.id] || item.id === 'feedback');
     });
 
     useEffect(() => {
@@ -214,11 +220,19 @@ export default function NavbarTablet({config, activePage, onNavigate, strings}) 
                     }}>
                         {visibleNavItems.map((item) => {
                             const isActive = activePage === item.id;
+                            const label = strings?.[item.id] || (item.id === 'feedback' ? 'Feedback' : item.id);
+
                             return (
                                 <motion.button
                                     layout
                                     key={item.id}
-                                    onClick={() => onNavigate(item.id)}
+                                    onClick={() => {
+                                        if (item.id === 'feedback') {
+                                            navigate('/feedback');
+                                        } else {
+                                            onNavigate(item.id);
+                                        }
+                                    }}
                                     whileHover={{backgroundColor: isActive ? 'transparent' : 'rgba(var(--md-sys-color-on-surface-rgb), 0.08)'}}
                                     whileTap={{scale: 0.95}}
                                     style={{
@@ -257,7 +271,7 @@ export default function NavbarTablet({config, activePage, onNavigate, strings}) 
                                         {item.icon}
                                     </span>
                                     <span style={{position: 'relative', zIndex: 1}}>
-                                        {strings?.[item.id]}
+                                        {label}
                                     </span>
                                 </motion.button>
                             );

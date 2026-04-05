@@ -3,7 +3,9 @@ export const NAV_ITEMS = [
     {id: 'overview', icon: 'description'},
     {id: 'plus', icon: 'diamond'},
     {id: 'changelog', icon: 'history'},
-    {id: 'roadmap', icon: 'map'}
+    {id: 'roadmap', icon: 'map'},
+    {id: 'help', icon: 'help_center'},
+    {id: 'feedback', icon: 'rate_review'}
 ];
 
 export const SPRING_TRANSITION = {

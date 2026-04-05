@@ -1,6 +1,6 @@
 // src/components/layout/SidebarDesktop.jsx
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {motion, AnimatePresence} from 'framer-motion';
 import {NAV_ITEMS} from './navShared';
 import {SiteConfig} from '../../utils/siteConstants';
@@ -19,9 +19,18 @@ import {SiteConfig} from '../../utils/siteConstants';
  * @returns {JSX.Element}
  */
 export default function SidebarDesktop({isExpanded, isVisible, config, activePage, onNavigate, strings}) {
+    const navigate = useNavigate();
+
     const visibleItems = NAV_ITEMS.filter(item => {
+        if (item.id === 'feedback') return true;
+
+        if (config?.pages && !config.pages[item.id] && item.id !== 'index') {
+            return false;
+        }
+
         if (item.id === 'overview' && !config?.enableDocs) return false;
-        return strings && strings[item.id];
+
+        return strings && (strings[item.id] || item.id === 'feedback');
     });
 
     return (
@@ -37,15 +46,23 @@ export default function SidebarDesktop({isExpanded, isVisible, config, activePag
             <div className="sidebar-scroll-content">
                 {visibleItems.map(item => {
                     const isActive = activePage === item.id;
+                    const label = strings?.[item.id] || (item.id === 'feedback' ? 'Feedback' : item.id);
+
                     return (
                         <button
                             key={item.id}
-                            onClick={() => onNavigate && onNavigate(item.id)}
+                            onClick={() => {
+                                if (item.id === 'feedback') {
+                                    navigate('/feedback');
+                                } else if (onNavigate) {
+                                    onNavigate(item.id);
+                                }
+                            }}
                             className={`sidebar-menu-item ${isActive ? 'active' : ''}`}
-                            title={!isExpanded ? strings?.[item.id] : undefined}
+                            title={!isExpanded ? label : undefined}
                         >
                             <span className="material-symbols-outlined">{item.icon}</span>
-                            {isExpanded && <span className="sidebar-menu-text">{strings?.[item.id]}</span>}
+                            {isExpanded && <span className="sidebar-menu-text">{label}</span>}
                         </button>
                     );
                 })}
