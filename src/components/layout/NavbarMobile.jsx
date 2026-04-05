@@ -42,7 +42,7 @@ export default function NavbarMobile({config, activePage, onNavigate, strings}) 
     const location = useLocation();
 
     const is404 = activePage === '404';
-    const isFeedback = activePage === 'feedback'; // Regra de verificação
+    const isFeedback = activePage === 'feedback';
 
     const visibleNavItems = NAV_ITEMS.filter(item => {
         if (item.id === 'feedback') return true;
@@ -52,6 +52,14 @@ export default function NavbarMobile({config, activePage, onNavigate, strings}) 
         if (item.id === 'overview' && !config.enableDocs) return false;
         return true;
     });
+
+    let primaryItems = visibleNavItems;
+    let secondaryItems = [];
+
+    if (visibleNavItems.length > 4) {
+        primaryItems = visibleNavItems.slice(0, 3);
+        secondaryItems = visibleNavItems.slice(3);
+    }
 
     useEffect(() => {
         if (isMobileMenuOpen) document.body.style.overflow = 'hidden';
@@ -344,7 +352,7 @@ export default function NavbarMobile({config, activePage, onNavigate, strings}) 
                                             gap: '6px'
                                         }}
                                     >
-                                        {visibleNavItems.map(item => {
+                                        {primaryItems.map(item => {
                                             const label = strings?.[item.id] || (item.id === 'index' ? 'Home' : item.id.charAt(0).toUpperCase() + item.id.slice(1));
                                             return (
                                                 <motion.button
@@ -361,6 +369,73 @@ export default function NavbarMobile({config, activePage, onNavigate, strings}) 
                                                 </motion.button>
                                             );
                                         })}
+
+                                        {secondaryItems.length > 0 && (
+                                            <motion.div
+                                                variants={MENU_ITEM_VARIANTS}
+                                                style={{
+                                                    display: 'flex',
+                                                    gap: '6px',
+                                                    marginTop: '4px',
+                                                    width: '100%'
+                                                }}
+                                            >
+                                                {secondaryItems.map(item => {
+                                                    const label = strings?.[item.id] || (item.id === 'index' ? 'Home' : item.id.charAt(0).toUpperCase() + item.id.slice(1));
+                                                    const isCompact = secondaryItems.length >= 3;
+
+                                                    return (
+                                                        <motion.button
+                                                            key={item.id}
+                                                            onClick={() => handleNavClick(item.id)}
+                                                            className={`mobile-nav-item ${activePage === item.id ? 'active' : ''}`}
+                                                            whileTap={{scale: 0.95}}
+                                                            title={label}
+                                                            style={{
+                                                                flex: 1,
+                                                                justifyContent: 'center',
+                                                                padding: isCompact ? '12px 4px' : '12px 16px',
+                                                                flexDirection: isCompact ? 'column' : 'row',
+                                                                gap: isCompact ? '4px' : '8px',
+                                                                borderRadius: '16px',
+                                                                minWidth: 0
+                                                            }}
+                                                        >
+                                                            <span className="mobile-nav-item-icon" style={{margin: 0}}>
+                                                                <span className="material-symbols-outlined"
+                                                                      style={{fontSize: isCompact ? '24px' : '20px'}}>
+                                                                    {item.icon}
+                                                                </span>
+                                                            </span>
+                                                            {!isCompact ? (
+                                                                <span style={{
+                                                                    fontSize: '0.9rem',
+                                                                    fontWeight: 500,
+                                                                    whiteSpace: 'nowrap',
+                                                                    overflow: 'hidden',
+                                                                    textOverflow: 'ellipsis'
+                                                                }}>
+                                                                    {label}
+                                                                </span>
+                                                            ) : (
+                                                                <span style={{
+                                                                    fontSize: '0.65rem',
+                                                                    fontWeight: 600,
+                                                                    opacity: 0.8,
+                                                                    whiteSpace: 'nowrap',
+                                                                    overflow: 'hidden',
+                                                                    textOverflow: 'ellipsis',
+                                                                    width: '100%',
+                                                                    textAlign: 'center'
+                                                                }}>
+                                                                    {label}
+                                                                </span>
+                                                            )}
+                                                        </motion.button>
+                                                    );
+                                                })}
+                                            </motion.div>
+                                        )}
                                     </motion.div>
                                 )}
                             </AnimatePresence>
