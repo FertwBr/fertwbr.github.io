@@ -39,13 +39,9 @@ export default function NavbarTablet({config, activePage, onNavigate, strings}) 
 
     const visibleNavItems = NAV_ITEMS.filter(item => {
         if (item.id === 'feedback') return true;
-
-        if (config?.pages && !config.pages[item.id] && item.id !== 'index') {
-            return false;
-        }
-
-        if (item.id === 'overview' && !config.enableDocs) return false;
-        return strings && (strings[item.id] || item.id === 'feedback');
+        if (config?.pages && !config.pages[item.id] && item.id !== 'index') return false;
+        if (item.id === 'overview' && !config?.enableDocs) return false;
+        return true;
     });
 
     useEffect(() => {
@@ -220,7 +216,7 @@ export default function NavbarTablet({config, activePage, onNavigate, strings}) 
                     }}>
                         {visibleNavItems.map((item) => {
                             const isActive = activePage === item.id;
-                            const label = strings?.[item.id] || (item.id === 'feedback' ? 'Feedback' : item.id);
+                            const label = strings?.[item.id] || (item.id === 'index' ? 'Home' : item.id.charAt(0).toUpperCase() + item.id.slice(1));
 
                             return (
                                 <motion.button

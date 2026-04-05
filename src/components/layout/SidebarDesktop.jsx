@@ -23,14 +23,9 @@ export default function SidebarDesktop({isExpanded, isVisible, config, activePag
 
     const visibleItems = NAV_ITEMS.filter(item => {
         if (item.id === 'feedback') return true;
-
-        if (config?.pages && !config.pages[item.id] && item.id !== 'index') {
-            return false;
-        }
-
+        if (config?.pages && !config.pages[item.id] && item.id !== 'index') return false;
         if (item.id === 'overview' && !config?.enableDocs) return false;
-
-        return strings && (strings[item.id] || item.id === 'feedback');
+        return true;
     });
 
     return (
@@ -46,7 +41,7 @@ export default function SidebarDesktop({isExpanded, isVisible, config, activePag
             <div className="sidebar-scroll-content">
                 {visibleItems.map(item => {
                     const isActive = activePage === item.id;
-                    const label = strings?.[item.id] || (item.id === 'feedback' ? 'Feedback' : item.id);
+                    const label = strings?.[item.id] || (item.id === 'index' ? 'Home' : item.id.charAt(0).toUpperCase() + item.id.slice(1));
 
                     return (
                         <button

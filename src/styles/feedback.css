@@ -8,9 +8,7 @@
     flex: 1;
 }
 
-.mobile-toggle-wrapper {
-    display: none !important;
-}
+/* Ocultação do menu removida daqui para não afetar as outras páginas */
 
 .form-wizard-card {
     width: 100%;

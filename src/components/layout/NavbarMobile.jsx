@@ -40,18 +40,17 @@ export default function NavbarMobile({config, activePage, onNavigate, strings}) 
 
     const navigate = useNavigate();
     const location = useLocation();
+
     const is404 = activePage === '404';
+    const isFeedback = activePage === 'feedback'; // Regra de verificação
 
     const visibleNavItems = NAV_ITEMS.filter(item => {
         if (item.id === 'feedback') return true;
-
         if (config?.pages && !config.pages[item.id] && item.id !== 'index') {
             return false;
         }
-
         if (item.id === 'overview' && !config.enableDocs) return false;
-
-        return strings && (strings[item.id] || item.id === 'feedback');
+        return true;
     });
 
     useEffect(() => {
@@ -261,7 +260,7 @@ export default function NavbarMobile({config, activePage, onNavigate, strings}) 
                         </motion.div>
                     </motion.div>
 
-                    {!is404 && (
+                    {!is404 && !isFeedback && (
                         <motion.div
                             layout
                             className="mobile-toggle-wrapper"
@@ -345,20 +344,23 @@ export default function NavbarMobile({config, activePage, onNavigate, strings}) 
                                             gap: '6px'
                                         }}
                                     >
-                                        {visibleNavItems.map(item => (
-                                            <motion.button
-                                                key={item.id}
-                                                variants={MENU_ITEM_VARIANTS}
-                                                onClick={() => handleNavClick(item.id)}
-                                                className={`mobile-nav-item ${activePage === item.id ? 'active' : ''}`}
-                                                whileTap={{scale: 0.97}}
-                                            >
-                                                <span className="mobile-nav-item-icon">
-                                                    <span className="material-symbols-outlined">{item.icon}</span>
-                                                </span>
-                                                <span>{strings?.[item.id] || (item.id === 'feedback' ? 'Feedback' : item.id)}</span>
-                                            </motion.button>
-                                        ))}
+                                        {visibleNavItems.map(item => {
+                                            const label = strings?.[item.id] || (item.id === 'index' ? 'Home' : item.id.charAt(0).toUpperCase() + item.id.slice(1));
+                                            return (
+                                                <motion.button
+                                                    key={item.id}
+                                                    variants={MENU_ITEM_VARIANTS}
+                                                    onClick={() => handleNavClick(item.id)}
+                                                    className={`mobile-nav-item ${activePage === item.id ? 'active' : ''}`}
+                                                    whileTap={{scale: 0.97}}
+                                                >
+                                                    <span className="mobile-nav-item-icon">
+                                                        <span className="material-symbols-outlined">{item.icon}</span>
+                                                    </span>
+                                                    <span>{label}</span>
+                                                </motion.button>
+                                            );
+                                        })}
                                     </motion.div>
                                 )}
                             </AnimatePresence>
