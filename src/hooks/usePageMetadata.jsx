@@ -89,7 +89,7 @@ export function usePageMetadata({title, description, themeColor, favicon, type =
 
         updateMeta('og:title', formattedTitle);
         updateMeta('og:description', description || "Professional Android Software Engineering Portfolio.");
-        updateMeta('og:url', window.location.href);
+        updateMeta('og:url', cleanUrl);
         updateMeta('og:type', type);
 
         let script = document.querySelector("#structured-data");
@@ -100,15 +100,22 @@ export function usePageMetadata({title, description, themeColor, favicon, type =
             document.head.appendChild(script);
         }
 
+        const currentPath = location.pathname.toLowerCase();
+        const isSoftware = type === 'product' || type === 'extension' ||
+            currentPath.includes('pixel') || currentPath.includes('gemini');
+
+        const isExtension = type === 'extension' || currentPath.includes('gemini');
+
         let schemaData = {};
 
-        if (type === 'product' || type === 'extension' || (formattedTitle && (formattedTitle.includes('Pixel') || formattedTitle.includes('Compass') || formattedTitle.includes('Gemini')))) {
+        if (isSoftware) {
             schemaData = {
                 "@context": "https://schema.org",
                 "@type": "SoftwareApplication",
-                "name": product?.appName || formattedTitle,
-                "operatingSystem": type === 'extension' ? "Web Browser" : "Android",
-                "applicationCategory": type === 'extension' ? "BrowserExtension" : "UtilitiesApplication",
+                "name": product?.appName || formattedTitle || "Fernando Vaz Software",
+                "operatingSystem": isExtension ? "Web Browser" : "Android",
+                "applicationCategory": isExtension ? "BrowserExtension" : "UtilitiesApplication",
+                "url": cleanUrl,
                 "offers": {
                     "@type": "Offer",
                     "price": "0",
