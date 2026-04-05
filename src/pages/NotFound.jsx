@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useLocation, Link, useNavigate} from 'react-router-dom';
+import {useLocation, Link} from 'react-router-dom';
 import {motion} from 'framer-motion';
 import {usePageMetadata} from '../hooks/usePageMetadata';
 import {getSurfaceColor} from '../theme/themeUtils';
@@ -7,7 +7,6 @@ import {useLanguage} from '../context/LanguageContext';
 import {config} from '../config';
 import {SiteConfig} from '../utils/siteConstants';
 
-import AppNavbar from '../components/layout/AppNavbar';
 import Footer from '../components/layout/Footer';
 import PageBackground from '../components/layout/PageBackground';
 import PageTransition from '../components/layout/PageTransition';
@@ -111,7 +110,6 @@ const SITE_MAP = [
  */
 export default function NotFound() {
     const location = useLocation();
-    const navigate = useNavigate();
     const {content} = useLanguage();
     const [suggestion, setSuggestion] = useState(null);
 
@@ -136,17 +134,9 @@ export default function NotFound() {
         if (found) setSuggestion(found);
     }, [location]);
 
-    const errorNavbarConfig = {
-        appName: t.page_title || "Error",
-        materialIcon: "broken_image",
-        defaultPage: 'index'
-    };
-
     return (
         <AppLayout
             background={<PageBackground/>}
-            navbar={<AppNavbar config={errorNavbarConfig} activePage="404" onNavigate={() => navigate('/')}
-                               strings={{}}/>}
             footer={<Footer t={tFooter}/>}
         >
             <PageTransition className="flex-grow-1" style={{flex: 1, display: 'flex', flexDirection: 'column'}}>
