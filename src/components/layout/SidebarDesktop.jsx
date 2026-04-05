@@ -53,7 +53,8 @@ export default function SidebarDesktop({isExpanded, isVisible, config, activePag
                             key={item.id}
                             onClick={() => {
                                 if (item.id === 'feedback') {
-                                    navigate('/feedback');
+                                    const sourceParam = config?.scheme ? `?source=${config.scheme}` : '';
+                                    navigate(`/feedback${sourceParam}`);
                                 } else if (onNavigate) {
                                     onNavigate(item.id);
                                 }

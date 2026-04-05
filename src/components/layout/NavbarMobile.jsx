@@ -24,9 +24,6 @@ const SMOOTH_SPRING = {
 };
 
 /**
- * Mobile navigation component.
- * Features a dynamic, glassmorphism app bar with synchronized layout animations.
- *
  * @param {Object} props
  * @param {Object} props.config
  * @param {string} props.activePage
@@ -46,8 +43,15 @@ export default function NavbarMobile({config, activePage, onNavigate, strings}) 
     const is404 = activePage === '404';
 
     const visibleNavItems = NAV_ITEMS.filter(item => {
+        if (item.id === 'feedback') return true;
+
+        if (config?.pages && !config.pages[item.id] && item.id !== 'index') {
+            return false;
+        }
+
         if (item.id === 'overview' && !config.enableDocs) return false;
-        return strings && strings[item.id];
+
+        return strings && (strings[item.id] || item.id === 'feedback');
     });
 
     useEffect(() => {
@@ -105,8 +109,16 @@ export default function NavbarMobile({config, activePage, onNavigate, strings}) 
         return () => window.removeEventListener('scroll', handleScroll);
     }, [isMobileMenuOpen]);
 
+    /**
+     * @param {string} id
+     */
     const handleNavClick = (id) => {
-        onNavigate(id);
+        if (id === 'feedback') {
+            const sourceParam = config?.scheme ? `?source=${config.scheme}` : '';
+            navigate(`/feedback${sourceParam}`);
+        } else {
+            onNavigate(id);
+        }
         setMobileMenuOpen(false);
     };
 
@@ -344,7 +356,7 @@ export default function NavbarMobile({config, activePage, onNavigate, strings}) 
                                                 <span className="mobile-nav-item-icon">
                                                     <span className="material-symbols-outlined">{item.icon}</span>
                                                 </span>
-                                                <span>{strings?.[item.id]}</span>
+                                                <span>{strings?.[item.id] || (item.id === 'feedback' ? 'Feedback' : item.id)}</span>
                                             </motion.button>
                                         ))}
                                     </motion.div>

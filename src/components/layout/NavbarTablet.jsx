@@ -228,7 +228,8 @@ export default function NavbarTablet({config, activePage, onNavigate, strings}) 
                                     key={item.id}
                                     onClick={() => {
                                         if (item.id === 'feedback') {
-                                            navigate('/feedback');
+                                            const sourceParam = config?.scheme ? `?source=${config.scheme}` : '';
+                                            navigate(`/feedback${sourceParam}`);
                                         } else {
                                             onNavigate(item.id);
                                         }
