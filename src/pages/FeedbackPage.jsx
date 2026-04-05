@@ -13,6 +13,7 @@ import CustomSelect from "../components/ui/CustomSelect.jsx";
 import {siteProjectConfig} from "../config.js";
 import {pixelCompassConfig} from "./pixel-compass/PixelCompassConfig.js";
 import {pixelPulseConfig} from "./pixel-pulse/PixelPulseConfig.js";
+import {geminiExpressiveConfig} from "./gemini-expressive/GeminiExpressiveConfig.js";
 import AppLayout from '../components/layout/AppLayout';
 
 /**
@@ -38,13 +39,15 @@ export default function FeedbackPage() {
     const projectOptions = [
         {value: "portfolio", label: t.projects?.portfolio || "Portfolio Site"},
         {value: "pixelpulse", label: t.projects?.pixelpulse || "Pixel Pulse"},
-        {value: "pixelcompass", label: t.projects?.pixelcompass || "Pixel Compass"}
+        {value: "pixelcompass", label: t.projects?.pixelcompass || "Pixel Compass"},
+        {value: "geminiexpressive", label: t.projects?.geminiexpressive || "Gemini Expressive"}
     ];
 
     const platformOptions = [
         {value: "android", label: t.platforms?.android || "Android (Phone)"},
         {value: "wearos", label: t.platforms?.wearos || "Wear OS"},
-        {value: "web", label: t.platforms?.web || "Web / Site"}
+        {value: "web", label: t.platforms?.web || "Web / Site"},
+        {value: "extension", label: t.platforms?.extension || "Browser Extension"}
     ];
 
     const [step, setStep] = useState(1);
@@ -75,6 +78,13 @@ export default function FeedbackPage() {
                     backPath: '/pixelcompass',
                     isPortfolio: false
                 };
+            case 'geminiexpressive':
+                return {
+                    config: geminiExpressiveConfig,
+                    strings: content.gemini_expressive || {},
+                    backPath: '/geminiexpressive',
+                    isPortfolio: false
+                };
             case 'portfolio':
             default:
                 return {
@@ -103,10 +113,18 @@ export default function FeedbackPage() {
 
     useEffect(() => {
         const savedDraft = localStorage.getItem('feedback_draft');
+        const sourceFromUrl = searchParams.get('source');
+
+        if (sourceFromUrl) {
+            setProject(sourceFromUrl);
+        }
+
         if (savedDraft) {
             try {
                 const draft = JSON.parse(savedDraft);
-                if (!searchParams.get('source')) setProject(draft.project || 'portfolio');
+                if (!sourceFromUrl && draft.project) {
+                    setProject(draft.project);
+                }
                 setType(draft.type || 'general');
                 setMessage(draft.message || '');
                 setPlatform(draft.platform || 'web');
@@ -270,6 +288,7 @@ export default function FeedbackPage() {
                     onNavigate={handleNavigation}
                     activePage="feedback"
                     isPortfolio={projectContext.isPortfolio}
+                    config={projectContext.config}
                 />
             }
         >
