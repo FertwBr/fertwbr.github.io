@@ -14,32 +14,101 @@ import PageTransition from '../components/layout/PageTransition';
 import AppLayout from '../components/layout/AppLayout';
 
 const SITE_MAP = [
-    {keywords: ['pixelpulse/changelog', 'pulse/changelog'], path: '/pixelpulse/changelog', name: 'Pixel Pulse Updates'},
-    {keywords: ['pixelpulse/privacy', 'pulse/privacy'], path: '/pixelpulse/privacy', name: 'Pixel Pulse Privacy'},
-    {keywords: ['pixelpulse/help', 'pulse/help'], path: '/pixelpulse/help', name: 'Pulse Help Center'},
-    {keywords: ['pulse', 'sound', 'meter', 'decibel'], path: '/pixelpulse', name: 'Pixel Pulse'},
-
+    {
+        keywords: ['geminiexpressive/changelog', 'gemini/changelog'],
+        path: '/geminiexpressive/changelog',
+        name: 'Gemini Expressive Updates'
+    },
+    {
+        keywords: ['geminiexpressive/privacy', 'gemini/privacy'],
+        path: '/geminiexpressive/privacy',
+        name: 'Gemini Expressive Privacy'
+    },
+    {
+        keywords: ['geminiexpressive/terms', 'gemini/terms'],
+        path: '/geminiexpressive/terms',
+        name: 'Gemini Expressive Terms'
+    },
+    {
+        keywords: ['geminiexpressive/help', 'gemini/help'],
+        path: '/geminiexpressive/help',
+        name: 'Gemini Expressive Help'
+    },
+    {
+        keywords: ['geminiexpressive', 'gemini', 'expressive', 'extension'],
+        path: '/geminiexpressive',
+        name: 'Gemini Expressive'
+    },
+    {
+        keywords: ['pixelpulse/changelog', 'pulse/changelog'],
+        path: '/pixelpulse/changelog',
+        name: 'Pixel Pulse Updates'
+    },
+    {
+        keywords: ['pixelpulse/privacy', 'pulse/privacy'],
+        path: '/pixelpulse/privacy',
+        name: 'Pixel Pulse Privacy'
+    },
+    {
+        keywords: ['pixelpulse/help', 'pulse/help'],
+        path: '/pixelpulse/help',
+        name: 'Pulse Help Center'
+    },
+    {
+        keywords: ['pulse', 'sound', 'meter', 'decibel'],
+        path: '/pixelpulse',
+        name: 'Pixel Pulse'
+    },
     {
         keywords: ['pixelcompass/changelog', 'compass/changelog'],
         path: '/pixelcompass/changelog',
         name: 'Compass Updates'
     },
-    {keywords: ['compass', 'gps', 'north', 'sensor'], path: '/pixelcompass', name: 'Pixel Compass'},
-
-    {keywords: ['site/changelog', 'portfolio/update', 'changelog'], path: '/changelog', name: 'Portfolio Changelog'},
+    {
+        keywords: ['compass', 'gps', 'north', 'sensor'],
+        path: '/pixelcompass',
+        name: 'Pixel Compass'
+    },
+    {
+        keywords: ['site/changelog', 'portfolio/update', 'changelog'],
+        path: '/changelog',
+        name: 'Portfolio Changelog'
+    },
     {
         keywords: ['site/overview', 'site/docs', 'architecture', 'overview'],
         path: '/overview',
         name: 'Technical Overview'
     },
-
-    {keywords: ['privacy', 'policy', 'legal'], path: '/pixelpulse/privacy', name: 'Privacy Policy'},
-    {keywords: ['help', 'faq', 'support'], path: '/pixelpulse/help', name: 'Help Center'},
-    {keywords: ['change', 'log', 'update', 'version'], path: '/changelog', name: 'Version History'},
-    {keywords: ['plus', 'pro', 'buy'], path: '/pixelpulse/plus', name: 'Pixel Pulse+'},
-    {keywords: ['about', 'fernando', 'contact', 'mail'], path: '/', name: 'Portfolio Home'}
+    {
+        keywords: ['privacy', 'policy', 'legal'],
+        path: '/pixelpulse/privacy',
+        name: 'Privacy Policy'
+    },
+    {
+        keywords: ['help', 'faq', 'support'],
+        path: '/pixelpulse/help',
+        name: 'Help Center'
+    },
+    {
+        keywords: ['change', 'log', 'update', 'version'],
+        path: '/changelog',
+        name: 'Version History'
+    },
+    {
+        keywords: ['plus', 'pro', 'buy'],
+        path: '/pixelpulse/plus',
+        name: 'Pixel Pulse+'
+    },
+    {
+        keywords: ['about', 'fernando', 'contact', 'mail'],
+        path: '/',
+        name: 'Portfolio Home'
+    }
 ];
 
+/**
+ * @returns {JSX.Element}
+ */
 export default function NotFound() {
     const location = useLocation();
     const navigate = useNavigate();
@@ -208,6 +277,11 @@ export default function NotFound() {
                                   style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
                                 <span className="material-symbols-outlined">graphic_eq</span>
                                 Pixel Pulse
+                            </Link>
+                            <Link to="/geminiexpressive" className="btn-outline"
+                                  style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
+                                <span className="material-symbols-outlined">extension</span>
+                                Gemini Expressive
                             </Link>
                         </div>
                     </div>
