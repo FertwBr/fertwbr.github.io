@@ -21,7 +21,7 @@ export const SiteConfig = {
     },
     /** Common assets URLs */
     assets: {
-        avatar: 'https://github.com/fertwbr.png'
+        avatar: '/content/assets/avatar.png'
     },
     /** Important static internal routes */
     routes: {
