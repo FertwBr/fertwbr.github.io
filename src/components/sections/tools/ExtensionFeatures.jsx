@@ -141,22 +141,14 @@ export default function ExtensionFeatures({strings}) {
                         </p>
                     </div>
 
-                    <div className="feature-media-placeholder" style={{borderStyle: 'solid', padding: 0}}>
+                    <div className="feature-media-placeholder">
                         {feature.mediaType === 'video' ? (
                             <FeatureVideo src={feature.mediaSrc} title={feature.title}/>
                         ) : (
                             <img
                                 src={feature.mediaSrc}
                                 alt={feature.title}
-                                style={{
-                                    width: '100%',
-                                    height: 'calc(100% - 32px)',
-                                    marginTop: '32px',
-                                    objectFit: 'cover',
-                                    position: 'relative',
-                                    zIndex: 1,
-                                    display: 'block'
-                                }}
+                                className="feature-media-image"
                             />
                         )}
                     </div>
