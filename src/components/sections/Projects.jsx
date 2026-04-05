@@ -3,35 +3,23 @@ import {useRef} from "react";
 import {Link, useNavigate} from "react-router-dom";
 
 /**
- * Projects Section Component.
- * Displays a list of projects with 3D tilt effects and glassmorphism.
- *
- * @param {Object} props - Component props.
- * @param {Object} props.t - Translations for the projects section.
+ * @param {Object} props
+ * @param {Object} props.t
  * @returns {JSX.Element}
  */
 export default function Projects({t}) {
     return (
-        <section id="projects" style={{
-            padding: '0 20px 100px 24px',
-            maxWidth: '1200px',
-            margin: '0 auto',
-            boxSizing: 'border-box'
-        }}>
-            <div style={{textAlign: 'center', marginBottom: '60px'}}>
-                <h2 style={{
-                    fontSize: 'clamp(2rem, 5vw, 3rem)',
-                    marginBottom: '16px',
-                    color: 'var(--md-sys-color-on-surface)'
-                }}>
+        <section id="projects" className="projects-container">
+            <div className="projects-header">
+                <h2 className="projects-title">
                     {t.title}
                 </h2>
-                <p style={{fontSize: 'clamp(1rem, 4vw, 1.2rem)', color: 'var(--md-sys-color-on-surface-variant)'}}>
+                <p className="projects-subtitle">
                     {t.subtitle}
                 </p>
             </div>
 
-            <div style={{display: 'flex', flexDirection: 'column', gap: 'clamp(60px, 10vw, 80px)'}}>
+            <div className="projects-list">
                 {t.items.map((project, index) => (
                     <ProjectCard key={project.id} project={project} t={t} index={index}/>
                 ))}
@@ -41,7 +29,11 @@ export default function Projects({t}) {
 }
 
 /**
- * Individual Project Card with 3D hover effect.
+ * @param {Object} props
+ * @param {Object} props.project
+ * @param {Object} props.t
+ * @param {number} props.index
+ * @returns {JSX.Element}
  */
 function ProjectCard({project, t, index}) {
     const ref = useRef(null);
@@ -56,6 +48,9 @@ function ProjectCard({project, t, index}) {
     const rotateX = useTransform(ySpring, [-0.5, 0.5], ["10deg", "-10deg"]);
     const rotateY = useTransform(xSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
 
+    /**
+     * @param {React.MouseEvent<HTMLDivElement>} e
+     */
     const handleMouseMove = (e) => {
         if (window.innerWidth < 768) return;
         const rect = e.currentTarget.getBoundingClientRect();
@@ -72,6 +67,9 @@ function ProjectCard({project, t, index}) {
 
     const isInternalLink = project.link && project.link.startsWith('/');
 
+    /**
+     * @param {React.MouseEvent<HTMLDivElement>} e
+     */
     const handleCardClick = (e) => {
         if (e.target.tagName === 'A' || e.target.closest('a')) return;
 
@@ -82,27 +80,19 @@ function ProjectCard({project, t, index}) {
         }
     };
 
+    /**
+     * @returns {JSX.Element}
+     */
     const ViewButton = () => {
-        const style = {
-            padding: '12px 24px',
-            borderRadius: '100px',
-            textDecoration: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            fontSize: '0.95rem'
-        };
-
         const content = (
             <>
-                {t.view_project} <span className="material-symbols-outlined"
-                                       style={{fontSize: '18px'}}>arrow_forward</span>
+                {t.view_project} <span className="material-symbols-outlined btn-icon-small">arrow_forward</span>
             </>
         );
 
         if (isInternalLink) {
             return (
-                <Link to={project.link} className="btn-glow" style={style}>
+                <Link to={project.link} className="btn-glow project-btn">
                     {content}
                 </Link>
             );
@@ -111,10 +101,9 @@ function ProjectCard({project, t, index}) {
         return (
             <a
                 href={project.link}
-                className="btn-glow"
+                className="btn-glow project-btn"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={style}
             >
                 {content}
             </a>
@@ -127,12 +116,7 @@ function ProjectCard({project, t, index}) {
             whileInView={{opacity: 1, y: 0}}
             viewport={{once: true, margin: "-50px"}}
             transition={{duration: 0.6}}
-            style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
-                gap: '32px',
-                alignItems: 'center'
-            }}
+            className="project-card-wrapper"
         >
             <motion.div
                 ref={ref}
@@ -140,34 +124,22 @@ function ProjectCard({project, t, index}) {
                 onMouseLeave={handleMouseLeave}
                 onClick={handleCardClick}
                 style={{
-                    rotateX, rotateY,
+                    rotateX,
+                    rotateY,
                     transformStyle: "preserve-3d",
-                    height: 'clamp(280px, 40vw, 400px)',
-                    background: `linear-gradient(135deg, var(--md-sys-color-${project.color}-container), var(--md-sys-color-surface-container))`,
-                    borderRadius: '32px',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    position: 'relative',
-                    cursor: 'pointer',
-                    border: '1px solid var(--md-sys-color-outline-variant)',
-                    overflow: 'hidden'
+                    background: `linear-gradient(135deg, var(--md-sys-color-${project.color}-container), var(--md-sys-color-surface-container))`
                 }}
-                className="glass-card"
+                className="glass-card project-card-visual"
             >
-                <div style={{transform: "translateZ(50px)", pointerEvents: 'none'}}>
+                <div className="project-card-3d-inner">
                     {project.icon_url ? (
                         <img
                             src={project.icon_url}
                             alt={project.title}
-                            style={{
-                                width: 'clamp(100px, 20vw, 140px)',
-                                height: 'auto',
-                                filter: 'drop-shadow(0 15px 30px rgba(var(--md-sys-color-shadow-rgb), 0.3))',
-                                objectFit: 'contain'
-                            }}
+                            className="project-card-image"
                         />
                     ) : (
-                        <span className="material-symbols-outlined" style={{
-                            fontSize: 'clamp(60px, 15vw, 100px)',
+                        <span className="material-symbols-outlined project-card-icon" style={{
                             color: `var(--md-sys-color-${project.color})`
                         }}>
                             {project.icon}
@@ -176,52 +148,29 @@ function ProjectCard({project, t, index}) {
                 </div>
             </motion.div>
 
-            <div style={{padding: '0 8px'}}>
-                <span style={{
-                    color: `var(--md-sys-color-${project.color})`,
-                    fontWeight: 700,
-                    letterSpacing: '1.5px',
-                    textTransform: 'uppercase',
-                    fontSize: '0.85rem'
+            <div className="project-card-content">
+                <span className="project-card-category" style={{
+                    color: `var(--md-sys-color-${project.color})`
                 }}>
                     {project.category}
                 </span>
-                <h3 style={{fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', margin: '12px 0'}}>{project.title}</h3>
-                <p style={{
-                    fontSize: 'clamp(1rem, 3.5vw, 1.1rem)',
-                    color: 'var(--md-sys-color-on-surface-variant)',
-                    lineHeight: 1.6,
-                    marginBottom: '24px'
-                }}>
+                <h3 className="project-card-title">{project.title}</h3>
+                <p className="project-card-desc">
                     {project.desc}
                 </p>
 
-                <div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '32px'}}>
+                <div className="project-tags-container">
                     {project.tags.map(tag => (
-                        <span key={tag} style={{
-                            padding: '6px 14px', borderRadius: '100px', fontSize: '0.8rem', fontWeight: 500,
-                            background: 'var(--md-sys-color-surface-container-high)',
-                            color: 'var(--md-sys-color-on-surface-variant)',
-                            border: '1px solid var(--md-sys-color-outline-variant)'
-                        }}>
+                        <span key={tag} className="project-tag">
                             {tag}
                         </span>
                     ))}
                 </div>
 
-                <div style={{display: 'flex', gap: '12px', flexWrap: 'wrap'}}>
+                <div className="project-actions">
                     <ViewButton/>
-                    <a href={project.repo} target="_blank" rel="noreferrer" className="btn-outline" style={{
-                        padding: '12px 24px',
-                        borderRadius: '100px',
-                        textDecoration: 'none',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        fontSize: '0.95rem'
-                    }}>
-                        {t.source_code} <span className="material-symbols-outlined"
-                                              style={{fontSize: '18px'}}>code</span>
+                    <a href={project.repo} target="_blank" rel="noreferrer" className="btn-outline project-btn">
+                        {t.source_code} <span className="material-symbols-outlined btn-icon-small">code</span>
                     </a>
                 </div>
             </div>
