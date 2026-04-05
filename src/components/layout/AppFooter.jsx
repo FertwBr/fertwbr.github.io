@@ -12,9 +12,10 @@ import {SiteConfig} from '../../utils/siteConstants';
  * @param {Function} props.onNavigate
  * @param {string} props.activePage
  * @param {boolean} [props.isPortfolio]
+ * @param {Object} [props.config]
  * @returns {JSX.Element}
  */
-export default function AppFooter({strings, onNavigate, activePage, isPortfolio = false}) {
+export default function AppFooter({strings, onNavigate, activePage, isPortfolio = false, config = null}) {
     const {content} = useLanguage();
     const t = strings || {};
     const globalFooter = content?.footer || {};
@@ -28,9 +29,14 @@ export default function AppFooter({strings, onNavigate, activePage, isPortfolio 
         {key: 'help', icon: 'help_center'}
     ];
 
-    const visibleLinks = isPortfolio
+    let visibleLinks = isPortfolio
         ? allLinks.filter(link => ['overview', 'changelog'].includes(link.key))
         : allLinks;
+
+    if (config && config.pages) {
+        const availablePages = Object.keys(config.pages);
+        visibleLinks = visibleLinks.filter(link => availablePages.includes(link.key));
+    }
 
     return (
         <footer className="footer-base" style={{position: 'relative', zIndex: 190}}>

@@ -132,7 +132,8 @@ export default function GeminiExpressivePage({forcedTab}) {
             background={<ToolsPageBackground opacity={currentTab === 'index' ? 1 : 0.4}/>}
             navbar={<AppNavbar config={geminiExpressiveConfig} activePage={currentTab} onNavigate={handleNavigate}
                                strings={navStrings}/>}
-            footer={<AppFooter strings={footerStrings} onNavigate={handleNavigate} activePage={currentTab}/>}
+            footer={<AppFooter strings={footerStrings} onNavigate={handleNavigate} activePage={currentTab}
+                               config={geminiExpressiveConfig}/>}
         >
             <AnimatePresence mode="wait">
                 <PageTransition key={currentTab}>
