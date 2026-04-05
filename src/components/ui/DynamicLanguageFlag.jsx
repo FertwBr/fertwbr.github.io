@@ -1,15 +1,12 @@
-import React, { useMemo } from 'react';
+import React, {useMemo} from 'react';
 
 /**
- * Renders a smart flag image based on the provided language code and the user's local timezone.
- * Dynamically maps broad languages to specific regional flags without relying on OS emojis.
- *
  * @param {Object} props
  * @param {string} props.languageCode
  * @param {string} [props.width='40']
  * @returns {JSX.Element}
  */
-export default function DynamicLanguageFlag({ languageCode, width = '40' }) {
+export default function DynamicLanguageFlag({languageCode, width = '40'}) {
     const flagCode = useMemo(() => {
         let tz = '';
         try {
@@ -68,20 +65,27 @@ export default function DynamicLanguageFlag({ languageCode, width = '40' }) {
                 if (tz.includes('Zurich')) return 'ch';
                 return 'de';
 
-            case 'ja': return 'jp';
-            case 'hi': return 'in';
+            case 'ja':
+                return 'jp';
+            case 'hi':
+                return 'in';
 
             default:
                 return languageCode;
         }
     }, [languageCode]);
 
+    const calculatedHeight = Math.round(parseInt(width, 10) * 0.75).toString();
+
     return (
         <img
             src={`https://flagcdn.com/w${width}/${flagCode}.png`}
             alt={`${languageCode} regional flag`}
+            width={width}
+            height={calculatedHeight}
             style={{
                 width: '100%',
+                height: 'auto',
                 borderRadius: '2px',
                 display: 'block',
                 boxShadow: '0 0 2px rgba(0,0,0,0.2)'
