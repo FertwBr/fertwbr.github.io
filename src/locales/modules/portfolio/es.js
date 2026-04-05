@@ -8,7 +8,7 @@ export default {
         privacy: "Privacidad",
         terms: "Términos de Uso",
         help: "Ayuda",
-        back: "Volver"
+        back: "Volvolver"
     },
     hero: {
         greeting: "Hola, soy",
@@ -81,8 +81,20 @@ export default {
                 icon_url: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/phone.svg",
                 link: "/PixelCompass?page=index",
                 repo: "https://github.com/fertwbr/PixelCompass",
-                color: "secondary",
+                color: "primary",
                 icon: "explore"
+            },
+            {
+                id: "gemini_expressive",
+                title: "Gemini Expressive",
+                category: "Extensión de Navegador",
+                desc: "Mejora la interfaz web de Gemini con una navegación de línea de tiempo persistente, ocultación inteligente de código y temas dinámicos de Material You.",
+                tags: ["JavaScript", "Manifest V3", "CSS Variables", "Material 3"],
+                icon_url: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Gemini/art/favicon.svg",
+                link: "https://tools.fertwbr.com/geminiexpressive",
+                repo: "https://github.com/fertwbr/Gemini-Expressive",
+                color: "secondary",
+                icon: "extension"
             },
             {
                 id: "portfolio_site",

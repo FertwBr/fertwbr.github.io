@@ -81,8 +81,20 @@ export default {
                 icon_url: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/phone.svg",
                 link: "/PixelCompass?page=index",
                 repo: "https://github.com/fertwbr/PixelCompass",
-                color: "secondary",
+                color: "primary",
                 icon: "explore"
+            },
+            {
+                id: "gemini_expressive",
+                title: "Gemini Expressive",
+                category: "Extensão de Navegador",
+                desc: "Aprimora a interface web do Gemini com navegação de linha do tempo persistente, ocultação inteligente de código e temas dinâmicos do Material You.",
+                tags: ["JavaScript", "Manifest V3", "CSS Variables", "Material 3"],
+                icon_url: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Gemini/art/favicon.svg",
+                link: "https://tools.fertwbr.com/geminiexpressive",
+                repo: "https://github.com/fertwbr/Gemini-Expressive",
+                color: "secondary",
+                icon: "extension"
             },
             {
                 id: "portfolio_site",
