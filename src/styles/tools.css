@@ -658,11 +658,26 @@
     }
 }
 
+/* Fix flex direction for mobile correctly targeting gaps */
 .dev-split-layout {
     display: flex;
     flex-direction: column;
     gap: 40px;
     text-align: left;
+}
+
+.dev-split-left {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+}
+
+.dev-split-right {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
 }
 
 @media (min-width: 900px) {
@@ -674,14 +689,10 @@
 
     .dev-split-left {
         flex: 0 0 320px;
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
     }
 
     .dev-split-right {
         flex: 1;
-        min-width: 0;
     }
 }
 
@@ -694,6 +705,7 @@
     flex-direction: column;
     gap: 24px;
     width: 100%;
+    box-sizing: border-box;
 }
 
 .github-stats-row {
@@ -894,6 +906,7 @@
     padding: 14px 24px;
     width: 100%;
     justify-content: center;
+    box-sizing: border-box;
 }
 
 .dev-btn-glow-full {
@@ -901,6 +914,7 @@
     padding: 14px 24px;
     width: 100%;
     justify-content: center;
+    box-sizing: border-box;
 }
 
 .dev-btn-icon {

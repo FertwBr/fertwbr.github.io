@@ -120,13 +120,13 @@ export default function ExtensionDev({strings}) {
                                     <span className="github-stat-value">
                                         {stats !== null ? stats.stars : "-"}
                                     </span>
-                                    <span className="github-stat-label">{strings?.dev_stats_stars}</span>
+                                    <span className="github-stat-label">{strings?.dev_stats_stars || "Stars"}</span>
                                 </div>
                                 <div className="github-stat-item">
                                     <span className="github-stat-value">
                                         {stats !== null ? stats.forks : "-"}
                                     </span>
-                                    <span className="github-stat-label">{strings?.dev_stats_forks}</span>
+                                    <span className="github-stat-label">{strings?.dev_stats_forks || "Forks"}</span>
                                 </div>
                             </div>
                         </motion.div>
@@ -141,12 +141,12 @@ export default function ExtensionDev({strings}) {
                             <a href="https://github.com/fertwbr/GeminiExpressive" target="_blank" rel="noreferrer"
                                className="btn-outline dev-btn-outline-full">
                                 <span className="material-symbols-outlined dev-btn-icon">code</span>
-                                {strings?.view_source_code}
+                                {strings?.view_source_code || "View Source Code"}
                             </a>
                             <a href={SiteConfig.links.githubProfile} target="_blank" rel="noreferrer"
                                className="btn-glow dev-btn-glow-full">
                                 <span className="material-symbols-outlined dev-btn-icon">person</span>
-                                {strings?.meet_the_dev}
+                                {strings?.meet_the_dev || "Meet the Developer"}
                             </a>
                         </motion.div>
                     </div>
@@ -159,11 +159,11 @@ export default function ExtensionDev({strings}) {
                         viewport={{once: true, margin: "-100px"}}
                     >
                         <motion.h2 variants={itemVariants} className="dev-title">
-                            {strings?.dev_title}
+                            {strings?.dev_title || "Open Source"}
                         </motion.h2>
 
                         <motion.p variants={itemVariants} className="dev-subtitle">
-                            {strings?.dev_subtitle}
+                            {strings?.dev_subtitle || "Transparent & Community Driven"}
                         </motion.p>
 
                         <motion.p variants={itemVariants} className="dev-desc">
@@ -176,7 +176,7 @@ export default function ExtensionDev({strings}) {
 
                         <motion.div variants={itemVariants}>
                             <span className="dev-stack-title">
-                                {strings?.tech_stack_title}
+                                {strings?.tech_stack_title || "Built With"}
                             </span>
                             <div className="dev-marquee-wrapper">
                                 <div className="dev-marquee-mask-left"></div>
