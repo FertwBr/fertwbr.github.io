@@ -4,7 +4,7 @@ export const NAV_ITEMS = [
     {id: 'plus', icon: 'diamond'},
     {id: 'changelog', icon: 'history'},
     {id: 'roadmap', icon: 'map'},
-    {id: 'help', icon: 'help_center'},
+    {id: 'help', icon: 'support'},
     {id: 'feedback', icon: 'rate_review'}
 ];
 
@@ -14,6 +14,11 @@ export const SPRING_TRANSITION = {
     damping: 30
 };
 
+/**
+ * @param {boolean} isScrolled
+ * @param {boolean} [isActive=false]
+ * @returns {Object}
+ */
 export const GLASS_STYLE = (isScrolled, isActive = false) => ({
     background: isScrolled || isActive
         ? 'rgba(var(--md-sys-color-surface-container-rgb), 0.96)'

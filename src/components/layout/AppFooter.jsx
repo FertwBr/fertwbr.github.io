@@ -6,8 +6,7 @@ import FooterControls from './FooterControls';
 import {SiteConfig} from '../../utils/siteConstants';
 
 /**
- * AppFooter component for specific routes.
- * * @param {Object} props
+ * @param {Object} props
  * @param {Object} props.strings
  * @param {Function} props.onNavigate
  * @param {string} props.activePage
@@ -26,7 +25,7 @@ export default function AppFooter({strings, onNavigate, activePage, isPortfolio 
         {key: 'roadmap', icon: 'map'},
         {key: 'privacy', icon: 'security'},
         {key: 'terms', icon: 'gavel'},
-        {key: 'help', icon: 'help_center'}
+        {key: 'help', icon: 'support'}
     ];
 
     let visibleLinks = isPortfolio
