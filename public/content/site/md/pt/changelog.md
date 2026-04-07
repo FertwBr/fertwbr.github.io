@@ -1,6 +1,32 @@
 # Histórico de Versões
 Acompanhe a evolução do portfólio. Aqui você encontrará um registro detalhado de novos recursos, melhorias e correções para cada versão.
 
+## Version 4.0.0
+*(Lançado em 6 de abril de 2026)*
+
+Boas-vindas à Versão 4.0 do Portal de Portfólio e Apps. Este marco importante introduz um ecossistema dedicado de alta fidelidade para a nossa nova extensão do Chrome, **Gemini Expressive**. Juntamente com o lançamento do novo produto, implementamos um poderoso middleware de computação de borda (edge-computing) para SEO dinâmico, introduzimos exibições de mídia com reprodução automática e elevamos a nossa interface cinematográfica de "Scrollytelling" a novos patamares.
+
+#### 🚀 Gemini Expressive Portal
+* **Novo: Hub de Produto Dedicado:** Lançamento de uma experiência de destino completa para `tools.fertwbr.com/geminiexpressive`. O hub apresenta uma seção hero animada que detecta o seu navegador de forma inteligente, cartões de recursos personalizados e guias interativos de "Como fazer".
+* **Novo: Estatísticas de Desenvolvedor ao Vivo:** Introdução do componente `ExtensionDev`, que se conecta diretamente à API do GitHub para buscar e exibir estatísticas do repositório em tempo real (Stars e Forks) diretamente na página de destino.
+* **Novo: Infraestrutura Jurídica da Extensão:** Adição de Políticas de Privacidade abrangentes e totalmente localizadas, Termos de Uso e uma seção detalhada de Ajuda/FAQ, especificamente adaptada para a natureza "local-first" da extensão Gemini Expressive.
+* **Integração:** Integração fluida da nova extensão ao mapa do site global, às vitrines do portfólio e aos motores de tradução localizada em todos os 6 idiomas suportados.
+
+#### ☁️ Infraestrutura de Borda e SEO
+* **Novo: Mecanismo de Middleware Cloudflare:** Implementação de uma poderosa função de borda `onRequest` que utiliza o `HTMLRewriter`. Este middleware intercepta dinamicamente as solicitações de página e injeta tags Open Graph específicas da rota, cartões do Twitter e meta tags de `theme-color` diretamente no HTML antes que este chegue ao navegador, o que melhora drasticamente o compartilhamento social e as prévias de SEO.
+* **Melhoria: Dados Estruturados Inteligentes:** Atualização da nossa geração de esquema JSON-LD. O site agora detecta automaticamente se uma página é um aplicativo móvel ou uma extensão de navegador, emitindo o esquema `SoftwareApplication` correto para os motores de busca.
+
+#### 🎨 Interface Cinematográfica e Mídia
+* **Novo: Plano de Fundo de Ferramentas Ambiente:** Introdução do `ToolsPageBackground`, um novo cenário ambiental impressionante que apresenta uma malha de gradiente animada sobreposta por uma grade geométrica semitransparente e elegante.
+* **Novo: Vitrines de Mídia com Reprodução Automática:** Adição de suporte robusto para demonstrações de vídeo in-line. O novo componente `FeatureVideo` utiliza um `IntersectionObserver` para reproduzir ou pausar automaticamente vídeos de demonstração de alta qualidade (como os editores de Linha do Tempo e Snippet) à medida que entram ou saem da área de visualização.
+* **Refinamento: Atualizações de Hero e SplitChoice:** As seções `AppsHero` e `SplitChoice` receberam atualizações visuais massivas. Agora apresentam máscaras de grade de fundo, holofotes desfocados, ícones flutuantes e física de mola perfeitamente ajustada para uma entrada cinematográfica mais imersiva.
+
+#### 🧭 Navegação e Suporte
+* **Novo: Agrupamento Móvel Inteligente:** A barra de navegação móvel (`NavbarMobile`) agora organiza-se de forma dinâmica. Se houver mais de 4 itens de menu, ela divide-os inteligentemente em linhas compactas "Primárias" e "Secundárias" para preservar o espaço da tela.
+* **Novo: Feedback Sensível ao Contexto:** O Assistente de Suporte agora aceita um parâmetro de URL (`?source=`). Quando os usuários clicam em "Ajuda" ou "Feedback" a partir da página de destino de um aplicativo específico, o assistente pré-seleciona automaticamente o projeto correto (Pixel Compass, Pixel Pulse ou Gemini Expressive), o que poupa tempo e evita tickets categorizados incorretamente.
+* **Correção: Estabilidade da Interface Responsiva:** Substituição de centenas de estilos in-line por classes CSS semânticas e centralizadas (`feedback.css`, `tools.css`). Esta ação fortalece o layout contra o redimensionamento da janela de visualização e garante uma renderização consistente tanto em monitores ultra-wide quanto em telas móveis compactas.
+
+
 ## Versão 3.0.0
 *(Lançada em 22 de março de 2026)*
 

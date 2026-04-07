@@ -1,6 +1,31 @@
 # Version History
 Track the evolution of the portfolio. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 4.0.0
+*(Released April 6, 2026)*
+
+Welcome to Version 4.0 of the Portfolio and Apps Portal. This major milestone introduces a dedicated, high-fidelity ecosystem for our new Chrome Extension, **Gemini Expressive**. Alongside the new product launch, we've deployed powerful edge-computing middleware for dynamic SEO, implemented autoplaying media showcases, and pushed our cinematic "Scrollytelling" UI to new heights.
+
+#### 🚀 Gemini Expressive Portal
+* **New: Dedicated Product Hub:** Launched a complete landing experience for `tools.fertwbr.com/geminiexpressive`. The hub features an animated hero section that intelligently detects your browser, custom-built feature cards, and interactive "How-To" guides.
+* **New: Live Developer Stats:** Introduced the `ExtensionDev` component, which interfaces directly with the GitHub API to fetch and display real-time repository statistics (Stars and Forks) directly on the landing page.
+* **New: Extension Legal Infrastructure:** Added comprehensive, fully localized Privacy Policies, Terms of Use, and a detailed Help/FAQ section specifically tailored for the local-first nature of the Gemini Expressive extension.
+* **Integration:** Seamlessly wove the new extension into the global site map, portfolio showcases, and localized translation engines across all 6 supported languages.
+
+#### ☁️ Edge Infrastructure & SEO
+* **New: Cloudflare Middleware Engine:** Deployed a powerful `onRequest` edge function utilizing `HTMLRewriter`. This middleware dynamically intercepts page requests and injects route-specific Open Graph tags, Twitter cards, and `theme-color` meta tags directly into the HTML before it reaches the browser, drastically improving social sharing and SEO previews.
+* **Improvement: Smart Structured Data:** Upgraded our JSON-LD schema generation. The site now automatically detects if a page is a mobile app or a browser extension, emitting the correct `SoftwareApplication` schema for search engines.
+
+#### 🎨 Cinematic UI & Media
+* **New: Ambient Tools Background:** Introduced `ToolsPageBackground`, a stunning new environmental backdrop featuring an animated gradient mesh overlayed with a sleek, semi-transparent geometric grid.
+* **New: Autoplaying Media Showcases:** Added robust support for inline video demonstrations. The new `FeatureVideo` component utilizes an `IntersectionObserver` to automatically play or pause high-quality showcase videos (like the Timeline and Snippet editors) as they enter or leave the viewport.
+* **Refinement: Hero & SplitChoice Upgrades:** The `AppsHero` and `SplitChoice` sections received massive visual upgrades. They now feature background grid masks, blurred spotlights, bouncing icons, and perfectly tuned spring physics for a more immersive, cinematic entry.
+
+#### 🧭 Navigation & Support
+* **New: Smart Mobile Grouping:** The mobile navigation bar (`NavbarMobile`) now dynamically organizes itself. If there are more than 4 menu items, it intelligently splits them into "Primary" and "Secondary" compact rows to preserve screen real estate.
+* **New: Context-Aware Feedback:** The Support Wizard now accepts a URL parameter (`?source=`). When users click "Help" or "Feedback" from a specific app's landing page, the wizard automatically pre-selects the correct project (Pixel Compass, Pixel Pulse, or Gemini Expressive), saving time and preventing miscategorized tickets.
+* **Fix: Responsive UI Stability:** Replaced hundreds of inline styles with semantic, centralized CSS classes (`feedback.css`, `tools.css`). This hardens the layout against viewport resizing and ensures consistent rendering on ultra-wide monitors and compact mobile screens alike.
+
 ## Version 3.0.0
 *(Released March 22, 2026)*
 

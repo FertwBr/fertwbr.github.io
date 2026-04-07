@@ -1,6 +1,32 @@
 # Versionsverlauf
 Verfolgen Sie die Entwicklung des Portfolios. Hier finden Sie ein detailliertes Protokoll über neue Funktionen, Verbesserungen und Korrekturen für jede Version.
 
+## Version 4.0.0
+*(Veröffentlicht am 6. April 2026)*
+
+Willkommen bei Version 4.0 des Portfolio- und Apps-Portals. Dieser bedeutende Meilenstein führt ein dediziertes High-Fidelity-Ökosystem für unsere neue Chrome-Erweiterung **Gemini Expressive** ein. Parallel zum neuen Produktlaunch haben wir eine leistungsstarke Edge-Computing-Middleware für dynamisches SEO implementiert, automatisch abspielende Medien-Showcases eingeführt und unsere cineastische „Scrollytelling“-Benutzeroberfläche auf ein neues Niveau gehoben.
+
+#### 🚀 Gemini Expressive Portal
+* **Neu: Dedizierter Produkt-Hub:** Start einer vollständigen Landing-Experience für `tools.fertwbr.com/geminiexpressive`. Der Hub bietet einen animierten Hero-Bereich, der Ihren Browser intelligent erkennt, maßgeschneiderte Feature-Cards und interaktive „How-To“-Anleitungen.
+* **Neu: Live-Entwicklerstatistiken:** Einführung der `ExtensionDev`-Komponente, die direkt mit der GitHub-API kommuniziert, um Repository-Statistiken (Stars und Forks) in Echtzeit abzurufen und direkt auf der Landingpage anzuzeigen.
+* **Neu: Rechtliche Infrastruktur der Erweiterung:** Umfassende, vollständig lokalisierte Datenschutzrichtlinien, Nutzungsbedingungen und ein detaillierter Hilfe/FAQ-Bereich wurden hinzugefügt, die speziell auf die Local-First-Natur der Gemini Expressive-Erweiterung zugeschnitten sind.
+* **Integration:** Die neue Erweiterung wurde nahtlos in die globale Sitemap, die Portfolio-Showcases und die lokalisierten Übersetzungs-Engines in allen 6 unterstützten Sprachen integriert.
+
+#### ☁️ Edge-Infrastruktur & SEO
+* **Neu: Cloudflare Middleware-Engine:** Einsatz einer leistungsstarken `onRequest`-Edge-Funktion unter Verwendung von `HTMLRewriter`. Diese Middleware fängt Seitenanfragen dynamisch ab und injiziert routenspezifische Open-Graph-Tags, Twitter-Cards und `theme-color`-Meta-Tags direkt in das HTML, bevor es den Browser erreicht, was das Teilen in sozialen Netzwerken und die SEO-Vorschau drastisch verbessert.
+* **Verbesserung: Intelligente strukturierte Daten:** Upgrade unserer JSON-LD-Schema-Generierung. Die Website erkennt nun automatisch, ob es sich bei einer Seite um eine mobile App oder eine Browser-Erweiterung handelt, und gibt das korrekte `SoftwareApplication`-Schema für Suchmaschinen aus.
+
+#### 🎨 Cineastische UI & Medien
+* **Neu: Ambient Tools Background:** Einführung von `ToolsPageBackground`, einer beeindruckenden neuen Umgebungskulisse mit einem animierten Farbverlauf-Mesh, das von einem eleganten, halbtransparenten geometrischen Gitter überlagert wird.
+* **Neu: Automatisch abspielende Medien-Showcases:** Robuste Unterstützung für Inline-Videodemonstrationen hinzugefügt. Die neue `FeatureVideo`-Komponente nutzt einen `IntersectionObserver`, um hochwertige Showcase-Videos (wie die Timeline- und Snippet-Editoren) automatisch abzuspielen oder anzuhalten, wenn sie in den Sichtbereich eintreten oder diesen verlassen.
+* **Verfeinerung: Hero- & SplitChoice-Upgrades:** Die Bereiche `AppsHero` und `SplitChoice` erhielten massive visuelle Upgrades. Sie verfügen nun über Hintergrund-Gittermasken, weichgezeichnete Spotlights, springende Icons und perfekt abgestimmte Federphysik für einen immersiveren, cineastischen Einstieg.
+
+#### 🧭 Navigation & Support
+* **Neu: Intelligente mobile Gruppierung:** Die mobile Navigationsleiste (`NavbarMobile`) organisiert sich nun dynamisch. Wenn mehr als 4 Menüpunkte vorhanden sind, werden diese intelligent in kompakte „primäre“ und „sekundäre“ Zeilen aufgeteilt, um den Platz auf dem Bildschirm optimal zu nutzen.
+* **Neu: Kontextbezogenes Feedback:** Der Support-Assistent akzeptiert nun einen URL-Parameter (`?source=`). Wenn Benutzer auf der Landingpage einer bestimmten App auf „Hilfe“ oder „Feedback“ klicken, wählt der Assistent automatisch das richtige Projekt aus (Pixel Compass, Pixel Pulse oder Gemini Expressive), was Zeit spart und falsch kategorisierte Tickets verhindert.
+* **Fehlerbehebung: Stabilität der responsiven UI:** Ersetzung hunderter Inline-Styles durch semantische, zentralisierte CSS-Klassen (`feedback.css`, `tools.css`). Dies stärkt das Layout gegen Größenänderungen des Ansichtsfensters und gewährleistet eine konsistente Darstellung auf Ultra-Wide-Monitoren sowie auf kompakten mobilen Bildschirmen.
+
+
 ## Version 3.0.0
 *(Veröffentlicht am 22. März 2026)*
 
