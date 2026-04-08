@@ -1,6 +1,33 @@
 # Gemini Expressive
 Track the evolution of Gemini Expressive. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 2.5.0
+*(Released April 10, 2026)*
+
+This release, dubbed the "Management & Markdown Update," brings powerful new tools to the Prompt Snippets editor, significantly refines the Dynamic Theming engine for better integration with Gemini's native components, and overhauls the Settings interface for a cleaner, more organized experience.
+
+#### ⚡ Enhanced Prompt Snippets
+* **New: Markdown Preview Tab:** The snippet editor now features a "Write" and "Preview" toggle. You can now see exactly how your formatted prompts will look before saving them, powered by a new built-in Markdown parser that supports headings, lists, blockquotes, and fenced code blocks.
+* **New: Reordering & Management UI:** * Added "Move Up" and "Move Down" controls to manually organize your snippets.
+    * Introduced a secure deletion flow with a native Modal Confirmation dialog to prevent accidental data loss.
+    * Added validation checks to ensure snippets have required keywords and content before saving.
+* **UI: High-Contrast Snippet Menu:** The autocomplete menu has been redesigned with a high-contrast blue palette, improved depth shadows, and better hover/active feedback for keywords and icons.
+* **Refinement:** The snippet list now displays a cleaner one-line preview of your content by automatically replacing line breaks with spaces.
+
+#### 🎨 Advanced Theming & Integration
+* **New: Media Player Theming:** The Dynamic Material You theme now extends to Gemini's generated music and video players, ensuring play buttons and icons match your custom aesthetic.
+* **Improvement: Intelligent Button Theming:** * Re-engineered MDC button logic to ensure icons (`.mat-icon`, `.google-symbols`) automatically inherit the correct primary or on-primary colors based on the button variant (Unelevated, Raised, or Outlined).
+    * Added support for multiline button labels with intelligent word-wrapping, preventing layout breaks on narrow screens or with long translated text.
+* **Improvement: Refined Input Fields:** Optimized text field visuals by hiding placeholders when not focused and enforcing consistent opacity for floating labels and notched outlines under dynamic themes.
+* **UI Polish:** Applied theme-aware styling to native dialog surfaces and clarified the visual hierarchy between text-only and elevated buttons.
+
+#### ⚙️ Settings & UX Polish
+* **New: Settings Grouping:** Related options are now organized into visual blocks with rounded corners and descriptive text, making it easier to navigate through general and appearance settings.
+* **New: Custom Scrollbars:** Introduced slim, Material-style scrollbars for the snippet list, textareas, and preview panels across both WebKit and Firefox browsers.
+* **UI: Layout Stability:** * Fixed help tooltip colors to perfectly match the active dynamic theme.
+    * Improved responsive behavior for the developer split-layout on mobile devices.
+    * Standardized button sizes and paddings across the entire options interface.
+
 ## Version 2.0.0
 *(Released April 7, 2026)*
 
