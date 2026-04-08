@@ -84,4 +84,4 @@ will be determined at our sole discretion.
 If you have any questions about these Terms or need assistance with the extension, please contact us at:
 
 **Email:** contact@fertwbr.com
-**Repository:** https://github.com/fertwbr/GeminiExpressive
+**Repository:** https://github.com/fertwbr/Gemini-Expressive

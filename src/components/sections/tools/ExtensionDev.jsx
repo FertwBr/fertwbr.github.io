@@ -109,7 +109,7 @@ export default function ExtensionDev({strings}) {
                                 <img src={SiteConfig.assets.avatar} alt="Avatar" className="dev-avatar-img"/>
                                 <div>
                                     <h3 className="dev-author-name">{SiteConfig.meta.author}</h3>
-                                    <a href="https://github.com/fertwbr/GeminiExpressive" target="_blank"
+                                    <a href="https://github.com/fertwbr/Gemini-Expressive" target="_blank"
                                        rel="noreferrer" className="dev-author-link">
                                         fertwbr/GeminiExpressive
                                     </a>
@@ -138,7 +138,7 @@ export default function ExtensionDev({strings}) {
                             viewport={{once: true}}
                             transition={{duration: 0.5, delay: 0.3}}
                         >
-                            <a href="https://github.com/fertwbr/GeminiExpressive" target="_blank" rel="noreferrer"
+                            <a href="https://github.com/fertwbr/Gemini-Expressive" target="_blank" rel="noreferrer"
                                className="btn-outline dev-btn-outline-full">
                                 <span className="material-symbols-outlined dev-btn-icon">code</span>
                                 {strings?.view_source_code || "View Source Code"}
