@@ -1,6 +1,31 @@
 # Gemini Expressive
 Track the evolution of Gemini Expressive. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 2.5.2
+*(Released April 12, 2026)*
+
+This update focuses on strengthening the extension's internal security, improving runtime stability, and streamlining our cross-browser distribution process for both Chrome and Firefox.
+
+#### 🛡️ Security & Stability
+* **Fix: Strict DOM Sanitization:** We have further hardened the extension against HTML injection and Cross-Site Scripting (XSS). Vulnerable `innerHTML` calls within the Snippet Previews and the Code Header Enhancer have been entirely replaced with safe, strict DOM operations (`textContent` and explicit element creation).
+* **Fix: Safe Asset Loading:** Implemented a defensive wrapper for fetching extension assets (like the collapse/expand icons). This prevents the extension from throwing runtime errors or crashing if the browser unexpectedly invalidates the extension context.
+
+#### 🛠️ Developer & Distribution
+* **New: Automated Build Pipeline:** Introduced a new Node.js build script (`build.js`) that automatically strips incompatible manifest fields and packages perfectly tailored `.zip` releases for both Google Chrome and Mozilla Firefox.
+* **Documentation:** Completely revamped the open-source repository's `README`. Added a new stylized hero banner, detailed installation tables, and fresh, high-resolution screenshots showcasing the new Prompt Snippet Editor and Settings Dashboard.
+
+
+## Version 2.5.1
+*(Released April 11, 2026)*
+
+This is a targeted patch release focused on refining the Dynamic Theming engine. We've cleaned up underlying stylesheets and resolved CSS conflicts to ensure our custom themes beautifully enhance the interface without interfering with Gemini's native layout.
+
+#### 🛠️ Visual Fixes & Optimizations
+* **Fix: Top Bar Protection:** Excluded Gemini's native top-bar action buttons from the dynamic theming engine. These buttons will now correctly retain their original sizing, padding, and colors instead of being accidentally overridden by the extension.
+* **Fix: Sidebar Typography Scoping:** Restricted specific label styles strictly to the sidebar navigation panel, preventing unintended typography changes from leaking into the main chat interface.
+* **Fix: Text Input Stability:** Removed obsolete, overly-aggressive CSS overrides for text input fields, rich-text areas, and search surfaces. This resolves visual conflicts and ensures the main chat input box renders perfectly while still smoothly integrating with your chosen theme.
+* **Improvement: Stylesheet Optimization:** Streamlined and grouped the underlying dynamic theme selectors. By cleaning up redundant CSS rules, the extension is now lighter and less prone to conflicting with future Gemini UI updates.
+
 ## Version 2.5.0
 *(Released April 10, 2026)*
 
