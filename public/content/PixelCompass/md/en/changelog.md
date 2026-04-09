@@ -1,6 +1,30 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.19.0 Beta 1
+*(Released April 9, 2026)*
+
+This first beta of the 1.19 cycle focuses heavily on background optimization and battery preservation. We've introduced a massive "Smart Interactive" engine to both the phone and watch, ensuring widgets, tiles, and complications only update when you are actively looking at them.
+
+#### 📱 Phone
+
+* **Core & Performance: Smart Interactive Engine:**
+  * **Intelligent Sensor Throttling:** The core Sensor Service has been completely re-architected. It now continuously monitors your device's interactive state (whether the screen is on or off). When your phone is locked or asleep, the app drops into an "idle throttle" mode, drastically reducing battery drain from background compass and widget updates.
+  * **Widget Update Robustness:** The `WidgetUpdateWorker` has been fortified against strict Android 14 background limits. If background location fails, the widget will intelligently fall back to your last-known location rather than forcing a fresh GPS lock, preventing crashes and saving battery.
+  * **Optimized Insight Parsing:** Complex "Glance Insight" analytics are now parsed securely outside of the main UI rendering flow, making widget initialization noticeably faster.
+* **Refinement & UX:**
+  * **Premium Messaging:** Refined the wording within the onboarding flow and widget configuration screens to better explain how background updates utilize the Pixel Compass+ subscription.
+
+#### ⌚ Wear OS
+
+* **Core & Performance: Smart Interactive Engine (Shared):**
+  * **Zero-Drain Complications:** Live watch face Complications (Compass and Altitude) now utilize the new `SystemStateMonitor`. They will strictly pause all sensor updates the moment your watch screen turns off or goes into Ambient mode, resulting in massive battery savings.
+  * **Tile Update Optimization:** The Altitude and Compass Tiles now cache their update requesters and utilize more efficient background flow collections, reducing the CPU overhead required to render them when swiping through your watch.
+* **New: Complication Customization:**
+  * **Hide Units Option:** You can now toggle a "Hide Units" switch in the Complication settings. This removes the degree symbol (°) from the Live Compass complication, giving you a cleaner, more minimalist look on crowded watch faces.
+* **UI Polish:**
+  * **Animated Settings:** Replaced rigid toggle buttons in the Complication settings with fluid, animated circular icons (`AnimatedCircleIconButton` and `AnimatedShapeButton`) that provide a satisfying "squish" effect and haptic feedback when tapped.
+
 ## Version 1.18.3
 *(Released April 6, 2026)*
 
