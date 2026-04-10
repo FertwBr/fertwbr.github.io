@@ -1,6 +1,32 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.19.0 Beta 2
+*(Released April 10, 2026)*
+
+This second beta introduces a powerful new background system: **Smart Weather Alerts**. We've also finalized the transition of our internal scheduling engine and applied significant performance optimizations to both the phone and watch.
+
+#### 📱 Phone
+
+* **New: Smart Weather Alerts:**
+  * **Proactive Warnings:** The app now features a `SevereWeatherAnalyzer` that constantly evaluates the environment in the background. It will automatically dispatch high-priority, system-level notifications if it detects dangerous conditions like extreme UV, dense fog, high wind gusts, or severe thunderstorms in your immediate forecast.
+  * **Rich Notifications:** These new alerts utilize expanded text blocks and display the specific weather condition icon directly in the notification tray.
+  * **Smart Cooldown:** The engine enforces a strict 3-hour cooldown per alert type, ensuring you are informed about dangerous conditions without being spammed with repetitive notifications.
+* **Core & Performance:**
+  * **Environment Sync Engine:** The legacy `WidgetUpdateWorker` has been completely rewritten and rebranded as the `EnvironmentSyncWorker`. It is now much more resilient against Android 14's strict background limits. If the OS blocks a background location request, the sync engine will instantly fall back to your last-known location rather than failing silently, ensuring your widgets and alerts stay up-to-date.
+  * **Centralized Notifications:** All notification logic (from background services to weather alerts) has been moved into a single `PixelCompassNotificationManager`, standardizing how the app requests permissions and handles channels.
+  * **Dependency Upgrades:** Upgraded dozens of internal libraries (Compose BOM, Material 3, WorkManager) to their latest versions for improved stability.
+* **UI & UX Polish:**
+  * **Widget Previews:** Overhauled the widget configuration screen. The preview layouts are now much cleaner, utilizing proper string resources for mock data (like "120° SE") instead of hardcoded placeholders, giving you a better idea of how the final widget will look.
+  * **Onboarding Refinements:** Refined the typography and layout of the onboarding screens, specifically tightening the spacing on the "Core Features" page and ensuring the "Continue" button is perfectly anchored above the system navigation bar.
+
+#### ⌚ Wear OS
+
+* **Core & Performance (Shared):**
+  * **System State Monitor:** The watch app now fully utilizes the shared `SystemStateMonitor` introduced in Beta 1. Heavy sensor calculations and background updates are strictly tied to whether your watch screen is currently interactive, maximizing battery life.
+  * **Centralized Notifications:** The Wear OS module also inherits the new `PixelCompassNotificationManager`, ensuring that any background service notifications on your watch are handled efficiently and cleanly.
+  * **Dependency Upgrades:** Updated internal Wear components, including `wear-compose-navigation` and `protolayout/tiles`, to their latest stable versions.
+
 ## Version 1.19.0 Beta 1
 *(Released April 9, 2026)*
 
