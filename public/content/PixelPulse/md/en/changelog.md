@@ -1,6 +1,16 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.20.1
+*(Released April 10, 2026)*
+
+This is a targeted hotfix release focused on correcting a localization issue introduced in the previous update for our French-speaking users.
+
+#### 📱 Phone
+
+* **Fix: French Localization Correction:**
+  * **Translation Fix:** Resolved a widespread issue where Spanish text was mistakenly displaying instead of French. All app text—including settings, permissions, exposure analytics, onboarding, and export flows—has been properly restored to accurate French translations.
+
 ## Version 1.20.0
 *(Released March 25, 2026)*
 
