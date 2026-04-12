@@ -1,6 +1,36 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.19.0 Beta 3
+*(Released April 12, 2026)*
+
+This third beta focuses on massively improving the Compass Calibration experience on both the phone and watch. We've introduced a much smarter engine to detect magnetic interference and provided more detailed guidance to help you resolve it.
+
+#### 📱 Phone
+
+* **Core: Advanced Calibration Engine:**
+  * **Movement & Interference Detection:** The calibration engine is now significantly smarter. Instead of just looking at the raw accuracy number provided by Android, it now actively monitors device movement (azimuth, inclination, and roll) and measures the raw magnetic field strength (in microteslas, µT).
+  * **Smart Interference Warnings:** If the app detects a magnetic field stronger than 85µT, it will instantly flag this as "Magnetic Interference." A new, animated warning banner will appear at the top of the calibration dialog, guiding you to move away from metal objects or electronics.
+  * **Forced Calibration States:** If you force a calibration despite interference, the app now clearly reports this state ("Success with Interference" or "Optimized with Interference") so you know the compass might still be slightly off.
+* **UX & UI Polish:**
+  * **Calibration Help Links:** Added themed "Help" links directly to the calibration dialog. If your calibration times out or fails, tapping this link will instantly open the relevant troubleshooting guide on our website.
+  * **Settings Reorganization:** The main Settings screen has been neatly grouped into three clear categories: "Personalization," "Navigation & Tools," and "System & Background."
+  * **Chart Rendering Fix:** Corrected a visual bug in the Wind Forecast chart where the bottom labels were slightly misaligned with the active scrub line.
+* **Global Localization:**
+  * **Language Cleanup:** Centralized and cleaned up hundreds of duplicated unit formats (e.g., ft/m, hPa/mbar), compass directions (N, NE, SW), and example strings across 24 languages, significantly reducing the app's resource size.
+  * **English Standardization:** Unified spelling and phrasing across regional English locales (Australia, Canada, UK, India) to use consistent US English spelling (e.g., "color" instead of "colour", "optimize" instead of "optimise").
+  * **Fix Locale:** Added official system support for the Indonesian (`in`) locale.
+
+#### ⌚ Wear OS
+
+* **Core: Advanced Calibration Engine (Shared):**
+  * **Wrist-Based Interference:** The watch app also inherits the new smart calibration engine. It now actively detects magnetic interference and movement, updating its UI to warn you if your watch is too close to a strong magnetic source.
+* **UX & UI Polish:**
+  * **Dynamic Instructions:** The calibration screen on the watch no longer displays a single, generic instruction. It now intelligently swaps its guidance text based on your current sensor accuracy and interference levels.
+  * **Info Screen Upgrades:** The values on the watch's Info screen now use compact "chip" styling. Long text (like the interference warnings) will now smoothly scroll (marquee) so you can read the full message on a small screen.
+  * **Wrist Help Links:** The calibration screen now features a smart "Help" link. Tapping it will automatically open the detailed calibration troubleshooting guide on your connected phone.
+  * **True North Indicator:** The "True North" indicator on the compass dial now uses a muted color to blend in better with the watch face, and uses custom, state-aware icons instead of generic Material symbols.
+
 ## Version 1.19.0 Beta 2
 *(Released April 10, 2026)*
 
