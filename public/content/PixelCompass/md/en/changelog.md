@@ -1,6 +1,29 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.19.0 Beta 4
+*(Released April 15, 2026)*
+
+This update introduces a sophisticated weather fallback engine designed to ensure consistent data availability across all geographic regions. By integrating OpenWeatherMap as a secondary provider, the app now automatically navigates regional geofencing and service limitations without interrupting the user experience.
+
+Beyond the new provider integration, Beta 4 focuses on hardening the core weather repository with intelligent throttling, improved data persistence, and a transition to standardized unit constants. These architectural refinements reduce redundant processing and improve the reliability of background services and UI synchronization.
+
+#### 📱 Phone
+* **New: OpenWeatherMap Fallback System:** Implemented a robust secondary data pipeline using the OpenWeatherMap One Call API v3.0 to handle regional service gaps.
+  * **Automatic Failover:** The weather engine now catches HTTP 400 and 404 responses from primary services, triggering a seamless transition to OpenWeatherMap via a new `RegionLimitedException` handler.
+  * **Data Translation Layer:** Introduced `OpenWeatherMappers` to convert OWM-specific DTOs into the app's internal Google-compatible weather format, ensuring UI consistency regardless of the data source.
+  * **Attribution & Transparency:** Added dynamic provider attribution and a "provider switched" disclaimer to the UI to comply with data requirements and keep users informed.
+* **Core & Performance: Intelligent Weather Repository:** Refactored the data layer to optimize network usage and processing efficiency.
+  * **State Caching:** Implemented `LastProcessedState` with data hashing to skip redundant UI reprocessing when weather data remains unchanged between cycles.
+  * **Error Throttling:** Introduced a 10-minute cooldown (`errorCooldownMs`) for failed fetch attempts, preventing battery drain caused by rapid-fire retries during network instability.
+  * **Persistent Regional Tracking:** Replaced simple boolean flags with a persistent ISO country code storage in DataStore, allowing the app to remember regional limitations across sessions.
+* **UI & UX Polish: Standardized Units & Clean Layouts:** Refined the visual presentation and underlying data standards.
+  * **Google Unit Constants:** Migrated to standardized unit constants (e.g., `FAHRENHEIT/CELSIUS`, `MILES_PER_HOUR`, `MILLIMETERS`) across all mappers to ensure precise conversion and formatting.
+  * **UI Simplification:** Removed the manual `UnsupportedRegionWarning` composable; the app now handles region-specific logic silently through the fallback engine.
+* **Fixes & Stability: Lifecycle & Build Fixes:** Addressed critical issues in service management and environment configuration.
+  * **Service Management:** Fixed a bug in `AppSensorLifecycleManager` and `WidgetLifecycleManager` where stopping the service incorrectly triggered a foreground start command.
+  * **API Key Injection:** Corrected the `OPEN_WEATHER_API_KEY` assignment in the build configuration to ensure valid credentials are used for the OWM fallback.
+
 ## Version 1.19.0 Beta 3
 *(Released April 12, 2026)*
 
