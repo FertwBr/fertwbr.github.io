@@ -1,6 +1,34 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.19.0 RC1
+*(Released April 17, 2026)*
+
+This Release Candidate locks in all features for the 1.19.0 update. We've finalized the new Notification Categories engine, significantly expanded our global translations, and updated to Android SDK 37.
+
+#### 📱 Phone
+
+* **New: Notification Categories Control:**
+  * **Granular Control:** You can now precisely control which types of Smart Weather Alerts you receive. We've added a new "Notifications & Alerts" section to the main Settings, allowing Pixel Compass+ users to toggle alerts for Severe Weather, Health Risks (Extreme UV/Heat), or Precipitation changes independently.
+  * **Smart Cooldowns:** The Smart Weather Alert engine now tracks cooldowns per category rather than globally. This means an extreme heat warning won't accidentally suppress an incoming thunderstorm warning.
+* **Core & Architecture:**
+  * **Android SDK 37:** Upgraded the entire project to compile and target Android SDK 37, ensuring full compatibility and performance on the latest devices.
+  * **Environment Sync Polish:** The background engine now caches its worker schedule to prevent redundant `WorkManager` API calls, slightly reducing battery overhead.
+  * **OpenWeatherMap Safety:** Added strict null-safety checks to the OpenWeatherMap fallback mappers, preventing crashes if the API returns partial data during severe storms.
+* **UI & UX Polish:**
+  * **Clearer "Plus" Features:** Settings that require a Pixel Compass+ subscription now appear visually dimmed when you don't have an active subscription. Tapping them will smoothly open the upgrade flow.
+  * **Power Mode Toggle:** The Power Mode switch in the Settings menu is now fully functional and instantly updates your power preferences.
+  * **Weather Provider Footers:** The detailed weather panels now dynamically display the active weather provider (Google or OpenWeather) at the very bottom, ensuring complete transparency if the app falls back to the secondary API.
+* **Global Localization:**
+  * **100% Translation Coverage:** This RC finalized all remaining translations. Hundreds of new strings—covering the new Smart Calibration interference warnings, Complication "Hide Units" toggles, and OpenWeatherMap fallback disclaimers—are now fully translated across all 24 supported languages.
+  
+#### ⌚ Wear OS
+
+* **Core & Architecture (Shared):**
+  * **Android SDK 37:** The watch app has also been upgraded to target Android SDK 37.
+* **Global Localization:**
+  * **100% Translation Coverage:** This RC finalized all remaining translations. Hundreds of new strings—covering the new Smart Calibration interference warnings, Complication "Hide Units" toggles, and OpenWeatherMap fallback disclaimers—are now fully translated across all 24 supported languages.
+
 ## Version 1.19.0 Beta 4
 *(Released April 15, 2026)*
 
