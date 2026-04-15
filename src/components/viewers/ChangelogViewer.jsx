@@ -8,6 +8,7 @@ import {useParams, useNavigate} from 'react-router-dom';
 import {parseChangelog} from '../../utils/changelogParser';
 import {loadPageContent} from '../../utils/contentLoader';
 import {useLanguage} from '../../context/LanguageContext';
+import {generateEmailEmbed, executeCopy} from '../../utils/emailShareUtils';
 import BackToTop from '../common/BackToTop';
 import PageTableOfContents from '../common/PageTableOfContents';
 import AutoTranslateBadge from '../common/AutoTranslateBadge';
@@ -60,6 +61,10 @@ const TAG_STYLE_CONFIG = {
     }
 };
 
+/**
+ * @param {string} tagKey
+ * @returns {Object}
+ */
 const getTagStyle = (tagKey) => {
     const key = tagKey?.toLowerCase() || 'default';
     if (TAG_STYLE_CONFIG[key]) return TAG_STYLE_CONFIG[key];
@@ -70,6 +75,10 @@ const getTagStyle = (tagKey) => {
     return TAG_STYLE_CONFIG.default;
 };
 
+/**
+ * @param {Object} props
+ * @returns {JSX.Element}
+ */
 const VersionBadge = ({type, text}) => {
     const style = getTagStyle(type);
     return (
@@ -92,7 +101,11 @@ const VersionBadge = ({type, text}) => {
     );
 };
 
-const ChangelogItem = React.memo(({v, index, isActive, strings, onOpenSingle, onShare}) => {
+/**
+ * @param {Object} props
+ * @returns {JSX.Element}
+ */
+const ChangelogItem = React.memo(({v, index, isActive, strings, onOpenSingle, onShare, onEmailShare}) => {
     const [isOpen, setIsOpen] = useState(index === 0);
     const [hasBeenOpened, setHasBeenOpened] = useState(index === 0);
 
@@ -102,6 +115,9 @@ const ChangelogItem = React.memo(({v, index, isActive, strings, onOpenSingle, on
     const platformTags = ['Wear OS', 'Android XR', 'Phone', 'Tablet', 'Web', 'Website'];
     const excludeTags = [...platformTags, 'Beta', 'Alpha', 'RC', 'Pre-release'];
 
+    /**
+     * @returns {void}
+     */
     const handleToggle = () => {
         setIsOpen(!isOpen);
         setHasBeenOpened(true);
@@ -168,6 +184,15 @@ const ChangelogItem = React.memo(({v, index, isActive, strings, onOpenSingle, on
                         <button
                             onClick={(e) => {
                                 e.stopPropagation();
+                                if (onEmailShare) onEmailShare(v);
+                            }}
+                            className="icon-action-btn" title={strings.copy_email_embed || "Copy summary for email"}
+                        >
+                            <span className="material-symbols-outlined" style={{fontSize: '20px'}}>mail</span>
+                        </button>
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation();
                                 if (onShare) onShare(v);
                             }}
                             className="icon-action-btn" title={strings.share_tooltip || "Share this update"}
@@ -223,7 +248,10 @@ const ChangelogItem = React.memo(({v, index, isActive, strings, onOpenSingle, on
     );
 });
 
-
+/**
+ * @param {Object} props
+ * @returns {JSX.Element}
+ */
 const FullScreenArticle = ({
                                v,
                                prevVersion,
@@ -244,6 +272,10 @@ const FullScreenArticle = ({
         return matches;
     }, [v.content]);
 
+    /**
+     * @param {string} id
+     * @returns {void}
+     */
     const scrollToSection = (id) => {
         const el = document.getElementById(id);
         if (el) {
@@ -374,6 +406,10 @@ const FullScreenArticle = ({
     );
 };
 
+/**
+ * @param {Object} props
+ * @returns {JSX.Element}
+ */
 export default function ChangelogViewer({markdownContent: initialMarkdown, appConfig, strings, onNavigate}) {
     const {language} = useLanguage();
     const {versionId} = useParams();
@@ -394,7 +430,6 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
     const [isSticky, setIsSticky] = useState(false);
     const containerRef = useRef(null);
     const lastScrollY = useRef(0);
-    const loaderRef = useRef(null);
 
     const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1000);
     const [searchPortalNode, setSearchPortalNode] = useState(null);
@@ -484,6 +519,9 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
         return () => window.removeEventListener('scroll', handleScroll);
     }, [isFullScreenMode]);
 
+    /**
+     * @returns {Promise<void>}
+     */
     const handleRevertToEnglish = async () => {
         try {
             const originalContent = await loadPageContent('changelog', appConfig, 'en');
@@ -516,6 +554,9 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
         }
     };
 
+    /**
+     * @returns {Promise<void>}
+     */
     const handleRestoreTranslation = async () => {
         try {
             const translatedContent = await loadPageContent('changelog', appConfig, language);
@@ -548,6 +589,9 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
         }
     };
 
+    /**
+     * @returns {void}
+     */
     const handleTranslateClick = () => {
         if (isShowingOriginal) {
             handleRestoreTranslation();
@@ -559,17 +603,28 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
         }
     };
 
+    /**
+     * @returns {void}
+     */
     const handleViewAll = () => {
         if (isCompass) navigate('/pixelcompass/changelog');
         else if (isPulse) navigate('/pixelpulse/changelog');
         else navigate('/changelog');
     };
 
+    /**
+     * @param {string} id
+     * @returns {void}
+     */
     const handleOpenSingle = (id) => {
         const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : '';
         navigate(`${basePath}/changelog/${id}`);
     };
 
+    /**
+     * @param {Object} version
+     * @returns {void}
+     */
     const handleShare = (version) => {
         const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : '';
         const shareUrl = `${window.location.origin}${basePath}/changelog/${version.id}`;
@@ -583,6 +638,21 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
             }).catch(() => {
             });
         }
+    };
+
+    /**
+     * @param {Object} version
+     * @returns {Promise<void>}
+     */
+    const handleEmailShare = async (version) => {
+        const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : '';
+        const shareUrl = `${window.location.origin}${basePath}/changelog/${version.id}`;
+        const appName = appConfig?.appName || 'App';
+        const primaryColor = isPulse ? '#3BA174' : '#6750A4';
+        const successMessage = strings.changelog?.email_copied || "Email summary copied to clipboard!";
+
+        const {htmlText, plainText} = generateEmailEmbed(version, appName, shareUrl, primaryColor);
+        await executeCopy(htmlText, plainText, successMessage);
     };
 
     const allTags = useMemo(() => {
@@ -624,6 +694,10 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
         return () => observer.disconnect();
     }, [filteredVersions, visibleCount, isFullScreenMode]);
 
+    /**
+     * @param {string} id
+     * @returns {void}
+     */
     const scrollToVersion = (id) => {
         const targetIndex = filteredVersions.findIndex(v => v.id === id);
         if (targetIndex !== -1) {
@@ -641,6 +715,10 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
         }
     };
 
+    /**
+     * @param {string} tag
+     * @returns {void}
+     */
     const toggleTag = (tag) => {
         setSelectedTags(prev => prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]);
     };
@@ -751,10 +829,16 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                                 onClick={handleTranslateClick}/>}
                     </AnimatePresence>
                     {isFullScreenMode && filteredVersions.length > 0 && (
-                        <button onClick={() => handleShare(filteredVersions[0])} className="header-icon-btn"
-                                title={strings.changelog?.share_update || "Share Update"}>
-                            <span className="material-symbols-outlined">share</span>
-                        </button>
+                        <>
+                            <button onClick={() => handleEmailShare(filteredVersions[0])} className="header-icon-btn"
+                                    title={strings.changelog?.copy_email_embed || "Copy email summary"}>
+                                <span className="material-symbols-outlined">mail</span>
+                            </button>
+                            <button onClick={() => handleShare(filteredVersions[0])} className="header-icon-btn"
+                                    title={strings.changelog?.share_update || "Share Update"}>
+                                <span className="material-symbols-outlined">share</span>
+                            </button>
+                        </>
                     )}
                 </div>
             }
@@ -970,7 +1054,8 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                             <ChangelogItem key={v.id} v={v} index={index} isActive={activeId === v.id}
                                                            strings={strings.changelog || {}}
                                                            onOpenSingle={() => handleOpenSingle(v.id)}
-                                                           onShare={handleShare}/>
+                                                           onShare={handleShare}
+                                                           onEmailShare={handleEmailShare}/>
                                         ))
                                     ) : (
                                         <div style={{

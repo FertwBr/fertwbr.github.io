@@ -1,3 +1,9 @@
+// src/utils/changelogParser.js
+
+/**
+ * @param {string} markdown
+ * @returns {Array<Object>}
+ */
 export const parseChangelog = (markdown) => {
     if (!markdown) return [];
 
@@ -49,6 +55,7 @@ export const parseChangelog = (markdown) => {
         let rawContent = lines.slice(contentStartIndex).join('\n').trim();
 
         const tags = new Set();
+        const topics = [];
         const platformMap = {
             '📱': 'Phone',
             '⌚': 'Wear OS',
@@ -62,6 +69,8 @@ export const parseChangelog = (markdown) => {
         let match;
         while ((match = headerRegex.exec(rawContent)) !== null) {
             const headerText = match[1];
+            topics.push(headerText.replace(/\*\*/g, '').replace(/`/g, '').replace(/\[(.*?)\]\(.*?\)/g, '$1').trim());
+
             if (headerText.includes('Phone')) tags.add('Phone');
             if (headerText.includes('Wear OS')) tags.add('Wear OS');
 
@@ -81,6 +90,7 @@ export const parseChangelog = (markdown) => {
             date,
             shortDate,
             tags: Array.from(tags),
+            topics,
             content: rawContent,
             type
         };
