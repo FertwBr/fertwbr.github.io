@@ -146,6 +146,23 @@ magnets, heavy machinery, or thick phone cases with magnetic clasps.
   - Check if "Battery Optimization" is killing the app. Set Pixel Compass to "Unrestricted" and ensure you have
     given "Allow all the time" location permission.
 
+### Weather Providers & Regional Support
+
+**1. How does the app choose between Google Weather and OpenWeather?**
+Starting with version 1.19.0 or higher, Pixel Compass uses a multi-tiered weather engine to ensure global coverage.
+- **Google Weather:** This is our primary and most accurate provider, used in all officially supported regions.
+- **OpenWeatherMap (Fallback):** If your current region is not supported by Google Weather, the app automatically switches to OpenWeatherMap to provide consistent data.
+- **Unsupported Regions:** If neither service can provide data for your specific coordinates, the app will display a "Region Not Compatible" status.
+
+**2. Why does the data look different between providers?**
+OpenWeatherMap data may occasionally be less precise or lack specific metrics (like detailed precipitation types or exact UV indexes) compared to Google Weather. This varies by region and is a limitation of the available data sources. The app is designed to handle these gaps gracefully by simply hiding the missing information rather than showing errors or incorrect values.
+
+**3. I am still seeing "Region Not Supported" after version 1.19.0.**
+If you are running version 1.19.0 or higher and your region is still not supported, please contact our support team. We will analyze your coordinates to see if a technical solution or a third provider integration is possible for your area.
+
+**4. I am a Plus User in an unsupported region. What can I do?**
+If you are a Pixel Compass+ subscriber and high-quality weather data was your primary reason for subscribing, we understand your frustration if your region is currently unsupported. If you do not wish to wait for a potential update, please contact us at **suport@fertwbr.com** to request a refund. We value your support and want to ensure you are satisfied with your purchase.
+
 ## Support & Feedback {: data-toc-key="support" }
 
 - **In-App Feedback:** The best way to reach us! Use the redesigned Feedback sheet (**Settings > Help & Support**) which
