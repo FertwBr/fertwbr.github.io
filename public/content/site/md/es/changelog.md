@@ -1,6 +1,29 @@
 # Historial de Versiones
 Siga la evolución del portafolio. Aquí encontrará un registro detallado de nuevas características, mejoras y correcciones para cada versión.
 
+## Version 4.1.0
+*(Released April 14, 2026)*
+
+La versión 4.1.0 introduce nuevas y potentes formas de compartir actualizaciones y aporta una capa de pulido premium a la interfaz del sitio. Este lanzamiento se centra en hacer que la información sea más accesible y fácil de distribuir a través de nuestro nuevo motor de intercambio por correo electrónico enriquecido, a la vez que ofrece una experiencia de navegación más fluida y receptiva para los usuarios de tablets.
+
+#### 🌐 Core Web Experience
+* **New: Rich Email Sharing Engine:** Compartir actualizaciones importantes ahora es sencillo. El sitio ahora puede generar incrustaciones de correo electrónico HTML con un estilo elegante directamente desde el changelog y el contenido Markdown.
+  * **Cross-Client Compatibility:** Las incrustaciones se generan dinámicamente utilizando un estilo en línea preciso (utilizando opacidad moderna y formato RGBA en lugar de colores fijos) para garantizar que se vean perfectas y hereden las fuentes correctas en todos los principales clientes de correo electrónico.
+  * **Smart Topic Extraction:** El sistema ahora extrae de forma inteligente los encabezados y temas de Markdown, empaquetándolos ordenadamente en la carga útil del correo electrónico junto con un respaldo de portapapeles de texto sin formato confiable para una máxima compatibilidad.
+  * **Seamless Copy Feedback:** Olvídese de las intrusivas alertas emergentes del navegador. Copiar enlaces o incrustaciones de correo electrónico ahora activa una notificación toast elegante y ligera para un flujo premium sin interrupciones.
+
+* **UI & UX Polish: Tablet Navigation Overhaul:** La barra de navegación para tablets se ha reconstruido desde cero, pasando de los estilos en línea a una arquitectura robusta impulsada por CSS para una capacidad de respuesta superior.
+  * **Refined Glass Effect:** La estética característica de efecto cristal ahora es más suave, consistente y más fácil de tematizar mientras se desplaza.
+  * **Intelligent Layouts:** Las etiquetas de navegación ahora se ocultan dinámicamente en pantallas de tablets más estrechas (menos de 900 px), priorizando el espacio en pantalla para su contenido mientras mantiene los iconos esenciales perfectamente alineados.
+
+* **Global Localization: Expanded Translations:** La nueva suite de intercambio por correo electrónico está completamente localizada y lista para su uso global.
+  * **Multi-Language Support:** Se agregaron claves de traducción completas para todos los flujos de intercambio y copia en alemán, inglés, español, hindi, japonés y portugués.
+
+* **Fixes & Stability: Ecosystem & Routing:** Correcciones esenciales para garantizar que los usuarios siempre lleguen al destino correcto sin fricciones.
+  * **Verified Store Links:** Se reemplazaron las URL de marcador de posición con los enlaces oficiales y en vivo de Chrome Web Store y Firefox Add-on.
+  * **Documentation Anchors:** Se normalizaron los metadatos de la tabla de contenidos en las secciones de Ayuda y FAQ (convirtiéndolos a kebab-case), lo que garantiza que los enlaces profundos y el desplazamiento automático funcionen perfectamente cada vez.
+  * **Repository Routing:** Se corrigió un error tipográfico en la URL de la documentación del desarrollador para que apunte correctamente a la base de código de código abierto Gemini-Expressive.
+
 ## Version 4.0.0
 *(Publicado el 6 de abril de 2026)*
 

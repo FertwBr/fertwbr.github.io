@@ -1,6 +1,29 @@
 # Versionsverlauf
 Verfolgen Sie die Entwicklung des Portfolios. Hier finden Sie ein detailliertes Protokoll über neue Funktionen, Verbesserungen und Korrekturen für jede Version.
 
+## Version 4.1.0
+*(Released April 14, 2026)*
+
+Version 4.1.0 führt leistungsstarke neue Möglichkeiten zum Teilen von Updates ein und verleiht der Benutzeroberfläche der Website einen Premium-Schliff. Diese Version konzentriert sich darauf, Informationen über unsere neue Rich-Email-Sharing-Engine zugänglicher und leichter verbreitbar zu machen, während sie gleichzeitig ein reibungsloseres und reaktionsschnelleres Navigationserlebnis für Tablet-Benutzer bietet.
+
+#### 🌐 Core Web Experience
+* **New: Rich Email Sharing Engine:** Das Teilen wichtiger Updates ist jetzt mühelos. Die Website kann jetzt direkt aus dem Changelog und Markdown-Inhalten elegant gestaltete HTML-E-Mail-Embeds generieren.
+  * **Cross-Client Compatibility:** Embeds werden dynamisch mit präzisem Inline-Styling generiert (unter Verwendung moderner Opazität und RGBA-Formatierung anstelle von fest hinterlegten Farben), um sicherzustellen, dass sie in allen gängigen E-Mail-Clients perfekt aussehen und die richtigen Schriftarten übernehmen.
+  * **Smart Topic Extraction:** Das System extrahiert nun intelligent Markdown-Überschriften und Themen und verpackt sie ordentlich in den E-Mail-Payload, zusammen mit einem zuverlässigen Nur-Text-Zwischenablage-Fallback für maximale Kompatibilität.
+  * **Seamless Copy Feedback:** Verabschieden Sie sich von störenden Browser-Pop-up-Warnungen. Das Kopieren von Links oder E-Mail-Embeds löst nun eine elegante, leichte Toast-Benachrichtigung für einen ununterbrochenen Premium-Fluss aus.
+
+* **UI & UX Polish: Tablet Navigation Overhaul:** Die Tablet-Navigationsleiste wurde von Grund auf neu aufgebaut, wobei von Inline-Styles zu einer robusten, CSS-gesteuerten Architektur für überlegene Reaktionsfähigkeit gewechselt wurde.
+  * **Refined Glass Effect:** Die charakteristische Glas-Ästhetik ist jetzt glatter, konsistenter und lässt sich beim Scrollen einfacher thematisch anpassen.
+  * **Intelligent Layouts:** Navigationsbeschriftungen werden auf schmaleren Tablet-Bildschirmen (unter 900px) automatisch ausgeblendet, wodurch der Platz auf dem Bildschirm für Ihre Inhalte priorisiert wird, während wichtige Symbole perfekt ausgerichtet bleiben.
+
+* **Global Localization: Expanded Translations:** Die neue E-Mail-Sharing-Suite ist standardmäßig vollständig lokalisiert und bereit für den globalen Einsatz.
+  * **Multi-Language Support:** Umfassende Übersetzungsschlüssel für alle Sharing- und Kopierabläufe in Deutsch, Englisch, Spanisch, Hindi, Japanisch und Portugiesisch hinzugefügt.
+
+* **Fixes & Stability: Ecosystem & Routing:** Wesentliche Korrekturen, um sicherzustellen, dass Benutzer immer ohne Reibungsverluste das richtige Ziel erreichen.
+  * **Verified Store Links:** Platzhalter-URLs durch die offiziellen Live-Links zum Chrome Web Store und Firefox Add-on ersetzt.
+  * **Documentation Anchors:** Inhaltsverzeichnis-Metadaten in den Hilfe- und FAQ-Bereichen normalisiert (Konvertierung in kebab-case), um sicherzustellen, dass Deep-Links und automatisches Scrollen jedes Mal einwandfrei funktionieren.
+  * **Repository Routing:** Ein URL-Tippfehler in der Entwicklerdokumentation wurde korrigiert, um korrekt auf die Open-Source-Codebasis von Gemini-Expressive zu verweisen.
+
 ## Version 4.0.0
 *(Veröffentlicht am 6. April 2026)*
 
