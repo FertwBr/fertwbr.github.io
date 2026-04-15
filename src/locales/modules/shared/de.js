@@ -116,6 +116,8 @@ export default {
         load_more: "Mehr laden",
         explore_more: "Mehr entdecken",
         link_copied: "Link in die Zwischenablage kopiert!",
+        email_copied: "E-Mail-Zusammenfassung in die Zwischenablage kopiert!",
+        copy_email_embed: "Zusammenfassung für E-Mail kopieren",
         open_full_screen: "Im Vollbildmodus öffnen",
         share_tooltip: "Dieses Update teilen",
         previous_update: "Vorheriges Update",

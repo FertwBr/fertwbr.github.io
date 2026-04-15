@@ -116,6 +116,8 @@ export default {
         load_more: "और लोड करें",
         explore_more: "और एक्सप्लोर करें",
         link_copied: "लिंक क्लिपबोर्ड पर कॉपी हो गया!",
+        email_copied: "ईमेल सारांश क्लिपबोर्ड पर कॉपी किया गया!",
+        copy_email_embed: "ईमेल के लिए सारांश कॉपी करें",
         open_full_screen: "पूर्ण स्क्रीन में खोलें",
         share_tooltip: "इस अपडेट को साझा करें",
         previous_update: "पिछला अपडेट",

@@ -51,9 +51,9 @@ const copyRichTextFallback = (html, text) => {
  * @returns {string}
  */
 const formatInline = (text, primaryColor) => {
-    let res = text.replace(/\*\*(.*?)\*\*/g, '<strong style="color: #1b1b1f; font-weight: 700;">$1</strong>');
-    res = res.replace(/\*(.*?)\*/g, '<em style="color: #49454f; font-style: italic;">$1</em>');
-    res = res.replace(/`(.*?)`/g, `<code style="background-color: #e2e2e6; color: #1b1b1f; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px;">$1</code>`);
+    let res = text.replace(/\*\*(.*?)\*\*/g, '<strong style="font-weight: 700;">$1</strong>');
+    res = res.replace(/\*(.*?)\*/g, '<em style="font-style: italic;">$1</em>');
+    res = res.replace(/`(.*?)`/g, `<code style="background-color: rgba(121, 116, 126, 0.15); padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13px;">$1</code>`);
     res = res.replace(/\[(.*?)\]\((.*?)\)/g, `<a href="$2" style="color: ${primaryColor}; text-decoration: none; font-weight: 600;">$1</a>`);
     return res;
 };
@@ -91,10 +91,10 @@ const parseMarkdownToHTML = (md, primaryColor) => {
         const nestedListMatch = line.match(/^(\s{2,}|\t)\*\s+(.*)/) || lines[i].match(/^(\s{2,}|\t)\*\s+(.*)/);
         if (nestedListMatch) {
             if (!inNestedList) {
-                html += `<ul style="margin: 4px 0 0 0; padding-left: 20px; list-style-type: circle; color: #49454f;">`;
+                html += `<ul style="margin: 4px 0 0 0; padding-left: 20px; list-style-type: circle; opacity: 0.9;">`;
                 inNestedList = true;
             }
-            html += `<li style="margin-bottom: 4px; font-size: 13px; color: #49454f;">${formatInline(nestedListMatch[2], primaryColor)}</li>`;
+            html += `<li style="margin-bottom: 4px; font-size: 13px;">${formatInline(nestedListMatch[2], primaryColor)}</li>`;
             continue;
         }
 
@@ -105,14 +105,14 @@ const parseMarkdownToHTML = (md, primaryColor) => {
                 inNestedList = false;
             }
             if (!inList) {
-                html += `<ul style="margin: 0; padding-left: 20px; color: #1b1b1f;">`;
+                html += `<ul style="margin: 0; padding-left: 20px;">`;
                 inList = true;
             }
-            html += `<li style="margin-bottom: 8px; font-size: 14px; line-height: 1.5; color: #1b1b1f;">${formatInline(listMatch[1], primaryColor)}</li>`;
+            html += `<li style="margin-bottom: 8px; font-size: 14px; line-height: 1.5;">${formatInline(listMatch[1], primaryColor)}</li>`;
             continue;
         }
 
-        html += `<p style="margin: 0 0 12px 0; line-height: 1.6; font-size: 14px; color: #49454f;">${formatInline(line, primaryColor)}</p>`;
+        html += `<p style="margin: 0 0 12px 0; line-height: 1.6; font-size: 14px; opacity: 0.9;">${formatInline(line, primaryColor)}</p>`;
     }
 
     if (inNestedList) html += '</ul>';
@@ -171,20 +171,20 @@ export const generateEmailEmbed = (version, appName, shareUrl, primaryColor) => 
     const parsedContentHtml = parseMarkdownToHTML(version.content, primaryColor);
 
     const htmlText = `
-        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; border: 1px solid #e2e2e6; border-radius: 16px; padding: 20px; background-color: #f8f9fa; margin: 16px 0; color: #1b1b1f;">
-            <div style="border-bottom: 1px solid #e2e2e6; padding-bottom: 16px; margin-bottom: 16px;">
+        <div style="font-family: inherit; max-width: 600px; border: 1px solid rgba(121, 116, 126, 0.3); border-radius: 16px; padding: 20px; background-color: rgba(121, 116, 126, 0.05); margin: 16px 0;">
+            <div style="border-bottom: 1px solid rgba(121, 116, 126, 0.2); padding-bottom: 16px; margin-bottom: 16px;">
                 <div style="font-size: 12px; font-weight: 800; color: ${primaryColor}; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">Update Summary</div>
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <div style="font-size: 18px; font-weight: 800; margin: 0;">Version ${version.version.replace('Version ', '')}</div>
-                    <div style="font-size: 12px; color: #49454f; font-weight: 600; background-color: #e2e2e6; padding: 4px 10px; border-radius: 8px; margin: 0;">${version.date}</div>
+                    <div style="font-size: 12px; opacity: 0.8; font-weight: 600; background-color: rgba(121, 116, 126, 0.1); padding: 4px 10px; border-radius: 8px; margin: 0;">${version.date}</div>
                 </div>
             </div>
             
-            <div style="font-size: 14px; line-height: 1.6; color: #49454f;">
+            <div style="font-size: 14px; line-height: 1.6;">
                 ${parsedContentHtml}
             </div>
 
-            <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid #e2e2e6; text-align: center;">
+            <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(121, 116, 126, 0.2); text-align: center;">
                 <a href="${shareUrl}" style="display: inline-block; background-color: ${primaryColor}; color: #ffffff; padding: 12px 24px; border-radius: 100px; text-decoration: none; font-weight: 700; font-size: 13px;">
                     View Full Changelog Online
                 </a>

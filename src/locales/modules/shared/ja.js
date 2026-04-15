@@ -116,6 +116,8 @@ export default {
         load_more: "さらに読み込む",
         explore_more: "さらに探索する",
         link_copied: "リンクをクリップボードにコピーしました！",
+        email_copied: "メールの要約がクリップボードにコピーされました！",
+        copy_email_embed: "メールの要約をコピー",
         open_full_screen: "全画面で開く",
         share_tooltip: "この更新を共有",
         previous_update: "前の更新",

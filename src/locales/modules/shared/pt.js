@@ -115,6 +115,8 @@ export default {
         load_more: "Carregar mais",
         explore_more: "Explorar mais",
         link_copied: "Link copiado para a área de transferência!",
+        email_copied: "Resumo para e-mail copiado!",
+        copy_email_embed: "Copiar resumo para e-mail",
         open_full_screen: "Abrir em tela cheia",
         share_tooltip: "Compartilhar esta atualização",
         previous_update: "Atualização anterior",
