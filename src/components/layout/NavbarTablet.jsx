@@ -119,43 +119,21 @@ export default function NavbarTablet({config, activePage, onNavigate, strings}) 
             initial={{y: 0, opacity: 1}}
             animate={{y: isVisible ? 0 : -100, opacity: isVisible ? 1 : 0}}
             transition={{duration: 0.3, ease: "easeInOut"}}
-            style={{
-                position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-                padding: '16px', pointerEvents: 'none', width: '100%',
-                display: 'flex', justifyContent: 'center'
-            }}
+            className="tablet-nav-container"
         >
             <motion.div
                 layout
                 transition={SMOOTH_SPRING}
                 className="main-glass-nav"
-                style={{
-                    ...GLASS_STYLE(isScrolled),
-                    pointerEvents: 'auto',
-                    borderRadius: '100px',
-                    padding: '8px 16px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    width: '100%',
-                    maxWidth: '1200px',
-                    overflow: 'hidden',
-                    gap: '24px'
-                }}
+                style={GLASS_STYLE(isScrolled)}
             >
-                <motion.div layout transition={SMOOTH_SPRING} className="nav-brand-area"
-                            style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
+                <motion.div layout transition={SMOOTH_SPRING} className="nav-brand-area">
                     <motion.button
                         layout
                         onClick={handleBackAction}
                         className="nav-icon-btn-tablet"
                         whileTap={{scale: 0.9}}
                         transition={SMOOTH_SPRING}
-                        style={{
-                            background: 'transparent', border: 'none', cursor: 'pointer',
-                            display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            color: 'var(--md-sys-color-on-surface)'
-                        }}
                     >
                         <AnimatePresence mode="popLayout" initial={false}>
                             <motion.span
@@ -165,8 +143,7 @@ export default function NavbarTablet({config, activePage, onNavigate, strings}) 
                                 animate={{rotate: 0, opacity: 1, scale: 1}}
                                 exit={{rotate: 90, opacity: 0, scale: 0.5}}
                                 transition={SMOOTH_SPRING}
-                                className="material-symbols-outlined"
-                                style={{fontSize: '24px', display: 'block'}}
+                                className="material-symbols-outlined tablet-back-icon"
                             >
                                 {activePage === config.defaultPage ? 'close' : 'arrow_back'}
                             </motion.span>
@@ -179,14 +156,12 @@ export default function NavbarTablet({config, activePage, onNavigate, strings}) 
                         className="nav-brand-container"
                         whileTap={!is404 ? {scale: 0.97} : {}}
                         transition={SMOOTH_SPRING}
-                        style={{display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', padding: 0}}
                     >
-                        <motion.div layout transition={SMOOTH_SPRING} style={{display: 'flex', alignItems: 'center'}}>
+                        <motion.div layout transition={SMOOTH_SPRING} className="nav-brand-wrapper">
                             {config.materialIcon ? (
                                 <span className="material-symbols-outlined nav-brand-icon">{config.materialIcon}</span>
                             ) : (
-                                <img src={config.appIcon} alt="" className="nav-brand-image"
-                                     style={{width: '28px', height: '28px'}}/>
+                                <img src={config.appIcon} alt="" className="nav-brand-image"/>
                             )}
                         </motion.div>
                         <AnimatePresence mode="popLayout" initial={false}>
@@ -198,7 +173,6 @@ export default function NavbarTablet({config, activePage, onNavigate, strings}) 
                                 exit={{opacity: 0, y: -15, filter: "blur(4px)"}}
                                 transition={SMOOTH_SPRING}
                                 className="nav-brand-text"
-                                style={{display: 'inline-block', whiteSpace: 'nowrap'}}
                             >
                                 {displayTitle}
                             </motion.span>
@@ -207,13 +181,7 @@ export default function NavbarTablet({config, activePage, onNavigate, strings}) 
                 </motion.div>
 
                 {!is404 && (
-                    <motion.div layout transition={SMOOTH_SPRING} className="tablet-menu" style={{
-                        display: 'flex',
-                        gap: '4px',
-                        alignItems: 'center',
-                        flex: 1,
-                        justifyContent: 'center'
-                    }}>
+                    <motion.div layout transition={SMOOTH_SPRING} className="tablet-menu">
                         {visibleNavItems.map((item) => {
                             const isActive = activePage === item.id;
                             const label = strings?.[item.id] || (item.id === 'index' ? 'Home' : item.id.charAt(0).toUpperCase() + item.id.slice(1));
@@ -232,42 +200,19 @@ export default function NavbarTablet({config, activePage, onNavigate, strings}) 
                                     }}
                                     whileHover={{backgroundColor: isActive ? 'transparent' : 'rgba(var(--md-sys-color-on-surface-rgb), 0.08)'}}
                                     whileTap={{scale: 0.95}}
-                                    style={{
-                                        position: 'relative',
-                                        padding: '8px 16px',
-                                        background: 'transparent',
-                                        border: 'none',
-                                        color: isActive ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-surface-variant)',
-                                        fontWeight: isActive ? 600 : 500,
-                                        borderRadius: '100px',
-                                        cursor: 'pointer',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '6px',
-                                        fontSize: '0.9rem',
-                                        outline: 'none',
-                                        whiteSpace: 'nowrap',
-                                        transition: 'color 0.2s ease'
-                                    }}
+                                    className={`tablet-nav-item ${isActive ? 'active' : ''}`}
                                 >
                                     {isActive && (
                                         <motion.div
                                             layoutId="tablet-active-pill"
                                             transition={SMOOTH_SPRING}
-                                            style={{
-                                                position: 'absolute',
-                                                inset: 0,
-                                                backgroundColor: 'var(--md-sys-color-secondary-container)',
-                                                borderRadius: '100px',
-                                                zIndex: 0
-                                            }}
+                                            className="tablet-active-pill"
                                         />
                                     )}
-                                    <span className="material-symbols-outlined"
-                                          style={{fontSize: '18px', position: 'relative', zIndex: 1}}>
+                                    <span className="material-symbols-outlined tablet-nav-icon">
                                         {item.icon}
                                     </span>
-                                    <span style={{position: 'relative', zIndex: 1}}>
+                                    <span className="tablet-nav-label">
                                         {label}
                                     </span>
                                 </motion.button>
@@ -277,8 +222,7 @@ export default function NavbarTablet({config, activePage, onNavigate, strings}) 
                 )}
 
                 <motion.div layout transition={SMOOTH_SPRING}
-                            className={`nav-right-wrapper ${hasSearch ? 'has-search' : 'no-search'}`}
-                            style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
+                            className={`nav-right-wrapper ${hasSearch ? 'has-search' : 'no-search'}`}>
                     <div id="appbar-search-portal" ref={searchPortalRef} className="appbar-search-portal"></div>
                     <AnimatePresence>
                         <motion.button
