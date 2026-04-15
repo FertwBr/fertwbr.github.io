@@ -37,6 +37,12 @@ The application abstracts the Android `SensorManager` and `FusedLocationProvider
 1.  **Consistent Filtering**: Both apps use the same smoothing algorithms for compass data.
 2.  **Battery Efficiency**: Centralized management of sensor registration/unregistration based on lifecycle states (handled by `AppSensorLifecycleManager` in app and `WearPixelCompassApplication` logic in wear).
 
+### Smart Insight Engine & Analyzers
+A core feature of the app is its ability to proactively interpret environmental data rather than just displaying raw API numbers. This is handled by a robust, layered domain architecture:
+* **Pure Domain Analyzers**: Classes like `SevereWeatherAnalyzer`, `ThermalComfortAnalyzer`, `SolarAnalyzer`, `PrecipitationAnalyzer`, and `WindAnalyzer` live in the domain layer. They contain isolated, unit-testable business logic for evaluating thresholds (e.g., calculating burn times, detecting "Oven Effects," or determining Beaufort wind scales).
+* **Insight Engine (`InsightEngine.kt`)**: Orchestrates the output of the analyzers. It cross-references current conditions with hourly/daily forecasts to generate `GlanceInsight` models. These insights are strictly prioritized so that critical alerts (e.g., Hydroplaning Risk) override lifestyle suggestions (e.g., Car Wash day).
+* **Smart Notification Evaluator (`WeatherAlertEvaluator.kt`)**: Acts as the bridge between domain logic and system notifications. It filters insights based on user preferences (from DataStore) and enforces an `ALERT_COOLDOWN_MS` to prevent notification fatigue, ensuring alerts are timely but unintrusive.
+
 ### Modern Widget & Tile Architecture
 * **Android Widgets**: Built using **Jetpack Glance**, moving away from `RemoteViews` XML layouts to a declarative Kotlin API.
 * **Wear Tiles**: Implemented using **ProtoLayout** and **Tiles Material**, offering high-performance, glanceable information (Compass, Weather, Elevation) directly from the watch face swipe.

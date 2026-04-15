@@ -97,6 +97,24 @@ app's full potential and supports its future development.
 4. **Best Practices:** For reliability, ensure Pixel Compass is set to "Unrestricted" in your device's Battery settings
    and that notifications are enabled.
 
+## Smart Insights & Weather Alerts {: data-toc-key="smart_alerts" }
+
+Pixel Compass goes beyond showing raw numbers by actively interpreting the environment around you. Our newly redesigned system acts as a pocket meteorologist to keep you comfortable, safe, and informed.
+
+### 1. The Insight Engine (Dynamic Cards)
+When you enable Dynamic Cards, the app processes current conditions, hourly trends, and daily forecasts to give you human-friendly, actionable advice.
+- **Comfort & Lifestyle:** Suggests optimal times for a car wash, warns about "Oven Effect" heat, or alerts you when the air is too dry for your skin or hair.
+- **Leisure Planning:** Recommends "Picnic Weather", "Stargazing", or "Ski Conditions" based on a complex mix of cloud cover, temperature, and wind.
+- **Observation:** Highlights beautiful natural events like "Golden Hour", "Vivid Skies", or specific Moon Phases.
+- **Customization:** You can filter which types of insights you see (Alerts, Health, Comfort, Activity, Observation) via **Settings > Dynamic Cards > Manage Insight Categories**.
+
+### 2. Smart Weather Alerts (Push Notifications)
+If enabled, Pixel Compass can send critical and timely warnings directly to your phone's notification shade, even when the app is closed.
+- **Severe Weather Analyzer:** Automatically detects extreme scenarios like dense fog, rapid UV burn risks, high hydroplaning probability, and imminent thunderstorms.
+- **Precipitation Tracking:** Lets you know exactly when heavy rain or snow is about to start or stop.
+- **Smart Cooldown:** To prevent notification fatigue, the system uses an intelligent cooldown timer, ensuring you aren't spammed with the same alert multiple times a day.
+- **Manage Alerts:** Toggle these notifications and customize the alert categories (e.g., Health Risks, Precipitation, Severe Alerts) via **Settings > Notifications & Alerts**.
+
 ## Altitude & Calibration {: data-toc-key="altitude" }
 
 ### 1. How is altitude calculated?
