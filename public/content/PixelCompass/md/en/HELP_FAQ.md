@@ -130,20 +130,27 @@ magnets, heavy machinery, or thick phone cases with magnetic clasps.
 
 ## Troubleshooting & FAQ {: data-toc-key="troubleshooting" }
 
+- **Why can't I download or update the app anymore? (Device Incompatible)**
+  - Starting with version **1.19**, Pixel Compass strictly requires a physical hardware compass sensor (magnetometer) to function. We have updated our system requirements on Google Play to enforce this rule, preventing users from installing an app that will not work on their device.
+- **What if I purchased Pixel Compass+ and my device is now incompatible?**
+  - If you are a Plus user and your device does not have a magnetometer, please contact us at **suport@fertwbr.com** with your Google Play purchase code (Order ID). We will process a manual refund for you, especially if the standard Google Play refund window has already passed or if your refund request was rejected by Google.
+- **Can I keep using the older version (v1.18.3) without a compass sensor?**
+  - Yes. If you already have version 1.18.3 installed, you can continue to use it. Features that do not rely on the compass hardware, such as the Level tool and Weather cards, should still function normally. However, the compass itself will still not work because your device physically lacks the required sensor.
+  - Please note: You can continue using version 1.18.3 indefinitely, but it will only remain usable until the version is officially discontinued (for example, if our weather data providers change their APIs or if critical security updates are required).
 - **My compass is stuck or inaccurate.**
-    - Ensure your phone case doesn't have magnets. Perform the figure-eight calibration away from large metal objects.
+  - Ensure your phone case doesn't have magnets. Perform the figure-eight calibration away from large metal objects.
 - **The weather says "Location Not Supported".**
-    - Some regions might not have data coverage from the Weather API. You can disable weather features in Settings to
-      hide the error.
+  - Some regions might not have data coverage from the Weather API. You can disable weather features in Settings to
+    hide the error.
 - **My widgets are not updating.**
-    - Check if "Battery Optimization" is killing the app. Set Pixel Compass to "Unrestricted" and ensure you have
-      given "Allow all the time" location permission.
+  - Check if "Battery Optimization" is killing the app. Set Pixel Compass to "Unrestricted" and ensure you have
+    given "Allow all the time" location permission.
 
 ## Support & Feedback {: data-toc-key="support" }
 
 - **In-App Feedback:** The best way to reach us! Use the redesigned Feedback sheet (**Settings > Help & Support**) which
   includes draft autosaving and diagnostic info options.
-- **Contact Email:** **fertwbr@programmer.net**
+- **Contact Email:** **suport@fertwbr.com**
 - **Project Page:** [fertwbr.github.io/PixelCompass/](https://fertwbr.github.io/PixelCompass/)
 
 ## Privacy Policy {: data-toc-key="privacy" }
