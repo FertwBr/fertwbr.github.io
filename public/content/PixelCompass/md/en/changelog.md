@@ -1,6 +1,34 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.19.0 RC2
+*(Released April 18, 2026)*
+
+**🚨 CRITICAL COMPATIBILITY NOTICE:**
+Starting with version 1.19.0, **Pixel Compass strictly requires a physical hardware compass sensor (magnetometer)** to function. We have updated our system requirements on Google Play to enforce this rule, preventing users from installing an app that will not work on their device.
+* **If you are a Plus user** and your device is no longer compatible, please contact us at **suport@fertwbr.com** with your Google Play Order ID for a manual refund.
+* **If you are currently using v1.18.3** on a device without a compass, you can continue to use it indefinitely. However, you will not receive future updates. Please check the Help section on our website for more details.
+
+
+#### 📱 Phone
+
+* **Core & Architecture:**
+  * **Hardware Enforcement:** Added strict `<uses-feature android.hardware.sensor.compass>` flags to the Android Manifest for both Phone and Wear OS. This ensures the app is only distributed to devices physically capable of running it.
+  * **Build System Upgrade:** Completely overhauled the project's build pipeline. Upgraded to Android Gradle Plugin (AGP) 9.1.1, Gradle 9.3.1, and finalized the transition of all modules (including Baseline Profiles and Shared UI) to compile and target Android SDK 37.
+* **UI & UX Polish:**
+  * **Master Notification Switch:** Added a new master toggle at the top of the "Notifications & Alerts" settings. This switch directly reflects your Android system-level notification permissions. If notifications are blocked by the OS, a clear warning is displayed with a shortcut to fix it.
+  * **Dynamic Weather Attribution:** The weather attribution footer (e.g., "Powered by Google Weather" or "Powered by OpenWeather") now features smooth, animated crossfades. If OpenWeather is active, the link now intelligently points to the specific city's forecast page rather than the generic homepage.
+  * **Category Dialog Polish:** The Category Selection Dialog (used for Insights and Notifications) now features fixed-height rows and a smooth scrolling marquee for long descriptions, preventing awkward text wrapping on smaller screens.
+* **Global Localization:**
+  * **Weather & Notification Strings:** Finalized translations for the new OpenWeatherMap attribution footers and the granular Notification Category settings across all 24 supported languages.
+  * **Google Weather API Fix:** Corrected an issue where the app was sending legacy unit strings (e.g., "C", "km/h") instead of the strict constants required by Google's API (e.g., "CELSIUS", "KILOMETERS_PER_HOUR"), ensuring weather requests don't fail unexpectedly.
+
+#### ⌚ Wear OS
+
+* **Core & Architecture (Shared):**
+  * **Hardware Enforcement:** The Wear OS app now also strictly requires a physical magnetometer.
+  * **Build System Upgrade:** Upgraded to target Android SDK 37 alongside the phone app.
+
 ## Version 1.19.0 RC1
 *(Released April 17, 2026)*
 
