@@ -1,6 +1,29 @@
 # Version History
 Track the evolution of the portfolio. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 4.1.0
+*(Released April 14, 2026)*
+
+Version 4.1.0 introduces powerful new ways to share updates and brings a layer of premium polish to the site's interface. This release focuses on making information more accessible and easily distributable through our new rich email sharing engine, while also delivering a smoother, more responsive navigation experience for tablet users.
+
+#### 🌐 Core Web Experience
+* **New: Rich Email Sharing Engine:** Sharing important updates is now effortless. The site can now generate beautifully styled HTML email embeds directly from the changelog and Markdown content.
+  * **Cross-Client Compatibility:** Embeds are dynamically generated using precise inline styling (utilizing modern opacity and RGBA formatting instead of hardcoded colors) to ensure they look perfect and inherit the correct fonts across all major email clients.
+  * **Smart Topic Extraction:** The system now intelligently extracts Markdown headings and topics, packaging them neatly into the email payload alongside a reliable plain-text clipboard fallback for maximum compatibility.
+  * **Seamless Copy Feedback:** Say goodbye to intrusive browser pop-up alerts. Copying links or email embeds now triggers a sleek, lightweight toast notification for an uninterrupted, premium flow.
+
+* **UI & UX Polish: Tablet Navigation Overhaul:** The tablet navigation bar has been rebuilt from the ground up, moving away from inline styles to a robust, CSS-driven architecture for superior responsiveness.
+  * **Refined Glass Effect:** The signature blurred glass aesthetic is now smoother, more consistent, and easier to theme as you scroll.
+  * **Intelligent Layouts:** Navigation labels now dynamically hide on narrower tablet screens (under 900px), prioritizing screen real estate for your content while keeping essential icons perfectly aligned.
+
+* **Global Localization: Expanded Translations:** The new email sharing suite is fully localized out of the box and ready for global use.
+  * **Multi-Language Support:** Added comprehensive translation keys for all sharing and copy flows across German, English, Spanish, Hindi, Japanese, and Portuguese.
+
+* **Fixes & Stability: Ecosystem & Routing:** Essential corrections to ensure users always reach the right destination without friction.
+  * **Verified Store Links:** Replaced placeholder URLs with the official, live Chrome Web Store and Firefox Add-on marketplace links.
+  * **Documentation Anchors:** Normalized table-of-contents metadata in the Help & FAQ sections (converting to kebab-case), ensuring deep-links and automatic scrolling work flawlessly every time.
+  * **Repository Routing:** Fixed a URL typo in the developer documentation to correctly point to the live Gemini-Expressive open-source codebase.
+
 ## Version 4.0.0
 *(Released April 6, 2026)*
 
