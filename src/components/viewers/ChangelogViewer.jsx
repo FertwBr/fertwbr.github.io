@@ -1,4 +1,3 @@
-// src/components/viewers/ChangelogViewer.jsx
 import React, {useState, useEffect, useMemo, useRef} from 'react';
 import {createPortal} from 'react-dom';
 import ReactMarkdown from 'react-markdown';
@@ -8,7 +7,7 @@ import {useParams, useNavigate} from 'react-router-dom';
 import {parseChangelog} from '../../utils/changelogParser';
 import {loadPageContent} from '../../utils/contentLoader';
 import {useLanguage} from '../../context/LanguageContext';
-import {generateEmailEmbed, executeCopy} from '../../utils/emailShareUtils';
+import {generateEmailEmbed, executeCopy, showToast} from '../../utils/emailShareUtils';
 import BackToTop from '../common/BackToTop';
 import PageTableOfContents from '../common/PageTableOfContents';
 import AutoTranslateBadge from '../common/AutoTranslateBadge';
@@ -186,9 +185,9 @@ const ChangelogItem = React.memo(({v, index, isActive, strings, onOpenSingle, on
                                 e.stopPropagation();
                                 if (onEmailShare) onEmailShare(v);
                             }}
-                            className="icon-action-btn" title={strings.copy_email_embed || "Copy summary for email"}
+                            className="icon-action-btn" title={strings.copy_email_embed || "Copy summary embed"}
                         >
-                            <span className="material-symbols-outlined" style={{fontSize: '20px'}}>mail</span>
+                            <span className="material-symbols-outlined" style={{fontSize: '20px'}}>data_object</span>
                         </button>
                         <button
                             onClick={(e) => {
@@ -550,7 +549,6 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                 setShowTranslateInfo(false);
             }
         } catch (e) {
-            console.error("Failed to load English content", e);
         }
     };
 
@@ -585,7 +583,6 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                 setIsShowingOriginal(false);
             }
         } catch (e) {
-            console.error("Failed to load translated content", e);
         }
     };
 
@@ -633,10 +630,28 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
             navigator.share({title: `${appConfig?.appName} Update ${version.version}`, url: shareUrl}).catch(() => {
             });
         } else {
-            navigator.clipboard.writeText(shareUrl).then(() => {
-                alert(strings.changelog?.link_copied || "Link copied to clipboard!");
-            }).catch(() => {
-            });
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(shareUrl).then(() => {
+                    showToast(strings.changelog?.link_copied || "Link copied to clipboard!");
+                }).catch(() => {
+                });
+            } else {
+                const textArea = document.createElement("textarea");
+                textArea.value = shareUrl;
+                textArea.style.position = "fixed";
+                textArea.style.top = "-9999px";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast(strings.changelog?.link_copied || "Link copied to clipboard!");
+                } catch (err) {
+                }
+                if (document.body.contains(textArea)) {
+                    document.body.removeChild(textArea);
+                }
+            }
         }
     };
 
@@ -649,7 +664,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
         const shareUrl = `${window.location.origin}${basePath}/changelog/${version.id}`;
         const appName = appConfig?.appName || 'App';
         const primaryColor = isPulse ? '#3BA174' : '#6750A4';
-        const successMessage = strings.changelog?.email_copied || "Email summary copied to clipboard!";
+        const successMessage = strings.changelog?.email_copied || "Embed copied to clipboard!";
 
         const {htmlText, plainText} = generateEmailEmbed(version, appName, shareUrl, primaryColor);
         await executeCopy(htmlText, plainText, successMessage);
@@ -831,8 +846,8 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                     {isFullScreenMode && filteredVersions.length > 0 && (
                         <>
                             <button onClick={() => handleEmailShare(filteredVersions[0])} className="header-icon-btn"
-                                    title={strings.changelog?.copy_email_embed || "Copy email summary"}>
-                                <span className="material-symbols-outlined">mail</span>
+                                    title={strings.changelog?.copy_email_embed || "Copy email embed"}>
+                                <span className="material-symbols-outlined">data_object</span>
                             </button>
                             <button onClick={() => handleShare(filteredVersions[0])} className="header-icon-btn"
                                     title={strings.changelog?.share_update || "Share Update"}>

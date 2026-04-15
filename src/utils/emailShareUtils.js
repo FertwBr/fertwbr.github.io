@@ -39,7 +39,9 @@ const copyRichTextFallback = (html, text) => {
         document.body.removeChild(textArea);
     } finally {
         selection.removeAllRanges();
-        document.body.removeChild(container);
+        if (document.body.contains(container)) {
+            document.body.removeChild(container);
+        }
     }
 };
 
@@ -119,6 +121,46 @@ const parseMarkdownToHTML = (md, primaryColor) => {
 };
 
 /**
+ * @param {string} message
+ * @returns {void}
+ */
+export const showToast = (message) => {
+    const toast = document.createElement('div');
+    toast.textContent = message;
+    toast.style.position = 'fixed';
+    toast.style.bottom = '24px';
+    toast.style.left = '50%';
+    toast.style.transform = 'translateX(-50%)';
+    toast.style.backgroundColor = 'var(--md-sys-color-inverse-surface, #313033)';
+    toast.style.color = 'var(--md-sys-color-inverse-on-surface, #f4eff4)';
+    toast.style.padding = '12px 24px';
+    toast.style.borderRadius = '8px';
+    toast.style.fontSize = '14px';
+    toast.style.fontWeight = '500';
+    toast.style.zIndex = '9999';
+    toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+    toast.style.opacity = '0';
+    toast.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+
+    document.body.appendChild(toast);
+
+    requestAnimationFrame(() => {
+        toast.style.opacity = '1';
+        toast.style.transform = 'translate(-50%, -10px)';
+    });
+
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translate(-50%, 0)';
+        setTimeout(() => {
+            if (document.body.contains(toast)) {
+                document.body.removeChild(toast);
+            }
+        }, 300);
+    }, 3000);
+};
+
+/**
  * @param {Object} version
  * @param {string} appName
  * @param {string} shareUrl
@@ -171,14 +213,14 @@ export const executeCopy = async (htmlText, plainText, successMessage) => {
                     'text/html': new Blob([htmlText], {type: 'text/html'})
                 });
                 await navigator.clipboard.write([clipboardItem]);
-                alert(successMessage);
+                showToast(successMessage);
                 return;
             } catch (err) {
             }
         }
         copyRichTextFallback(htmlText, plainText);
-        alert(successMessage);
+        showToast(successMessage);
     } catch (err) {
-        alert("Failed to copy. Please try again.");
+        showToast("Failed to copy. Please try again.");
     }
 };
