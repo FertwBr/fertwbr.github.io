@@ -1,6 +1,59 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.19.0
+*(Released April 20, 2026)*
+
+Welcome to the 1.19.0 update! This release introduces intelligent background weather alerts, a global weather fallback engine, and deep architectural optimizations that drastically reduce battery consumption.
+
+**🚨 CRITICAL COMPATIBILITY NOTICE:**
+Starting with version 1.19.0, **Pixel Compass strictly requires a physical hardware compass sensor (magnetometer)** to function. We have updated our system requirements on Google Play to enforce this rule, preventing users from installing an app that will not work on their device.
+* **If you are a Plus user** and your device is no longer compatible, please contact us at **suport@fertwbr.com** with your Google Play Order ID for a manual refund.
+* **If you are currently using v1.18.3** on a device without a compass, you can continue to use it indefinitely. However, you will not receive future updates. Please check the Help section on our website for more details.
+
+
+#### 📱 Phone
+
+* **New: Smart Weather Alerts:**
+  * **Proactive Warnings:** The app now features a powerful `SevereWeatherAnalyzer`. It constantly evaluates your environment in the background and dispatches high-priority, rich notifications if it detects dangerous imminent conditions (Extreme UV, Dense Fog, High Wind Gusts, or Severe Thunderstorms).
+  * **Granular Control:** Pixel Compass+ users can precisely toggle which categories of alerts they want to receive (Severe Weather, Health Risks, or Precipitation) directly from the new "Notifications & Alerts" settings.
+  * **Smart Cooldowns:** To prevent notification spam during storms, the engine enforces a strict 3-hour cooldown *per alert category*.
+* **New: Global Weather Redundancy (OpenWeatherMap Fallback):**
+  * **Uninterrupted Forecasts:** If you live or travel to a country where our primary Google Weather services are geofenced or restricted, the app will intelligently detect the blockage and silently switch to the **OpenWeatherMap One Call API v3.0**. Your widgets and dynamic cards will never go blank.
+  * **Dynamic Attribution:** The UI automatically updates its footers to display the active provider ("Powered by OpenWeather") with location-aware web links.
+* **Core: Advanced Calibration Engine:**
+  * **Interference Detection:** The calibration engine actively monitors raw magnetic field strength (µT) alongside device movement. If it detects a magnetic field stronger than 85µT, an animated banner warns you of "Magnetic Interference" and guides you away from metal objects.
+  * **Help Integration:** Added themed "Help" links directly to the calibration dialog that open online troubleshooting guides if your calibration times out.
+* **Core & Performance: Smart Interactive Engine:**
+  * **Massive Battery Savings:** The core Sensor Service now continuously monitors your screen's interactive state. When your phone is locked or asleep, it drops into an "idle throttle" mode, pausing heavy widget and compass calculations.
+  * **Resilient Sync Worker:** The new `EnvironmentSyncWorker` gracefully handles strict Android 14 background limits. If background GPS is blocked, it seamlessly falls back to your last-known location instead of crashing.
+  * **Smart Caching:** A new `LastProcessedState` engine hashes your weather data. If nothing changes between background refreshes, it skips UI reprocessing entirely, saving CPU cycles.
+* **UX & UI Polish:**
+  * **Settings Polish:** Settings are neatly categorized, Plus-only features dim intelligently for free users, and a new Master Notification switch reflects your OS-level permissions.
+* **Fixes & Stability:**
+  * **Global Localization:**
+    * **Context-Aware GPS:** GPS coordinates (DMS/DDM) across the app now use fully localized cardinal directions (N/S/E/W) based on your system language.
+  * **Service Lifecycle Fix:** Resolved a critical bug where sending a "stop" command to background sensor services incorrectly triggered a foreground start command.
+  * **UI Rendering Fix:** Replaced pixel-based offset calculations (`Dp`) with exact integer offsets (`IntOffset`) for much crisper rendering of animated elements and scrolling lists. Fixed misaligned labels on the Wind Forecast chart.
+  * **Optimized Insight Parsing:** Complex "Glance Insight" analytics are now parsed securely outside of the main UI rendering flow, making widget initialization noticeably faster.
+  * **Premium Messaging:** Refined the wording within the onboarding flow and widget configuration screens to better explain how background updates utilize the Pixel Compass+ subscription.
+  * **Widget Previews:** Overhauled the widget configuration screen. The preview layouts are now much cleaner, utilizing proper string resources for mock data (like "120° SE") instead of hardcoded placeholders, giving you a better idea of how the final widget will look.
+  * **Chart Rendering Fix:** Corrected a visual bug in the Wind Forecast chart where the bottom labels were slightly misaligned with the active scrub line.
+
+#### ⌚ Wear OS
+
+* **Core & Architecture (Shared):**
+  * **Hardware Enforcement:** The Wear OS app now also strictly requires a physical magnetometer.
+* **Core: Smart Interactive Engine & Weather Redundancy (Shared):**
+  * **Zero-Drain Complications:** Watch face Complications (Compass and Altitude) now utilize the `SystemStateMonitor`. They strictly pause all sensor polling the instant your watch goes into Ambient mode or the screen turns off.
+  * **Advanced Calibration:** The watch app actively detects magnetic interference, providing dynamic instructions and scrolling (marquee) warning chips right on your wrist.
+  * **Dynamic Instructions:** The calibration screen on the watch no longer displays a single, generic instruction. It now intelligently swaps its guidance text based on your current sensor accuracy and interference levels.
+* **UX & UI Polish:**
+  * **Info Screen Upgrades:** The values on the watch's Info screen now use compact "chip" styling. Long text (like the interference warnings) will now smoothly scroll (marquee) so you can read the full message on a small screen.
+  * **Complication Customization:** You can now toggle a "Hide Units" switch to remove the degree symbol (°) from the Compass complication for a minimalist look.
+  * **Animated Toggles:** Settings buttons now feature fluid, squishy animations (`AnimatedCircleIconButton`) with satisfying haptic feedback.
+  * **True North Indicator:** The "True North" indicator on the compass dial now uses a muted color to blend in better with the watch face, and uses custom, state-aware icons instead of generic Material symbols.
+
 ## Version 1.19.0 RC3
 *(Released April 18, 2026)*
 
