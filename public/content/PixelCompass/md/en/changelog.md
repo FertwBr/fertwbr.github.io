@@ -1,8 +1,26 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
-## Version 1.19.0 RC2
+## Version 1.19.0 RC3
 *(Released April 18, 2026)*
+
+This third Release Candidate addresses a critical platform compatibility issue with Wear OS and brings further localization polish to our GPS formatting engine.
+
+#### 📱 Phone
+
+* **Localization & Polish:**
+  * **Localized GPS Coordinates:** GPS coordinate formatters (DMS and DDM) have been completely refactored to be context-aware. The cardinal direction indicators (N, S, E, W) in the Location Card and Compass Display now perfectly translate to your device's active language, rather than defaulting to English.
+  * **UI Refinements:** Renamed internal settings screens (`UserPlanScreen` to `UserExperienceScreen`, and `AdPlanScreen` to `FeaturesScreen`) to better reflect their purpose and improve navigation clarity.
+
+#### ⌚ Wear OS
+
+* **Core & Architecture (Shared):**
+  * **SDK 36 Downgrade:** We temporarily reverted the `compileSdk` and `targetSdk` from API 37 back to API 36 across the Wear OS, Shared, and UI Common modules. *Reasoning:* Google has not yet made SDK 37 fully available and stable for Wear OS devices. This downgrade guarantees that the watch app remains perfectly compatible and installable on all current smartwatches without unexpected platform crashes.
+* **Localization (Shared):**
+  * **Wrist-Based GPS Formatting:** Just like the phone app, the GPS coordinates displayed along the compass arcs on your watch face now correctly utilize localized cardinal direction strings.
+
+## Version 1.19.0 RC2
+*(Released April 17, 2026)*
 
 **🚨 CRITICAL COMPATIBILITY NOTICE:**
 Starting with version 1.19.0, **Pixel Compass strictly requires a physical hardware compass sensor (magnetometer)** to function. We have updated our system requirements on Google Play to enforce this rule, preventing users from installing an app that will not work on their device.
@@ -30,7 +48,7 @@ Starting with version 1.19.0, **Pixel Compass strictly requires a physical hardw
   * **Build System Upgrade:** Upgraded to target Android SDK 37 alongside the phone app.
 
 ## Version 1.19.0 RC1
-*(Released April 17, 2026)*
+*(Released April 16, 2026)*
 
 This Release Candidate locks in all features for the 1.19.0 update. We've finalized the new Notification Categories engine, significantly expanded our global translations, and updated to Android SDK 37.
 
