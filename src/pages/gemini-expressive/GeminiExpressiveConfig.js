@@ -9,7 +9,7 @@ export const geminiExpressiveConfig = {
     appIcon: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Gemini/art/favicon.svg",
     chromeStoreLink: "https://chromewebstore.google.com/detail/gemini-expressive/onnljhamgihnkpcoickfmfhegimcgmho",
     firefoxStoreLink: "https://addons.mozilla.org/en-US/firefox/addon/gemini-expressive/",
-    edgeStoreLink: "https://microsoftedge.microsoft.com/addons/detail/",
+    edgeStoreLink: "https://microsoftedge.microsoft.com/addons/detail/gemini-expressive/lpecpklaodknmhhajimcbaggjphoeabe",
     defaultPage: 'index',
     basePath: "/content/GeminiExpressive/md/",
     rating: {
