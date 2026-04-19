@@ -1,6 +1,41 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.21.0 Beta 1
+*(Released April 18, 2026)*
+
+Welcome to the first beta of the 1.21.0 cycle! This update brings crucial responsive UI upgrades to the Phone app, ensuring the Decibel Meter looks perfect on any screen size or font scaling. Under the hood, we've executed a massive build system upgrade across the entire ecosystem, pushing both Phone and Wear OS to the cutting edge of Android development.
+
+#### 📱 Phone
+
+* **UX & UI Polish: Responsive Meter Layouts:**
+  * **Dynamic Scaling:** The main Decibel Meter screen has been completely re-architected. It now intelligently measures your device's available screen height and your system's font scaling settings to ensure the UI never cuts off or overflows.
+  * **Compact vs. Expanded:** If space is tight (like on smaller phones or when using large accessibility fonts), the app automatically switches to a "Compact Layout." This hides non-essential visual elements (like the background chart or secondary stats) so the primary decibel gauge remains perfectly visible and fully functional.
+  * **Gauge Refinements:** The central Decibel Gauge now uses fluid `BoxWithConstraints` math to draw its arcs and text. This replaces hardcoded pixel values, ensuring the gauge ring and its numbers are always perfectly proportioned relative to each other, no matter the screen size.
+  * **Button Marquees:** Action buttons (Start, Stop, Reset) on the meter screen now support smooth scrolling (marquee) if their translated text is too long to fit.
+  * **Curved Text Fix:** The text drawn along the curved dashboard rings (like budget or status strings) will now properly ellipsize (...) if the translation is too long, preventing the text from awkwardly overlapping itself.
+* **Core & Stability:**
+  * **Android SDK 37 Upgrade:** The entire project—across Phone, Wear OS, and Shared UI modules—has been upgraded to compile and target **Android SDK 37**. This ensures the app is fully optimized for the latest Android OS features and security standards.
+  * **Build System Overhaul:**
+    * Upgraded the build pipeline to use Android Gradle Plugin (AGP) 9.1.1 and Gradle 9.3.1.
+    * Consolidated Kotlin compiler options and implemented the Foojay toolchains resolver for more reliable, reproducible builds.
+    * Updated dozens of underlying libraries (Compose BOM, Wear Protolayout/Tiles, Hilt, WorkManager) to their latest stable versions, squashing hidden bugs and improving overall framework stability.
+
+#### ⌚ Wear OS
+
+* **UX & UI Polish:**
+  * **Info Screen Upgrades:** Values displayed on the watch's Info screen now feature a sleek, compact "chip" styling (with rounded backgrounds and adjusted padding) for better readability.
+  * **Smooth Scrolling (Marquee):** Long text values and titles on the Info screen will now smoothly scroll horizontally, ensuring you can read complete messages on small circular displays.
+  * **Calibration Chevron:** Added a trailing chevron icon to the calibration card on the Info screen to clearly indicate it's a tappable navigation item.
+* **Core & Stability:**
+  * **Remote Intent Hardening:** Re-engineered how the watch sends intents to open links or the Play Store on the connected phone. It now uses stricter intent construction and better error handling (properly rethrowing `CancellationExceptions`) to prevent background crashes if the phone is unreachable.
+  * **Kotlin Enum Optimization:** Upgraded internal state tracking for `MonitoringMode`, `UpdateSpeed`, and `FrequencyWeighting` to use modern, optimized Kotlin Enum entries, resulting in slightly faster execution
+  * **Build System Overhaul:**
+    * Upgraded the build pipeline to use Android Gradle Plugin (AGP) 9.1.1 and Gradle 9.3.1.
+    * Consolidated Kotlin compiler options and implemented the Foojay toolchains resolver for more reliable, reproducible builds.
+    * Updated dozens of underlying libraries (Compose BOM, Wear Protolayout/Tiles, Hilt, WorkManager) to their latest stable versions, squashing hidden bugs and improving overall framework stability.
+
+
 ## Version 1.20.1
 *(Released April 10, 2026)*
 
