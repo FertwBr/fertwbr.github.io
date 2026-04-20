@@ -1,6 +1,39 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.21.0 Beta 2
+*(Released April 19, 2026)*
+
+Welcome to the second beta of Pixel Pulse 1.21! This release brings highly requested background capabilities, massive optimizations to the backup engine, and a completely unified notification system across your devices.
+
+#### 📱 Phone
+
+* **New: True Background Recording:**
+  * **Uninterrupted Measurement:** Live recording now utilizes a dedicated Foreground Service. If you exit the app, it will seamlessly continue measuring and recording your audio exposure in the background.
+  * **Interactive Notifications:** While recording in the background, a rich notification will display a live chronometer and current decibel levels. You can now securely "Save" or "Stop" the session directly from the notification tray without opening the app.
+  * **Platform Optimization:** Added beautifully tailored, expanded notification layouts specifically for Samsung devices, alongside robust support for Android 13+ permission flows.
+* **New: Background Import & Export:**
+  * **Multitasking Backups:** Manual imports and exports have been upgraded to run as background workers. You no longer need to keep the screen open while transferring massive amounts of data.
+  * **Top Bar Integration:** You can now track the live progress of an ongoing backup or restore directly from the app's Top Bar.
+* **UX & UI Polish:**
+  * **Backup Progress Sheet:** Completely revamped the visual layout. It now intelligently formats large numbers (e.g., 1,000 vs 1.000) based on your device's regional settings and fixes a bug where progress text would awkwardly wrap into two lines.
+  * **Settings Reorganization:** For easier access, the "Sound Exposure" settings have been moved to the very top of the Data category and updated with a fresh `GraphicEq` icon for better visual clarity.
+* **New: Pixel Pulse Notification Manager:**
+  * **Unified Engine:** Both the phone and watch now route all alerts through a single, centralized `PixelPulseNotificationManager`. This system intelligently groups notifications into distinct categories (like "Recording" and "Live Sessions"), paving the way for deep, granular user customization in future updates.
+* **Core: Next-Generation Backup Engine:**
+  * **Memory Safe Streaming:** The backup engine has been completely rebuilt to use streaming JSON with intelligent batching and throttling. This completely eradicates memory crashes when exporting or importing years' worth of exposure data.
+  * **Live ETA:** The engine now calculates and broadcasts an Estimated Time of Arrival (ETA) for large backup operations, which is dynamically displayed in your notifications and the in-app progress sheet.
+
+#### ⌚ Wear OS
+
+* **New: Wrist-to-Phone Sync Alerts:**
+  * **Sync Confirmations:** You will now receive a satisfying success notification whenever a session successfully synchronizes from your Wear OS device to your phone.
+* **Core & Performance:**
+  * **Debounced Complications:** Watch tiles and complications are now intelligently "debounced." This prevents background service leaks and massive battery drain if you are syncing a heavy batch of exposure data from the watch.
+  * **Platform Stability:** We temporarily reverted the internal `compileSdk` and `targetSdk` to API 36 to ensure the watch module remains perfectly stable and compatible with current Wear OS hardware.
+* **New: Pixel Pulse Notification Manager:**
+  * **Unified Engine:** Both the phone and watch now route all alerts through a single, centralized `PixelPulseNotificationManager`. This system intelligently groups notifications into distinct categories (like "Recording" and "Live Sessions"), paving the way for deep, granular user customization in future updates.
+
 ## Version 1.21.0 Beta 1
 *(Released April 18, 2026)*
 
