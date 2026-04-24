@@ -1,6 +1,77 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.21.0 Beta 3
+*(Released April 24, 2026)*
+
+Welcome to version 1.21.0 Beta 3. This is a massive under-the-hood update that completely redesigns our background engine and synchronization architecture. The highlight of this release is the introduction of the Smart Health Alerts ecosystem, a proactive, routine-based evaluation engine that intelligently analyzes acoustic data and dispatches contextual insights while strictly managing notification cooldowns.
+
+In addition to the new intelligence layer, we have completely refactored our recording state management to utilize robust state machines, decoupled global UI states via dedicated ViewModels, and executed a highly granular pass on Samsung-specific expanded notifications. This build lays the heavy technical groundwork necessary for our final stable release, optimizing everything from dynamic notification coloring to deep-linked contextual routing across both platforms.
+
+#### 📱 Phone
+
+* **New Engine: Smart Health Alerts & Background Processing:** Introduces a fully autonomous, routine-based acoustic evaluation pipeline.
+  * **RoutineInsightWorker & Scheduler:** Implemented a new `RoutineInsightWorker` (via CoroutineWorker) injected with Hilt to trigger background acoustic report generation. The `RoutineInsightScheduler` dynamically manages WorkManager queues based on the user's specific routine (e.g., sleep end, work end).
+  * **HealthAlertEvaluator:** Engineered a singleton evaluator to parse generated `HealthInsight` objects. It actively filters insights based on user-selected categories and severity (WARNING/DANGER), enforcing strict 24-hour (default) or 6-hour (danger) cooldowns persisted via `healthAlertCooldownMapFlow` to prevent notification fatigue.
+  * **Boot Resilience:** Added a `BootReceiver` listening for `BOOT_COMPLETED` and `MY_PACKAGE_REPLACED` intents, ensuring the routine insight scheduler flawlessly rebuilds background tasks after a device restart or app update.
+  * **Deep Linked Notifications:** Smart Insight notifications now support contextual deep links (`pixelpulse://app/exposure_detail/<route>`), utilizing `PendingIntent` with `FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE` to route taps directly into specific analytical views.
+  * **Dedicated Alert Channel:** Registered a new `SMART_INSIGHTS` notification channel under the ALERTS group specifically for contextual health insights.
+
+* **Core & Performance: Recording State Machine Refactor:** Migrated away from legacy boolean toggles to a robust, lifecycle-aware recording state architecture.
+  * **RecordingState Enum:** Deprecated the legacy `isRecording` boolean in favor of a strict `RecordingState` enum (`IDLE`, `RECORDING`, `PAUSED`).
+  * **Explicit Actions & Callbacks:** Replaced generic toggle callbacks with explicit lifecycle methods (`startRecording`, `pauseRecording`, `resumeRecording`, `stopRecording`, `restartRecording`).
+  * **Broadcast Integration:** Engineered a local broadcast receiver listening for `ACTION_BROADCAST_STOPPED` emitted directly from the `RecordingService`, ensuring the UI perfectly reflects background teardowns.
+  * **Auto-Start & Background Prefs:** Introduced `autoStartRecordingFlow` and `backgroundRecordingEnabledFlow` to `UserPreferencesRepository`, persisting autonomous recording settings via DataStore.
+
+* **Architecture & Refactoring: Decoupled Global States:** Major cleanup of ViewModel responsibilities to isolate UI concerns from global background logic.
+  * **TopBarViewModel:** Created a centralized Hilt ViewModel to handle universal top-bar flows (`liveSessionState`, `backupState`, `hasDismissedBatteryBanner`), entirely stripping these responsibilities from `ExposureViewModel`, `HistoryViewModel`, and `MeterViewModel`.
+  * **DebugViewModel Injection:** Isolated developer and debug tools into a dedicated `DebugViewModel`. Added a "Populate Session Data" synthetic seeder and a mock trigger for UI testing Smart Health Alerts.
+  * **Header Relocation:** Relocated and cleaned up `WeeklyAnalysisHeader` and `MonthlyAnalysisHeader` to the `exposure.detail` package, standardizing Compose modifier delegations.
+
+* **UI & UX Polish: Samsung Notification Overhaul & Dynamic Theming:** Highly granular layout adjustments for system notifications.
+  * **Dynamic Decibel Coloring:** Implemented dynamic ARGB coloring for ongoing recording notifications. The builder now injects `getDynamicColor(decibels)` directly into `NotificationCompat` and Samsung RemoteViews based on the live exposure level and system dark mode.
+  * **Samsung Expanded UI:** Massively refined `samsung_live_notification_expanded.xml`. Tightened container margins, removed redundant headers, pushed chronometers to right-aligned containers, and set progress bars to `wrap_content` for perfect native alignment.
+  * **Manufacturer Precedence:** Reordered the notification selection pipeline so Samsung device checks execute *before* the SDK 35 (Baklava) branch, guaranteeing Samsung-specific extras apply correctly.
+  * **ETA in Backups:** `BackupState.Progress` now formats and passes an `estimatedTimeRemainingMs` payload, rendering a live ETA sub-text on manual and automatic backup notifications.
+  * **Animated Recording Controls:** Upgraded meter buttons using `AnimatedContentSize` and `AnimatedShapeButton`, dynamically morphing icons between Start, Pause, Resume, Stop, and Restart based on the new `RecordingState`.
+
+* **Settings & Customization: Smart Insight Management:** Granular user control over the new intelligence engine.
+  * **NotificationSettingsContent:** Built a new dedicated settings sub-screen for notification preferences, including a master system permission toggle and Plus-gated toggles for background monitoring.
+  * **CategorySelectionDialog:** Introduced an `AlertDialog` housing a `ScalingLazyColumn` of `InsightCategory` checkboxes. Users can individually toggle alerts for Sleep Quality, Acoustic Fatigue, Habit Patterns, Long-Term Trends, and Summaries.
+  * **Exposure Interval Refactor:** Swapped manual string interpolations for localized `MonitoringInterval.entries`, utilizing `stringResource` fallbacks.
+
+* **Synchronization: Multi-Device Config Sync:** Enhanced Wearable Data Layer communications.
+  * **Config DataMap Extensions:** Added `KEY_CONFIG_SMART_ALERTS_ENABLED`, `KEY_CONFIG_BACKGROUND_RECORDING`, and `KEY_CONFIG_ACTIVE_CATEGORIES` to the `PutDataMapRequest` pipeline.
+  * **String Set Parsing:** Ensured active categories are correctly serialized as string arrays and synced natively to the wearable.
+  * **Backup Manager:** Upgraded `PlusSettingsBackupManager` to safely persist and restore active smart alert categories via string-set DataStore keys.
+
+#### ⌚ Wear OS
+
+* **New Engine: Smart Health Alerts & Background Processing (Shared):** Introduces a fully autonomous, routine-based acoustic evaluation pipeline to the wrist.
+  * **RoutineInsightWorker & Scheduler:** Receives the injected `RoutineInsightWorker` to autonomously evaluate acoustics locally on Wear OS. `RoutineInsightScheduler` was integrated directly into `WearMainViewModel` and `WearableDataListenerService` to immediately refresh target times upon receiving routine updates from the phone.
+  * **HealthAlertEvaluator:** Utilizes the shared insight evaluator and cooldown tracking to prevent wrist-based notification spam.
+  * **Boot Resilience:** Registered `BootReceiver` in the Wear Manifest with `RECEIVER_BOOT_COMPLETED` permission, ensuring workers reschedule gracefully upon watch reboot.
+  * **Deep Linked Notifications:** Wrist notifications now natively support deep link routing (`pixelpulse://app/exposure_detail/<route>`) mapped directly to internal exposure screens.
+
+* **Synchronization: Multi-Device Config Sync (Shared):** Enhanced Wearable Data Layer communications.
+  * **Inbound Sync Parsers:** Wear OS app now natively parses `smartAlertsEnabled`, `backgroundRecording`, and `activeCategories` from incoming `PutDataMapRequest` payloads, applying them to the local `UserPreferencesRepository`.
+  * **Outbound Sync:** Using `exposureSyncManager.syncConfig()`, any change made to active smart alert categories from the watch is immediately broadcasted back to the phone.
+
+* **Architecture & Refactoring: Meter UI Componentization:** Modularized the wearable recording interface for testing and performance.
+  * **Stateless Refactor:** Extracted the monolithic `MeterScreen` into `MeterComponents.kt` and `MeterSideEffects.kt`. Replaced complex local UI states with a stateless `MeterContent` composable handling immersive overlays, reactive backgrounds, and readout logic.
+  * **Permission Screens:** Moved all permission and onboarding UI overlays into a dedicated `PermissionDeniedScreen.kt` component.
+  * **API Documentation:** Executed a massive KDoc sweep on `WearMainViewModel`, strictly documenting StateFlows, permission checks, and sync actions.
+
+* **Core & Performance: Auto-Start Integration:** Autonomous recording logic brought to Wear OS.
+  * **Guard Evaluation:** Added a `LaunchedEffect` within `MainActivity` that evaluates `hasAttemptedAutoStart`, firing `viewModel.handleAutoStart()` *only* after `POST_NOTIFICATIONS` / `RECORD_AUDIO` permissions are granted and onboarding is complete.
+  * **Recording Control:** Migrated watch logic to respect the shared `RecordingState` enum and explicit lifecycle intents.
+
+* **UI & UX Polish: Notification Settings & Wrist Customization:** Granular control over the intelligence engine directly from the watch.
+  * **NotificationCategoriesScreen:** Designed a Wear-native `ScreenScaffold` and `ScalingLazyColumn` utilizing `CheckboxButton` to allow users to toggle specific smart alerts (e.g., Acoustic Fatigue) without touching their phone.
+  * **Settings Reorganization:** Swapped the "General" and "Notifications" top-level UI buttons to streamline flow. Added `ListHeader` entries for Data and Support.
+  * **Auto-Start UI:** Added an explicit "Auto-start Recording" SwitchButton to the watch's Meter Settings UI.
+  * **Manage Categories Action:** Added a full-width `Button` directly inside the Notifications view to jump straight into category management.
+
 ## Version 1.21.0 Beta 2
 *(Released April 19, 2026)*
 
