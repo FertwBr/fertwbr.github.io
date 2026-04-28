@@ -1,6 +1,31 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.19.1
+*(Released April 27, 2026)*
+
+This is a targeted patch release focused on strengthening background service stability, resolving edge-case crashes, and refining UI responsiveness for accessibility.
+
+#### 📱 Phone
+
+* **Core & Stability:**
+  * **Foreground Service Reliability:** Hardened the background Sensor Service against strict Android limitations. The app now strictly verifies location permissions *before* attempting to start the background service, preventing `ForegroundServiceStartNotAllowedException` crashes on newer Android versions.
+  * **Update Prompt Cooldown:** If you decline an in-app update prompt, the app will now respect a strict 48-hour cooldown period before asking again, eliminating repetitive popups.
+* **UX & UI Polish:**
+  * **Responsive Loading Skeletons:** Fixed an issue where "skeleton" loading placeholders in the UI wouldn't scale correctly for users with large accessibility font sizes. The layouts now dynamically adapt to your device's exact font scaling.
+* **Data Processing:**
+  * **Sensor Data Hardening:** Added strict safety checks to the text formatting engine. The app is now fully protected against invalid or corrupted hardware sensor readings (NaN values) for azimuth, latitude, longitude, and altitude, preventing unexpected UI crashes.
+
+#### ⌚ Wear OS
+
+* **Core & Stability:**
+  * **Tile Crash Fix:** Re-engineered the dependency injection pipeline (`Hilt EntryPoint`) for Wear OS Tiles. This resolves an issue where Tiles could crash the app during early lifecycle stages if dependencies weren't fully initialized.
+  * **Complication Battery Optimization:** Fixed a sensor leak within the watch face complications. The app now strictly manages the sensor lifecycle, ensuring the magnetometer is completely shut down when complication updates are paused, preserving watch battery life.
+  * **Safe Background Execution:** Similar to the phone app, Wear OS background services now safely catch and handle system-level foreground restrictions without causing the app to crash.
+* **Data Processing:**
+  * **Sensor Data Hardening:** Added strict safety checks to the text formatting engine. The app is now fully protected against invalid or corrupted hardware sensor readings (NaN values) for azimuth, latitude, longitude, and altitude, preventing unexpected UI crashes.
+
+
 ## Version 1.19.0
 *(Released April 20, 2026)*
 
