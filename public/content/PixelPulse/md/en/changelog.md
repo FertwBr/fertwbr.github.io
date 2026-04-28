@@ -1,6 +1,38 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.21.0 Beta 4
+*(Released April 27, 2026)*
+
+This beta introduces significant refinements to the Background Recording engine, resolving crucial platform constraints, optimizing performance, and expanding our notification system globally with complete translations.
+
+#### 📱 Phone
+
+* **Core: Recording State Machine Refactor:**
+  * **Strict Decibel Gating:** The `MeterViewModel` now strictly gates audio sampling based on the `RecordingState`. If you pause the recording, the app completely drops the microphone connection and ceases to sample audio flows in the background. This immediately frees up CPU cycles and prevents any unnecessary battery drain when not actively recording.
+  * **Interactive Recording Controls:** The primary recording buttons on the Meter screen have been completely reworked. They now feature `AnimatedShapeButton` transitions, smoothly morphing the button colors, labels, and icons (e.g., swapping a 'Mic' for a 'Start' label or a 'Play' arrow for a 'Pause' icon) depending on the exact `RecordingState` (IDLE, RECORDING, PAUSED).
+* **Core & Architecture:**
+  * **Update Prompt Cooldown:** If you decline a flexible in-app update prompt, the app will now log a timestamp and enforce a strict 48-hour cooldown before asking you to update again, eliminating repetitive update popups.
+* **UX & UI Polish:**
+  * **Responsive Meter Adjustments:** Refined the `MeterExpandedLayout` and `MeterCompactLayout` to better handle extreme constraints. The UI now intelligently adjusts the density and scaling when vertical space is severely limited (like in split-screen mode).
+  * **Master Switch UI:** The background recording toggle in the Notifications settings screen now renders as a standalone (`SINGLE`) list item for better visual prominence.
+* **Global Localization:**
+  * **100% Notification Coverage:** Finalized and pushed translations across 17 languages for the new Background Recording controls, Backup/Restore ETA toasts, Smart Health Alerts categories, and Notification permission states.
+  * **Typographic Polish:** Switched several Arabic translations to use proper typographic ellipses (`…`) instead of three standard dots (`...`) for better rendering.
+* **Smart Health Alerts Default:** The "Smart Health Alerts" feature is now enabled by default for all users, proactively monitoring your daily acoustic routines and sending insights.
+
+#### ⌚ Wear OS
+
+* **Core & Architecture:**
+  * **Smart Health Alerts Default:** The "Smart Health Alerts" feature is now enabled by default for all users, proactively monitoring your daily acoustic routines and sending insights.
+  * **Wearable Data Layer Robustness:** Hardened the exposure sync pipeline. Instead of a single combined flow, the UI now requests specific data streams.
+  * **Async Session Persisting:** The `WearMainViewModel` now strictly persists recorded sessions to the local database and triggers the phone sync over `Dispatchers.IO`, keeping the main thread free and ensuring the watch interface doesn't stutter when saving a heavy session.
+* **UX & UI Polish:**
+  * **Paused Timer Feedback:** The active recording timer on the watch face now animates and highlights its background colors when you pause a session, giving you instant visual confirmation that the mic is disengaged.
+  * **Dynamic Controls:** The watch's `MeterControls` have been rewritten to utilize the new `RecordingState`. The buttons dynamically shift sizes, swap icons (Play/Pause/Stop), and adjust their layout to match the phone's behavior exactly.
+  * **Sync Progress State:** Introduced real-time sync progress tracking to the settings UI. The `WearMainViewModel` now tracks the exact `lastUiSyncTimestamp` and displays an animated `SyncProgressCard` with a 15-second timeout, so you know exactly when your watch data has reached your phone.
+  * **Info Screen Polish:** Swapped several internal icons (like the Volume Mute icon) to their `AutoMirrored` variants, ensuring the UI looks perfect for users operating their watch in Right-to-Left (RTL) languages.
+
 ## Version 1.21.0 Beta 3
 *(Released April 24, 2026)*
 
