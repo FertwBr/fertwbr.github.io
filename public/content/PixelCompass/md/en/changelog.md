@@ -1,6 +1,30 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.20.0 Beta 1
+*(Released April 29, 2026)*
+
+Welcome to the first beta of Pixel Compass 1.20.0! This release focuses on a complete overhaul of the Level Tool, introducing incredibly fluid physics, high-precision rendering, and a smarter underlying sensor architecture.
+
+#### 📱 Phone
+
+* **Core & Architecture: Precision Gravity Engine:**
+  * **Direct Sensor Access:** The Level Tool has been completely detached from the general compass sensor pipeline. It now directly hooks into the Android hardware's dedicated Gravity Sensor (`TYPE_GRAVITY`). This bypassing significantly reduces latency and provides much smoother, highly responsive pitch and roll data.
+  * **Low-Pass Filtering:** The raw gravity data now passes through a mathematical low-pass filter (alpha = 0.8). This removes the tiny jitters caused by your hand shaking, making the level bubble incredibly stable and accurate to read.
+* **New Feature: Level Calibration & Freeze:**
+  * **Custom Zero (Tare):** You can now calibrate the level to a custom surface. Placing your phone on a slightly tilted table and hitting "Calibrate zero" will set that exact tilt as the new perfect `0°` (relative zero). This offset is saved to your preferences.
+  * **Hold Measurement:** Need to check an angle but can't see the screen? Tapping "Hold measurement" will instantly freeze the current pitch and roll values on the screen so you can read them comfortably.
+* **UX & UI Polish: Fluid Dynamics (Flat Level):**
+  * **Slosh & Stretch Physics:** The 2D bubble on the Flat Level screen no longer just slides around. It now dynamically squashes, stretches, and rotates based on the speed and angle of your movement, perfectly simulating a fluid trapped under glass.
+  * **Liquid Wave Effects:** The background of the Flat Level now features multiple layered, rotating wave shapes that "slosh" organically as you tilt the device. A heavy background blur effect creates a stunning sense of depth.
+* **UX & UI Polish: High-Precision Linear Level:**
+  * **Z-Axis Depth:** The Linear Level (the tube style used for vertical/horizontal edges) now reads a "secondary angle." If you are trying to measure the edge of a painting, but the top of your phone is tilted away from the wall, the bubble will dynamically fade out and shrink, warning you that the measurement is inaccurate due to Z-axis tilt.
+  * **Morphing Reticle:** The simple center marker has been replaced with a dynamic reticle. It heavily scales up, changes color, and thickens its borders the closer you get to a perfect `0.0°`, providing excellent visual feedback.
+  * **Responsive Angles:** The numerical angle display now intelligently formats negative numbers (e.g., `- 0.5°`) and ensures the bubble never overflows on split-screen or smaller devices.
+* **UI Polish: Settings Overhaul:**
+  * **Scrim Overlay:** The deep settings screens now utilize a transparent `StatusBarScrim` overlaid on top of a scrolling `Box`. This allows the content to scroll smoothly under the top bar without clipping.
+  * **Animated FAB:** The floating upgrade/settings button now smoothly morphs between a diamond and a pill shape depending on your Pixel Compass+ subscription status, dropping the legacy animation code.
+
 ## Version 1.19.1
 *(Released April 27, 2026)*
 
