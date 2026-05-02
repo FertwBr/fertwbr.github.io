@@ -1,6 +1,27 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.20.0 Beta 3
+*(Released May 2, 2026)*
+
+This third beta introduces our most ambitious accessibility feature yet: "Flip-to-Align." We've completely engineered a new sensory feedback orchestrator that allows you to level objects perfectly without ever looking at the screen, using dynamic sound, haptics, and flashlight cues.
+
+#### 📱 Phone
+
+* **New: Flip-to-Align (Sensory Alignment):**
+  * **Zero-Vision Leveling:** You can now flip the phone face-down (or hold it out of view) and still achieve perfect alignment. The app utilizes a brand-new `LevelFeedbackOrchestrator` that continuously translates your tilt deviation into distinct sensory feedback zones (Far, Approaching, Close, and Aligned).
+  * **Dynamic Sound Synthesizer:** Engineered a custom `SoundFeedbackManager` that generates low-latency stereo PCM audio tones in real-time. As you get closer to 0.0°, the beeps speed up, culminating in a satisfying stereo chord when perfectly level. The audio dynamically pans left or right to guide your movement.
+  * **Flashlight Assist:** Added a smart flashlight toggle. When enabled during Flip-to-Align, the camera's LED flash will pulse in sync with the audio. We utilize the minimum brightness strength (on supported devices) to prevent blinding reflections.
+  * **Volume Integration:** Added a new floating `VolumeSlider` directly to the Level screen. You can instantly adjust the system media volume or mute the audio feedback entirely without leaving the app or fumbling with hardware buttons. The slider can be oriented horizontally or vertically depending on device rotation.
+* **Core & Architecture:**
+  * **Fluid Physics Polish:** Drastically smoothed out the liquid animation engine. The bubble and liquid wave offsets are now decoupled and driven by independent spring physics. The bubble dynamically squashes and stretches based on your tilt velocity, creating a vastly more realistic fluid feel. We also increased the phase multipliers to make the liquid waves feel more organic and pronounced.
+  * **Orientation & Full-Screen Polish:** The full-screen toggle now intelligently animates the Top Bar out of the way and correctly handles camera cutouts in portrait mode, rounding the container corners so the liquid shader never clips into the notch. The app also strictly locks the screen orientation only when you are actively "holding" a measurement.
+  * **Update Prompt Cooldown:** The in-app update manager now persists a strict cooldown. If you dismiss a prompt to update the app, it will silently wait before asking again, preventing repetitive interruptions.
+  * **Lifecycle & State Enhancements:** The sensor update loop has been tightened. The app now strictly checks the `Lifecycle.State.RESUMED` status and correctly unregisters the background observers to prevent memory leaks and unnecessary battery drain when navigating away from the Level screen.
+* **UX & UI Polish:**
+  * **Expressive Toolbar Swaps:** The floating `LevelControlPanel` now dynamically swaps its buttons based on your current tool mode. The calibration and flip-assist buttons physically trade places and animate their icons/colors to clearly indicate which action is active.
+  * **Modular Level Architecture:** The massive Level screen has been refactored into smaller, modular components (`LevelScreenContent`, `LevelGraphics`, `LevelOverlayManager`). This separation cleans up the code and ensures that heavy UI overlays (like the volume slider and flashlight toggle) render perfectly without stuttering the liquid physics.
+
 ## Version 1.20.0 Beta 2
 *(Released May 1, 2026)*
 
