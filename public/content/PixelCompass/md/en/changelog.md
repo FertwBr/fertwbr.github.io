@@ -1,6 +1,31 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.20.0 Beta 2
+*(Released May 1, 2026)*
+
+This second beta polishes the incredible new Level Tool features introduced in Beta 1. We've replaced our custom liquid rendering engine with native Android 13+ shaders for buttery-smooth performance, completely redesigned the floating controls, and implemented proper full-screen support for heavy measurements.
+
+#### 📱 Phone
+
+* **New: Immersive Full-Screen Mode:**
+  * **Distraction-Free Measurement:** You can now toggle the Level Tool into a pure, immersive full-screen mode directly from the top bar. This removes all navigation tabs and system bars, giving you a massive, clean canvas when trying to level large objects like picture frames or TVs.
+  * **Smart Cutout Handling:** The UI now intelligently detects camera "hole-punch" cutouts and subtly rounds its corners and pads the content, ensuring the liquid background never bleeds awkwardly under your front-facing camera.
+* **Core & Architecture:**
+  * **Native AGSL Liquid Shaders:** We ripped out the old, CPU-heavy "blur and ripple" math used to simulate the liquid in the Flat Level. The app now leverages native Android 13+ `RuntimeShader` (AGSL) to render the liquid background. This provides a stunning, high-performance fluid effect that uses almost zero CPU.
+  * **Lifecycle Intelligence:** The sensor update loop is now strictly tied to the `Lifecycle.State.RESUMED` event. If you background the app while measuring, the gravity sensor shuts down instantly, preventing unnecessary battery drain.
+  * **Orientation Management:** The app now strictly separates screen-on logic from orientation locking. When you use the "Hold Measurement" feature, the screen orientation is locked to prevent UI shifts while holding the frozen values, instantly reverting to free rotation when released.
+* **UX & UI Polish: Advanced Level HUD:**
+  * **Precision Grid:** The Flat Level now features a gorgeous, scalable `PrecisionGrid` overlaid on the liquid background, making it much easier to eyeball fractional degree offsets.
+  * **Curved Arc Metrics:** The pitch, roll, and slope metrics are no longer crammed into a static box. They now elegantly wrap and draw along the dynamic outer arcs of the bubble, rotating smoothly as you tilt the device.
+  * **Expressive Floating Controls:** We overhauled the Level floating action buttons (FABs). They now utilize a centralized `LevelControlPanel` powered by Material 3 Expressive UI. The buttons automatically rearrange themselves based on portrait or landscape orientation, and morph their icons/colors dynamically when you lock a measurement or trigger a calibration.
+  * **Level State Colors:** Expanded the internal `LevelColors` palette. The control panel and calibration icons now smoothly transition through dedicated semantic colors (Secondary/Tertiary) based on whether you are actively calibrating or holding a measurement.
+  * **Animated Top Bar:** The main Top App Bar now utilizes a fluid spring animation to smoothly transition its background color from transparent to surface color when navigating between full-screen and standard modes.
+  * **Settings Scrim:** Rebuilt the internal architecture of the Settings detail screens. They now use a sophisticated `StatusBarScrim` overlaid on a constrained `Box`, ensuring long scrolling content fades beautifully under the top bar without clipping.
+  * **Haptic Toggles:** You can now entirely disable the Level Tool's haptic feedback "ticks" via a new toggle in the Customization Settings.
+* **Localization:**
+  * **Traditional Chinese (zh-rTW):** Executed a massive polish pass on the Traditional Chinese translations. Weather metrics, sun paths, moon phases, and error messages have been rewritten for a much more natural, native-sounding tone, replacing several lingering Japanese placeholders.
+
 ## Version 1.20.0 Beta 1
 *(Released April 29, 2026)*
 
