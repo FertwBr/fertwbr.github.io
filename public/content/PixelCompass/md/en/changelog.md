@@ -1,6 +1,37 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.20.0 Beta 4
+*(Released May 07, 2026)*
+
+This update focuses heavily on technical refactoring and the introduction of a 3D tutorial engine to onboard users to our smartest features. We have entirely rebuilt the gesture handling and rendering pipelines to ensure an incredibly responsive and expressive UI.
+
+Under the hood, this release migrates local UI states to robust, persistent flows within our preference repository and cleans up our composable hierarchy, unifying animations and laying the groundwork for a stable 1.20.0 release.
+
+#### 📱 Phone
+* **New: Volumetric 3D Device Engine:** Implemented a new, reusable hardware-accelerated volumetric 3D device mockup (`VolumetricDevice.kt`) to power our smart onboarding experiences.
+  * **Layered Rendering:** Computes per-layer projection and depth sorting from `rotationX/rotationY`, display density, and camera distance to accurately render the chassis, camera bumps, speaker grilles, and USB-C ports.
+  * **Expressive UI:** Features animated colors, dynamic scaling FABs, and precise lens flash glow effects for realistic, immediate visual feedback.
+* **New: Smart Onboarding & Tutorials:** Complete architectural rewrite of the tutorial flow, centralizing logic into a reusable `TutorialBottomSheet` component.
+  * **Flip-to-Align Sequencing:** Introduced `AnimatedPhoneShowcase` driven by a new `FlipSequence` state machine, precisely animating focus, tap, turn, and placement phases.
+  * **Surface Calibration:** Added `AnimatedCalibrationShowcase` with inverted Z-rotation targets for clearer physical mapping during the `FOCUS` phase.
+  * **Proactive Warnings:** Implemented a persistent Flashlight Warning bottom sheet prior to enabling camera flash, ensuring user safety regarding photosensitivity.
+* **Core & Performance: Gesture & Volume Management:** Replaced rigid volume handling with a fluid, custom `pointerInput`-based gesture recognition system.
+  * **Orientation-Aware Swipes:** Introduced `Modifier.volumeSwipeGesture` to detect swipes and trigger slide-in/slide-out transitions that adapt dynamically to portrait or landscape orientations.
+  * **System Synchronization:** Mapped `rememberSystemVolume` directly to Android's `AudioManager` via a `BroadcastReceiver`, coupled with a 5-second auto-hide lifecycle for the overlay.
+* **UI & UX Polish: Premium Shapes & Graphics:** Extensive refactoring of the level screen's render layer to offload work to the GPU.
+  * **PowerfulBlurBackground:** Deployed a new Jetpack Compose Canvas implementation utilizing a 160f `RenderEffect` for a soft, glowing radial gradient background.
+  * **Custom Fluid Shapes:** Engineered `MorphShape` and `WaveShape` for high-performance liquid-like clipping paths, utilizing adaptive sampling steps and algorithmic path caching.
+  * **Unified Transitions:** Replaced custom detail screen spring specs with standardized `springSpecIntOffset` and uniform fade durations for a cohesive navigation experience.
+  * **Keep Screen On:** Exposed a new `isKeepScreenOn` toggle directly within the level UI control panel, represented by a Lightbulb icon.
+* **Fixes & Stability: Layouts & Refactoring:** Restructured package architecture (`overlay`, `controls`, `graphics`) for improved scalability.
+  * **Render-Layer Transforms:** Migrated layout offsets to explicit pixel translations via `graphicsLayer` to keep visual transforms strictly on the render thread.
+  * **Insets & RTL:** Corrected `LevelOverlayManager` inner padding calculations for full-screen landscape modes and applied `Icons.AutoMirrored.Rounded.VolumeUp` for proper RTL mirroring.
+* **Core & Performance: Smart Onboarding Preferences (Shared):** Synchronized the user persistence layer to maintain a unified onboarding state across the ecosystem.
+  * **StateFlow Migration:** Introduced `UserPreferencesRepository` data flows for `has_seen_flip_tutorial`, `has_seen_calibrate_tutorial`, and `has_accepted_flash_warning`, ensuring users are not prompted redundantly across synced devices.
+
+
+
 ## Version 1.20.0 Beta 3
 *(Released May 2, 2026)*
 
