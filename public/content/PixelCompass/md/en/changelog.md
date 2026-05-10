@@ -4,7 +4,7 @@ Track the evolution of Pixel Compass. Here you'll find a detailed log of new fea
 ## Version 1.20.0 Beta 5
 *(Released May 10, 2026)*
 
-Welcome to Pixel Compass 1.20.0 Beta 5. This release heavily iterates on the Wear OS experience, introducing a fully animated Linear Level, gesture-based calibration, and a highly interactive multi-step onboarding engine. For the mobile client, we focused on UI scalability, rendering optimizations for the volumetric engine, and extensive global localization to prepare for the stable release.
+This release heavily iterates on the Wear OS experience, introducing a fully animated Linear Level, gesture-based calibration, and a highly interactive multi-step onboarding engine. For the mobile client, we focused on UI scalability, rendering optimizations for the volumetric engine, and extensive global localization to prepare for the stable release.
 
 #### 📱 Phone
 * **Global Localization: Level & Torch i18n:** Expanded translation support for the Level and Flashlight features.
