@@ -1,6 +1,35 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.20.0 Beta 5
+*(Released May 10, 2026)*
+
+Welcome to Pixel Compass 1.20.0 Beta 5. This release heavily iterates on the Wear OS experience, introducing a fully animated Linear Level, gesture-based calibration, and a highly interactive multi-step onboarding engine. For the mobile client, we focused on UI scalability, rendering optimizations for the volumetric engine, and extensive global localization to prepare for the stable release.
+
+#### 📱 Phone
+* **Global Localization: Level & Torch i18n:** Expanded translation support for the Level and Flashlight features.
+  * **Coverage Expansion:** Added localized string resources for calibration, hold/resume actions, lock states, flip-to-align, and proactive flashlight warnings across 28+ locales.
+* **UI & UX Polish: Responsive Level Controls:** Enhanced the `LevelControlPanel` to dynamically adapt to varying screen dimensions.
+  * **Space-Aware Layout:** Wrapped the panel in `BoxWithConstraints` to compute available space, automatically hiding lower-priority controls (like dynamic feedback and keep-screen-on) for graceful degradation on compact displays.
+* **Core & Performance: Volumetric Rendering Optimization:** Refactored the 3D device mockup to improve rendering performance and code maintainability.
+  * **Theme Centralization:** Introduced a `DeviceThemeColors` data class to pipe centralized color and brush data down through `FrontFace`, `ChassisLayer`, and `CameraBumpLayer`.
+  * **Geometry Simplification:** Removed computationally heavy inner-slice details like `SpeakerGrilleHole` and `UsbCHole` from the chassis, and stripped the translated bottom overlay from `AnimatedCalibrationShowcase` for a cleaner, more performant tutorial UI.
+
+#### ⌚ Wear OS
+* **New: Linear Level Engine:** Engineered a new `LinearLevelContent` composable that mathematically simulates a liquid level indicator for vertical orientations.
+  * **Dynamic Wave Rendering:** Implemented a custom `WaveShape` that builds an adaptive sine-based path with phase/amplitude mapping and algorithmic caching.
+  * **Animated Transitions:** Hooked up an `AnimatedContent` block to smoothly fade (400ms spec) between the traditional flat bubble mode and the new linear mode, dynamically driven by device pitch and roll data.
+  * **Fluid Dynamics:** Applied a dedicated spring animation to the secondary `sloshAngle` for highly realistic, smoothed fluid motion.
+* **New: Gestures & Calibration:** Built a robust state machine for holding (freezing) and calibrating the level directly from the watch face.
+  * **Pointer Input:** Wired `detectTapGestures` directly into the UI: single-tap to freeze/hold the current angle, and double-tap to define a new 0° calibration offset.
+  * **Animated Status Indicators:** Added a centralized status cluster that seamlessly transitions between Check, Lock, and CenterFocusStrong icons using `AnimatedContent` to visually reflect current hold/offset states.
+* **UI & UX Polish: Overlays & Onboarding:** Rebuilt the Wear OS interaction layers to prevent accidental underlying touches and improve feature discoverability.
+  * **Multi-Step Tutorial:** Replaced the legacy scrollable onboarding list with `LevelOnboardingOverlay`, featuring discrete steps, slide/fade transitions, and strict `pointerInput` tap consumption.
+  * **Action Menu:** Added a `LevelActionOverlay` accessible via screen tap. It injects active `WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON` management, haptics toggles, and manual calibration resets directly into the Wear view.
+  * **Contrast Adjustments:** Boosted the linear track background opacities (up to 0.7f) for significantly better OLED readability.
+* **Core & Performance: Package Architecture:** Executed a structural refactor of the Wear OS presentation layer.
+  * **Reorganization:** Migrated components into dedicated `.graphics`, `.overlay`, and `.tutorial` packages to cleanly separate visual components from state management.
+
 ## Version 1.20.0 Beta 4
 *(Released May 07, 2026)*
 
@@ -29,8 +58,6 @@ Under the hood, this release migrates local UI states to robust, persistent flow
   * **Insets & RTL:** Corrected `LevelOverlayManager` inner padding calculations for full-screen landscape modes and applied `Icons.AutoMirrored.Rounded.VolumeUp` for proper RTL mirroring.
 * **Core & Performance: Smart Onboarding Preferences (Shared):** Synchronized the user persistence layer to maintain a unified onboarding state across the ecosystem.
   * **StateFlow Migration:** Introduced `UserPreferencesRepository` data flows for `has_seen_flip_tutorial`, `has_seen_calibrate_tutorial`, and `has_accepted_flash_warning`, ensuring users are not prompted redundantly across synced devices.
-
-
 
 ## Version 1.20.0 Beta 3
 *(Released May 2, 2026)*
