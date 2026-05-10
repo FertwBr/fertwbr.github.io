@@ -1,6 +1,24 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.20.0 Beta 5.5
+*(Released May 11, 2026)*
+
+ This is technical release heavily focused on stabilizing the smartwatch architecture and rendering pipelines. We have completely decoupled our sensor orchestration from the UI layer to minimize battery drain and introduced highly optimized, scalable SVG-based compass shapes
+
+#### ⌚ Wear OS
+* **Core & Performance: Sensor Orchestrator & Architecture:** Executed a massive architectural refactor of the Wear OS data layer to improve battery life and data stability.
+  * **Unified Sensor Fusion:** Introduced `WearCompassSensorOrchestrator` to fuse raw streams (location, altitude, rotation) into a single `CompassData` state. The orchestrator handles `GeomagneticField` declination, applies true north corrections, and throttles sampling to an efficient 250ms.
+  * **Smart Lifecycle Management:** Wired hardware sensor listeners to `LifecycleEventObserver`. Sensors now strictly invoke `startSensors()` on `ON_RESUME` and `stopSensors()` on `ON_PAUSE`, drastically reducing background battery consumption.
+  * **Decoupled UI Events:** Implemented `WearCompassUiInteractionHandler` backed by a `SharedFlow` to manage transient UI events (like Toasts) safely outside the main state loop.
+  * **ViewModel Consolidation:** Renamed the legacy `WearCompassViewModel` to `WearMainViewModel`, dropping monolithic logic in favor of delegating to the new orchestrator and interaction handler classes.
+* **UI & UX Polish: Premium Compass Shapes:** Reintroduced the "Sunny" and "Cookie" compass styles with hardware-accelerated vector rendering.
+  * **Dynamic SVG Parsing:** Engineered `SunnyCompassShape` and `CookieCompassShape`. These custom Shapes parse embedded SVG reference paths via `PathParser`, cache the base vector, and dynamically scale it to the available bounds using an Android `Matrix`.
+  * **Carousel Optimization:** Refined the `CompassStyleSelectionScreen` list behavior. Disabled auto-centering, increased horizontal paddings (68.dp), and tweaked off-center item scaling and alpha to make the focused compass style drastically more prominent.
+  * **Hardware Clipping:** Applied a dynamic `CircleShape` root clip to the `LevelScreen` by querying `LocalConfiguration.isScreenRound`, ensuring UI elements never bleed into the smartwatch bezels.
+* **Fixes & Stability: Dynamic Level Engine:** Corrected fluid simulation logic when transitioning between physical device orientations.
+  * **Vertical vs. Flat Matrix:** Fixed a bug where switching between flat and vertical orientations caused incorrect liquid rotation. The level engine now calculates absolute raw angles to preserve the correct liquid rotation sign, while actively computing `primaryDeviation` for accurate level evaluation in vertical mode.
+
 ## Version 1.20.0 Beta 5
 *(Released May 10, 2026)*
 
