@@ -1,6 +1,31 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.20.0 Beta 6
+*(Released May 12, 2026)*
+
+This technical release focuses heavily on underlying architecture, sensor stabilization, and rendering polish. For the mobile client, we completely refactored the UI state management into cohesive data classes and introduced a robust sensor stabilization phase to eliminate initial UI jitter. We also significantly upgraded the volumetric device engine with high-fidelity frosted glass and gradient shaders. On Wear OS, we implemented a sophisticated, reference-counted sensor lifecycle manager to drastically reduce battery consumption when swiping through the pager.
+
+#### 📱 Phone
+* **New: Contextual Long-Press Tutorials:** Integrated localized, on-demand onboarding directly into the main UI controls.
+  * **Gesture Hooks:** Wired `combinedClickable` to support long-press actions on all primary buttons (Hold, Haptics, Keep-Screen-On, Flip, and Calibrate) without interrupting their standard single-tap behaviors.
+  * **Targeted Bottom Sheets:** Long-pressing now dynamically summons specific `TutorialBottomSheet` variants (e.g., `HoldTutorialSheet`, `HapticsTutorialSheet`) to provide immediate contextual help.
+* **Core & Performance: Sensor Initialization & Loading UI:** Eliminated data jumpiness when first opening the level screen.
+  * **Data Readiness Flow:** Introduced a `sensorEventCount` and `isInitialDataReady` `StateFlow` that intentionally waits for the first 5 sensor events before rendering the UI.
+  * **Filter Bypassing:** The engine now intercepts the very first sensor event to establish a baseline gravity value, completely bypassing the low-pass filter to prevent the level bubble from "jumping" into position.
+  * **Animated Handoff:** Wrapped the rendering sequence in an `AnimatedContent` block, showing a centered loading indicator that elegantly crossfades into the live `LevelScreenContent` once the data has stabilized.
+* **Core & Performance: UI State Architecture:** Executed a massive cleanup of the Compose hierarchy.
+  * **State Consolidation:** Refactored a sprawling parameter list into tightly scoped data classes (`LevelScreenState`, `LevelOverlayState`, `LevelLayoutState`) and structured action interfaces (`LevelOverlayActions`).
+  * **Component Decoupling:** Extracted `LevelScreenContent` into its own file, completely separating the visual configurations and layout rules from the root `LevelScreen` logic.
+* **UI & UX Polish: Volumetric Engine High-Fidelity Pass:** Overhauled the 3D device visuals for a more premium, realistic aesthetic.
+  * **Frosted Glass & Gradients:** Replaced flat radial backgrounds with a dual-layer frosted glass composition on the `BackFace`, utilizing precise gradient stops (`metallicStart`) for dynamic specular highlights.
+  * **Hardware Detailing:** Updated the camera visor to a muted metallic gray theme, tightened structural spacing, and engineered new `TertiaryLens` and `FlashAndTemperatureSensor` composables for a highly accurate hardware representation.
+
+#### ⌚ Wear OS
+* **Core & Performance: Centralized Sensor Lifecycle:** Replaced fragmented, per-screen sensor observers with a unified, battery-saving orchestration layer.
+  * **Reference-Counted Management:** Engineered a DI-injected, singleton `WearSensorLifecycleManager` that safely starts and stops sensor listening based on active client counts using thread-safe `AtomicInteger` operations.
+  * **Pager-Aware Orchestration:** Tied the centralized sensor lifecycle directly to the `HorizontalPager` state. The view model now automatically tears down raw data streams whenever the user swipes away from sensor-dependent screens, maximizing battery efficiency.
+
 ## Version 1.20.0 Beta 5.5
 *(Released May 11, 2026)*
 
