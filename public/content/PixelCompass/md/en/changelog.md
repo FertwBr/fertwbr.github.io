@@ -1,6 +1,19 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.20.0 Beta 6.1
+*(Released May 13, 2026)*
+
+This minor technical patch refines the sensor initialization sequence introduced in Beta 6 and addresses a bug regarding sensory feedback behavior when the level is locked.
+
+#### 📱 Phone
+* **Core & Performance: Sensor Initialization Refactor:** Streamlined the data readiness checks to process initial gravity readings more efficiently.
+  * **Boolean Tracking:** Replaced the integer-based `sensorEventCount` with a direct `isFirstReadingProcessed` boolean flag, removing unnecessary counting logic.
+  * **Initialization & Smoothing:** The engine now explicitly initializes `gravityValues` precisely on the first reading, resetting the flag upon `startSensors`, and seamlessly transitions into applying low-pass smoothing on all subsequent updates.
+* **Fixes & Stability: Suspended Sensory Feedback:** Resolved an issue where haptic and audio feedback would continue to trigger even when the level angle was manually frozen.
+  * **Hold State Synchronization:** Wired `LevelScreen` to notify `LevelViewModel` of hold state transitions via `setHoldState(isHolding)` inside a `LaunchedEffect`.
+  * **Feedback Suspension:** `updateFeedbackState()` now actively evaluates `isHoldStateActive`, immediately returning early and halting all tactile and sonic feedback while the device orientation is locked, restoring it seamlessly upon release.
+
 ## Version 1.20.0 Beta 6
 *(Released May 12, 2026)*
 
