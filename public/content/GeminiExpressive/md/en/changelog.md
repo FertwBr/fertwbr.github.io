@@ -1,6 +1,34 @@
 # Gemini Expressive
 Track the evolution of Gemini Expressive. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 3.0.0
+*(Released May 14, 2026)*
+
+This major release brings a completely redesigned Settings Dashboard, powerful new productivity toggles for code blocks, and a massive under-the-hood architectural refactor to make the extension faster, more accessible, and easier to maintain.
+
+#### 🎨 Settings Dashboard Redesign
+* **New: Multi-Column Card Layout:** The options interface has been entirely rebuilt using a modern, flexible multi-column layout, moving away from rigid grids. Settings are logically grouped into stylized cards for much better readability.
+* **New: Visual Indicators & Badges:** We've added Material Symbols to all setting toggles for quick scanning. You will also see new **"New"** and **"Beta"** badges highlighting recent additions or experimental features that are still in testing.
+* **New: Enhanced Header:** The settings header now features a polished, card-like aesthetic with quick-action pill buttons and a dedicated version badge (which links directly to this changelog).
+* **UI Polish:** Enjoy incredibly smooth, `framer-motion`-style page exit and entrance transitions when navigating between the General Settings and the Snippets Editor.
+
+#### ⚡ Snippets & Productivity
+* **Improvement: Prefix Selector Redesign:** The Snippet Prefix setting has been moved out of the general settings and directly into the Snippets Editor screen for immediate access. The dropdown UI has also been dramatically simplified: it now exclusively displays the clean prefix symbols (e.g., `/`, `!`, `#`) without unnecessary text labels.
+* **Fix: Snippet Contrast & Visibility:** Resolved a critical contrast issue where active snippet items were hard to read when certain themes were applied. Selected items now properly inherit primary theme colors, and the delete/danger icons feature a solid red hover state with bright white text for maximum accessibility.
+* **New: Quick Actions:** Added a Quick Theme Toggle and a Backup Export button directly to the Snippets header, so you don't have to navigate back to the main settings to make quick adjustments.
+* **Fix: Responsive Layouts:** Adjusted global layout rules to prevent horizontal expansion and flex-box blowouts, ensuring the Snippets Editor looks and behaves perfectly even in constrained Chrome pop-up windows.
+
+#### 💻 Code Block Enhancements
+* **New: Auto-Center on Collapse:** Added a new setting that smoothly scrolls and vertically centers a code block in your viewport the moment you collapse it, keeping your workspace perfectly framed.
+* **New: Hide Download Button:** Prefer a minimalist interface? You can now toggle off Gemini's native "Download Code" button via the settings menu for a cleaner look.
+
+#### 🚀 Architecture, Localization & Performance
+* **New: Backup & Restore Engine:** Easily safeguard your configurations. The settings page now features a robust Import/Export system, allowing you to download a `.json` backup of your snippets, themes, and preferences, and securely restore them at any time.
+* **Core Refactor:** We've transitioned the extension's UI to a modern, component-based architecture (`PrefixSelector`, `QuickThemeToggle`, `BackupManager`, `LanguageSelector`, etc.). This dramatically reduces code duplication, prevents styling conflicts, and improves runtime stability.
+* **Global Localization (i18n):** All new features—including backups, auto-centering, hiding downloads, and UI badges—are fully translated across our supported locales (English, Portuguese, Spanish, German, Hindi, Japanese).
+* **Stability & Documentation:** The open-source codebase has been heavily documented with JSDoc annotations and MIT license headers. Furthermore, the core `DomObserver` was fortified with strict loop-prevention logic to ensure flawless performance without browser memory leaks.
+
+
 ## Version 2.5.2
 *(Released April 12, 2026)*
 
