@@ -1,8 +1,27 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
-## Version 1.20.0 Release Candidate 1
+## Version 1.20.0 Release Candidate 2
 *(Released May 16, 2026)*
+
+ As we approach the final stable release, this highly technical update focuses on deep structural refactoring of our 3D volumetric engine, fine-tuning animation state machines, and modernizing our codebase with idiomatic Kotlin practices.
+
+#### 📱 Phone
+* **Core & Performance: Volumetric Pipeline Architecture:** Completely modularized the 3D device rendering engine to improve separation of concerns and reusability.
+  * **Component Extraction:** Dismantled the monolithic device composable into strictly scoped components (`VolumetricFrontFace`, `VolumetricChassis`, `VolumetricBackFace`, and `VolumetricCamera`).
+  * **Projection Math:** Upgraded layered slice processing to utilize rigorous density-aware projection math and perspective scaling based on camera distance.
+* **UI & UX Polish: 3D Device Enhancements:** Added high-fidelity hardware details to the volumetric mockups.
+  * **Selfie Camera:** Introduced a new `SelfieCamera` composable on the `FrontFace` layout, engineered with precise radial gradients and specular highlights to simulate depth and glass materials.
+  * **Explicit Orientation:** Replaced generic boolean propagation with explicit vertical/horizontal orientation flags when drawing the `FlashAndTemperatureSensor` to guarantee precise coordinate mapping.
+* **UI & UX Polish: Animation State Tuning:** Streamlined tutorial animations and button transitions for a more fluid 60fps experience.
+  * **Icon Swapping:** Consolidated separate calibration visibility blocks into a unified `AnimatedContent` surface. We now leverage combined fade and scale transitions (`togetherWith`) and `animateColorAsState` to seamlessly morph the button from a settings icon to a center focus success state.
+  * **Phase Optimization:** Removed the redundant `TAP_UI` flip sequence phase. Its delay has been intelligently merged into the focus step (yielding a smooth 1900ms transition), and the `fabScale` logic was simplified to prevent unnecessary recompositions.
+* **Core & Performance: Codebase Modernization:** Executed systemic cleanup across the presentation layer.
+  * **Kotlin Stdlib Migration:** Purged legacy Java Math operations in favor of `kotlin.math.PI` and `kotlin.math.abs` for adaptive wave and sine computations. String formatting was also updated to idiomatic Kotlin standard (`"%.1f".format(...)`).
+  * **Package Reorganization:** Relocated sprawling tutorial files into tightly encapsulated `showcase`, `sheets`, and `components` packages to enforce strict architectural boundaries.
+
+## Version 1.20.0 Release Candidate 1
+*(Released May 15, 2026)*
 
 As we approach our final stable release, this update aggressively polishes the internal rendering pipelines and finalizes our global translation matrices. We have heavily refactored the volumetric UI logic to support flawless horizontal orientations, overhauled the physics-based animations of the bubble level, and stripped away legacy composables for a cleaner, highly optimized render layer.
 
