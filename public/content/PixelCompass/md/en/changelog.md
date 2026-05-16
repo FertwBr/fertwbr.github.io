@@ -1,6 +1,34 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.20.0 Release Candidate 1
+*(Released May 16, 2026)*
+
+As we approach our final stable release, this update aggressively polishes the internal rendering pipelines and finalizes our global translation matrices. We have heavily refactored the volumetric UI logic to support flawless horizontal orientations, overhauled the physics-based animations of the bubble level, and stripped away legacy composables for a cleaner, highly optimized render layer.
+
+Under the hood, both platforms benefit from meticulous state synchronization fixes and refined layout calculations, ensuring that our sensor data is mapped to the screen with absolute, jitter-free precision.
+
+#### 📱 Phone
+* **UI & UX Polish: Volumetric FrontFace Engine:** Engineered full horizontal and linear mode support within the 3D device mockup.
+  * **Dynamic Blending:** Replaced basic `AnimatedVisibility` blocks with explicit `animateFloatAsState` alphas (`linearAlpha`, `flatAlpha`) for seamless crossfading between linear and flat visual states.
+  * **Canvas Waveform:** Implemented a continuous, hardware-accelerated wave background driven by an `infiniteTransition` phase shift, complete with formatted angle labels and orientation-aware bubble reticles.
+  * **Layout Mathematics:** Introduced a `splitFraction` multiplier (0.5 for horizontal, 0.4 for vertical) and routed `animatedOffsetX` and `animatedOffsetY` to dynamically restructure the display based on active orientation.
+* **Core & Performance: Bubble Animation Refactor:** Standardized the physics and layout transitions for the leveling bubble.
+  * **State Migration:** Stripped out duplicated `Box` blocks and hardcoded values, migrating bubble size, corner radius, offsets, and icon scales to unified `animateDpAsState` targets.
+  * **Showcase Rendering Fix:** Resolved a bug in `AnimatedCalibrationShowcase` where `bubbleOffsetX` was erroneously zeroed out by mapping directly to `bubbleOffsetY.dp`.
+  * **Data Integrity:** Modified the core angle display to read directly from raw sensor measurement variables, rather than the animated UI state, ensuring that the presented number is completely accurate regardless of ongoing transition animations.
+* **UI & UX Polish: Render Layer Cleanup:** Optimized the 2D flat level rendering phase.
+  * **Precision Grid Deprecation:** Completely removed the legacy `PrecisionGrid` composable and its associated Canvas drawing calls (concentric circles and grid lines) from `FlatLevelContent` to reduce GPU draw overhead and simplify the aesthetic.
+* **Global Localization: Contextual Tutorials:** Expanded global string resource availability.
+  * **Feature Coverage:** Injected fully localized text elements (titles, descriptions, button labels) for the new "Lock Orientation", "Haptic Feedback", and "Keep Screen Awake" long-press tutorial sheets across all `res/values-*` directories.
+
+#### ⌚ Wear OS
+* **UI & UX Polish: Physics-Based Icon Rotation:** Synchronized the central level icon with the underlying fluid dynamics simulation.
+  * **Spring Interpolation:** Injected an `IconRotationAnimation` state utilizing `animateFloatAsState` backed by a custom spring spec (`dampingRatio = 0.5`, `stiffness = 50f`) targeting the `baseLiquidRotation`.
+  * **Render Transform:** Applied the computed animation directly to the icon modifier via `graphicsLayer { rotationZ }`, ensuring the graphic smoothly follows the liquid slosh movements without triggering layout passes.
+* **Global Localization: Interface Expansion:** Finalized smartwatch translations ahead of stable release.
+  * **Extensive Key Additions:** Added comprehensive i18n support for action overlays (calibrate, reset, haptics, screen states), status badges (locked, offsets), and the multi-step `LevelOnboardingOverlay`.
+
 ## Version 1.20.0 Beta 6.1
 *(Released May 13, 2026)*
 
