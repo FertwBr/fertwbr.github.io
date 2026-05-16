@@ -1,6 +1,47 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.20.0
+*(Released May 18, 2026)*
+
+Welcome to Pixel Compass 1.20.0! This major release completely reinvents the Level Tool across all your devices, introducing a high-performance physics engine, stunning fluid visuals, and deeply intelligent features like "Flip-to-Align" that allow you to measure with unprecedented precision.
+
+Under the hood, we have synthesized months of beta testing to deliver an incredibly stable experience. We've optimized our sensor pipelines for massive battery savings on your smartwatch, deployed native liquid shaders for buttery-smooth 60fps animations on your phone, and introduced hardware-accelerated 3D onboarding to guide you through our smartest tools.
+
+#### 📱 Phone
+* **New: Flip-to-Align (Sensory Alignment):** Achieve perfect zero-vision leveling without ever looking at your screen.
+  * **Dynamic Feedback Orchestrator:** The app now translates your physical tilt deviation into distinct sensory zones using low-latency stereo sound, precision haptics, and smart flashlight pulses to guide your movement.
+  * **Integrated Volume Controls:** Seamlessly adjust system media volume or mute the audio feedback entirely via a new contextual floating slider directly within the Level screen.
+* **New: Advanced Level Controls:** Master your environment with powerful, proactive measurement tools.
+  * **Custom Zero (Tare):** Instantly calibrate the level to any custom surface to establish a new relative 0° baseline.
+  * **Hold Measurement:** Freeze the current pitch and roll values on-screen with a single tap, allowing you to easily read angles in tight spaces.
+  * **Immersive Full-Screen Mode:** Hide the app topbar and navbar UI for a massive, distraction-free measurement canvas that smartly adapts to device camera cutouts and dynamically locks orientation.
+* **Core & Performance: Precision Gravity Engine & Physics:** A complete architectural rewrite for absolute stability and realism.
+  * **Direct Sensor Access & Filtering:** Bypassing standard compass pipelines, the app now hooks directly into the hardware gravity sensor with a sophisticated low-pass filter, completely eliminating hand-shake jitter.
+  * **Native Liquid Shaders:** Rebuilt the fluid dynamics using native Android 13+ AGSL shaders, delivering incredibly realistic slosh, stretch, and wave physics with virtually zero CPU overhead.
+* **UI & UX Polish: Volumetric Engine & Expressive HUD:** A premium, intelligent, and highly responsive interface.
+  * **3D Smart Tutorials:** Learn our newest features through hardware-accelerated, interactive 3D device mockups complete with frosted glass, realistic lighting, and dynamic camera lenses.
+  * **Advanced Metrics:** The linear level now actively warns you of Z-axis depth inaccuracies, while the flat level features elegant curved metrics, a morphing reticle, and a high-visibility precision grid.
+  * **Contextual Onboarding:** Long-press any major control button (Hold, Haptics, Calibrate) to instantly summon localized, on-demand tutorials.
+* **Fixes & Stability: Global Localization & Settings:** Massive quality-of-life improvements across the entire app.
+  * **Language Polish:** Executed a comprehensive rewrite of Traditional Chinese translations for a natural, native tone across all metrics and weather data.
+  * **Settings Overhaul:** Redesigned the settings architecture with beautiful transparent scrims, an animated premium upgrade button, and accessible haptic toggles.
+
+#### ⌚ Wear OS
+* **New: Linear Level Engine:** The smartwatch leveling experience has been completely reimagined for vertical orientations.
+  * **Fluid Dynamics:** Enjoy a mathematically simulated liquid indicator that features adaptive wave rendering and smooth spring-based slosh physics right on your wrist.
+  * **Animated Transitions:** The UI seamlessly and intelligently crossfades between the traditional flat bubble and the new linear track based purely on your wrist's pitch and roll.
+* **New: Advanced Level Controls:** Master your environment with powerful, proactive measurement tools tailored for touch.
+  * **Hold & Calibrate Gestures:** Single-tap the central reticle to instantly freeze your current angle, or double-tap to calibrate a new zero offset without reaching for a button.
+  * **Quick Action Menu:** Tap anywhere on the level screen to summon a rapid adjustment overlay, granting instant access to manual calibration resets, haptics, and keep-screen-awake toggles.
+* **Core & Performance: Smart Sensor Orchestration:** Massive battery optimizations designed for all-day reliability.
+  * **Centralized Lifecycle Engine:** A new reference-counted architecture strictly manages the hardware sensors, drastically reducing background battery drain by shutting down raw data streams the moment you swipe away.
+* **UI & UX Polish:** Customize your digital watch face with new graphics.
+  * **New compass shapes:** Reintroduced the highly requested "Sunny" and "Cookie" compass styles from phone to wear, rebuilt from the ground up using scalable vector graphics that perfectly map to circular displays.
+* **New: Interactive Overlays & Onboarding (Shared):** A premium, intelligent interface built for quick comprehension.
+  * **Multi-Step Tutorials:** Master the new gestural controls via a discrete, slide-animated onboarding engine that protects against accidental underlying touches.
+  * **OLED Optimization:** Boosted contrast and linear track background opacities for significantly better outdoor readability on smartwatch displays.
+
 ## Version 1.20.0 Release Candidate 2
 *(Released May 16, 2026)*
 
