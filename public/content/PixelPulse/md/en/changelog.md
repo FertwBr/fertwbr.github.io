@@ -1,6 +1,33 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.21.0 Beta 5
+*(Released May 20, 2026)*
+
+This release focuses on a complete architectural rewrite of the data synchronization pipeline between your phone and smartwatch, moving from a legacy request model to a high-performance inventory streaming system. We have also refined the Wear OS data management experience and polished the UI placeholders across both devices.
+
+#### 📱 Phone
+* **Core & Performance: V2 Sync Architecture:** Introduced a robust, bidirectional inventory streaming system (`ExposureDataSyncManager`) for exposure data.
+  * **Inventory Handshake:** The app now performs an active handshake (`MESSAGE_PATH_SYNC_INVENTORY`), comparing raw database boundaries (oldest/newest timestamps) to dynamically route between bulk channel streams or targeted delta syncs.
+  * **IO Offloading & Streaming:** Completely removed blocking `runBlocking` calls from the wearable service. The sync engine now heavily utilizes `Dispatchers.IO`, chunked DB insertions, and buffered `ChannelClient` streams to transfer large datasets without locking the UI.
+* **Core & Performance: Soft-Delete Database Logic:** Changed how exposure and session data is handled locally.
+  * **Logical Deletion:** Implemented DB schema v7, adding an `isDeleted` flag to both `exposure_entries` and `sessions`. Deleting data no longer physically removes the row, enabling historical auditing and graceful sync handling.
+  * **Wipe Syncing:** Wiping exposure data locally now broadcasts a `MESSAGE_PATH_EXPOSURE_CLEAR` payload to attached nodes, automatically executing a background wipe on synced devices.
+* **UI & UX Polish: Settings & Typography:**
+  * **Force Resync UI:** The Data settings page now features a dedicated "Resync All Data" button with an animated `SyncProgressAnimatedCard` and explicit toast feedback.
+  * **Tablet & Foldable Polish:** Rebuilt the settings detail placeholder as a premium, centered `Surface` card with translucent `surfaceVariant` backgrounds and enlarged primary icons. Added scroll-driven status bar scrims and dynamic width constraints (`widthIn`) for significantly improved layouts on large screens.
+  * **Icon Update:** Replaced the legacy `PhoneAndroid` icon with a clean `Lightbulb` icon in General Settings.
+  * **Typography:** Expanded `RobotoFlexFamily` to utilize true variable font weights (100-1000) mapped dynamically, enabling pixel-perfect typographic rendering.
+
+#### ⌚ Wear OS
+* **Core & Performance: V2 Sync Architecture (Shared):** The smartwatch client fully adopts the new `Dispatchers.IO` and inventory-based sync pipeline.
+  * **Session JSON Handling:** Incoming new sessions (`DATA_PATH_NEW_SESSION`) are safely parsed via Moshi on a background coroutine, correctly updating active sessions and discarding duplicates.
+  * **Up-to-Date Acknowledgments:** If both devices are aligned, the watch gracefully logs and completes a `MESSAGE_PATH_SYNC_UP_TO_DATE` transaction, avoiding unnecessary data transfer overhead.
+* **UI & UX Polish: History & Data Management:**
+  * **On-Wrist Wiping:** Added full support for triggering and receiving the `MESSAGE_PATH_EXPOSURE_CLEAR` wipe command directly from the watch face, complete with local toast feedback for success or error states.
+  * **Layout Optimizations:** Adjusted `HistoryScreenContent` and `DeleteExposureDataScreen` by disabling auto-centering on `ScalingLazyColumn` and tightly managing `scaffoldPadding` to ensure UI elements don't bleed into the physical bezels and provide better vertical spacing.
+  * **Placeholder Rebuild:** Replaced the legacy title-card placeholder with a sleek, centered column design that strictly adheres to the newest Material 3 Wear typographic guidelines.
+
 ## Version 1.21.0 Beta 4
 *(Released April 27, 2026)*
 
