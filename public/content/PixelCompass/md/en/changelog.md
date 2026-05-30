@@ -1,6 +1,27 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.20.1
+*(Released May 30, 2026)*
+
+This minor patch addresses several stability issues and visual polish details identified after the 1.20.0 release. We've enhanced the layout of the level bubbles, improved background service handling on Wear OS, and fixed a crash related to the Open Source Licenses menu.
+
+#### 📱 Phone
+* **Fixes & Stability: Open Source Licenses Menu:** Resolved an issue where opening the "Open Source Licenses" menu would crash the app.
+  * **Library Migration:** Migrated the internal Intent from the deprecated OSS Licenses activity to the modern v2 implementation (`com.google.android.gms.oss.licenses.v2.OssLicensesMenuActivity`), ensuring compatibility with the latest Android Gradle Plugin (AGP).
+* **UI & UX Polish: Bubble Shadow Rendering:** Fixed an issue where the drop shadow of the level indicator bubble was being clipped.
+  * **Layout Refactor:** Introduced a `shadowAllowance` padding parameter to the outer container in both `FlatLevel` and `LinearLevel` modes.
+  * **Z-Index Correction:** Moved the visual elements, unclipped elevation modifiers, and gesture detectors into an inner `Box`, allowing the hardware-accelerated shadow to render properly outside the physical bounds of the bubble.
+* **Fixes & Stability: Widget Configuration Safety:** Added defensive error handling to prevent crashes during home screen widget setup.
+  * **Invalid ID Checks:** The configuration activity now aggressively checks `AppWidgetManager` for valid `appWidgetId` and `glanceId` instances, failing gracefully and closing the activity if the launcher provides invalid data.
+* **Core & Performance: Audio Thread Safety:** Upgraded the internal audio track cache in `SoundFeedbackManager`.
+  * **Concurrency:** Swapped the standard `mutableMapOf` for a thread-safe `ConcurrentHashMap`, eliminating potential race conditions when the "Flip-to-Align" feature rapidly requests stereo feedback across different audio threads.
+
+#### ⌚ Wear OS
+* **Fixes & Stability: Complication Service Management:** Refined how background complications start and stop to improve stability across different Wear OS versions.
+  * **Service Initialization:** Replaced `startForegroundService` with standard `startService` calls and removed brittle exception handling (like `ForegroundServiceStartNotAllowedException`), relying instead on graceful degradation and warning logs.
+* **Core & Performance: Diagnostic Logging:** Expanded internal `Timber` logs across `AltitudeComplicationService` and `WearComplicationUpdateService` to better trace sensor lifecycle events and complication activation flows for future debugging.
+
 ## Version 1.20.0
 *(Released May 18, 2026)*
 
