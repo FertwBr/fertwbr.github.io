@@ -1,6 +1,33 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.21.0 Beta 6
+*(Released May 29, 2026)*
+
+This release is intensely focused on bringing a robust, fully-featured Recycle Bin and Data Management architecture to both the mobile and Wear OS experiences, ensuring your data is safe and giving you granular control over what you keep.
+
+#### 📱 Phone
+* **New: Comprehensive Recycle Bin:** A fully-featured trash system has been introduced, allowing you to review, restore, or permanently delete soft-deleted sessions and exposure entries.
+  * **Advanced Filtering & Sorting:** The Recycle Bin UI now features a tabbed interface (Sessions vs. Exposures) with contextual, tab-aware filter chips and a new search bar for sessions. You can sort by expiration date or title, and filters (like "Favorites" or "Recording Type") smartly disable when viewing exposures.
+  * **Intelligent Retention Policies:** Added an automated Trash Retention feature with customizable periods (7, 14, 30, 45 days, or Never). This is managed via the `TrashRetentionSheet` and is automatically synced to your smartwatch.
+  * **Visuals:** The UI has been heavily polished. Features a dynamic app bar that transitions colors on scroll, an animated `DynamicFabGroup` for bulk actions (Select All/Restore/Delete), fast-scrolling for long lists, and unified device-source iconography.
+* **New: Granular "Delete by Period":** A powerful new data management flow allows you to surgically remove data.
+  * **Date & Time Range Selection:** You can now soft-delete data by specific predefined periods, a single specific day, or a highly customized date and hour range.
+  * **Impact Estimation:** The UI (`DeleteByPeriodScreen`) calculates and displays an estimated impact (e.g., number of records affected) before you commit to the deletion, utilizing a new slide-to-confirm safety overlay.
+  * **Responsive Layouts:** The Delete by Period UI intelligently adapts to expanded screens and tablets, moving action buttons inline for better space utilization.
+* **Core & Performance: Background Cleanup Engine:** * Introduced the `RecycleBinCleanupWorker`, a highly efficient background task that automatically purges expired recycle-bin items based on your retention settings. It utilizes the new `isDeleted` database flag, respects battery constraints, and provides a silent progress notification via newly added vector drawables (`ic_monitor_heart`, `ic_cloud_done`).
+* **UI & UX Polish: Contextual Top Menus:** Replaced generic dropdowns across the app (like in the session viewer and recycle bin) with a new, unified `AppDropdownMenu` component that supports destructive styling (red text), icons, and haptic feedback.
+
+#### ⌚ Wear OS
+* **New: On-Wrist Recycle Bin:** The complete data recovery experience is now available directly on your smartwatch.
+  * **Session & Exposure Management:** Introduced `WearSessionTrashScreen` and `WearExposureTrashScreen` to view, multi-select, restore, or permanently delete soft-deleted data.
+  * **Dynamic Overlays:** Built a specialized `TrashSelectionOverlays` component to handle multi-selection states, featuring animated top/bottom panels with "Select All" and "Restore" actions.
+* **New: Granular "Delete by Period":** You no longer need your phone to perform complex data management.
+  * **Native Wear Flow:** Introduced `WearDeleteByPeriodScreen`, guiding you through predefined ranges or custom dates using native Wear OS inline sliders and pickers.
+  * **Safe Deletion:** Replaced bespoke deletion confirmations with a new, shared `SafeDeleteConfirmOverlay` that requires a deliberate "slide-to-confirm" action to prevent accidental data loss.
+* **Core & Performance: Configuration Sync:** The smartwatch now actively listens for the `KEY_CONFIG_TRASH_RETENTION_PERIOD` payload during config syncs, ensuring your auto-delete preferences are instantly applied across your entire device ecosystem.
+* **UI & UX Polish: Visual Upgrades:** Replaced text buttons with clearer icon-buttons in deletion flows, and implemented robust empty states featuring centered `EventBusy` or `DeleteOutline` icons for better visual affordance on the small screen.
+
 ## Version 1.21.0 Beta 5
 *(Released May 20, 2026)*
 
