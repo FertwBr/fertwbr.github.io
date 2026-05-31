@@ -1,6 +1,25 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.21.0 Beta 1
+*(Released May 31, 2026)*
+
+Welcome to Pixel Compass 1.21.0 Beta 1! Following the release of 1.20.1, we are immediately kicking off our next beta cycle. This fist beta update focuses entirely on customizing your compass experience, allowing you to tailor the floating action bar to your exact workflow, alongside some crucial codebase modernizations.
+
+#### 📱 Phone
+* **New: Fully Custom Floating Action Bar (FAB):** The compass screen now features a completely configurable and responsive action bar, moving away from the static 3-button design.
+  * **Interactive Editor:** Added a new `FabToolbarEditor` in the customization settings. You can now drag-and-drop to reorder, add, or remove tools (like True North, Calibration, Theme Toggle, Keep Screen On, Mechanical Haptics, and Low Power Mode) to build your perfect toolkit.
+  * **Responsive Design:** Engineered a new `ResponsiveActionContainer` that intelligently calculates available screen width. If you add more tools than can fit, the bar automatically truncates and animates to an expanded/collapsed state, ensuring a perfect layout regardless of your screen size.
+  * **State Synchronization:** The active FAB configuration is instantly persisted via a new string array `FAB_ACTIONS` DataStore preference, ensuring your custom layout is saved across sessions.
+  * **Visibility Toggle:** You can now hide the FAB entirely for a minimalist, distraction-free compass view. The compass layouts (`CompassOnlyLayout`, `CompassWithCardsLayout`, `FtueLayout`) have been refactored to dynamically adjust their bottom padding, eliminating awkward blank spaces when the FAB is hidden.
+* **Core & Performance: UI Component Upgrades:** Significant under-the-hood modernization to keep pace with the latest Android UI frameworks.
+  * **Bottom Sheets API:** Migrated all bottom sheets (e.g., `AltitudeCalibrationSheet`, `FeedbackSheet`, `FlashWarningSheet`) from the older modal state implementation to the newer Material 3 `rememberBottomSheetState()` API.
+  * **Theme Interoperability:** Refactored `PixelCompassTopBar` to use `TopAppBarDefaults.topAppBarColors` and set icon/title content colors to `Color.Unspecified`. This allows the top bar to naturally inherit its colors from your chosen active theme.
+  * **RTL Mirroring:** Updated the support contact icon in the altitude calibration menu to use the `AutoMirrored` variant for correct rendering in right-to-left languages.
+
+#### ⌚ Wear OS
+* **Core & Performance: Future-Proofing:** * **SDK Target:** Bumped the Wear OS module `compileSdk` to version 37 to align with the latest platform tools and prepare for upcoming Wear OS features.
+
 ## Version 1.20.1
 *(Released May 30, 2026)*
 
