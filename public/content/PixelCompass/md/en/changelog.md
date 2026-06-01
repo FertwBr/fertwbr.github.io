@@ -1,6 +1,33 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.21.0 Beta 2
+*(Released June 01, 2026)*
+
+Building directly upon Beta 1, this release significantly upgrades the application's weather intelligence and smart alert systems, empowering you to stay ahead of sudden environmental changes. We have also refined the Wear OS customization flow and introduced powerful new developer tools to help test these systems.
+
+#### 📱 Phone
+* **New: Advanced Severe Weather Analyzer:** The weather alert engine has been significantly upgraded to detect and warn you about rapid short-term environmental changes.
+  * **Wind & Temperature Shifts:** The app now actively monitors the next 4 hours for severe weather events. You will receive immediate alerts for dangerous temperature drops (≥8°C) and sudden, severe wind shifts (≥90° change coupled with wind speeds ≥20km/h).
+  * **Continuous Rain Intel:** The engine now intelligently differentiates between passing showers and prolonged storms. If high-probability precipitation is expected to last longer than 4 continuous hours, you will receive a specific "Continuous Rain" alert, complete with localized duration estimates.
+  * **Dynamic Cooldowns:** To prevent notification fatigue during long-running weather events, the app now applies dynamic alert cooldowns (e.g., 3 hours for transient alerts, 12 hours for continuous conditions like extreme heat or continuous rain).
+* **New: Compass Styling & "Red North":** You can now customize your smartwatch compass even further.
+  * **Red North Highlight:** Added a new setting to explicitly highlight the North ('N') indicator in a bold red (using your active theme's error color), making it instantly identifiable at a glance.
+* **UI & UX Polish:** Continued polish the ui.
+  * **Compact Icon Segments:** Replaced text-heavy Segmented Rows in the compass editor (Arrow style, Indicators, Cardinal Points) with a new `CompactIconSegmentedRow`, utilizing clean vector icons (`AllOut`, `FilterCenterFocus`, `SwapVert`) for a much denser and visually pleasing customization experience.
+* **Core & Performance: Developer & Debug Options:** Introduced a new, robust internal testing suite.
+  * **Debug Dashboard:** A new "Debug Options" menu is now available (in DEBUG builds only). It provides tools to force-generate real weather alerts from cached data, inspect raw GPS coordinates, perform hard calibration resets, and clear alert cooldowns.
+  * **Enhanced Diagnostics:** Injected extensive `Timber` logging across the `SevereWeatherAnalyzer` and `WeatherAlertEvaluator` to trace probability values, fallback paths, and cooldown decisions, dramatically improving developer observability.
+  * **SDK Target:** Following the Wear module in Beta 1, the `shared` and `uicommon` modules have now also had their `compileSdk` bumped to version 37 to ensure full ecosystem alignment with the latest Android build tools.
+
+#### ⌚ Wear OS
+* **New: Compass Styling & "Red North":** You can now customize your smartwatch compass even further.
+  * **Red North Highlight:** Added a new setting to explicitly highlight the North ('N') indicator in a bold red (using your active theme's error color), making it instantly identifiable at a glance.
+  * **Customization Reorganization:** Reordered the Wear OS Customization screen to prioritize "Theme" at the very top, and grouped all compass-specific tweaks (like Compass Style and the new Red North setting) under a dedicated "Compass" header.
+* **UI & UX Polish: Power Management Toggle:** Upgraded the Power Management setting on the smartwatch from a standard button to a clear, actionable `SplitSwitchButton`, providing immediate visual feedback on your low-power mode status.
+* **Core & Performance: Future-Proofing:**
+  * **SDK Target:** Following the Wear module in Beta 1, the `shared` and `uicommon` modules have now also had their `compileSdk` bumped to version 37 to ensure full ecosystem alignment with the latest Android build tools.
+
 ## Version 1.21.0 Beta 1
 *(Released May 31, 2026)*
 
