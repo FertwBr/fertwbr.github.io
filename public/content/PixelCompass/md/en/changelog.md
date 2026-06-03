@@ -1,6 +1,26 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.21.0 Beta 3
+*(Released June 03, 2026)*
+
+This update tackles two major areas: curing "notification fatigue" during severe weather and providing highly requested customizations for how you view wind data. We've deeply refactored our forecasting intelligence to understand the difference between a passing shower and a multi-day storm, ensuring you only get the alerts you actually need.
+
+#### 📱 Phone
+* **Core & Performance: Intelligent Horizon Forecasting:** The weather engine is no longer "myopic."
+  * **5-Day Analysis:** The `PrecipitationAnalyzer` now scans up to 120 hours (5 days) ahead to understand the true duration of weather events, while intelligently restricting rain accumulation metrics (mm/inches) to the next 24 hours so your charts remain readable.
+  * **Beyond Forecast Detection:** Introduced the `isBeyondForecast` logic. The app now understands when a storm will outlast the API's forecasting window, replacing confusing countdowns with a clear, human-readable message: *"Rain/Snow expected for the next few days."*
+* **Core & Performance: Smart Cooldowns & Alert Logic:** Curing notification fatigue for long-running events.
+  * **24-Hour Cooldowns:** The `WeatherAlertEvaluator` now recognizes continuous events (like Extreme Heat or Prolonged Rain). The re-alert cooldown has been extended from 12h to 24h. If a storm lasts for three days, you will only receive a single, elegant daily update rather than being spammed with hourly countdowns.
+  * **Prolonged Event Detection:** The system now generates specific static alerts (`PROLONGED_RAIN`, `PROLONGED_SNOW`) when consecutive precipitation exceeds 36 hours.
+* **New: Advanced Wind Data Customization:** Complete control over how you visualize wind conditions.
+  * **Wind Speed Units:** You can now fully customize how wind speed is displayed across the app and widgets. Choose between km/h, mph, or the newly added Knots (`kts`).
+  * **Beaufort Scale Mode:** Introduced a new `WindCardDisplayMode` setting. You can now toggle the Wind Card to display raw speed or localized, human-readable Beaufort Scale classifications (e.g., "Gentle Breeze", "Strong Gale") via the new `WindFormatters` engine.
+  * **Chart & Tooltip Polish:** Enhanced the `WindForecastChart` to dynamically cap scales based on your chosen unit, and upgraded tooltips to use beautifully colored annotated strings to distinctly separate speed, separators, and gusts.
+* **UI & UX Polish: Insight Cards & Humanized Copy:** Enhanced how weather data is presented to you.
+  * **Card Evolutions:** The `PrecipitationInsightCard` dynamically transforms when a prolonged event is detected, utilizing deep storm/snow themes while retaining full interactivity.
+  * **Unified Card Editor:** Completely refactored the compass card editing interface into a unified `DynamicCardEditorPanel`. The editor flow is now cleanly divided into dedicated "Style" and "Customization" tabs, making it significantly more intuitive to tweak global layouts or configure individual card behaviors.
+
 ## Version 1.21.0 Beta 2
 *(Released June 01, 2026)*
 
