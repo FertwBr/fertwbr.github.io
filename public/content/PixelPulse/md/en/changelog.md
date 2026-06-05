@@ -1,6 +1,38 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.21.0 Release Candidate 1
+*(Released June 05, 2026)*
+
+This milestone release brings critical architectural and mathematical core corrections to our acoustic analysis engine, resolving underlying tracking anomalies and aligning data parity across platforms. This candidate stabilizes background workers, expands historical data context, and refines layout boundaries for the final stable rollout.
+
+Under the hood, we have completely overhauled how decibel data is averaged and grouped, eliminating multi-day tracking errors and year-transition gaps. Historical windows have been expanded from 30 to 90 days, supplying both the mobile dashboard and wearable complications with deep, high-fidelity environmental contexts.
+
+#### 📱 Phone
+* **Core & Performance: Logarithmic Acoustic Engine:** Replaced flawed linear arithmetic averages (`.average().toFloat()`) with mathematically precise acoustic averaging inside `ExposureCalculator`.
+  * **Acoustic Energy Mean:** Implemented the private `logarithmicAverage()` extension function for `List<Float>` to safely convert decibels into linear acoustic energy, average the values, and map them back to the logarithmic dB scale.
+  * **Systemic Parity:** Applied true logarithmic calculation uniformly across daily, weekly, monthly summaries, sleep tracking, long-term trends, and heatmap generators.
+* **Fixes & Stability: Temporal Year-Boundary Resolution:** Corrected a critical calendar bug where chronological groupings failed during the New Year transition due to a strict reliance on `Calendar.DAY_OF_YEAR`.
+  * **Absolute String Keys:** Refactored all data-grouping keys to utilize absolute, format-safe strings via `SimpleDateFormat` (e.g., `"yyyyMMdd"`, `"yyyyMMddHH"`, and `"yyyy-ww"`).
+  * **Affected Pipelines:** Restructured `processDailyData`, `calculateHabitConsistency`, `calculateWeeklyPeaks`, and `processAcousticFatigueHistory` to guarantee unbroken charts when transitioning across year boundaries.
+* **Core & Performance: 90-Day Analytics Window (Shared):** Upgraded the dashboard and historical detail query boundaries to ingest 90 days of exposure records instead of the legacy 30-day timeframe, dramatically improving the precision of trend analysis.
+* **Fixes & Stability: WorkManager & Routine Scheduling:** Hardened background execution behaviors within the routine management ecosystem.
+  * **Enqueuing Semantics:** Added explicit `ExistingWorkPolicy` boundaries (`KEEP` for initial hooks, `REPLACE` for structural updates) to `routineInsightScheduler.updateScheduleStatus`.
+  * **Thread-Safe Fetching:** Replaced volatile, nullable UI stream inspection (`userRoutineFlow.value?`) with a synchronous, coroutine-backed repository fetch (`userRoutineFlow.first()`).
+  * **Self-Rescheduling Workers:** Augmented `RoutineInsightWorker` to automatically re-enqueue subsequent evaluations using `APPEND_OR_REPLACE` constraints, shifting targeted past-times smoothly to the next calendar day.
+* **UI & UX Polish: Edge-to-Edge Insets:** Integrated native system gesture tracking to prevent layout overlaps.
+  * **System Navigation Scrims:** Applied `WindowInsets.navigationBars` bottom padding to `DeleteByPeriodScreen` and `RecycleBinScreen` to keep scrollable items and interactive footers clear of Android navigation fields.
+  * **Dynamic Canvas Animation:** Refactored the `RecycleBinScreen` scaffold color routing to execute via `animateColorAsState`, animating fluidly across selection, scrolled, and container states.
+* **UI & UX Polish: Component Layout Extensions:** Optimized interactive controls and information boards.
+  * **FAB Size Interpolation:** Shifted the `animateContentSize` modifier from the root `Surface` to an inner `Box` wrapper on the primary FAB, guaranteeing a smooth visual transition when shifting between macro and selection variants.
+  * **Scrollable Legend:** Wrapped the sound intensity guidelines in a centered `horizontalScroll` layout, visually mapping dynamic `DecibelLevel` tiers from `FAINT` straight through to `PAINFUL`.
+* **Global Localization: Trash Retention Resource Bundles:** Distributed localized string translations for the newly implemented `trash_retention_sheet_title` across 15 international locale files.
+
+#### ⌚ Wear OS
+* **Core & Performance: 90-Day Analytics Window (Shared):** Migrated `WearExposureDetailViewModel` data bindings to utilize the expanded 90-day exposure datasets (`getDataForLast90Days`), offering deep chronological historical trends directly on your wrist.
+* **Fixes & Stability: Complication Analytics Rounding:** Swapped truncating integer casts (`toInt()`) for mathematically correct `roundToInt()` constraints inside `ExposureDetailScreen`, refining displayed precisions for weekend averages, loudest values, and dominant zone percentages.
+* **Global Localization: Wear Recycle Bin Locales:** Dispatched comprehensive translation bundles for the on-wrist recycle bin, time-range deletion screens, and secure confirmation overlays to all primary locale targets.
+
 ## Version 1.21.0 Beta 6
 *(Released May 29, 2026)*
 
