@@ -1,6 +1,70 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.21.0
+*(Released June 08, 2026)*
+
+We have completely revolutionized how the app operates in the background, introduced professional-grade data management, and fundamentally upgraded our core acoustic engine for unprecedented accuracy.
+
+By synthesizing dozens of beta iterations, this stable release delivers seamless true-background recording, an intelligent routine-based health alert system, and a lightning-fast V2 synchronization pipeline. Your dashboards are now smarter, faster, and powered by highly optimized background workers, setting a new standard for mobile acoustic tracking.
+
+#### 📱 Phone
+* **New: True Background Recording:** Never miss a moment with our resilient new recording engine.
+  * **Uninterrupted Measurement:** Live recording now utilizes an optimized foreground service. If you exit the app, it seamlessly continues measuring your audio exposure in the background with zero data loss.
+  * **Interactive Notifications:** Control your sessions directly from your notification tray. Securely "Save" or "Stop" recordings without opening the app.
+  * **Dynamic Decibel Coloring:** Notification backgrounds now feature dynamic ARGB coloring that fluidly shifts based on live decibel levels.
+  * **Samsung Expanded UI:** We built tailored, highly optimized expanded notification layouts specifically for Samsung devices, ensuring native alignment and perfect rendering.
+* **New Engine: Smart Health Alerts & Background Processing:** An autonomous intelligence engine that works for you.
+  * **RoutineInsightWorker & Scheduler:** A powerful new background worker actively evaluates your daily acoustic routines (like sleep or work patterns) to dispatch contextual health insights.
+  * **HealthAlertEvaluator:** To prevent notification fatigue, this dedicated evaluator enforces strict smart cooldowns (e.g., 24 hours for general warnings), ensuring you only receive alerts that truly matter.
+  * **Deep Linked Notifications:** Tapping a smart health alert now routes you directly into the specific analytical views and historical charts relevant to that insight.
+* **New: Comprehensive Recycle Bin:** Total control over your data lifecycle.
+  * **Data Recovery:** Soft-deleted sessions and exposures now land in a fully-featured Recycle Bin where they can be reviewed, safely restored, or permanently deleted.
+  * **Automated Retention:** Set intelligent auto-delete policies that clean up your trash automatically in the background.
+* **New: Pixel Pulse Notification Manager:** A completely unified alert system.
+  * **Unified Engine:** All notifications across the app are now routed through a single, centralized manager, heavily optimizing system resources.
+  * **NotificationSettingsContent:** A brand new granular settings hub allows you to independently toggle specific alert categories and background permissions.
+* **Core: Next-Generation Backup Engine:**
+  * **Multitasking Backups:** Manual imports and exports have been upgraded to run as memory-safe background workers. You can now navigate away while transferring years of data.
+  * **Platform Optimization:** Rebuilt using streaming JSON with intelligent batching to completely eradicate memory crashes during massive exports.
+* **Core & Performance: Under the Hood Architecture:**
+  * **Android SDK 37 Upgrade:** The entire project has been upgraded to compile and target Android SDK 37, pushing the app to the cutting edge of Android OS performance.
+  * **TopBarViewModel:** Centralized all top-bar UI states (like live backups and battery banners) into a single optimized ViewModel to reduce redundant background processing.
+  * **RecordingState Enum:** Replaced legacy boolean toggles with a robust, lifecycle-aware state machine, ensuring the engine perfectly syncs with UI controls.
+  * **Core & Performance: V2 Sync Architecture:** Deployed a blazing-fast, bidirectional inventory streaming system for effortless data handshakes.
+* **UI & UX Polish: Adaptive & Expressive Design:** A premium interface that adapts to your device.
+  * **Dynamic Scaling:** The main Decibel Meter now intelligently measures your screen height and system font scaling, ensuring UI elements never cut off.
+  * **Compact vs. Expanded:** The app automatically switches to a clean "Compact Layout" when vertical space is limited, keeping the core gauge fully visible.
+  * **Gauge Refinements:** The central gauge ring now utilizes fluid constraints rather than hardcoded pixels, keeping it perfectly proportioned on any display.
+  * **Tablet & Foldable Polish:** Upgraded large-screen layouts with scroll-driven scrims, refined center cards, and optimized dynamic margins.
+  * **Button Marquees & Curved Text Fix:** Long translated text on action buttons now features smooth scrolling (Marquee), and curved dashboard text will gracefully ellipsize to prevent overlapping.
+  * **System Navigation Scrims:** Applied edge-to-edge insets so scrollable lists never clash with your Android navigation bars.
+  * **Dynamic Canvas Animation:** Interfaces like the Recycle Bin now execute fluid color animations across selection and scroll states.
+  * **Settings Reorganization:** Streamlined the settings menu for faster navigation, moving Data settings to the top.
+  * **Force Resync UI:** Added a dedicated "Resync All Data" button with animated progress feedback for absolute data control.
+
+#### ⌚ Wear OS
+* **New Engine: Smart Health Alerts & Background Processing (Shared):** Wrist-based intelligence without the spam.
+  * **RoutineInsightWorker & Scheduler:** The smartwatch autonomously evaluates your acoustics locally, independent of your phone.
+  * **HealthAlertEvaluator:** Respects the same strict smart cooldowns to keep your watch face clear of redundant warnings.
+  * **Deep Linked Notifications:** Native wrist notifications now route taps directly into the wearable's internal exposure screens.
+* **New: On-Wrist Recycle Bin:** Total control over your data directly from your smartwatch.
+  * **Native Data Recovery:** View, multi-select, restore, or permanently delete your exposure data through dedicated Wear OS trash screens.
+* **New: Pixel Pulse Notification Manager (Shared):**
+  * **Unified Engine:** Centralized notification routing natively implemented for the Wear OS environment.
+  * **NotificationCategoriesScreen:** A newly designed Wear-native settings screen allows you to toggle specific alert categories (like Acoustic Fatigue) directly from your wrist.
+* **Core & Performance: V2 Sync Architecture (Shared):**
+  * **Background Streaming:** Adopts the new high-performance inventory sync pipeline, executing data transfers effortlessly without freezing the watch UI.
+  * **New: Wrist-to-Phone Sync Alerts:** You will now receive a satisfying success notification when a session perfectly synchronizes from your watch to your phone.
+* **Core & Architecture: Wear Stability:**
+  * **Android SDK 37 Upgrade (Shared):** The Wear OS module has been brought up to the latest SDK standards for maximum hardware compatibility.
+  * **Remote Intent Hardening:** Re-engineered phone-to-watch intent handshakes with strict error handling to prevent background crashes if the phone is unreachable.
+* **UI & UX Polish: Wrist Interface:**
+  * **Info Screen Upgrades:** Values displayed on the Info screen now feature a sleek, compact chip styling for vastly improved readability.
+  * **Smooth Scrolling (Marquee):** Long text values and titles now smoothly scroll horizontally, guaranteeing perfect rendering on circular displays.
+  * **Settings Reorganization:** Swapped top-level menu buttons and added clear list headers to streamline watch navigation.
+  * **Permission Screens:** Modularized all onboarding and permission flows into dedicated, cleanly animated overlays.
+
 ## Version 1.21.0 Release Candidate 1
 *(Released June 05, 2026)*
 
