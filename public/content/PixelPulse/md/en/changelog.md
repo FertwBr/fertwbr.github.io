@@ -1,6 +1,28 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.21.1
+*(Released June 11, 2026)*
+ 
+Building on the major architectural updates of 1.21.0, this minor patch refines our acoustic exposure logic. We have globally standardized the Time-Weighted Average (TWA) calculations across both devices and introduced new developer testing tools to ensure perfect data parity.
+
+#### 📱 Phone
+* **Core & Performance: Standardized Time-Weighted Averages:** We have unified how the `ExposureCalculator` handles time across all dashboards and analytics.
+  * **Sampling Interval Integration:** The engine now strictly requires the active `intervalMinutes` (e.g., your configured monitoring interval) when calculating any daily, weekly, monthly, or sleep data aggregation.
+  * **TWA Enforcement:** Replaced internal averaging functions with the centralized `ExposureTimeMath.calculateTimeWeightedAverage`. This aligns all app calculations precisely with WHO (World Health Organization) Time-Weighted Average standards, ensuring that data points are appropriately weighted by the duration of the sample interval.
+  * **Peak Analysis Refinement:** Weekly peak metrics now derive directly from pre-aggregated daily averages rather than raw individual entries, smoothing out erratic outliers.
+* **Core & Performance: Validated Data Retrieval:** Hardened the analysis pipeline against corrupted or soft-deleted data.
+  * **Database Validation:** Introduced `getValidEntriesBetween()` to both the DAO and Repository layers. All dashboard and insight analyzers now exclusively query validated entries, ensuring soft-deleted items (in the Recycle Bin) are never included in your health metrics.
+  * **Peak Health Insights:** Split daily peak analysis within the `AcousticHealthAnalyzer` into distinct danger (≥ 100dB) and warning (≥ 85dB) insights, rather than blending them with average-based checks.
+* **Fixes & Stability: Debug & Diagnostic Tools:** Enhanced the internal debugging suite for developers.
+  * **Structured Analysis Reports:** Introduced a new UI in the Debug settings to generate structured `AnalysisReport`s. Developers can now run on-demand analyses for specific insight categories, view raw data summaries, and copy structured report sections directly to the clipboard.
+  * **Debug Data Grouping:** Simplified debug output by grouping raw entry data points by calendar day ("YYYY-MM-DD: HH:mm=level"), making it significantly easier to trace daily exposure behaviors.
+
+#### ⌚ Wear OS
+* **Core & Performance: Parity with Mobile Averages (Shared):** The smartwatch engine perfectly mirrors the TWA updates on the phone.
+  * **Interval-Aware Calculations:** `WearExposureDetailViewModel` and `WearExposureViewModel` now actively listen to the `intervalFlow` and pipe `intervalMinutes` into all local calculations (heatmaps, habit consistency, loudest/quietest periods, long-term trends). This guarantees your wrist data is mathematically identical to the mobile client.
+  * **Weekly Peaks:** Like the phone, the smartwatch now computes weekly peaks from pre-aggregated daily results rather than raw entries.
+
 ## Version 1.21.0
 *(Released June 08, 2026)*
 
