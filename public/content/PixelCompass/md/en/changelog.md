@@ -1,6 +1,27 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.21.0 Release Candidate 1
+*(Released June 11, 2026)*
+
+As we lock down the feature set for our final stable release, this technical update focuses on finalizing global localization, refining Glance widget rendering pipelines, and seamlessly integrating our newest wind display controls directly into the Dynamic Cards settings architecture.
+
+#### 📱 Phone
+* **Global Localization: Expanded i18n Support:** Massive expansion of localized string resources to support the newest Beta features across 20+ locales.
+  * **Action & UI Strings:** Added complete translations for the new configurable FAB actions (True North, Low Power, Haptics, Keep Screen On, etc.) and editor tab labels.
+  * **Weather Insights:** Fully localized the advanced severe weather alerts, covering temperature drops, wind shifts, and continuous/prolonged precipitation (rain, snow, and hail), including proper pluralization handling.
+* **UI & UX Polish: Dynamic Cards Wind Controls:** Integrated wind unit controls directly into the customization settings.
+  * **Segmented Toggles:** Deployed a new segmented button in the `DynamicCards` settings to dynamically switch the wind display mode between raw `Speed` and the `Beaufort` scale, actively backed by the `windCardDisplayModeFlow`.
+* **Core & Performance: Glance Widget Architecture:** Executed a structural refactor of the home screen widget layout engine to fix data formatting.
+  * **Centralized Formatting:** Stripped redundant string concatenation from `getInfoForContentType`. Wind speeds no longer append unit strings locally, relying entirely on the centralized formatting engine to prevent duplicate unit text.
+* **Fixes & Stability: Codebase Maintenance:** Cleaned up the presentation layer code and settings hierarchy.
+  * **Settings Cleanup:** Removed the redundant regional formats explanatory `InfoText` from `DisplayAndUnitsContent` for a tighter, cleaner layout.
+  * **Animation Housekeeping:** Purged unused `Spring` animation imports from the onboarding screens and standardized internal KDoc parameter formatting.
+
+#### ⌚ Wear OS
+* **Global Localization: Red North Indicator:** Finalized translation support for smartwatch customization.
+  * **Compass Settings:** Added localized labels and descriptions (`settings_item_red_north_letter`) across all supported languages, ensuring global users can fully utilize the new red compass highlight feature.
+
 ## Version 1.21.0 Beta 3
 *(Released June 03, 2026)*
 
