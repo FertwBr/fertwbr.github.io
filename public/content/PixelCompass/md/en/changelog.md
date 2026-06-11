@@ -31,6 +31,24 @@ This update introduces a massive leap forward in proactive weather intelligence,
   * **Menu Reorganization:** Streamlined the Customization screen to prioritize your active "Theme" at the top, grouping all compass-specific tweaks cleanly under a dedicated header.
   * **Power Management:** Upgraded the low-power mode toggle to a clear, actionable split-switch button, providing immediate, premium visual feedback on your active battery management state.
 
+## Version 1.21.0 RC 2
+*(Released June 12, 2026)*
+
+We are actively squashing the final bugs reported during the RC 1 cycle. This build focuses entirely on perfecting the Wind Forecast chart visuals, improving haptic interactions, and ensuring all wind measurement units are globally supported.
+
+#### 📱 Phone
+* **UI & UX Polish: Wind Forecast Chart Enhancements:** The wind speed and gust chart has been significantly refined to handle diverse weather conditions gracefully.
+  * **Dynamic Y-Axis Scaling:** Removed the hardcoded minimum ceiling on the chart's Y-axis. The grid now utilizes dynamic step-based scaling (steps of 5 for KMH, 3 for MPH/KNOTS), allowing the graph to organically adapt and remain readable even during low-wind conditions.
+  * **Gust Indicator Overlap:** Rewrote the gust indicator rendering logic to use pixel-distance calculations rather than strict data values. This guarantees the gust dot is always distinctly visible and never awkwardly overlaps the primary wind speed bar, even when the values are nearly identical.
+  * **Interactive Scrubbing Fixes:** Addressed multiple bugs when scrubbing through the forecast timeline. Highlighted bars now correctly follow your finger rather than locking to the "now" position. Additionally, Y-axis guide labels will dynamically shift to the left side of the screen when scrubbing past the midpoint, preventing the tooltip from clipping off-screen.
+  * **Default State Restoration:** The vertical guide line and tooltip now default to the current time ("now") when not actively interacting with the chart, complete with an idle pulse animation.
+* **Core & Performance: Global Wind Unit Support:** Ensured all parts of the app respect your wind unit preference.
+  * **Current Conditions Row:** Replaced legacy imperial toggles with the centralized `windSpeedUnitFlow` and `TextFormatters.formatWindSpeed()`, bringing full support for Knots (`kts`) to the quick-glance weather summaries.
+* **UI & UX Polish: Settings & Interaction Polish:** Minor quality-of-life adjustments.
+  * **Haptic Segments:** Added explicit haptic feedback (`LocalContext` / `HapticFeedbackUtils`) to all segmented button clicks across the app, vastly improving the tactile feel when tweaking settings.
+  * **Wind Display Toggle:** Added the `Speed` vs. `Beaufort` wind display toggle to the general customization settings for easier access.
+  * **Pluralization Fixes:** Corrected a pluralization translation error for the "Continuous Rain" insight within Portuguese locales (pt, pt-BR, pt-PT).
+
 ## Version 1.21.0 Release Candidate 1
 *(Released June 11, 2026)*
 
