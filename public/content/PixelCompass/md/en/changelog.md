@@ -12,27 +12,29 @@ This update introduces a massive leap forward in proactive weather intelligence,
   * **Smart Alert Cooldowns:** We've cured notification fatigue. The system now recognizes continuous events (like prolonged rain or multi-day extreme heat) and automatically adjusts alert frequencies to provide single, elegant daily updates rather than repetitive hourly countdowns.
   * **Beyond the Forecast:** The app now proactively understands when a storm will outlast standard forecasting windows, gracefully replacing complex metrics with clear, human-readable summaries.
 * **New: Advanced Wind Visualizations:** Complete control over how you interpret incoming wind data.
-  * **Beaufort Scale & Units:** Seamlessly toggle between raw speed (km/h, mph, Knots) and the beautifully localized, human-readable Beaufort Scale using the new segmented controls directly inside your Dynamic Cards settings.
-  * **Polished Charts:** Wind charts now dynamically adapt their scales based on your chosen unit, featuring beautifully annotated tooltips for distinct speed and gust separation.
+  * **Dynamic Chart Scaling:** The wind speed and gust charts now feature dynamic, step-based scaling that adapts organically to weather conditions, ensuring high readability even during low-wind scenarios.
+  * **Precision Rendering:** Improved gust indicator logic uses pixel-distance calculations to ensure the gust dot remains distinct and visible, preventing overlap with the primary wind speed bars.
+  * **Interactive Experience:** Scrubbing through the forecast timeline is more intuitive, with dynamic tooltip positioning that prevents clipping and guide lines that follow your interaction precisely.
+  * **Unit Flexibility:** Seamlessly toggle between raw speed (km/h, mph, Knots) and the human-readable Beaufort Scale, with full support for Knots (`kts`) across all summaries and charts.
 * **UI & UX Polish: Custom Floating Action Bar (FAB):** Tailor your primary navigation tools to your exact workflow.
   * **Interactive Builder:** Build your perfect toolkit using the new drag-and-drop editor. Add, remove, or reorder quick actions like True North, Keep Screen On, Mechanical Haptics, and Low Power Mode.
   * **Minimalist View:** The responsive action bar intelligently truncates based on screen size, or you can hide it entirely for a gorgeous, distraction-free compass layout.
-  * **Unified Card Editor:** We've unified the layout settings into a clean, tabbed interface, making it effortless to configure global styles and individual dynamic card behaviors.
+  * **Tactile Feedback:** Added high-precision haptic feedback to all segmented buttons, providing a premium, mechanical feel when adjusting settings.
 * **Global Localization: Expanded i18n Support:** A premium experience, fully accessible worldwide.
-  * **20+ Languages:** Full localization support across all new severe weather insights, continuous precipitation logic, custom FAB tools, and Dynamic Cards.
+  * **Multilingual Precision:** Expanded localization support across all new severe weather insights, continuous precipitation logic, and wind display settings, including corrected pluralization for regional languages.
 * **UI & UX Polish: Red North Highlight:** Customize your compass for instant orientation.
   * **Bold North Indicator:** Enable a new setting to highlight the North ('N') indicator in a bold red, utilizing your active theme's error color to make it instantly identifiable at a glance.
   * **Compact Editor Icons:** Replaced text-heavy customization rows with visually pleasing, high-density vector icons for a tighter, cleaner customization layout.
 
 #### ⌚ Wear OS
-* **UI & UX Polish: Red North Highlight (Shared):** Customize your smartwatch compass for instant orientation.
+* **UI & UX Polish: Red North Highlight:** Customize your smartwatch compass for instant orientation.
   * **Bold North Indicator:** Explicitly highlight the North ('N') indicator in bold red, ensuring instant global readability and visual pop against any customized watch face.
 * **UI & UX Polish: Refined Customization Menu:** A cleaner, more intuitive smartwatch experience.
   * **Menu Reorganization:** Streamlined the Customization screen to prioritize your active "Theme" at the top, grouping all compass-specific tweaks cleanly under a dedicated header.
   * **Power Management:** Upgraded the low-power mode toggle to a clear, actionable split-switch button, providing immediate, premium visual feedback on your active battery management state.
 
 ## Version 1.21.0 RC 2
-*(Released June 12, 2026)*
+*(Released June 11, 2026)*
 
 We are actively squashing the final bugs reported during the RC 1 cycle. This build focuses entirely on perfecting the Wind Forecast chart visuals, improving haptic interactions, and ensuring all wind measurement units are globally supported.
 
@@ -50,7 +52,7 @@ We are actively squashing the final bugs reported during the RC 1 cycle. This bu
   * **Pluralization Fixes:** Corrected a pluralization translation error for the "Continuous Rain" insight within Portuguese locales (pt, pt-BR, pt-PT).
 
 ## Version 1.21.0 Release Candidate 1
-*(Released June 11, 2026)*
+*(Released June 8, 2026)*
 
 As we lock down the feature set for our final stable release, this technical update focuses on finalizing global localization, refining Glance widget rendering pipelines, and seamlessly integrating our newest wind display controls directly into the Dynamic Cards settings architecture.
 
