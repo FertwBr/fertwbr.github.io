@@ -1,6 +1,36 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.21.0
+*(Released June 15, 2026)*
+
+This update introduces a massive leap forward in proactive weather intelligence, highly expressive customization capabilities, and advanced wind tracking. We have completely overhauled our smart forecasting engine to cure notification fatigue and redesigned the user interface to give you ultimate control over your personalized compass toolkit.
+
+#### 📱 Phone
+* **New: Proactive Weather Intelligence:** Our upgraded Smart Engine now scans up to 5 days ahead, analyzing the true duration of complex environmental events.
+  * **Sudden Shift Detection:** Receive immediate, intelligent warnings for rapid temperature drops (≥8°C) and severe wind directional shifts.
+  * **Smart Alert Cooldowns:** We've cured notification fatigue. The system now recognizes continuous events (like prolonged rain or multi-day extreme heat) and automatically adjusts alert frequencies to provide single, elegant daily updates rather than repetitive hourly countdowns.
+  * **Beyond the Forecast:** The app now proactively understands when a storm will outlast standard forecasting windows, gracefully replacing complex metrics with clear, human-readable summaries.
+* **New: Advanced Wind Visualizations:** Complete control over how you interpret incoming wind data.
+  * **Beaufort Scale & Units:** Seamlessly toggle between raw speed (km/h, mph, Knots) and the beautifully localized, human-readable Beaufort Scale using the new segmented controls directly inside your Dynamic Cards settings.
+  * **Polished Charts:** Wind charts now dynamically adapt their scales based on your chosen unit, featuring beautifully annotated tooltips for distinct speed and gust separation.
+* **UI & UX Polish: Custom Floating Action Bar (FAB):** Tailor your primary navigation tools to your exact workflow.
+  * **Interactive Builder:** Build your perfect toolkit using the new drag-and-drop editor. Add, remove, or reorder quick actions like True North, Keep Screen On, Mechanical Haptics, and Low Power Mode.
+  * **Minimalist View:** The responsive action bar intelligently truncates based on screen size, or you can hide it entirely for a gorgeous, distraction-free compass layout.
+  * **Unified Card Editor:** We've unified the layout settings into a clean, tabbed interface, making it effortless to configure global styles and individual dynamic card behaviors.
+* **Global Localization: Expanded i18n Support:** A premium experience, fully accessible worldwide.
+  * **20+ Languages:** Full localization support across all new severe weather insights, continuous precipitation logic, custom FAB tools, and Dynamic Cards.
+* **UI & UX Polish: Red North Highlight:** Customize your compass for instant orientation.
+  * **Bold North Indicator:** Enable a new setting to highlight the North ('N') indicator in a bold red, utilizing your active theme's error color to make it instantly identifiable at a glance.
+  * **Compact Editor Icons:** Replaced text-heavy customization rows with visually pleasing, high-density vector icons for a tighter, cleaner customization layout.
+
+#### ⌚ Wear OS
+* **UI & UX Polish: Red North Highlight (Shared):** Customize your smartwatch compass for instant orientation.
+  * **Bold North Indicator:** Explicitly highlight the North ('N') indicator in bold red, ensuring instant global readability and visual pop against any customized watch face.
+* **UI & UX Polish: Refined Customization Menu:** A cleaner, more intuitive smartwatch experience.
+  * **Menu Reorganization:** Streamlined the Customization screen to prioritize your active "Theme" at the top, grouping all compass-specific tweaks cleanly under a dedicated header.
+  * **Power Management:** Upgraded the low-power mode toggle to a clear, actionable split-switch button, providing immediate, premium visual feedback on your active battery management state.
+
 ## Version 1.21.0 Release Candidate 1
 *(Released June 11, 2026)*
 
