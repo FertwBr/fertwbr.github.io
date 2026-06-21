@@ -1,6 +1,19 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.21.1
+*(Released June 21, 2026)*
+
+Following the major updates in 1.21.0, this minor patch focuses on refining under-the-hood UI animations and presentation stability. We've smoothed out background transitions and cleaned up top-bar visual behaviors to ensure the app feels as responsive and polished as possible.
+
+#### 📱 Phone
+* **UI & UX Polish: Fluid Background Blending:** We've overhauled how the compass screen transitions its background colors.
+  * **Alpha & Lerp Blending:** Moving between the base compass view, Edit Mode, and the Status Sheet now utilizes advanced float-alpha animations and linear interpolation (`lerp`) rather than direct color animation. This eliminates jarring color shifts and delivers a buttery-smooth visual transition across all layout variants (`CompassOnly`, `CompassWithCards`, and `FtueLayout`).
+* **UI & UX Polish: Top Bar Status Indicator:** Simplified the visual behavior of the top-bar status pill.
+  * **Static Color States:** Removed the previous spring-based color animations that could sometimes cause unwanted visual artifacts. The indicator now uses clean, static colors with a subtle 12% opacity background for immediate, clear status feedback without unnecessary animation overhead.
+* **Fixes & Stability: Codebase Maintenance:** Cleaned up the presentation layer code.
+  * **Transition Scopes:** Removed redundant `sharedTransitionScope` wrappers within the First Time User Experience (`FtueLayout`), flattening the code for better readability and maintainability without altering the core user experience.
+
 ## Version 1.21.0
 *(Released June 15, 2026)*
 
