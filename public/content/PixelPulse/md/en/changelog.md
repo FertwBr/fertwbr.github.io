@@ -1,6 +1,33 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.22.0
+*(Released June 23, 2026)*
+
+Welcome to Pixel Compass 1.22.0. This update introduces profound enhancements to our acoustic analysis engine, specifically integrating global safety standards directly into your health dashboard. Alongside this, we have completely overhauled the app's onboarding experience, introducing a highly expressive, hardware-accelerated introductory flow that now includes seamless backup restoration for returning users.
+
+#### 📱 Phone
+* **New: ITU-T H.870 Safe Listening Standard:** We have integrated the World Health Organization and ITU's global standard for safe listening devices.
+  * **Weekly Dose Limit:** The `AcousticHealthReportManager` now actively calculates your cumulative weekly sound dose against the ITU-T H.870 standard (based on a reference of 80dB for 40 hours per week).
+  * **Depletion Rate Analysis:** A new smart analyzer (`analyzeItuDoseDepletionRate`) monitors your exposure over rolling 48-hour periods. If your weekly allowance is depleting too rapidly due to acute exposure, you will receive immediate, actionable insights to protect your hearing.
+  * **Global Translations:** All new safe-listening insights (danger, warning, excellent, and normal states) are fully translated into all supported languages.
+* **New: Seamless Backup Restoration:** Returning users can now pick up exactly where they left off directly from the initial setup.
+  * **Onboarding Integration:** A dedicated restore step has been wired into the new welcome flow. You can now securely import previous backups using the native document picker before ever reaching the main dashboard.
+  * **Expressive Material 3 UI:** The restoration process features an intelligent status dashboard, equipped with the new experimental `LinearWavyProgressIndicator`, delivering a fluid, highly modern visual experience while your data is processed.
+  * **Smart State Handling:** The flow elegantly manages all background states (preparing, progress, success, and error handling) and seamlessly integrates necessary notification permission requests for a frictionless setup.
+* **UI & UX Polish: Next-Generation Onboarding:** Completely redesigned the initial setup experience for new users.
+  * **Responsive Architecture:** The welcome flow has been rebuilt from the ground up to intelligently adapt to your device, featuring bespoke layouts for portrait, landscape, and tablets (`LocalWindowInfo`).
+  * **Hardware-Accelerated Visuals:** Introduced stunning new graphics, including a fluid `SoundWavePulse` background, an asymmetrical floating permission cluster, and an animated mock recording sequence (complete with typing and playback animations) to demonstrate core features.
+  * **Swipe Dynamics:** Replaced static page transitions with custom `graphicsLayer` transforms, creating buttery-smooth translation, scaling, and rotation effects as you swipe through the expanded 6-page onboarding carousel.
+* **Core & Performance: Acoustic Math Refinements:** * **Interval-Aware Budgets:** Fixed a calculation error where the weekly noise budget was not accounting for your specific background monitoring interval. The engine now safely retrieves your interval preference to accurately weight noise budget progress.
+  * **Codebase Modernization:** Significant cleanup across the codebase, modernizing Kotlin iteration idioms (`DayPeriod.entries`), streamlining `ExposureDetailViewModel` state management, and optimizing the `ExposureCalculator`.
+
+#### ⌚ Wear OS
+* **New: ITU-T H.870 Safe Listening Standard (Shared):** The smartwatch engine perfectly mirrors the phone's new health standards.
+  * **Wrist Insights:** The new safe-listening health insights are seamlessly integrated into the smartwatch dashboard and `ExposureDetailScreen`, utilizing the sleek `DonutLarge` iconography for immediate recognition.
+* **Core & Performance: Acoustic Math Refinements (Shared):**
+  * **Interval-Aware Budgets:** Just like the mobile client, the Wear OS `WearExposureViewModel` now strictly applies your monitoring interval when evaluating your weekly noise budget limits on your wrist.
+
 ## Version 1.21.1
 *(Released June 11, 2026)*
  
