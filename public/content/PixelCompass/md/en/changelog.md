@@ -1,6 +1,25 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.22.0 Beta 1
+*(Released June 28, 2026)*
+
+This release introduces a major expansion to our "At-a-Glance" widget, transforming it from a weather-focused card into a comprehensive system hub. We are bringing native system intelligence—including alarms, calendar events, timers, and Bluetooth peripheral status—directly to your home screen.
+
+#### 📱 Phone
+* **New: Expanded "At-a-Glance" System Intelligence:** The widget now integrates seamlessly with your system state to provide context-aware insights.
+  * **System Carousel:** Insights are now aggregated and prioritized. The widget can cycle through weather, system-level alerts, active alarms, upcoming calendar events, and running timers.
+  * **Interactive Actions:** Key insights are actionable. You can now toggle your flashlight, jump to system Bluetooth settings, or tap calendar/timer alerts to open the corresponding native app instantly.
+  * **Deep Linking:** Added deep link support for specific weather cards. Whether it's UV Index, Humidity, or Wind stats, you can now launch directly into the desired card view from external intents or widget actions.
+  * **Live Chronometers:** For active alarms and timers, the widget now utilizes `AndroidRemoteViews` to render live-updating chronometers, keeping your countdowns accurate in real-time.
+* **New: Bluetooth Peripheral Insight Provider:**
+  * **Device Connection Awareness:** Automatically detect and display a temporary system insight when Bluetooth devices (headphones, earbuds, speakers, or peripherals) connect.
+  * **Real-time Status:** Insights show the device name and status, including battery levels where available, helping you keep track of your gear status at a glance.
+* **Core & Performance: UI Modernization & Stability:**
+  * **Responsive Widget Framework:** Completely refactored the layout engine. New layout tuning abstractions (`WideAndShort`, `LargeFormatLayout`) ensure the widget looks perfect across all grid sizes.
+  * **Caching & Flicker Reduction:** Implemented robust in-memory state caching during widget updates to eliminate visual flickering and reset-to-default states during recomposition.
+  * **Config Screen Adaptability:** The widget configuration screen now uses dynamic `maxHeight` calculations via `BoxWithConstraints`. This ensures the live preview and settings controls remain accessible and proportional, regardless of device screen size or active system banners.
+
 ## Version 1.21.1
 *(Released June 21, 2026)*
 
