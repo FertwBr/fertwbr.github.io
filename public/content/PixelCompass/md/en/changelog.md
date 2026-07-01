@@ -1,6 +1,22 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.22.0 Beta 2
+*(Released July 01, 2026)*
+
+This update focuses on heavily refining the widget configuration experience and enhancing the logic behind the new At-a-Glance system insights introduced in Beta 1. We have entirely rebuilt the settings UI to be more adaptive, dynamic, and visually cohesive.
+
+#### 📱 Phone
+* **UI & UX Polish: Adaptive Widget Settings Framework:** The configuration screens for both the Classic and At-a-Glance widgets have been redesigned.
+  * **Dynamic Architecture:** Replaced static layouts with a new suite of reusable components (`WidgetConfigSwitchRow`, `WidgetConfigSurface`, etc.). These components utilize intelligent corner-radius animations based on their structural position (first, middle, last), creating a seamless, grouped-block appearance similar to modern Android system settings.
+  * **Responsive Max-Height:** The configuration screen now uses dynamic constraints (`BoxWithConstraints`) to calculate the maximum scrollable area. This guarantees that the live widget preview always remains visible on-screen, regardless of how many permission banners or settings are expanded below it.
+* **UI & UX Polish: Unified Permissions Banners:** Streamlined how the app asks for critical system permissions.
+  * **Priority Banner System:** Introduced a centralized `PermissionsViewModel` and `BannerUiState` that intelligently ranks missing permissions (Location, Battery Optimization, Calendar, Notification Listener, Bluetooth). Only the highest-priority missing permission is shown at a time via a new, smoothly animated `PermissionsBanner`, eliminating UI clutter.
+  * **Status Dashboard:** Added a new "Status & Integrations" section to the settings. This dashboard shows the active count of your widgets, tracks your permission health for all system insights (Alarms, Timers, Bluetooth), and includes an animated "Sync Now" button with immediate toast feedback.
+* **Core & Performance: Refined System Insights:** Tweaked the At-a-Glance behavior based on Beta 1 feedback.
+  * **Alarm Proximity:** The Alarm insight window has been aggressively narrowed. The widget will now only show an upcoming alarm if it is scheduled to ring within the next **1 hour** (down from 24 hours), keeping the widget relevant and reducing screen clutter.
+  * **Intelligent Previews:** The live widget preview inside the configuration screen is now fully dynamic. It actively listens to your feature toggles and uses `AnimatedContent` to cross-fade between weather mockups and live system insight previews (like connected Bluetooth devices or timers) as you adjust your preferences.
+
 ## Version 1.22.0 Beta 1
 *(Released June 28, 2026)*
 
