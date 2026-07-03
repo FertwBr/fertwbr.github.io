@@ -1,6 +1,21 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.22.0 Beta 3
+*(Released July 03, 2026)*
+
+This release is exclusively dedicated to the Wear OS client, completely overhauling the smartwatch onboarding experience to ensure new users intuitively understand how to navigate the app's gesture-based interface.
+
+#### ⌚ Wear OS
+* **UI & UX Polish: Contextual Global Onboarding:** We have rebuilt the smartwatch tutorial from the ground up, moving away from static button-based dialogs to an interactive, gesture-driven flow.
+  * **Gesture Tracking:** The tutorial now actively monitors your navigation (swiping left, right, up, or down). Instead of tapping "Next," you simply perform the requested swipe gesture, and the app automatically advances the tutorial step.
+  * **"Wrong Way" Detection:** If you swipe in the wrong direction during the tutorial (e.g., swiping down when instructed to swipe left), the app instantly detects this, halts the transition, and displays a helpful "wrong way" error overlay with an option to skip the tutorial if you prefer.
+  * **Automated Transitions:** To keep the flow moving, reaching specific tutorial milestones (like accessing the Quick Settings panel) triggers a short, visual countdown timer. Once the timer completes, the app automatically scrolls you back to the main Compass face to prepare for the next lesson.
+  * **Auto-Dismiss Settings:** When the tutorial guides you to the Settings menu, it performs an automated scrolling preview of the available options to show you what's there. If you don't interact with the screen, the tutorial auto-dismisses after 10 seconds.
+* **Core & Performance: Onboarding State Architecture:**
+  * **State Hoisting:** Onboarding state management has been lifted to the top-level `AppNavigation` and `CompassStackScreen` layers, utilizing `rememberSaveable` to ensure your tutorial progress isn't lost if the watch face turns off or configuration changes occur during setup.
+  * **Delayed Policy Dialogue:** Refactored the initialization sequence so that mandatory policy/permission dialogs are delayed by 5 seconds. This ensures you can complete the visual onboarding flow without being immediately interrupted by system-level prompts.
+
 ## Version 1.22.0 Beta 2
 *(Released July 01, 2026)*
 
