@@ -1,10 +1,27 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
-## Version 1.22.0 Beta 3
-*(Released July 03, 2026)*
+## Version 1.22.0 Beta 3.1
+*(Released July 06, 2026)*
 
-This release is exclusively dedicated to the Wear OS client, completely overhauling the smartwatch onboarding experience to ensure new users intuitively understand how to navigate the app's gesture-based interface.
+This rapid hotfix focuses entirely on the Wear OS client, bringing crucial stability improvements for smartwatches that lack built-in barometer hardware. We've ensured that altitude recalibration remains smooth and crash-free by intelligently falling back to standard atmospheric data.
+
+#### ⌚ Wear OS
+* **Core & Performance: Altitude & Sensor Reliability:**
+  * **Barometer Fallback:** Matching the mobile client updates, the `WearLocationAndCalibrationHandler` now includes robust null-safety checks. If your smartwatch lacks a hardware pressure sensor, the app safely falls back to standard atmospheric pressure to prevent crashes during altitude recalibration.
+
+## Version 1.22.0 Beta 3
+*(Released July 06, 2026)*
+
+This release completely overhauls the smartwatch onboarding experience with an intuitive gesture-based interface, while simultaneously delivering critical under-the-hood improvements across both platforms to gracefully support devices lacking physical barometer sensors.
+
+#### 📱 Phone
+* **Core & Performance: Barometer Hardware Fallback:** We have heavily refactored our sensor architecture to properly support smartphones that do not have a built-in physical pressure sensor (barometer).
+  * **Graceful UI Handling:** Instead of attempting to render invalid null values, the `PressureTrendIndicator` will now display a clear, localized "Sensor Unavailable" message (styled in the theme's error color) if your device lacks the required hardware.
+  * **Altitude Calibration Safety:** `SensorService`, `AltitudeManager`, and `AltitudeCalibrationHandler` now explicitly handle missing pressure data. The engine will safely return standard atmospheric defaults or explicitly flag the data as unavailable (`NaN`), ensuring your altitude calculations remain stable and crash-free.
+  * **Accurate Data State:** The underlying `SensorDataManager` now accurately initializes with a `null` state rather than a spoofed standard atmosphere, allowing the UI to accurately reflect true hardware capabilities.
+* **Core & Performance: Codebase Modernization:**
+  * **Duration API Integration:** Modernized the `CompassSensorOrchestrator` by replacing raw millisecond integers with Kotlin's robust `Duration` API, ensuring much safer and highly predictable time-based polling and timeouts.
 
 #### ⌚ Wear OS
 * **UI & UX Polish: Contextual Global Onboarding:** We have rebuilt the smartwatch tutorial from the ground up, moving away from static button-based dialogs to an interactive, gesture-driven flow.
