@@ -1,6 +1,23 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.22.1
+*(Released July 11, 2026)*
+
+Following the major acoustic engine and onboarding upgrades in 1.22.0, this follow-up patch focuses entirely on global accessibility and underlying codebase stability. We have massively expanded our language support across both devices and resolved critical string formatting and manifest build issues.
+
+#### 📱 Phone
+* **Global Localization: Expanded i18n Support:** A massive expansion of localized string resources to bring the complete v1.21.0 and v1.22.0 feature sets to millions of new users.
+  * **New Languages:** Full localization support added for Dutch, Swedish, Simplified & Traditional Chinese, Indonesian, Czech, Greek, Filipino, and regional variants like French (Canada) and English (Australia, Canada, India).
+  * **Complete Feature Parity:** All core features—including true background recording, smart health alerts, the comprehensive recycle bin, and V2 sync—are now fully translated across these new locales.
+* **Fixes & Stability: Codebase Maintenance:**
+  * **String Formatting Crash Fix:** Resolved an AAPT2 build error by strictly enforcing positional format specifiers (e.g., `%1$.1f`) across all localized strings. This ensures dynamic variables can be safely reordered by translators without causing formatting crashes in the app.
+
+#### ⌚ Wear OS
+* **Global Localization: Expanded i18n Support:** The smartwatch experience is now fully accessible in all newly supported languages.
+  * **Wrist Parity:** Complete translations provided for the main noise meter, historical exposure graphs, health insights, and watch-specific settings across 12+ new locales.
+  * **Update Highlights:** Wear OS specific UI release notes (covering the compact chip style, marquee text, and animated permission layers) have been fully localized for international users.
+
 ## Version 1.22.0
 *(Released June 23, 2026)*
 
