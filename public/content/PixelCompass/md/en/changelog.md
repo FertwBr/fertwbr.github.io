@@ -1,6 +1,31 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.22.0 Beta 5
+*(Released July 16, 2026)*
+
+This release delivers significant performance improvements to the Wear OS smartwatch compass, adds better support for foldable devices on mobile, and introduces a sophisticated "Auto-Healing" altitude engine across both platforms.
+
+#### 📱 Phone
+* **New: Foldable Device Support:** The compass interface has been completely redesigned to gracefully handle foldable screens.
+  * **Tabletop Mode:** When your foldable device is half-opened horizontally (Tabletop mode), the interface now splits vertically, pushing the compass to the top half and the weather cards to the bottom.
+  * **Book Mode:** When opened vertically (Book mode), the UI adapts into a side-by-side expanded view for maximum screen utilization.
+* **New: Altitude Auto-Healing Engine:** We've made manual altitude calibration much smarter and less tedious.
+  * **Location Anchors:** When you manually calibrate your altitude, the app now remembers your exact coordinates as an "Anchor Point."
+  * **Auto-Healing:** If you return to within 50 meters of that Anchor Point later in the day, the app silently detects this and automatically updates your barometric pressure baseline to correct any drift that occurred while you were gone.
+  * **Confidence Tracking:** A new confidence tracking system monitors how old your calibration is. If the calibration hasn't auto-healed and is older than 6 hours (Medium drift) or 12 hours (High drift), the Altitude Settings screen will display clear warnings explaining that your current reading may be inaccurate due to weather changes.
+* **UI & UX Polish: Refined Interfaces:**
+  * **Expanded Padding:** We increased the bottom scroll padding in the main layout, ensuring you can comfortably scroll through all cards without the Floating Action Button (FAB) obscuring content.
+  * **Calibration UI:** The manual calibration dialogs and altitude status cards have been modernized with Material 3 components, utilizing clear warning colors and pill-shaped status indicators to instantly communicate sensor health.
+
+#### ⌚ Wear OS
+* **Core & Performance: Buttery Smooth Compass Rendering:** We have entirely rewritten how the smartwatch draws the compass face to eliminate stuttering.
+  * **Direct GPU Binding:** The compass rotation is now bound directly to the hardware `graphicsLayer`, bypassing the Compose animation system entirely. This allows for native, stutter-free rotation that responds instantly to wrist movement.
+  * **Optimized Recomposition:** Fixed an issue where rapid sub-degree changes in compass direction were causing unnecessary text remeasurement and 60fps bitmap regeneration. The UI now intelligently skips these expensive layout calculations, saving significant battery life while maintaining visual fluidity.
+* **Core & Performance: Shared Altitude Intelligence:**
+  * **Wrist Auto-Healing:** The same intelligent Altitude Auto-Healing engine added to the phone is now fully active on your smartwatch. Your watch will track manual calibration anchors and silently correct pressure drift as you navigate.
+  * **Wrist Drift Warnings:** The altitude settings screen on the watch will now clearly communicate if your calibration confidence has dropped to "Medium" or "Low" due to barometric drift over time.
+
 ## Version 1.22.0 Beta 4
 *(Released July 13, 2026)*
 
