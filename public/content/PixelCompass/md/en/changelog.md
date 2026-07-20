@@ -1,6 +1,23 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.22.0 Beta 6
+*(Released July 20, 2026)*
+
+ This update brings battery tracking to the At-a-Glance widget on your phone, squashes annoying UI bugs on Wear OS, and completely revamps the Sun Path chart calculations.
+
+#### 📱 Phone
+* **New (Experimental): Battery Insights in At-a-Glance:** You can now see real-time battery status directly on your widget. It intelligently displays "Time until full" when charging, alerts you of low battery, and shows when Battery Saver is active.
+  * *Note: This is currently an experimental feature. You must manually enable the master "Experimental Features" toggle in the app settings to use it.*
+* **New: Feature Discovery:** Added a smart discovery banner and bottom sheet to help you explore and configure unused At-a-Glance widget capabilities (like timers, calendar, and flashlight).
+* **Fixes & Polish: Sun Path Chart Overhaul:** We fixed a major bug where sunrise and sunset calculations were displaying incorrectly. The Sun Path chart has been completely redesigned with a new shaded dome visual effect, accurate local date tracking, and a live countdown timer that updates every second.
+* **Under the Hood:** Improved the loading animations on the Level screen for a much smoother transition, and migrated internal coroutine delays to Kotlin's modern Duration API.
+
+#### ⌚ Wear OS
+* **Fixes & Stability: Hidden Dialogs Bug:** Fixed an issue where certain UI dialogs (Compass Inversion prompt) were being generated *behind* the main screen, making them impossible to interact with. We've entirely replaced this dialog with a dedicated, fully accessible navigation screen.
+* **Fixes & Stability: Manual Calibration Text:** The text explaining manual calibration was confusing and has been completely rewritten for better clarity. *Note: These new explanations are currently in English; localized translations for other languages will be added in a following update.*
+* **Under the Hood:** Cleaned up and reformatted the core azimuth calculation logic within the sensor orchestrator for better performance and maintainability.
+
 ## Version 1.22.0 Beta 5
 *(Released July 16, 2026)*
 
