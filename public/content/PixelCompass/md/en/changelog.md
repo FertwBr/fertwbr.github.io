@@ -1,6 +1,30 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.22.0 Beta 7
+*(Released July 22, 2026)*
+
+This update focuses heavily on giving you complete control over how time is displayed across the app's weather and forecast charts, alongside a massive visual polish pass that adds expressive animations and interactive elements to detail panels.
+
+#### 📱 Phone
+* **New: Time Display Mode Setting:** You can now fully control how time is represented in weather forecasts when searching for remote locations.
+  * Head to **Settings > Display & Units** to find the new "Time Display Mode" toggle.
+  * Choose between **Device Local Time** (charts align with your current timezone) or **Location-based Time** (charts show the local time of the remote city you are viewing).
+  * *Every single forecast chart* across the app—from Cloud Cover and Precipitation to UV Index and Pressure—has been rebuilt to dynamically adapt to this new setting, complete with real-time timezone conversion algorithms under the hood.
+* **UI & UX Polish: Sun Path Chart Overhaul:**
+  * **Nighttime Tracking:** The chart no longer stops at sunset. It now smoothly transitions into a nighttime state, displaying a moon indicator and tracking the elapsed darkness until the next sunrise.
+  * **Responsive Layout:** Replaced the rigid sizing with a dynamic constraint system. Text will no longer clip on smaller screens or when using large system accessibility fonts, and longer labels will elegantly scroll.
+  * **Smoother Animations:** Replaced the jerky spring physics with a polished, eased transition (`FastOutSlowInEasing`) for the sun's trajectory when opening the panel.
+* **UI & UX Polish: Interactive Forecast Charts:**
+  * **Daylight Scrubbing:** The Daylight Forecast chart is now fully interactive. You can drag your finger horizontally to scrub through hourly data, complete with tactile haptic "ticks" and dynamic highlighting of the selected hour. A new color legend has also been added to clarify day/night periods.
+  * **Staggered Animations:** Detail panels (like Weekly and Hourly forecasts) no longer load as a static block. Days and hours now gracefully slide and scale into view with a staggered, bouncy entrance animation.
+  * **Live Clocks:** Weather detail panels (Temperature, Wind, UV, etc.) now feature a live internal clock that ticks over precisely at the minute boundary, ensuring "Current Time" displays never drift.
+* **Fixes & Stability: Altitude Calibration Conflicts:**
+  * Fixed a logic bug where opening the calibration sheet while a manual altitude override was active would cause undefined behavior. The sheet now intelligently detects the manual state and provides a dedicated UI to either update your manual reference or clear it to restore automatic API calibration.
+* **Under the Hood: Architecture & Clean up:**
+  * **TimeManager Engine:** All timezone resolution, date parsing, and localized timestamp formatting have been centralized into a robust `TimeManager` engine, drastically reducing code duplication and edge-case errors across the 15+ weather charts.
+  * **Modernization:** Migrated all UI animation delays from legacy milliseconds to Kotlin's type-safe `Duration` API.
+
 ## Version 1.22.0 Beta 6
 *(Released July 20, 2026)*
 
