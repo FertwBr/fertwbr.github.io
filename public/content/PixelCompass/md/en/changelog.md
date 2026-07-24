@@ -1,7 +1,7 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
-## Version 1.22.0 RC1
+## Version 1.22.0 Release Candidate 1
 *(Released July 24, 2026)*
 
  As we approach the final stable release, this update brings a massive overhaul to widget reliability, introduces smart Astronomy notifications, and adds deep visual polish to our interactive weather charts.
