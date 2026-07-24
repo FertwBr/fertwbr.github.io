@@ -1,6 +1,30 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.22.0 RC1
+*(Released July 24, 2026)*
+
+ As we approach the final stable release, this update brings a massive overhaul to widget reliability, introduces smart Astronomy notifications, and adds deep visual polish to our interactive weather charts.
+
+#### 📱 Phone
+* **Fixes & Stability: Bulletproof Widgets (Samsung One UI Fix):** We've completely rebuilt how the At-a-Glance widget handles touch interactions and deep links. By routing actions through a new explicit proxy system, we've resolved a major issue where widget buttons (like toggling the flashlight or skipping to the next insight) would fail to respond on certain third-party launchers, most notably Samsung's One UI.
+* **Fixes & Stability: Widget Configuration State:** Resolved an annoying bug where placing a new widget would occasionally ignore your selection during setup and incorrectly force the default "Altitude" fallback layout. Your chosen widget type is now accurately captured and rendered immediately.
+* **New: Astronomy Alerts:** The app can now notify you 60 minutes before sunrise or sunset. These smart alerts include dynamic icons based on the current moon phase. You can toggle this new category on or off in **Settings > Notifications**.
+* **UI & UX Polish: Advanced Chart Visualizations:**
+  * **Sun & Moon Path:** The Sun Path chart has been upgraded to the `SunMoonPathChart`, now featuring accurate, dynamic moon phase visualization during nighttime hours.
+  * **Sky Visibility Analysis:** The Daylight Forecast chart now actively visualizes atmospheric "Sky Visibility"—a calculated score combining cloud cover, rain probability, and visibility distance. Tap or scrub the chart to see a detailed explanation panel.
+  * **Dynamic Scaling:** The UV Index and Cloud Cover charts now feature dynamic Y-axis scaling. They will automatically adapt their height to ensure data looks great and remains legible, even on low-intensity or 0% cloud cover days.
+  * **Haptic Scrolling:** Scrolling through the Hourly Forecast list now provides satisfying, tactile haptic "ticks" as each new hour comes into view.
+* **UI & UX Polish: Widget Layouts & Previews:**
+  * **Location Widget Redesign:** The Location widget layout has been completely refactored with Material 3 Expressive principles. Typography, hierarchy, and icon sizing now dynamically adapt to look beautiful across compact, wide, and full-screen widget configurations.
+  * Completely redesigned the widget preview (Altitude and Location) with modern Material 3 expressive principles, accurate mock data, and better resizing constraints.
+  * Widget initial loading states now perfectly match your system's dynamic theme colors.
+  * Fluid, responsive layout transitions added to the main compass screen to seamlessly handle switching between compact, expanded, and foldable tabletop modes.
+
+#### ⌚ Wear OS
+* **Fixes & Stability: Onboarding Flow:** Stricter navigation constraints have been applied to the initial onboarding experience, fixing bugs where users could prematurely swipe into incomplete states or accidentally skip tutorial steps.
+* **Localization Parity:** The global onboarding flow, manual altitude calibration drift warnings, and the new "Invert Direction (180°)" setting have been fully translated into Arabic, German, Spanish, French, Hindi, Japanese, Korean, Russian, and Chinese.
+
 ## Version 1.22.0 Beta 7
 *(Released July 22, 2026)*
 
