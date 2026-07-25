@@ -1,6 +1,28 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.22.2
+*(Released July 25, 2026)*
+
+This update focuses heavily on strengthening app security, streamlining the core navigation architecture, and delivering crucial stability fixes for the background recording services across both your phone and smartwatch.
+
+#### 📱 Phone
+* **Security: Google Play Integrity:** We've integrated the Google Play Integrity API deeply into the app's initialization and purchase flows. This ensures a secure, trusted environment for all active sessions and subscription validations.
+* **Fixes & Stability: Recording Service:** Fortified the background recording engine with advanced error handling and strict API compatibility checks to prevent edge-case crashes when the service starts or stops.
+* **UI & UX Polish: Snackbar Redesign:** In-app pop-up messages (snackbars) have been visually refreshed with softer rounded corners, modern Material 3 contrast colors, and adjusted padding to ensure they never overlap with your bottom navigation bar.
+* **Under the Hood: Architecture & Routing:**
+  * Completely refactored our core navigation code, extracting the `AppNavHost` and centralizing all bottom navigation and navigation rail items into a unified model.
+  * Modularized `MainActivity`, delegating all complex deep link routing and intent handling to a dedicated `MainIntentHandler`.
+  * Updated our internal build environment (Compile SDK 37) and migrated the Open Source Software (OSS) licenses screen to the modern v2 implementation.
+
+#### ⌚ Wear OS
+* **Fixes & Stability: Bulletproof Recording Transitions:** We've heavily hardened the Wear OS `RecordingService`. Foreground transitions are now wrapped in safe fallback logic, ensuring the service gracefully shuts down instead of crashing if a sudden lifecycle error occurs.
+* **Fixes & Stability: Notification Permissions:** Resolved a potential crash on older smartwatches by ensuring the notification permission screen strictly targets supported devices (Android 13 / API 33+).
+* **Fixes & Stability: Button Debouncing:** Added a smart 500ms "debounce" delay to all animated buttons, preventing accidental rapid double-taps when interacting with the watch.
+* **UI & UX Polish: Fluid Pager Animations:** Rewrote the animation math for the `WearExpressivePagerIndicator` using native Compose state helpers. Transitions when swiping between pages are now noticeably smoother.
+* **UI & UX Polish: Contextual Locale Formatting:** The `InfoScreen` and `BudgetBreakdownRow` now smartly read your active screen layout configuration, ensuring all hours, numbers, and calibration offsets format perfectly to your specific regional settings.
+* **Localization:** Cleaned up specific pluralization strings and typography rules for our Indonesian, Canadian French, and Dutch users.
+
 ## Version 1.22.1
 *(Released July 11, 2026)*
 
