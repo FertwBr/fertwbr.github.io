@@ -1,6 +1,59 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.22.0
+*(Released July 30, 2026)*
+
+This release transforms the Pixel Compass experience, bringing profound intelligence to your home screen and unprecedented accuracy to your environmental sensors. We've completely reimagined some of our widgets, updates to weather charts, and engineered a better manual altitude system that auto-corrects itself as you move.
+
+#### 📱 Phone
+* **New: At-a-Glance Hub & System Insights:** Your widget is now a comprehensive, proactive system hub, seamlessly blending weather data with live system intelligence.
+  * **System Carousel & Live Timers:** The widget now intelligently surfaces upcoming calendar events, active alarms (within 1 hour), and live-updating chronometers for timers from all major OEM clock apps (Samsung, OnePlus, Oppo, etc.).
+  * **Contextual Intelligence:** Automatically detects and displays connected Bluetooth peripherals and provides experimental real-time battery insights, complete with charging estimates and low-battery warnings.
+  * **Feature Discovery:** Added a smart discovery banner to help you explore and configure unused widget capabilities.
+* **New: Altitude Auto-Healing Engine:** We’ve made manual altitude calibration radically smarter, eliminating tedious recalibrations through intelligent location anchoring.
+  * **Location Anchors:** When you manually calibrate, the app remembers your exact coordinates. If you return to within 50 meters of that anchor later, the engine silently corrects any barometric pressure drift that occurred while you were gone.
+  * **Confidence Tracking:** A new health system tracks your calibration age, clearly warning you if your altitude readings drop to medium or low confidence due to shifting weather patterns.
+* **New: Astronomy Alerts:** Stay connected to the sky with proactive, context-aware notifications.
+  * **Smart Timing:** The app now intelligently notifies you 60 minutes before sunrise or sunset, featuring dynamic iconography that accurately reflects the current moon phase.
+* **UI & UX Polish: Widgets & Configuration:** We rebuilt the widget configuration experience and layout visuals.
+  * **Location Widget & Previews:** Redesigned with Material 3 Expressive principles. Typography, hierarchy, and icon sizing dynamically adapt across all grid sizes. Widget loading states now perfectly match your system's dynamic theme colors.
+  * **Adaptive Settings:** The configuration screen features dynamic layouts, unified permission banners that prioritize critical missing access, and intelligent live previews that adapt as you toggle features.
+  * **Intelligent Contrast:** The widget now actively scans your home screen wallpaper's luminance, intelligently switching text color to guarantee maximum legibility against your specific background.
+* **UI & UX Polish: Interactive Charts & Weather Panels:** Every forecast visualization has been completely overhauled for maximum expressiveness and precision.
+  * **Time Display Modes:** You now have full control over time representation in the settings. Choose between "Device Local Time" or "Location-based Time" to instantly convert and view all charts in the remote city's native timezone.
+  * **Dynamic Detail Panels:** Weather detail panels (like Weekly and Hourly forecasts) no longer load as static blocks. Days and hours now elegantly slide and scale into view with fluid, staggered entrance animations, and feature live internal clocks that tick perfectly on the minute boundary.
+  * **Sun & Moon Path:** The Sun Path chart now smoothly transitions into the night, tracking elapsed darkness and providing accurate, live moon phase visualizations under a new shaded dome effect.
+  * **Tactile Scrubbing & Sky Visibility:** Drag your finger across the Daylight Forecast chart to scrub through hourly data with satisfying haptic ticks, and explore the new "Sky Visibility" score that analyzes cloud cover, rain probability, and atmospheric clarity.
+  * **Dynamic Scaling:** UV Index and Cloud Cover charts now feature dynamic Y-axis scaling to ensure data looks great even on low-intensity days.
+* **UI & UX Polish: Responsive Layouts:** Deep optimizations for modern hardware displays.
+  * **Better Foldable Device Support:** The compass natively adapts to Tabletop mode (splitting UI vertically) and Book mode (expanding side-by-side) for an immersive large-screen experience.
+  * **Refined Interfaces:** Expanded scroll padding prevents UI overlap, and the manual calibration UI has been modernized with clear warning colors and pill-shaped status indicators.
+* **Core & Performance: Architecture & Hardware Fallback:** Major under-the-hood upgrades for speed and stability.
+  * **TimeManager Engine:** All timezone resolution, date parsing, and localized timestamp formatting have been centralized into a robust new `TimeManager` engine, drastically reducing edge-case errors across all 15+ weather charts.
+  * **Barometer Safety:** If your device lacks a physical pressure sensor, the app gracefully falls back to standard atmospheric pressure models and displays a clear "Sensor Unavailable" UI, preventing calculation crashes.
+* **Fixes & Stability: System & Interface:** A massive round of bug crushing ensures a bulletproof experience.
+  * **Samsung One UI & Touch Routing:** Completely rebuilt how the At-a-Glance widget handles touch interactions via a new explicit proxy system, permanently resolving issues where widget buttons failed to respond on third-party launchers.
+  * **Widget Reliability:** Fixed text cropping on heavier fonts, resolved a bug where new widgets ignored layout selections, and fixed calendar insights stalling on old events.
+  * **Calibration & Logic:** Resolved conflicts when opening the calibration sheet with active manual overrides, and overhauled sunrise/sunset math for pinpoint accuracy.
+
+#### ⌚ Wear OS
+* **New: Altitude Auto-Healing Engine:** We’ve made manual altitude calibration on your smartwatch radically smarter, utilizing intelligent location anchoring.
+  * **Wrist Auto-Healing:** Your watch actively tracks manual calibration anchors and silently corrects atmospheric pressure drift as you navigate, completely eliminating the need for constant manual recalibrations.
+  * **Wrist Drift Warnings:** A new health system tracks your calibration age, clearly warning you on your wrist if your altitude readings drop to medium or low confidence due to weather changes.
+* **UI & UX Polish: Contextual Global Onboarding:** The initial tutorial has been entirely rebuilt into a fluid, interactive, gesture-driven experience.
+  * **Gesture Tracking:** Master the interface by actually using it. The tutorial actively tracks your horizontal and vertical swipes, advancing automatically and instantly correcting you if you swipe in the wrong direction.
+  * **Smart Transitions:** Reaching milestones triggers automated transitions back to the main face, and system permission dialogs are delayed to ensure an uninterrupted learning flow.
+* **Core & Performance: Compass Rendering & Sensor Management:** We have entirely rewritten the smartwatch graphics engine and sensor lifecycle for peak efficiency.
+  * **Direct GPU Binding:** Compass rotation is now bound directly to the hardware `graphicsLayer`, bypassing layout calculations. This delivers buttery smooth, instant responsiveness to wrist movements without stuttering.
+  * **Smart Sensor Lifecycle:** Hardware sensors intelligently spin down the moment the compass or level UI is not actively visible on your screen, drastically saving battery life.
+* **Core & Performance: Intelligent Hardware Fallback:** We've engineered a robust safety net for smartwatches that do not have a built-in physical barometer.
+  * **Barometer Safety:** If your smartwatch lacks a physical pressure sensor, the app gracefully falls back to standard atmospheric pressure models, completely preventing calculation crashes during elevation checks and ensuring a stable experience.
+* **Fixes & Stability: Wear Interface & Logic:** Critical squashed bugs for a reliable wrist experience.
+  * **Onboarding & Navigation:** Fixed bugs where users could prematurely swipe into incomplete tutorial states, and resolved a critical issue where hidden dialogs were generated behind the main screen.
+  * **AOD Freezes:** Fixed an issue where the app could freeze when transitioning to the Always-On Display.
+  * **Text Clarity:** Completely rewrote the manual calibration text explanations for better clarity and understanding.
+
 ## Version 1.22.0 Release Candidate 1
 *(Released July 24, 2026)*
 
