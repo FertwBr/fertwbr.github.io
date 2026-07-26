@@ -1,6 +1,6 @@
 # Privacy Policy for Pixel Compass
 
-**Last Updated:** March 17, 2026
+**Last Updated:** July 26, 2026
 
 Welcome to Pixel Compass! This Privacy Policy explains how **fertwbr** ("we," "us," or "our") handles information when
 you use our Pixel Compass mobile application (the "Service").
@@ -14,7 +14,7 @@ protections for minors in digital environments.
 
 ## 1. Information We Process
 
-To provide accurate navigation and weather data, the application processes the following types of information:
+To provide accurate navigation, weather data, and smart widget features, the application processes the following types of information:
 
 ### a) Location Data (Precise)
 
@@ -49,31 +49,40 @@ active while you are using the app.
 **Processing:** This data is processed **entirely locally on your device**. It is **not** recorded, stored on external
 servers, or transmitted to us.
 
-### c) Network Access & API Data
+### c) Smart Insights & Integrations Data (Local Only)
 
-**Purpose:** Internet access is required to communicate with Weather and Elevation APIs and to validate In-App Purchases
-with Google Play.
+**Purpose:** To power the "At a Glance" widget and Smart Insights features, the app may request optional access to system data:
+* **Calendar:** To display your next upcoming event.
+* **Notification Listener:** To intercept and display live countdowns for active timers and alarms from supported clock apps.
+* **Bluetooth:** To detect connected peripherals (like earbuds) and display their battery levels.
+* **Camera (Flashlight):** To detect if your flashlight is currently turned on.
+
+**Processing:** All Smart Insights data is processed **strictly locally on your device**. We do **not** read your personal calendar contents for tracking, nor do we store, record, or transmit your calendar events, notifications, or bluetooth device names to any external servers. The Camera permission is used exclusively to check the flashlight state; no images or videos are ever captured.
+
+### d) Network Access, API Data & Device Integrity
+
+**Purpose:** Internet access is required to communicate with Weather/Elevation APIs, validate In-App Purchases, and verify device security.
 
 **Data Transmitted:**
 
-Latitude, Longitude, and standard IP address information required for HTTPS requests to Google's services.
+* Latitude, Longitude, and standard IP address information required for HTTPS requests to Google's services.
+* **Google Play Integrity API:** During startup, the app securely communicates with Google to verify that the app and device have not been tampered with. This helps prevent fraud and ensures a secure environment.
 
-### d) In-App Purchase Information (Pixel Compass+)
+### e) In-App Purchase Information (Pixel Compass+)
 
 **Purpose:** To manage access to premium features via either a **one-time purchase (Legacy)** or a **recurring
 subscription**.
 
 **Data Processed by Google Play:**
 
-All financial transactions are handled securely by **Google Play's billing system**. We do **not** collect, access, or
-store your payment information (such as credit card numbers or bank account details).
+All financial transactions and transactional alerts (In-App Messages) are handled securely by **Google Play's billing system**. We do **not** collect, access, or store your payment information (such as credit card numbers or bank account details).
 
 **Local Storage:**
 
 We store a local flag on your device (via DataStore preferences) indicating your "Premium" status. This allows the app
 to verify your license offline and unlock features without constant internet access.
 
-### e) Optional Feedback, Logs, and Attachments
+### f) Optional Feedback, Logs, and Attachments
 
 Pixel Compass provides an **optional in-app support system** that allows users to send feedback, bug reports, or
 suggestions.
@@ -98,7 +107,7 @@ Example diagnostic information may appear similar to:
 
 Device: Google sdk_gphone64_x86_64
 Android Version: 16 (API 36)
-App Version: 1.20.0
+App Version: 1.22.0
 Locale: pt_BR
 
 This information helps diagnose issues and improve the application. Users may review or remove information before
@@ -106,15 +115,18 @@ submitting.
 
 ## 2. Permissions
 
-To provide the Service, we request the following permissions on your device:
+To provide the Service, we request the following permissions on your device. Some are required for core functionality, while others are entirely optional for widget customization:
 
 * **Location (Precise):** Required to calculate True North, magnetic declination, and fetch accurate Weather/Elevation
   data.
-* **Internet:** Required to fetch API data and verify subscription status.
+* **Internet:** Required to fetch API data and verify subscription/device integrity.
 * **Foreground Service:** Required to maintain active sensor readings and location updates without interruption while
   the app is running or the screen is active.
-* **Notifications:** Used to display the foreground service status (a requirement by the Android System) or to provide
-  alerts related to the app's functionality.
+* **Notifications(Optional):** Used to display the foreground service status or to provide weather alerts.
+* **Calendar (Optional):** Used to display upcoming events on the widget.
+* **Notification Access (Optional):** Used to display active timers and alarms on the widget.
+* **Bluetooth (Optional):** Used to display peripheral connection status on the widget.
+* **Camera (Optional):** Used solely to detect flashlight status for the widget.
 
 ## 3. Information Sharing and Disclosure
 
@@ -124,7 +136,7 @@ However, to provide the features of the app, specific data is shared with the fo
 
 * **Google Weather & Elevation APIs:** Your latitude and longitude are sent to these services solely to return weather
   and altitude data to your device.
-* **Google Play Billing:** Used to process payments and validate your subscription or legacy license.
+* **Google Play Services (Billing & Integrity):** Used to process payments, deliver transactional messages, and verify device security to prevent abuse.
 * **Legal Requirements:** We may disclose information if required by law or in response to valid requests by public
   authorities (e.g., a court or a government agency).
 
@@ -134,7 +146,7 @@ However, to provide the features of the app, specific data is shared with the fo
 
 We use industry-standard **HTTPS encryption** for all API requests.
 
-Sensor data (magnetometer/accelerometer) is processed in real-time memory and discarded immediately after calculation.
+Sensor data and Smart Insights data (Calendar, Bluetooth, Alarms) are processed in real-time memory and discarded immediately after calculation or when the widget updates.
 
 **Retention:**
 
