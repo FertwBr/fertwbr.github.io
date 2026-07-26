@@ -14,11 +14,15 @@ Pixel Compass requires **Precise Location** permission to enable its best featur
   Info Cards.
 - **Pixel Compass+ Widgets:** Location is required for the widgets to update with accurate, relevant data in the
   background.
-- **Notification Access:** (Optional but recommended) Required for reliable background service updates on Android 13+
-  and for the new "Smart Notifications" feature.
 
-> Your location is only used when the app is active or for periodic widget updates. We never store or track your
-> location history. You can manage permissions at any time in your device settings.
+For our **Smart Insights and At a Glance features**, the app may request the following **optional** permissions:
+- **Notification Access:** Required for the widget to intercept and display live countdowns for active Timers and Alarms from your favorite clock apps (supports Google, Samsung, Xiaomi, and more).
+- **Calendar Access:** Allows the widget to display your next upcoming event within the next 24 hours.
+- **Bluetooth (Connect):** Allows the widget to detect when your peripherals (earbuds, speakers) connect and display their battery levels.
+- **Camera (Flashlight):** Allows the widget to display an active alert when your flashlight is turned on.
+
+> Your location and personal data are strictly processed locally on your device. We never store or track your
+> location history or calendar events. You can manage or revoke these permissions at any time in your device settings or directly in the widget configuration screen.
 
 ### 2. Understanding the Main Compass Screen
 
@@ -57,6 +61,7 @@ the accuracy of all motion-based features.
 - **Customization:** Choose from **9 New Color Themes** (v1.14.0+), including AMOLED Black, Emerald, and Sunset.
 - **Precision Tools:** You can manually calibrate altitude directly on your watch and toggle **Compass Inversion** if
   you wear your watch on your right wrist.
+- **Altitude Confidence & Auto-Healing:** The watch actively monitors atmospheric pressure drift. It displays a visual Confidence Level (High, Medium, Low) for your altitude and can "auto-heal" (recalibrate seamlessly) when you return to a previously manually calibrated location.
 - **Installation:** Install it via your paired phone's Play Store app or directly from the Play Store on your watch.
 
 ## Pixel Compass+ & Widgets {: data-toc-key="plus" }
@@ -92,10 +97,13 @@ app's full potential and supports its future development.
 1. **Add:** Long-press your home screen, select "Widgets", and find Pixel Compass.
 2. **Configure:** A modern setup screen will open. You can choose the **Type** (Altitude, Compass, Weather, etc.) and
    the **Shape**.
-3. **Real-Time Updates:** High-frequency updates (v1.12.0+) provide smooth needle animations directly on the home
-   screen.
-4. **Best Practices:** For reliability, ensure Pixel Compass is set to "Unrestricted" in your device's Battery settings
-   and that notifications are enabled.
+3. **At a Glance System Integrations:** Our smart widgets can now display live system events! From the widget configuration screen, you can individually enable or disable:
+   - **Calendar:** See your next upcoming event.
+   - **Alarms & Timers:** Watch live countdowns for active timers or upcoming alarms.
+   - **Bluetooth:** See battery levels for connected earbuds and speakers.
+   - **Battery & Flashlight:** Get alerts when your battery is low, charging, or when your flashlight is accidentally left on.
+4. **Real-Time Updates:** High-frequency updates provide smooth needle animations directly on the home screen.
+5. **Best Practices:** For reliability, ensure Pixel Compass is set to "Unrestricted" in your device's Battery settings and that notifications/permissions are enabled for the integrations you choose to use.
 
 ## Smart Insights & Weather Alerts {: data-toc-key="smart_alerts" }
 
@@ -112,8 +120,9 @@ When you enable Dynamic Cards, the app processes current conditions, hourly tren
 If enabled, Pixel Compass can send critical and timely warnings directly to your phone's notification shade, even when the app is closed.
 - **Severe Weather Analyzer:** Automatically detects extreme scenarios like dense fog, rapid UV burn risks, high hydroplaning probability, and imminent thunderstorms.
 - **Precipitation Tracking:** Lets you know exactly when heavy rain or snow is about to start or stop.
+- **Astronomical Alerts:** Get notified when sunrise or sunset is approaching.
 - **Smart Cooldown:** To prevent notification fatigue, the system uses an intelligent cooldown timer, ensuring you aren't spammed with the same alert multiple times a day.
-- **Manage Alerts:** Toggle these notifications and customize the alert categories (e.g., Health Risks, Precipitation, Severe Alerts) via **Settings > Notifications & Alerts**.
+- **Manage Alerts:** Toggle these notifications and customize the alert categories (e.g., Health Risks, Precipitation, Astronomy, Severe Alerts) via **Settings > Notifications & Alerts**.
 
 ## Altitude & Calibration {: data-toc-key="altitude" }
 
@@ -140,7 +149,13 @@ background when you travel significant distances.
   manually in **Settings > Altitude** for absolute, professional-grade precision. This completely overrides automatic
   checks until you decide to remove it.
 
-### 3. How do I calibrate the Compass (Direction)?
+### 3. What are Altitude Confidence and Auto-Healing?
+
+Because atmospheric pressure changes constantly with the weather (Barometric Drift), altitude readings can gradually lose precision over hours or days.
+- **Confidence Levels:** The app displays a Confidence Level (High, Medium, Low) and specific drift warnings to let you know if your manual calibration might be getting outdated due to weather changes.
+- **Auto-Healing:** If you manually calibrate your altitude at your house, and then leave and return a few hours later, the app's **Auto-Healing** system will detect you are back at a known location. It will automatically and silently correct the barometric drift, restoring your altitude precision without you lifting a finger!
+
+### 4. How do I calibrate the Compass (Direction)?
 
 If the compass needle is jumpy, stuck, or pointing incorrectly, tap the **Calibrate** button on the main screen and move
 your device in a **figure-eight (∞)** pattern while rotating it along all three axes. Keep your device away from
