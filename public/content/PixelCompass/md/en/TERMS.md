@@ -1,6 +1,6 @@
 # Terms of Use for Pixel Compass
 
-**Last Updated:** March 17, 2026
+**Last Updated:** July 26, 2026
 
 Please read these Terms of Use ("Terms") carefully before using the Pixel Compass mobile application (the "Service")
 operated by **fertwbr** ("us", "we", or "our").
@@ -34,6 +34,10 @@ do not guarantee the accuracy of the directional data, weather reports, or eleva
 Weather and Elevation data are fetched from third-party sources (e.g., Google). We are not responsible for the
 availability, accuracy, or timeliness of this external data.
 
+**2.4 Smart Insights & System Integrations:**
+
+Features that display system events (such as Alarms, Timers, Calendar events, and Bluetooth status) rely on Android operating system APIs and the behavior of third-party applications (like OEM clock apps). Due to variations in how different device manufacturers (OEMs) implement background services and notifications, we cannot guarantee 100% accuracy, timing, or availability of these insights across all devices.
+
 ## 3. Premium Features (Pixel Compass+)
 
 **3.1 Subscriptions and Licenses:**
@@ -53,19 +57,21 @@ Pixel Compass+ features may be accessed through:
 
 **3.3 Availability:**
 
-We reserve the right to change, suspend, or update Premium features (such as Widget designs or specific data overlays)
-at any time.
+We reserve the right to change, suspend, or update Premium features (such as Widget designs, integrations, or specific data overlays) at any time.
 
 **3.4 Configuration Backup (Pixel Compass+):**
 
 For users with an active Pixel Compass+ subscription, the application may automatically store a **local backup of
-certain
-custom configuration settings**, such as widget layouts or advanced UI preferences.
+certain custom configuration settings**, such as widget layouts or advanced UI preferences.
 
 This backup exists solely to allow restoration of those settings if the user renews their subscription while the app
 remains installed on the same device.
 
 If the application is uninstalled, this backup data may be permanently lost.
+
+**3.5 In-App Messages:**
+
+By using Premium features, you agree to receive essential transactional in-app messages provided by the Google Play Billing system (e.g., alerts regarding payment issues, subscription pauses, or status updates) directly within the application interface.
 
 ## 4. Intellectual Property
 
