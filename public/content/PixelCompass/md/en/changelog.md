@@ -2,9 +2,9 @@
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
 ## Version 1.22.0
-*(Released July 30, 2026)*
+*(Released July 31, 2026)*
 
-This release transforms the Pixel Compass experience, bringing profound intelligence to your home screen and unprecedented accuracy to your environmental sensors. We've completely reimagined some of our widgets, updates to weather charts, and engineered a better manual altitude system that auto-corrects itself as you move.
+This release transforms the Pixel Compass experience, bringing profound intelligence to your home screen, unprecedented accuracy to your environmental sensors, and hardened app security. We've completely reimagined some of our widgets, updated weather charts, engineered a better manual altitude system that auto-corrects itself as you move, and deeply restructured our core architecture for maximum performance.
 
 #### 📱 Phone
 * **New: At-a-Glance Hub & System Insights:** Your widget is now a comprehensive, proactive system hub, seamlessly blending weather data with live system intelligence.
@@ -16,24 +16,29 @@ This release transforms the Pixel Compass experience, bringing profound intellig
   * **Confidence Tracking:** A new health system tracks your calibration age, clearly warning you if your altitude readings drop to medium or low confidence due to shifting weather patterns.
 * **New: Astronomy Alerts:** Stay connected to the sky with proactive, context-aware notifications.
   * **Smart Timing:** The app now intelligently notifies you 60 minutes before sunrise or sunset, featuring dynamic iconography that accurately reflects the current moon phase.
+* **Security & Subscriptions: Trust & Seamless Updates:** We've hardened the app's foundation and payment flows.
+  * **Google Play Integrity:** Integrated the Play Integrity API directly into the app's startup sequence, ensuring your environment is fully verified, secure, and running in a trusted state from the moment you open it.
+  * **Seamless Subscriptions:** Added Google Play In-App Messaging to natively and seamlessly handle transactional updates—like subscription status changes or payment issues—directly inside the app without interrupting your flow.
 * **UI & UX Polish: Widgets & Configuration:** We rebuilt the widget configuration experience and layout visuals.
   * **Location Widget & Previews:** Redesigned with Material 3 Expressive principles. Typography, hierarchy, and icon sizing dynamically adapt across all grid sizes. Widget loading states now perfectly match your system's dynamic theme colors.
-  * **Adaptive Settings:** The configuration screen features dynamic layouts, unified permission banners that prioritize critical missing access, and intelligent live previews that adapt as you toggle features.
+  * **Adaptive Settings & Menus:** The configuration screen features dynamic layouts and unified permission banners. We also completely rebuilt the widget selection menus (like clock faces) with a smooth, horizontally scrolling design that adapts to your screen size, eliminating awkward text wrapping.
   * **Intelligent Contrast:** The widget now actively scans your home screen wallpaper's luminance, intelligently switching text color to guarantee maximum legibility against your specific background.
 * **UI & UX Polish: Interactive Charts & Weather Panels:** Every forecast visualization has been completely overhauled for maximum expressiveness and precision.
   * **Time Display Modes:** You now have full control over time representation in the settings. Choose between "Device Local Time" or "Location-based Time" to instantly convert and view all charts in the remote city's native timezone.
   * **Dynamic Detail Panels:** Weather detail panels (like Weekly and Hourly forecasts) no longer load as static blocks. Days and hours now elegantly slide and scale into view with fluid, staggered entrance animations, and feature live internal clocks that tick perfectly on the minute boundary.
   * **Sun & Moon Path:** The Sun Path chart now smoothly transitions into the night, tracking elapsed darkness and providing accurate, live moon phase visualizations under a new shaded dome effect.
   * **Tactile Scrubbing & Sky Visibility:** Drag your finger across the Daylight Forecast chart to scrub through hourly data with satisfying haptic ticks, and explore the new "Sky Visibility" score that analyzes cloud cover, rain probability, and atmospheric clarity.
-  * **Dynamic Scaling:** UV Index and Cloud Cover charts now feature dynamic Y-axis scaling to ensure data looks great even on low-intensity days.
+  * **Dynamic Scaling & UV Tweaks:** UV Index and Cloud Cover charts now feature dynamic Y-axis scaling. Additionally, the UV forecast chart now correctly displays the current time's initial data point by default, rather than prematurely showing the daily maximum.
 * **UI & UX Polish: Responsive Layouts:** Deep optimizations for modern hardware displays.
   * **Better Foldable Device Support:** The compass natively adapts to Tabletop mode (splitting UI vertically) and Book mode (expanding side-by-side) for an immersive large-screen experience.
   * **Refined Interfaces:** Expanded scroll padding prevents UI overlap, and the manual calibration UI has been modernized with clear warning colors and pill-shaped status indicators.
 * **Core & Performance: Architecture & Hardware Fallback:** Major under-the-hood upgrades for speed and stability.
+  * **Deep Link & Navigation Architecture:** Decoupled the main screen into specialized handlers. All deep links, navigation routing, and system actions (like toggling the flashlight) are now managed by a dedicated `MainIntentHandler`, making navigating between the Compass, Level, and Settings faster and more reliable.
   * **TimeManager Engine:** All timezone resolution, date parsing, and localized timestamp formatting have been centralized into a robust new `TimeManager` engine, drastically reducing edge-case errors across all 15+ weather charts.
   * **Barometer Safety:** If your device lacks a physical pressure sensor, the app gracefully falls back to standard atmospheric pressure models and displays a clear "Sensor Unavailable" UI, preventing calculation crashes.
 * **Fixes & Stability: System & Interface:** A massive round of bug crushing ensures a bulletproof experience.
   * **Samsung One UI & Touch Routing:** Completely rebuilt how the At-a-Glance widget handles touch interactions via a new explicit proxy system, permanently resolving issues where widget buttons failed to respond on third-party launchers.
+  * **Smart Onboarding & Policies:** Refined the initial welcome flow. If you skip the onboarding tutorial, the app now intelligently detects this and ensures you are still properly prompted to review our Legal Policies. Added advanced telemetry to track setup drop-offs.
   * **Widget Reliability:** Fixed text cropping on heavier fonts, resolved a bug where new widgets ignored layout selections, and fixed calendar insights stalling on old events.
   * **Calibration & Logic:** Resolved conflicts when opening the calibration sheet with active manual overrides, and overhauled sunrise/sunset math for pinpoint accuracy.
 
@@ -50,9 +55,25 @@ This release transforms the Pixel Compass experience, bringing profound intellig
 * **Core & Performance: Intelligent Hardware Fallback:** We've engineered a robust safety net for smartwatches that do not have a built-in physical barometer.
   * **Barometer Safety:** If your smartwatch lacks a physical pressure sensor, the app gracefully falls back to standard atmospheric pressure models, completely preventing calculation crashes during elevation checks and ensuring a stable experience.
 * **Fixes & Stability: Wear Interface & Logic:** Critical squashed bugs for a reliable wrist experience.
+  * **Architecture Parity:** Inherited the phone app's robust policy validation logic and shared onboarding telemetry to ensure a stable, crash-free experience on your wrist.
   * **Onboarding & Navigation:** Fixed bugs where users could prematurely swipe into incomplete tutorial states, and resolved a critical issue where hidden dialogs were generated behind the main screen.
   * **AOD Freezes:** Fixed an issue where the app could freeze when transitioning to the Always-On Display.
   * **Text Clarity:** Completely rewrote the manual calibration text explanations for better clarity and understanding.
+
+## Version 1.22.0 Release Candidate 2
+*(Released July 26, 2026)*
+
+As we approach the final stable release of 1.22.0, this second Release Candidate focuses heavily on hardening app security, perfecting the widget configuration layouts, and completely restructuring our main screen architecture for maximum performance.
+
+#### 📱 Phone
+* **Security: Google Play Integrity:** We've integrated the Google Play Integrity API directly into the app's startup sequence. This ensures your app and environment are fully verified, secure, and running in a trusted state from the moment you open it.
+* **Fixes & Stability: Smart Onboarding & Policies:** We've refined the initial welcome flow. If you skip the onboarding tutorial, the app now intelligently detects this and ensures you are still properly prompted to review and accept our Legal Policies. We also added advanced telemetry to better understand where users drop off during the setup process.
+* **UI & UX Polish: Widget Configuration Menus:** We completely rebuilt the selection menus inside the widget configuration screens (like choosing clock faces or insight categories). They now feature a smooth, horizontally scrolling design that dynamically adapts to your screen size, eliminating awkward text wrapping and layout breaking.
+* **UI & UX Polish: UV Index Chart:** Tweaked the UV Index forecast chart to correctly display the current time's initial data point by default, rather than prematurely showing the daily maximum before you even start interacting with the chart.
+* **Fixes & Stability: Seamless Subscriptions:** Integrated Google Play In-App Messaging to natively and seamlessly handle transactional updates—like subscription status changes or payment issues—directly inside the app without interrupting your flow.
+* **Under the Hood: Deep Link & Navigation Architecture:**
+  * Massive architectural cleanup: We decoupled the main screen into specialized handlers. All deep links, navigation routing, and system actions (like toggling the flashlight) are now managed by a dedicated `MainIntentHandler`.
+  * Centralized all bottom bar and side navigation rail items into a unified system model, making navigating between the Compass, Level, and Settings faster and more reliable.
 
 ## Version 1.22.0 Release Candidate 1
 *(Released July 24, 2026)*
