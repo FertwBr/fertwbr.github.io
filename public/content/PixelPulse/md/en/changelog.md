@@ -1,6 +1,19 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.22.3
+*(Released July 28, 2026)*
+
+This minor update focuses on polishing the initial onboarding experience, fixing logic bugs related to our legal policy prompts, and implementing structural improvements under the hood for a smoother overall experience.
+
+#### 📱 Phone
+* **Fixes & Stability: Policy Update Prompts:** We resolved a logic bug where brand-new users were immediately greeted with a "Policies Updated" dialog on their first launch. The app now correctly recognizes new installations and gracefully handles policy acceptance silently during the initial onboarding flow.
+* **UI & UX Polish: Onboarding Transparency:** We've updated the footer on the initial onboarding screen to explicitly include a direct link to our Privacy Policy alongside the Terms of Use, ensuring full transparency from the moment you open the app. We also applied typography fixes to ensure spacing around these links looks perfect across all supported languages.
+* **Under the Hood: Architecture:** Completely refactored the legal policy state engine. Policy management has been decoupled into a dedicated `LegalPolicyViewModel`, making the core app architecture cleaner and more efficient.
+
+#### ⌚ Wear OS
+* **Fixes & Stability: Shared Architecture Sync:** The smartwatch module has been updated to version 1.22.3 to maintain parity with the phone's new shared policy validation logic, ensuring a stable and crash-free experience across both devices.
+
 ## Version 1.22.2
 *(Released July 25, 2026)*
 
