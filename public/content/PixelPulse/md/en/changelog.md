@@ -1,6 +1,21 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.22.4
+*(Released July 31, 2026)*
+
+This hotfix update focuses on improving the reliability of the automatic monitoring mode, resolving a critical sensor bug, and giving you more manual control over device synchronization.
+
+#### 📱 Phone
+* **New: Force Sync Action:** We've introduced a secondary "Force Sync" button directly on the persistent foreground notification. This button acts as a quick escape hatch to manually ping connected devices if the state loop ever freezes. It intelligently hides itself and only appears when your Monitoring Mode is set to "Automatic".
+* **Fixes & Stability: Off-Body Sensor Accuracy:** Resolved a critical logic bug where the low-latency off-body sensor was returning inverted values. This issue previously caused the app to falsely believe you took the device off, accidentally triggering the automatic fallback mode even when it was still being worn.
+* **Core & Performance: Under the Hood:** Upgraded internal background timers and timeout checks to use the modern Kotlin Duration API for better precision and stability.
+
+#### ⌚ Wear OS
+* **New: Force Sync Action:** We've introduced a secondary "Force Sync" button directly on the persistent foreground notification. This button acts as a quick escape hatch to manually ping connected devices if the state loop ever freezes. It intelligently hides itself and only appears when your Monitoring Mode is set to "Automatic".
+* **Fixes & Stability: Off-Body Sensor Accuracy:** Resolved a critical logic bug where the low-latency off-body sensor was returning inverted values. This issue previously caused the app to falsely believe you took the device off, accidentally triggering the automatic fallback mode even when it was still being worn.
+* **Core & Performance: Under the Hood:** Upgraded internal background timers and timeout checks to use the modern Kotlin Duration API for better precision and stability.
+
 ## Version 1.22.3
 *(Released July 28, 2026)*
 
