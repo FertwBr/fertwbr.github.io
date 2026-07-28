@@ -13,39 +13,41 @@ Pixel Compass+ transforms your device into a professional-grade instrument. Here
 | :--- | :--- |
 | <md-icon>palette</md-icon> **Exclusive Styles** | Access premium compass shapes (Sunny, Cookie, Flower, and more) and card styles (Bubbly, Wavy, Crystal). |
 | <md-icon>contrast</md-icon> **AMOLED Mode** | Pure black backgrounds to save battery on OLED screens and provide a sleek look. |
-| <md-icon>vibration</md-icon> **Advanced Haptics** | Fine-tune haptic intensity for a more tactile navigation experience. |
+| <md-icon>vibration</md-icon> **Mechanical Haptics** | Fine-tune haptic intensity and feel the physical sensation of mechanical gears engaging as the compass dial rotates. |
 | <md-icon>label_off</md-icon> **Minimalist Mode** | Hide card labels and secondary units for a cleaner, data-only interface. |
 
 ### 📊 Advanced Data & Insights
 | Feature | Description |
 | :--- | :--- |
-| <md-icon>insights</md-icon> **Smart Insights Engine** | Proactive alerts like "Rain starting soon", "High UV Index", or "Breezy Relief" notifications. |
-| <md-icon>query_stats</md-icon> **Forecast Charts** | Interactive hourly trends for temperature, humidity, precipitation, and UV index. |
-| <md-icon>wb_sunny</md-icon> **Sun & Moon Details** | Precise times for sunrise, sunset, moonrise, and moonset, including a beautiful Sun Path chart. |
+| <md-icon>insights</md-icon> **Smart Insights Engine** | Proactive alerts like "Rain starting soon", physiological warnings (Wet-Bulb, Wind Chill), and lifestyle tips. |
+| <md-icon>notifications_active</md-icon> **Severe Weather & Astronomy Alerts** | Receive granular, proactive warnings for rapid temperature drops, severe wind shifts, prolonged rain, plus smart 60-minute Sunrise/Sunset notifications. |
+| <md-icon>query_stats</md-icon> **Forecast Charts** | Interactive, touch-scrubbable hourly trends for temperature, humidity, precipitation, UV index, and advanced wind analysis (Beaufort scale). |
+| <md-icon>wb_sunny</md-icon> **Sun & Moon Details** | Precise times for sunrise, sunset, moonrise, and moonset, including a beautiful dynamic Sun Path chart. |
 | <md-icon>air</md-icon> **Wind on Compass** | A real-time wind direction indicator integrated directly onto your compass rose. |
 | <md-icon>speed</md-icon> **Premium Data Frequency** | Weather and elevation data updates up to 4x faster than the free version. |
 
 ### 📱 Powerful Home Screen Widgets
 | Feature | Description |
 | :--- | :--- |
-| <md-icon>auto_awesome</md-icon> **At a Glance** | A sophisticated widget showing date, weather alerts, and smart insights side-by-side. |
-| <md-icon>schedule</md-icon> **Clock Widget Suite** | Deeply customizable Analog and Digital clocks with multiple hand styles and tick marks. |
+| <md-icon>auto_awesome</md-icon> **At a Glance System Hub** | A sophisticated widget showing date and weather, plus live system timers, active alarms, calendar events, Bluetooth status, and battery insights side-by-side. |
+| <md-icon>schedule</md-icon> **Clock Widget Suite** | Deeply customizable Analog and Digital clocks with multiple hand styles, tick marks, and native battery efficiency. |
 | <md-icon>grid_view</md-icon> **Custom Shapes** | Use Modern, Cookie, Pill, and Arch shapes for your widgets with 1:1 aspect ratio options. |
 | <md-icon>texture</md-icon> **Transparency Control** | Toggle between solid and transparent backgrounds to match any wallpaper perfectly. |
 
 ## 🛠️ Precision Professional Tools {: data-toc-key="tools" }
 
-### 🏔️ Barometer & Altitude
+### 🏔️ Barometer, Altitude & Auto-Healing
 Go beyond basic GPS altitude. Pixel Compass+ uses your device's **internal barometer** combined with high-precision API data to provide:
 - **Sea Level Pressure (MSLP):** Standardized weather service pressure.
 - **Absolute Pressure:** Real-time sensor data from your exact location.
+- **Altitude Auto-Healing Engine:** The app remembers your manual calibration anchors and silently corrects atmospheric pressure drift when you return to a known area.
 
-### 🛰️ Advanced Environmental Metrics
-Unlock a full range of dynamic cards:
-- **Feels Like Temperature:** Understand the actual impact of wind and humidity.
-- **Dew Point:** A better way to measure comfort and air moisture.
+### 🛰️ Advanced Environmental Metrics & Redundancy
+Unlock a full range of dynamic cards and ultra-reliable data pipelines:
+- **Feels Like Temperature & Dew Point:** Understand the actual impact of wind and air moisture for true thermal comfort.
 - **Visibility & Cloud Cover:** Essential data for photographers and aviators.
 - **UV Risk Monitor:** Safe exposure times and protection recommendations.
+- **Global Weather Redundancy:** Intelligent fallback to secondary APIs (OpenWeatherMap) ensures uninterrupted forecasts even if primary services are regionally restricted.
 
 ## 🛡️ Licensing: Fair and Flexible {: data-toc-key="licensing" }
 
@@ -62,23 +64,26 @@ The best way to stay on the cutting edge.
 
 ## Compare Editions {: data-toc-key="comparison" }
 
-| Feature | Free | Plus | Legacy |
-| :--- | :--- | :--- | :--- |
-| Magnetic Compass & True North | Included | Included | Included |
-| Level Tool | Included | Included | Included |
-| Basic Weather & Location | Included | Included | Included |
-| Material You Design | Included | Included | Included |
-| Ad-Free Experience | Included | Included | Included |
-| **Home Screen Widgets** | X | **Included** | **Included** |
-| **Clock & At a Glance** | X | **Included** | **Included** |
-| **Forecast Charts** | X | **Included** | **Included** |
-| **Smart Insights & Alerts** | X | **Included** | **Included** |
-| **Extended Metrics (UV, Dew)** | X | **Included** | **Included** |
-| **Barometer (Pressure)** | X | **Included** | **Included** |
-| **Sun & Moon Times** | X | **Included** | **Included** |
-| **Wind on Compass** | X | **Included** | **Included** |
+| Feature | Free | Plus                 | Legacy |
+| :--- | :--- |:---------------------| :--- |
+| Magnetic Compass & True North | Included | Included             | Included |
+| Level Tool & Flip-to-Align | Included | Included             | Included |
+| Basic Weather & Location | Included | Included             | Included |
+| Material You & Weather Icon Styles | Included | Included             | Included |
+| Interactive Edit Mode & FAB Builder | Included | Included             | Included |
+| Ad-Free Experience | Included | Included             | Included |
+| **Home Screen Widgets** | X | **Included**         | **Included** |
+| **At a Glance System Hub** | X | **Included**         | **Included** |
+| **Clock Widget Suite** | X | **Included**         | **Included** |
+| **Forecast Charts** | X | **Included**         | **Included** |
+| **Smart Insights & Severe Weather Alerts** | X | **Included**         | **Included** |
+| **Astronomy Alerts (Sunrise/Sunset)** | X | **Included**         | **Included** |
+| **Extended Metrics (UV, Dew, Visibility)** | X | **Included**         | **Included** |
+| **Barometer & Altitude Auto-Healing** | X | **Included**         | **Included** |
+| **Sun & Moon Times** | X | **Included**         | **Included** |
+| **Wind on Compass** | X | **Included**         | **Included** |
 | **Deep Customization** | System Only | **Exclusive Styles** | **Exclusive Styles** |
-| **Data Update Frequency** | Standard | **4x Faster** | **4x Faster** |
+| **Data Update Frequency** | Standard | **up to 4x Faster**  | **up to 4x Faster** |
 
 ## 💡 Why a Subscription? {: data-toc-key="why" }
 
