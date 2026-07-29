@@ -4,17 +4,22 @@ Track the evolution of Pixel Pulse. Here you'll find a detailed log of new featu
 ## Version 1.22.4
 *(Released July 31, 2026)*
 
-This hotfix update focuses on improving the reliability of the automatic monitoring mode, resolving a critical sensor bug, and giving you more manual control over device synchronization.
+This hotfix update focuses on improving the reliability of the automatic monitoring mode, resolving a critical sensor bug, and giving you more manual control over device synchronization. We've also completely revamped the initial setup experience and significantly boosted backup performance.
 
 #### 📱 Phone
-* **New: Force Sync Action:** We've introduced a secondary "Force Sync" button directly on the persistent foreground notification. This button acts as a quick escape hatch to manually ping connected devices if the state loop ever freezes. It intelligently hides itself and only appears when your Monitoring Mode is set to "Automatic".
+* **New: Multi-Step Setup Wizard:** We've replaced the old activation menu with a comprehensive 4-step wizard. It gracefully guides you through configuring monitoring sources, smart alert thresholds, and daily routines, complete with native layout support for tablets and landscape orientation.
+* **New: Sync Devices Action & Status:** We've introduced a secondary "Sync Devices" button directly on the persistent foreground notification. This acts as a quick escape hatch to manually ping connected devices if the state loop ever freezes (visible only in "Automatic" mode). The notification now also provides real-time visual feedback for synchronization states (Syncing, Success, Failure).
 * **Fixes & Stability: Off-Body Sensor Accuracy:** Resolved a critical logic bug where the low-latency off-body sensor was returning inverted values. This issue previously caused the app to falsely believe you took the device off, accidentally triggering the automatic fallback mode even when it was still being worn.
+* **UI & UX Polish: Backup Feedback:** The backup and restore screen now gracefully handles indeterminate progress states when the total item count is unknown, ensuring you're never stuck looking at a broken progress bar.
+* **Core & Performance: Backups & Data Filtering:** Upgraded the backup engine to a new V2 schema using robust AES-CBC encryption. We also implemented ID-based pagination and binary search algorithms, drastically speeding up data filtering, chart generation, and large backup exports.
 * **Core & Performance: Under the Hood:** Upgraded internal background timers and timeout checks to use the modern Kotlin Duration API for better precision and stability.
 
 #### ⌚ Wear OS
-* **New: Force Sync Action:** We've introduced a secondary "Force Sync" button directly on the persistent foreground notification. This button acts as a quick escape hatch to manually ping connected devices if the state loop ever freezes. It intelligently hides itself and only appears when your Monitoring Mode is set to "Automatic".
+* **New: Sync Devices Action:** We've introduced a secondary "Sync Devices" button directly on the persistent foreground notification. This button acts as a quick escape hatch to manually ping connected devices if the state loop ever freezes. It intelligently hides itself and only appears when your Monitoring Mode is set to "Automatic".
+* **Fixes & Stability: Tiles & Complications:** Re-engineered how Watch Tiles and Complications fetch data. They now pull from an optimized, fast-access repository and update immediately and reliably right after a data sync with your phone.
 * **Fixes & Stability: Off-Body Sensor Accuracy:** Resolved a critical logic bug where the low-latency off-body sensor was returning inverted values. This issue previously caused the app to falsely believe you took the device off, accidentally triggering the automatic fallback mode even when it was still being worn.
-* **Core & Performance: Under the Hood:** Upgraded internal background timers and timeout checks to use the modern Kotlin Duration API for better precision and stability.
+* **Core & Performance: Instant Settings UI:** The Wear OS settings screen now loads instantly by isolating the configuration state from heavy background exposure analysis.
+* **Core & Performance: Connection & Under the Hood:** Added a smart "wake-up ping" to ensure the watch communicates properly during automatic fallback mode, increased the connection timeout window for better stability, and upgraded background timers to use the modern Kotlin Duration API.
 
 ## Version 1.22.3
 *(Released July 28, 2026)*
