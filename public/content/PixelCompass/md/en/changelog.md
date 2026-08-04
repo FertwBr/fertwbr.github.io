@@ -1,6 +1,21 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.22.1
+*(Released August 4, 2026)*
+
+This update focuses on refining the app's visual structure, introducing a new comprehensive account management system, and squashing bugs related to the new Material 3 layouts. We also implemented a major cleanup of our deep linking architecture for a more robust navigation experience.
+
+#### 📱 Phone
+* **New: Account Management & Subscriptions:** We've built a brand-new account hub. You can now easily check your license status, view your membership history, and quickly compare Free vs. Premium benefits side-by-side.
+* **New: Lifetime & Legacy Tiers:** We've updated our licensing structure to better distinguish between legacy supporters and new lifetime members, complete with unique badges and customized support options.
+* **UI & UX Polish: The Premium License Card:** The flippable license card has received a massive visual upgrade. We smoothed out the flip animation using custom spring physics, simplified the background rendering for better performance, and added a handy tap-to-copy button for your Order ID.
+* **UI & UX Polish: Responsive Layouts & Insets:** We perfected the edge-to-edge drawing on larger screens (like tablets and foldables) to ensure the UI gracefully clears the system navigation bar without awkward cutoffs. We also completely modularized the main Features screen to cleanly adapt between compact and expanded views.
+* **UI & UX Polish: Level & At-a-Glance:** Tweaked the Level tool's bubble animation so its shadow no longer awkwardly clips when bouncing off the edges. For the At-a-Glance widget, we enabled native chronometer countdowns for active timers and tightened the logic so calendar events only appear right when you need them.
+* **Fixes & Stability: Deep Links & Navigation:** We tore down the old declarative deep link system and rebuilt it using manual intent dispatch. This stops annoying bugs where the app would mistakenly trigger redundant navigation paths or trap you on the wrong screen after opening a notification.
+* **Fixes & Stability: Billing Feedback:** Added clear, localized error banners that gracefully explain when the Google Play Store is temporarily unavailable or if there's an issue loading subscription plans.
+* **Under the Hood: Architecture & Localization:** Massive code cleanup! We centralized our shape-drawing logic, removed hundreds of lines of unused translation strings to reduce app size, and added full support for Afrikaans and Albanian.
+
 ## Version 1.22.0
 *(Released July 31, 2026)*
 
