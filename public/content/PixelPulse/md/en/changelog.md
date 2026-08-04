@@ -1,6 +1,19 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.22.5
+*(Released August 4, 2026)*
+
+This update focuses on delivering a significantly improved account management experience, beautifully responsive layouts for tablets and foldable devices, and a ton of UI polish across the entire app.
+
+#### 📱 Phone
+* **New: Account Management & Plan Comparison:** We've introduced a dedicated Account Management section to easily check your license status and purchase history. Exploring premium features is now clearer than ever with a brand-new tabular Plan Comparison bottom sheet to contrast Free vs. Plus benefits.
+* **UI & UX Polish: Responsive Layouts:** Deep optimizations for tablets, foldables, and landscape orientations. The Features and User Experience screens now utilize custom expanded layouts to beautifully fill larger screens, while the onboarding screens dynamically scale to look perfect on smaller devices.
+* **UI & UX Polish: The License Card & Menus:** The interactive Premium License Card has been completely overhauled. It now features smoother flip animations, refined iconography, and a handy new tap-to-copy action for your Order ID. We've also added a collapsible top bar to the User Experience screen for a cleaner scrolling experience.
+* **UI & UX Polish: Onboarding Flow:** We've streamlined the backup restoration process by cleaning up redundant buttons. The primary navigation button during onboarding now features a slick, animated transition that smoothly morphs from a forward arrow into a checkmark as you reach the final step.
+* **Fixes & Stability: Billing & Localization:** Added a graceful error banner to handle situations where the Google Play Store is temporarily unavailable or product lists fail to load. We also rolled out a massive localization update, adding full translations for the new account management and billing screens across 20+ languages.
+* **Under the Hood: Architecture & Cleanup:** A massive structural cleanup! We modularized the monolithic `FeaturesScreen` and `UserExperienceScreen` into lightweight, reusable components, optimized our window inset logic for better edge-to-edge drawing, and aggressively pruned old, unused translation strings to keep the app size optimized.
+
 ## Version 1.22.4
 *(Released July 31, 2026)*
 
