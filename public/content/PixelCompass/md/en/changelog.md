@@ -1,6 +1,27 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.22.2
+*(Released August 10, 2026)*
+
+This update focuses on deep architectural improvements to the Insight Engine, ensuring notifications and widget updates are more precise and context-aware than ever. For Wear OS, we're introducing highly requested Glance Widgets to replace traditional Tiles on compatible devices, alongside crucial stability fixes for background sensors.
+
+#### 📱 Phone
+* **Fixes & Stability: Insight Fatigue & Cooldowns:** We've completely restructured the Insight Engine. Non-critical insights (like comfort or lifestyle suggestions) now utilize a smart 12-hour to 3-day cooldown system. This prevents the widget from endlessly repeating the same suggestions, ensuring you only see fresh, relevant information.
+* **Fixes & Stability: Bulletproof Countdowns:** Fixed an annoying bug in the At-a-Glance widget where native timers, alarms, and calendar events would occasionally freeze at zero or display negative countdown values. Countdowns now trigger an exact, targeted UI refresh precisely when they expire.
+* **New: Self-Destructing Weather Alerts:** Weather notifications are now significantly smarter. Alerts for upcoming rain, sunrise, or sunset now include a strict expiration timestamp. The app utilizes native system APIs to automatically self-destruct these notifications exactly when the event begins, ensuring you never look at stale alerts.
+* **Fixes & Stability: Tilt-Compensated Compass:** Resolved an issue where the compass heading would become unstable or inaccurate when holding the phone upright. The sensor engine now dynamically remaps its coordinate system when the device pitch exceeds 45 degrees, guaranteeing a stable reading regardless of how you hold your phone.
+* **Under the Hood: Architecture & Clean up:**
+  * Modularized the monolithic `InsightEngine` using the Strategy pattern, splitting logic into domain-specific generators for Safety, Health, Comfort, and Trend analysis.
+  * Replaced relative time formats ("in 30 mins") with absolute local times ("at 2:30 PM") in weather alerts to ensure context remains accurate regardless of when you actually read the notification.
+
+#### ⌚ Wear OS
+* **New: Native Glance Widgets (Wear OS 7+):** We've introduced modern, Glance-based widgets for both Altitude and Compass tracking.
+  * **Automatic Replacement:** If your smartwatch is compatible with Wear OS 7+, these new interactive widgets will seamlessly replace the legacy Tiles. The Android system automatically decides which version to display based on your device capabilities.
+  * **Feature Parity:** The new widgets natively support manual rotation inversion, True North adjustments, and real-time calibration status tracking right on your watch face.
+* **Fixes & Stability: Background Sensor Freezes:** Addressed a critical issue specific to Wear OS 7 where aggressive background resource management would cause the compass and level sensors to intermittently freeze. The app now explicitly binds the hardware sensor lifecycle directly to the active UI screen, guaranteeing they remain active while you are looking at them.
+* **Fixes & Stability: App Duplication Bug:** Fixed a navigational bug where returning to the app would sometimes spawn a duplicate instance. The main activity now enforces a strict `singleTask` launch mode.
+
 ## Version 1.22.1
 *(Released August 4, 2026)*
 
