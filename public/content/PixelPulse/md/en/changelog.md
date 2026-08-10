@@ -1,6 +1,34 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.22.6
+*(Released August 10, 2026)*
+
+This release brings massive architectural improvements to Pixel Pulse, introducing  Glance Widgets for Wear OS(7), critical fixes to acoustic recovery accuracy, and butter-smooth layout animations for foldable devices and tablets.
+
+#### 📱 Phone
+* **UI & UX Polish: Animated Navigation & Foldable Support:**
+  * **Adaptive Rail:** The side navigation rail on large screens now dynamically adapts to your screen height, surfacing extra tools like the Recycle Bin and Help sections when space permits.
+  * **Expressive Icons:** Added playful, high-quality "Tilting" and "Flipping" 3D animations to navigation icons for a more tactile interface.
+  * **Responsive Detail Cards:** Detail and insight cards now intelligently adapt their layout, seamlessly switching between vertical stacks and horizontal rows to perfectly fit foldable screens and tablets.
+* **Fixes & Stability: Acoustic Recovery Accuracy:**
+  * Resolved a critical data bias where unmonitored time was falsely interpreted by the system as "perfectly quiet" recovery time.
+  * The Acoustic Health engine now requires a minimum 70% daily data confidence score before evaluating your recovery, ensuring your health alerts are strictly based on real, tracked exposure.
+  * Fully integrated the **ITU H.870 Safe Listening** standard into the noise budget dashboard.
+* **Fixes & Stability: Cold Start ANR Prevention:** Fixed a severe application freeze (ANR) that occurred on fresh installations. Previously, if a paired watch flooded the phone with background noise data before the initial setup was complete, the app would crash. A new "Onboarding Gatekeeper" now safely queues this data until you're ready.
+* **Core & Performance: Infinite Recycle Bin & SQLite Fixes:**
+  * **Infinite Scroll:** The Recycle Bin now features infinite scrolling pagination, handling massive datasets smoothly without freezing the UI.
+  * **Crash Prevention:** Resolved a deep database crash (`SQLiteException: too many SQL variables`) that triggered when attempting to restore or permanently delete thousands of exposure entries at once. Operations are now safely batched.
+* **Under the Hood: God Class Dismantling:** We completely dismantled the massive `AcousticHealthAnalyzer` and `ExposureCalculator` engines into specialized, highly efficient processors. This heavily optimizes background charting and trend analysis.
+
+#### ⌚ Wear OS
+* **New: Native Glance Widgets (Wear OS 7+):** We've introduced modern, Glance-based widgets for your smartwatch! You can now pin responsive, Material 3 widgets to your watch face to track:
+  * **Current DB:** Real-time decibel monitoring.
+  * **Last 24h:** A sleek bar chart of your recent exposure history.
+  * **Noise Budget:** Your weekly ITU/WHO safe listening progress.
+* **Fixes & Stability: Infinite Trash & SQLite Protection:** Just like the phone, the smartwatch Recycle Bin now features infinite pagination and batched database operations to prevent out-of-memory crashes when managing large amounts of deleted data.
+* **Fixes & Stability: Soft-Delete Parity:** Fixed a bug where tapping "Delete All" on the watch permanently wiped data, bypassing the recycle bin. Wear OS now respects the unified soft-delete architecture.
+
 ## Version 1.22.5
 *(Released August 4, 2026)*
 
