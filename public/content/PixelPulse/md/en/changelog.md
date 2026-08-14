@@ -1,6 +1,37 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.23.0
+*(Released August 16, 2026)*
+
+Version 1.23.0 brings a massive architectural overhaul to Pixel Pulse, introducing the centralized `AcousticAnalysisEngine` for blazing-fast metric processing, fully customized meter background styles for Wear OS, and robust SQL-backed pagination across the Recycle Bin to completely eliminate memory crashes.
+
+#### 📱 Phone
+* **Core & Performance: Acoustic Analysis Engine:**
+  * Introduced the centralized `AcousticAnalysisEngine` to handle heavy data processing, historical caching (up to 90 days), and metric aggregation in a global singleton state flow.
+  * Migrated both the mobile and watch exposure view models to consume this unified state, completely eliminating redundant database queries and freezing during UI navigation between dashboards and detail screens.
+  * Implemented a "Midnight Shifter" mechanism that reactively recalculates 24-hour and 90-day rolling boundaries precisely at midnight when the app stays open.
+* **Core & Performance: SQL-Backed Recycle Bin & Infinite Scroll:**
+  * Refactored the Recycle Bin management from memory-heavy processing to a two-step, SQL-driven pagination architecture (`getPagedTrashedExposureGroups`).
+  * Added infinite scrolling pagination to safely handle massive datasets, preventing Out-Of-Memory (OOM) exceptions and UI frame drops when managing thousands of deleted entries.
+  * Tied historical caching and UI state updates to a new reactive `historyInvalidationEvent` flow triggered by trash clearing, data restoration, and imports.
+* **UI & UX Polish: Debug & Clipboard Upgrades:**
+  * Modernized clipboard integration in the Debug settings using the new coroutine-based `LocalClipboard` API with structured `ClipData` summaries.
+  * Included a brand-new promotional screenshot (`pixel_compass_screenshot_8.png`) into the `PixelCompassBannerSheet` preview collection.
+
+#### ⌚ Wear OS
+* **New: Selectable Meter Background Styles & Dedicated Screen:**
+  * Introduced a brand-new paginated `BackgroundSelectionScreen` utilizing a `HorizontalPager` with real-time animated previews, smooth scaling, and opacity transitions.
+  * Added support for three distinct, selectable meter background styles: `LEGACY`, `FLUID_WAVE` (flowing radial gradients), and `DYNAMIC_WAVE` (organic multi-layer sine wave animations).
+  * Implemented dynamic animation speed control and theme integration using `MaterialTheme.colorScheme` across the new background renderers.
+* **UI & UX Polish: Optimized Pagers & Smooth Transitions:**
+  * Optimized scrolling performance on the background selection pager by deferring transformation calculations directly to the `graphicsLayer` drawing phase, eliminating unnecessary recompositions.
+  * Replaced the complex animated entry with a clean 400ms `Crossfade` animation for loading states on exposure detail screens.
+* **Fixes & Stability: Lifecycle & Surface Upgrades:**
+  * Migrated wear settings and sync management out of the main view model into a specialized `WearSettingsViewModel`, ensuring precise state observation for premium background tier validation.
+  * Modernized activity transitions (`finishWithoutAnimation`) to support Android 14+ API standards, preventing deprecation warnings.
+  * Hardened background synchronization and quick measurement error handling using centralized error handlers and application-context bindings for tile/complication/widget update receivers.
+
 ## Version 1.22.6
 *(Released August 10, 2026)*
 
