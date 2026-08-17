@@ -1,15 +1,11 @@
 /**
- * Parses a Roadmap Markdown file into a structured object.
- * Supports multiple formats (Pixel Pulse nested style vs Pixel Compass flat lists).
- *
- * @param {string} markdown - The raw Markdown content.
- * @returns {Object} Structured data { sections: [...] }
+ * @param {string} markdown
+ * @returns {Object}
  */
 export const parseRoadmap = (markdown) => {
     if (!markdown) return {sections: []};
 
     const cleanMarkdown = markdown.replace(/\{:.*?\}/g, '');
-
     const rawSections = cleanMarkdown.split(/^## /m);
     const sections = [];
 
@@ -23,19 +19,35 @@ export const parseRoadmap = (markdown) => {
         const titleLine = lines[0].trim();
 
         let status = 'neutral';
-        if (titleLine.includes('✅') || titleLine.includes('🚀') || titleLine.includes('Current') || titleLine.includes('Launched')) status = 'launched';
-        if (titleLine.includes('🧭') || titleLine.includes('📅') || titleLine.includes('Future') || titleLine.includes('Priorities')) status = 'future';
-        if (titleLine.includes('🛠️')) status = 'active';
+        if (/✅|🚀|Current|Launched/i.test(titleLine)) status = 'launched';
+        if (/🧭|📅|Future|Priorities/i.test(titleLine)) status = 'future';
+        if (/🛠️/i.test(titleLine)) status = 'active';
 
-        const cleanTitle = titleLine.replace(/[✅🧭🚀🛠️📅💎🎨⚙️🐛]/g, '').trim();
+        const cleanTitle = titleLine.replace(/[✅🧭🚀🛠️📅💎🎨⚙️🐛📜]/g, '').trim();
+        const isVersionHistory = cleanTitle.toLowerCase().includes('version history');
+
+        let tableData = null;
+
+        if (isVersionHistory) {
+            const tableLines = lines.filter(line => line.trim().startsWith('|'));
+            if (tableLines.length > 2) {
+                const headers = tableLines[0].split('|').map(s => s.trim()).filter(s => s);
+                const rows = tableLines.slice(2).map(row =>
+                    row.split('|').map(s => s.trim()).filter(s => s)
+                );
+                tableData = {headers, rows};
+            }
+        }
 
         const hasSubsections = sectionText.includes('\n### ');
         const groups = [];
+        let sectionTextContent = [];
 
         if (hasSubsections) {
             const rawGroups = sectionText.split(/^### /m);
-
-            const sectionDesc = rawGroups[0].split('\n').slice(1).join('\n').trim();
+            sectionTextContent = rawGroups[0].split('\n').slice(1)
+                .filter(l => l.trim() && !l.trim().startsWith('|') && !l.trim().startsWith('>'))
+                .join('\n').trim();
 
             rawGroups.slice(1).forEach(groupText => {
                 const groupLines = groupText.split('\n');
@@ -47,14 +59,10 @@ export const parseRoadmap = (markdown) => {
                     if (itemMatch) {
                         const content = itemMatch[1];
                         const boldMatch = content.match(/^\*\*(.*?)\*\*:?\s*(.*)/);
-
                         if (boldMatch) {
-                            items.push({
-                                title: boldMatch[1].trim(),
-                                desc: boldMatch[2].trim()
-                            });
+                            items.push({title: boldMatch[1].trim(), desc: boldMatch[2].trim()});
                         } else {
-                            items.push({title: '', desc: content.replace(/\*\*/g, '')});
+                            items.push({title: '', desc: content.trim()});
                         }
                     }
                 });
@@ -65,7 +73,12 @@ export const parseRoadmap = (markdown) => {
             });
         } else {
             const items = [];
+            const paragraphs = [];
+
             lines.slice(1).forEach(line => {
+                const trimmed = line.trim();
+                if (!trimmed || trimmed.startsWith('|') || trimmed.startsWith('>')) return;
+
                 const itemMatch = line.match(/^[\*\-]\s*(.*)/);
                 if (itemMatch) {
                     const content = itemMatch[1];
@@ -73,24 +86,28 @@ export const parseRoadmap = (markdown) => {
                     if (boldMatch) {
                         items.push({title: boldMatch[1].trim(), desc: boldMatch[2].trim()});
                     } else {
-                        items.push({title: '', desc: content});
+                        items.push({title: '', desc: content.trim()});
                     }
+                } else {
+                    paragraphs.push(trimmed);
                 }
             });
+
             if (items.length > 0) {
                 groups.push({title: "General", items});
             }
+            sectionTextContent = paragraphs.join('\n').trim();
         }
 
-        if (groups.length > 0) {
-            sections.push({
-                type: 'phase',
-                id: cleanTitle.toLowerCase().replace(/\s+/g, '-'),
-                title: cleanTitle,
-                status,
-                groups
-            });
-        }
+        sections.push({
+            type: isVersionHistory ? 'history' : 'phase',
+            id: cleanTitle.toLowerCase().replace(/\s+/g, '-'),
+            title: cleanTitle,
+            status,
+            groups,
+            textContent: sectionTextContent,
+            table: tableData
+        });
     });
 
     return {sections};

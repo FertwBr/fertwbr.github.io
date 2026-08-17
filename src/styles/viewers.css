@@ -1301,3 +1301,52 @@
     padding: 20px;
     text-align: center;
 }
+
+.roadmap-text-content {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: var(--md-sys-color-on-surface-variant);
+    margin-bottom: 24px;
+    white-space: pre-wrap;
+}
+
+.roadmap-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 24px;
+    border: 1px solid var(--md-sys-color-outline-variant);
+    background: var(--md-sys-color-surface-container-low);
+    margin-top: 16px;
+}
+
+.roadmap-m3-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+    text-align: left;
+}
+
+.roadmap-m3-table th {
+    background: var(--md-sys-color-surface-container-high);
+    color: var(--md-sys-color-on-surface);
+    padding: 16px 24px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    border-bottom: 2px solid var(--md-sys-color-outline-variant);
+}
+
+.roadmap-m3-table td {
+    padding: 16px 24px;
+    color: var(--md-sys-color-on-surface-variant);
+    font-size: 0.95rem;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.roadmap-m3-table tr:last-child td {
+    border-bottom: none;
+}
+
+.roadmap-m3-table td strong {
+    color: var(--md-sys-color-on-surface);
+    font-weight: 700;
+}
