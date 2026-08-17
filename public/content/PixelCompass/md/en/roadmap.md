@@ -1,54 +1,65 @@
 # Roadmap & Vision
 
-Explore the future of Pixel Compass. This document outlines our planned features, upcoming improvements, and the long-term vision for the ultimate navigation and weather companion.
+Explore the future of Pixel Compass. This document outlines our planned features, upcoming improvements, architectural refactoring, and the long-term vision for the ultimate navigation and weather companion.
 
+## 🚀 Current Status: Version 1.22.2
+We have recently overhauled the Insight Engine for smarter notifications, introduced native Glance Widgets for Wear OS 7+, and deployed the Altitude Auto-Healing system. Our current development cycle is heavily focused on deep architectural refactoring to a unified `shared` module and expanding our weather capabilities.
 
-## 🚀 Current Status: Version 1.15.0 Beta 1
-We have recently unified the design language with Pixel Pulse, introducing responsive layouts for Plus screens and refining the overall UI consistency.
 
 
 ## 🛠️ Immediate Priorities (Next Updates)
 
-### 📱 Phone
-* **Smart Notifications:** Transform the simple persistent notification into a useful "Live Insight". Instead of just saying the app is running, it will display the current weather, future conditions, and the correct condition icon.
-* **Altitude Calibration UX:** Refine the altitude calibration in 'Feet'. Remove redundant 'M' (meters) text when in imperial mode and ensure automatic conversion or a dedicated unit selector for manual calibration.
-* **Master Switch Polish:** Invert the arrow and switch positions in the Master Switch for better ergonomic alignment.
-* **Edge-to-Edge improvements:** Ensure full drawing under system bars across all main screens.
+### 🏗️ Architecture & Refactoring (The "Shared" Module Initiative)
+* **Global Logic Migration:** Refactor all dynamic cards, detail panels, and charts to use global logic within the `shared` module.
+* **Separation of Concerns:** Deep refactor of Detail Panels with better naming conventions, strictly separating UI from business logic, and moving everything possible to the `shared` module.
+* **Weather Analyzer Port:** Move the weather analysis logic to the `shared` module to prepare for multi-platform weather screens.
+* **Smart Analyzers:** Refactor strings and the `Analyzer` engine to utilize smarter, context-aware logic.
+* **Translation Overhaul:** Remove raw string translations from the app layer, relying on the new centralized architecture.
+* **Forecast Fetching:** Fix the logic so the forecast is always reliably fetched again upon an update trigger.
 
-### ⌚ Wear OS
-* **Altitude Complication:** A new complication type to show your current altitude directly on your favorite watch face.
+### 📱 Phone: Weather & Features
+* **Dedicated Weather Screen:** Introduce a completely new, dedicated Weather screen in the app.
+* **Air Quality & Allergies:** Integrate support for Air Quality APIs, including specific data for Pollen and Grass. Add logic to the `Analyzer` to process and surface these insights.
+* **Smart Weather Notifications:** Upgrade rain and weather notifications to be truly intelligent—understanding when rain has stopped, if it's continuing, and auto-updating in real-time instead of freezing at the minute they were generated.
+* **Qibla Direction (Smart Visibility):** Implement a smart toggle for "Show Qibla Direction" in settings. To keep the UI clean, it will only be visible if:
+    1. **GPS/IP:** The user is physically in the Middle East or a Muslim-majority country.
+    2. **Locale/SIM:** The device region/language or SIM card points to one of these countries.
+    3. **Experimental:** The user manually activates "Experimental Features" in advanced settings.
+* **Dynamic Speed Card:** Add a new dynamic card specifically for Speed tracking.
+
+### ⌚ Wear OS 7 Expansion
+* **Wear OS Weather Hub:** Bring the new dedicated Weather experience to Wear OS.
+* **Modern Wear OS 7 Components:** Implement new weather-specific Complications, Tiles, and Widgets specifically leveraging Wear OS 7 capabilities.
+* **Customization:** Improve customization options for existing complications, tiles, and the main Info screen.
+
+### 🧩 Widgets Expansion
+* **Forecast Widgets:** Introduce new dedicated widgets for Daily Forecast and Hourly Forecast (capable of actively fetching data).
+* **Compass Widget Toggle:** Add a setting toggle to show/hide the needle/pointer on the Compass Widget.
+
 
 
 ## 📅 The Future (Planned Milestones)
 
 ### 💎 User Experience & Value
-* **UI Tips & Discovery:** Implement a subtle guidance system to help users discover hidden features like long-press shortcuts and card flipping.
-* **Enhanced Non-Plus Experience:** Improve the app's utility and layout for users who choose not to use Dynamic Cards.
-* **Custom FAB:** Implement a highly customizable Floating Action Button.
-* **Personalized Insights:** Deepen the Insight Engine to provide even more specific outdoor activity recommendations.
+* **Weather Database & Historical Analysis:** Save weather data to a local database (e.g., up to 1 week of history). Transform the weather engine to intelligently compare current conditions with historical data for deeper insights.
 
-### 🎨 Deep Customization
-* **Dynamic Cardinal Shapes:** The compass shape will subtly morph or change detail when pointing exactly to cardinal directions or True North.
-* **Custom Dynamic Cards:** Allow users to create their own information grids, choosing exactly which metrics they want to see and in what order.
-* **Scroll-to-More-Info:** A new interaction on the compass screen to reveal deeper environmental data through scrolling.
+### ⚙️ Technical Evolution & Research
+* **1Hz Android Limitation Study:** Research workarounds (such as associating a Foreground Service with the widget or using Intent-based updates) to bypass the Android OS 1-second (1Hz) update limitation for home screen sensors and widgets.
 
-### ⚙️ Technical Evolution
-* **Offline Mode:** Cache essential topographical data to allow for basic navigation and elevation features when no data connection is available.
-* **16KB Page Size Support:** Optimize the app binary for future Android hardware standards (16kb page alignment).
-* **Widget Expansion:** New widget types including a consolidated "Trip Overview" widget.
+## 📜 Version History (Summary)
 
-
-## 🐛 Known Issues to be Addressed
-* **Customization Screen:** Fix the selection logic for the "Legacy" style in the customization menu.
-* **Subscription States:** Fix regressions in screens related to expired subscriptions and first-time purchase flows.
-* **Sensor Jitter:** Ongoing refinements to low-pass filters for even smoother needle movement on budget hardware.
-
-
-# Version History (Summary)
+*Track the thematic evolution of Pixel Compass. This is a high-level summary of our major milestones.*
 
 | Version | Title | Key Highlight |
-| :--- | :--- | :--- |
-| **1.15.0** | *Harmonization Update* | Responsive layouts and design parity with Pixel Pulse. |
+| : | : | : |
+| **1.22.0** | *The Hub & Auto-Healing Update* | At-a-Glance system hub, widget intelligence, Wear OS 7 Glance widgets, and Altitude Auto-Healing. |
+| **1.21.0** | *The Wind & Control Update* | Advanced wind customizations (Beaufort/Knots), severe weather alert cooldowns, and a customizable FAB. |
+| **1.20.0** | *The Level & Physics Update* | High-performance 3D Volumetric Level tool, liquid AGSL shaders, Flip-to-Align sensory feedback. |
+| **1.19.0** | *The Intelligence & Redundancy Update*| Smart Weather Alerts, OpenWeatherMap fallback engine, and strict hardware magnetometer enforcement. |
+| **1.18.0** | *The Customization Update* | Drag-and-drop Edit Mode, Regional Formats engine, and configurable Wear OS Compass Arcs. |
+| **1.17.0** | *The Expressive & Insight Update* | Expressive Design system, interactive charting, Insight Engine 6.0, and Wear OS Live Complications. |
+| **1.16.0** | *The Power & Altitude Update* | Adaptive Power System, advanced weather insights, and dedicated Altitude Complications/Tiles for Wear OS. |
+| **1.15.0** | *The Professional Update* | Mechanical Haptics, NATO Mils, advanced calibration UI, and Ecosystem Deep Links. |
 | **1.14.0** | *The Clock Update* | Advanced Clock Widget customization and Wear OS color themes. |
 | **1.13.0** | *The Theme Update* | Introduction of AMOLED mode and expanded color palettes. |
 | **1.12.0** | *The Real-Time Update* | High-frequency widget updates and custom widget shapes. |
