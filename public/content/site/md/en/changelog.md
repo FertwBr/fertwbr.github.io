@@ -1,6 +1,27 @@
 # Version History
 Track the evolution of the portfolio. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 4.2.0
+*(Released August 17, 2026)*
+
+This update focuses on significantly enhancing the visual presentation and mobile experience of the Roadmap Viewer. We've introduced rich text and Markdown table support to provide more detailed and structured content within roadmap sections.
+
+*   **New: Rich Text Rendering:** The Roadmap Viewer now fully supports bold and italic Markdown formatting within text descriptions, making content easier to read and emphasize.
+*   **New: Markdown Table Support:** "Version History" and other tabular data can now be rendered directly from Markdown tables. On mobile devices, these tables intelligently transform into responsive cards, while maintaining their traditional structure on larger screens.
+*   **New: General Text Content:** Roadmap sections have been expanded to support general descriptive paragraphs alongside grouped tasks and items.
+*   **UI & UX Polish: Responsive Layouts:** The viewer now dynamically adjusts timeline elements, icon sizes, and padding specifically for mobile devices, ensuring a flawless experience regardless of your screen size.
+*   **UI & UX Polish: Visual Refinements:** We've applied extensive styling updates across all components using Material Design 3 principles. Expect fresh colors, updated roadmap status icons, and refined section cards and contact sections.
+*   **Under the Hood: Improved Parsing Logic:** The internal `roadmapParser` has been completely rewritten to accurately detect section statuses and extract the new content types (general text and tables).
+
+## Version 4.1.1
+*(Released April 15, 2026)*
+
+This minor update includes critical additions to the help documentation and FAQ sections, specifically addressing hardware compatibility and regional weather provider support introduced in recent Pixel Compass updates.
+
+*   **Documentation: Hardware Incompatibility FAQ:** Added clear instructions and FAQ entries explaining the new strict requirement for a physical magnetometer (compass) sensor. It also provides manual refund instructions for affected Pixel Compass+ users and clarifies the continued availability of older versions.
+*   **Documentation: Regional Weather Providers:** Added a new "Weather Providers & Regional Support" section explaining the multi-tiered weather engine (Google Weather primary, OpenWeatherMap fallback), data differences, and guidance for "Region Not Compatible" errors.
+*   **Documentation: Contact Information Update:** Updated the primary support contact email to `suport@fertwbr.com` across the FAQ and help documentation.
+
 ## Version 4.1.0
 *(Released April 14, 2026)*
 

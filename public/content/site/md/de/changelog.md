@@ -1,6 +1,27 @@
 # Versionsverlauf
 Verfolgen Sie die Entwicklung des Portfolios. Hier finden Sie ein detailliertes Protokoll über neue Funktionen, Verbesserungen und Korrekturen für jede Version.
 
+## Version 4.2.0
+*(Veröffentlicht am 17. August 2026)*
+
+Dieses Update konzentriert sich darauf, die visuelle Präsentation und die mobile Erfahrung des Roadmap-Viewers deutlich zu verbessern. Wir haben die Unterstützung für Rich Text und Markdown-Tabellen eingeführt, um detailliertere und strukturiertere Inhalte innerhalb der Roadmap-Abschnitte bereitzustellen.
+
+*   **Neu: Rich-Text-Rendering:** Der Roadmap-Viewer unterstützt nun vollständig fett- und kursivgedruckte Markdown-Formatierungen in den Textbeschreibungen, wodurch die Inhalte leichter zu lesen und hervorzuheben sind.
+*   **Neu: Unterstützung für Markdown-Tabellen:** Der „Versionsverlauf“ und andere tabellarische Daten können nun direkt aus Markdown-Tabellen gerendert werden. Auf mobilen Geräten verwandeln sich diese Tabellen auf intelligente Weise in responsive Karten, während sie auf größeren Bildschirmen ihre traditionelle Struktur beibehalten.
+*   **Neu: Allgemeiner Textinhalt:** Die Roadmap-Abschnitte wurden erweitert, um allgemeine beschreibende Absätze neben gruppierten Aufgaben und Elementen zu unterstützen.
+*   **UI- & UX-Feinschliff: Responsive Layouts:** Der Viewer passt nun die Elemente der Zeitachse, die Symbolgrößen und die Abstände speziell für mobile Geräte dynamisch an, um ein makelloses Erlebnis unabhängig von Ihrer Bildschirmgröße zu gewährleisten.
+*   **UI- & UX-Feinschliff: Visuelle Verfeinerungen:** Wir haben umfassende Stil-Updates für alle Komponenten unter Verwendung der Prinzipien des Material Design 3 angewendet. Erwarten Sie frische Farben, aktualisierte Roadmap-Statussymbole sowie verfeinerte Abschnittskarten und Kontaktbereiche.
+*   **Unter der Haube: Verbesserte Parsing-Logik:** Der interne `roadmapParser` wurde komplett neu geschrieben, um den Status der Abschnitte genau zu erkennen und die neuen Inhaltstypen (allgemeiner Text und Tabellen) zu extrahieren.
+
+## Version 4.1.1
+*(Veröffentlicht am 15. April 2026)*
+
+Dieses kleinere Update enthält wichtige Ergänzungen zur Hilfedokumentation und zu den FAQ-Bereichen, die sich speziell mit der Hardware-Kompatibilität und der Unterstützung durch regionale Wetteranbieter befassen, welche in den jüngsten Updates von Pixel Compass eingeführt wurden.
+
+*   **Dokumentation: FAQ zur Hardware-Inkompatibilität:** Es wurden klare Anweisungen und FAQ-Einträge hinzugefügt, die die neue strikte Anforderung an einen physischen Magnetometer-Sensor (compass) erklären. Außerdem enthält es Anweisungen für manuelle Rückerstattungen für betroffene Nutzer von Pixel Compass+ und klärt die fortgesetzte Verfügbarkeit älterer Versionen.
+*   **Dokumentation: Regionale Wetteranbieter:** Es wurde ein neuer Abschnitt „Wetteranbieter & Regionaler Support“ hinzugefügt, der die mehrstufige Wetter-Engine (Google Weather als primäre Lösung, OpenWeatherMap als Fallback), die Datenunterschiede und die Anleitung für Fehler bei „Region nicht kompatibel“ erklärt.
+*   **Dokumentation: Aktualisierung der Kontaktinformationen:** Die primäre Support-Kontakt-e-mail wurde in den gesamten FAQ und der Hilfedokumentation auf `suport@fertwbr.com` aktualisiert.
+
 ## Version 4.1.0
 *(Released April 14, 2026)*
 

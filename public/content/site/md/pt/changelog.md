@@ -1,6 +1,27 @@
 # Histórico de Versões
 Acompanhe a evolução do portfólio. Aqui você encontrará um registro detalhado de novos recursos, melhorias e correções para cada versão.
 
+## Versão 4.2.0
+*(Lançada em 17 de agosto de 2026)*
+
+Esta atualização tem como foco aprimorar significativamente a apresentação visual e a experiência em dispositivos móveis do Visualizador de Roadmap. Introduzimos o suporte a rich text e a tabelas Markdown com o objetivo de fornecer um conteúdo mais detalhado e estruturado dentro das seções do roadmap.
+
+*   **Novo: Renderização de Rich Text:** O Visualizador de Roadmap agora suporta totalmente a formatação Markdown em negrito e itálico nas descrições de texto, o que torna o conteúdo mais fácil de ler e enfatizar.
+*   **Novo: Suporte a Tabelas Markdown:** O "Histórico de Versões" e outros dados tabulares agora podem ser renderizados diretamente a partir de tabelas Markdown. Em dispositivos móveis, essas tabelas se transformam de forma inteligente em cartões responsivos, ao passo que mantêm a sua estrutura tradicional em telas maiores.
+*   **Novo: Conteúdo de Texto Geral:** As seções do roadmap foram expandidas para suportar parágrafos descritivos gerais juntamente com tarefas e itens agrupados.
+*   **Aprimoramento de UI e UX: Layouts Responsivos:** O visualizador agora ajusta dinamicamente os elementos da linha do tempo, os tamanhos dos ícones e o preenchimento especificamente para dispositivos móveis, para garantir uma experiência impecável independentemente do tamanho da sua tela.
+*   **Aprimoramento de UI e UX: Refinamentos Visuais:** Aplicamos extensas atualizações de estilo em todos os componentes por meio dos princípios do Material Design 3. Espere cores novas, ícones de status de roadmap atualizados e cartões de seção e áreas de contato refinadas.
+*   **Nos Bastidores: Lógica de Análise Aprimorada:** O `roadmapParser` interno foi completamente reescrito para detectar com precisão os status das seções e extrair os novos tipos de conteúdo (texto geral e tabelas).
+
+## Versão 4.1.1
+*(Lançada em 15 de abril de 2026)*
+
+Esta atualização menor inclui adições essenciais à documentação de ajuda e às seções de FAQ, e aborda especificamente a compatibilidade de hardware e o suporte de provedores regionais de clima introduzidos nas atualizações recentes do Pixel Compass.
+
+*   **Documentação: FAQ de Incompatibilidade de Hardware:** Adicionamos instruções claras e entradas de FAQ que explicam o novo requisito estrito para um sensor de magnetômetro físico (compass). O texto também fornece instruções de reembolso manual aos usuários afetados do Pixel Compass+ e esclarece a disponibilidade contínua das versões mais antigas.
+*   **Documentação: Provedores Regionais de Clima:** Adicionamos uma nova seção de "Provedores de Clima e Suporte Regional", a qual explica o mecanismo meteorológico em várias camadas (Google Weather como principal, OpenWeatherMap como alternativa), as diferenças de dados e as orientações para erros de "Região Incompatível".
+*   **Documentação: Atualização das Informações de Contato:** Atualizamos o e-mail de contato principal de suporte para `suport@fertwbr.com` em todo o FAQ e na documentação de ajuda.
+
 ## Version 4.1.0
 *(Released April 14, 2026)*
 
