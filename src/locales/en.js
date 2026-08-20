@@ -4,7 +4,7 @@ import pixel_pulse from './modules/pixel_pulse/en';
 import pixel_compass from './modules/pixel_compass/en';
 import apps_home from './modules/apps_home/en';
 import gemini_expressive from './modules/gemini_expressive/en';
-
+import pixel_measure from './modules/pixel_measure/en';
 /**
  * Aggregator for English localization resources.
  * The LanguageContext handles the distribution of shared strings.
@@ -14,6 +14,7 @@ export default {
     portfolio,
     pixel_pulse,
     pixel_compass,
+    pixel_measure,
     apps_home,
     gemini_expressive
 };
