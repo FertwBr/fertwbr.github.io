@@ -1,4 +1,3 @@
-// src/locales/shared/ja.js
 /**
  * コア共有ローカリゼーション文字列。
  * 一般的なUI要素、エラー状態、フォーム、および共通のビューアページが含まれます。
@@ -179,6 +178,7 @@ export default {
         projects: {
             pixelpulse: "Pixel Pulse",
             pixelcompass: "Pixel Compass",
+            pixelmeasure: "Pixel Measure",
             portfolio: "ポートフォリオサイト"
         },
         platforms: {

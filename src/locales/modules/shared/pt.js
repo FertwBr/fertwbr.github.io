@@ -177,7 +177,7 @@ export default {
         },
         projects: {
             pixelpulse: "Pixel Pulse",
-            pixelcompass: "Pixel Compass",
+            pixelmeasure: "Pixel Measure",
             portfolio: "Site do Portfólio"
         },
         platforms: {

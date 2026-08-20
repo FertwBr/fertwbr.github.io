@@ -1,4 +1,3 @@
-// src/locales/shared/de.js
 /**
  * Gemeinsame Lokalisierungs-Strings.
  * Beinhaltet allgemeine UI-Elemente, Fehlerstatus, Formulare und universelle Ansichtsseiten.
@@ -179,6 +178,7 @@ export default {
         projects: {
             pixelpulse: "Pixel Pulse",
             pixelcompass: "Pixel Compass",
+            pixelmeasure: "Pixel Measure",
             portfolio: "Portfolio-Website"
         },
         platforms: {

@@ -178,6 +178,7 @@ export default {
         projects: {
             pixelpulse: "Pixel Pulse",
             pixelcompass: "Pixel Compass",
+            pixelmeasure: "Pixel Measure",
             portfolio: "Portfolio Site"
         },
         platforms: {
