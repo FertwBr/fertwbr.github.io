@@ -44,9 +44,12 @@ function deepMerge(base, override) {
 }
 
 /**
- * @param {Object} rawLang
- * @param {Object} defaultLang
- * @returns {Object}
+ * Builds the final localized content object by merging specific modules
+ * with the shared translations.
+ *
+ * @param {Object} rawLang - The raw imported language object for the selected locale.
+ * @param {Object} defaultLang - The default language object (English) used as a fallback.
+ * @returns {Object} The complete, merged localization dictionary ready for components.
  */
 function buildContent(rawLang, defaultLang) {
     const mergedLang = deepMerge(defaultLang, rawLang);
@@ -55,6 +58,7 @@ function buildContent(rawLang, defaultLang) {
     const portfolio = mergedLang.portfolio || {};
     const pixel_pulse = mergedLang.pixel_pulse || {};
     const pixel_compass = mergedLang.pixel_compass || {};
+    const pixel_measure = mergedLang.pixel_measure || {};
     const apps_home = mergedLang.apps_home || {};
     const gemini_expressive = mergedLang.gemini_expressive || {};
 
@@ -65,15 +69,20 @@ function buildContent(rawLang, defaultLang) {
         portfolio,
         pixel_pulse: deepMerge(shared, pixel_pulse),
         pixel_compass: deepMerge(shared, pixel_compass),
+        pixel_measure: deepMerge(shared, pixel_measure),
         apps_home: deepMerge(shared, apps_home),
         gemini_expressive: deepMerge(shared, gemini_expressive)
     };
 }
 
 /**
- * @param {Object} props
- * @param {React.ReactNode} props.children
- * @returns {JSX.Element}
+ * Provides the application's localization state and functions to child components.
+ * Manages the current language selection, handles auto-detection, and persists
+ * user preferences to localStorage.
+ *
+ * @param {Object} props - Component properties.
+ * @param {React.ReactNode} props.children - The child components wrapped by this provider.
+ * @returns {JSX.Element} The LanguageContext Provider.
  */
 export function LanguageProvider({children}) {
     const [language, setLanguage] = useState('en');
@@ -92,6 +101,10 @@ export function LanguageProvider({children}) {
         }
     }, []);
 
+    /**
+     * Detects the user's browser language and applies it if supported.
+     * Falls back to English if the browser language is not supported.
+     */
     const detectAndSetLanguage = () => {
         const browserLang = navigator.language.split('-')[0];
         const targetLang = languages[browserLang] ? browserLang : 'en';
@@ -102,7 +115,10 @@ export function LanguageProvider({children}) {
     };
 
     /**
-     * @param {string} langCode
+     * Changes the application's active language and persists the choice.
+     * If 'auto' is selected, it clears the stored preference and detects the browser's language.
+     *
+     * @param {string} langCode - The code of the target language (e.g., 'en', 'pt') or 'auto'.
      */
     const changeLanguage = (langCode) => {
         if (langCode === 'auto') {
@@ -133,8 +149,10 @@ export function LanguageProvider({children}) {
 }
 
 /**
- * @returns {{language: string, content: Object, changeLanguage: Function, isAuto: boolean, availableLanguages: string[]}}
- * @throws {Error}
+ * Custom hook to consume the LanguageContext.
+ *
+ * @returns {{language: string, content: Object, changeLanguage: Function, isAuto: boolean, availableLanguages: string[]}} The localization state and functions.
+ * @throws {Error} If used outside of a LanguageProvider.
  */
 export const useLanguage = () => {
     const context = useContext(LanguageContext);
