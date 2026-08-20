@@ -15,6 +15,7 @@ import AppsHome from './pages/apps-home/AppsHome';
 import NotFound from './pages/NotFound';
 import PixelCompassPage from './pages/pixel-compass/PixelCompassPage';
 import PixelPulsePage from './pages/pixel-pulse/PixelPulsePage';
+import PixelMeasurePage from './pages/pixel-measure/PixelMeasurePage';
 import GeminiExpressivePage from './pages/gemini-expressive/GeminiExpressivePage';
 import RedirectToStore from './pages/RedirectToStore';
 import SiteProjectPage from './pages/SiteProjectPage';
@@ -22,12 +23,15 @@ import FeedbackPage from "./pages/FeedbackPage";
 
 import {pixelPulseConfig} from './pages/pixel-pulse/PixelPulseConfig';
 import {pixelCompassConfig} from './pages/pixel-compass/PixelCompassConfig';
+import {pixelMeasureConfig} from './pages/pixel-measure/PixelMeasureConfig';
 import {geminiExpressiveConfig} from './pages/gemini-expressive/GeminiExpressiveConfig';
 import {siteProjectConfig} from './config';
 import {setupThemeListener} from './theme/themeUtils';
 
 /**
  * Determines which Home component to render based on the hostname.
+ *
+ * @returns {JSX.Element} The rendered home component.
  */
 const DomainAwareHome = () => {
     const hostname = window.location.hostname;
@@ -41,19 +45,9 @@ const DomainAwareHome = () => {
 };
 
 /**
- * AnimatedRoutes
+ * Provides the application's route definitions and enables animated page transitions.
  *
- * Provides the application's route definitions and enables animated page
- * transitions. Responsibilities:
- * - Wraps route tree with framer-motion's AnimatePresence to allow exit/enter
- * animations when location changes.
- * - Reads the current location from react-router's useLocation and keys the
- * Routes to the pathname to trigger animations.
- * - Collects valid page IDs from configuration objects and supplies them to
- * RouteNormalizer to validate dynamic routes and render a fallback
- * (NotFound) for unknown IDs.
- * - Declares static routes, redirects, domain-aware home selection, and
- * per-app routes (PixelPulse / PixelCompass) including store redirect paths.
+ * @returns {JSX.Element} The animated route wrapper.
  */
 function AnimatedRoutes() {
     const location = useLocation();
@@ -61,6 +55,7 @@ function AnimatedRoutes() {
     const siteIds = Object.keys(siteProjectConfig.pages);
     const pulseIds = Object.keys(pixelPulseConfig.pages);
     const compassIds = Object.keys(pixelCompassConfig.pages);
+    const measureIds = Object.keys(pixelMeasureConfig.pages);
     const geminiExpressiveIds = Object.keys(geminiExpressiveConfig.pages);
 
     useEffect(() => {
@@ -126,6 +121,21 @@ function AnimatedRoutes() {
                     }
                 />
 
+                <Route path="/pixelmeasure/open" element={<RedirectToStore type="open" appKey="pixelmeasure"/>}/>
+                <Route path="/pixelmeasure/open/buy" element={<RedirectToStore type="buy" appKey="pixelmeasure"/>}/>
+                <Route path="/pixelmeasure" element={<PixelMeasurePage/>}/>
+                <Route path="/PixelMeasure" element={<Navigate to="/pixelmeasure" replace/>}/>
+
+                <Route path="/pixelmeasure/changelog/:versionId" element={<PixelMeasurePage forcedTab="changelog"/>}/>
+                <Route
+                    path="/pixelmeasure/:pageId"
+                    element={
+                        <RouteNormalizer basePath="/pixelmeasure" validIds={measureIds} fallback={<NotFound/>}>
+                            <PixelMeasurePage/>
+                        </RouteNormalizer>
+                    }
+                />
+
                 <Route path="/geminiexpressive" element={<GeminiExpressivePage/>}/>
                 <Route path="/GeminiExpressive" element={<Navigate to="/geminiexpressive" replace/>}/>
 
@@ -147,6 +157,11 @@ function AnimatedRoutes() {
     );
 }
 
+/**
+ * Main App component.
+ *
+ * @returns {JSX.Element} The root application tree.
+ */
 export default function App() {
     return (
         <ErrorBoundary>
