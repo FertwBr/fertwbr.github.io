@@ -1,4 +1,9 @@
-import React, {useState, useEffect} from 'react';
+/**
+ * @file ProductPage.jsx
+ * @description Generic layout container for product pages with dynamic theme and markdown loading.
+ */
+
+import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
@@ -25,6 +30,14 @@ import HashScrollHandler from '../components/common/HashScrollHandler';
 import TermsViewer from "../components/viewers/TermsViewer.jsx";
 import AppLayout from "../components/layout/AppLayout.jsx";
 
+/**
+ * @param {Object} props
+ * @param {Object} props.config
+ * @param {React.ComponentType} props.HomeComponent
+ * @param {string} props.translationKey
+ * @param {string} props.forcedTab
+ * @returns {JSX.Element}
+ */
 export default function ProductPage({config, HomeComponent, translationKey, forcedTab}) {
     const {content} = useLanguage();
     const t = content[translationKey] || {};
@@ -33,7 +46,15 @@ export default function ProductPage({config, HomeComponent, translationKey, forc
 
     const forceLoading = new URLSearchParams(location.search).get('testLoading') === 'true';
 
-    const routeBasePath = config.appId.includes('pixelpulse') ? '/pixelpulse' : '/pixelcompass';
+    let routeBasePath = '/pixelcompass';
+    if (config.appId.includes('pixelpulse')) {
+        routeBasePath = '/pixelpulse';
+    } else if (config.appId.includes('pixelmeasure')) {
+        routeBasePath = '/pixelmeasure';
+    } else if (config.appId.includes('geminiexpressive')) {
+        routeBasePath = '/geminiexpressive';
+    }
+
     const configWithRoute = {...config, routeBasePath, defaultPage: forcedTab || config.defaultPage};
 
     const {activeTab, handleNavigation: internalNav} = useTabState(configWithRoute);
@@ -54,7 +75,7 @@ export default function ProductPage({config, HomeComponent, translationKey, forc
 
     const onNavigate = (id) => {
         if (id === 'feedback') {
-            const source = config.appId.includes('pixelpulse') ? 'pixelpulse' : 'pixelcompass';
+            const source = config.appId.includes('pixelpulse') ? 'pixelpulse' : config.appId.includes('pixelmeasure') ? 'pixelmeasure' : 'pixelcompass';
             handleContactSupport('feedback', navigate, {source: source, platform: 'android'});
         } else {
             internalNav(id);

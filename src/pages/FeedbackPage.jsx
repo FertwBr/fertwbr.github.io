@@ -13,14 +13,16 @@ import CustomSelect from "../components/ui/CustomSelect.jsx";
 import {siteProjectConfig} from "../config.js";
 import {pixelCompassConfig} from "./pixel-compass/PixelCompassConfig.js";
 import {pixelPulseConfig} from "./pixel-pulse/PixelPulseConfig.js";
+import {pixelMeasureConfig} from "./pixel-measure/PixelMeasureConfig.js";
 import {geminiExpressiveConfig} from "./gemini-expressive/GeminiExpressiveConfig.js";
 import AppLayout from '../components/layout/AppLayout';
 import '../styles/feedback.css';
 
 /**
  * Converts a File object to a Base64 string.
- * @param {File} file
- * @returns {Promise<string>}
+ *
+ * @param {File} file The file to be converted.
+ * @returns {Promise<string>} A promise that resolves to the Base64 representation of the file.
  */
 const toBase64 = (file) => new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -29,6 +31,13 @@ const toBase64 = (file) => new Promise((resolve, reject) => {
     reader.onerror = error => reject(error);
 });
 
+/**
+ * Main Feedback Page component.
+ * Implements a multi-step wizard for submitting feedback, bug reports, or feature requests.
+ * Routes context dynamically based on the source product (Pixel Pulse, Measure, Compass, etc).
+ *
+ * @returns {JSX.Element} The rendered Feedback Page.
+ */
 export default function FeedbackPage() {
     const {content, language} = useLanguage();
     const t = content.feedback || {};
@@ -41,6 +50,7 @@ export default function FeedbackPage() {
         {value: "portfolio", label: t.projects?.portfolio || "Portfolio Site"},
         {value: "pixelpulse", label: t.projects?.pixelpulse || "Pixel Pulse"},
         {value: "pixelcompass", label: t.projects?.pixelcompass || "Pixel Compass"},
+        {value: "pixelmeasure", label: t.projects?.pixelmeasure || "Pixel Measure"},
         {value: "geminiexpressive", label: t.projects?.geminiexpressive || "Gemini Expressive"}
     ];
 
@@ -77,6 +87,13 @@ export default function FeedbackPage() {
                     config: pixelCompassConfig,
                     strings: content.pixel_compass || {},
                     backPath: '/pixelcompass',
+                    isPortfolio: false
+                };
+            case 'pixelmeasure':
+                return {
+                    config: pixelMeasureConfig,
+                    strings: content.pixel_measure || {},
+                    backPath: '/pixelmeasure',
                     isPortfolio: false
                 };
             case 'geminiexpressive':
@@ -146,12 +163,18 @@ export default function FeedbackPage() {
         setGuidanceKey(getGuidanceKey(type, message, t));
     }, [type, message, t]);
 
+    /**
+     * @param {React.ChangeEvent<HTMLInputElement>} e
+     */
     const handleFileChange = (e) => {
         if (e.target.files && e.target.files[0]) {
             setAttachment(e.target.files[0]);
         }
     };
 
+    /**
+     * @returns {boolean} True if the form inputs are valid.
+     */
     const validateForm = () => {
         const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
         const isMessageValid = message.trim().length >= 15;
@@ -234,6 +257,9 @@ export default function FeedbackPage() {
         }
     };
 
+    /**
+     * @param {string} target Route target ID.
+     */
     const handleNavigation = (target) => {
         if (target === 'index' || target === 'back') {
             navigate(projectContext.backPath);

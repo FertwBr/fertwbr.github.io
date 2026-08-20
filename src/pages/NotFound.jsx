@@ -14,6 +14,31 @@ import AppLayout from '../components/layout/AppLayout';
 
 const SITE_MAP = [
     {
+        keywords: ['pixelmeasure/changelog', 'measure/changelog'],
+        path: '/pixelmeasure/changelog',
+        name: 'Pixel Measure Updates'
+    },
+    {
+        keywords: ['pixelmeasure/privacy', 'measure/privacy'],
+        path: '/pixelmeasure/privacy',
+        name: 'Pixel Measure Privacy'
+    },
+    {
+        keywords: ['pixelmeasure/terms', 'measure/terms'],
+        path: '/pixelmeasure/terms',
+        name: 'Pixel Measure Terms'
+    },
+    {
+        keywords: ['pixelmeasure/help', 'measure/help'],
+        path: '/pixelmeasure/help',
+        name: 'Pixel Measure Help'
+    },
+    {
+        keywords: ['pixelmeasure', 'measure', 'ar', 'ruler'],
+        path: '/pixelmeasure',
+        name: 'Pixel Measure'
+    },
+    {
         keywords: ['geminiexpressive/changelog', 'gemini/changelog'],
         path: '/geminiexpressive/changelog',
         name: 'Gemini Expressive Updates'
@@ -106,7 +131,11 @@ const SITE_MAP = [
 ];
 
 /**
- * @returns {JSX.Element}
+ * 404 Not Found Page Component.
+ * Displays a friendly error message when a route is not matched,
+ * and attempts to intelligently suggest a valid route based on the URL keywords.
+ *
+ * @returns {JSX.Element} The rendered Not Found page.
  */
 export default function NotFound() {
     const location = useLocation();
@@ -268,10 +297,10 @@ export default function NotFound() {
                                 <span className="material-symbols-outlined">graphic_eq</span>
                                 Pixel Pulse
                             </Link>
-                            <Link to="/geminiexpressive" className="btn-outline"
+                            <Link to="/pixelmeasure" className="btn-outline"
                                   style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
-                                <span className="material-symbols-outlined">extension</span>
-                                Gemini Expressive
+                                <span className="material-symbols-outlined">architecture</span>
+                                Pixel Measure
                             </Link>
                         </div>
                     </div>
