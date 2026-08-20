@@ -108,6 +108,43 @@
     </url>
 
     <url>
+        <loc>https://apps.fertwbr.com/pixelmeasure</loc>
+        <lastmod>2026-08-17</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://apps.fertwbr.com/pixelmeasure/plus</loc>
+        <lastmod>2026-08-17</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://apps.fertwbr.com/pixelmeasure/changelog</loc>
+        <lastmod>2026-08-17</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://apps.fertwbr.com/pixelmeasure/roadmap</loc>
+        <lastmod>2026-08-17</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://apps.fertwbr.com/pixelmeasure/privacy</loc>
+        <lastmod>2026-08-17</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://apps.fertwbr.com/pixelmeasure/help</loc>
+        <lastmod>2026-08-17</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <url>
         <loc>https://tools.fertwbr.com/geminiexpressive</loc>
         <lastmod>2026-04-04</lastmod>
         <changefreq>weekly</changefreq>
