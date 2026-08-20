@@ -3,6 +3,8 @@ import {useRef} from "react";
 import {Link, useNavigate} from "react-router-dom";
 
 /**
+ * Projects section component.
+ *
  * @param {Object} props
  * @param {Object} props.t
  * @returns {JSX.Element}
@@ -29,6 +31,9 @@ export default function Projects({t}) {
 }
 
 /**
+ * Individual Project Card component.
+ * Features a 3D tilt effect on the visual container and alternating layout.
+ *
  * @param {Object} props
  * @param {Object} props.project
  * @param {Object} props.t
@@ -39,6 +44,7 @@ function ProjectCard({project, t, index}) {
     const ref = useRef(null);
     const navigate = useNavigate();
 
+    // 3D Tilt Logic
     const x = useMotionValue(0);
     const y = useMotionValue(0);
 
@@ -52,7 +58,7 @@ function ProjectCard({project, t, index}) {
      * @param {React.MouseEvent<HTMLDivElement>} e
      */
     const handleMouseMove = (e) => {
-        if (window.innerWidth < 768) return;
+        if (window.innerWidth < 900) return;
         const rect = e.currentTarget.getBoundingClientRect();
         const xPct = (e.clientX - rect.left) / rect.width - 0.5;
         const yPct = (e.clientY - rect.top) / rect.height - 0.5;
@@ -80,9 +86,6 @@ function ProjectCard({project, t, index}) {
         }
     };
 
-    /**
-     * @returns {JSX.Element}
-     */
     const ViewButton = () => {
         const content = (
             <>
@@ -110,13 +113,16 @@ function ProjectCard({project, t, index}) {
         );
     };
 
+    // Alternate layout for even/odd items
+    const isReversed = index % 2 !== 0;
+
     return (
         <motion.div
             initial={{opacity: 0, y: 40}}
             whileInView={{opacity: 1, y: 0}}
             viewport={{once: true, margin: "-50px"}}
             transition={{duration: 0.6}}
-            className="project-card-wrapper"
+            className={`project-card-wrapper ${isReversed ? 'reversed' : ''}`}
         >
             <motion.div
                 ref={ref}
@@ -131,19 +137,35 @@ function ProjectCard({project, t, index}) {
                 }}
                 className="glass-card project-card-visual"
             >
+                {/* Visual Layers: Pattern, Glow, then the actual 3D icon */}
+                <div className="project-card-pattern"></div>
+
+                {project.icon_url && (
+                    <div
+                        className="project-card-glow"
+                        style={{ backgroundImage: `url(${project.icon_url})` }}
+                    ></div>
+                )}
+
                 <div className="project-card-3d-inner">
                     {project.icon_url ? (
                         <img
                             src={project.icon_url}
                             alt={project.title}
-                            className="project-card-image"
+                            className="project-app-icon"
                         />
                     ) : (
-                        <span className="material-symbols-outlined project-card-icon" style={{
-                            color: `var(--md-sys-color-${project.color})`
-                        }}>
-                            {project.icon}
-                        </span>
+                        <div
+                            className="project-generic-wrapper"
+                            style={{ background: `var(--md-sys-color-${project.color}-container)` }}
+                        >
+                            <span
+                                className="material-symbols-outlined project-generic-icon"
+                                style={{ color: `var(--md-sys-color-on-${project.color}-container)` }}
+                            >
+                                {project.icon}
+                            </span>
+                        </div>
                     )}
                 </div>
             </motion.div>

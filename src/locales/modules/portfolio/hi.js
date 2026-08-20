@@ -1,4 +1,3 @@
-// src/locales/modules/portfolio/hi.js
 export default {
     nav: {
         index: "होम",
@@ -61,12 +60,24 @@ export default {
         source_code: "सोर्स कोड",
         items: [
             {
+                id: "pixel_measure",
+                title: "Pixel Measure",
+                category: "ऑगमेंटेड रियलिटी",
+                desc: "वास्तविक समय में दूरियों, क्षेत्रों की गणना करने और आभासी 3D वस्तुओं को रखने में सक्षम ARCore-संचालित मापन उपकरण।",
+                tags: ["Kotlin", "ARCore", "Compose", "Filament"],
+                icon_url: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Measure/art/icon.svg",
+                link: "/PixelMeasure?page=index",
+                repo: "https://github.com/fertwbr/PixelMeasure",
+                color: "primary",
+                icon: "architecture"
+            },
+            {
                 id: "pixel_pulse",
                 title: "Pixel Pulse",
                 category: "Android इंजीनियरिंग",
                 desc: "रीयल-टाइम FFT विश्लेषण, Room Database दृढ़ता और WorkManager के माध्यम से बैटरी-अनुकूलित पृष्ठभूमि सेवाओं की विशेषता वाला उन्नत ध्वनि स्तर मीटर।",
                 tags: ["Kotlin", "Compose", "FFT", "Room"],
-                icon_url: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Pulse/art/phone.svg",
+                icon_url: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Pulse/art/icon.svg",
                 link: "/PixelPulse?page=index",
                 repo: "https://github.com/fertwbr/PixelPulse",
                 color: "primary",
@@ -78,7 +89,7 @@ export default {
                 category: "Wear OS और मोबाइल",
                 desc: "सेंसर फ्यूजन एल्गोरिदम, Jetpack Glance विजेट और चिंताओं के स्पष्ट पृथक्करण के लिए मल्टी-मॉड्यूल आर्किटेक्चर के साथ प्रीमियम नेविगेशन टूल।",
                 tags: ["Wear OS", "सेंसर", "Glance", "Retrofit"],
-                icon_url: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/phone.svg",
+                icon_url: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/icon.svg",
                 link: "/PixelCompass?page=index",
                 repo: "https://github.com/fertwbr/PixelCompass",
                 color: "primary",

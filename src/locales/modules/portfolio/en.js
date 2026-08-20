@@ -1,4 +1,6 @@
-// src/locales/modules/portfolio/en.js
+/**
+ * English localization resources for the Portfolio application.
+ */
 export default {
     nav: {
         index: "Home",
@@ -61,12 +63,24 @@ export default {
         source_code: "Source Code",
         items: [
             {
+                id: "pixel_measure",
+                title: "Pixel Measure",
+                category: "Augmented Reality",
+                desc: "An ARCore-powered measuring tool capable of calculating distances, areas, and placing virtual 3D objects in real-time.",
+                tags: ["Kotlin", "ARCore", "Compose", "Filament"],
+                icon_url: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Measure/art/icon.svg",
+                link: "/PixelMeasure?page=index",
+                repo: "https://github.com/fertwbr/PixelMeasure",
+                color: "primary",
+                icon: "architecture"
+            },
+            {
                 id: "pixel_pulse",
                 title: "Pixel Pulse",
                 category: "Android Engineering",
                 desc: "Advanced sound level meter featuring real-time FFT analysis, Room Database persistence, and battery-optimized background services via WorkManager.",
                 tags: ["Kotlin", "Compose", "FFT", "Room"],
-                icon_url: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Pulse/art/phone.svg",
+                icon_url: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Pulse/art/icon.svg",
                 link: "/PixelPulse?page=index",
                 repo: "https://github.com/fertwbr/PixelPulse",
                 color: "primary",
@@ -78,7 +92,7 @@ export default {
                 category: "Wear OS & Mobile",
                 desc: "Premium navigation tool with sensor fusion algorithms, Jetpack Glance widgets, and multi-module architecture for clean separation of concerns.",
                 tags: ["Wear OS", "Sensors", "Glance", "Retrofit"],
-                icon_url: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/phone.svg",
+                icon_url: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/icon.svg",
                 link: "/PixelCompass?page=index",
                 repo: "https://github.com/fertwbr/PixelCompass",
                 color: "primary",

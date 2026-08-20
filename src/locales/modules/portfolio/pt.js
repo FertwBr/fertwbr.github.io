@@ -1,4 +1,3 @@
-// src/locales/modules/portfolio/pt.js
 export default {
     nav: {
         index: "Início",
@@ -55,18 +54,30 @@ export default {
         }
     },
     projects: {
-        title: "Trabalhos Selecionados",
+        title: "Trabalhos Seleccionados",
         subtitle: "Uma vitrine de profundidade técnica e resolução criativa de problemas.",
         view_project: "Ver Estudo de Caso",
         source_code: "Código Fonte",
         items: [
+            {
+                id: "pixel_measure",
+                title: "Pixel Measure",
+                category: "Realidade Aumentada",
+                desc: "Uma ferramenta de medição com tecnologia ARCore capaz de calcular distâncias, áreas e posicionar objetos 3D virtuais em tempo real.",
+                tags: ["Kotlin", "ARCore", "Compose", "Filament"],
+                icon_url: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Measure/art/icon.svg",
+                link: "/PixelMeasure?page=index",
+                repo: "https://github.com/fertwbr/PixelMeasure",
+                color: "primary",
+                icon: "architecture"
+            },
             {
                 id: "pixel_pulse",
                 title: "Pixel Pulse",
                 category: "Engenharia Android",
                 desc: "Medidor de nível de som avançado com análise FFT em tempo real, persistência com Room Database e serviços em segundo plano otimizados para bateria via WorkManager.",
                 tags: ["Kotlin", "Compose", "FFT", "Room"],
-                icon_url: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Pulse/art/phone.svg",
+                icon_url: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Pulse/art/icon.svg",
                 link: "/PixelPulse?page=index",
                 repo: "https://github.com/fertwbr/PixelPulse",
                 color: "primary",
@@ -78,7 +89,7 @@ export default {
                 category: "Wear OS e Dispositivos Móveis",
                 desc: "Ferramenta de navegação premium com algoritmos de fusão de sensores, widgets do Jetpack Glance e arquitetura multimodular para separação limpa de responsabilidades.",
                 tags: ["Wear OS", "Sensores", "Glance", "Retrofit"],
-                icon_url: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/phone.svg",
+                icon_url: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/icon.svg",
                 link: "/PixelCompass?page=index",
                 repo: "https://github.com/fertwbr/PixelCompass",
                 color: "primary",
@@ -125,7 +136,7 @@ export default {
         title: "Código Aberto", view_profile: "Ver Perfil no GitHub", languages: "Idiomas Mais Utilizados",
         default_bio: "A desenvolver soluções para Android e Web.",
         stats: {
-            contributions: "Contribuições Anuais",
+            contributions: "Contribuições Anuales",
             repos: "Repositórios",
             stars: "Total de Estrelas",
             followers: "Seguidores"

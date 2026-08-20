@@ -1,4 +1,3 @@
-// src/locales/modules/portfolio/ja.js
 export default {
     nav: {
         index: "ホーム",
@@ -61,12 +60,24 @@ export default {
         source_code: "ソースコード",
         items: [
             {
+                id: "pixel_measure",
+                title: "Pixel Measure",
+                category: "拡張現実",
+                desc: "距離や面積を計算し、仮想3Dオブジェクトをリアルタイムで配置できるARCore搭載の測定ツール。",
+                tags: ["Kotlin", "ARCore", "Compose", "Filament"],
+                icon_url: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Measure/art/icon.svg",
+                link: "/PixelMeasure?page=index",
+                repo: "https://github.com/fertwbr/PixelMeasure",
+                color: "primary",
+                icon: "architecture"
+            },
+            {
                 id: "pixel_pulse",
                 title: "Pixel Pulse",
                 category: "Androidエンジニアリング",
                 desc: "リアルタイムのFFT分析、Room Databaseの永続性、およびWorkManagerを介したバッテリー最適化されたバックグラウンドサービスを備えた高度な騒音計。",
                 tags: ["Kotlin", "Compose", "FFT", "Room"],
-                icon_url: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Pulse/art/phone.svg",
+                icon_url: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Pulse/art/icon.svg",
                 link: "/PixelPulse?page=index",
                 repo: "https://github.com/fertwbr/PixelPulse",
                 color: "primary",
@@ -78,7 +89,7 @@ export default {
                 category: "Wear OSとモバイル",
                 desc: "センサーフュージョンアルゴリズム、Jetpack Glanceウィジェット、および関心事のクリーンな分離のためのマルチモジュールアーキテクチャを備えたプレミアムナビゲーションツール。",
                 tags: ["Wear OS", "センサー", "Glance", "Retrofit"],
-                icon_url: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/phone.svg",
+                icon_url: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/icon.svg",
                 link: "/PixelCompass?page=index",
                 repo: "https://github.com/fertwbr/PixelCompass",
                 color: "primary",
