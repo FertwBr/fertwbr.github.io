@@ -1,6 +1,39 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.23.2
+*(Released August 25, 2026)*
+
+This critical hotfix resolves a severe database memory leak causing app crashes during smartwatch synchronization. It also addresses an issue where the app could freeze on the splash screen when opened on unstable mobile networks, and adds visual polish to the main meter buttons.
+
+#### 📱 Phone
+* **Fixes & Stability: Database Out-Of-Memory (OOM) Crash:** Fixed a critical bug where repeated wearable synchronizations were infinitely duplicating exposure records, swelling the internal SQLite database (WAL file) to over 1GB and causing memory crashes.
+  * **Auto-Healing:** We introduced a database migration that will automatically detect and safely purge hundreds of thousands of existing duplicates from older databases.
+  * **Strict Constraints:** Added strict chronological uniqueness constraints to the database to permanently forbid duplicate entries from ever being saved again.
+  * **Safe Cleanup:** Replaced an unsafe file-deletion cleanup mechanism with a graceful SQL checkpoint to prevent uncommitted data loss.
+* **Fixes & Stability: Poor Network Startup Freezes:** Resolved a bug where opening the app outdoors on a weak cellular connection would cause it to freeze indefinitely on the splash screen while waiting for Google Play Billing to verify your subscription. The app now enforces a strict 3-second timeout and seamlessly falls back to your locally cached Plus status, allowing you to start measuring immediately.
+* **UI & UX Polish: Fluid Meter Buttons:** Completely rewrote the animation logic for the main recording controls. When toggling between the idle and recording states, the secondary action buttons now slide and expand into view using a buttery-smooth, weight-based transition rather than a sudden, jerky snap.
+
+#### ⌚ Wear OS
+* **Fixes & Stability: Storage & Sync Reliability:** Applied the exact same robust database uniqueness constraints and auto-healing migration to the smartwatch engine. This prevents duplicate exposure entries from silently consuming your watch's internal storage capacity during background synchronization loops.
+
+## Version 1.23.1
+*(Released August 20, 2026)*
+
+This minor update focuses on enhancing the backup summary experience, polishing button animations across the app, and improving the reliability of the live background monitoring service.
+
+#### 📱 Phone
+* **UI & UX Polish: Expressive Button Animations:** We've introduced a fluid, "squishy" animation system to our primary button groups (like the meter controls and audio player). When you press a button, it elegantly expands while its neighboring buttons subtly contract, providing a much more tactile and responsive feel.
+* **UI & UX Polish: Detailed Backup Summaries:** The backup and restore completion screen has been completely redesigned. It now features a cleaner, vertical layout that prominently displays crucial metadata, including the exact date range of your data, the final file size, the operation duration, and specific counts for any skipped duplicates or corrupted items.
+* **UI & UX Polish: Acoustic Fatigue Chart:** Upgraded the Acoustic Fatigue history chart to feature smooth, cubic Bézier curves instead of rigid lines, complete with a new gradient fill and a polished, pill-shaped selection highlight.
+* **Fixes & Stability: Live Monitoring Optimization:** Refactored the `LiveExposureService` to capture decibel readings more efficiently. We replaced periodic polling with a continuous flow collector and added a secondary rate accumulator. This ensures your data is saved accurately according to your chosen update interval while drastically reducing unnecessary notification updates (capped at 1 per second) to save battery life.
+* **Under the Hood: Database & Logging:** Implemented an emergency Write-Ahead Log (WAL) cleanup mechanism during database initialization to prevent uncontrolled file size growth, and integrated comprehensive `FileLogger` audit trails for all background backup operations.
+
+#### ⌚ Wear OS
+* **UI & UX Polish: Expressive Button Animations:** The smartwatch app inherits the same fluid button animations as the phone, applied directly to the recording and session playback controls for a more interactive wrist experience.
+* **Fixes & Stability: Dedicated Policy Screen:** Migrated the privacy policy and terms acceptance flow from a brittle modal dialog to a robust, full-screen navigation destination utilizing modern Material 3 components.
+* **Under the Hood: Error Handling & Theme Refinement:** Standardized error reporting across ViewModels by replacing silent failures with a centralized file logger, and optimized the AMOLED theme palette to use pure black backgrounds for improved battery efficiency.
+
 ## Version 1.23.0
 *(Released August 16, 2026)*
 
