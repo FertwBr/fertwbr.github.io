@@ -1,7 +1,58 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 2.0.0 Beta 1
+*(Released September 2, 2026)*
 
+Welcome to Pixel Compass 2.0.0 Beta 1. This milestone release represents a fundamental architectural evolution and a visual rebirth for the platform. We have completely rebuilt the UI rendering engine, migrated our core services to a secure cloud infrastructure, and introduced a stunning, modern visual identity.
+
+Under the hood, the application now runs on a highly decoupled, state-driven architecture. This ensures buttery-smooth performance, significantly smarter background updates, and bulletproof security. We've also packed in massive upgrades to the Insight Engine and resolved long-standing bugs to make this the fastest and most expressive version of Pixel Compass ever built.
+
+#### 📱 Phone
+* **New: Insight Engine 7.0 Rebuilt:** We tore down the old Insight Engine and rebuilt it entirely from scratch to be infinitely more intelligent and adaptable.
+    * **Intelligent Text Variations:** Insights now generate dynamic text variations (short/long titles and subtitles) that perfectly adapt based on the display surface, ensuring flawless readability whether viewed on a small At-a-Glance widget or a full-screen Dynamic Card.
+    * **Advanced Deduplication:** Implemented a new category-based budgeting system and a strict `rootCause` identifier to prevent you from ever seeing repetitive or overlapping insights.
+    * **Deep Environmental Analysis:** Significantly expanded the generator logic to include granular snow condition tracking, thermal comfort evaluations, and specific localized health alerts (e.g., pavement heat, hydroplaning, frostbite risks).
+* **UI & UX Polish: The 2.0.0 Visual Identity:** We've completely redesigned the app icon suite, bringing a unified, highly symmetrical fluid shape with deep blue 3D lighting gradients and a high-contrast ice-blue center.
+    * **Fluid Launch Physics:** The splash screen animation has been completely overhauled. We replaced the artificial "jelly" bounce with realistic magnetic physics—the needle now drops smoothly and performs a subtle magnetic settle, creating a premium, snappy launch experience.
+    * **Material You Perfection:** Monochrome and notification icons have been perfectly tailored for seamless dynamic theming.
+* **UI & UX Polish: Fluid Dynamic Grid & Editor:** Interacting with the Dynamic Card Grid is smoother than ever with new spring-based scale, fade, and expand transitions. The customization editor now features real-time draft previews, allowing you to see changes to card orders and styles before committing them.
+* **UI & UX Polish: Customization Studio Expansion:** The settings menu has been modularized into distinct tabs (Interface, Compass, Cards).
+    * **Tactile Interactions:** Migrated legacy configuration screens to a new `CarouselSelector` featuring instantaneous tactile haptic feedback, shape-morphing, and smooth container color transitions upon touch.
+* **UI & UX Polish: Expressive Loading States:** Completely redesigned the app's loading placeholders.
+* **UI & UX Polish: Weather Navigation Destination:** Added a dedicated Weather screen destination in the main UI, featuring bouncy, expressive scaling animations for the navigation icon in the bottom bar and rail. More news on this is coming soon.
+* **Core & Performance: State-Driven UI Engine:** A massive architectural refactor representing hundreds of commits. Every dynamic card, forecast chart, and detail panel has been rewritten as a stateless visual component.
+    * **Zero Main-Thread Bottlenecks:** Heavy operations like unit conversions, Beaufort scale mapping, and timezone formatting are now handled completely by isolated UI State Mappers. The UI layer now only handles drawing, guaranteeing perfectly smooth rendering and animations.
+* **New: Next-Generation Forecast Charts:** The entire chart visualization suite (Wind, Precipitation, Daylight, Moon Phase, UV, Visibility, Cloud Cover, Temperature, Pressure) has been completely rewritten.
+    * **Smart Label Collision:** Implemented a new `CollisionManager` with precise edge-clamping to ensure time and data labels never overlap or clip off-screen, dynamically adjusting themselves as you scroll.
+    * **Dynamic Scaling:** Charts now feature dynamic Y-axis scaling, unit-specific step sizes, and priority highlighting for critical data points (like the current hour or peak UV index).
+* **Core & Performance: Massive Startup Optimizations:** App launch times have been drastically reduced to prevent hang-ups.
+    * **Lazy Initialization:** Deferred Firebase App Check initialization, Play Services connections, and AppUpdateManager injection to background scopes, removing artificial UI delays entirely.
+* **Core & Performance: Smart Widget Updates:** Replaced legacy interval-based polling with an intelligent, event-driven `WidgetUpdateTrigger`.
+    * **Battery Saver:** The forecast sync worker now actively checks if the At-a-Glance widget is physically placed on your launcher before waking up the network. If the widget isn't there, background API requests are halted, drastically reducing battery drain.
+* **Security & Stability: Firebase Cloud Infrastructure:** All external API communications (Weather, Elevation, Feedback, Billing) are now securely proxied through Firebase Cloud Functions, fully hiding API keys from the client layer.
+    * **Advanced App Integrity:** Fully integrated Google Play Integrity and Firebase App Check. Unofficial, modified, or spoofed versions of the app will now be blocked from accessing premium APIs, triggering a dedicated error UI with a redirect to the official Play Store listing.
+    * **Server-Side Purchase Validation:** Purchases are now validated directly against our backend. We've included a robust offline fallback mechanism that respects your historical premium status during server outages or poor connectivity.
+* **Fixes & Stability: Critical Bug Resolutions:** Addressed multiple structural bugs to ensure rock-solid stability.
+    * **Splash Screen Freeze:** Fixed a severe bug where poor cellular connectivity could cause the app to freeze indefinitely on the splash screen while waiting for the billing service to respond.
+    * **Cache Race Conditions:** Resolved data corruption issues by safely splitting the local storage mechanisms for current conditions and extended hourly forecasts.
+    * **Orphaned UI Elements:** Fixed a layout bug in the detail panels where section titles would incorrectly render over empty spaces when cached forecast data was stale or invalid.
+    * **Feedback Email Fallback:** If cloud functions are blocked by Play Integrity failures, the feedback panel will automatically surface an email fallback button, allowing you to send your drafted text directly to support.
+* **Global Localization: Massive Language Expansion:** Added full localized string support for Afrikaans, Bengali, Marathi, Albanian, Tamil, Telugu, Urdu, and Chinese.
+
+#### ⌚ Wear OS
+* **UI & UX Polish: The 2.0.0 Visual Identity:** The Wear OS experience inherits the redesigned, unified 2.0.0 app icon and the ultra-smooth, realistic magnetic physics on the splash screen animation.
+* **Fixes & Stability: True Black OLED Background:** Corrected a UI regression from a previous build; the dark theme background is now explicitly enforced to pure black (`#000000`) for maximum contrast and OLED battery efficiency.
+* **UI & UX Polish: Overhauled Altitude Calibration UI:** The `AltitudeStatusScreen` has been completely redesigned for better wrist interaction.
+    * **Fluid Layout:** It now features fluid state transitions, an expandable technical info card, and a streamlined Material 3 `EdgeButton` to consolidate recalibration and dismissal actions without cluttering the screen.
+* **UI & UX Polish: Dedicated Policy Screen:** Replaced the legacy policy pop-up dialog with a full-screen `WearPolicyScreen` utilizing `ScreenScaffold` and pinned edge buttons for significantly better readability on circular displays.
+* **UI & UX Polish: Customization Studio:** Theme selection icons now feature dynamic shape morphing, smoothly transitioning between circular profiles and rounded rectangles as you interact with them.
+* **Fixes & Stability: Granular Calibration Errors:** Replaced generic, unhelpful failure messages with dedicated, highly specific UI states.
+    * **Specific Troubleshooting:** You will now see tailored icons and localized messaging for API Rate Limits (Hourglass), App Verification blocks (Lock), and Network failures (CloudOff).
+* **Security & Stability: Firebase Cloud Infrastructure (Shared):** Elevation requests are now securely routed through Firebase Cloud Functions and protected by Play Integrity, ensuring reliable backend service and mitigating unauthorized access from unofficial clients.
+* **Security & Stability: Anonymous Authentication:** Integrated Firebase Anonymous Authentication directly on the watch, ensuring secure and verified sessions for all backend requests, initialized on a background thread for zero startup impact.
+* **UI & UX Polish: Customization Studio:** Theme selection icons now feature dynamic shape morphing, smoothly transitioning between circular profiles and rounded rectangles as you interact with them.
+* **Global Localization: Massive Language Expansion (Shared):** Wear OS now fully supports translated experiences in Afrikaans, Bengali, Marathi, Albanian, Tamil, Telugu, Urdu, and Chinese.
 
 ## Version 1.22.2
 *(Released August 10, 2026)*
