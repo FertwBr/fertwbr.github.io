@@ -1,6 +1,8 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+
+
 ## Version 1.22.2
 *(Released August 10, 2026)*
 

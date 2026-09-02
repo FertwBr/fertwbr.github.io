@@ -1,10 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="1000"><g clip-path="url(#SvgjsClipPath1055)"><rect width="1000" height="1000" fill="#ffffff"></rect><g transform="matrix(1.953125,0,0,1.953125,0,0)"><svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none"><circle cx="256" cy="256" r="15" fill="url(#paint0_linear_392_122183)"></circle><path fill-rule="evenodd" clip-rule="evenodd" d="M228.567 235.129C230.508 231.279 332.315 148.559 341.855 154.384C351.538 160.3 288.581 270.631 281.117 278.553C278.287 282.512 176.266 365.897 166.777 360.104C157.04 354.156 221.898 243.983 228.567 235.129ZM256 231C242.193 231 231.001 242.193 231 255.999C231 269.807 242.193 281 256 281C269.807 281 281 269.807 281 256C281 242.193 269.807 231 256 231Z" fill="url(#paint1_linear_392_122183)"></path><defs>
-<linearGradient id="paint0_linear_392_122183" x1="265.853" y1="246.218" x2="248.972" y2="269.201" gradientUnits="userSpaceOnUse">
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none"><metadata><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/"><rdf:Description><dc:creator>RealFaviconGenerator</dc:creator><dc:source>https://realfavicongenerator.net</dc:source></rdf:Description></rdf:RDF></metadata><path d="M410.729 105.41C432.592 127.274 321.432 272.988 297.102 297.319C296.979 297.442 296.852 297.561 296.726 297.677C296.593 297.82 296.459 297.962 296.32 298.101C271.99 322.431 124.005 431.323 102.141 409.46C80.2787 387.595 191.439 241.88 215.769 217.551C215.891 217.429 216.015 217.311 216.141 217.195C216.274 217.051 216.411 216.908 216.551 216.768C240.882 192.438 388.866 83.5463 410.729 105.41Z" fill="#0057CC"></path><path d="M410.729 105.41C432.592 127.274 321.432 272.988 297.102 297.319C296.979 297.442 296.852 297.561 296.726 297.677C296.593 297.82 296.459 297.962 296.32 298.101C271.99 322.431 124.005 431.323 102.141 409.46C80.2787 387.595 191.439 241.88 215.769 217.551C215.891 217.429 216.015 217.311 216.141 217.195C216.274 217.051 216.411 216.908 216.551 216.768C240.882 192.438 388.866 83.5463 410.729 105.41Z" fill="url(#paint0_linear_548_79)"></path><path d="M410.729 105.41C432.592 127.274 321.432 272.988 297.102 297.319C296.979 297.442 296.852 297.561 296.726 297.677C296.593 297.82 296.459 297.962 296.32 298.101C271.99 322.431 124.005 431.323 102.141 409.46C80.2787 387.595 191.439 241.88 215.769 217.551C215.891 217.429 216.015 217.311 216.141 217.195C216.274 217.051 216.411 216.908 216.551 216.768C240.882 192.438 388.866 83.5463 410.729 105.41Z" fill="url(#paint1_linear_548_79)"></path><g filter="url(#filter0_d_548_79)">
+<circle cx="258.549" cy="257.142" r="36.1001" transform="rotate(44.3032 258.549 257.142)" fill="#D0E1FF"></circle>
+</g><defs>
+<filter id="filter0_d_548_79" x="212.929" y="216.283" width="91.2379" height="91.2379" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"></feColorMatrix>
+<feOffset dy="4.75943"></feOffset>
+<feGaussianBlur stdDeviation="4.75943"></feGaussianBlur>
+<feComposite in2="hardAlpha" operator="out"></feComposite>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"></feColorMatrix>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_548_79"></feBlend>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_548_79" result="shape"></feBlend>
+</filter>
+<linearGradient id="paint0_linear_548_79" x1="216.16" y1="217.159" x2="270.874" y2="271.873" gradientUnits="userSpaceOnUse">
 <stop stop-color="#578CFF"></stop>
-<stop offset="0.710029" stop-color="#0057CC"></stop>
+<stop offset="1" stop-color="#578CFF" stop-opacity="0"></stop>
 </linearGradient>
-<linearGradient id="paint1_linear_392_122183" x1="312.5" y1="190" x2="189" y2="327.5" gradientUnits="userSpaceOnUse">
-<stop offset="0.243474" stop-color="#578CFF"></stop>
-<stop offset="0.710029" stop-color="#0057CC"></stop>
+<linearGradient id="paint1_linear_548_79" x1="409.595" y1="104.275" x2="103.276" y2="410.594" gradientUnits="userSpaceOnUse">
+<stop offset="0.0240707" stop-color="#0057CC"></stop>
+<stop offset="0.103826" stop-color="#0057CC" stop-opacity="0"></stop>
+<stop offset="0.896399" stop-color="#0057CC" stop-opacity="0"></stop>
+<stop offset="0.976155" stop-color="#0057CC"></stop>
 </linearGradient>
-<clipPath id="SvgjsClipPath1055"><rect width="1000" height="1000" x="0" y="0" rx="500" ry="500"></rect></clipPath></defs></svg></g></g></svg>
+</defs></svg>
