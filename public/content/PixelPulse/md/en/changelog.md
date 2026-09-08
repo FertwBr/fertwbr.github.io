@@ -1,6 +1,22 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.23.3
+*(Released September 8, 2026)*
+
+This update focuses on making the app start significantly faster, dramatically improving the reliability of smartwatch syncing, and raising the bar for the accuracy of our health insights.
+
+#### 📱 Phone
+* **Core & Performance: Lightning-Fast Startup:** We deeply optimized the app's startup sequence. By deferring heavy background tasks (like Play Billing checks and update managers) by just a few milliseconds, we completely eliminated skipped frames and freezes, ensuring the app opens buttery-smooth every time.
+* **Fixes & Stability: Stricter Health Insights:** We've tightened the rules for the Acoustic Engine. The system now requires significantly higher data confidence thresholds (e.g., more recorded hours) before generating fatigue warnings or daily summaries. This ensures your health reports are always based on solid, reliable data rather than incomplete fragments.
+* **UI & UX Polish: Customization Menus:** Upgraded the customization and theme settings with a new fluid carousel selector. The menu now features smooth shape-morphing animations and tactile feedback when previewing and selecting different color palettes.
+* **Under the Hood: Architecture & Error Tracking:** Deep architectural improvements transitioning to a fully injected, centralized error-handling system (`PixelPulseErrorHandler`). We also implemented a version-tracking mechanism that automatically invalidates and rebuilds your cached acoustic history whenever our analysis algorithms receive an update.
+
+#### ⌚ Wear OS
+* **Fixes & Stability: Instant Plus Sync:** Fixed a frustrating issue where manually syncing your "Plus" subscription status from the watch would sometimes be ignored. The app now forcefully bypasses internal caches and uses a direct, high-speed message to instantly unlock your premium features on the wrist.
+* **UI & UX Polish: Theme Studio:** The theme selection screen on the watch has been completely overhauled. Theme icons now feature dynamic shape morphing (smoothly transitioning from circles to rounded squares as you interact with them) and clear checkmark overlays when selected.
+* **Under the Hood: Decoupled State & Logging:** Improved navigation performance by internalizing permission states directly into the UI components, and migrated all background tasks to the new centralized error-logging architecture for better crash reporting.
+
 ## Version 1.23.2
 *(Released August 25, 2026)*
 
