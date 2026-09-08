@@ -1,6 +1,31 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 2.0.0 Beta 2
+*(Released September 3, 2026)*
+
+This beta update introduces a fully functional Weather screen, complete with stunning atmospheric background animations and specialized layouts for foldable devices. We've also deeply refined the underlying architecture and completely overhauled how detail panels and insights are displayed.
+
+#### 📱 Phone
+* **New: Immersive Weather Environments:** We've introduced a stunning, dynamic weather environment engine. The app now features a fully animated background layer for the new Weather screen.
+    * **Dynamic Canvas Layers:** The background dynamically composes layers for volumetric clouds, fog, lightning, starry night skies, rain (including wind-slant physics), and snow accumulation based on live weather data.
+    * **Extreme Conditions:** Dedicated environment themes have been added to visualize specific severe scenarios, including hot heat mirages, freezing frost, tornadoes, and hurricanes.
+* **New: Foldable & Tablet Weather Layouts:** The Weather screen now fully supports foldable devices (like the Pixel Fold) and large tablets.
+    * **Adaptive Grids:** The layout automatically transitions from a compact 2-column view to an expanded 4-column view, applying correct system insets to prevent overlap with the navigation bar.
+    * **Posture Awareness:** When a foldable device is in "half-opened" (tabletop) mode, the UI intelligently pins the current conditions to the top half of the screen while keeping the forecast blocks scrollable below.
+* **UI & UX Polish: Detail Panels & Insights Redesign:** We've completely restructured how detailed information is presented.
+    * **Condition & Insights Panel:** The obsolete monolithic Forecast panel has been retired (as forecasting is now handled by the new Weather screen). In its place, we introduce the brand new `ConditionInsightDetailPanel`. This panel beautifully presents current atmospheric conditions alongside dynamic, contextual insights using newly designed, semantic `InsightDetailCard`s.
+    * **Header Redesign & Unit Menus:** Completely redesigned the `DetailPanelHeader` across all panels (Compass, UV, Wind, etc.). It now features an inline layout with marquee scrolling for long titles, and seamlessly integrates the new `ExpressiveUnitMenu` directly into the top row—replacing the bulky legacy unit selectors.
+    * **Cleaner Visual Hierarchy:** We stripped out redundant section headers and removed repetitive secondary charts (like cloud cover or sun path charts) from specialized panels (UV, Visibility, Solar Intensity) to provide a much cleaner, focused data view.
+    * **"Feels Like" Temperature:** The current weather block on the main screen now prominently embeds the "Feels Like" temperature directly within the visual temperature range bar.
+* **Fixes & Stability: Altitude Calibration & Polish:**
+    * **Z-Ordering Bug:** Fixed a visual glitch where the altitude calibration sheets would sometimes render *behind* the main bottom sheet.
+    * **Haptic Consistency:** Added missing tactile haptic feedback to the bottom navigation bar tabs, top bar action buttons, and all buttons within the altitude calibration sheet.
+    * **Geocoded Titles:** The top bar on the Weather screen now properly parses raw geocoded location names, intelligently stripping out redundant prefixes (like "State of") for a cleaner display.
+* **Under the Hood: Architecture & Build Updates:**
+    * **Unified Entrance Animations:** Forecast blocks now slide and fade onto the screen using a unified, staggered entrance animation orchestrated by a new `WeatherBlockRenderer` for a buttery-smooth initial load.
+    * **Dependency Upgrades:** Bumped Android Gradle Plugin (9.3.2), Kotlin Symbol Processing (2.3.6), and Jetpack Compose (BOM 2026.08.00). We also promoted the Glance widget library to its stable 1.2.0 release.
+
 ## Version 2.0.0 Beta 1
 *(Released September 2, 2026)*
 
