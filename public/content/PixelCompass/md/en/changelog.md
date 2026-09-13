@@ -1,6 +1,81 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+
+
+
+## Version 2.0.0 Beta 4
+*(Released September 12, 2026)*
+
+Welcome to Beta 4 of Pixel Compass 2.0.0! This release introduces the foundational architecture for our highly anticipated adaptive weather layout grid and customizable block editor. Please note that the **Grid, Resize interactions, and the new Wind layout are currently Work In Progress (WIP)**. Additionally, several other weather cards have been temporarily disabled in this beta to ensure baseline stability while we stress-test the new editor engine.
+
+Under the hood, this update completely integrates the Plus tier access controls, refines our frosted glass rendering aesthetics, optimizes editor state management, and fixes critical background sync loops to protect battery life during fatal authentication errors.
+
+#### 📱 Phone
+* **[WIP] New: Adaptive Layout Grid & Resizing Engine:** We've completely rewritten the weather grid to support fully dynamic, customizable block layouts.
+  * **Lifecycle Gestures:** Refactored interactions to use discrete `onResizeDragStart`, `onResizeDrag`, and `onResizeDragEnd` callbacks. Added bottom-right corner gesture detection for bidirectional, symmetrical block resizing.
+  * **Grid Span Resolution:** Replaced legacy look-ahead reordering with `WeatherGridSpanResolver`. This provides strict sequential block processing, context-aware gap sizing, and automatically appends interactive empty slots (`WeatherEmptySlot`) during edit mode.
+  * **2D Thresholds:** Introduced `resolveAdvancedResize` to calculate target layout sizes based on 2D cumulative drag offset thresholds upon gesture completion.
+* **[WIP] New: Wind Block & Expanded Sizes:** Expanding the widget library with new adaptive footprints.
+  * **Wind Variants:** Implemented `WindBlock` featuring Large, Wide, and Small variants. Includes an animated Mini Compass and a mapped insight card for wind speed, gusts, and cardinal direction.
+  * **Vertical Adaptation:** Introduced `TALL` (1:2 aspect ratio) and `EXTRA_LARGE` (3:2 aspect ratio) grid sizes. `DailyForecastBlock` now utilizes dimension-based adaptive rendering via `BoxWithConstraints` instead of rigid height parameters.
+  * **Dynamic Sub-item Widths:** Contextual cards inside the Current Conditions block now calculate adaptive horizontal widths based on available container bounds, eliminating hardcoded widths.
+* **Core & Performance: Plus Tier Enforcement:** Comprehensive access control and state management for premium features.
+  * **Feature Gating:** Deployed `PlusFeatureGuard` across the layout engine to securely filter premium weather blocks, downgrade background/transparency modes, and gate advanced detail panels (Dew Point, Visibility, etc.) for non-Plus users.
+  * **Upgrade UI:** Integrated `PlusUpgradePlaceholder` featuring a beautiful glassmorphic container layered over a Canvas-based simulated chart, replacing the old generic shimmer state.
+  * **Preference Alignment:** Updated `PlusSettingsBackupManager` to serialize and restore complex weather layout preferences, handling element-specific card transparency settings.
+* **UI & UX Polish: Editor Controls & Frosted Glass:** Major aesthetic upgrades to the editing experience and core visuals.
+  * **Frosted Glass Tuning:** Dialed in `HazeBlurStyle.Material3` by increasing blur radius and noise factor. Reduced container and border opacities to enhance the premium glass effect.
+  * **Smart Typography Contrast:** Text colors now dynamically adapt using `WeatherEnvironmentLogic.isBackgroundDark`, evaluating day/night cycles alongside severe dark-sky weather (e.g., thunderstorms).
+  * **Unified Editor Panels:** Centralized opacity and styling logic with `WeatherCommonStylePanel`. Editor controls, toggles, and segments now dynamically dim and display a Plus badge for premium options.
+  * **Responsive PillTabSelector:** Upgraded transitions using Material 3 Expressive motion constraints (Emphasized Decelerate). Unselected tabs smoothly collapse into compact icon-only modes instead of abruptly clipping off-screen.
+  * **Skeleton Loading:** Replaced static loading spinners with a responsive skeleton shimmer grid (`WeatherLoadingState`) that accurately mirrors the active layout strategy configuration.
+* **Fixes & Stability: Engine & State:**
+  * **Background Sync Loop Fix:** Fixed an issue where `EnvironmentSyncWorker` would continuously retry on fatal `AppVerificationFailedException` or unauthenticated Firebase errors. It now cleanly cancels via `EnvironmentSyncScheduler` and returns a failure result.
+  * **Selection Desync:** Resolved a visual bug where dynamic cards and compass arcs maintained overlapping active selection borders in edit mode by properly observing global `CompassEditorViewModel` state shifts.
+  * **Book Mode Fixes:** Fixed vertical layout constraints in `BookModeLeftPane` during edit mode, enabling dynamic column heights and scrolling without overlapping editor overlays.
+  * **Deep Linking:** Added native `/weather` intent handling via `MainIntentHandler` for deep link navigation routing.
+
+## Version 2.0.0 Beta 3
+*(Released September 9, 2026)*
+
+This beta marks a massive leap forward for customization and environmental immersion. We're introducing a fully interactive Weather Layout Editor, a completely rewritten and dynamic Easter Egg system, and deep architectural upgrades to make the app flawless on foldable devices and tablets.
+
+#### 📱 Phone
+* **New: Interactive Weather Layout Editor:** Take complete control over your Weather screen with our new robust, drag-and-drop customization engine.
+  * **Drag, Drop & Resize:** Long-press any block to enter edit mode. You can drag and drop blocks to reorder them or use the new visual resize handles on the borders to dynamically stretch blocks (Small, Wide, Large) with smooth, elastic scale animations.
+  * **Floating Tool Studio:** A new floating bottom bar (`WeatherEditorFloatingBar`) offers modular tabs to change block types, toggle card transparency (Solid, Frosted Glass, Auto), and swap icon styles (Legacy, Vibrant, Immersive).
+  * **Background & Layout Controls:** Customize how the environment renders (Compact, Expanded, Immersive, or the Hidden mode) and arrange your current condition typography (Automatic, Split, Horizontal).
+  * **Undo/Redo History:** The editor saves snapshots of your drafts in real-time, allowing you to seamlessly undo, redo, or discard changes before saving them to your preferences.
+* **New: Dynamic Environmental Easter Eggs:** We completely tore down the old easter egg system. It is now highly modular, tracks concurrent events (e.g., ground and sky effects simultaneously), and reacts dynamically to real-world weather, seasons, and hemispheres.
+  * **Snowman Lifecycle:** The snowman now has "structural health". He gets built during snowstorms, blows around in the wind, and slowly melts into a puddle if the weather warms up over the following days.
+  * **Boats & Sailboats:** Discover sailboats, dinghies, and fishing boats dynamically bobbing in the water layer, complete with physical buoyancy, dynamic shadows, and glowing lanterns that reflect on the water at night.
+  * **Aviation Upgrades:** Commercial airplanes now leave daylight vapor trails (contrails) and feature blinking red/white navigation strobes at night. Paper planes have new loop-de-loop flight physics and will crash and crumple if it rains or winds get too heavy.
+  * **Auroras & Meteor Showers:** Added volumetric Aurora Borealis/Australis and shooting star showers that reflect off the water. The engine now actively tracks real-world meteor peaks (Perseids, Geminids, etc.) based on your hemisphere.
+  * **Migrating Birds & Halloween:** Look out for V-formation bird flocks migrating across the sky and a glowing, carved pumpkin (Jack-o'-lantern) that appears during Halloween. *(Note: UFO and Sandcastle easter eggs have been retired).*
+* **UI & UX Polish: Volumetric Rendering Engine:** We've pushed the background rendering engine to new heights for unprecedented realism.
+  * **True Depth & Occlusion:** Sun, moon, and water reflections now respect the actual horizon line generated by the rolling hills and terrain, instead of being cut off by an invisible straight line.
+  * **Seasonal Terrain & Flora:** The volumetric terrain dynamically blends grass colors and spawns seasonal details: falling leaves in Autumn and swaying flowers in Spring.
+  * **Glassmorphism:** Added the latest Haze library (2.0.0-beta02) to deliver gorgeous, real-time frosted glass blur effects behind your weather cards.
+  * **Dynamic Typography:** Integrated *Roboto Flex* variable fonts. The physical weight of the weather condition text now animates dynamically based on weather severity (e.g., heavier fonts during storms and high winds).
+* **UI & UX Polish: Foldable & Tablet Architecture:** The app no longer just scales up; it intelligently adapts to any screen posture.
+  * **Native Book Mode:** On foldable devices, the `FoldableLayoutResolver` detects if you are in tabletop or book mode, brilliantly routing the layout to avoid the hinge by placing current conditions on one screen and scrollable forecast grids on the other.
+  * **Adaptive Blocks:** Forecast blocks dynamically alter their internal components based on available space—switching from simple horizontal lists on small screens to detailed Canvas charts on expanded displays.
+* **UI & UX Polish: "What's New" Screen Overhaul:** The update release notes screen has been completely redesigned and modularized from the ground up.
+  * **Adaptive Foldable Layouts:** Through the new `WhatsNewLayoutDispatcher`, the screen now intelligently adapts its layout and feature cards to look perfect on both compact phones and expanded foldable displays.
+  * **Confetti Physics & Haptics:** Celebrate new updates with a brand-new `ConfettiExplosion` particle system featuring frame-based physics. This is perfectly synchronized with the `HapticFeedbackManager` to deliver satisfying tactile responses as you interact with the release notes.
+* **Fixes & Stability: Compass & Diagnostics Overhaul:**
+  * **Compass Modularization:** Broke down the monolithic Compass screen. Elements like calibration hints, altitude status, and layouts are now cleanly separated.
+  * **Smarter Wind Indicator:** Redesigned the wind indicator on the compass rose. It now auto-hides colliding cardinal labels to keep the dial clean and legible.
+  * **Unified Diagnostic Banners:** The new `BannerOrchestrator` intelligently manages and prioritizes diagnostic warnings (GPS, battery optimization, missing permissions) across both the Weather and Compass screens.
+* **Under the Hood: Debug Tools & Synchronization:**
+  * **WeatherSyncOrchestrator:** A new central brain manages all network calls, permission checks, and hourly cache expirations, specifically optimizing forecast fetches for Plus users.
+  * **Advanced Developer Menu:** The Debug Overlay was totally rebuilt. It now features interactive "pill" selectors, a time-slider, auto-play time simulation, and the ability to force-spawn specific seasons, hemispheres, or easter egg stages.
+  * **Build System:** Bumped the NDK to `27.1.12297006` and resolved deep dependency conflicts for Guava and AndroidX Concurrent Futures.
+
+#### ⌚ Wear OS
+* **Core & Performance: NDK Update:** Upgraded to NDK 27.1.12297006 for improved performance and stability.
+
 ## Version 2.0.0 Beta 2
 *(Released September 3, 2026)*
 
