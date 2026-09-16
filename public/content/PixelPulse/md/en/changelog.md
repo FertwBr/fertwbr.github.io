@@ -1,6 +1,49 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.24.0
+*(Released September 16, 2026)*
+
+Welcome, we've completely redesigned our audio visualizers from the ground up, introducing gorgeous, physics-driven fluid waves that react organically to your environment.
+
+Under the hood, we've dramatically expanded our audio calibration boundaries to support a wider range of hardware microphones, and entirely re-engineered the synchronization engine between your phone and Wear OS watch to be faster, smarter, and completely frictionless.
+
+#### 📱 Phone
+
+* **New: Visualizer Styles:** Experience a complete visual overhaul with stunning, reactive audio visualizations.
+  * Added "Fluid Wave" and "Dynamic Wave" background styles, driven by custom spring physics and Midpoint Quadratic Bézier curves for buttery-smooth, jitter-free rendering.
+  * The waveform intelligently collapses to a flat baseline animation when the meter enters an idle or paused state.
+  * Added a dedicated preview icon in settings that generates live, animated mock data to help you choose your favorite style.
+* **Improvement: Advanced Audio Calibration:** Overhauled the calibration engine to support a wider array of hardware profiles.
+  * Expanded the decibel offset range massively to ±50 dB, allowing you to easily compensate for aggressive auto-gain on certain devices.
+  * Introduced precision fine-tuning buttons (`-` / `+`) for highly accurate 1.0 dB adjustments.
+  * Added an adaptive visual warning banner that alerts you when extreme calibration offsets (±25 dB or higher) risk distorting your maximum readings.
+* **Fixes & Stability: Unlocked Background Sync:** Rewrote the synchronization pipeline for flawless phone-to-watch communication.
+  * Removed onboarding blockers, allowing the app to silently receive and process watch data in the background before the mobile setup is even finished.
+  * Resolved subscription caching conflicts by decoupling Plus status checks from heavy exposure database syncs.
+  * Safely migrated the core database to enforce strict unique timestamp indexes, ensuring absolute data integrity without duplicates.
+* **UI & UX Polish: Refined Interface:** Structural layouts have been redesigned for a premium feel.
+  * Background visualizers now utilize advanced blend modes and alpha gradient masks to seamlessly fade into the app's surface layouts.
+  * **"What's New" Screen Overhaul:** The update release notes screen has been completely redesigned and modularized from the ground up.
+    * **Adaptive Foldable Layouts:** Through the new `WhatsNewLayoutDispatcher`, the screen now intelligently adapts its layout and feature cards to look perfect on both compact phones and expanded foldable displays.
+    * **Confetti Physics & Haptics:** Celebrate new updates with a brand-new `ConfettiExplosion` particle system featuring frame-based physics. This is perfectly synchronized with the `HapticFeedbackManager` to deliver satisfying tactile responses as you interact with the release notes.
+
+#### ⌚ Wear OS
+
+* **New: Visualizer Styles:** Experience a complete visual overhaul with stunning, reactive audio visualizations.
+  * Custom-engineered the new visualizers for circular watch displays, featuring bottom-anchored fluid rendering and aggressive orbiting pulse animations.
+  * Applied smart radial vignettes and pure black backgrounds to perfectly blend the animations with your OLED watch bezel.
+* **Improvement: Advanced Audio Calibration:** Overhauled the calibration engine to support a wider array of hardware profiles.
+  * Expanded the decibel offset range up to ±50 dB, allowing you to match your phone's configuration directly from your wrist.
+  * Added an intelligent UI warning text in the calibration screen when extreme offsets (±25 dB) are detected.
+* **Fixes & Stability: Unlocked Background Sync:** Rewrote the synchronization pipeline for flawless phone-to-watch communication.
+  * Processes background configurations, session clears, and delta syncs immediately, regardless of the phone app's initial onboarding state.
+  * The watch now correctly receives instant Plus subscription updates, bypassing aggressive Google Play Services caching issues.
+  * Fixed a critical issue where the watch was accidentally triggering massive database operations on the phone just to check premium status.
+* **UI & UX Polish: Streamlined Sync Settings:** A cleaner, more informative settings experience.
+  * Redesigned the sync status screen with a compact, scrolling text summary of your latest sync and backup timestamps.
+  * Added intelligent state feedback that temporarily displays success or error messages for exactly 4 seconds after a manual sync attempt, ensuring you never miss a status update.
+
 ## Version 1.23.3
 *(Released September 8, 2026)*
 
