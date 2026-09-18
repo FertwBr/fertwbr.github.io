@@ -1,8 +1,98 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 2.0.0 Beta 5
+*(Released September 17, 2026)*
 
+Welcome to Beta 5. This update brings a massive under-the-hood engine overhaul with our new 2D absolute masonry grid layout, delivering ultra-smooth drag-and-drop mechanics and block resizing. We are also introducing completely redesigned adaptive Precipitation and Wind blocks, complete with dynamic charts, and rolling out critical stability fixes for data caching, UI state preservation, and dynamic layout adaptation.
 
+As this is a Beta release, our focus is on refining architectural foundations, state management optimizations, and high-fidelity UI polish across the entire ecosystem.
+
+#### 📱 Phone
+
+* **Core & Architecture: Masonry Grid Layout Engine:** Implemented a new absolute 2D bin-packing layout resolver to handle complex dynamic weather grids.
+  * Replaced sequential lazy grids with coordinate-based `WeatherGridSpanResolver` for exact 1:1 pixel-perfect drag, drop, and resize gestures.
+  * Introduced `WeatherGridDragDropState` to decouple real-time interaction coordinate translations from persistent data stores.
+  * Implemented seamless spatial transitions using `animateDpAsState` for computed block offsets.
+
+* **New: Precipitation Ecosystem:** A complete overhaul of precipitation data mapping and visualization.
+  * Added `PrecipitationHybridForecastChart` utilizing `horizontalScroll` with dynamic content bounds, gracefully toggling between probability and volume metrics.
+  * Introduced adaptive `PrecipitationBlock` routing (Small, Wide, Tall, Large, ExtraLarge) seamlessly scaling across screen sizes, including optimized Free-tier layouts.
+  * Built advanced timeline intelligence in `PrecipitationBlockMapper` to calculate peak volumes, start/stop times, and exact timezone-aware localized markers.
+
+* **New: Advanced Wind Blocks:** Comprehensive modularization and visual redesign of wind telemetry.
+  * Extracted the `InteractiveWindCompass` as a highly flexible dial component capable of adapting to parent constraints with native tap-to-toggle gestures.
+  * Integrated Beaufort scale calculations, localized gust badges, and direction vector mapping directly into the UI state.
+  * Centralized `WindForecastChart` as a robust shared component, featuring rich tooltips, dynamic inner padding, and responsive density-aware scaling.
+
+* **UI & UX Polish: Editor Haptics & Interactions:** Introduced deep tactile feedback and intelligent touch handling for layout customization.
+  * Added specialized haptic waveforms: ascending confirmation when placing blocks, lightweight double-ticks when crossing grid boundaries, and rigid double-buzzes when hitting layout resize limits.
+  * Automatically disabled interactive block elements (like charts, daily forecast paging, and compasses) while in Edit Mode to prevent nested gesture conflicts.
+  * Introduced clickable `WeatherEmptySlot` targets to streamline adding new blocks directly to the grid.
+
+* **UI & UX Polish: Environmental Backgrounds:** Upgraded atmospheric rendering layers and logical season resolutions.
+  * Redesigned `HorizonHillsLayer` with multi-layered 3D terrain shading, utilizing distinct vertical gradients to create a tactile sense of depth.
+  * Migrated `CelestialStarsLayer` to procedural generation bound by fixed seeds, permanently fixing visual jump artifacts during device rotation or layout resizing.
+  * Refined seasonal mapping to trigger on precise astronomical days (equinoxes/solstices) rather than basic month changes.
+  * Preserved immersive particle animations across foldable hinge transitions (Tabletop/Book modes) using `movableContentOf` composable locals.
+  * Added strict override logic to force `Winter` volumetric terrain rendering during active snow conditions regardless of the calendar date.
+
+* **Improvements: Insight & Alert Engine:** Smarter local notification generation and contextual data evaluation.
+  * Implemented stateful precipitation tracking (`wasPrecipitating`) to dispatch localized trend alerts based on real-time starting and stopping transitions.
+  * Added `expirationTimeMs` to `GlanceInsight` logic to automatically purge obsolete system insights (e.g., UV Index fading perfectly at sunset).
+  * Upgraded `CurrentSubItemsPriorityManager` to guarantee critical safety alerts render above standard metrics in the active conditions block.
+
+* **Fixes & Stability: Data Caching & Reliability:** Addressed critical bugs affecting data accuracy, deep linking, and layout stability.
+  * Fixed an issue where the duplicate weather blocks failed to update their transparency state; transparency is now accurately synchronized via type-based keys instead of instance UUIDs.
+  * Resolved a localization bug where current condition headers defaulted to raw English enums; the UI now correctly binds to the translated API descriptions.
+  * Protected essential fixed blocks from accidental deletion during masonry layout reordering passes.
+  * Validated spatial cache boundaries before reusing weather data, explicitly preventing stale fallback data from rendering if the user traverses outside defined location thresholds.
+  * Eliminated skeleton loading flash artifacts by implementing a staggered opacity crossfade and a strict 150ms initialization grace period.
+  * Handled `ScreenCutoutScaffold` to apply animated corner radii to all four structural edges correctly.
+  * Ensured App deep links gracefully discard unsaved `WeatherEditorViewModel` states to prevent UI lockups during intent navigation.
+
+#### ⌚ Wear OS
+
+* **Core & Architecture: Masonry Grid Layout Engine:** Implemented a new absolute 2D bin-packing layout resolver to handle complex dynamic weather grids.
+  * Replaced sequential lazy grids with coordinate-based `WeatherGridSpanResolver` for exact 1:1 pixel-perfect drag, drop, and resize gestures.
+  * Introduced `WeatherGridDragDropState` to decouple real-time interaction coordinate translations from persistent data stores.
+  * Implemented seamless spatial transitions using `animateDpAsState` for computed block offsets.
+
+* **New: Precipitation Ecosystem:** A complete overhaul of precipitation data mapping and visualization.
+  * Added `PrecipitationHybridForecastChart` utilizing `horizontalScroll` with dynamic content bounds, gracefully toggling between probability and volume metrics.
+  * Introduced adaptive `PrecipitationBlock` routing (Small, Wide, Tall, Large, ExtraLarge) seamlessly scaling across screen sizes, including optimized Free-tier layouts.
+  * Built advanced timeline intelligence in `PrecipitationBlockMapper` to calculate peak volumes, start/stop times, and exact timezone-aware localized markers.
+
+* **New: Advanced Wind Blocks:** Comprehensive modularization and visual redesign of wind telemetry.
+  * Extracted the `InteractiveWindCompass` as a highly flexible dial component capable of adapting to parent constraints with native tap-to-toggle gestures.
+  * Integrated Beaufort scale calculations, localized gust badges, and direction vector mapping directly into the UI state.
+  * Centralized `WindForecastChart` as a robust shared component, featuring rich tooltips, dynamic inner padding, and responsive density-aware scaling.
+
+* **UI & UX Polish: Editor Haptics & Interactions:** Introduced deep tactile feedback and intelligent touch handling for layout customization.
+  * Added specialized haptic waveforms: ascending confirmation when placing blocks, lightweight double-ticks when crossing grid boundaries, and rigid double-buzzes when hitting layout resize limits.
+  * Automatically disabled interactive block elements (like charts, daily forecast paging, and compasses) while in Edit Mode to prevent nested gesture conflicts.
+  * Introduced clickable `WeatherEmptySlot` targets to streamline adding new blocks directly to the grid.
+
+* **UI & UX Polish: Environmental Backgrounds:** Upgraded atmospheric rendering layers and logical season resolutions.
+  * Redesigned `HorizonHillsLayer` with multi-layered 3D terrain shading, utilizing distinct vertical gradients to create a tactile sense of depth.
+  * Migrated `CelestialStarsLayer` to procedural generation bound by fixed seeds, permanently fixing visual jump artifacts during device rotation or layout resizing.
+  * Refined seasonal mapping to trigger on precise astronomical days (equinoxes/solstices) rather than basic month changes.
+  * Added strict override logic to force `Winter` volumetric terrain rendering during active snow conditions regardless of the calendar date.
+
+* **Improvements: Insight & Alert Engine:** Smarter local notification generation and contextual data evaluation.
+  * Implemented stateful precipitation tracking (`wasPrecipitating`) to dispatch localized trend alerts based on real-time starting and stopping transitions.
+  * Added `expirationTimeMs` to `GlanceInsight` logic to automatically purge obsolete system insights (e.g., UV Index fading perfectly at sunset).
+  * Upgraded `CurrentSubItemsPriorityManager` to guarantee critical safety alerts render above standard metrics in the active conditions block.
+
+* **Fixes & Stability: Data Caching & Reliability:** Addressed critical bugs affecting data accuracy, rendering, and layout stability.
+  * Fixed an issue where the duplicate weather blocks failed to update their transparency state; transparency is now accurately synchronized via type-based keys instead of instance UUIDs.
+  * Resolved a localization bug where current condition headers defaulted to raw English enums; the UI now correctly binds to the translated API descriptions.
+  * Protected essential fixed blocks from accidental deletion during masonry layout reordering passes.
+  * Validated spatial cache boundaries before reusing weather data, explicitly preventing stale fallback data from rendering if the user traverses outside defined location thresholds.
+  * Eliminated skeleton loading flash artifacts by implementing a staggered opacity crossfade and a strict 150ms initialization grace period.
+
+* **Core & Architecture: Onboarding Refactor:** Dedicated Wear OS cleanup for user introduction flows.
+  * Extracted, renamed, and centralized all tutorial layers (Level, Settings, and Compass) into a unified `onboarding` package for cleaner screen composition on compact surfaces.
 
 ## Version 2.0.0 Beta 4
 *(Released September 12, 2026)*
