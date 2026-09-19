@@ -95,21 +95,21 @@ export default {
         about_docs_title: "このドキュメントについて"
     },
     beta_page: {
-        title: "{appName} ベータ版に参加",
-        subtitle: "未リリースの機能に早期アクセスし、アプリの未来を形作るのに役立ちます。",
+        page_title: "ベータ",
         badge: "早期アクセス",
-        benefits_title: "ベータ版に参加する理由",
-        benefit_1_title: "新機能のテスト",
-        benefit_1_desc: "すべてのユーザーに公開される前に、実験的なツールやUIの改善をいち早くお試しいただけます。",
+        hero_title: "{appName} の未来を形作る手助けをしてください",
+        hero_subtitle: "未公開機能への早期アクセスを取得し、新しい実験的なツールをテストして、すべての人のエクスペリエンスを向上させるためにご協力ください。",
+        cta_join: "Google Play で参加する",
+        updates_title: "最新のラボアップデート",
+        view_all_updates: "変更履歴をすべて表示",
+        benefits_title: "参加する理由",
+        benefit_1_title: "新機能をテストする",
+        benefit_1_desc: "すべてのユーザーに公開される前に、実験的なツールをお試しください。",
         benefit_2_title: "アプリを形作る",
-        benefit_2_desc: "あなたのフィードバックは、開発ロードマップとバグ修正に直接影響します。",
+        benefit_2_desc: "お客様のフィードバックは、今後の開発ロードマップに直接影響を与えます。",
         benefit_3_title: "いつでも退会可能",
-        benefit_3_desc: "Google Playストアから直接、いつでもベータテストプログラムを退会できます。",
-        cta_join: "Google Playで参加",
-        cta_leave: "ベータ版を終了",
-        warning_note: "注意：ベータ版は不安定であったり、小さなバグが含まれている場合があります。データを定期的にバックアップすることをお勧めします。",
-        disclaimer_title: "重要な免責事項",
-        disclaimer_desc: "ベータプログラムに参加することにより、プレリリースソフトウェアを使用していることを認識するものとします。機能は予告なく変更、破損、または削除される場合があります。"
+        benefit_3_desc: "いつでも Play ストアから直接オプトアウトすることが可能です。",
+        disclaimer: "ベータ版は不安定になる可能性があります。機能は予告なく変更、破損、または削除される場合があります。定期的にデータのバックアップを行うことを強くお勧めします。"
     },
     changelog: {
         title: "バージョン履歴",
