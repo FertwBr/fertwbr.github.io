@@ -1,0 +1,190 @@
+/* src/styles/beta.css */
+
+/* Oculta o título gigante e o subtítulo do ViewerHeader APENAS na página Beta */
+.beta-page-wrapper .viewer-title,
+.beta-page-wrapper .viewer-subtitle {
+    display: none !important;
+}
+
+.beta-hero-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: center;
+    margin-bottom: 60px;
+    padding-top: 20px;
+}
+
+@media (min-width: 900px) {
+    .beta-hero-section {
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 60px;
+        min-height: 60vh;
+    }
+}
+
+.beta-badge {
+    padding: 8px 16px;
+    border-radius: 100px;
+    background: rgba(var(--md-sys-color-tertiary-rgb), 0.15);
+    color: var(--md-sys-color-tertiary);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 24px;
+}
+
+.beta-hero-title {
+    font-size: clamp(2.5rem, 6vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    color: var(--md-sys-color-on-surface);
+}
+
+.beta-hero-subtitle {
+    font-size: clamp(1.1rem, 3vw, 1.25rem);
+    color: var(--md-sys-color-on-surface-variant);
+    line-height: 1.6;
+    margin-bottom: 40px;
+    max-width: 600px;
+}
+
+.beta-photo-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/3;
+    border-radius: 32px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    border: 1px solid var(--md-sys-color-outline-variant);
+}
+
+/* Efeito de brilho sutil atrás da foto */
+.beta-photo-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: -50%;
+    background: var(--md-sys-color-tertiary);
+    filter: blur(100px);
+    opacity: 0.15;
+    z-index: -1;
+}
+
+.beta-photo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* --- Seção de Updates Compacta --- */
+.beta-updates-section {
+    background: var(--md-sys-color-surface-container-low);
+    border: 1px solid var(--md-sys-color-outline-variant);
+    border-radius: 24px;
+    padding: 32px;
+    margin-bottom: 80px;
+}
+
+.beta-updates-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.beta-updates-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.beta-updates-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.beta-update-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--md-sys-color-surface-variant);
+}
+
+.beta-update-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.beta-update-version {
+    font-weight: 800;
+    color: var(--md-sys-color-on-surface);
+    white-space: nowrap;
+}
+
+.beta-update-desc {
+    color: var(--md-sys-color-on-surface-variant);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* --- Benefícios Minimalistas --- */
+.beta-benefits-section {
+    margin-bottom: 80px;
+}
+
+.beta-benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.beta-benefit-item {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.beta-benefit-icon {
+    color: var(--md-sys-color-tertiary);
+    font-size: 32px;
+}
+
+.beta-benefit-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.beta-benefit-desc {
+    color: var(--md-sys-color-on-surface-variant);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* --- Disclaimer --- */
+.beta-disclaimer {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--md-sys-color-on-surface-variant);
+    opacity: 0.7;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.5;
+}
