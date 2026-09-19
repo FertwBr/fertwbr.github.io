@@ -93,6 +93,8 @@ function AnimatedRoutes() {
 
                 <Route path="/pixelpulse/open" element={<RedirectToStore type="open" appKey="pixelpulse"/>}/>
                 <Route path="/pixelpulse/open/buy" element={<RedirectToStore type="buy" appKey="pixelpulse"/>}/>
+                <Route path="/pixelpulse/open/beta" element={<RedirectToStore type="beta" appKey="pixelpulse"/>}/>
+                <Route path="/beta/pulse" element={<RedirectToStore type="beta" appKey="pixelpulse"/>}/>
                 <Route path="/pixelpulse" element={<PixelPulsePage/>}/>
                 <Route path="/PixelPulse" element={<Navigate to="/pixelpulse" replace/>}/>
 
@@ -108,6 +110,8 @@ function AnimatedRoutes() {
 
                 <Route path="/pixelcompass/open" element={<RedirectToStore type="open" appKey="pixelcompass"/>}/>
                 <Route path="/pixelcompass/open/buy" element={<RedirectToStore type="buy" appKey="pixelcompass"/>}/>
+                <Route path="/pixelcompass/open/beta" element={<RedirectToStore type="beta" appKey="pixelcompass"/>}/>
+                <Route path="/beta/compass" element={<RedirectToStore type="beta" appKey="pixelcompass"/>}/>
                 <Route path="/pixelcompass" element={<PixelCompassPage/>}/>
                 <Route path="/PixelCompass" element={<Navigate to="/pixelcompass" replace/>}/>
 
@@ -123,6 +127,8 @@ function AnimatedRoutes() {
 
                 <Route path="/pixelmeasure/open" element={<RedirectToStore type="open" appKey="pixelmeasure"/>}/>
                 <Route path="/pixelmeasure/open/buy" element={<RedirectToStore type="buy" appKey="pixelmeasure"/>}/>
+                <Route path="/pixelmeasure/open/beta" element={<RedirectToStore type="beta" appKey="pixelmeasure"/>}/>
+                <Route path="/beta/measure" element={<RedirectToStore type="beta" appKey="pixelmeasure"/>}/>
                 <Route path="/pixelmeasure" element={<PixelMeasurePage/>}/>
                 <Route path="/PixelMeasure" element={<Navigate to="/pixelmeasure" replace/>}/>
 
