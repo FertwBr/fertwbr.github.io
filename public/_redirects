@@ -3,8 +3,13 @@
 /PixelMeasure/* /pixelmeasure/:splat 301
 /GeminiExpressive/* /geminiexpressive/:splat 301
 
-/compass/beta /pixelcompass/beta 301
-/pulse/beta /pixelpulse/beta 301
-/measure/beta /pixelmeasure/beta 301
+/compass/beta /beta/compass/ 301
+/pulse/beta /beta/pulse/ 301
+/measure/beta /beta/measure/ 301
 
+/pixelcompass/beta /beta/compass/ 301
+/pixelpulse/beta /beta/pulse/ 301
+/pixelmeasure/beta /beta/measure/ 301
+
+# SPA Fallback (This ensures client-side routing works for /pixelmeasure/changelog/4-3-0)
 /* /index.html 200
