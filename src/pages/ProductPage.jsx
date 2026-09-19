@@ -1,5 +1,4 @@
 /**
- * @file ProductPage.jsx
  * @description Generic layout container for product pages with dynamic theme and markdown loading.
  */
 
@@ -24,6 +23,7 @@ import HelpViewer from '../components/viewers/HelpViewer';
 import RoadmapViewer from '../components/viewers/RoadmapViewer';
 import OverviewViewer from '../components/viewers/OverviewViewer';
 import PlusViewer from "../components/viewers/PlusViewer";
+import BetaViewer from "../components/viewers/BetaViewer";
 import PageTransition from '../components/layout/PageTransition';
 import {handleContactSupport} from "../utils/navigationUtils.js";
 import HashScrollHandler from '../components/common/HashScrollHandler';
@@ -60,7 +60,8 @@ export default function ProductPage({config, HomeComponent, translationKey, forc
     const {activeTab, handleNavigation: internalNav} = useTabState(configWithRoute);
     const [activeColor] = useState(() => getSeedColor());
 
-    const {markdownContent, isLoading, error} = useMarkdownLoader(activeTab, config);
+    const fileToLoad = activeTab === 'beta' ? 'changelog' : activeTab;
+    const {markdownContent, isLoading, error} = useMarkdownLoader(fileToLoad, config);
 
     const surfaceColor = getSurfaceColor(activeColor);
 
@@ -112,6 +113,8 @@ export default function ProductPage({config, HomeComponent, translationKey, forc
                 return <OverviewViewer {...commonProps} />;
             case 'plus':
                 return <PlusViewer {...commonProps} />;
+            case 'beta':
+                return <BetaViewer {...commonProps} />;
             default:
                 return (
                     <main className="app-main-content">
@@ -129,7 +132,7 @@ export default function ProductPage({config, HomeComponent, translationKey, forc
 
     return (
         <AppLayout
-            hasRightSidebarPortal={!isHome}
+            hasRightSidebarPortal={!isHome && !['beta', 'roadmap', 'plus'].includes(activeTab)}
             background={<><HashScrollHandler/><PageBackground/></>}
             navbar={<AppNavbar config={config} activePage={activeTab} onNavigate={onNavigate} strings={t.nav}/>}
             footer={<AppFooter strings={{
