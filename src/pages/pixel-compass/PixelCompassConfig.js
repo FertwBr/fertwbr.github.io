@@ -10,6 +10,7 @@ export const pixelCompassConfig = {
   seedColor: "#6750A4",
   appIcon: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/icon.svg",
   playStoreLink: "https://play.google.com/store/apps/details?id=io.github.fertwbr.pixelcompass",
+  betaLink: "https://play.google.com/apps/testing/io.github.fertwbr.pixelcompass",
   defaultPage: 'index',
   basePath: "/content/PixelCompass/md/",
   rating: {
@@ -20,6 +21,11 @@ export const pixelCompassConfig = {
     index: {
       id: "index",
       title: "Home",
+      type: "react"
+    },
+    beta: {
+      id: "beta",
+      title: "Beta Program",
       type: "react"
     },
     plus: {

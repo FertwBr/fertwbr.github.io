@@ -10,6 +10,7 @@ export const pixelMeasureConfig = {
     seedColor: "#F57C00",
     appIcon: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Measure/art/icon.svg",
     playStoreLink: "https://play.google.com/store/apps/details?id=com.fertwbr.pixelmeasure",
+    betaLink: "https://play.google.com/apps/testing/com.fertwbr.pixelmeasure",
     defaultPage: 'index',
     basePath: "/content/PixelMeasure/md/",
     rating: {
@@ -20,6 +21,11 @@ export const pixelMeasureConfig = {
         index: {
             id: "index",
             title: "Home",
+            type: "react"
+        },
+        beta: {
+            id: "beta",
+            title: "Beta Program",
             type: "react"
         },
         plus: {

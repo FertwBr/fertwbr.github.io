@@ -10,6 +10,7 @@ export const pixelPulseConfig = {
   seedColor: "#3BA174",
   appIcon: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Pulse/art/icon.svg",
   playStoreLink: "https://play.google.com/store/apps/details?id=io.github.fertwbr.pixelpulse",
+  betaLink: "https://play.google.com/apps/testing/io.github.fertwbr.pixelpulse",
   defaultPage: 'index',
   basePath: "/content/PixelPulse/md/",
   rating: {
@@ -20,6 +21,11 @@ export const pixelPulseConfig = {
     index: {
       id: "index",
       title: "Home",
+      type: "react"
+    },
+    beta: {
+      id: "beta",
+      title: "Beta Program",
       type: "react"
     },
     plus: {
