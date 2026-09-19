@@ -49,5 +49,20 @@
         "D4:F1:C0:A7:C2:69:31:99:23:45:BF:6D:69:36:6D:49:C8:05:8F:90:61:4A:26:A5:4B:5D:D9:3F:CD:E6:98:97"
       ]
     }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.fertwbr.pixelmeasure",
+      "sha256_cert_fingerprints": [
+        "E7:03:D9:D6:94:76:2C:33:3A:67:8C:74:35:C9:AC:A8:45:A2:80:CE:05:A5:D6:71:37:63:E8:58:63:72:95:C8",
+        "1F:F2:3B:F9:AE:04:0A:5A:25:25:F6:12:4D:28:81:78:12:32:E3:46:1D:E8:1E:F9:3E:45:03:73:0A:BA:D9:55",
+        "0F:43:2C:26:C8:41:E7:76:80:81:C3:0A:8A:8B:ED:8D:17:9E:62:08:DC:69:E7:3D:C9:9B:D8:72:3E:43:A6:01"
+      ]
+    }
   }
 ]
