@@ -21,6 +21,7 @@ export default function AppFooter({strings, onNavigate, activePage, isPortfolio 
 
     const allLinks = [
         {key: 'overview', icon: 'description'},
+        {key: 'beta', icon: 'science'},
         {key: 'changelog', icon: 'update'},
         {key: 'roadmap', icon: 'map'},
         {key: 'privacy', icon: 'security'},
@@ -34,7 +35,7 @@ export default function AppFooter({strings, onNavigate, activePage, isPortfolio 
 
     if (config && config.pages) {
         const availablePages = Object.keys(config.pages);
-        visibleLinks = visibleLinks.filter(link => availablePages.includes(link.key));
+        visibleLinks = visibleLinks.filter(link => link.key === 'beta' || availablePages.includes(link.key));
     }
 
     return (
@@ -48,6 +49,10 @@ export default function AppFooter({strings, onNavigate, activePage, isPortfolio 
                         <div className="footer-links-group">
                             {visibleLinks.map(link => {
                                 const isSelected = activePage === link.key;
+                                const label = link.key === 'beta'
+                                    ? (t.nav?.beta || content?.beta_page?.page_title || 'Beta')
+                                    : (t.nav?.[link.key] || t[link.key] || link.key);
+
                                 return (
                                     <motion.button
                                         key={link.key}
@@ -59,7 +64,7 @@ export default function AppFooter({strings, onNavigate, activePage, isPortfolio 
                                         <span className="material-symbols-outlined" style={{fontSize: '18px'}}>
                                             {link.icon}
                                         </span>
-                                        {t.nav?.[link.key] || t[link.key] || link.key}
+                                        {label}
                                     </motion.button>
                                 );
                             })}
