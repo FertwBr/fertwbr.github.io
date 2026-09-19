@@ -8,8 +8,6 @@
     flex: 1;
 }
 
-/* Ocultação do menu removida daqui para não afetar as outras páginas */
-
 .form-wizard-card {
     width: 100%;
     max-width: 700px;
