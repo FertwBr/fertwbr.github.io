@@ -69,7 +69,12 @@
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
-
+    <url>
+        <loc>https://apps.fertwbr.com/pixelpulse/beta</loc>
+        <lastmod>2026-09-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
     <url>
         <loc>https://apps.fertwbr.com/pixelcompass</loc>
         <lastmod>2026-04-04</lastmod>
@@ -106,7 +111,12 @@
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
-
+    <url>
+        <loc>https://apps.fertwbr.com/pixelcompass/beta</loc>
+        <lastmod>2026-09-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
     <url>
         <loc>https://apps.fertwbr.com/pixelmeasure</loc>
         <lastmod>2026-08-17</lastmod>
@@ -143,7 +153,12 @@
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
-
+    <url>
+        <loc>https://apps.fertwbr.com/pixelmeasure/beta</loc>
+        <lastmod>2026-09-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
     <url>
         <loc>https://tools.fertwbr.com/geminiexpressive</loc>
         <lastmod>2026-04-04</lastmod>
