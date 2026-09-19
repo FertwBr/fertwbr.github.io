@@ -11,7 +11,7 @@ export const pixelMeasureConfig = {
     appIcon: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Measure/art/icon.svg",
     playStoreLink: "https://play.google.com/store/apps/details?id=com.fertwbr.pixelmeasure",
     betaLink: "https://play.google.com/apps/testing/com.fertwbr.pixelmeasure",
-    betaPhotoUrl: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Measure/art/phone.svg",
+    betaPhotoUrl: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Measure/art/beta_preview.png",
     defaultPage: 'index',
     basePath: "/content/PixelMeasure/md/",
     rating: {

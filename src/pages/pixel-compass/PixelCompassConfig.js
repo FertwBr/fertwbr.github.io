@@ -11,7 +11,7 @@ export const pixelCompassConfig = {
   appIcon: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/icon.svg",
   playStoreLink: "https://play.google.com/store/apps/details?id=io.github.fertwbr.pixelcompass",
   betaLink: "https://play.google.com/apps/testing/io.github.fertwbr.pixelcompass",
-  betaPhotoUrl: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/phone.svg",
+  betaPhotoUrl: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Compass/art/beta_preview.png",
   defaultPage: 'index',
   basePath: "/content/PixelCompass/md/",
   rating: {
