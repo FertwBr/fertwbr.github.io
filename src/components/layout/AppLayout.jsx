@@ -1,5 +1,4 @@
-// AppLayout.jsx
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 /**
  * Main application layout wrapper.
@@ -13,16 +12,25 @@ import React, {useState, useEffect, useRef} from 'react';
  * @param {boolean} [props.hasRightSidebarPortal=false]
  * @returns {JSX.Element}
  */
-export default function AppLayout({navbar, children, footer, background, hasRightSidebarPortal = false}) {
+export default function AppLayout({ navbar, children, footer, background, hasRightSidebarPortal = false }) {
     const [isSidebarVisible, setIsSidebarVisible] = useState(false);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [hasRightContent, setHasRightContent] = useState(false);
     const appShellRef = useRef(null);
 
     useEffect(() => {
-        const handleResize = () => setWindowWidth(window.innerWidth);
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
+        let resizeTimeout;
+        const handleResize = () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                setWindowWidth(window.innerWidth);
+            }, 150);
+        };
+        window.addEventListener('resize', handleResize, { passive: true });
+        return () => {
+            window.removeEventListener('resize', handleResize);
+            clearTimeout(resizeTimeout);
+        };
     }, []);
 
     useEffect(() => {
@@ -34,12 +42,13 @@ export default function AppLayout({navbar, children, footer, background, hasRigh
         const target = document.getElementById('right-sidebar-portal');
         if (!target) return;
 
-        const observer = new MutationObserver(() => {
+        const checkRightContent = () => {
             setHasRightContent(target.childNodes.length > 0);
-        });
+        };
 
-        observer.observe(target, {childList: true});
-        setHasRightContent(target.childNodes.length > 0);
+        const observer = new MutationObserver(checkRightContent);
+        observer.observe(target, { childList: true });
+        checkRightContent();
 
         return () => observer.disconnect();
     }, [hasRightSidebarPortal]);
@@ -78,11 +87,17 @@ export default function AppLayout({navbar, children, footer, background, hasRigh
             }
         };
 
-        window.addEventListener('scroll', onScroll, {passive: true});
-        window.addEventListener('resize', calculateFooterOffset, {passive: true});
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', calculateFooterOffset, { passive: true });
 
         const resizeObserver = new ResizeObserver(() => {
-            calculateFooterOffset();
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    calculateFooterOffset();
+                    ticking = false;
+                });
+                ticking = true;
+            }
         });
 
         if (document.body) {
@@ -152,7 +167,7 @@ export default function AppLayout({navbar, children, footer, background, hasRigh
                     } : {})
                 }}
             >
-                <div style={{flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0}}>
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
                     {children}
                 </div>
             </div>
