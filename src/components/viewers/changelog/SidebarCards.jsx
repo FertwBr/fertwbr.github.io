@@ -1,5 +1,13 @@
 import React from 'react';
 
+/**
+ * @param {Object} props
+ * @param {React.ReactNode} props.children
+ * @param {Function} [props.onClick]
+ * @param {string} [props.className]
+ * @param {Object} [props.style]
+ * @returns {JSX.Element}
+ */
 const SidebarBaseCard = ({children, onClick, className = '', style = {}}) => (
     <div
         className={`sidebar-base-card ${onClick ? 'clickable' : ''} ${!style.background ? 'sidebar-base-card-default' : ''} ${className}`}
@@ -10,6 +18,13 @@ const SidebarBaseCard = ({children, onClick, className = '', style = {}}) => (
     </div>
 );
 
+/**
+ * @param {Object} props
+ * @param {Object} props.version
+ * @param {Object} props.strings
+ * @param {string} props.link
+ * @returns {JSX.Element|null}
+ */
 export const LatestReleaseCard = ({version, strings, link}) => {
     if (!version) return null;
 
@@ -77,7 +92,13 @@ export const LatestReleaseCard = ({version, strings, link}) => {
     );
 };
 
-export const BetaProgramCard = ({strings, betaLink}) => (
+/**
+ * @param {Object} props
+ * @param {Object} props.strings
+ * @param {Function} props.onNavigate
+ * @returns {JSX.Element}
+ */
+export const BetaProgramCard = ({strings, onNavigate}) => (
     <SidebarBaseCard>
         <div style={{
             display: 'flex',
@@ -102,17 +123,24 @@ export const BetaProgramCard = ({strings, betaLink}) => (
             {strings.subtitle}
         </p>
 
-        <a href={betaLink} target="_blank" rel="noreferrer" className="beta-btn-outline">
+        <button onClick={() => onNavigate && onNavigate('beta')} className="beta-btn-outline" style={{ background: 'transparent', cursor: 'pointer', outline: 'none' }}>
             <span style={{overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
                 {strings.cta}
             </span>
             <span className="material-symbols-outlined" style={{fontSize: '18px'}}>
-                open_in_new
+                arrow_forward
             </span>
-        </a>
+        </button>
     </SidebarBaseCard>
 );
 
+/**
+ * @param {Object} props
+ * @param {Object} props.strings
+ * @param {boolean} props.isAvailable
+ * @param {string} props.link
+ * @returns {JSX.Element}
+ */
 export const WearOSCard = ({strings, isAvailable, link}) => {
     return (
         <SidebarBaseCard>
@@ -157,6 +185,12 @@ export const WearOSCard = ({strings, isAvailable, link}) => {
     );
 };
 
+/**
+ * @param {Object} props
+ * @param {Object} props.strings
+ * @param {Function} props.onNavigate
+ * @returns {JSX.Element}
+ */
 export const PlusPromoCard = ({strings, onNavigate}) => (
     <SidebarBaseCard>
         <div style={{
@@ -182,7 +216,7 @@ export const PlusPromoCard = ({strings, onNavigate}) => (
             {strings.subtitle}
         </p>
 
-        <button onClick={() => onNavigate && onNavigate('plus')} className="action-btn-outline">
+        <button onClick={() => onNavigate && onNavigate('plus')} className="action-btn-outline" style={{ cursor: 'pointer' }}>
             <span style={{overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
                 {strings.cta}
             </span>

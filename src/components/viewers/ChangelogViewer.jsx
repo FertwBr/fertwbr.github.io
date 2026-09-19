@@ -1,4 +1,3 @@
-// file: src/components/viewers/ChangelogViewer.jsx
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {createPortal} from 'react-dom';
 import ReactMarkdown from 'react-markdown';
@@ -452,8 +451,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
     const isMeasure = appConfig?.appName?.toLowerCase().includes('measure');
 
     const isPortfolio = appConfig?.appId === 'io.github.fertwbr.portfolio' || !appConfig?.playStoreLink;
-    const betaLink = appConfig?.playStoreLink?.replace('/store/apps/details?id=', '/apps/testing/') || appConfig?.playStoreLink;
-    const hasWearApp = isCompass || isPulse || isMeasure;
+    const hasWearApp = isCompass || isPulse;
 
     const isFullScreenMode = !!versionId;
     const isLoading = !markdown || versions.length === 0;
@@ -550,7 +548,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                         if (versionNumberMatch) {
                             const targetVer = englishVersions.find(v => (v.version || '').includes(versionNumberMatch[0]));
                             if (targetVer) {
-                                const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : isMeasure ? '/pixelmeasure' : '';
+                                const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : '/pixelmeasure';
                                 navigate(`${basePath}/changelog/${targetVer.id}`, {replace: true});
                                 setActiveId(targetVer.id);
                             }
@@ -584,7 +582,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                         if (versionNumberMatch) {
                             const targetVer = translatedVersions.find(v => (v.version || '').includes(versionNumberMatch[0]));
                             if (targetVer) {
-                                const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : isMeasure ? '/pixelmeasure' : '';
+                                const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : '/pixelmeasure';
                                 navigate(`${basePath}/changelog/${targetVer.id}`, {replace: true});
                                 setActiveId(targetVer.id);
                             }
@@ -620,8 +618,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
     const handleViewAll = () => {
         if (isCompass) navigate('/pixelcompass/changelog');
         else if (isPulse) navigate('/pixelpulse/changelog');
-        else if (isMeasure) navigate('/pixelmeasure/changelog');
-        else navigate('/changelog');
+        else navigate('/pixelmeasure/changelog');
     };
 
     /**
@@ -629,7 +626,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
      * @returns {void}
      */
     const handleOpenSingle = (id) => {
-        const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : isMeasure ? '/pixelmeasure' : '';
+        const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : '/pixelmeasure';
         navigate(`${basePath}/changelog/${id}`);
     };
 
@@ -638,7 +635,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
      * @returns {void}
      */
     const handleShare = (version) => {
-        const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : isMeasure ? '/pixelmeasure' : '';
+        const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : '/pixelmeasure';
         const shareUrl = `${window.location.origin}${basePath}/changelog/${version.id}`;
 
         if (navigator.share) {
@@ -675,10 +672,10 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
      * @returns {Promise<void>}
      */
     const handleEmailShare = async (version) => {
-        const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : isMeasure ? '/pixelmeasure' : '';
+        const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : '/pixelmeasure';
         const shareUrl = `${window.location.origin}${basePath}/changelog/${version.id}`;
         const appName = appConfig?.appName || 'App';
-        const primaryColor = isPulse ? '#3BA174' : isMeasure ? '#1A73E8' : '#6750A4';
+        const primaryColor = isPulse ? '#3BA174' : '#1A73E8';
         const successMessage = strings.changelog?.email_copied || "Embed copied to clipboard!";
 
         const {htmlText, plainText} = generateEmailEmbed(version, appName, shareUrl, primaryColor);
@@ -914,9 +911,11 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                 <span>{strings.changelog?.explore_more || "Explore More"}</span>
                             </div>
                             <BetaProgramCard strings={strings.changelog?.beta_program || {}}
-                                             betaLink={betaLink}/>
-                            <WearOSCard strings={strings.changelog?.wear_os_promo || {}}
-                                        isAvailable={hasWearApp} link={appConfig?.playStoreLink}/>
+                                             onNavigate={onNavigate}/>
+                            {!isMeasure && (
+                                <WearOSCard strings={strings.changelog?.wear_os_promo || {}}
+                                            isAvailable={hasWearApp} link={appConfig?.playStoreLink}/>
+                            )}
                             <PlusPromoCard strings={strings.changelog?.plus_promo || {}}
                                            onNavigate={onNavigate}/>
                         </div>
@@ -1165,9 +1164,11 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                                                link={appConfig?.playStoreLink}/>
                                         )}
                                         <BetaProgramCard strings={strings.changelog?.beta_program || {}}
-                                                         betaLink={betaLink}/>
-                                        <WearOSCard strings={strings.changelog?.wear_os_promo || {}}
-                                                    isAvailable={hasWearApp} link={appConfig?.playStoreLink}/>
+                                                         onNavigate={onNavigate}/>
+                                        {!isMeasure && (
+                                            <WearOSCard strings={strings.changelog?.wear_os_promo || {}}
+                                                        isAvailable={hasWearApp} link={appConfig?.playStoreLink}/>
+                                        )}
                                         <PlusPromoCard strings={strings.changelog?.plus_promo || {}}
                                                        onNavigate={onNavigate}/>
                                     </div>
