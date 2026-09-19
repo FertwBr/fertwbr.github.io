@@ -1,6 +1,17 @@
 # Versionsverlauf
 Verfolgen Sie die Entwicklung des Portfolios. Hier finden Sie ein detailliertes Protokoll über neue Funktionen, Verbesserungen und Korrekturen für jede Version.
 
+## Version 4.3.0
+*(Veröffentlicht am 18. September 2026)*
+
+Dieses Update führt eine dedizierte **Beta-Seite**, erweitert die Sitemap-Indizierung und Shortlinks für Early-Access-Tests, fügt einen direkten Beta-Zugang in den Website-Fußzeilen hinzu und verfeinert das Layout-Rendering auf Produktseiten.
+
+*   **Neu: Dedizierter Beta-Programm-Viewer:** Es wurde eine neue `BetaViewer`-Komponente erstellt, um instabile Release-Notizen (Beta, Alpha, RC, Pre-Release) direkt aus Changelog-Markdown-Dateien dynamisch zu filtern und anzuzeigen. Sie bietet einen übersichtlichen Header, ein minimalistisches Leistungsraster und ein dediziertes Styling über `beta.css`.
+*   **Neu: Beta-Programm-Navigation & Shortlinks:** Es wurden Konfigurationseigenschaften (`betaLink`, `betaPhotoUrl`) über alle App-Konfigurationen hinweg hinzugefügt und dedizierte `/beta/*`- sowie `/open/beta`-Routing-Intents implementiert. Cloudflare-Shortlinks (`/pulse/beta`, `/compass/beta`, `/measure/beta`) und Sitemap-Einträge wurden ebenfalls für eine nahtlose Early-Access-Verteilung eingerichtet.
+*   **Neu: Beta-Integration in der Fußzeile:** Es wurden direkte Navigationslinks zu den Early-Access-Beta-Programmen direkt in den Website- und App-Fußzeilen hinzugefügt, sodass Benutzer von jeder Seite aus mühelos dem Testkanal beitreten können.
+*   **UI- & UX-Feinschliff: Seitenleisten- & Wear OS-Verfeinerungen:** Direkt-Store-Links in den Beta-Karten der Seitenleiste wurden durch interne Router-Navigation (`onNavigate('beta')`) ersetzt. Darüber hinaus wird die `WearOSCard` beim Anzeigen des Pixel Measure-Changelogs intelligent ausgeblendet, um irrelevante Werbeaktionen zu verhindern.
+*   **Im Hintergrund: Layout- & Parsing-Resilienz:** Die Größenanpassungs- und Fußzeilenberechnungslogik von `AppLayout` wurde mithilfe von Debounce-Handlern optimiert, um Layout-Flackern zu verhindern. Die Resilienz beim Markdown-Parsing wurde verbessert und das Sichtbarkeitsverhalten des Seitenleistenportals für Tabs mit voller Breite (`beta`, `roadmap`, `plus`) korrigiert.
+
 ## Version 4.2.0
 *(Veröffentlicht am 17. August 2026)*
 

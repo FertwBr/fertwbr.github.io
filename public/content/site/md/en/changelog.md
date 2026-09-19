@@ -1,6 +1,17 @@
 # Version History
 Track the evolution of the portfolio. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 4.3.0
+*(Released September 18, 2026)*
+
+This update introduces a dedicated **Beta page**, expands sitemap indexation and shortlinks for early-access testing, adds direct beta access to site footers, and refines layout rendering across product pages.
+
+*   **New: Dedicated Beta Program Viewer:** Created a new `BetaViewer` component to dynamically filter and display unstable release notes (beta, alpha, rc, pre-release) directly from changelog Markdown files. It features a clean header, minimalist benefits grid, and dedicated styling via `beta.css`.
+*   **New: Beta Program Navigation & Shortlinks:** Added configuration properties (`betaLink`, `betaPhotoUrl`) across all app configurations and implemented dedicated `/beta/*` and `/open/beta` routing intents. Cloudflare shortlinks (`/pulse/beta`, `/compass/beta`, `/measure/beta`) and sitemap entries have also been established for seamless early-access distribution.
+*   **New: Footer Beta Integration:** Added direct navigation links to the early-access beta programs directly within the site and app footers, making it effortless for users to join the testing channel from any page.
+*   **UI & UX Polish: Sidebar & Wear OS Refinements:** Replaced direct store links within sidebar beta cards with internal router navigation (`onNavigate('beta')`). Additionally, the `WearOSCard` is now intelligently hidden when viewing the Pixel Measure changelog to prevent irrelevant promotions.
+*   **Under the Hood: Layout & Parsing Resilience:** Optimized the `AppLayout` resize and footer calculation logic using debounce handlers to prevent layout thrashing. Improved markdown parsing resilience and fixed sidebar portal visibility behavior for full-width tabs (`beta`, `roadmap`, `plus`).
+
 ## Version 4.2.0
 *(Released August 17, 2026)*
 

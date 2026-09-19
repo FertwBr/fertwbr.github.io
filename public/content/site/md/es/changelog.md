@@ -1,6 +1,17 @@
 # Historial de Versiones
 Siga la evolución del portafolio. Aquí encontrará un registro detallado de nuevas características, mejoras y correcciones para cada versión.
 
+## Versión 4.3.0
+*(Publicado el 18 de septiembre de 2026)*
+
+Esta actualización introduce una **página Beta** dedicada, amplía la indexación del sitemap y los shortlinks para pruebas de acceso anticipado, añade acceso directo a la beta en los pies de página del sitio y refina el renderizado de diseño en las páginas de productos.
+
+*   **Nuevo: Visualizador del Programa Beta Dedicado:** Se creó un nuevo componente `BetaViewer` para filtrar y mostrar dinámicamente notas de lanzamiento inestables (beta, alfa, rc, pre-lanzamiento) directamente desde archivos Markdown de registro de cambios. Cuenta con un encabezado limpio, una cuadrícula de beneficios minimalista y estilos dedicados a través de `beta.css`.
+*   **Nuevo: Navegación y Shortlinks del Programa Beta:** Se agregaron propiedades de configuración (`betaLink`, `betaPhotoUrl`) en todas las configuraciones de la aplicación e implementaron intenciones de enrutamiento dedicadas `/beta/*` y `/open/beta`. También se han establecido shortlinks de Cloudflare (`/pulse/beta`, `/compass/beta`, `/measure/beta`) y entradas de sitemap para una distribución fluida de acceso anticipado.
+*   **Nuevo: Integración Beta en el Pie de Página:** Se agregaron enlaces de navegación directos a los programas beta de acceso anticipado directamente en los pies de página del sitio y de la aplicación, lo que facilita que los usuarios se unan al canal de pruebas desde cualquier página.
+*   **Pulido de UI y UX: Refinamientos en la Barra Lateral y Wear OS:** Se reemplazaron los enlaces directos a la tienda dentro de las tarjetas beta de la barra lateral con navegación de enrutador interno (`onNavigate('beta')`). Además, la `WearOSCard` ahora se oculta de forma inteligente al ver el registro de cambios de Pixel Measure para evitar promociones irrelevantes.
+*   **Entre Bastidores: Resiliencia de Diseño y Análisis:** Se optimizó la lógica de cambio de tamaño y cálculo de pie de página de `AppLayout` utilizando controladores de debounce para evitar saltos en el diseño. Se mejoró la resiliencia del análisis de Markdown y se corrigió el comportamiento de visibilidad del portal de la barra lateral para pestañas de ancho completo (`beta`, `roadmap`, `plus`).
+
 ## Versión 4.2.0
 *(Publicada el 17 de agosto de 2026)*
 

@@ -1,6 +1,17 @@
 # Histórico de Versões
 Acompanhe a evolução do portfólio. Aqui você encontrará um registro detalhado de novos recursos, melhorias e correções para cada versão.
 
+## Versão 4.3.0
+*(Lançada em 18 de setembro de 2026)*
+
+Esta atualização introduz uma **página Beta** dedicada, expande a indexação do sitemap e os shortlinks para testes de acesso antecipado, adiciona acesso direto ao beta nos rodapés dos sites e aprimora a renderização de layout nas páginas de produtos.
+
+*   **Novo: Visualizador do Programa Beta Dedicado:** Foi criado um novo componente `BetaViewer` para filtrar e exibir dinamicamente notas de lançamento instáveis (beta, alpha, rc, pré-lançamento) diretamente a partir de arquivos Markdown do changelog. Ele apresenta um cabeçalho limpo, grade de benefícios minimalista e estilos dedicados via `beta.css`.
+*   **Novo: Navegação e Shortlinks do Programa Beta:** Foram adicionadas propriedades de configuração (`betaLink`, `betaPhotoUrl`) em todas as configurações do aplicativo e implementadas intenções de roteamento dedicadas `/beta/*` e `/open/beta`. Shortlinks da Cloudflare (`/pulse/beta`, `/compass/beta`, `/measure/beta`) e entradas no sitemap também foram estabelecidos para uma distribuição perfeita de acesso antecipado.
+*   **Novo: Integração Beta no Rodapé:** Foram adicionados links de navegação diretos para os programas beta de acesso antecipado diretamente nos rodapés do site e do aplicativo, tornando fácil para os usuários entrarem no canal de testes a partir de qualquer página.
+*   **Aprimoramento de UI e UX: Refinamentos na Barra Lateral e Wear OS:** Foram substituídos os links diretos para lojas dentro dos cards beta da barra lateral por navegação interna do roteador (`onNavigate('beta')`). Além disso, o `WearOSCard` agora é ocultado de forma inteligente ao visualizar o changelog do Pixel Measure para evitar promoções irrelevantes.
+*   **Nos Bastidores: Resiliência de Layout e Análise:** Foi otimizada a lógica de redimensionamento do `AppLayout` e cálculo de rodapé usando manipuladores de debounce para evitar oscilações de layout. Foi melhorada a resiliência na análise de Markdown e corrigido o comportamento de visibilidade do portal da barra lateral para abas de largura total (`beta`, `roadmap`, `plus`).
+
 ## Versão 4.2.0
 *(Lançada em 17 de agosto de 2026)*
 
