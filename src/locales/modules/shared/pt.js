@@ -94,6 +94,23 @@ export default {
         dynamic_docs_note: "Esta visão geral é gerada de forma dinâmica a partir de arquivos Markdown para garantir que esteja sempre atualizada com as alterações mais recentes no código-fonte.",
         about_docs_title: "Sobre esta documentação"
     },
+    beta_page: {
+        title: "Participe do Beta do {appName}",
+        subtitle: "Tenha acesso antecipado a recursos não lançados e ajude a moldar o futuro do aplicativo.",
+        badge: "Acesso Antecipado",
+        benefits_title: "Por que participar do Beta?",
+        benefit_1_title: "Teste Novos Recursos",
+        benefit_1_desc: "Seja o primeiro a experimentar ferramentas experimentais e melhorias de interface antes que cheguem a todos.",
+        benefit_2_title: "Molde o Aplicativo",
+        benefit_2_desc: "O seu feedback influencia diretamente o roteiro de desenvolvimento e a correção de bugs.",
+        benefit_3_title: "Fácil de Sair",
+        benefit_3_desc: "Você pode sair do programa de testes beta a qualquer momento, diretamente pela Google Play Store.",
+        cta_join: "Participar no Google Play",
+        cta_leave: "Sair do Beta",
+        warning_note: "Aviso: Versões beta podem ser instáveis ou conter pequenos bugs. Recomendamos fazer backup dos seus dados regularmente.",
+        disclaimer_title: "Aviso Importante",
+        disclaimer_desc: "Ao participar do programa beta, você reconhece que está usando um software em pré-lançamento. Funcionalidades podem mudar, falhar ou ser removidas sem aviso prévio."
+    },
     changelog: {
         title: "Histórico de Versões",
         subtitle: "Acompanhe a evolução do aplicativo. Aqui você encontrará um registro detalhado de novos recursos, melhorias e correções.",
@@ -114,7 +131,7 @@ export default {
         back_to_changelog: "Voltar ao registro de alterações",
         load_more: "Carregar mais",
         explore_more: "Explorar mais",
-        link_copied: "Link copiado para a área de transferência!",
+        link_copied: "Link copiado para a área de clipboard!",
         email_copied: "Resumo para e-mail copiado!",
         copy_email_embed: "Copiar resumo para e-mail",
         open_full_screen: "Abrir em tela cheia",
@@ -177,6 +194,7 @@ export default {
         },
         projects: {
             pixelpulse: "Pixel Pulse",
+            pixelcompass: "Pixel Compass",
             pixelmeasure: "Pixel Measure",
             portfolio: "Site do Portfólio"
         },

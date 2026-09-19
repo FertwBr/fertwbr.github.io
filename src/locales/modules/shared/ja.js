@@ -94,6 +94,23 @@ export default {
         dynamic_docs_note: "この概要は、最新のコードベースの変更を常に反映するように、Markdownファイルから動的に生成されます。",
         about_docs_title: "このドキュメントについて"
     },
+    beta_page: {
+        title: "{appName} ベータ版に参加",
+        subtitle: "未リリースの機能に早期アクセスし、アプリの未来を形作るのに役立ちます。",
+        badge: "早期アクセス",
+        benefits_title: "ベータ版に参加する理由",
+        benefit_1_title: "新機能のテスト",
+        benefit_1_desc: "すべてのユーザーに公開される前に、実験的なツールやUIの改善をいち早くお試しいただけます。",
+        benefit_2_title: "アプリを形作る",
+        benefit_2_desc: "あなたのフィードバックは、開発ロードマップとバグ修正に直接影響します。",
+        benefit_3_title: "いつでも退会可能",
+        benefit_3_desc: "Google Playストアから直接、いつでもベータテストプログラムを退会できます。",
+        cta_join: "Google Playで参加",
+        cta_leave: "ベータ版を終了",
+        warning_note: "注意：ベータ版は不安定であったり、小さなバグが含まれている場合があります。データを定期的にバックアップすることをお勧めします。",
+        disclaimer_title: "重要な免責事項",
+        disclaimer_desc: "ベータプログラムに参加することにより、プレリリースソフトウェアを使用していることを認識するものとします。機能は予告なく変更、破損、または削除される場合があります。"
+    },
     changelog: {
         title: "バージョン履歴",
         subtitle: "アプリケーションの進化を追跡します。ここでは、新機能、改善点、修正点の詳細なログを確認できます。",

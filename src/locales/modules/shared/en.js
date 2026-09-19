@@ -94,6 +94,23 @@ export default {
         dynamic_docs_note: "This overview is generated dynamically from Markdown files to ensure it's always up-to-date with the latest codebase changes.",
         about_docs_title: "About this docs"
     },
+    beta_page: {
+        title: "Join the {appName} Beta",
+        subtitle: "Get early access to unreleased features and help shape the future of the app.",
+        badge: "Early Access",
+        benefits_title: "Why join the Beta?",
+        benefit_1_title: "Test New Features",
+        benefit_1_desc: "Be the first to try out experimental tools and UI improvements before they roll out to everyone.",
+        benefit_2_title: "Shape the App",
+        benefit_2_desc: "Your feedback directly influences the development roadmap and bug fixes.",
+        benefit_3_title: "Easy to Leave",
+        benefit_3_desc: "You can leave the beta testing program at any time directly from the Google Play Store.",
+        cta_join: "Join on Google Play",
+        cta_leave: "Leave Beta",
+        warning_note: "Please note: Beta versions may be unstable or have minor bugs. We recommend backing up your data regularly.",
+        disclaimer_title: "Important Disclaimer",
+        disclaimer_desc: "By participating in the beta program, you acknowledge that you are using pre-release software. Features may change, break, or be removed without notice."
+    },
     changelog: {
         title: "Version History",
         subtitle: "Track the evolution of the application. Here you'll find a detailed log of new features, improvements, and fixes.",

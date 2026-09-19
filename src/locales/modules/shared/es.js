@@ -1,4 +1,3 @@
-// src/locales/shared/es.js
 /**
  * Cadenas de localización compartidas principales.
  * Incluye elementos comunes de la interfaz de usuario, estados de error, formularios y páginas de visualización universales.
@@ -94,6 +93,23 @@ export default {
         toc_title: "En esta página",
         dynamic_docs_note: "Esta descripción general se genera dinámicamente a partir de archivos Markdown para garantizar que siempre esté actualizada con los últimos cambios en el código fuente.",
         about_docs_title: "Acerca de esta documentación"
+    },
+    beta_page: {
+        title: "Únase a la Beta de {appName}",
+        subtitle: "Obtenga acceso anticipado a funciones no lanzadas y ayude a dar forma al futuro de la aplicación.",
+        badge: "Acceso Anticipado",
+        benefits_title: "¿Por qué unirse a la Beta?",
+        benefit_1_title: "Probar Nuevas Funciones",
+        benefit_1_desc: "Sea el primero en probar herramientas experimentales y mejoras en la interfaz antes de que estén disponibles para todos.",
+        benefit_2_title: "Dar Forma a la Aplicación",
+        benefit_2_desc: "Sus comentarios influyen directamente en la hoja de ruta de desarrollo y en la corrección de errores.",
+        benefit_3_title: "Fácil de Abandonar",
+        benefit_3_desc: "Puede abandonar el programa de pruebas beta en cualquier momento directamente desde Google Play Store.",
+        cta_join: "Unirse en Google Play",
+        cta_leave: "Abandonar Beta",
+        warning_note: "Tenga en cuenta: Las versiones beta pueden ser inestables o tener errores menores. Recomendamos hacer una copia de seguridad de sus datos con regularidad.",
+        disclaimer_title: "Aviso Importante",
+        disclaimer_desc: "Al participar en el programa beta, usted reconoce que está utilizando un software preliminar. Las funciones pueden cambiar, fallar o eliminarse sin previo aviso."
     },
     changelog: {
         title: "Historial de Versiones",

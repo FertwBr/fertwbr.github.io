@@ -94,6 +94,23 @@ export default {
         dynamic_docs_note: "Diese Übersicht wird dynamisch aus Markdown-Dateien generiert, um sicherzustellen, dass sie immer mit den neuesten Codebasis-Änderungen aktuell ist.",
         about_docs_title: "Über diese Dokumentation"
     },
+    beta_page: {
+        title: "Treten Sie der {appName} Beta bei",
+        subtitle: "Erhalten Sie frühzeitigen Zugriff auf unveröffentlichte Funktionen und helfen Sie, die Zukunft der App zu gestalten.",
+        badge: "Früher Zugang",
+        benefits_title: "Warum der Beta beitreten?",
+        benefit_1_title: "Neue Funktionen Testen",
+        benefit_1_desc: "Seien Sie der Erste, der experimentelle Werkzeuge und UI-Verbesserungen ausprobiert, bevor sie für alle verfügbar sind.",
+        benefit_2_title: "Die App Gestalten",
+        benefit_2_desc: "Ihr Feedback beeinflusst direkt die Entwicklungs-Roadmap und Fehlerbehebungen.",
+        benefit_3_title: "Jederzeit Verlassen",
+        benefit_3_desc: "Sie können das Beta-Testprogramm jederzeit direkt über den Google Play Store verlassen.",
+        cta_join: "Bei Google Play beitreten",
+        cta_leave: "Beta verlassen",
+        warning_note: "Bitte beachten Sie: Beta-Versionen können instabil sein oder kleinere Fehler aufweisen. Wir empfehlen, Ihre Daten regelmäßig zu sichern.",
+        disclaimer_title: "Wichtiger Hinweis",
+        disclaimer_desc: "Durch die Teilnahme am Beta-Programm erkennen Sie an, dass Sie Pre-Release-Software verwenden. Funktionen können sich ändern, nicht funktionieren oder ohne Vorankündigung entfernt werden."
+    },
     changelog: {
         title: "Versionsverlauf",
         subtitle: "Verfolgen Sie die Entwicklung der Anwendung. Hier finden Sie ein detailliertes Protokoll neuer Funktionen, Verbesserungen und Korrekturen.",
