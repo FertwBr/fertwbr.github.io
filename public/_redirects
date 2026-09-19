@@ -7,9 +7,6 @@
 /pulse/beta https://play.google.com/apps/testing/com.fertwbr.pixelpulse 301
 /measure/beta https://play.google.com/apps/testing/com.fertwbr.pixelmeasure 301
 
-/pixelcompass/beta https://play.google.com/apps/testing/com.fertwbr.pixelcompass 301
-/pixelpulse/beta https://play.google.com/apps/testing/com.fertwbr.pixelpulse 301
-/pixelmeasure/beta https://play.google.com/apps/testing/com.fertwbr.pixelmeasure 301
 /beta/compass/* https://play.google.com/apps/testing/com.fertwbr.pixelcompass 301
 /beta/pulse/* https://play.google.com/apps/testing/com.fertwbr.pixelpulse 301
 /beta/measure/* https://play.google.com/apps/testing/com.fertwbr.pixelmeasure 301
