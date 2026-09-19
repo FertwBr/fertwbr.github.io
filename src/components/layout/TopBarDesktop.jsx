@@ -1,6 +1,5 @@
-// src/components/layout/TopBarDesktop.jsx
-import React, {useState, useEffect, useRef} from 'react';
-import {useNavigate, useLocation} from 'react-router-dom';
+import React, {useEffect, useRef, useState} from 'react';
+import {useLocation, useNavigate} from 'react-router-dom';
 
 /**
  * TopBarDesktop component.
@@ -39,21 +38,33 @@ export default function TopBarDesktop({config, activePage, onNavigate, strings, 
     }, [isFiltersOpen]);
 
     useEffect(() => {
-        if (!bottomPortalRef.current) return;
-        const checkFilters = () => setHasFilters(bottomPortalRef.current.childNodes.length > 0);
+        const checkFilters = () => {
+            if (bottomPortalRef.current) {
+                setHasFilters(bottomPortalRef.current.childNodes.length > 0);
+            }
+        };
         checkFilters();
-        const obs = new MutationObserver(checkFilters);
-        obs.observe(bottomPortalRef.current, {childList: true, subtree: true});
-        return () => obs.disconnect();
+
+        if (bottomPortalRef.current) {
+            const obs = new MutationObserver(checkFilters);
+            obs.observe(bottomPortalRef.current, {childList: true, subtree: true});
+            return () => obs.disconnect();
+        }
     }, []);
 
     useEffect(() => {
-        if (!searchPortalRef.current) return;
-        const checkSearch = () => setHasSearch(searchPortalRef.current.childNodes.length > 0);
+        const checkSearch = () => {
+            if (searchPortalRef.current) {
+                setHasSearch(searchPortalRef.current.childNodes.length > 0);
+            }
+        };
         checkSearch();
-        const obs = new MutationObserver(checkSearch);
-        obs.observe(searchPortalRef.current, {childList: true, subtree: true});
-        return () => obs.disconnect();
+
+        if (searchPortalRef.current) {
+            const obs = new MutationObserver(checkSearch);
+            obs.observe(searchPortalRef.current, {childList: true, subtree: true});
+            return () => obs.disconnect();
+        }
     }, []);
 
     useEffect(() => {

@@ -1,25 +1,21 @@
-import React, {useState, useEffect, useMemo, useRef} from 'react';
+// file: src/components/viewers/ChangelogViewer.jsx
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {createPortal} from 'react-dom';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
-import {motion, AnimatePresence} from 'framer-motion';
-import {useParams, useNavigate} from 'react-router-dom';
+import {AnimatePresence, motion} from 'framer-motion';
+import {useNavigate, useParams} from 'react-router-dom';
 import {parseChangelog} from '../../utils/changelogParser';
 import {loadPageContent} from '../../utils/contentLoader';
 import {useLanguage} from '../../context/LanguageContext';
-import {generateEmailEmbed, executeCopy, showToast} from '../../utils/emailShareUtils';
+import {executeCopy, generateEmailEmbed, showToast} from '../../utils/emailShareUtils';
 import BackToTop from '../common/BackToTop';
 import PageTableOfContents from '../common/PageTableOfContents';
 import AutoTranslateBadge from '../common/AutoTranslateBadge';
 import ViewerHeader from '../common/ViewerHeader';
 import ChangelogSkeleton from './changelog/ChangelogSkeleton';
 
-import {
-    LatestReleaseCard,
-    BetaProgramCard,
-    WearOSCard,
-    PlusPromoCard
-} from './changelog/SidebarCards';
+import {BetaProgramCard, LatestReleaseCard, PlusPromoCard, WearOSCard} from './changelog/SidebarCards';
 
 const TAG_STYLE_CONFIG = {
     stable: {
@@ -159,11 +155,11 @@ const ChangelogItem = React.memo(({v, index, isActive, strings, onOpenSingle, on
                                 wordBreak: 'break-word',
                                 color: isActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface)'
                             }}>
-                                {v.version.replace('Version ', '')}
+                                {(v.version || '').replace('Version ', '')}
                             </h2>
                             <div style={{display: 'flex', gap: '6px', flexWrap: 'wrap'}}>
                                 <VersionBadge type={v.type}/>
-                                {v.tags.filter(tag => platformTags.includes(tag)).map(tag => (
+                                {(v.tags || []).filter(tag => platformTags.includes(tag)).map(tag => (
                                     <VersionBadge key={tag} type="stable" text={tag}/>
                                 ))}
                             </div>
@@ -229,13 +225,13 @@ const ChangelogItem = React.memo(({v, index, isActive, strings, onOpenSingle, on
                                     marginBottom: '24px'
                                 }}></div>
                                 <div style={{display: 'flex', gap: '8px', marginBottom: '24px', flexWrap: 'wrap'}}>
-                                    {v.tags.filter(t => !excludeTags.includes(t)).map(tag => (
+                                    {(v.tags || []).filter(t => !excludeTags.includes(t)).map(tag => (
                                         <span key={tag} className="content-tag">{tag}</span>
                                     ))}
                                 </div>
                                 <div className="markdown-body">
                                     {hasBeenOpened && (
-                                        <ReactMarkdown rehypePlugins={[rehypeRaw]}>{v.content}</ReactMarkdown>
+                                        <ReactMarkdown rehypePlugins={[rehypeRaw]}>{v.content || ''}</ReactMarkdown>
                                     )}
                                 </div>
                             </div>
@@ -246,6 +242,20 @@ const ChangelogItem = React.memo(({v, index, isActive, strings, onOpenSingle, on
         </motion.article>
     );
 });
+
+/**
+ * @param {Object} children
+ * @returns {string}
+ */
+const extractText = (children) => {
+    if (!children) return '';
+    if (typeof children === 'string' || typeof children === 'number') return String(children);
+    if (Array.isArray(children)) return children.map(extractText).join('');
+    if (children.props && children.props.children) {
+        return extractText(children.props.children);
+    }
+    return '';
+};
 
 /**
  * @param {Object} props
@@ -262,6 +272,7 @@ const FullScreenArticle = ({
                                isDesktop
                            }) => {
     const headers = useMemo(() => {
+        if (!v || !v.content) return [];
         const regex = /^####\s+(.+)$/gm;
         const matches = [];
         let match;
@@ -269,7 +280,7 @@ const FullScreenArticle = ({
             matches.push({title: match[1], id: match[1].toLowerCase().replace(/[^a-z0-9]+/g, '-')});
         }
         return matches;
-    }, [v.content]);
+    }, [v]);
 
     /**
      * @param {string} id
@@ -286,8 +297,7 @@ const FullScreenArticle = ({
 
     const MarkdownComponents = {
         h4: ({node, ...props}) => {
-            const childrenArray = React.Children.toArray(props.children);
-            const text = childrenArray.join('');
+            const text = extractText(props.children);
             const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-');
             return <h4 id={id} {...props} />;
         }
@@ -324,7 +334,7 @@ const FullScreenArticle = ({
                         </div>
 
                         <div className="toc-scroll-area" data-lenis-prevent="true">
-                            {headers.map(h => (
+                            {(headers || []).map(h => (
                                 <button
                                     key={h.id}
                                     onClick={() => scrollToSection(h.id)}
@@ -353,7 +363,7 @@ const FullScreenArticle = ({
                     <div className="mobile-toc-wrapper">
                         <PageTableOfContents title={strings.table_of_contents || "Table of Contents"} isMobile={true}>
                             <div className="toc-scroll-area" data-lenis-prevent="true">
-                                {headers.map(h => (
+                                {(headers || []).map(h => (
                                     <button
                                         key={h.id}
                                         onClick={() => scrollToSection(h.id)}
@@ -368,7 +378,7 @@ const FullScreenArticle = ({
 
                     <div className="markdown-body rich-text">
                         <ReactMarkdown rehypePlugins={[rehypeRaw]} components={MarkdownComponents}>
-                            {v.content}
+                            {v.content || ''}
                         </ReactMarkdown>
                     </div>
 
@@ -379,7 +389,8 @@ const FullScreenArticle = ({
                                     <span className="material-symbols-outlined">arrow_back</span>
                                     <div className="seq-text" style={{alignItems: 'flex-start'}}>
                                         <span className="seq-label">{strings.next_update || "Next Update"}</span>
-                                        <span className="seq-title">{nextVersion.version.replace('Version ', '')}</span>
+                                        <span
+                                            className="seq-title">{(nextVersion.version || '').replace('Version ', '')}</span>
                                     </div>
                                 </button>
                             )}
@@ -390,7 +401,8 @@ const FullScreenArticle = ({
                                     <div className="seq-text" style={{alignItems: 'flex-end'}}>
                                         <span
                                             className="seq-label">{strings.previous_update || "Previous Update"}</span>
-                                        <span className="seq-title">{prevVersion.version.replace('Version ', '')}</span>
+                                        <span
+                                            className="seq-title">{(prevVersion.version || '').replace('Version ', '')}</span>
                                     </div>
                                     <span className="material-symbols-outlined">arrow_forward</span>
                                 </button>
@@ -437,9 +449,11 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
 
     const isCompass = appConfig?.appName?.toLowerCase().includes('compass');
     const isPulse = appConfig?.appName?.toLowerCase().includes('pulse');
+    const isMeasure = appConfig?.appName?.toLowerCase().includes('measure');
+
     const isPortfolio = appConfig?.appId === 'io.github.fertwbr.portfolio' || !appConfig?.playStoreLink;
     const betaLink = appConfig?.playStoreLink?.replace('/store/apps/details?id=', '/apps/testing/') || appConfig?.playStoreLink;
-    const hasWearApp = isCompass || isPulse;
+    const hasWearApp = isCompass || isPulse || isMeasure;
 
     const isFullScreenMode = !!versionId;
     const isLoading = !markdown || versions.length === 0;
@@ -532,11 +546,11 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                     const currentVer = versions.find(v => v.id === safeVersionId);
 
                     if (currentVer) {
-                        const versionNumberMatch = currentVer.version.match(/[\d.]+/);
+                        const versionNumberMatch = (currentVer.version || '').match(/[\d.]+/);
                         if (versionNumberMatch) {
-                            const targetVer = englishVersions.find(v => v.version.includes(versionNumberMatch[0]));
+                            const targetVer = englishVersions.find(v => (v.version || '').includes(versionNumberMatch[0]));
                             if (targetVer) {
-                                const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : '';
+                                const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : isMeasure ? '/pixelmeasure' : '';
                                 navigate(`${basePath}/changelog/${targetVer.id}`, {replace: true});
                                 setActiveId(targetVer.id);
                             }
@@ -566,11 +580,11 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                     const currentVer = versions.find(v => v.id === safeVersionId);
 
                     if (currentVer) {
-                        const versionNumberMatch = currentVer.version.match(/[\d.]+/);
+                        const versionNumberMatch = (currentVer.version || '').match(/[\d.]+/);
                         if (versionNumberMatch) {
-                            const targetVer = translatedVersions.find(v => v.version.includes(versionNumberMatch[0]));
+                            const targetVer = translatedVersions.find(v => (v.version || '').includes(versionNumberMatch[0]));
                             if (targetVer) {
-                                const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : '';
+                                const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : isMeasure ? '/pixelmeasure' : '';
                                 navigate(`${basePath}/changelog/${targetVer.id}`, {replace: true});
                                 setActiveId(targetVer.id);
                             }
@@ -606,6 +620,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
     const handleViewAll = () => {
         if (isCompass) navigate('/pixelcompass/changelog');
         else if (isPulse) navigate('/pixelpulse/changelog');
+        else if (isMeasure) navigate('/pixelmeasure/changelog');
         else navigate('/changelog');
     };
 
@@ -614,7 +629,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
      * @returns {void}
      */
     const handleOpenSingle = (id) => {
-        const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : '';
+        const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : isMeasure ? '/pixelmeasure' : '';
         navigate(`${basePath}/changelog/${id}`);
     };
 
@@ -623,7 +638,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
      * @returns {void}
      */
     const handleShare = (version) => {
-        const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : '';
+        const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : isMeasure ? '/pixelmeasure' : '';
         const shareUrl = `${window.location.origin}${basePath}/changelog/${version.id}`;
 
         if (navigator.share) {
@@ -660,10 +675,10 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
      * @returns {Promise<void>}
      */
     const handleEmailShare = async (version) => {
-        const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : '';
+        const basePath = isCompass ? '/pixelcompass' : isPulse ? '/pixelpulse' : isMeasure ? '/pixelmeasure' : '';
         const shareUrl = `${window.location.origin}${basePath}/changelog/${version.id}`;
         const appName = appConfig?.appName || 'App';
-        const primaryColor = isPulse ? '#3BA174' : '#6750A4';
+        const primaryColor = isPulse ? '#3BA174' : isMeasure ? '#1A73E8' : '#6750A4';
         const successMessage = strings.changelog?.email_copied || "Embed copied to clipboard!";
 
         const {htmlText, plainText} = generateEmailEmbed(version, appName, shareUrl, primaryColor);
@@ -672,19 +687,19 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
 
     const allTags = useMemo(() => {
         const tags = new Set();
-        versions.forEach(v => v.tags.forEach(t => tags.add(t)));
+        (versions || []).forEach(v => (v.tags || []).forEach(t => tags.add(t)));
         return Array.from(tags).sort();
     }, [versions]);
 
     const filteredVersions = useMemo(() => {
         if (isFullScreenMode && versionId) {
             const safeVersionId = versionId.replace(/[^a-z0-9]/gi, '-').toLowerCase();
-            return versions.filter(v => v.id === safeVersionId);
+            return (versions || []).filter(v => v.id === safeVersionId);
         }
 
-        return versions.filter(v => {
-            const matchesSearch = !searchQuery || v.version.toLowerCase().includes(searchQuery.toLowerCase()) || v.content.toLowerCase().includes(searchQuery.toLowerCase());
-            const matchesTags = selectedTags.length === 0 || selectedTags.every(t => v.tags.includes(t));
+        return (versions || []).filter(v => {
+            const matchesSearch = !searchQuery || (v.version || '').toLowerCase().includes(searchQuery.toLowerCase()) || (v.content || '').toLowerCase().includes(searchQuery.toLowerCase());
+            const matchesTags = selectedTags.length === 0 || selectedTags.every(t => (v.tags || []).includes(t));
             return matchesSearch && matchesTags;
         });
     }, [versions, searchQuery, selectedTags, isFullScreenMode, versionId]);
@@ -702,7 +717,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
             });
         }, {rootMargin: '-100px 0px -80% 0px'});
 
-        filteredVersions.slice(0, visibleCount).forEach((v) => {
+        (filteredVersions || []).slice(0, visibleCount).forEach((v) => {
             const el = document.getElementById(`ver-${v.id}`);
             if (el) observer.observe(el);
         });
@@ -714,7 +729,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
      * @returns {void}
      */
     const scrollToVersion = (id) => {
-        const targetIndex = filteredVersions.findIndex(v => v.id === id);
+        const targetIndex = (filteredVersions || []).findIndex(v => v.id === id);
         if (targetIndex !== -1) {
             if (targetIndex >= visibleCount) {
                 setVisibleCount(targetIndex + 5);
@@ -740,7 +755,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
 
     const renderTocButtons = () => (
         <div className="toc-scroll-area" data-lenis-prevent="true">
-            {filteredVersions.map(v => {
+            {(filteredVersions || []).map(v => {
                 const style = getTagStyle(v.type);
                 return (
                     <button
@@ -749,14 +764,14 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                         className={`toc-item-btn ${activeId === v.id ? 'active' : ''}`}
                     >
                         <span className="toc-item-text">
-                            {v.version.replace('Version ', '')}
+                            {(v.version || '').replace('Version ', '')}
                         </span>
                         {v.type !== 'stable' && (
                             <span className="toc-item-badge" style={{
                                 background: style.bg,
                                 color: style.color
                             }}>
-                                {v.type === 'rc' ? 'RC' : v.type.substring(0, 1).toUpperCase()}
+                                {v.type === 'rc' ? 'RC' : (v.type || '').substring(0, 1).toUpperCase()}
                             </span>
                         )}
                     </button>
@@ -784,7 +799,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
             overflowX: 'auto', scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch',
             justifyContent: 'center'
         }}>
-            {allTags.map(tag => {
+            {(allTags || []).map(tag => {
                 const isSelected = selectedTags.includes(tag);
                 return (
                     <button
@@ -812,14 +827,14 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
 
     const tagsNode = isFullScreenMode && filteredVersions.length > 0 ? (
         <div style={{display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '8px'}}>
-            {filteredVersions[0].tags.filter(t => !excludeTags.includes(t)).map(tag => (
+            {(filteredVersions[0].tags || []).filter(t => !excludeTags.includes(t)).map(tag => (
                 <span key={tag} className="content-tag">{tag}</span>
             ))}
         </div>
     ) : null;
 
     const headerTitle = isFullScreenMode
-        ? (filteredVersions[0]?.version?.replace('Version ', '') || strings.changelog?.loading || 'Loading...')
+        ? ((filteredVersions[0]?.version || '').replace('Version ', '') || strings.changelog?.loading || 'Loading...')
         : (strings.changelog?.title || 'Changelog');
 
     const headerComponent = (
@@ -1029,9 +1044,9 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                             />
                                         </div>
 
-                                        {allTags.length > 0 && (
+                                        {(allTags || []).length > 0 && (
                                             <div className="loose-filters">
-                                                {allTags.map(tag => {
+                                                {(allTags || []).map(tag => {
                                                     const isSelected = selectedTags.includes(tag);
                                                     return (
                                                         <button
@@ -1064,8 +1079,8 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                             ) : (
                                 <>
                                     <div className="timeline-line"></div>
-                                    {filteredVersions.length > 0 ? (
-                                        filteredVersions.slice(0, visibleCount).map((v, index) => (
+                                    {(filteredVersions || []).length > 0 ? (
+                                        (filteredVersions || []).slice(0, visibleCount).map((v, index) => (
                                             <ChangelogItem key={v.id} v={v} index={index} isActive={activeId === v.id}
                                                            strings={strings.changelog || {}}
                                                            onOpenSingle={() => handleOpenSingle(v.id)}
@@ -1091,10 +1106,10 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                             )}
                         </div>
 
-                        {(!isLoading && visibleCount < filteredVersions.length) && (
+                        {(!isLoading && visibleCount < (filteredVersions || []).length) && (
                             <div className="load-more-container" style={{marginTop: '20px', marginBottom: '40px'}}>
                                 <motion.button
-                                    onClick={() => setVisibleCount(prev => Math.min(prev + 10, filteredVersions.length))}
+                                    onClick={() => setVisibleCount(prev => Math.min(prev + 10, (filteredVersions || []).length))}
                                     whileHover={{
                                         scale: 1.02,
                                         backgroundColor: 'var(--md-sys-color-surface-container-highest)'
@@ -1119,7 +1134,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                     }}
                                 >
                                     <span className="material-symbols-outlined">expand_more</span>
-                                    {strings.changelog?.load_more || "Load More"} ({filteredVersions.length - visibleCount})
+                                    {strings.changelog?.load_more || "Load More"} ({(filteredVersions || []).length - visibleCount})
                                 </motion.button>
                             </div>
                         )}

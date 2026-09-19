@@ -1,23 +1,24 @@
-// src/utils/changelogParser.js
-
 /**
+ * Parses markdown text into an array of version objects.
  * @param {string} markdown
  * @returns {Array<Object>}
  */
 export const parseChangelog = (markdown) => {
     if (!markdown) return [];
 
-    const sections = markdown.split(/^## /m).slice(1);
+    const blocks = markdown.split(/^## /m);
+    const validSections = blocks.filter(section => section.trim().startsWith('Version'));
 
-    return sections.map((section) => {
+    return validSections.map((section) => {
         const lines = section.split('\n');
         const versionLine = lines[0].trim();
 
         const versionMatch = versionLine.match(/^Version (.+)$/i) || [null, versionLine];
-        const version = versionMatch[1];
+        const version = versionMatch[1] || 'Unknown Version';
 
         const vLower = version.toLowerCase();
         let type = 'stable';
+
         if (vLower.includes('alpha')) type = 'alpha';
         else if (vLower.includes('beta')) type = 'beta';
         else if (vLower.includes('rc') || vLower.includes('release candidate')) type = 'rc';
@@ -85,13 +86,13 @@ export const parseChangelog = (markdown) => {
         }
 
         return {
-            id: version.replace(/[^a-z0-9]/gi, '-').toLowerCase(),
+            id: version.replace(/[^a-z0-9]/gi, '-').toLowerCase() || 'unknown',
             version,
             date,
             shortDate,
             tags: Array.from(tags),
             topics,
-            content: rawContent,
+            content: rawContent || '',
             type
         };
     });
