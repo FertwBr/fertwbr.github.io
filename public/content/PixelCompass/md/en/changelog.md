@@ -1,6 +1,34 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 2.0.0 Beta 6
+*(Released September 21, 2026)*
+
+Welcome to Beta 6! This massive update overhauls our underlying layout storage architecture, introducing an intelligent, declarative dual-profile system that completely separates free and premium configurations across mobile and expanded viewports.
+
+We are also rolling out deeply responsive, adaptive weather blocks for Atmospheric Pressure, UV Index, and Sun & Moon cycles, packed with interactive, surface-agnostic forecast charts. Expect precise rendering, smarter meteorology logic, massive battery optimizations for data synchronization, and a heavily polished layout editor experience.
+
+#### 📱 Phone
+* **Core & Architecture**: A completely rebuilt, declarative foundation for layout management and state synchronization.
+  * **Dual-Profile Layout Engine**: Introduced a silent `WeatherLayoutMigrationManager` that seamlessly upgrades legacy layouts and generates device-specific grids (2-column for mobile, 3-column for tablets/foldables). Layouts are now strictly segregated by Free and Plus subscription tiers via `PlusFeatureGuard`, safely isolating premium blocks into their own independent preference flows.
+  * **Editor State Synchronization**: Upgraded `WeatherViewModel` to track reactive screen dimensions and route structural mutations explicitly to the active viewport profile. Deserialization logic now automatically sanitizes and deduplicates weather blocks, resolving long-standing legacy caching bugs.
+  * **Deep Link Navigation Fix**: Resolved a critical navigation controller bug where handling external deep links (e.g., Settings) during edit mode would globally hide the bottom navigation bar and rail. The edit state evaluation is now strictly bound to the active editor route.
+* **Weather Engine & Logic**: Smarter, proactive meteorological analysis to prevent false alerts and track intense weather shifts.
+  * **Proactive Precipitation Analyzer**: Eliminated false positive rain alerts. The engine now strictly requires volumetric data (`qpf > 0.0`) alongside probability thresholds (min 30%) before triggering active rain or snow warnings, effectively filtering out high-chance but zero-volume anomalies.
+  * **Rapid Pressure Trends**: Rebuilt the domain `PressureAnalyzer` to evaluate 6-hour atmospheric windows using linear regression instead of basic two-point comparisons. Added tracking for high-intensity `RAPIDLY_RISING` and `RAPIDLY_FALLING` states to predict fast clearing skies or impending severe storms.
+  * **Insights String Formatting**: Fixed a UI rendering issue where raw unformatted string placeholders (`%1$s`) appeared in weather state transitions. Parameterized forecast strings are now properly separated from static current-state transition labels.
+* **Expressive UI & Charts**: Massive visual upgrades, surface-agnostic rendering, and dynamic responsiveness.
+  * **Surface-Agnostic Charts**: Stripped rigid background Cards from `SunMoonPathChart`, `MoonPhaseChart`, `UvForecastChart`, and `CloudCoverForecastChart`. These components now natively inherit external container styles (like frosted glass) and utilize interactive pointer inputs for smooth hover scrubbing without blocking native horizontal scrolling.
+  * **Dynamic Temperature Gradients**: The Extra Large Daily Forecast chart now utilizes procedurally generated, theme-aware `Brush.horizontalGradient` mappings for stroke lines and fill areas, beautifully visualizing temperature shifts sequentially across the canvas.
+  * **Precipitation Chart Refinements**: Removed legacy dynamic zoom, relying instead on calculated ceiling thresholds (1.5x max value) for organic magnification. Fixed Bezier fill paths to align strictly with X-offsets, eliminating visual triangle artifacts at the zero origin. Start and Peak highlight chips now dynamically hide when scrubbing nearby to prevent label overlap.
+  * **System Integration & Haptics**: The immersive mode `DataSourceFooter` now renders a stunning frosted glass background and dynamically syncs with the OS 12/24-hour time format preference. Action icons on weather block headers now trigger precision tick haptics.
+* **Weather Modules**: Deep sub-categorization of our new adaptive blocks and forecast blocks.
+  * **Precipitation Precision**: Transitioned to `DecimalFormat` to automatically strip trailing zeros while preserving 2-3 decimal precision for trace amounts. Negligible quantities (below 0.001in or 0.01mm) are safely clamped to zero to eliminate visual noise. Highlight sections now feature 16dp rounded corners and dynamic gradient brushes.
+  * **Atmospheric Pressure**: Shipped completely new responsive grid components (Small through Extra Large). Includes a `PressureComparisonChart` with an adaptive legend that dynamically hides when vertical viewport space drops below 140dp, ensuring the canvas is never clipped.
+  * **UV Index Engine**: Built a robust `UvTypographyMapper` that dynamically scales font weight and text style based on the active risk severity (Night to Extreme). Long advice strings now utilize an infinite, smooth marquee scroll (30dp velocity) instead of abrupt text truncation.
+  * **Sun & Moon Cycles**: Completely redesigned the `ExtraLargeSunMoonBlock` to feature a full-width vertical layout with an underlying row of synchronized celestial statistics (Sun Events, Moon Phase, Rise/Set times).
+  * **Daily & Wind Forecasts**: Built a "Super Compact" mode for vertically constrained Daily Forecast footprints, morphing temperature pills into a circular layout that auto-toggles between minimum and maximum temperatures every 3 seconds. The Wind block now forces strict single-line constraints to prevent text wrapping on smaller viewports.
+
 ## Version 2.0.0 Beta 5
 *(Released September 17, 2026)*
 
