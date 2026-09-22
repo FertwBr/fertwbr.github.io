@@ -1,4 +1,3 @@
-// src/components/common/UniversalControls.jsx
 import React, {useState, useRef, useEffect, useLayoutEffect} from 'react';
 import {
     getThemeOptions,
@@ -209,14 +208,7 @@ export default function UniversalControls({compact = false, title}) {
             }}
         >
             {!compact && title && (
-                <h3 style={{
-                    fontSize: '0.8rem',
-                    textTransform: 'uppercase',
-                    letterSpacing: '1.5px',
-                    color: 'var(--md-sys-color-on-surface-variant)',
-                    fontWeight: 700,
-                    margin: 0
-                }}>
+                <h3 className="footer-heading">
                     {title}
                 </h3>
             )}
