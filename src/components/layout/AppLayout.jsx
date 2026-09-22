@@ -121,6 +121,8 @@ export default function AppLayout({ navbar, children, footer, background, hasRig
     const isDrawerMode = windowWidth >= 1200;
 
     const bodyClass = (isDesktop && hasNavbar && isSidebarVisible) ? (isDrawerMode ? 'with-drawer' : 'with-rail') : '';
+    const navbarClass = hasNavbar ? 'has-navbar' : '';
+    const rightContentClass = (isDesktop && hasRightContent) ? 'has-right-content' : '';
 
     const enhancedNavbar = hasNavbar ? React.cloneElement(navbar, {
         isSidebarVisible,
@@ -133,13 +135,9 @@ export default function AppLayout({ navbar, children, footer, background, hasRig
     const marginRightAmount = isDesktop && hasRightContent ? 320 : 0;
 
     const dynamicBodyStyles = {
-        flex: '1 0 auto',
-        minHeight: '100dvh',
         marginRight: `${marginRightAmount}px`,
         marginLeft: `${marginLeftAmount}px`,
-        width: `calc(100% - ${marginLeftAmount + marginRightAmount}px)`,
-        borderTopRightRadius: isDesktop && hasRightContent ? '0' : undefined,
-        borderTopLeftRadius: isDesktop && hasNavbar && isSidebarVisible ? '32px' : '0'
+        width: `calc(100% - ${marginLeftAmount + marginRightAmount}px)`
     };
 
     if (isDesktop && !hasNavbar) {
@@ -156,10 +154,10 @@ export default function AppLayout({ navbar, children, footer, background, hasRig
             {enhancedNavbar}
 
             <div
-                className={`app-body-wrapper ${bodyClass}`}
+                className={`app-body-wrapper ${bodyClass} ${navbarClass} ${rightContentClass}`}
                 style={dynamicBodyStyles}
             >
-                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+                <div className="app-body-inner">
                     {children}
                 </div>
             </div>
@@ -170,41 +168,8 @@ export default function AppLayout({ navbar, children, footer, background, hasRig
                 <div
                     id="right-sidebar-portal"
                     data-lenis-prevent="true"
-                    style={{
-                        position: 'fixed',
-                        top: isDesktop ? '64px' : '0',
-                        right: isDesktop ? (hasRightContent ? '0' : '-320px') : '0',
-                        bottom: '0',
-                        width: '320px',
-                        background: 'var(--md-sys-color-surface)',
-                        borderLeft: 'none',
-                        zIndex: 180,
-                        overflowY: 'auto',
-                        overscrollBehavior: 'contain',
-                        transition: 'right 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)',
-                        display: isDesktop ? 'block' : 'none'
-                    }}
-                >
-                    <style>{`
-                        #right-sidebar-portal::-webkit-scrollbar {
-                            display: none !important;
-                            width: 0 !important;
-                        }
-                        #right-sidebar-portal {
-                            -ms-overflow-style: none !important;
-                            scrollbar-width: none !important;
-                        }
-                        #right-sidebar-portal .app-sidebar-sticky-inner {
-                            position: static !important;
-                            max-height: none !important;
-                            overflow-y: visible !important;
-                        }
-                        #right-sidebar-portal .app-sidebar-fixed {
-                            display: block !important;
-                            width: 100% !important;
-                        }
-                    `}</style>
-                </div>
+                    className={`right-sidebar-portal ${hasRightContent ? 'visible' : 'hidden'}`}
+                />
             )}
         </div>
     );

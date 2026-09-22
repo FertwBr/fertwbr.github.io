@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
+import {motion, AnimatePresence} from 'framer-motion';
 
 /**
  * TopBarDesktop component.
@@ -28,6 +29,8 @@ export default function TopBarDesktop({config, activePage, onNavigate, strings, 
     const navigate = useNavigate();
     const location = useLocation();
     const is404 = activePage === '404';
+
+    const displayTitle = is404 ? '404' : (strings?.[activePage] || config.appName);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -122,7 +125,7 @@ export default function TopBarDesktop({config, activePage, onNavigate, strings, 
             <header
                 className="top-bar-desktop"
                 style={{
-                    background: isVisible ? 'var(--md-sys-color-surface-container)' : 'rgba(var(--md-sys-color-surface-rgb), 0.75)',
+                    background: isVisible ? 'var(--md-sys-color-surface)' : 'rgba(var(--md-sys-color-surface-rgb), 0.75)',
                     backdropFilter: isVisible ? 'none' : 'blur(24px)',
                     WebkitBackdropFilter: isVisible ? 'none' : 'blur(24px)',
                     borderBottom: 'none',
@@ -171,23 +174,43 @@ export default function TopBarDesktop({config, activePage, onNavigate, strings, 
                                  display: 'flex',
                                  alignItems: 'center',
                                  justifyContent: 'center',
-                                 padding: '6px',
-                                 borderRadius: '50%',
+                                 padding: '6px 16px 6px 8px',
+                                 borderRadius: '100px',
                                  transition: 'background 0.2s',
-                                 flexShrink: 0
+                                 flexShrink: 0,
+                                 gap: '12px'
                              }}
                              onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(var(--md-sys-color-on-surface-rgb), 0.08)'}
                              onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                         >
                             {config.materialIcon ? (
                                 <span className="material-symbols-outlined"
-                                      style={{fontSize: '24px', color: 'var(--md-sys-color-primary)'}}>
+                                      style={{fontSize: '28px', color: 'var(--md-sys-color-primary)'}}>
                                     {config.materialIcon}
                                 </span>
                             ) : (
                                 <img src={config.appIcon} alt=""
-                                     style={{width: '24px', height: '24px', objectFit: 'contain'}}/>
+                                     style={{width: '28px', height: '28px', objectFit: 'contain', borderRadius: '6px'}}/>
                             )}
+
+                            <AnimatePresence mode="popLayout" initial={false}>
+                                <motion.span
+                                    key={displayTitle}
+                                    initial={{ opacity: 0, x: -10, filter: "blur(4px)" }}
+                                    animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                                    exit={{ opacity: 0, x: 10, filter: "blur(4px)" }}
+                                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                                    style={{
+                                        fontWeight: 700,
+                                        fontSize: '1.1rem',
+                                        color: 'var(--md-sys-color-on-surface)',
+                                        whiteSpace: 'nowrap',
+                                        letterSpacing: '-0.01em'
+                                    }}
+                                >
+                                    {displayTitle}
+                                </motion.span>
+                            </AnimatePresence>
                         </div>
                     )}
                 </div>
@@ -235,19 +258,6 @@ export default function TopBarDesktop({config, activePage, onNavigate, strings, 
                 <div id="appbar-bottom-portal" ref={bottomPortalRef}
                      className={`appbar-bottom-portal ${isFiltersOpen ? 'open' : ''}`}></div>
             </header>
-
-            <div style={{
-                position: 'fixed',
-                top: 64,
-                left: !isVisible ? 0 : (isExpanded ? 280 : 80),
-                width: 32,
-                height: 32,
-                pointerEvents: 'none',
-                zIndex: 195,
-                background: 'radial-gradient(circle at 100% 100%, transparent 32px, var(--md-sys-color-surface-container) 32px)',
-                opacity: isVisible ? 1 : 0,
-                transition: 'left 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)'
-            }}/>
         </>
     );
 }
