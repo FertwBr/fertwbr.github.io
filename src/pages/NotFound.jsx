@@ -168,56 +168,26 @@ export default function NotFound() {
             background={<PageBackground/>}
             footer={<Footer t={tFooter}/>}
         >
-            <PageTransition className="flex-grow-1" style={{flex: 1, display: 'flex', flexDirection: 'column'}}>
-                <main className="app-main-content" style={{
-                    flex: 1,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    padding: '120px 20px 60px 20px',
-                    textAlign: 'center',
-                    width: '100%',
-                    flexDirection: 'column'
-                }}>
-                    <div style={{maxWidth: '600px', width: '100%'}}>
+            <PageTransition className="page-transition-wrapper">
+                <main className="not-found-main">
+                    <div className="not-found-content">
                         <motion.div
                             initial={{scale: 0.8, opacity: 0}}
                             animate={{scale: 1, opacity: 1}}
                             transition={{type: "spring"}}
-                            style={{marginBottom: '24px'}}
+                            className="not-found-icon-wrapper"
                         >
-                            <span className="material-symbols-outlined" style={{
-                                fontSize: '80px',
-                                color: 'var(--md-sys-color-error)',
-                                background: 'var(--md-sys-color-error-container)',
-                                padding: '24px',
-                                borderRadius: '32px'
-                            }}>
+                            <span className="material-symbols-outlined not-found-icon">
                               broken_image
                             </span>
                         </motion.div>
 
-                        <h1 style={{
-                            fontSize: 'clamp(3rem, 6vw, 5rem)',
-                            fontWeight: 800,
-                            lineHeight: 1,
-                            marginBottom: '16px'
-                        }}>
+                        <h1 className="not-found-title">
                             {t.title || "404"}
                         </h1>
-                        <p style={{
-                            fontSize: '1.2rem',
-                            color: 'var(--md-sys-color-on-surface-variant)',
-                            marginBottom: '48px',
-                            lineHeight: 1.6
-                        }}>
+                        <p className="not-found-desc">
                             {t.message || "Oops! Into the void."} <br/>
-                            <code style={{
-                                background: 'rgba(var(--md-sys-color-on-surface-rgb), 0.1)',
-                                padding: '2px 6px',
-                                borderRadius: '4px',
-                                fontSize: '0.9em'
-                            }}>
+                            <code className="not-found-path">
                                 {location.pathname}
                             </code>
                         </p>
@@ -226,79 +196,41 @@ export default function NotFound() {
                             <motion.div
                                 initial={{y: 20, opacity: 0}}
                                 animate={{y: 0, opacity: 1}}
-                                className="glass-card"
-                                style={{
-                                    padding: '24px',
-                                    borderRadius: '24px',
-                                    border: '1px solid var(--md-sys-color-primary)',
-                                    background: 'rgba(var(--md-sys-color-primary-rgb), 0.05)',
-                                    marginBottom: '40px',
-                                    textAlign: 'left'
-                                }}
+                                className="glass-card not-found-suggestion-card"
                             >
-                                <div style={{display: 'flex', alignItems: 'center', gap: '20px', flexWrap: 'wrap'}}>
-                                    <div style={{
-                                        width: '48px', height: '48px', borderRadius: '50%',
-                                        background: 'var(--md-sys-color-primary-container)',
-                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                        flexShrink: 0
-                                    }}>
-                                        <span className="material-symbols-outlined"
-                                              style={{
-                                                  color: 'var(--md-sys-color-on-primary-container)',
-                                                  fontSize: '24px'
-                                              }}>
-                                          auto_awesome
-                                        </span>
-                                    </div>
-
-                                    <div style={{flex: 1, minWidth: '200px'}}>
-                                        <h3 style={{
-                                            margin: '0 0 4px 0',
-                                            fontSize: '1rem',
-                                            fontWeight: 700
-                                        }}>{t.suggestion_title}</h3>
-                                        <p style={{
-                                            margin: 0,
-                                            fontSize: '0.9rem',
-                                            color: 'var(--md-sys-color-on-surface-variant)',
-                                            lineHeight: 1.4
-                                        }}>
-                                            {t.suggestion_desc} <strong
-                                            style={{color: 'var(--md-sys-color-primary)'}}>{suggestion.name}</strong>.
-                                        </p>
-                                    </div>
-
-                                    <Link
-                                        to={suggestion.path}
-                                        className="btn-glow"
-                                        style={{
-                                            fontSize: '0.9rem',
-                                            padding: '12px 24px',
-                                            whiteSpace: 'nowrap',
-                                            flexGrow: 1,
-                                            textAlign: 'center'
-                                        }}
-                                    >
-                                        {t.suggestion_btn}
-                                    </Link>
+                                <div className="not-found-suggestion-icon-container">
+                                    <span className="material-symbols-outlined not-found-suggestion-icon">
+                                      auto_awesome
+                                    </span>
                                 </div>
+
+                                <div className="not-found-suggestion-text">
+                                    <h3 className="not-found-suggestion-title">{t.suggestion_title}</h3>
+                                    <p className="not-found-suggestion-desc">
+                                        {t.suggestion_desc} <strong
+                                        className="not-found-suggestion-highlight">{suggestion.name}</strong>.
+                                    </p>
+                                </div>
+
+                                <Link
+                                    to={suggestion.path}
+                                    className="btn-glow not-found-suggestion-btn"
+                                >
+                                    {t.suggestion_btn}
+                                </Link>
                             </motion.div>
                         )}
 
-                        <div style={{display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap'}}>
-                            <Link to="/" className="btn-outline"
-                                  style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
+                        <div className="not-found-actions">
+                            <Link to="/" className="btn-outline">
                                 <span className="material-symbols-outlined">home</span>
                                 {t.home_btn}
                             </Link>
-                            <Link to="/pixelpulse" className="btn-outline"
-                                  style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
+                            <Link to="/pixelpulse" className="btn-outline">
                                 <span className="material-symbols-outlined">graphic_eq</span>
                                 Pixel Pulse
                             </Link>
-                            <Link to="/pixelmeasure" className="btn-outline"
-                                  style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
+                            <Link to="/pixelmeasure" className="btn-outline">
                                 <span className="material-symbols-outlined">architecture</span>
                                 Pixel Measure
                             </Link>

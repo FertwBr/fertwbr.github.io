@@ -63,65 +63,37 @@ export default function RedirectToStore({type = 'open', appKey = 'pixelpulse'}) 
     }, [type, config]);
 
     return (
-        <main className="app-main-content" style={{
-            height: '100dvh',
-            width: '100vw',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            background: 'var(--md-sys-color-surface)',
-            color: 'var(--md-sys-color-on-surface)',
-            position: 'relative',
-            overflow: 'hidden'
-        }}>
+        <main className="redirect-main">
             <PageBackground opacity={0.5}/>
 
             <motion.div
                 initial={{scale: 0.9, opacity: 0}}
                 animate={{scale: 1, opacity: 1}}
                 transition={{type: "spring", duration: 0.8}}
-                className="glass-card"
-                style={{
-                    padding: '40px',
-                    maxWidth: '400px',
-                    width: '90%',
-                    textAlign: 'center',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    gap: '24px',
-                    border: '1px solid var(--md-sys-color-outline-variant)'
-                }}
+                className="glass-card redirect-card"
             >
                 <img
                     src={config.appIcon}
                     alt={config.appName}
-                    style={{
-                        width: '80px',
-                        height: '80px',
-                        borderRadius: '20px',
-                        boxShadow: '0 10px 30px rgba(0,0,0,0.2)'
-                    }}
+                    className="redirect-app-icon"
                 />
 
                 <div>
-                    <h1 style={{fontSize: '1.5rem', marginBottom: '8px', fontWeight: 700}}>{config.appName}</h1>
-                    <p style={{color: 'var(--md-sys-color-on-surface-variant)'}}>
+                    <h1 className="redirect-title">{config.appName}</h1>
+                    <p className="redirect-desc">
                         {status === 'attempting' ? content.redirect.launching : content.redirect.did_open}
                     </p>
                 </div>
 
                 {status === 'attempting' ? (
-                    <span className="material-symbols-outlined spin-anim"
-                          style={{fontSize: '32px', color: 'var(--md-sys-color-primary)', opacity: 0.7}}>sync</span>
+                    <span className="material-symbols-outlined redirect-spinner spin-anim">sync</span>
                 ) : (
-                    <div style={{display: 'flex', flexDirection: 'column', gap: '12px', width: '100%'}}>
+                    <div className="redirect-actions">
                         <a href={type === 'buy' ? `${config.scheme}://open/buy` : `${config.scheme}://open`}
-                           className="btn-glow" style={{width: '100%', justifyContent: 'center'}}>
+                           className="btn-glow redirect-btn">
                             {content.redirect.open_again}
                         </a>
-                        <a href={config.playStoreLink} target="_blank" rel="noreferrer" className="btn-outline"
-                           style={{width: '100%', justifyContent: 'center'}}>
+                        <a href={config.playStoreLink} target="_blank" rel="noreferrer" className="btn-outline redirect-btn">
                             {content.redirect.get_on_store}
                         </a>
                     </div>
