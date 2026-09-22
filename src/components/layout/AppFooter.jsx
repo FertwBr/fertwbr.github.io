@@ -21,6 +21,7 @@ export default function AppFooter({strings, onNavigate, activePage, isPortfolio 
 
     const allLinks = [
         {key: 'overview', icon: 'description'},
+        {key: 'download', icon: 'get_app'},
         {key: 'beta', icon: 'science'},
         {key: 'changelog', icon: 'update'},
         {key: 'roadmap', icon: 'map'},
@@ -35,7 +36,7 @@ export default function AppFooter({strings, onNavigate, activePage, isPortfolio 
 
     if (config && config.pages) {
         const availablePages = Object.keys(config.pages);
-        visibleLinks = visibleLinks.filter(link => link.key === 'beta' || availablePages.includes(link.key));
+        visibleLinks = visibleLinks.filter(link => link.key === 'beta' || link.key === 'download' || availablePages.includes(link.key));
     }
 
     return (
@@ -49,9 +50,15 @@ export default function AppFooter({strings, onNavigate, activePage, isPortfolio 
                         <div className="footer-links-group">
                             {visibleLinks.map(link => {
                                 const isSelected = activePage === link.key;
-                                const label = link.key === 'beta'
-                                    ? (t.nav?.beta || content?.beta_page?.page_title || 'Beta')
-                                    : (t.nav?.[link.key] || t[link.key] || link.key);
+                                let label = link.key;
+
+                                if (link.key === 'beta') {
+                                    label = t.nav?.beta || content?.beta_page?.page_title || 'Beta';
+                                } else if (link.key === 'download') {
+                                    label = content?.shared?.download_page?.page_title || 'Download';
+                                } else {
+                                    label = t.nav?.[link.key] || t[link.key] || link.key;
+                                }
 
                                 return (
                                     <motion.button
