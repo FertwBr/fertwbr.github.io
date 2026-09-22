@@ -1,4 +1,3 @@
-// src/components/layout/AppNavbar.jsx
 import React from 'react';
 import NavbarMobile from './NavbarMobile';
 import NavbarTablet from './NavbarTablet';
