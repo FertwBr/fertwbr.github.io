@@ -1,49 +1,42 @@
-// src/components/layout/HomeStoreFooter.jsx
 import React from 'react';
-import {motion} from 'framer-motion';
+import { motion } from 'framer-motion';
 
 /**
  * HomeStoreFooter component.
- *
- * A specific footer section designed to drive downloads.
- * Features Android branding, Play Store badge style button, and final CTA.
+ * A specific footer section designed to drive downloads adhering to M3 Expressive.
  *
  * @param {Object} props
- * @param {Object} props.appConfig - Application configuration (links, colors).
- * @param {Object} props.strings - Localized strings.
+ * @param {Object} props.appConfig Application configuration (links, colors).
+ * @param {Object} props.strings Localized strings.
+ * @returns {JSX.Element|null}
  */
-export default function HomeStoreFooter({appConfig, strings}) {
+export default function HomeStoreFooter({ appConfig, strings }) {
     if (!strings) return null;
 
     const accentColor = appConfig.seedColor || 'var(--md-sys-color-primary)';
 
     const containerVariants = {
-        hidden: {opacity: 0},
+        hidden: { opacity: 0 },
         visible: {
             opacity: 1,
-            transition: {staggerChildren: 0.2}
+            transition: { staggerChildren: 0.2 }
         }
     };
 
     const itemVariants = {
-        hidden: {opacity: 0, y: 20},
-        visible: {opacity: 1, y: 0, transition: {type: "spring", stiffness: 100}}
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } }
     };
 
     return (
         <section className="home-store-footer">
-            <div className="home-store-footer-bg"/>
-
             <motion.div
-                initial={{rotate: -10, y: 100, opacity: 0}}
-                whileInView={{rotate: 0, y: 50, opacity: 0.05}}
-                transition={{duration: 1.5}}
-                style={{
-                    position: 'absolute', bottom: -50, left: '50%', x: '-50%',
-                    pointerEvents: 'none', zIndex: -1
-                }}
+                initial={{ rotate: -10, y: 100, opacity: 0 }}
+                whileInView={{ rotate: 0, y: 50, opacity: 1 }}
+                transition={{ duration: 1.5 }}
+                className="store-footer-icon-bg"
             >
-                <span className="material-symbols-outlined" style={{fontSize: '400px', color: accentColor}}>
+                <span className="material-symbols-outlined" style={{ color: accentColor }}>
                     android
                 </span>
             </motion.div>
@@ -52,82 +45,50 @@ export default function HomeStoreFooter({appConfig, strings}) {
                 variants={containerVariants}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{once: true}}
-                style={{maxWidth: '800px', margin: '0 auto', position: 'relative', zIndex: 1}}
+                viewport={{ once: true }}
+                className="store-footer-content"
             >
-                <motion.div variants={itemVariants} style={{marginBottom: '24px'}}>
-                    <div style={{
-                        display: 'inline-flex', alignItems: 'center', gap: '12px',
-                        padding: '8px 16px', borderRadius: '100px',
-                        background: 'var(--md-sys-color-surface-container-high)',
-                        marginBottom: '24px'
-                    }}>
-                        <span className="material-symbols-outlined"
-                              style={{color: 'var(--md-sys-color-primary)'}}>android</span>
-                        <span style={{fontSize: '0.9rem', fontWeight: 600, color: 'var(--md-sys-color-on-surface)'}}>
+                <motion.div variants={itemVariants}>
+                    <div className="store-footer-badge">
+                        <span className="material-symbols-outlined store-footer-badge-icon">android</span>
+                        <span className="store-footer-badge-text">
                             {strings.tagline}
                         </span>
                     </div>
 
-                    <h2 style={{
-                        fontSize: 'clamp(2.5rem, 6vw, 3.5rem)',
-                        lineHeight: 1.1,
-                        fontWeight: 800,
-                        marginBottom: '16px',
-                        color: 'var(--md-sys-color-on-surface)'
-                    }}>
+                    <h2 className="store-footer-title">
                         {strings.title}
                     </h2>
 
-                    <p style={{
-                        fontSize: '1.2rem',
-                        color: 'var(--md-sys-color-on-surface-variant)',
-                        maxWidth: '600px',
-                        margin: '0 auto'
-                    }}>
+                    <p className="store-footer-desc">
                         {strings.subtitle}
                     </p>
                 </motion.div>
 
-                <motion.div variants={itemVariants} style={{marginTop: '40px'}}>
+                <motion.div variants={itemVariants} className="store-footer-actions">
                     <motion.a
                         href={appConfig.playStoreLink}
                         target="_blank"
                         rel="noreferrer"
-                        whileHover={{scale: 1.05}}
-                        whileTap={{scale: 0.95}}
-                        style={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '12px',
-                            background: 'var(--md-sys-color-primary)',
-                            color: 'var(--md-sys-color-on-primary)',
-                            padding: '12px 24px',
-                            borderRadius: '16px',
-                            textDecoration: 'none',
-                            boxShadow: '0 10px 20px rgba(0,0,0,0.15)'
-                        }}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="store-footer-btn"
                     >
                         <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
-                            <path d="M4,20.5L21.2,12L4,3.5V20.5M5,5.1L18.8,12L5,18.9V5.1Z"/>
+                            <path d="M4,20.5L21.2,12L4,3.5V20.5M5,5.1L18.8,12L5,18.9V5.1Z" />
                         </svg>
 
-                        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
-                            <span style={{fontSize: '0.75rem', textTransform: 'uppercase', opacity: 0.9}}>
+                        <div className="store-footer-btn-content">
+                            <span className="store-footer-btn-sub">
                                 {strings.button_sub}
                             </span>
-                            <span style={{fontSize: '1.4rem', fontWeight: 700, lineHeight: 1}}>
+                            <span className="store-footer-btn-main">
                                 {strings.button_main}
                             </span>
                         </div>
                     </motion.a>
 
-                    <div style={{
-                        marginTop: '20px',
-                        fontSize: '0.9rem',
-                        color: 'var(--md-sys-color-on-surface-variant)',
-                        opacity: 0.7
-                    }}>
+                    <div className="store-footer-note">
                         {strings.bottom_note}
                     </div>
                 </motion.div>

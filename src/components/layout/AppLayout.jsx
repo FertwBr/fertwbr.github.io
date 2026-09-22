@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 
 /**
  * Main application layout wrapper.
- * Orchestrates the space required by the dynamic navigation bars.
+ * Orchestrates the space required by the dynamic navigation bars and enforces
+ * Material 3 Expressive layout structure.
  *
  * @param {Object} props
  * @param {React.ReactNode} props.navbar
@@ -131,41 +132,32 @@ export default function AppLayout({ navbar, children, footer, background, hasRig
     const marginLeftAmount = isDesktop && hasNavbar && isSidebarVisible ? (isDrawerMode ? 280 : 80) : 0;
     const marginRightAmount = isDesktop && hasRightContent ? 320 : 0;
 
+    const dynamicBodyStyles = {
+        flex: '1 0 auto',
+        minHeight: '100dvh',
+        marginRight: `${marginRightAmount}px`,
+        marginLeft: `${marginLeftAmount}px`,
+        width: `calc(100% - ${marginLeftAmount + marginRightAmount}px)`,
+        borderTopRightRadius: isDesktop && hasRightContent ? '0' : undefined,
+        borderTopLeftRadius: isDesktop && hasNavbar && isSidebarVisible ? '32px' : '0'
+    };
+
+    if (isDesktop && !hasNavbar) {
+        dynamicBodyStyles.marginTop = 0;
+        dynamicBodyStyles.marginLeft = 0;
+        dynamicBodyStyles.borderRadius = 0;
+        dynamicBodyStyles.background = 'transparent';
+        dynamicBodyStyles.width = '100%';
+    }
+
     return (
-        <div
-            ref={appShellRef}
-            className="app-shell page-wrapper"
-            style={{
-                display: 'flex',
-                flexDirection: 'column',
-                minHeight: '100dvh',
-                overflowX: 'hidden'
-            }}
-        >
+        <div ref={appShellRef} className="app-shell page-wrapper">
             {background}
             {enhancedNavbar}
 
             <div
                 className={`app-body-wrapper ${bodyClass}`}
-                style={{
-                    flex: '1 0 auto',
-                    minHeight: '100dvh',
-                    marginRight: `${marginRightAmount}px`,
-                    marginLeft: `${marginLeftAmount}px`,
-                    width: `calc(100% - ${marginLeftAmount + marginRightAmount}px)`,
-                    boxSizing: 'border-box',
-                    transition: 'margin 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), border-radius 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)',
-                    borderTopRightRadius: isDesktop && hasRightContent ? '0' : undefined,
-                    borderTopLeftRadius: isDesktop && hasNavbar && isSidebarVisible ? '32px' : '0',
-                    border: 'none',
-                    ...((isDesktop && !hasNavbar) ? {
-                        marginTop: 0,
-                        marginLeft: 0,
-                        borderRadius: 0,
-                        background: 'transparent',
-                        width: '100%'
-                    } : {})
-                }}
+                style={dynamicBodyStyles}
             >
                 <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
                     {children}

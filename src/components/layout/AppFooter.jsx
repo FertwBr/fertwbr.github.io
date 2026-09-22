@@ -1,11 +1,13 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
-import {motion} from 'framer-motion';
-import {useLanguage} from '../../context/LanguageContext';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { useLanguage } from '../../context/LanguageContext';
 import FooterControls from './FooterControls';
-import {SiteConfig} from '../../utils/siteConstants';
+import { SiteConfig } from '../../utils/siteConstants';
 
 /**
+ * Renders the application specific footer adhering to M3 Expressive guidelines.
+ *
  * @param {Object} props
  * @param {Object} props.strings
  * @param {Function} props.onNavigate
@@ -14,20 +16,20 @@ import {SiteConfig} from '../../utils/siteConstants';
  * @param {Object} [props.config]
  * @returns {JSX.Element}
  */
-export default function AppFooter({strings, onNavigate, activePage, isPortfolio = false, config = null}) {
-    const {content} = useLanguage();
+export default function AppFooter({ strings, onNavigate, activePage, isPortfolio = false, config = null }) {
+    const { content } = useLanguage();
     const t = strings || {};
     const globalFooter = content?.footer || {};
 
     const allLinks = [
-        {key: 'overview', icon: 'description'},
-        {key: 'download', icon: 'get_app'},
-        {key: 'beta', icon: 'science'},
-        {key: 'changelog', icon: 'update'},
-        {key: 'roadmap', icon: 'map'},
-        {key: 'privacy', icon: 'security'},
-        {key: 'terms', icon: 'gavel'},
-        {key: 'help', icon: 'support'}
+        { key: 'overview', icon: 'description' },
+        { key: 'download', icon: 'get_app' },
+        { key: 'beta', icon: 'science' },
+        { key: 'changelog', icon: 'update' },
+        { key: 'roadmap', icon: 'map' },
+        { key: 'privacy', icon: 'security' },
+        { key: 'terms', icon: 'gavel' },
+        { key: 'help', icon: 'support' }
     ];
 
     let visibleLinks = isPortfolio
@@ -40,11 +42,11 @@ export default function AppFooter({strings, onNavigate, activePage, isPortfolio 
     }
 
     return (
-        <footer className="footer-base" style={{position: 'relative', zIndex: 190}}>
+        <footer className="footer-base">
             <div className="footer-content">
                 <div className="footer-grid">
-                    <div style={{display: 'flex', flexDirection: 'column', gap: '24px'}}>
-                        <h3 className="footer-heading" style={{margin: 0}}>
+                    <div className="footer-column">
+                        <h3 className="footer-heading">
                             {t.footer?.links || globalFooter.useful_links}
                         </h3>
                         <div className="footer-links-group">
@@ -64,11 +66,11 @@ export default function AppFooter({strings, onNavigate, activePage, isPortfolio 
                                     <motion.button
                                         key={link.key}
                                         onClick={() => onNavigate(link.key)}
-                                        whileHover={{scale: 1.05}}
-                                        whileTap={{scale: 0.95}}
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
                                         className={`footer-link-btn ${isSelected ? 'active' : ''}`}
                                     >
-                                        <span className="material-symbols-outlined" style={{fontSize: '18px'}}>
+                                        <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>
                                             {link.icon}
                                         </span>
                                         {label}
@@ -77,24 +79,21 @@ export default function AppFooter({strings, onNavigate, activePage, isPortfolio 
                             })}
                         </div>
                     </div>
-                    <FooterControls title={globalFooter.appearance?.title}/>
+                    <FooterControls title={globalFooter.appearance?.title} />
                 </div>
-                <div className="footer-divider"/>
+
+                <div className="footer-divider" />
+
                 <div className="footer-bottom">
-                    <div style={{display: 'flex', flexDirection: 'column', gap: '4px'}}>
+                    <div className="footer-rights-group">
                         <p className="footer-rights-text">{t.footer?.rights || globalFooter.rights}</p>
                         <div className="footer-meta-text">
                             <span>&copy; {SiteConfig.getCopyrightYear()} {SiteConfig.meta.author}</span>
-                            <span style={{opacity: 0.5}}>•</span>
+                            <span style={{ opacity: 0.5 }}>•</span>
                             <Link
                                 to={SiteConfig.routes.siteChangelog}
+                                className="footer-version-link"
                                 title="Portfolio Changelog"
-                                style={{
-                                    color: 'inherit',
-                                    textDecoration: 'none',
-                                    fontFamily: 'monospace',
-                                    opacity: 0.8
-                                }}
                                 onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
                                 onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
                             >
@@ -107,16 +106,16 @@ export default function AppFooter({strings, onNavigate, activePage, isPortfolio 
                             href={SiteConfig.links.githubProfile}
                             target="_blank"
                             rel="noreferrer"
-                            whileHover={{y: -3, color: 'var(--md-sys-color-primary)', opacity: 1}}
-                            whileTap={{scale: 0.9}}
+                            whileHover={{ y: -3, color: 'var(--md-sys-color-primary)', opacity: 1 }}
+                            whileTap={{ scale: 0.9 }}
                             className="footer-social-btn"
                         >
                             <span className="material-symbols-outlined">code</span>
                         </motion.a>
                         <motion.a
                             href={SiteConfig.links.mailTo}
-                            whileHover={{y: -3, color: 'var(--md-sys-color-primary)', opacity: 1}}
-                            whileTap={{scale: 0.9}}
+                            whileHover={{ y: -3, color: 'var(--md-sys-color-primary)', opacity: 1 }}
+                            whileTap={{ scale: 0.9 }}
                             className="footer-social-btn"
                         >
                             <span className="material-symbols-outlined">mail</span>
