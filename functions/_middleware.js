@@ -23,6 +23,12 @@ const routeMeta = {
         image: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Pulse/art/icon.svg",
         color: "#3BA174"
     },
+    "apps.fertwbr.com/pixelmeasure": {
+        title: "Pixel Measure | AR Measurement Tool",
+        description: "Seamlessly measure dimensions, areas, and object placements using the power of Augmented Reality.",
+        image: "https://raw.githubusercontent.com/FertwBr/PixelAssets/main/Measure/art/icon.svg",
+        color: "#F57C00"
+    },
     "tools.fertwbr.com/geminiexpressive": {
         title: "Gemini Expressive | Browser Extension",
         description: "Enhances the Gemini web UI with a timeline, collapsible code blocks, and dynamic Material You theming.",
@@ -55,19 +61,16 @@ class HeadRewriter {
         element.append(`
       <title>${this.meta.title}</title>
       <meta name="description" content="${this.meta.description}" />
-      
       <meta property="og:type" content="website" />
       <meta property="og:url" content="${this.url}" />
       <meta property="og:title" content="${this.meta.title}" />
       <meta property="og:description" content="${this.meta.description}" />
       <meta property="og:image" content="${this.meta.image}" />
-      
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:url" content="${this.url}" />
       <meta name="twitter:title" content="${this.meta.title}" />
       <meta name="twitter:description" content="${this.meta.description}" />
       <meta name="twitter:image" content="${this.meta.image}" />
-      
       <meta name="theme-color" content="${this.meta.color}" />
     `, {html: true});
     }
@@ -114,6 +117,8 @@ export async function onRequest(context) {
             matchedMeta = routeMeta["apps.fertwbr.com/pixelcompass"];
         } else if (pathname.startsWith("/pixelpulse")) {
             matchedMeta = routeMeta["apps.fertwbr.com/pixelpulse"];
+        } else if (pathname.startsWith("/pixelmeasure")) {
+            matchedMeta = routeMeta["apps.fertwbr.com/pixelmeasure"];
         } else {
             matchedMeta = routeMeta["apps.fertwbr.com/"];
         }
