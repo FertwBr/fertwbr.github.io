@@ -4,8 +4,8 @@
  *
  * @param {string} actionId - The ID of the action (e.g., 'feedback', 'contact', 'help', 'email').
  * @param {Function} navigate - The React Router navigate function.
- * @param {Object} context - Context data (appName, platform, etc.).
- * @param {string} [context.source] - The source app identifier (e.g., 'pixelpulse').
+ * @param {Object} [context={}] - Context data (appName, platform, etc.).
+ * @param {string} [context.source='portfolio'] - The source app identifier (e.g., 'pixelpulse').
  * @param {string} [context.platform='web'] - The platform (android, wearos, web).
  */
 export const handleContactSupport = (actionId, navigate, context = {}) => {
@@ -19,15 +19,15 @@ export const handleContactSupport = (actionId, navigate, context = {}) => {
 
         case 'contact':
         case 'email':
-            window.location.href = "mailto:fertwbr@gmail.com";
+            window.location.href = 'mailto:fertwbr@gmail.com';
             break;
 
         default:
             if (['help', 'privacy', 'changelog', 'roadmap', 'plus', 'overview'].includes(actionId)) {
                 if (source === 'portfolio' || !source) {
-                    navigate(`/site?page=${actionId}`);
+                    navigate(`/${actionId}`);
                 } else {
-                    navigate(`/${source}?page=${actionId}`);
+                    navigate(`/${source}/${actionId}`);
                 }
             } else {
                 console.warn(`Unknown navigation action: ${actionId}`);
