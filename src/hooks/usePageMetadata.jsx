@@ -5,11 +5,12 @@
 
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useLanguage } from '../context/LanguageContext';
 
 /**
  * Resolves the authoritative canonical URL based on the application path segment.
  *
- * @param {string} pathname - The current router location pathname.
+ * @param {string} pathname The current router location pathname.
  * @returns {string} The fully qualified canonical URL.
  */
 function getAuthoritativeCanonicalUrl(pathname) {
@@ -32,21 +33,28 @@ function getAuthoritativeCanonicalUrl(pathname) {
 }
 
 /**
- * Hook to manage document head metadata (Title, Favicon, Theme Color, Open Graph & JSON-LD).
+ * Hook to manage document head metadata including dynamic language injection and schema definitions.
  *
- * @param {Object} metadata - Configuration object for head metadata.
- * @param {string} metadata.title - The title to display in the document header.
- * @param {string} metadata.description - Meta description content.
- * @param {string} metadata.themeColor - Hex or CSS color string for theme-color meta tag.
- * @param {string} metadata.favicon - Path or URL to the page favicon.
- * @param {string} [metadata.type='website'] - Open Graph type.
- * @param {Object} [metadata.product] - Optional product schema metadata.
+ * @param {Object} metadata Configuration object for head metadata.
+ * @param {string} metadata.title The title to display in the document header.
+ * @param {string} metadata.description Meta description content.
+ * @param {string} metadata.themeColor Hex or CSS color string for theme-color meta tag.
+ * @param {string} metadata.favicon Path or URL to the page favicon.
+ * @param {string} [metadata.type='website'] Open Graph type.
+ * @param {Object} [metadata.product] Optional product schema metadata.
+ * @param {string} [metadata.locale] The locale code for the page language, falls back to context.
  */
-export function usePageMetadata({ title, description, themeColor, favicon, type = 'website', product }) {
+export function usePageMetadata({ title, description, themeColor, favicon, type = 'website', product, locale }) {
     const location = useLocation();
+    const { content, language } = useLanguage();
+
+    const activeLocale = locale || language || 'en';
 
     useEffect(() => {
+        document.documentElement.lang = activeLocale;
+
         let formattedTitle = title;
+        const changelogText = content?.shared?.changelog?.title || 'Changelog';
 
         if (title) {
             const parts = title.split(/[-–]/).map(s => s.trim()).filter(Boolean);
@@ -60,7 +68,7 @@ export function usePageMetadata({ title, description, themeColor, favicon, type 
 
                 if (versionPart) {
                     const version = versionPart.replace(/version\s*/i, '').trim();
-                    formattedTitle = `${version} - Changelog - ${appName}`;
+                    formattedTitle = `${version} - ${changelogText} - ${appName}`;
                 } else if (rest.length === 0) {
                     formattedTitle = appName;
                 } else {
@@ -111,24 +119,28 @@ export function usePageMetadata({ title, description, themeColor, favicon, type 
         /**
          * Updates or creates an Open Graph meta tag.
          *
-         * @param {string} property - The Open Graph property name.
-         * @param {string} content - The meta content value.
+         * @param {string} property The Open Graph property name.
+         * @param {string} contentValue The meta content value.
          */
-        const updateMeta = (property, content) => {
-            if (!content) return;
+        const updateMeta = (property, contentValue) => {
+            if (!contentValue) return;
             let tag = document.querySelector(`meta[property='${property}']`);
             if (!tag) {
                 tag = document.createElement('meta');
                 tag.setAttribute('property', property);
                 document.head.appendChild(tag);
             }
-            tag.setAttribute('content', content);
+            tag.setAttribute('content', contentValue);
         };
 
+        const defaultDesc = content?.portfolio?.hero?.subtitle || 'Professional Android Software Engineering Portfolio.';
+        const authorName = content?.portfolio?.hero?.name || 'Fernando Vaz';
+
         updateMeta('og:title', formattedTitle);
-        updateMeta('og:description', description || 'Professional Android Software Engineering Portfolio.');
+        updateMeta('og:description', description || defaultDesc);
         updateMeta('og:url', canonicalUrl);
         updateMeta('og:type', type);
+        updateMeta('og:locale', activeLocale);
 
         let script = document.querySelector('#structured-data');
         if (!script) {
@@ -150,39 +162,39 @@ export function usePageMetadata({ title, description, themeColor, favicon, type 
             schemaData = {
                 '@context': 'https://schema.org',
                 '@type': 'SoftwareApplication',
-                'name': product?.appName || formattedTitle || 'Fernando Vaz Software',
-                'operatingSystem': isExtension ? 'Web Browser' : 'Android',
-                'applicationCategory': isExtension ? 'BrowserExtension' : 'UtilitiesApplication',
-                'url': canonicalUrl,
-                'offers': {
+                name: product?.appName || formattedTitle || `${authorName} Software`,
+                operatingSystem: isExtension ? 'Web Browser' : 'Android',
+                applicationCategory: isExtension ? 'BrowserExtension' : 'UtilitiesApplication',
+                url: canonicalUrl,
+                offers: {
                     '@type': 'Offer',
-                    'price': '0',
-                    'priceCurrency': 'USD'
+                    price: '0',
+                    priceCurrency: 'USD'
                 },
-                'author': {
+                author: {
                     '@type': 'Person',
-                    'name': 'Fernando Vaz',
-                    'url': 'https://fertwbr.com'
+                    name: authorName,
+                    url: 'https://fertwbr.com'
                 },
-                'image': favicon
+                image: favicon
             };
         } else {
             schemaData = {
                 '@context': 'https://schema.org',
                 '@type': 'WebSite',
-                'name': 'Fernando Vaz Portfolio',
-                'url': 'https://fertwbr.com',
-                'image': favicon,
-                'author': {
+                name: `${authorName} Portfolio`,
+                url: 'https://fertwbr.com',
+                image: favicon,
+                author: {
                     '@type': 'Person',
-                    'name': 'Fernando Vaz',
-                    'jobTitle': 'Software Engineer',
-                    'url': 'https://fertwbr.com',
-                    'image': favicon
+                    name: authorName,
+                    jobTitle: 'Software Engineer',
+                    url: 'https://fertwbr.com',
+                    image: favicon
                 }
             };
         }
 
         script.textContent = JSON.stringify(schemaData);
-    }, [title, description, themeColor, favicon, type, product, location]);
+    }, [title, description, themeColor, favicon, type, product, location, activeLocale, content]);
 }
