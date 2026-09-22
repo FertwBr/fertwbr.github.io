@@ -24,6 +24,7 @@ import RoadmapViewer from '../components/viewers/RoadmapViewer';
 import OverviewViewer from '../components/viewers/OverviewViewer';
 import PlusViewer from '../components/viewers/PlusViewer';
 import BetaViewer from '../components/viewers/BetaViewer';
+import DownloadViewer from '../components/viewers/DownloadViewer';
 import PageTransition from '../components/layout/PageTransition';
 import { handleContactSupport } from '../utils/navigationUtils.js';
 import HashScrollHandler from '../components/common/HashScrollHandler';
@@ -31,11 +32,11 @@ import TermsViewer from '../components/viewers/TermsViewer.jsx';
 import AppLayout from '../components/layout/AppLayout.jsx';
 
 /**
- * @param {Object} props - Component properties.
- * @param {Object} props.config - Product configuration object.
- * @param {React.ComponentType} props.HomeComponent - Main home component for the product.
- * @param {string} props.translationKey - Key used for localized strings.
- * @param {string} [props.forcedTab] - Forced active tab override.
+ * @param {Object} props Component properties.
+ * @param {Object} props.config Product configuration object.
+ * @param {React.ComponentType} props.HomeComponent Main home component for the product.
+ * @param {string} props.translationKey Key used for localized strings.
+ * @param {string} [props.forcedTab] Forced active tab override.
  * @returns {JSX.Element} The rendered product page container.
  */
 export default function ProductPage({ config, HomeComponent, translationKey, forcedTab }) {
@@ -94,6 +95,10 @@ export default function ProductPage({ config, HomeComponent, translationKey, for
     const renderContent = () => {
         if (activeTab === 'index') return null;
 
+        if (activeTab === 'download') {
+            return <DownloadViewer appConfig={config} strings={content.shared} onNavigate={onNavigate} />;
+        }
+
         if (isLoading || forceLoading) return <GeometricSpinner />;
         if (error) return <ErrorDisplay error={error} onRetry={() => window.location.reload()} />;
         if (!markdownContent) {
@@ -149,7 +154,7 @@ export default function ProductPage({ config, HomeComponent, translationKey, for
 
     return (
         <AppLayout
-            hasRightSidebarPortal={!isHome && !['beta', 'roadmap', 'plus'].includes(activeTab)}
+            hasRightSidebarPortal={!isHome && !['beta', 'roadmap', 'plus', 'download'].includes(activeTab)}
             background={<><HashScrollHandler /><PageBackground /></>}
             navbar={<AppNavbar config={config} activePage={activeTab} onNavigate={onNavigate} strings={t.nav} />}
             footer={
@@ -168,6 +173,7 @@ export default function ProductPage({ config, HomeComponent, translationKey, for
                     }}
                     onNavigate={onNavigate}
                     activePage={activeTab}
+                    config={config}
                 />
             }
         >

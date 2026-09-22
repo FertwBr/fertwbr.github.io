@@ -24,6 +24,11 @@ export const pixelMeasureConfig = {
             title: "Home",
             type: "react"
         },
+        download: {
+            id: "download",
+            title: "Download",
+            type: "react"
+        },
         beta: {
             id: "beta",
             title: "Beta Program",
