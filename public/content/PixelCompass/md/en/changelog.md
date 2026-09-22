@@ -1,6 +1,52 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 2.0.0-Beta-6.1
+(Released September 22, 2026)
+
+This release focuses on deep architectural refactoring and vital stability improvements across the physical sensor orchestration layer. By completely overhauling the precipitation analysis engine and restructuring how flows combine during sensor initialization, we've resolved critical data freezing issues on SDK 37 and ensured highly accurate weather reporting for Free-tier users.
+
+Alongside a unified UI state migration between mobile and watch modules, Beta 6.1 introduces highly responsive, constraint-aware layout optimizations, stunning custom weather vectors, and entirely new contextual error state frameworks designed to handle missing permissions and hardware drops gracefully.
+
+#### 📱 Phone
+
+* **Weather Engine & Logic**: Refinements to precipitation evaluation and chart synchronization.
+    * **Precipitation Analyzer Free-Tier Fix**: Bypassed domain limitations for Free-tier users (who lack hourly array data) by evaluating `currentPrecipProb`, `currentPrecipQpf`, and `currentPrecipType` as explicit core parameters. This prevents the internal engine from falsely defaulting to "Clear/Dry" conditions when active precipitation is occurring.
+    * **Precipitation Volume Thresholds**: Removed hardcoded probability constraints (e.g., `maxProb < 25`), enforcing strict minimum liquid and snow volume limits. This securely prevents trace atmospheric amounts from being inaccurately categorized as steady or prolonged precipitation windows.
+
+* **Core & Architecture**: Structural reorganizations for UI state management, state holders, and sensor initializations.
+    * **Weather State Encapsulation**: Refactored `WeatherScreen` to consume a single `WeatherScreenStateBundle` from `WeatherScreenStateHolder.kt`. This perfectly isolates layout strategy calculations, title formatting, and experimental API math from the pure UI rendering layer.
+    * **Sensor Orchestrator Evolution**: Rebranded `CompassSensorOrchestrator` to `DeviceSensorOrchestrator` to accurately reflect its expanded responsibilities in managing all physical hardware tracking and GPS client lifecycles across the application.
+    * **Centralized Permission Handling**: Injected `PermissionsAndFtueHandler` directly into ViewModel layers. This establishes a dynamic `locationPermissionStatus` StateFlow to continuously track sensor clearance across OS system dialogs.
+
+* **Fixes & Stability**: Critical bug resolutions and system integration improvements.
+    * **SDK 37 Sensor Deadlock Fix**: Resolved a critical issue where the compass azimuth permanently locked at 0 degrees. Injected `.onStart { emit(...) }` across all hardware sensor flows inside `DeviceSensorOrchestrator` to bypass coroutine deadlocks triggered by strict OS background execution delays.
+    * **Location Permission Delegation**: Updated the permissions handler to immediately invoke `onPermissionLaunchResult.launch` for fine location access, bypassing redundant ViewModel validation hops and ensuring a seamless refresh upon explicit user consent.
+
+* **UI & UX Polish**: Deep layout optimizations, vector integrations, and responsive constraints.
+    * **Night Mode High-Contrast Visibility**: Replaced surface variant colors with `onSurfaceColor` fallbacks in the UV Risk card, drastically improving text readability and contrast in dark mode environments.
+    * **Contextual Error & Loading States**: Implemented decoupled state components (`WeatherEmptyState`, `WeatherErrorState`, `WeatherGpsDisabledState`, `WeatherPermissionState`). Replaced static loaders with a structural skeleton loader that dynamically mirrors the user's custom masonry grid layout positioning using `WeatherGridSpanResolver`.
+    * **Dynamic Layout Constraints**: Constrained the Sun/Moon path chart to `fillMaxSize` using a calculated `safeTextWidth` matching 1.4x the inner arc radius, guaranteeing labels never collide with the dome stroke. Transitioned degree conversions to highly precise `kotlin.math.PI` calculations.
+    * **Adaptive Typography in Pressure Blocks**: Introduced `shouldUseCompactTypography` to dynamically scale down metrics and spacing within the Pressure layout, gracefully hiding secondary trends via `shouldHideTrendEntirely` when vertical space compresses below 85dp.
+    * **Custom Weather Vectors**: Replaced generic Material icons with custom, high-fidelity drawable resources for rain, snow, and sun categories. Enabled single-color vector tinting for assets like `ic_weather_rainy` to seamlessly inherit dynamic OS themes.
+    * **Compact Daily Forecast Enhancements**: Replaced text-based arrows with dynamic Material vector icons (`ArrowUpward`, `ArrowDownward`) in the super compact temperature pills, calculating exact inner width and utilizing infinite `basicMarquee` scrolling to prevent horizontal clipping.
+
+* **Localization**: Regional translation updates.
+    * **Portuguese (pt-rPT) Tuning**: Refined the bottom navigation label from "Meteorologia" to "Clima" for a more natural, concise fit.
+
+#### ⌚ Wear OS
+
+* **Core & Architecture**: Structural reorganizations for UI state management and sensor initializations.
+    * **Unified UI State Module**: Extracted `WeatherAndLocationUiState` from local app packages and relocated it into `shared.viewmodel.weather`, establishing a unified state architecture across both mobile and watch platforms.
+    * **Nullable Altitude Flow**: Modified `AltitudeManager` to return `Flow<Double?>`, explicitly handling the absence of altitude data during cold starts to bypass initialization null pointer constraints and allow downstream orchestrators to recover gracefully.
+
+* **Fixes & Stability**: Critical sensor initialization and loop prevention updates.
+    * **Ambient Mode Sensor Deadlocks**: Added `.onStart { emit(...) }` to combine blocks within `WearCompassSensorOrchestrator` and `WearMainViewModel` to definitively eliminate coroutine deadlocks when the watch enters Ambient Mode or delays initial sensor boot.
+    * **Altitude Type Mismatch Resolution**: Integrated the updated nullable `AltitudeManager` flow using explicit type casting, falling back safely to GPS altitude or `0.0` to guarantee `CompassData` instantiation without crashing watch face complications or background tiles.
+
+* **UI & UX Polish**: Visual refinements, watch-specific layout protections, and error handling.
+    * **App Verification Error State**: Implemented a responsive `AppVerificationErrorState` composable that halts infinite loading loops if Play Integrity or Firebase App Check validation fails. The layout automatically scales between `CompactAppVerificationError` and `StandardAppVerificationError` to perfectly map constrained Wear OS viewports without forcing the user to scroll.
+
 ## Version 2.0.0 Beta 6
 *(Released September 21, 2026)*
 
