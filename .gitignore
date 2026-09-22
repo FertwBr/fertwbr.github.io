@@ -85,6 +85,9 @@ dist
 # DynamoDB Local files
 .dynamodb/
 
+# Cloudflare Pages / Workers local development
+.wrangler/
+
 # IDEs and Editors
 .idea
 .vscode
