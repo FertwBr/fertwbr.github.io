@@ -235,5 +235,25 @@ export default {
             correction: "テキスト,単語,タイプミス,間違っている,不正確,悪い,スペル,文法,翻訳,言語",
             idea: "追加,作成,希望,したい,できる,すべき,より良い,新しい,機能,モード"
         }
+    },
+    download_page: {
+        page_title: "公式ダウンロード",
+        hero_title: "{appName} を安全に入手",
+        hero_subtitle: "お客様のセキュリティと最適な利便性を確保するため、{appName} は公式の Google Play ストアでのみ配信されています。",
+        cta_store: "Google Play で手に入れよう",
+        security_warning: "セキュリティに関する警告",
+        warning_title: "サードパーティ製 APK の回避について",
+        warning_desc: "当方では APK ファイルを直接配布することや、サードパーティ製アプリストアを承認することは一切行っておりません。APKPure、APKMirror、AppBrain、Aptoide、APKCombo、Fandroid などのサイト、あるいは非公式の GitHub リポジトリでは、改変されたバージョンのアプリが公開されていることが多いためご注意ください。",
+        malware_title: "マルウェアおよびプライバシーのリスク",
+        malware_desc: "非公式のソースからのダウンロードは、お使いの端末を危険にさらします。これらの改変された APK は Play ストアのセキュリティ審査を回避しており、個人のプライバシーを侵害するマルウェア、隠しトラッカー、またはアドウェアが含まれている可能性があります。",
+        no_direct_download: "APK の直接ダウンロードはご利用いただけません。",
+        compatibility_title: "ハードウェア要件",
+        compatibility_desc: "すべての機能を十全にご利用いただくため、{appName} には以下の端末機能が必要です。",
+        req_compass: "方位測定のために、ハードウェア Magnetometer（磁気センサー）および Accelerometer（加速度センサー）が必要です。",
+        req_pulse: "デシベル測定および周波数解析のために、正常に機能する内蔵マイクが必要です。",
+        req_measure: "Google ARCore 対応端末、十分な照度環境、およびテクスチャのある平面が必要です。",
+        req_wear: "Wear OS 連携機能には、Wear OS 4 以上を搭載したペアリング済みのスマートウォッチが必要です。",
+        badge_secure: "セキュリティ検証済み",
+        badge_official: "公式ソース"
     }
 };

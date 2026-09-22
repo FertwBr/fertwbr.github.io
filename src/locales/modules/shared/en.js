@@ -235,5 +235,25 @@ export default {
             correction: "text,word,typo,wrong,incorrect,bad,spelling,grammar,translate,language",
             idea: "add,create,wish,would,could,should,better,new,feature,mode"
         }
+    },
+    download_page: {
+        page_title: "Official Download",
+        hero_title: "Get {appName} Safely",
+        hero_subtitle: "For your security and the best experience, {appName} is exclusively distributed through the official Google Play Store.",
+        cta_store: "Download on Google Play",
+        security_warning: "Security Warning",
+        warning_title: "Avoid Third-Party APKs",
+        warning_desc: "We do not distribute APK files directly or authorize third-party app stores. Sites like APKPure, APKMirror, AppBrain, Aptoide, APKCombo, Fandroid, or unofficial GitHub repositories often host modified versions of our apps.",
+        malware_title: "Malware & Privacy Risks",
+        malware_desc: "Downloading from unofficial sources puts your device at risk. These modified APKs bypass Play Store security checks and may contain malware, hidden trackers, or adware that compromise your personal privacy.",
+        no_direct_download: "Direct APK downloads are not available.",
+        compatibility_title: "Hardware Requirements",
+        compatibility_desc: "To ensure full functionality, {appName} requires specific device capabilities:",
+        req_compass: "Requires a hardware Magnetometer and Accelerometer for orientation tracking.",
+        req_pulse: "Requires a functional built-in microphone for decibel and frequency analysis.",
+        req_measure: "Requires a Google ARCore compatible device with a well-lit environment and textured surfaces.",
+        req_wear: "Wear OS companion features require a paired smartwatch running Wear OS 4 or higher.",
+        badge_secure: "Verified Secure",
+        badge_official: "Official Source"
     }
 };

@@ -235,5 +235,25 @@ export default {
             correction: "texto,palabra,error tipográfico,incorrecto,malo,ortografía,gramática,traducir,idioma",
             idea: "añadir,crear,deseo,haría,podría,debería,mejor,nuevo,función,modo"
         }
+    },
+    download_page: {
+        page_title: "Descarga Oficial",
+        hero_title: "Obtenga {appName} de Forma Segura",
+        hero_subtitle: "Para su seguridad y para disfrutar de la mejor experiencia, {appName} se distribuye exclusivamente a través de la tienda oficial Google Play Store.",
+        cta_store: "Descargar en Google Play",
+        security_warning: "Aviso de Seguridad",
+        warning_title: "Evite APKs de Terceros",
+        warning_desc: "No distribuimos archivos APK directamente ni autorizamos tiendas de aplicaciones de terceros. Sitios como APKPure, APKMirror, AppBrain, Aptoide, APKCombo, Fandroid, o repositorios no oficiales de GitHub, alojan con frecuencia versiones modificadas de nuestras aplicaciones.",
+        malware_title: "Riesgos de Malware y Privacidad",
+        malware_desc: "La descarga desde fuentes no oficiales pone en riesgo su dispositivo. Estas APK modificadas eluden las verificaciones de seguridad de Play Store y pueden contener malware, rastreadores ocultos o adware que comprometen su privacidad personal.",
+        no_direct_download: "La descarga directa de archivos APK no está disponible.",
+        compatibility_title: "Requisitos de Hardware",
+        compatibility_desc: "Para garantizar una funcionalidad completa, {appName} requiere capacidades específicas en el dispositivo:",
+        req_compass: "Requiere un Magnetómetro y Acelerómetro de hardware para el seguimiento de la orientación.",
+        req_pulse: "Requiere un micrófono integrado funcional para el análisis de decibelios y frecuencia.",
+        req_measure: "Requiere un dispositivo compatible con Google ARCore, así como un entorno bien iluminado y superficies texturizadas.",
+        req_wear: "Las funciones complementarias de Wear OS requieren un reloj inteligente vinculado que ejecute Wear OS 4 o superior.",
+        badge_secure: "Seguridad Verificada",
+        badge_official: "Fuente Oficial"
     }
 };

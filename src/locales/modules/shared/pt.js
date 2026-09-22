@@ -235,5 +235,25 @@ export default {
             correction: "texto,palavra,erro de digitação,errado,incorreto,ruim,ortografia,gramática,traduzir,idioma",
             idea: "adicionar,criar,desejo,faria,poderia,deveria,melhor,novo,recurso,modo"
         }
+    },
+    download_page: {
+        page_title: "Download Oficial",
+        hero_title: "Obtenha {appName} com Segurança",
+        hero_subtitle: "Para a sua segurança e para usufruir da melhor experiência, {appName} é distribuído exclusivamente através da Google Play Store oficial.",
+        cta_store: "Baixar na Google Play",
+        security_warning: "Aviso de Segurança",
+        warning_title: "Evite APKs de Terceiros",
+        warning_desc: "Não distribuímos ficheiros APK diretamente nem autorizamos lojas de aplicações de terceiros. Plataformas como APKPure, APKMirror, AppBrain, Aptoide, APKCombo, Fandroid, ou repositórios não oficiais do GitHub, alojam frequentemente versões modificadas das nossas aplicações.",
+        malware_title: "Riscos de Malware e Privacidade",
+        malware_desc: "O descarregamento a partir de fontes não oficiais coloca o seu dispositivo em risco. Estes APKs modificados contornam as verificações de segurança da Play Store e podem conter malware, rastreadores ocultos ou adware que comprometem a sua privacidade pessoal.",
+        no_direct_download: "O download direto de APK não está disponível.",
+        compatibility_title: "Requisitos de Hardware",
+        compatibility_desc: "Para assegurar o pleno funcionamento, {appName} requer capacidades específicas do dispositivo:",
+        req_compass: "Requer um Magnetómetro e Acelerómetro ao nível do hardware para o rastreio de orientação.",
+        req_pulse: "Requer um microfone integrado funcional para a análise de decibéis e frequência.",
+        req_measure: "Requer um dispositivo compatível com Google ARCore, bem como um ambiente bem iluminado e superfícies texturizadas.",
+        req_wear: "As funcionalidades complementares para Wear OS requerem um smartwatch emparelhado com Wear OS 4 ou superior.",
+        badge_secure: "Segurança Verificada",
+        badge_official: "Fonte Oficial"
     }
 };
