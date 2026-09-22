@@ -1,3 +1,4 @@
+/* navigation.css */
 .nav-link {
     background: transparent;
     border: none;
@@ -345,20 +346,16 @@
     .top-bar-center {
         flex: 1;
         display: flex;
-        justify-content: flex-end;
+        justify-content: center;
         align-items: center;
         padding: 0 24px;
     }
 
-    .top-bar-center.has-shortcuts {
-        justify-content: center;
-    }
-
     .appbar-search-portal-desktop {
         width: 100%;
-        max-width: 400px;
+        max-width: 600px;
         display: flex;
-        justify-content: flex-end;
+        justify-content: center;
     }
 
     .appbar-search-portal-desktop > * {
@@ -374,7 +371,7 @@
         position: fixed;
         top: 64px;
         left: 0;
-        bottom: 0;
+        bottom: var(--footer-offset, 0px);
         display: flex;
         flex-direction: column;
         background: var(--md-sys-color-surface);
@@ -581,37 +578,6 @@
         border-color: var(--md-sys-color-primary) !important;
         border-right-color: transparent !important;
         outline: none !important;
-    }
-
-    .desktop-nav-shortcuts {
-        display: flex;
-        gap: 8px;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto;
-    }
-
-    .desktop-nav-shortcut-btn {
-        background: transparent;
-        border: none;
-        color: var(--md-sys-color-on-surface-variant);
-        font-weight: 500;
-        padding: 8px 16px;
-        border-radius: 100px;
-        cursor: pointer;
-        transition: background 0.2s, color 0.2s;
-        font-size: 0.9rem;
-    }
-
-    .desktop-nav-shortcut-btn:hover {
-        background: rgba(var(--md-sys-color-on-surface-rgb), 0.08);
-        color: var(--md-sys-color-on-surface);
-    }
-
-    .desktop-nav-shortcut-btn.active {
-        color: var(--md-sys-color-on-secondary-container);
-        background: var(--md-sys-color-secondary-container);
-        font-weight: 600;
     }
 
     .desktop-corner-mask {

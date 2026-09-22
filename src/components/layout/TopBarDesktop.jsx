@@ -1,11 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {motion, AnimatePresence} from 'framer-motion';
-import {NAV_ITEMS} from './navShared';
 
 /**
  * TopBarDesktop component.
- * Renders the top application bar for desktop screens, with dynamic navigation shortcuts.
+ * Renders the top application bar for desktop screens, with dynamic search portals.
  *
  * @param {Object} props
  * @param {Object} props.config
@@ -32,14 +31,6 @@ export default function TopBarDesktop({config, activePage, onNavigate, strings, 
     const is404 = activePage === '404';
 
     const displayTitle = is404 ? '404' : (strings?.[activePage] || config.appName);
-
-    const visibleNavItems = NAV_ITEMS.filter(item => {
-        if (item.id === 'feedback') return false;
-        if (item.id === 'help') return false;
-        if (config?.pages && !config.pages[item.id] && item.id !== 'index') return false;
-        if (item.id === 'overview' && !config?.enableDocs) return false;
-        return true;
-    }).slice(0, 3);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -225,60 +216,34 @@ export default function TopBarDesktop({config, activePage, onNavigate, strings, 
                 </div>
 
                 <div
-                    className={`top-bar-center ${isSearchFocused ? 'search-focused' : ''} ${isFiltersOpen ? 'filter-active' : ''} ${!hasSearch ? 'has-shortcuts' : ''}`}
+                    className={`top-bar-center ${isSearchFocused ? 'search-focused' : ''} ${isFiltersOpen ? 'filter-active' : ''}`}
                     style={{
                         flex: 1,
                         display: 'flex',
+                        justifyContent: 'center',
                         alignItems: 'center',
                         padding: '0 16px'
                     }}
                 >
-                    {hasSearch ? (
-                        <div style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            width: '100%',
-                            maxWidth: '680px',
-                            position: 'relative'
-                        }}>
-                            <div id="appbar-search-portal" ref={searchPortalRef}
-                                 className={`appbar-search-portal-desktop ${hasFilters ? 'has-filters' : ''}`}
-                                 style={{flex: 1}}></div>
+                    <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        width: '100%',
+                        maxWidth: '680px',
+                        position: 'relative'
+                    }}>
+                        <div id="appbar-search-portal" ref={searchPortalRef}
+                             className={`appbar-search-portal-desktop ${hasFilters ? 'has-filters' : ''}`}
+                             style={{flex: 1}}></div>
 
-                            <button
-                                ref={filterBtnRef}
-                                className={`desktop-filter-btn ${hasFilters ? 'visible' : ''} ${isFiltersOpen ? 'active' : ''} ${hasSearch ? 'has-search' : ''}`}
-                                onClick={() => setFiltersOpen(!isFiltersOpen)}
-                            >
-                                <span className="material-symbols-outlined">tune</span>
-                            </button>
-                        </div>
-                    ) : (
-                        <AnimatePresence>
-                            {!is404 && (
-                                <motion.div
-                                    initial={{ opacity: 0, y: -10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    className="desktop-nav-shortcuts"
-                                >
-                                    {visibleNavItems.map(item => {
-                                        const isActive = activePage === item.id;
-                                        const label = strings?.[item.id] || (item.id === 'index' ? 'Home' : item.id.charAt(0).toUpperCase() + item.id.slice(1));
-
-                                        return (
-                                            <button
-                                                key={item.id}
-                                                onClick={() => onNavigate(item.id)}
-                                                className={`desktop-nav-shortcut-btn ${isActive ? 'active' : ''}`}
-                                            >
-                                                {label}
-                                            </button>
-                                        );
-                                    })}
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                    )}
+                        <button
+                            ref={filterBtnRef}
+                            className={`desktop-filter-btn ${hasFilters ? 'visible' : ''} ${isFiltersOpen ? 'active' : ''} ${hasSearch ? 'has-search' : ''}`}
+                            onClick={() => setFiltersOpen(!isFiltersOpen)}
+                        >
+                            <span className="material-symbols-outlined">tune</span>
+                        </button>
+                    </div>
                 </div>
 
                 <div className="top-bar-right" style={{
