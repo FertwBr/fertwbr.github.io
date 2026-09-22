@@ -1,6 +1,16 @@
 # Historial de Versiones
 Siga la evolución del portafolio. Aquí encontrará un registro detallado de nuevas características, mejoras y correcciones para cada versión.
 
+## Versión 4.4.0
+*(Lanzado el 22 de septiembre de 2026)*
+
+Esta versión aporta importantes mejoras de SEO, enrutamiento y entrega de contenido para el sitio del portafolio, junto con una documentación exhaustiva para la actualización más reciente de Pixel Compass 2.0.0 Beta 6.
+
+*   **SEO y Resolución de Dominios:** Se impuso la resolución de dominios autoritativa para URLs canónicas, lo cual resuelve los problemas de discrepancia reportados por las consolas de búsqueda entre la raíz y los subdominios mediante el uso de un mapeo de dominios determinista basado en prefijos de rutas.
+*   **Enrutamiento y Redirecciones:** Se corrigieron rutas críticas de redirección beta para evitar bucles infinitos de la Play Store al mapear correctamente `/compass/beta`, `/pulse/beta` y `/measure/beta` a sus respectivas páginas web, al mismo tiempo que se manejan adecuadamente los enlaces heredados. También se eliminaron los bucles de redirección, se normalizaron las rutas canónicas al contraer las variaciones de `/index` a rutas base y se registraron reglas explícitas de uso de mayúsculas para todas las aplicaciones.
+*   **Cargador de Contenido y Optimización de Respaldo:** Se optimizó la generación de idiomas candidatos en el cargador de contenido para evitar solicitudes de red redundantes frente a respuestas de respaldo de SPA HTML. Se reemplazaron las etiquetas de contenedores vacíos en las páginas de productos con contenido semántico estructurado cuando falla la carga de markdown, con el fin de prevenir errores Soft 404 para los rastreadores web.
+*   **Integración de Registro de Cambios:** Se agregó documentación detallada de lanzamiento para Pixel Compass Versión 2.0.0 Beta 6, que presenta la nueva arquitectura de almacenamiento de diseño de perfil dual, análisis inteligente de tendencias de presión, gráficos dinámicos independientes de la superficie y correcciones profundas de navegación.
+
 ## Versión 4.3.0
 *(Publicado el 18 de septiembre de 2026)*
 

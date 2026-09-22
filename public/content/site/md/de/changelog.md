@@ -1,6 +1,16 @@
 # Versionsverlauf
 Verfolgen Sie die Entwicklung des Portfolios. Hier finden Sie ein detailliertes Protokoll über neue Funktionen, Verbesserungen und Korrekturen für jede Version.
 
+## Version 4.4.0
+*(Veröffentlicht am 22. September 2026)*
+
+Diese Version bringt wesentliche Verbesserungen in den Bereichen SEO, Routing und Bereitstellung von Inhalten für die Portfolio-Website mit sich, zusammen mit einer umfassenden Dokumentation für das neueste Update von Pixel Compass 2.0.0 Beta 6.
+
+*   **SEO & Domain-Auflösung:** Die maßgebliche Domain-Auflösung für kanonische URLs wurde durchgesetzt, um Unstimmigkeiten zu beheben, die von Suchkonsolen über Stamm- und Subdomains hinweg gemeldet wurden, indem ein deterministisches Domain-Mapping basierend auf Routenpfad-Präfixen verwendet wird.
+*   **Routing & Weiterleitungen:** Kritische Beta-Weiterleitungspfade wurden korrigiert, um unendliche Play Store-Schleifen zu verhindern, indem `/compass/beta`, `/pulse/beta` und `/measure/beta` korrekt ihren jeweiligen Webseiten zugeordnet wurden, während ältere Links ordnungsgemäß gehandhabt werden. Außerdem wurden Weiterleitungsschleifen eliminiert, kanonische Pfade durch die Reduzierung von `/index`-Variationen auf Basisrouten normalisiert und explizite Groß-/Kleinschreibungsregeln für alle Apps registriert.
+*   **Inhaltslader & Fallback-Optimierung:** Die Generierung der Kandidatensprachen im Inhaltslader wurde optimiert, um redundante Netzwerkanfragen gegen SPA HTML-Fallback-Antworten zu vermeiden. Leere Container-Markups auf Produktseiten wurden durch strukturierte semantische Inhalte ersetzt, wenn das Laden von Markdown fehlschlägt, um Soft 404-Fehler für Webcrawler zu verhindern.
+*   **Changelog-Integration:** Detaillierte Release-Dokumentation für Pixel Compass Version 2.0.0 Beta 6 wurde hinzugefügt, die die neue Speicherarchitektur für Dual-Profil-Layouts, intelligente Drucktrendanalysen, oberflächenunabhängige dynamische Diagramme und tiefe Navigationskorrekturen bietet.
+
 ## Version 4.3.0
 *(Veröffentlicht am 18. September 2026)*
 

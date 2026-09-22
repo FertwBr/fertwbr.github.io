@@ -1,6 +1,16 @@
 # Histórico de Versões
 Acompanhe a evolução do portfólio. Aqui você encontrará um registro detalhado de novos recursos, melhorias e correções para cada versão.
 
+## Versão 4.4.0
+*(Lançado em 22 de setembro de 2026)*
+
+Esta versão traz grandes melhorias de SEO, de roteamento e de entrega de conteúdo para o site do portfólio, junto com uma documentação abrangente para a atualização mais recente do Pixel Compass 2.0.0 Beta 6.
+
+*   **SEO & Resolução de Domínio:** Impôs a resolução de domínio autoritativa para URLs canônicos, para resolver problemas de incompatibilidade relatados por consoles de pesquisa entre a raiz e os subdomínios, por meio do uso de mapeamento de domínio determinístico com base em prefixos de caminho de rota.
+*   **Roteamento & Redirecionamentos:** Corrigiu caminhos críticos de redirecionamento beta para evitar loops infinitos da Play Store, ao mapear corretamente `/compass/beta`, `/pulse/beta` e `/measure/beta` para as suas respectivas páginas da web, ao mesmo tempo em que lida adequadamente com links legados. Também eliminou loops de redirecionamento, normalizou caminhos canônicos ao recolher variações de `/index` para rotas base e registrou regras explícitas de capitalização para todos os aplicativos.
+*   **Carregador de Conteúdo & Otimização de Fallback:** Otimizou a geração de idiomas candidatos no carregador de conteúdo para evitar solicitações de rede redundantes contra respostas de fallback de SPA HTML. Substituiu as marcações de contêineres vazios nas páginas de produtos por conteúdo semântico estruturado quando o carregamento do markdown falha, para evitar erros Soft 404 para rastreadores da web.
+*   **Integração do Changelog:** Adicionou documentação detalhada de lançamento para o Pixel Compass Versão 2.0.0 Beta 6, que apresenta a nova arquitetura de armazenamento de layout de perfil duplo, análise inteligente de tendências de pressão, gráficos dinâmicos independentes de superfície e correções profundas de navegação.
+
 ## Versão 4.3.0
 *(Lançada em 18 de setembro de 2026)*
 

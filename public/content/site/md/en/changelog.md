@@ -1,6 +1,16 @@
 # Version History
 Track the evolution of the portfolio. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 4.4.0
+*(Released September 22, 2026)*
+
+This release brings major SEO, routing, and content delivery improvements to the portfolio site, alongside comprehensive documentation for the latest Pixel Compass 2.0.0 Beta 6 update.
+
+*   **SEO & Domain Resolution:** Enforced authoritative domain resolution for canonical URLs, resolving mismatch issues reported by search consoles across root and subdomains by using deterministic domain mapping based on route path prefixes.
+*   **Routing & Redirects:** Fixed critical beta redirect paths to prevent infinite Play Store loops by correctly mapping `/compass/beta`, `/pulse/beta`, and `/measure/beta` to their respective web pages, while properly handling legacy links. Also eliminated redirect loops, normalized canonical paths by collapsing `/index` variations to base routes, and registered explicit casing rules for all apps.
+*   **Content Loader & Fallback Optimization:** Streamlined candidate language generation in the content loader to avoid redundant network requests against SPA HTML fallback responses. Replaced empty container markups in product pages with structured semantic content when markdown loading fails to prevent Soft 404 errors for web crawlers.
+*   **Changelog Integration:** Added detailed release documentation for Pixel Compass Version 2.0.0 Beta 6, featuring the new dual-profile layout storage architecture, smart pressure trend analysis, surface-agnostic dynamic charts, and deep navigation fixes.
+
 ## Version 4.3.0
 *(Released September 18, 2026)*
 
