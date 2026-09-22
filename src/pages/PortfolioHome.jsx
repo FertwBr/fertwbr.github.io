@@ -90,9 +90,6 @@ export default function PortfolioHome() {
 
                     <section className="contact-section-container">
                         <div className="contact-card">
-                            <div className="contact-glow-primary"></div>
-                            <div className="contact-glow-tertiary"></div>
-
                             <div className="contact-content">
                                 <h2 className="contact-title">
                                     {content.contact.title}

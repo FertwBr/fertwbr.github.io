@@ -1,4 +1,3 @@
-// src/pages/AppsHome.jsx
 import React from 'react';
 import PageBackground from '../../components/layout/PageBackground';
 import Footer from '../../components/layout/Footer';
