@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import ViewerHeader from '../common/ViewerHeader';
 import { parseChangelog } from '../../utils/changelogParser';
-import '../../styles/beta.css';
 
 /**
  * Strips markdown formatting for a clean plain-text preview.
@@ -29,8 +28,6 @@ export default function BetaViewer({ markdownContent, appConfig, strings, onNavi
     const title = t.hero_title ? t.hero_title.replace('{appName}', appConfig?.appName || '') : 'Join Beta';
     const betaLink = appConfig?.playStoreLink?.replace('/store/apps/details?id=', '/apps/testing/') || appConfig?.playStoreLink;
 
-    // A foto deve ser configurada no arquivo de config do app (ex: pixelCompassConfig.js)
-    // Se não existir, use um placeholder estético seu.
     const heroPhotoUrl = appConfig?.betaPhotoUrl || '/content/shared/default-beta.jpg';
 
     const betaVersions = useMemo(() => {
@@ -39,7 +36,7 @@ export default function BetaViewer({ markdownContent, appConfig, strings, onNavi
         const unstableTypes = ['beta', 'alpha', 'rc', 'pre-release'];
         return allVersions
             .filter(v => unstableTypes.includes(v.type?.toLowerCase()))
-            .slice(0, 3); // Pega apenas os 3 mais recentes
+            .slice(0, 3);
     }, [markdownContent]);
 
     const benefits = [
