@@ -1,8 +1,3 @@
-/PixelCompass/* /pixelcompass/:splat 301
-/PixelPulse/* /pixelpulse/:splat 301
-/PixelMeasure/* /pixelmeasure/:splat 301
-/GeminiExpressive/* /geminiexpressive/:splat 301
-
 /compass/beta https://play.google.com/apps/testing/com.fertwbr.pixelcompass 301
 /pulse/beta https://play.google.com/apps/testing/com.fertwbr.pixelpulse 301
 /measure/beta https://play.google.com/apps/testing/com.fertwbr.pixelmeasure 301
@@ -10,5 +5,10 @@
 /beta/compass/* https://play.google.com/apps/testing/com.fertwbr.pixelcompass 301
 /beta/pulse/* https://play.google.com/apps/testing/com.fertwbr.pixelpulse 301
 /beta/measure/* https://play.google.com/apps/testing/com.fertwbr.pixelmeasure 301
+
+/PixelCompass/* /pixelcompass/:splat 301
+/PixelPulse/* /pixelpulse/:splat 301
+/PixelMeasure/* /pixelmeasure/:splat 301
+/GeminiExpressive/* /geminiexpressive/:splat 301
 
 /* /index.html 200
