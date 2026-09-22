@@ -61,7 +61,7 @@ export default function ProductPage({ config, HomeComponent, translationKey, for
     const { activeTab, handleNavigation: internalNav } = useTabState(configWithRoute);
     const [activeColor] = useState(() => getSeedColor());
 
-    const fileToLoad = activeTab === 'beta' ? 'changelog' : activeTab;
+    const fileToLoad = ['beta', 'download'].includes(activeTab) ? 'changelog' : activeTab;
     const { markdownContent, isLoading, error } = useMarkdownLoader(fileToLoad, config);
 
     const surfaceColor = getSurfaceColor(activeColor);
@@ -95,10 +95,6 @@ export default function ProductPage({ config, HomeComponent, translationKey, for
     const renderContent = () => {
         if (activeTab === 'index') return null;
 
-        if (activeTab === 'download') {
-            return <DownloadViewer appConfig={config} strings={content.shared} onNavigate={onNavigate} />;
-        }
-
         if (isLoading || forceLoading) return <GeometricSpinner />;
         if (error) return <ErrorDisplay error={error} onRetry={() => window.location.reload()} />;
         if (!markdownContent) {
@@ -121,6 +117,8 @@ export default function ProductPage({ config, HomeComponent, translationKey, for
         };
 
         switch (activeTab) {
+            case 'download':
+                return <DownloadViewer {...commonProps} />;
             case 'changelog':
                 return <ChangelogViewer {...commonProps} />;
             case 'privacy':
