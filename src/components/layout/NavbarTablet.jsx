@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {motion, AnimatePresence} from 'framer-motion';
 import {useNavigate, useLocation} from 'react-router-dom';
-import {NAV_ITEMS, GLASS_STYLE} from './navShared';
+import {NAV_ITEMS} from './navShared';
 
 const SMOOTH_SPRING = {
     type: "spring",
@@ -10,10 +10,6 @@ const SMOOTH_SPRING = {
 };
 
 /**
- * Tablet navigation component.
- * Renders a floating horizontal glassmorphism bar with dynamic active indicators
- * and fluid layout adjustments for search/filter actions.
- *
  * @param {Object} props
  * @param {Object} props.config
  * @param {string} props.activePage
@@ -27,6 +23,7 @@ export default function NavbarTablet({config, activePage, onNavigate, strings}) 
     const [hasFilters, setHasFilters] = useState(false);
     const [isFiltersOpen, setFiltersOpen] = useState(false);
     const [hasSearch, setHasSearch] = useState(false);
+    const [isSearchFocused, setIsSearchFocused] = useState(false);
 
     const lastScrollY = useRef(0);
     const bottomPortalRef = useRef(null);
@@ -60,6 +57,22 @@ export default function NavbarTablet({config, activePage, onNavigate, strings}) 
         const obs = new MutationObserver(checkSearch);
         obs.observe(searchPortalRef.current, {childList: true, subtree: true});
         return () => obs.disconnect();
+    }, []);
+
+    useEffect(() => {
+        const portal = searchPortalRef.current;
+        if (!portal) return;
+
+        const handleFocusIn = () => setIsSearchFocused(true);
+        const handleFocusOut = () => setIsSearchFocused(false);
+
+        portal.addEventListener('focusin', handleFocusIn);
+        portal.addEventListener('focusout', handleFocusOut);
+
+        return () => {
+            portal.removeEventListener('focusin', handleFocusIn);
+            portal.removeEventListener('focusout', handleFocusOut);
+        };
     }, []);
 
     useEffect(() => {
@@ -124,10 +137,20 @@ export default function NavbarTablet({config, activePage, onNavigate, strings}) 
             <motion.div
                 layout
                 transition={SMOOTH_SPRING}
-                className="main-glass-nav"
-                style={GLASS_STYLE(isScrolled)}
+                className={`main-glass-nav tablet-layout-m3 ${isSearchFocused ? 'search-active' : ''}`}
+                style={{
+                    background: isScrolled || isFiltersOpen
+                        ? 'rgba(var(--md-sys-color-surface-container-rgb), 0.96)'
+                        : 'rgba(var(--md-sys-color-surface-container-rgb), 0.7)',
+                    backdropFilter: 'blur(24px)',
+                    WebkitBackdropFilter: 'blur(24px)',
+                    border: '1px solid var(--md-sys-color-outline-variant)',
+                    boxShadow: isScrolled
+                        ? '0 10px 40px rgba(var(--md-sys-color-shadow-rgb), 0.18)'
+                        : '0 4px 16px rgba(var(--md-sys-color-shadow-rgb), 0.08)',
+                }}
             >
-                <motion.div layout transition={SMOOTH_SPRING} className="nav-brand-area">
+                <motion.div layout transition={SMOOTH_SPRING} className="nav-brand-area tablet-brand-area">
                     <motion.button
                         layout
                         onClick={handleBackAction}
@@ -168,11 +191,11 @@ export default function NavbarTablet({config, activePage, onNavigate, strings}) 
                             <motion.span
                                 layout="position"
                                 key={displayTitle}
-                                initial={{opacity: 0, y: 15, filter: "blur(4px)"}}
-                                animate={{opacity: 1, y: 0, filter: "blur(0px)"}}
-                                exit={{opacity: 0, y: -15, filter: "blur(4px)"}}
+                                initial={{opacity: 0, x: -10, filter: "blur(4px)"}}
+                                animate={{opacity: 1, x: 0, filter: "blur(0px)"}}
+                                exit={{opacity: 0, x: 10, filter: "blur(4px)"}}
                                 transition={SMOOTH_SPRING}
-                                className="nav-brand-text"
+                                className="nav-brand-text responsive-brand-text"
                             >
                                 {displayTitle}
                             </motion.span>
@@ -181,7 +204,7 @@ export default function NavbarTablet({config, activePage, onNavigate, strings}) 
                 </motion.div>
 
                 {!is404 && (
-                    <motion.div layout transition={SMOOTH_SPRING} className="tablet-menu">
+                    <motion.div layout transition={SMOOTH_SPRING} className="tablet-menu responsive-tablet-menu">
                         {visibleNavItems.map((item) => {
                             const isActive = activePage === item.id;
                             const label = strings?.[item.id] || (item.id === 'index' ? 'Home' : item.id.charAt(0).toUpperCase() + item.id.slice(1));
@@ -222,13 +245,13 @@ export default function NavbarTablet({config, activePage, onNavigate, strings}) 
                 )}
 
                 <motion.div layout transition={SMOOTH_SPRING}
-                            className={`nav-right-wrapper ${hasSearch ? 'has-search' : 'no-search'}`}>
+                            className={`nav-right-wrapper tablet-actions-area ${hasSearch ? 'has-search' : 'no-search'}`}>
                     <div id="appbar-search-portal" ref={searchPortalRef} className="appbar-search-portal"></div>
                     <AnimatePresence>
                         <motion.button
                             layout
                             ref={filterBtnRef}
-                            className={`desktop-filter-btn ${hasFilters ? 'visible' : ''} ${isFiltersOpen ? 'active' : ''}`}
+                            className={`m3-filter-btn ${hasFilters ? 'visible' : ''} ${isFiltersOpen ? 'active' : ''}`}
                             onClick={() => setFiltersOpen(!isFiltersOpen)}
                             whileTap={{scale: 0.9}}
                             transition={SMOOTH_SPRING}
