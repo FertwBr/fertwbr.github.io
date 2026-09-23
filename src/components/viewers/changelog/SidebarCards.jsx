@@ -10,7 +10,7 @@ import React from 'react';
  */
 const SidebarBaseCard = ({children, onClick, className = '', style = {}}) => (
     <div
-        className={`sidebar-base-card ${onClick ? 'clickable' : ''} ${!style.background ? 'sidebar-base-card-default' : ''} ${className}`}
+        className={`sidebar-base-card ${onClick ? 'clickable' : ''} ${className}`}
         onClick={onClick}
         style={{ width: '100%', boxSizing: 'border-box', ...style }}
     >
@@ -31,58 +31,62 @@ export const LatestReleaseCard = ({version, strings, link}) => {
     return (
         <SidebarBaseCard
             style={{
-                background: `linear-gradient(
-                    135deg,
-                    var(--md-sys-color-primary-container),
-                    rgba(var(--md-sys-color-on-surface-rgb), 0.04)
-                )`
+                background: 'var(--md-sys-color-primary-container)',
+                border: '1px solid transparent'
             }}
         >
             <div style={{
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                marginBottom: '14px',
+                marginBottom: '16px',
                 flexWrap: 'wrap',
                 gap: '8px'
             }}>
                 <span style={{
                     fontSize: '0.75rem',
                     textTransform: 'uppercase',
-                    letterSpacing: '1.2px',
-                    color: 'var(--md-sys-color-primary)',
-                    fontWeight: 800
+                    letterSpacing: '1px',
+                    color: 'var(--md-sys-color-on-primary-container)',
+                    fontWeight: 700,
+                    opacity: 0.8
                 }}>
                     {strings.latest_release}
                 </span>
 
                 <span className="version-badge" style={{
-                    background: 'var(--md-sys-color-primary)',
-                    color: 'var(--md-sys-color-on-primary)'
+                    background: 'var(--md-sys-color-on-primary-container)',
+                    color: 'var(--md-sys-color-primary-container)'
                 }}>
                     {version.type}
                 </span>
             </div>
 
             <h3 style={{
-                fontSize: '1.9rem',
-                margin: '0 0 6px 0',
+                fontSize: '2rem',
+                margin: '0 0 8px 0',
                 lineHeight: 1.1,
                 wordBreak: 'break-word',
-                color: 'var(--md-sys-color-on-surface)'
+                color: 'var(--md-sys-color-on-primary-container)',
+                fontWeight: 800
             }}>
                 {version.version.replace('Version ', '')}
             </h3>
 
             <p style={{
                 fontSize: '0.9rem',
-                color: 'var(--md-sys-color-on-surface-variant)',
-                marginBottom: '22px'
+                color: 'var(--md-sys-color-on-primary-container)',
+                marginBottom: '24px',
+                opacity: 0.9
             }}>
                 {strings.released} {version.date}
             </p>
 
-            <a href={link} target="_blank" rel="noreferrer" className="action-btn-primary">
+            <a href={link} target="_blank" rel="noreferrer" className="action-btn-primary" style={{
+                background: 'var(--md-sys-color-on-primary-container)',
+                color: 'var(--md-sys-color-primary-container)',
+                boxShadow: 'none'
+            }}>
                 <span style={{overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
                     {strings.update_now}
                 </span>
@@ -99,31 +103,30 @@ export const LatestReleaseCard = ({version, strings, link}) => {
  * @returns {JSX.Element}
  */
 export const BetaProgramCard = ({strings, onNavigate}) => (
-    <SidebarBaseCard>
+    <SidebarBaseCard style={{ background: 'var(--md-sys-color-surface-container)' }}>
         <div style={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            marginBottom: '10px',
-            flexWrap: 'wrap',
-            gap: '6px'
+            marginBottom: '12px',
+            gap: '8px'
         }}>
-            <h4 style={{fontSize: '1.05rem', margin: 0, color: 'var(--md-sys-color-on-surface)'}}>
+            <h4 style={{fontSize: '1.05rem', margin: 0, fontWeight: 700, color: 'var(--md-sys-color-on-surface)'}}>
                 {strings.title}
             </h4>
-            <span className="material-symbols-outlined" style={{color: '#FFB74D'}}>
+            <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-tertiary)'}}>
                 science
             </span>
         </div>
 
         <p style={{
             fontSize: '0.9rem', color: 'var(--md-sys-color-on-surface-variant)',
-            marginBottom: '18px', lineHeight: 1.45
+            marginBottom: '20px', lineHeight: 1.5
         }}>
             {strings.subtitle}
         </p>
 
-        <button onClick={() => onNavigate && onNavigate('beta')} className="beta-btn-outline" style={{ background: 'transparent', cursor: 'pointer', outline: 'none' }}>
+        <button onClick={() => onNavigate && onNavigate('beta')} className="action-btn-outline" style={{ border: '1px solid var(--md-sys-color-tertiary)', color: 'var(--md-sys-color-tertiary)', cursor: 'pointer' }}>
             <span style={{overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
                 {strings.cta}
             </span>
@@ -141,49 +144,46 @@ export const BetaProgramCard = ({strings, onNavigate}) => (
  * @param {string} props.link
  * @returns {JSX.Element}
  */
-export const WearOSCard = ({strings, isAvailable, link}) => {
-    return (
-        <SidebarBaseCard>
-            <div style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginBottom: '10px',
-                flexWrap: 'wrap',
-                gap: '6px'
-            }}>
-                <h4 style={{fontSize: '1.05rem', margin: 0, color: 'var(--md-sys-color-on-surface)'}}>
-                    {strings.title}
-                </h4>
-                <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-on-surface)'}}>
-                    watch
+export const WearOSCard = ({strings, isAvailable, link}) => (
+    <SidebarBaseCard style={{ background: 'var(--md-sys-color-surface-container)' }}>
+        <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: '12px',
+            gap: '8px'
+        }}>
+            <h4 style={{fontSize: '1.05rem', margin: 0, fontWeight: 700, color: 'var(--md-sys-color-on-surface)'}}>
+                {strings.title}
+            </h4>
+            <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-on-surface-variant)'}}>
+                watch
+            </span>
+        </div>
+
+        <p style={{
+            fontSize: '0.9rem', color: 'var(--md-sys-color-on-surface-variant)',
+            marginBottom: '20px', lineHeight: 1.5
+        }}>
+            {isAvailable ? strings.subtitle_available : strings.subtitle_coming}
+        </p>
+
+        {isAvailable ? (
+            <a href={link} target="_blank" rel="noreferrer" className="action-btn-outline">
+                <span style={{overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
+                    {strings.cta}
                 </span>
+                <span className="material-symbols-outlined" style={{fontSize: '18px'}}>
+                    open_in_new
+                </span>
+            </a>
+        ) : (
+            <div className="unavailable-badge">
+                Q1 2026
             </div>
-
-            <p style={{
-                fontSize: '0.9rem', color: 'var(--md-sys-color-on-surface-variant)',
-                marginBottom: '18px', lineHeight: 1.45
-            }}>
-                {isAvailable ? strings.subtitle_available : strings.subtitle_coming}
-            </p>
-
-            {isAvailable ? (
-                <a href={link} target="_blank" rel="noreferrer" className="action-btn-outline">
-                    <span style={{overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
-                        {strings.cta}
-                    </span>
-                    <span className="material-symbols-outlined" style={{fontSize: '18px'}}>
-                        open_in_new
-                    </span>
-                </a>
-            ) : (
-                <div className="unavailable-badge">
-                    Q1 2026
-                </div>
-            )}
-        </SidebarBaseCard>
-    );
-};
+        )}
+    </SidebarBaseCard>
+);
 
 /**
  * @param {Object} props
@@ -192,26 +192,25 @@ export const WearOSCard = ({strings, isAvailable, link}) => {
  * @returns {JSX.Element}
  */
 export const PlusPromoCard = ({strings, onNavigate}) => (
-    <SidebarBaseCard>
+    <SidebarBaseCard style={{ background: 'var(--md-sys-color-surface-container)' }}>
         <div style={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            marginBottom: '10px',
-            flexWrap: 'wrap',
-            gap: '6px'
+            marginBottom: '12px',
+            gap: '8px'
         }}>
-            <h4 style={{fontSize: '1.05rem', margin: 0, color: 'var(--md-sys-color-on-surface)'}}>
+            <h4 style={{fontSize: '1.05rem', margin: 0, fontWeight: 700, color: 'var(--md-sys-color-on-surface)'}}>
                 {strings.title}
             </h4>
-            <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-tertiary)'}}>
+            <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-secondary)'}}>
                 verified
             </span>
         </div>
 
         <p style={{
             fontSize: '0.9rem', color: 'var(--md-sys-color-on-surface-variant)',
-            marginBottom: '18px', lineHeight: 1.45
+            marginBottom: '20px', lineHeight: 1.5
         }}>
             {strings.subtitle}
         </p>

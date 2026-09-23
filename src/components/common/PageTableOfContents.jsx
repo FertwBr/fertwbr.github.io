@@ -16,11 +16,10 @@ export default function PageTableOfContents({children, title = "Table of Content
 
     if (isMobile) {
         return (
-            <div className="toc-dropdown-container" style={{ width: '100%', boxSizing: 'border-box' }}>
+            <div className="toc-dropdown-container">
                 <button
                     onClick={() => setIsOpen(!isOpen)}
                     className="toc-mobile-btn"
-                    style={{ width: '100%', boxSizing: 'border-box' }}
                 >
                     <div style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
                         <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-primary)'}}>
@@ -47,7 +46,6 @@ export default function PageTableOfContents({children, title = "Table of Content
                             exit={{height: 0, opacity: 0}}
                             transition={{type: "spring", stiffness: 300, damping: 30}}
                             className="toc-mobile-dropdown"
-                            style={{ width: '100%', boxSizing: 'border-box', overflow: 'hidden' }}
                         >
                             {children}
                         </motion.div>
@@ -58,7 +56,7 @@ export default function PageTableOfContents({children, title = "Table of Content
     }
 
     return (
-        <div className="toc-desktop-card" style={{ width: '100%', boxSizing: 'border-box' }}>
+        <div className="toc-desktop-card">
             <div style={{
                 display: 'flex',
                 alignItems: 'center',

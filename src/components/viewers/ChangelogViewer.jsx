@@ -305,43 +305,35 @@ const FullScreenArticle = ({
     const asideContent = headers.length > 0 ? (
         <div style={isDesktop ? {padding: '24px 16px'} : {}}>
             <aside className="app-sidebar-fixed desktop-toc-wrapper" style={{width: '100%', boxSizing: 'border-box'}}>
-                <div className="app-sidebar-sticky-inner viewer-sidebar-container"
-                     style={{
-                         position: isDesktop ? 'static' : 'relative',
-                         width: '100%',
-                         marginTop: 0,
-                         boxSizing: 'border-box',
-                         display: 'flex',
-                         flexDirection: 'column',
-                         gap: '24px',
-                         paddingBottom: '120px'
-                     }}>
-                    <div className="sidebar-base-card" style={{width: '100%', boxSizing: 'border-box'}}>
-                        <div style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '12px',
-                            marginBottom: '24px',
-                            color: 'var(--md-sys-color-primary)',
-                            fontSize: '1rem',
-                            fontWeight: 700,
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.03em'
-                        }}>
-                            <span className="material-symbols-outlined" style={{fontSize: '24px'}}>segment</span>
-                            {strings.table_of_contents || "Table of Contents"}
-                        </div>
+                <div className="viewer-sidebar-container">
+                    <div className="sidebar-scroll-area">
+                        <div className="sidebar-base-card" style={{width: '100%', boxSizing: 'border-box'}}>
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '12px',
+                                marginBottom: '24px',
+                                color: 'var(--md-sys-color-primary)',
+                                fontSize: '1rem',
+                                fontWeight: 700,
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.03em'
+                            }}>
+                                <span className="material-symbols-outlined" style={{fontSize: '24px'}}>segment</span>
+                                {strings.table_of_contents || "Table of Contents"}
+                            </div>
 
-                        <div className="toc-scroll-area" data-lenis-prevent="true">
-                            {(headers || []).map(h => (
-                                <button
-                                    key={h.id}
-                                    onClick={() => scrollToSection(h.id)}
-                                    className="toc-item-btn inactive"
-                                >
-                                    <span className="toc-item-text">{h.title}</span>
-                                </button>
-                            ))}
+                            <div className="toc-scroll-area" data-lenis-prevent="true">
+                                {(headers || []).map(h => (
+                                    <button
+                                        key={h.id}
+                                        onClick={() => scrollToSection(h.id)}
+                                        className="toc-item-btn inactive"
+                                    >
+                                        <span className="toc-item-text">{h.title}</span>
+                                    </button>
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -529,6 +521,15 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
         window.addEventListener('scroll', handleScroll, {passive: true});
         return () => window.removeEventListener('scroll', handleScroll);
     }, [isFullScreenMode]);
+
+    useEffect(() => {
+        if (activeId && isDesktop) {
+            const activeBtn = document.querySelector(`.toc-item-btn.active`);
+            if (activeBtn && activeBtn.scrollIntoView) {
+                activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+    }, [activeId, isDesktop]);
 
     /**
      * @returns {Promise<void>}
@@ -873,53 +874,46 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
     );
 
     const mainAsideContent = (
-        <div style={isDesktop ? {padding: '24px 16px'} : {}}>
-            <aside className="app-sidebar-fixed desktop-toc-wrapper" style={{width: '100%', boxSizing: 'border-box'}}>
-                <div className="app-sidebar-sticky-inner viewer-sidebar-container"
-                     style={{
-                         position: isDesktop ? 'static' : 'relative',
-                         width: '100%',
-                         marginTop: 0,
-                         boxSizing: 'border-box',
-                         display: 'flex',
-                         flexDirection: 'column',
-                         gap: '24px',
-                         paddingBottom: '120px'
-                     }}>
-                    {!isPortfolio && latestVersion && !searchQuery && (
-                        <LatestReleaseCard version={latestVersion} strings={strings.changelog || {}}
-                                           link={appConfig?.playStoreLink}/>
-                    )}
-                    <PageTableOfContents title={strings.changelog?.on_this_page || "On this page"}
-                                         isMobile={false}>
-                        {renderTocButtons()}
-                    </PageTableOfContents>
-                    {!isPortfolio && (
-                        <div style={{display: 'flex', flexDirection: 'column', gap: '20px'}}>
-                            <div style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '8px',
-                                color: 'var(--md-sys-color-on-surface-variant)',
-                                fontSize: '0.85rem',
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.03em',
-                                fontWeight: 600
-                            }}>
-                                <span className="material-symbols-outlined"
-                                      style={{fontSize: '18px'}}>explore</span>
-                                <span>{strings.changelog?.explore_more || "Explore More"}</span>
+        <div style={isDesktop ? {padding: '24px 16px', height: '100%'} : {}}>
+            <aside className="app-sidebar-fixed desktop-toc-wrapper" style={{width: '100%', boxSizing: 'border-box', height: '100%'}}>
+                <div className="viewer-sidebar-container">
+                    <div className="sidebar-scroll-area">
+                        {!isPortfolio && latestVersion && !searchQuery && (
+                            <LatestReleaseCard version={latestVersion} strings={strings.changelog || {}}
+                                               link={appConfig?.playStoreLink}/>
+                        )}
+                        <PageTableOfContents title={strings.changelog?.on_this_page || "On this page"}
+                                             isMobile={false}>
+                            {renderTocButtons()}
+                        </PageTableOfContents>
+                        {!isPortfolio && (
+                            <div style={{display: 'flex', flexDirection: 'column', gap: '16px'}}>
+                                <div style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '8px',
+                                    color: 'var(--md-sys-color-on-surface-variant)',
+                                    fontSize: '0.85rem',
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.03em',
+                                    fontWeight: 700,
+                                    marginTop: '8px'
+                                }}>
+                                    <span className="material-symbols-outlined"
+                                          style={{fontSize: '18px'}}>explore</span>
+                                    <span>{strings.changelog?.explore_more || "Explore More"}</span>
+                                </div>
+                                <BetaProgramCard strings={strings.changelog?.beta_program || {}}
+                                                 onNavigate={onNavigate}/>
+                                {!isMeasure && (
+                                    <WearOSCard strings={strings.changelog?.wear_os_promo || {}}
+                                                isAvailable={hasWearApp} link={appConfig?.playStoreLink}/>
+                                )}
+                                <PlusPromoCard strings={strings.changelog?.plus_promo || {}}
+                                               onNavigate={onNavigate}/>
                             </div>
-                            <BetaProgramCard strings={strings.changelog?.beta_program || {}}
-                                             onNavigate={onNavigate}/>
-                            {!isMeasure && (
-                                <WearOSCard strings={strings.changelog?.wear_os_promo || {}}
-                                            isAvailable={hasWearApp} link={appConfig?.playStoreLink}/>
-                            )}
-                            <PlusPromoCard strings={strings.changelog?.plus_promo || {}}
-                                           onNavigate={onNavigate}/>
-                        </div>
-                    )}
+                        )}
+                    </div>
                 </div>
             </aside>
         </div>
@@ -1138,41 +1132,30 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                             </div>
                         )}
 
-                        {!isPortfolio && (
-                            <div className="mobile-extra-content"
-                                 style={{display: 'none', marginTop: '64px', marginBottom: '100px'}}>
-                                <div>
-                                    <div style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '8px',
-                                        marginBottom: '16px',
-                                        color: 'var(--md-sys-color-on-surface-variant)',
-                                        fontSize: '0.85rem',
-                                        textTransform: 'uppercase',
-                                        letterSpacing: '0.03em',
-                                        fontWeight: 600
-                                    }}>
-                                        <span className="material-symbols-outlined"
-                                              style={{fontSize: '18px'}}>explore</span>
-                                        <span>{strings.changelog?.explore_more || "Explore More"}</span>
-                                    </div>
-                                    <div style={{display: 'flex', flexDirection: 'column', gap: '24px'}}>
-                                        {latestVersion && !searchQuery && (
-                                            <LatestReleaseCard version={latestVersion}
-                                                               strings={strings.changelog || {}}
-                                                               link={appConfig?.playStoreLink}/>
-                                        )}
-                                        <BetaProgramCard strings={strings.changelog?.beta_program || {}}
-                                                         onNavigate={onNavigate}/>
-                                        {!isMeasure && (
-                                            <WearOSCard strings={strings.changelog?.wear_os_promo || {}}
-                                                        isAvailable={hasWearApp} link={appConfig?.playStoreLink}/>
-                                        )}
-                                        <PlusPromoCard strings={strings.changelog?.plus_promo || {}}
-                                                       onNavigate={onNavigate}/>
-                                    </div>
+                        {!isPortfolio && !isDesktop && (
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', marginTop: '64px', marginBottom: '100px' }}>
+                                <div style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '8px',
+                                    marginBottom: '8px',
+                                    color: 'var(--md-sys-color-on-surface-variant)',
+                                    fontSize: '0.85rem',
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.03em',
+                                    fontWeight: 700
+                                }}>
+                                    <span className="material-symbols-outlined" style={{fontSize: '18px'}}>explore</span>
+                                    <span>{strings.changelog?.explore_more || "Explore More"}</span>
                                 </div>
+                                {latestVersion && !searchQuery && (
+                                    <LatestReleaseCard version={latestVersion} strings={strings.changelog || {}} link={appConfig?.playStoreLink}/>
+                                )}
+                                <BetaProgramCard strings={strings.changelog?.beta_program || {}} onNavigate={onNavigate}/>
+                                {!isMeasure && (
+                                    <WearOSCard strings={strings.changelog?.wear_os_promo || {}} isAvailable={hasWearApp} link={appConfig?.playStoreLink}/>
+                                )}
+                                <PlusPromoCard strings={strings.changelog?.plus_promo || {}} onNavigate={onNavigate}/>
                             </div>
                         )}
 
