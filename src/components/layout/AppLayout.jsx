@@ -1,4 +1,19 @@
+// file: src/components/layout/AppLayout.jsx
 import React, { useState, useEffect, useRef } from 'react';
+
+// Safely create persistent global portals immediately outside the component lifecycle.
+// This guarantees that ANY page using a portal will ALWAYS find the target,
+// completely eliminating the "target container is not a DOM element" crash.
+if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+    ['appbar-search-portal', 'appbar-bottom-portal'].forEach(id => {
+        if (!document.getElementById(id)) {
+            const el = document.createElement('div');
+            el.id = id;
+            el.style.display = 'none';
+            document.body.appendChild(el);
+        }
+    });
+}
 
 /**
  * Main application layout wrapper.

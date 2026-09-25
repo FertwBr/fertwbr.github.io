@@ -22,8 +22,8 @@ export default function TopBarDesktop({config, activePage, onNavigate, strings, 
     const [hasSearch, setHasSearch] = useState(false);
     const [isSearchFocused, setIsSearchFocused] = useState(false);
 
-    const bottomPortalRef = useRef(null);
-    const searchPortalRef = useRef(null);
+    const searchContainerRef = useRef(null);
+    const bottomContainerRef = useRef(null);
     const filterBtnRef = useRef(null);
 
     const navigate = useNavigate();
@@ -41,37 +41,33 @@ export default function TopBarDesktop({config, activePage, onNavigate, strings, 
     }, [isFiltersOpen]);
 
     useEffect(() => {
+        const el = document.getElementById('appbar-bottom-portal');
         const checkFilters = () => {
-            if (bottomPortalRef.current) {
-                setHasFilters(bottomPortalRef.current.childNodes.length > 0);
-            }
+            if (el) setHasFilters(el.childNodes.length > 0);
         };
         checkFilters();
-
-        if (bottomPortalRef.current) {
+        if (el) {
             const obs = new MutationObserver(checkFilters);
-            obs.observe(bottomPortalRef.current, {childList: true, subtree: true});
+            obs.observe(el, {childList: true, subtree: true});
             return () => obs.disconnect();
         }
     }, []);
 
     useEffect(() => {
+        const el = document.getElementById('appbar-search-portal');
         const checkSearch = () => {
-            if (searchPortalRef.current) {
-                setHasSearch(searchPortalRef.current.childNodes.length > 0);
-            }
+            if (el) setHasSearch(el.childNodes.length > 0);
         };
         checkSearch();
-
-        if (searchPortalRef.current) {
+        if (el) {
             const obs = new MutationObserver(checkSearch);
-            obs.observe(searchPortalRef.current, {childList: true, subtree: true});
+            obs.observe(el, {childList: true, subtree: true});
             return () => obs.disconnect();
         }
     }, []);
 
     useEffect(() => {
-        const portal = searchPortalRef.current;
+        const portal = document.getElementById('appbar-search-portal');
         if (!portal) return;
 
         const handleFocusIn = () => setIsSearchFocused(true);
@@ -88,13 +84,45 @@ export default function TopBarDesktop({config, activePage, onNavigate, strings, 
 
     useEffect(() => {
         const handleClickOutside = (e) => {
-            if (isFiltersOpen && bottomPortalRef.current && !bottomPortalRef.current.contains(e.target)) {
+            const portal = document.getElementById('appbar-bottom-portal');
+            if (isFiltersOpen && portal && !portal.contains(e.target)) {
                 if (filterBtnRef.current && filterBtnRef.current.contains(e.target)) return;
                 setFiltersOpen(false);
             }
         };
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, [isFiltersOpen]);
+
+    React.useLayoutEffect(() => {
+        const searchEl = document.getElementById('appbar-search-portal');
+        if (searchEl && searchContainerRef.current) {
+            searchEl.className = `appbar-search-portal-desktop ${hasFilters ? 'has-filters' : ''}`;
+            searchEl.style.display = 'flex';
+            searchEl.style.flex = '1';
+            searchContainerRef.current.appendChild(searchEl);
+        }
+        return () => {
+            if (searchEl && searchEl.parentElement === searchContainerRef.current) {
+                searchEl.style.display = 'none';
+                document.body.appendChild(searchEl);
+            }
+        };
+    }, [hasFilters]);
+
+    React.useLayoutEffect(() => {
+        const bottomEl = document.getElementById('appbar-bottom-portal');
+        if (bottomEl && bottomContainerRef.current) {
+            bottomEl.className = `appbar-bottom-portal ${isFiltersOpen ? 'open' : ''}`;
+            bottomEl.style.display = 'flex';
+            bottomContainerRef.current.appendChild(bottomEl);
+        }
+        return () => {
+            if (bottomEl && bottomEl.parentElement === bottomContainerRef.current) {
+                bottomEl.style.display = 'none';
+                document.body.appendChild(bottomEl);
+            }
+        };
     }, [isFiltersOpen]);
 
     const handleBackAction = () => {
@@ -134,7 +162,8 @@ export default function TopBarDesktop({config, activePage, onNavigate, strings, 
                     alignItems: 'center',
                     padding: '0 16px',
                     width: '100%',
-                    boxSizing: 'border-box'
+                    boxSizing: 'border-box',
+                    pointerEvents: 'auto'
                 }}
             >
                 <div
@@ -193,13 +222,13 @@ export default function TopBarDesktop({config, activePage, onNavigate, strings, 
                                      style={{width: '28px', height: '28px', objectFit: 'contain', borderRadius: '6px'}}/>
                             )}
 
-                            <AnimatePresence mode="popLayout" initial={false}>
+                            <AnimatePresence mode="wait" initial={false}>
                                 <motion.span
                                     key={displayTitle}
                                     initial={{ opacity: 0, x: -10, filter: "blur(4px)" }}
                                     animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                                     exit={{ opacity: 0, x: 10, filter: "blur(4px)" }}
-                                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                                    transition={{ duration: 0.3, ease: [0.2, 0, 0, 1] }}
                                     style={{
                                         fontWeight: 700,
                                         fontSize: '1.1rem',
@@ -232,14 +261,16 @@ export default function TopBarDesktop({config, activePage, onNavigate, strings, 
                         maxWidth: '680px',
                         position: 'relative'
                     }}>
-                        <div id="appbar-search-portal" ref={searchPortalRef}
-                             className={`appbar-search-portal-desktop ${hasFilters ? 'has-filters' : ''}`}
-                             style={{flex: 1}}></div>
+                        <div ref={searchContainerRef} style={{ display: 'flex', flex: 1, minWidth: 0, padding: 0, margin: 0, transition: 'all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)' }}></div>
 
                         <button
                             ref={filterBtnRef}
                             className={`desktop-filter-btn ${hasFilters ? 'visible' : ''} ${isFiltersOpen ? 'active' : ''} ${hasSearch ? 'has-search' : ''}`}
                             onClick={() => setFiltersOpen(!isFiltersOpen)}
+                            style={{
+                                marginLeft: hasFilters && hasSearch ? '-1px' : '0',
+                                zIndex: 2
+                            }}
                         >
                             <span className="material-symbols-outlined">tune</span>
                         </button>
@@ -255,8 +286,7 @@ export default function TopBarDesktop({config, activePage, onNavigate, strings, 
                 }}>
                 </div>
 
-                <div id="appbar-bottom-portal" ref={bottomPortalRef}
-                     className={`appbar-bottom-portal ${isFiltersOpen ? 'open' : ''}`}></div>
+                <div ref={bottomContainerRef}></div>
             </header>
 
             <div className={`desktop-corner-mask ${isVisible ? 'visible' : ''} ${isExpanded ? 'drawer' : 'rail'}`} />

@@ -1,3 +1,4 @@
+// file: src/components/layout/NavbarMobile.jsx
 import React, {useState, useEffect, useRef} from 'react';
 import {motion, AnimatePresence} from 'framer-motion';
 import {useNavigate, useLocation, Link} from 'react-router-dom';
@@ -116,9 +117,6 @@ export default function NavbarMobile({config, activePage, onNavigate, strings}) 
         return () => window.removeEventListener('scroll', handleScroll);
     }, [isMobileMenuOpen]);
 
-    /**
-     * @param {string} id
-     */
     const handleNavClick = (id) => {
         if (id === 'feedback') {
             const sourceParam = config?.scheme ? `?source=${config.scheme}` : '';
@@ -143,7 +141,13 @@ export default function NavbarMobile({config, activePage, onNavigate, strings}) 
     const displayTitle = is404 ? '404' : (strings?.[activePage] || config.appName);
 
     return (
-        <>
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            style={{ display: 'contents' }}
+        >
             <AnimatePresence>
                 {isMobileMenuOpen && (
                     <motion.div
@@ -165,168 +169,167 @@ export default function NavbarMobile({config, activePage, onNavigate, strings}) 
                 )}
             </AnimatePresence>
 
-            <AnimatePresence>
-                <motion.nav
-                    role="navigation"
-                    initial={{y: 0, opacity: 1}}
-                    animate={{y: isVisible ? 0 : -100, opacity: isVisible ? 1 : 0}}
-                    transition={{duration: 0.3, ease: "easeInOut"}}
+            <motion.nav
+                role="navigation"
+                initial={{y: -50, opacity: 0}}
+                animate={{y: isVisible ? 0 : -100, opacity: isVisible ? 1 : 0}}
+                exit={{y: -50, opacity: 0}}
+                transition={{duration: 0.3, ease: "easeInOut"}}
+                style={{
+                    position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
+                    display: 'flex', justifyContent: 'center', alignItems: 'flex-start',
+                    flexWrap: 'wrap', gap: '12px', padding: '16px', pointerEvents: 'none', width: '100%'
+                }}
+            >
+                <motion.div
+                    layout
+                    className="main-glass-nav"
+                    transition={SMOOTH_SPRING}
                     style={{
-                        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-                        display: 'flex', justifyContent: 'center', alignItems: 'flex-start',
-                        flexWrap: 'wrap', gap: '12px', padding: '16px', pointerEvents: 'none', width: '100%'
+                        ...GLASS_STYLE(isScrolled),
+                        pointerEvents: 'auto',
+                        borderRadius: '100px',
+                        padding: '6px 18px 6px 6px',
+                        flexDirection: 'row',
+                        justifyContent: 'flex-start',
+                        alignItems: 'center',
+                        flex: 1,
+                        minWidth: 0,
+                        overflow: 'hidden'
                     }}
                 >
-                    <motion.div
-                        layout
-                        className="main-glass-nav"
-                        transition={SMOOTH_SPRING}
-                        style={{
-                            ...GLASS_STYLE(isScrolled),
-                            pointerEvents: 'auto',
-                            borderRadius: '100px',
-                            padding: '6px 18px 6px 6px',
-                            flexDirection: 'row',
-                            justifyContent: 'flex-start',
-                            alignItems: 'center',
-                            flex: 1,
-                            minWidth: 0,
-                            overflow: 'hidden'
-                        }}
-                    >
-                        <motion.div layout className="nav-top-row" transition={SMOOTH_SPRING}
-                                    style={{
-                                        minHeight: '42px',
-                                        width: '100%',
-                                        justifyContent: 'flex-start',
-                                        minWidth: 0
-                                    }}>
-                            <motion.div layout className="nav-brand-area" transition={SMOOTH_SPRING}
-                                        style={{gap: '12px', alignItems: 'center', flex: 1, minWidth: 0}}>
-                                <motion.button
-                                    layout
-                                    onClick={handleBackAction}
-                                    className="nav-back-btn"
-                                    whileTap={{scale: 0.9}}
-                                    transition={SMOOTH_SPRING}
-                                >
-                                    <AnimatePresence mode="popLayout" initial={false}>
-                                        <motion.span
-                                            layout="position"
-                                            key={activePage === config.defaultPage ? 'close' : 'back'}
-                                            initial={{rotate: -90, opacity: 0, scale: 0.5}}
-                                            animate={{rotate: 0, opacity: 1, scale: 1}}
-                                            exit={{rotate: 90, opacity: 0, scale: 0.5}}
-                                            transition={SMOOTH_SPRING}
-                                            className="material-symbols-outlined"
-                                            style={{fontSize: '24px', display: 'block'}}
-                                        >
-                                            {activePage === config.defaultPage ? 'close' : 'arrow_back'}
-                                        </motion.span>
-                                    </AnimatePresence>
-                                </motion.button>
+                    <motion.div layout className="nav-top-row" transition={SMOOTH_SPRING}
+                                style={{
+                                    minHeight: '42px',
+                                    width: '100%',
+                                    justifyContent: 'flex-start',
+                                    minWidth: 0
+                                }}>
+                        <motion.div layout className="nav-brand-area" transition={SMOOTH_SPRING}
+                                    style={{gap: '12px', alignItems: 'center', flex: 1, minWidth: 0}}>
+                            <motion.button
+                                layout
+                                onClick={handleBackAction}
+                                className="nav-back-btn"
+                                whileTap={{scale: 0.9}}
+                                transition={SMOOTH_SPRING}
+                            >
+                                <AnimatePresence mode="wait" initial={false}>
+                                    <motion.span
+                                        key={activePage === config.defaultPage ? 'close' : 'back'}
+                                        initial={{rotate: -90, opacity: 0, scale: 0.5}}
+                                        animate={{rotate: 0, opacity: 1, scale: 1}}
+                                        exit={{rotate: 90, opacity: 0, scale: 0.5}}
+                                        transition={SMOOTH_SPRING}
+                                        className="material-symbols-outlined"
+                                        style={{fontSize: '24px', display: 'block'}}
+                                    >
+                                        {activePage === config.defaultPage ? 'close' : 'arrow_back'}
+                                    </motion.span>
+                                </AnimatePresence>
+                            </motion.button>
 
-                                <motion.div
-                                    layout
-                                    onClick={() => !is404 && onNavigate(config.defaultPage)}
-                                    className="nav-brand-container"
-                                    whileTap={!is404 ? {scale: 0.97} : {}}
-                                    transition={SMOOTH_SPRING}
-                                    style={{gap: '10px', padding: 0, flex: 1, minWidth: 0, overflow: 'hidden'}}
-                                >
-                                    <motion.div layout transition={SMOOTH_SPRING}
-                                                style={{display: 'flex', alignItems: 'center'}}>
-                                        {config.materialIcon ? (
-                                            <span
-                                                className="material-symbols-outlined nav-brand-icon">{config.materialIcon}</span>
-                                        ) : (
-                                            <img src={config.appIcon} alt="" className="nav-brand-image"/>
-                                        )}
-                                    </motion.div>
-
-                                    <AnimatePresence mode="popLayout" initial={false}>
-                                        <motion.span
-                                            layout="position"
-                                            key={displayTitle}
-                                            initial={{opacity: 0, y: 15, filter: "blur(4px)"}}
-                                            animate={{opacity: 1, y: 0, filter: "blur(0px)"}}
-                                            exit={{opacity: 0, y: -15, filter: "blur(4px)"}}
-                                            transition={SMOOTH_SPRING}
-                                            className="nav-brand-text"
-                                            style={{
-                                                display: 'block',
-                                                whiteSpace: 'nowrap',
-                                                overflow: 'hidden',
-                                                textOverflow: 'ellipsis'
-                                            }}
-                                        >
-                                            {displayTitle}
-                                        </motion.span>
-                                    </AnimatePresence>
+                            <motion.div
+                                layout
+                                onClick={() => !is404 && onNavigate(config.defaultPage)}
+                                className="nav-brand-container"
+                                whileTap={!is404 ? {scale: 0.97} : {}}
+                                transition={SMOOTH_SPRING}
+                                style={{gap: '10px', padding: 0, flex: 1, minWidth: 0, overflow: 'hidden'}}
+                            >
+                                <motion.div layout transition={SMOOTH_SPRING}
+                                            style={{display: 'flex', alignItems: 'center'}}>
+                                    {config.materialIcon ? (
+                                        <span
+                                            className="material-symbols-outlined nav-brand-icon">{config.materialIcon}</span>
+                                    ) : (
+                                        <img src={config.appIcon} alt="" className="nav-brand-image"/>
+                                    )}
                                 </motion.div>
+
+                                <AnimatePresence mode="wait" initial={false}>
+                                    <motion.span
+                                        key={displayTitle}
+                                        initial={{opacity: 0, y: 15, filter: "blur(4px)"}}
+                                        animate={{opacity: 1, y: 0, filter: "blur(0px)"}}
+                                        exit={{opacity: 0, y: -15, filter: "blur(4px)"}}
+                                        transition={SMOOTH_SPRING}
+                                        className="nav-brand-text"
+                                        style={{
+                                            display: 'block',
+                                            whiteSpace: 'nowrap',
+                                            overflow: 'hidden',
+                                            textOverflow: 'ellipsis'
+                                        }}
+                                    >
+                                        {displayTitle}
+                                    </motion.span>
+                                </AnimatePresence>
                             </motion.div>
                         </motion.div>
                     </motion.div>
+                </motion.div>
 
-                    {!is404 && !isFeedback && (
-                        <motion.div
-                            layout
-                            className="mobile-toggle-wrapper"
-                            transition={SPRING_TRANSITION}
-                            style={{
-                                ...GLASS_STYLE(isScrolled, isMobileMenuOpen),
-                                pointerEvents: 'auto',
-                                borderRadius: '28px',
-                                overflow: 'hidden',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                width: isMobileMenuOpen ? '100%' : '56px',
-                                height: isMobileMenuOpen ? 'auto' : '56px',
-                            }}
-                        >
-                            <div style={{
-                                display: 'flex',
-                                justifyContent: isMobileMenuOpen ? 'space-between' : 'center',
-                                alignItems: 'center',
-                                padding: '8px',
-                                minWidth: '56px'
-                            }}>
-                                <AnimatePresence>
-                                    {isMobileMenuOpen && (
-                                        <motion.div
-                                            initial={{opacity: 0, x: -10}}
-                                            animate={{opacity: 1, x: 0}}
-                                            exit={{opacity: 0, x: -10}}
-                                            transition={{duration: 0.2}}
-                                            style={{
-                                                display: 'flex',
-                                                flexDirection: 'column',
-                                                paddingLeft: '16px'
-                                            }}
-                                        >
-                                            <span style={{
-                                                fontSize: '1.05rem',
-                                                fontWeight: 700,
-                                                lineHeight: '1.2',
-                                                color: 'var(--md-sys-color-on-surface)'
-                                            }}>
-                                                {config.appName}
-                                            </span>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
+                {!is404 && !isFeedback && (
+                    <motion.div
+                        layout
+                        className="mobile-toggle-wrapper"
+                        transition={SPRING_TRANSITION}
+                        style={{
+                            ...GLASS_STYLE(isScrolled, isMobileMenuOpen),
+                            pointerEvents: 'auto',
+                            borderRadius: '28px',
+                            overflow: 'hidden',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            width: isMobileMenuOpen ? '100%' : '56px',
+                            height: isMobileMenuOpen ? 'auto' : '56px',
+                        }}
+                    >
+                        <div style={{
+                            display: 'flex',
+                            justifyContent: isMobileMenuOpen ? 'space-between' : 'center',
+                            alignItems: 'center',
+                            padding: '8px',
+                            minWidth: '56px'
+                        }}>
+                            <AnimatePresence>
+                                {isMobileMenuOpen && (
+                                    <motion.div
+                                        initial={{opacity: 0, x: -10}}
+                                        animate={{opacity: 1, x: 0}}
+                                        exit={{opacity: 0, x: -10}}
+                                        transition={{duration: 0.2}}
+                                        style={{
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            paddingLeft: '16px'
+                                        }}
+                                    >
+                                        <span style={{
+                                            fontSize: '1.05rem',
+                                            fontWeight: 700,
+                                            lineHeight: '1.2',
+                                            color: 'var(--md-sys-color-on-surface)'
+                                        }}>
+                                            {config.appName}
+                                        </span>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
 
-                                <motion.button
-                                    layout="position"
-                                    onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
-                                    className="nav-icon-btn-mobile-toggle"
-                                    style={{
-                                        backgroundColor: isMobileMenuOpen ? 'var(--md-sys-color-secondary-container)' : 'transparent',
-                                        color: isMobileMenuOpen ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-surface)',
-                                        marginLeft: isMobileMenuOpen ? 'auto' : '0'
-                                    }}
-                                    whileTap={{scale: 0.9}}
-                                >
+                            <motion.button
+                                layout="position"
+                                onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+                                className="nav-icon-btn-mobile-toggle"
+                                style={{
+                                    backgroundColor: isMobileMenuOpen ? 'var(--md-sys-color-secondary-container)' : 'transparent',
+                                    color: isMobileMenuOpen ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-surface)',
+                                    marginLeft: isMobileMenuOpen ? 'auto' : '0'
+                                }}
+                                whileTap={{scale: 0.9}}
+                            >
+                                <AnimatePresence mode="wait">
                                     <motion.span
                                         key={isMobileMenuOpen ? "close" : "menu"}
                                         initial={{rotate: -90, opacity: 0}}
@@ -336,113 +339,113 @@ export default function NavbarMobile({config, activePage, onNavigate, strings}) 
                                     >
                                         {isMobileMenuOpen ? 'keyboard_arrow_down' : 'menu'}
                                     </motion.span>
-                                </motion.button>
-                            </div>
+                                </AnimatePresence>
+                            </motion.button>
+                        </div>
 
-                            <AnimatePresence>
-                                {isMobileMenuOpen && (
-                                    <motion.div
-                                        id="mobile-menu-items"
-                                        variants={MENU_CONTAINER_VARIANTS}
-                                        initial="hidden" animate="show" exit="exit"
-                                        style={{
-                                            padding: '0 8px 10px 8px',
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            gap: '6px'
-                                        }}
-                                    >
-                                        {primaryItems.map(item => {
-                                            const label = strings?.[item.id] || (item.id === 'index' ? 'Home' : item.id.charAt(0).toUpperCase() + item.id.slice(1));
-                                            return (
-                                                <motion.button
-                                                    key={item.id}
-                                                    variants={MENU_ITEM_VARIANTS}
-                                                    onClick={() => handleNavClick(item.id)}
-                                                    className={`mobile-nav-item ${activePage === item.id ? 'active' : ''}`}
-                                                    whileTap={{scale: 0.97}}
-                                                >
-                                                    <span className="mobile-nav-item-icon">
-                                                        <span className="material-symbols-outlined">{item.icon}</span>
-                                                    </span>
-                                                    <span>{label}</span>
-                                                </motion.button>
-                                            );
-                                        })}
-
-                                        {secondaryItems.length > 0 && (
-                                            <motion.div
+                        <AnimatePresence>
+                            {isMobileMenuOpen && (
+                                <motion.div
+                                    id="mobile-menu-items"
+                                    variants={MENU_CONTAINER_VARIANTS}
+                                    initial="hidden" animate="show" exit="exit"
+                                    style={{
+                                        padding: '0 8px 10px 8px',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        gap: '6px'
+                                    }}
+                                >
+                                    {primaryItems.map(item => {
+                                        const label = strings?.[item.id] || (item.id === 'index' ? 'Home' : item.id.charAt(0).toUpperCase() + item.id.slice(1));
+                                        return (
+                                            <motion.button
+                                                key={item.id}
                                                 variants={MENU_ITEM_VARIANTS}
-                                                style={{
-                                                    display: 'flex',
-                                                    gap: '6px',
-                                                    marginTop: '4px',
-                                                    width: '100%'
-                                                }}
+                                                onClick={() => handleNavClick(item.id)}
+                                                className={`mobile-nav-item ${activePage === item.id ? 'active' : ''}`}
+                                                whileTap={{scale: 0.97}}
                                             >
-                                                {secondaryItems.map(item => {
-                                                    const label = strings?.[item.id] || (item.id === 'index' ? 'Home' : item.id.charAt(0).toUpperCase() + item.id.slice(1));
-                                                    const isCompact = secondaryItems.length >= 3;
+                                                <span className="mobile-nav-item-icon">
+                                                    <span className="material-symbols-outlined">{item.icon}</span>
+                                                </span>
+                                                <span>{label}</span>
+                                            </motion.button>
+                                        );
+                                    })}
 
-                                                    return (
-                                                        <motion.button
-                                                            key={item.id}
-                                                            onClick={() => handleNavClick(item.id)}
-                                                            className={`mobile-nav-item ${activePage === item.id ? 'active' : ''}`}
-                                                            whileTap={{scale: 0.95}}
-                                                            title={label}
-                                                            style={{
-                                                                flex: 1,
-                                                                justifyContent: 'center',
-                                                                padding: isCompact ? '12px 4px' : '12px 16px',
-                                                                flexDirection: isCompact ? 'column' : 'row',
-                                                                gap: isCompact ? '4px' : '8px',
-                                                                borderRadius: '16px',
-                                                                minWidth: 0
-                                                            }}
-                                                        >
-                                                            <span className="mobile-nav-item-icon" style={{margin: 0}}>
-                                                                <span className="material-symbols-outlined"
-                                                                      style={{fontSize: isCompact ? '24px' : '20px'}}>
-                                                                    {item.icon}
-                                                                </span>
+                                    {secondaryItems.length > 0 && (
+                                        <motion.div
+                                            variants={MENU_ITEM_VARIANTS}
+                                            style={{
+                                                display: 'flex',
+                                                gap: '6px',
+                                                marginTop: '4px',
+                                                width: '100%'
+                                            }}
+                                        >
+                                            {secondaryItems.map(item => {
+                                                const label = strings?.[item.id] || (item.id === 'index' ? 'Home' : item.id.charAt(0).toUpperCase() + item.id.slice(1));
+                                                const isCompact = secondaryItems.length >= 3;
+
+                                                return (
+                                                    <motion.button
+                                                        key={item.id}
+                                                        onClick={() => handleNavClick(item.id)}
+                                                        className={`mobile-nav-item ${activePage === item.id ? 'active' : ''}`}
+                                                        whileTap={{scale: 0.95}}
+                                                        title={label}
+                                                        style={{
+                                                            flex: 1,
+                                                            justifyContent: 'center',
+                                                            padding: isCompact ? '12px 4px' : '12px 16px',
+                                                            flexDirection: isCompact ? 'column' : 'row',
+                                                            gap: isCompact ? '4px' : '8px',
+                                                            borderRadius: '16px',
+                                                            minWidth: 0
+                                                        }}
+                                                    >
+                                                        <span className="mobile-nav-item-icon" style={{margin: 0}}>
+                                                            <span className="material-symbols-outlined"
+                                                                  style={{fontSize: isCompact ? '24px' : '20px'}}>
+                                                                {item.icon}
                                                             </span>
-                                                            {!isCompact ? (
-                                                                <span style={{
-                                                                    fontSize: '0.9rem',
-                                                                    fontWeight: 500,
-                                                                    whiteSpace: 'nowrap',
-                                                                    overflow: 'hidden',
-                                                                    textOverflow: 'ellipsis'
-                                                                }}>
-                                                                    {label}
-                                                                </span>
-                                                            ) : (
-                                                                <span style={{
-                                                                    fontSize: '0.65rem',
-                                                                    fontWeight: 600,
-                                                                    opacity: 0.8,
-                                                                    whiteSpace: 'nowrap',
-                                                                    overflow: 'hidden',
-                                                                    textOverflow: 'ellipsis',
-                                                                    width: '100%',
-                                                                    textAlign: 'center'
-                                                                }}>
-                                                                    {label}
-                                                                </span>
-                                                            )}
-                                                        </motion.button>
-                                                    );
-                                                })}
-                                            </motion.div>
-                                        )}
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </motion.div>
-                    )}
-                </motion.nav>
-            </AnimatePresence>
+                                                        </span>
+                                                        {!isCompact ? (
+                                                            <span style={{
+                                                                fontSize: '0.9rem',
+                                                                fontWeight: 500,
+                                                                whiteSpace: 'nowrap',
+                                                                overflow: 'hidden',
+                                                                textOverflow: 'ellipsis'
+                                                            }}>
+                                                                {label}
+                                                            </span>
+                                                        ) : (
+                                                            <span style={{
+                                                                fontSize: '0.65rem',
+                                                                fontWeight: 600,
+                                                                opacity: 0.8,
+                                                                whiteSpace: 'nowrap',
+                                                                overflow: 'hidden',
+                                                                textOverflow: 'ellipsis',
+                                                                width: '100%',
+                                                                textAlign: 'center'
+                                                            }}>
+                                                                {label}
+                                                            </span>
+                                                        )}
+                                                    </motion.button>
+                                                );
+                                            })}
+                                        </motion.div>
+                                    )}
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </motion.div>
+                )}
+            </motion.nav>
 
             <AnimatePresence>
                 {isMobileMenuOpen && (
@@ -493,6 +496,6 @@ export default function NavbarMobile({config, activePage, onNavigate, strings}) 
                     </motion.div>
                 )}
             </AnimatePresence>
-        </>
+        </motion.div>
     );
 }

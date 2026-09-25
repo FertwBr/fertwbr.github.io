@@ -1,3 +1,4 @@
+// file: src/components/layout/NavbarTablet.jsx
 import React, {useState, useEffect, useRef} from 'react';
 import {motion, AnimatePresence} from 'framer-motion';
 import {useNavigate, useLocation} from 'react-router-dom';
@@ -22,12 +23,9 @@ export default function NavbarTablet({config, activePage, onNavigate, strings}) 
     const [isVisible, setIsVisible] = useState(true);
     const [hasFilters, setHasFilters] = useState(false);
     const [isFiltersOpen, setFiltersOpen] = useState(false);
-    const [hasSearch, setHasSearch] = useState(false);
-    const [isSearchFocused, setIsSearchFocused] = useState(false);
 
     const lastScrollY = useRef(0);
-    const bottomPortalRef = useRef(null);
-    const searchPortalRef = useRef(null);
+    const bottomContainerRef = useRef(null);
     const filterBtnRef = useRef(null);
 
     const navigate = useNavigate();
@@ -42,42 +40,22 @@ export default function NavbarTablet({config, activePage, onNavigate, strings}) 
     });
 
     useEffect(() => {
-        if (!bottomPortalRef.current) return;
-        const checkFilters = () => setHasFilters(bottomPortalRef.current.childNodes.length > 0);
-        checkFilters();
-        const obs = new MutationObserver(checkFilters);
-        obs.observe(bottomPortalRef.current, {childList: true, subtree: true});
-        return () => obs.disconnect();
-    }, []);
-
-    useEffect(() => {
-        if (!searchPortalRef.current) return;
-        const checkSearch = () => setHasSearch(searchPortalRef.current.childNodes.length > 0);
-        checkSearch();
-        const obs = new MutationObserver(checkSearch);
-        obs.observe(searchPortalRef.current, {childList: true, subtree: true});
-        return () => obs.disconnect();
-    }, []);
-
-    useEffect(() => {
-        const portal = searchPortalRef.current;
-        if (!portal) return;
-
-        const handleFocusIn = () => setIsSearchFocused(true);
-        const handleFocusOut = () => setIsSearchFocused(false);
-
-        portal.addEventListener('focusin', handleFocusIn);
-        portal.addEventListener('focusout', handleFocusOut);
-
-        return () => {
-            portal.removeEventListener('focusin', handleFocusIn);
-            portal.removeEventListener('focusout', handleFocusOut);
+        const el = document.getElementById('appbar-bottom-portal');
+        const checkFilters = () => {
+            if (el) setHasFilters(el.childNodes.length > 0);
         };
+        checkFilters();
+        if (el) {
+            const obs = new MutationObserver(checkFilters);
+            obs.observe(el, {childList: true, subtree: true});
+            return () => obs.disconnect();
+        }
     }, []);
 
     useEffect(() => {
         const handleClickOutside = (e) => {
-            if (isFiltersOpen && bottomPortalRef.current && !bottomPortalRef.current.contains(e.target)) {
+            const portal = document.getElementById('appbar-bottom-portal');
+            if (isFiltersOpen && portal && !portal.contains(e.target)) {
                 if (filterBtnRef.current && filterBtnRef.current.contains(e.target)) return;
                 setFiltersOpen(false);
             }
@@ -114,6 +92,21 @@ export default function NavbarTablet({config, activePage, onNavigate, strings}) 
         return () => window.removeEventListener('scroll', handleScroll);
     }, [isFiltersOpen]);
 
+    React.useLayoutEffect(() => {
+        const bottomEl = document.getElementById('appbar-bottom-portal');
+        if (bottomEl && bottomContainerRef.current) {
+            bottomEl.className = `appbar-bottom-portal ${isFiltersOpen ? 'open' : ''}`;
+            bottomEl.style.display = 'flex';
+            bottomContainerRef.current.appendChild(bottomEl);
+        }
+        return () => {
+            if (bottomEl) {
+                bottomEl.style.display = 'none';
+                document.body.appendChild(bottomEl);
+            }
+        };
+    }, [isFiltersOpen]);
+
     const handleBackAction = () => {
         const isAtAppRoot = activePage === config.defaultPage || activePage === 'index';
         if (location.pathname.includes('/changelog/')) {
@@ -128,16 +121,11 @@ export default function NavbarTablet({config, activePage, onNavigate, strings}) 
     const displayTitle = is404 ? '404' : (strings?.[activePage] || config.appName);
 
     return (
-        <motion.nav
-            initial={{y: 0, opacity: 1}}
-            animate={{y: isVisible ? 0 : -100, opacity: isVisible ? 1 : 0}}
-            transition={{duration: 0.3, ease: "easeInOut"}}
-            className="tablet-nav-container"
-        >
+        <nav className="tablet-nav-container">
             <motion.div
                 layout
                 transition={SMOOTH_SPRING}
-                className={`main-glass-nav tablet-layout-m3 ${isSearchFocused ? 'search-active' : ''}`}
+                className="main-glass-nav tablet-layout-m3"
                 style={{
                     background: isScrolled || isFiltersOpen
                         ? 'rgba(var(--md-sys-color-surface-container-rgb), 0.96)'
@@ -148,6 +136,8 @@ export default function NavbarTablet({config, activePage, onNavigate, strings}) 
                     boxShadow: isScrolled
                         ? '0 10px 40px rgba(var(--md-sys-color-shadow-rgb), 0.18)'
                         : '0 4px 16px rgba(var(--md-sys-color-shadow-rgb), 0.08)',
+                    transform: isVisible ? 'translateY(0)' : 'translateY(-100px)',
+                    opacity: isVisible ? 1 : 0
                 }}
             >
                 <motion.div layout transition={SMOOTH_SPRING} className="nav-brand-area tablet-brand-area">
@@ -158,9 +148,8 @@ export default function NavbarTablet({config, activePage, onNavigate, strings}) 
                         whileTap={{scale: 0.9}}
                         transition={SMOOTH_SPRING}
                     >
-                        <AnimatePresence mode="popLayout" initial={false}>
+                        <AnimatePresence mode="wait" initial={false}>
                             <motion.span
-                                layout="position"
                                 key={activePage === config.defaultPage ? 'close' : 'back'}
                                 initial={{rotate: -90, opacity: 0, scale: 0.5}}
                                 animate={{rotate: 0, opacity: 1, scale: 1}}
@@ -187,9 +176,8 @@ export default function NavbarTablet({config, activePage, onNavigate, strings}) 
                                 <img src={config.appIcon} alt="" className="nav-brand-image"/>
                             )}
                         </motion.div>
-                        <AnimatePresence mode="popLayout" initial={false}>
+                        <AnimatePresence mode="wait" initial={false}>
                             <motion.span
-                                layout="position"
                                 key={displayTitle}
                                 initial={{opacity: 0, x: -10, filter: "blur(4px)"}}
                                 animate={{opacity: 1, x: 0, filter: "blur(0px)"}}
@@ -244,9 +232,7 @@ export default function NavbarTablet({config, activePage, onNavigate, strings}) 
                     </motion.div>
                 )}
 
-                <motion.div layout transition={SMOOTH_SPRING}
-                            className={`nav-right-wrapper tablet-actions-area ${hasSearch ? 'has-search' : 'no-search'}`}>
-                    <div id="appbar-search-portal" ref={searchPortalRef} className="appbar-search-portal"></div>
+                <motion.div layout transition={SMOOTH_SPRING} className="nav-right-wrapper tablet-actions-area">
                     <AnimatePresence>
                         <motion.button
                             layout
@@ -262,8 +248,7 @@ export default function NavbarTablet({config, activePage, onNavigate, strings}) 
                 </motion.div>
             </motion.div>
 
-            <div id="appbar-bottom-portal" ref={bottomPortalRef}
-                 className={`appbar-bottom-portal ${isFiltersOpen ? 'open' : ''}`}></div>
-        </motion.nav>
+            <div ref={bottomContainerRef}></div>
+        </nav>
     );
 }
