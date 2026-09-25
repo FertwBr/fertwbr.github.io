@@ -2,7 +2,7 @@
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
 ## Version 2.0.0-Beta-6.1
-(Released September 22, 2026)
+*(Released September 22, 2026)*
 
 This release focuses on deep architectural refactoring and vital stability improvements across the physical sensor orchestration layer. By completely overhauling the precipitation analysis engine and restructuring how flows combine during sensor initialization, we've resolved critical data freezing issues on SDK 37 and ensured highly accurate weather reporting for Free-tier users.
 
