@@ -33,7 +33,7 @@ export default function ViewerSidebar({
                     display: 'flex',
                     flexDirection: 'column',
                     gap: '24px',
-                    paddingBottom: '120px'
+                    paddingBottom: '24px'
                 }}
             >
                 {children}

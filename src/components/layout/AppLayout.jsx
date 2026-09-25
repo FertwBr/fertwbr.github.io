@@ -1,9 +1,5 @@
-// file: src/components/layout/AppLayout.jsx
 import React, { useState, useEffect, useRef } from 'react';
 
-// Safely create persistent global portals immediately outside the component lifecycle.
-// This guarantees that ANY page using a portal will ALWAYS find the target,
-// completely eliminating the "target container is not a DOM element" crash.
 if (typeof window !== 'undefined' && typeof document !== 'undefined') {
     ['appbar-search-portal', 'appbar-bottom-portal'].forEach(id => {
         if (!document.getElementById(id)) {
@@ -35,18 +31,18 @@ export default function AppLayout({ navbar, children, footer, background, hasRig
     const appShellRef = useRef(null);
 
     useEffect(() => {
-        let resizeTimeout;
+        let ticking = false;
         const handleResize = () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                setWindowWidth(window.innerWidth);
-            }, 150);
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    setWindowWidth(window.innerWidth);
+                    ticking = false;
+                });
+                ticking = true;
+            }
         };
         window.addEventListener('resize', handleResize, { passive: true });
-        return () => {
-            window.removeEventListener('resize', handleResize);
-            clearTimeout(resizeTimeout);
-        };
+        return () => window.removeEventListener('resize', handleResize);
     }, []);
 
     useEffect(() => {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 /**
  * @param {Object} props
@@ -45,12 +46,21 @@ export const LatestReleaseCard = ({version, strings, link}) => {
                 {version.date}
             </div>
 
-            <a href={link} target="_blank" rel="noreferrer" className="action-btn-primary no-shadow">
+            <motion.a
+                href={link}
+                target="_blank"
+                rel="noreferrer"
+                className="action-btn-primary no-shadow"
+                initial={{ backgroundColor: 'var(--md-sys-color-on-primary-container)', color: 'var(--md-sys-color-primary-container)' }}
+                whileHover={{ backgroundColor: 'var(--md-sys-color-surface)', color: 'var(--md-sys-color-on-surface)' }}
+                whileTap={{ scale: 0.96 }}
+                style={{ border: '1px solid transparent' }}
+            >
                 <span className="text-truncate">
                     {strings.update_now}
                 </span>
                 <span className="material-symbols-outlined">download</span>
-            </a>
+            </motion.a>
         </SidebarBaseCard>
     );
 };
