@@ -1,12 +1,8 @@
-/**
- * @description Generic layout container for product pages with dynamic theme and markdown loading.
- */
-
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import Spinner from '../components/common/Spinner.jsx';
 import ErrorDisplay from '../components/common/ErrorDisplay';
 import { useLanguage } from '../context/LanguageContext';
@@ -32,12 +28,12 @@ import TermsViewer from '../components/viewers/TermsViewer.jsx';
 import AppLayout from '../components/layout/AppLayout.jsx';
 
 /**
- * @param {Object} props Component properties.
- * @param {Object} props.config Product configuration object.
- * @param {React.ComponentType} props.HomeComponent Main home component for the product.
- * @param {string} props.translationKey Key used for localized strings.
- * @param {string} [props.forcedTab] Forced active tab override.
- * @returns {JSX.Element} The rendered product page container.
+ * @param {Object} props
+ * @param {Object} props.config
+ * @param {React.ComponentType} props.HomeComponent
+ * @param {string} props.translationKey
+ * @param {string} [props.forcedTab]
+ * @returns {JSX.Element}
  */
 export default function ProductPage({ config, HomeComponent, translationKey, forcedTab }) {
     const { content } = useLanguage();
@@ -94,19 +90,6 @@ export default function ProductPage({ config, HomeComponent, translationKey, for
 
     const renderContent = () => {
         if (activeTab === 'index') return null;
-
-        if (isLoading || forceLoading) return <Spinner />;
-        if (error) return <ErrorDisplay error={error} onRetry={() => window.location.reload()} />;
-        if (!markdownContent) {
-            return (
-                <main className="app-main-content">
-                    <article className="glass-card" style={{ padding: 'clamp(24px, 5vw, 40px)', borderRadius: '24px' }}>
-                        <h2>{t.not_found_title || 'Content Unavailable'}</h2>
-                        <p>{t.not_found_desc || 'The requested documentation could not be loaded at this time.'}</p>
-                    </article>
-                </main>
-            );
-        }
 
         const commonProps = {
             markdownContent,
@@ -183,7 +166,30 @@ export default function ProductPage({ config, HomeComponent, translationKey, for
                         </main>
                     ) : (
                         <div className="app-layout-container">
-                            {renderContent()}
+                            <AnimatePresence mode="wait">
+                                {isLoading || forceLoading ? (
+                                    <motion.div key="spinner" className="fade-transition-wrapper" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+                                        <Spinner />
+                                    </motion.div>
+                                ) : error ? (
+                                    <motion.div key="error" className="fade-transition-wrapper" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+                                        <ErrorDisplay error={error} onRetry={() => window.location.reload()} />
+                                    </motion.div>
+                                ) : !markdownContent ? (
+                                    <motion.div key="not-found" className="fade-transition-wrapper" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+                                        <main className="app-main-content">
+                                            <article className="glass-card" style={{ padding: 'clamp(24px, 5vw, 40px)', borderRadius: '24px' }}>
+                                                <h2>{t.not_found_title || 'Content Unavailable'}</h2>
+                                                <p>{t.not_found_desc || 'The requested documentation could not be loaded at this time.'}</p>
+                                            </article>
+                                        </main>
+                                    </motion.div>
+                                ) : (
+                                    <motion.div key="content" className="fade-transition-wrapper" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+                                        {renderContent()}
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </div>
                     )}
                 </PageTransition>

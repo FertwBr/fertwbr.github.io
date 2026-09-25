@@ -1,15 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import {AnimatePresence} from 'framer-motion';
-import {useLocation} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 import Spinner from '../components/common/Spinner.jsx';
 import ErrorDisplay from '../components/common/ErrorDisplay';
-import {useLanguage} from '../context/LanguageContext';
-import {applyMaterialTheme, getSeedColor, getSurfaceColor} from '../theme/themeUtils';
-import {usePageMetadata} from '../hooks/usePageMetadata';
-import {useMarkdownLoader} from '../hooks/useMarkdownLoader';
-import {siteProjectConfig} from '../config';
-import {useTabState} from '../hooks/useTabState';
-import {SiteConfig} from '../utils/siteConstants';
+import { useLanguage } from '../context/LanguageContext';
+import { applyMaterialTheme, getSeedColor, getSurfaceColor } from '../theme/themeUtils';
+import { usePageMetadata } from '../hooks/usePageMetadata';
+import { useMarkdownLoader } from '../hooks/useMarkdownLoader';
+import { siteProjectConfig } from '../config';
+import { useTabState } from '../hooks/useTabState';
+import { SiteConfig } from '../utils/siteConstants';
 
 import AppNavbar from '../components/layout/AppNavbar';
 import AppFooter from '../components/layout/AppFooter';
@@ -20,8 +20,13 @@ import OverviewViewer from '../components/viewers/OverviewViewer';
 import HashScrollHandler from '../components/common/HashScrollHandler';
 import AppLayout from '../components/layout/AppLayout.jsx';
 
-export default function SiteProjectPage({forcedTab}) {
-    const {content} = useLanguage();
+/**
+ * @param {Object} props
+ * @param {string} [props.forcedTab]
+ * @returns {JSX.Element}
+ */
+export default function SiteProjectPage({ forcedTab }) {
+    const { content } = useLanguage();
     const location = useLocation();
 
     const forceLoading = new URLSearchParams(location.search).get('testLoading') === 'true';
@@ -32,12 +37,12 @@ export default function SiteProjectPage({forcedTab}) {
         defaultPage: forcedTab || siteProjectConfig.defaultPage
     };
 
-    const {activeTab, handleNavigation} = useTabState(configWithRoute);
+    const { activeTab, handleNavigation } = useTabState(configWithRoute);
 
     const [activeColor] = useState(() => getSeedColor());
     const surfaceColor = getSurfaceColor(activeColor);
 
-    const {markdownContent, isLoading, error} = useMarkdownLoader(activeTab, siteProjectConfig);
+    const { markdownContent, isLoading, error } = useMarkdownLoader(activeTab, siteProjectConfig);
 
     usePageMetadata({
         title: `${siteProjectConfig.appName} - ${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}`,
@@ -73,10 +78,6 @@ export default function SiteProjectPage({forcedTab}) {
     };
 
     const renderContent = () => {
-        if (isLoading || forceLoading) return <Spinner/>;
-        if (error) return <ErrorDisplay error={error} onRetry={() => window.location.reload()}/>;
-        if (!markdownContent) return <div style={{height: '60vh', flex: 1}}></div>;
-
         const commonProps = {
             markdownContent,
             appConfig: siteProjectConfig,
@@ -96,15 +97,30 @@ export default function SiteProjectPage({forcedTab}) {
     return (
         <AppLayout
             hasRightSidebarPortal={true}
-            background={<><HashScrollHandler/><PageBackground/></>}
-            navbar={<AppNavbar config={navbarConfig} activePage={activeTab} onNavigate={handleNavigation}
-                               strings={t.nav}/>}
-            footer={<AppFooter strings={t} onNavigate={handleNavigation} activePage={activeTab} isPortfolio={true}/>}
+            background={<><HashScrollHandler /><PageBackground /></>}
+            navbar={<AppNavbar config={navbarConfig} activePage={activeTab} onNavigate={handleNavigation} strings={t.nav} />}
+            footer={<AppFooter strings={t} onNavigate={handleNavigation} activePage={activeTab} isPortfolio={true} />}
         >
             <AnimatePresence mode="wait">
                 <PageTransition key={activeTab}>
                     <div className="app-layout-container">
-                        {renderContent()}
+                        <AnimatePresence mode="wait">
+                            {isLoading || forceLoading ? (
+                                <motion.div key="spinner" className="fade-transition-wrapper" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+                                    <Spinner />
+                                </motion.div>
+                            ) : error ? (
+                                <motion.div key="error" className="fade-transition-wrapper" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+                                    <ErrorDisplay error={error} onRetry={() => window.location.reload()} />
+                                </motion.div>
+                            ) : !markdownContent ? (
+                                <motion.div key="placeholder" className="markdown-placeholder" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} />
+                            ) : (
+                                <motion.div key="content" className="fade-transition-wrapper" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+                                    {renderContent()}
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
                 </PageTransition>
             </AnimatePresence>

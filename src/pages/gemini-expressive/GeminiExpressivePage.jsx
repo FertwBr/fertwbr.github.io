@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from 'react';
-import {useParams, useNavigate} from 'react-router-dom';
-import {AnimatePresence} from 'framer-motion';
-import {geminiExpressiveConfig} from './GeminiExpressiveConfig';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
+import { geminiExpressiveConfig } from './GeminiExpressiveConfig';
 import GeminiExpressiveHome from './GeminiExpressiveHome';
 import AppLayout from '../../components/layout/AppLayout';
 import AppNavbar from '../../components/layout/AppNavbar';
@@ -15,26 +15,23 @@ import HelpViewer from '../../components/viewers/HelpViewer';
 import Spinner from '../../components/common/Spinner.jsx';
 import ErrorDisplay from '../../components/common/ErrorDisplay';
 import PageTransition from '../../components/layout/PageTransition';
-import {useLanguage} from '../../context/LanguageContext';
-import {usePageMetadata} from '../../hooks/usePageMetadata';
-import {useMarkdownLoader} from '../../hooks/useMarkdownLoader';
+import { useLanguage } from '../../context/LanguageContext';
+import { usePageMetadata } from '../../hooks/usePageMetadata';
+import { useMarkdownLoader } from '../../hooks/useMarkdownLoader';
 
 /**
- * Main container page for Gemini Expressive.
- * Handles tab navigation, metadata injection, and component rendering.
- *
  * @param {Object} props
  * @param {string} [props.forcedTab]
  * @returns {JSX.Element}
  */
-export default function GeminiExpressivePage({forcedTab}) {
-    const {pageId} = useParams();
+export default function GeminiExpressivePage({ forcedTab }) {
+    const { pageId } = useParams();
     const navigate = useNavigate();
-    const {content} = useLanguage();
+    const { content } = useLanguage();
     const [currentTab, setCurrentTab] = useState('index');
 
     const localizedStrings = content?.gemini_expressive || {};
-    const combinedStrings = {...content, ...localizedStrings};
+    const combinedStrings = { ...content, ...localizedStrings };
 
     useEffect(() => {
         if (forcedTab) {
@@ -46,7 +43,7 @@ export default function GeminiExpressivePage({forcedTab}) {
         }
     }, [pageId, forcedTab]);
 
-    const {markdownContent, isLoading, error} = useMarkdownLoader(currentTab, geminiExpressiveConfig);
+    const { markdownContent, isLoading, error } = useMarkdownLoader(currentTab, geminiExpressiveConfig);
 
     const pageConfig = geminiExpressiveConfig.pages[currentTab];
     const pageTitle = pageConfig?.title && currentTab !== 'index'
@@ -79,14 +76,6 @@ export default function GeminiExpressivePage({forcedTab}) {
      * @returns {JSX.Element|null}
      */
     const renderContent = () => {
-        if (currentTab === 'index') {
-            return <GeminiExpressiveHome onNavigate={handleNavigate} strings={localizedStrings}/>;
-        }
-
-        if (isLoading) return <Spinner/>;
-        if (error) return <ErrorDisplay error={error} onRetry={() => window.location.reload()}/>;
-        if (!markdownContent) return <div className="markdown-placeholder"></div>;
-
         const commonProps = {
             markdownContent,
             appConfig: geminiExpressiveConfig,
@@ -129,19 +118,33 @@ export default function GeminiExpressivePage({forcedTab}) {
     return (
         <AppLayout
             hasRightSidebarPortal={currentTab !== 'index'}
-            background={<ToolsPageBackground opacity={currentTab === 'index' ? 1 : 0.4}/>}
-            navbar={<AppNavbar config={geminiExpressiveConfig} activePage={currentTab} onNavigate={handleNavigate}
-                               strings={navStrings}/>}
-            footer={<AppFooter strings={footerStrings} onNavigate={handleNavigate} activePage={currentTab}
-                               config={geminiExpressiveConfig}/>}
+            background={<ToolsPageBackground opacity={currentTab === 'index' ? 1 : 0.4} />}
+            navbar={<AppNavbar config={geminiExpressiveConfig} activePage={currentTab} onNavigate={handleNavigate} strings={navStrings} />}
+            footer={<AppFooter strings={footerStrings} onNavigate={handleNavigate} activePage={currentTab} config={geminiExpressiveConfig} />}
         >
             <AnimatePresence mode="wait">
                 <PageTransition key={currentTab}>
                     {currentTab === 'index' ? (
-                        renderContent()
+                        <GeminiExpressiveHome onNavigate={handleNavigate} strings={localizedStrings} />
                     ) : (
                         <div className="app-layout-container">
-                            {renderContent()}
+                            <AnimatePresence mode="wait">
+                                {isLoading ? (
+                                    <motion.div key="spinner" className="fade-transition-wrapper" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+                                        <Spinner />
+                                    </motion.div>
+                                ) : error ? (
+                                    <motion.div key="error" className="fade-transition-wrapper" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+                                        <ErrorDisplay error={error} onRetry={() => window.location.reload()} />
+                                    </motion.div>
+                                ) : !markdownContent ? (
+                                    <motion.div key="empty" className="markdown-placeholder" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} />
+                                ) : (
+                                    <motion.div key="content" className="fade-transition-wrapper" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+                                        {renderContent()}
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </div>
                     )}
                 </PageTransition>
