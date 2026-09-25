@@ -496,7 +496,7 @@
         flex-direction: row;
         align-items: flex-start;
         gap: 48px;
-        padding: 80px 48px 80px 48px;
+        padding: 24px 48px 80px 48px;
     }
 
     .home-sections-container {
