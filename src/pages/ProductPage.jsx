@@ -7,7 +7,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import { AnimatePresence } from 'framer-motion';
-import GeometricSpinner from '../components/common/GeometricSpinner.jsx';
+import Spinner from '../components/common/Spinner.jsx';
 import ErrorDisplay from '../components/common/ErrorDisplay';
 import { useLanguage } from '../context/LanguageContext';
 import { applyMaterialTheme, getSurfaceColor, getSeedColor } from '../theme/themeUtils';
@@ -95,7 +95,7 @@ export default function ProductPage({ config, HomeComponent, translationKey, for
     const renderContent = () => {
         if (activeTab === 'index') return null;
 
-        if (isLoading || forceLoading) return <GeometricSpinner />;
+        if (isLoading || forceLoading) return <Spinner />;
         if (error) return <ErrorDisplay error={error} onRetry={() => window.location.reload()} />;
         if (!markdownContent) {
             return (

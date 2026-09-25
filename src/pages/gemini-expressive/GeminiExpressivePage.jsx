@@ -12,7 +12,7 @@ import ChangelogViewer from '../../components/viewers/ChangelogViewer';
 import PrivacyViewer from '../../components/viewers/PrivacyViewer';
 import TermsViewer from '../../components/viewers/TermsViewer';
 import HelpViewer from '../../components/viewers/HelpViewer';
-import GeometricSpinner from '../../components/common/GeometricSpinner';
+import Spinner from '../../components/common/Spinner.jsx';
 import ErrorDisplay from '../../components/common/ErrorDisplay';
 import PageTransition from '../../components/layout/PageTransition';
 import {useLanguage} from '../../context/LanguageContext';
@@ -83,7 +83,7 @@ export default function GeminiExpressivePage({forcedTab}) {
             return <GeminiExpressiveHome onNavigate={handleNavigate} strings={localizedStrings}/>;
         }
 
-        if (isLoading) return <GeometricSpinner/>;
+        if (isLoading) return <Spinner/>;
         if (error) return <ErrorDisplay error={error} onRetry={() => window.location.reload()}/>;
         if (!markdownContent) return <div className="markdown-placeholder"></div>;
 

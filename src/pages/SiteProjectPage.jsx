@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {AnimatePresence} from 'framer-motion';
 import {useLocation} from 'react-router-dom';
-import GeometricSpinner from '../components/common/GeometricSpinner.jsx';
+import Spinner from '../components/common/Spinner.jsx';
 import ErrorDisplay from '../components/common/ErrorDisplay';
 import {useLanguage} from '../context/LanguageContext';
 import {applyMaterialTheme, getSeedColor, getSurfaceColor} from '../theme/themeUtils';
@@ -73,7 +73,7 @@ export default function SiteProjectPage({forcedTab}) {
     };
 
     const renderContent = () => {
-        if (isLoading || forceLoading) return <GeometricSpinner/>;
+        if (isLoading || forceLoading) return <Spinner/>;
         if (error) return <ErrorDisplay error={error} onRetry={() => window.location.reload()}/>;
         if (!markdownContent) return <div style={{height: '60vh', flex: 1}}></div>;
 
