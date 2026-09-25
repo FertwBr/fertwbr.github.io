@@ -50,11 +50,10 @@ export const LatestReleaseCard = ({version, strings, link}) => {
                 href={link}
                 target="_blank"
                 rel="noreferrer"
-                className="action-btn-primary no-shadow"
+                className="action-btn-primary no-shadow transparent-border"
                 initial={{ backgroundColor: 'var(--md-sys-color-on-primary-container)', color: 'var(--md-sys-color-primary-container)' }}
                 whileHover={{ backgroundColor: 'var(--md-sys-color-surface)', color: 'var(--md-sys-color-on-surface)' }}
                 whileTap={{ scale: 0.96 }}
-                style={{ border: '1px solid transparent' }}
             >
                 <span className="text-truncate">
                     {strings.update_now}

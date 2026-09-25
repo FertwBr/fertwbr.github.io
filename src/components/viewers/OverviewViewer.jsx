@@ -301,7 +301,7 @@ export default function OverviewViewer({markdownContent, appConfig, strings}) {
     );
 
     const sidebarContent = (
-        <div style={isDesktop ? { padding: '24px 16px' } : {}}>
+        <div className={isDesktop ? "sidebar-portal-container" : ""}>
             <ViewerSidebar
                 cardIcon="info"
                 cardTitle={strings.overview_page?.about_docs_title || "About"}

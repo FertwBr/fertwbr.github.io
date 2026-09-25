@@ -303,8 +303,8 @@ const FullScreenArticle = ({
     };
 
     const asideContent = headers.length > 0 ? (
-        <div style={isDesktop ? {padding: '24px 16px'} : {}}>
-            <aside className="app-sidebar-fixed desktop-toc-wrapper" style={{width: '100%', boxSizing: 'border-box'}}>
+        <div className={isDesktop ? "sidebar-portal-container" : ""}>
+            <aside className="app-sidebar-fixed desktop-toc-wrapper sidebar-portal-container">
                 <div className="viewer-sidebar-container">
                     <div className="sidebar-scroll-area">
                         <div className="sidebar-base-card" style={{width: '100%', boxSizing: 'border-box'}}>
@@ -874,8 +874,8 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
     );
 
     const mainAsideContent = (
-        <div style={isDesktop ? {padding: '24px 16px', height: '100%'} : {}}>
-            <aside className="app-sidebar-fixed desktop-toc-wrapper" style={{width: '100%', boxSizing: 'border-box', height: '100%'}}>
+        <div className={isDesktop ? "sidebar-portal-container-full" : ""}>
+            <aside className="app-sidebar-fixed desktop-toc-wrapper sidebar-portal-container-full">
                 <div className="viewer-sidebar-container">
                     <div className="sidebar-scroll-area">
                         {!isPortfolio && latestVersion && !searchQuery && (
@@ -995,17 +995,9 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                 ) : (
                     <main className="app-main-content viewer-main-content">
                         {headerComponent}
-                        <div style={{
-                            padding: '60px 20px',
-                            textAlign: 'center',
-                            color: 'var(--md-sys-color-on-surface-variant)'
-                        }}>
-                            <span className="material-symbols-outlined" style={{
-                                fontSize: '48px',
-                                opacity: 0.5,
-                                marginBottom: '16px'
-                            }}>history_toggle_off</span>
-                            <p>{strings.changelog?.not_found || "Update version not found."}</p>
+                        <div className="empty-state-container">
+                            <span className="material-symbols-outlined empty-state-icon dimmed">history_toggle_off</span>
+                            <p className="empty-state-text">{strings.changelog?.not_found || "Update version not found."}</p>
                             <button onClick={handleViewAll} className="btn-outline" style={{marginTop: '24px'}}>
                                 View All Updates
                             </button>
@@ -1019,10 +1011,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
 
                         {!isDesktop && (
                             <>
-                                <div ref={containerRef} style={{
-                                    position: 'relative',
-                                    height: isSticky && window.innerWidth > 1000 ? '96px' : 'auto'
-                                }}>
+                                <div ref={containerRef} className={`sticky-search-wrapper ${isSticky ? 'is-sticky' : ''}`}>
                                     <div
                                         className={`loose-search-container ${isSticky ? 'is-sticky' : ''} ${hideOnScroll ? 'hide-on-scroll' : ''}`}
                                     >
@@ -1081,18 +1070,9 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                                                            onEmailShare={handleEmailShare}/>
                                         ))
                                     ) : (
-                                        <div style={{
-                                            padding: '40px',
-                                            textAlign: 'center',
-                                            color: 'var(--md-sys-color-on-surface-variant)'
-                                        }}>
-                                            <span className="material-symbols-outlined"
-                                                  style={{
-                                                      fontSize: '48px',
-                                                      marginBottom: '16px',
-                                                      opacity: 0.5
-                                                  }}>search_off</span>
-                                            <p>{strings.changelog?.no_results || "No results found."}</p>
+                                        <div className="empty-state-container compact">
+                                            <span className="material-symbols-outlined empty-state-icon dimmed">search_off</span>
+                                            <p className="empty-state-text">{strings.changelog?.no_results || "No results found."}</p>
                                         </div>
                                     )}
                                 </>
@@ -1100,7 +1080,7 @@ export default function ChangelogViewer({markdownContent: initialMarkdown, appCo
                         </div>
 
                         {(!isLoading && visibleCount < (filteredVersions || []).length) && (
-                            <div className="load-more-container" style={{marginTop: '20px', marginBottom: '40px'}}>
+                            <div className="load-more-container">
                                 <motion.button
                                     onClick={() => setVisibleCount(prev => Math.min(prev + 10, (filteredVersions || []).length))}
                                     whileHover={{

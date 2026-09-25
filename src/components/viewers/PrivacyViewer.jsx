@@ -81,7 +81,7 @@ export default function PrivacyViewer({markdownContent, appConfig, strings}) {
     const t = strings?.privacy_page || {};
 
     const sidebarContent = (
-        <div style={isDesktop ? {padding: '24px 16px'} : {}}>
+        <div className={isDesktop ? "sidebar-portal-container" : ""}>
             <ViewerSidebar
                 cardTitle={t.contact_title || "Privacy Questions?"}
                 cardDesc={t.contact_desc || "Contact us for privacy related questions."}

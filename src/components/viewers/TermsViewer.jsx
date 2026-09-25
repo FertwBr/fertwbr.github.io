@@ -84,7 +84,7 @@ export default function TermsViewer({markdownContent, appConfig, strings}) {
     const t = strings?.terms_page || {};
 
     const sidebarContent = (
-        <div style={isDesktop ? {padding: '24px 16px'} : {}}>
+        <div className={isDesktop ? "sidebar-portal-container" : ""}>
             <ViewerSidebar
                 cardTitle={t.contact_title || "Questions about these Terms?"}
                 cardDesc={t.contact_desc || "If you have any questions or concerns regarding these Terms of Use, please contact our support team."}

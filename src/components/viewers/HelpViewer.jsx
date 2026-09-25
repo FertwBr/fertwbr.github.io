@@ -108,7 +108,7 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
 
         window.addEventListener('scroll', handleScroll, {passive: true});
         return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    }, [isFullScreenMode]);
 
     const filteredSections = useMemo(() => {
         if (!searchQuery) return data.sections;
@@ -153,7 +153,7 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
     ) : null;
 
     const sidebarContent = (
-        <div style={isDesktop ? {padding: '24px 16px'} : {}}>
+        <div className={isDesktop ? "sidebar-portal-container" : ""}>
             <ViewerSidebar
                 cardTitle={strings.help_page?.contact_title || "Questions?"}
                 cardDesc={strings.help_page?.contact_desc || "Need more help?"}
@@ -181,10 +181,7 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
                 />
 
                 {!isDesktop && (
-                    <div ref={containerRef} style={{
-                        position: 'relative',
-                        height: isSticky && window.innerWidth > 1000 ? '96px' : 'auto'
-                    }}>
+                    <div ref={containerRef} className={`sticky-search-wrapper ${isSticky ? 'is-sticky' : ''}`}>
                         <div
                             className={`loose-search-container ${isSticky ? 'is-sticky' : ''} ${hideOnScroll ? 'hide-on-scroll' : ''}`}>
                             <div className="mobile-blur-backdrop"></div>
@@ -230,14 +227,9 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
                             </motion.article>
                         ))
                     ) : (
-                        <div style={{textAlign: 'center', padding: '60px', opacity: 0.7}}>
-                                <span className="material-symbols-outlined"
-                                      style={{
-                                          fontSize: '48px',
-                                          marginBottom: '16px',
-                                          color: 'var(--md-sys-color-on-surface-variant)'
-                                      }}>search_off</span>
-                            <p style={{color: 'var(--md-sys-color-on-surface-variant)'}}>{strings.help_page?.no_results || "No results found."}</p>
+                        <div className="empty-state-container">
+                            <span className="material-symbols-outlined empty-state-icon">search_off</span>
+                            <p className="empty-state-text">{strings.help_page?.no_results || "No results found."}</p>
                         </div>
                     )}
                 </div>
