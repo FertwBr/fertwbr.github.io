@@ -1,26 +1,16 @@
 import React from 'react';
-import {motion} from 'framer-motion';
+import { motion } from 'framer-motion';
 
+/**
+ * Renders an animated loading spinner.
+ * @returns {JSX.Element}
+ */
 export default function Spinner() {
     return (
-        <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            minHeight: '400px',
-            width: '100%',
-            gap: '40px'
-        }}>
-            <div style={{
-                position: 'relative',
-                width: '64px',
-                height: '64px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-            }}>
+        <div className="spinner-wrapper">
+            <div className="spinner-graphics-container">
                 <motion.div
+                    className="spinner-outer-ring"
                     animate={{
                         scale: [1, 1.2, 1],
                         rotate: [0, 90, 180, 270, 360],
@@ -39,14 +29,10 @@ export default function Spinner() {
                         times: [0, 0.25, 0.5, 0.75, 1],
                         repeat: Infinity
                     }}
-                    style={{
-                        position: 'absolute',
-                        width: '100%',
-                        height: '100%',
-                    }}
                 />
 
                 <motion.div
+                    className="spinner-inner-dot"
                     animate={{
                         scale: [0.5, 0.8, 0.5],
                         borderRadius: ["50%", "12px", "50%"],
@@ -62,19 +48,14 @@ export default function Spinner() {
                         times: [0, 0.5, 1],
                         repeat: Infinity
                     }}
-                    style={{
-                        position: 'absolute',
-                        width: '24px',
-                        height: '24px',
-                        zIndex: 2
-                    }}
                 />
             </div>
 
-            <div style={{display: 'flex', gap: '8px'}}>
+            <div className="spinner-dots-row">
                 {[0, 1, 2].map((index) => (
                     <motion.div
                         key={index}
+                        className="spinner-small-dot"
                         animate={{
                             scale: [0.6, 1, 0.6],
                             backgroundColor: [
@@ -88,11 +69,6 @@ export default function Spinner() {
                             repeat: Infinity,
                             ease: [0.2, 0, 0, 1],
                             delay: index * 0.15
-                        }}
-                        style={{
-                            width: '8px',
-                            height: '8px',
-                            borderRadius: '50%'
                         }}
                     />
                 ))}
