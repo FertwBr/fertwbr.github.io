@@ -1,6 +1,19 @@
 # Versionsverlauf
 Verfolgen Sie die Entwicklung des Portfolios. Hier finden Sie ein detailliertes Protokoll über neue Funktionen, Verbesserungen und Korrekturen für jede Version.
 
+## Version 4.5.0
+*(Veröffentlicht am 24. September 2026)*
+
+Version 4.5.0 führt eine visuelle und strukturelle Evolution ein und übernimmt vollständig die Designsprache Material 3 Expressive. Wir haben veralteten Glassmorphismus und willkürliche Farbverläufe zugunsten von sauberen, flachen geometrischen Oberflächen, flüssigen Animationen sowie einer einheitlichen und auf jedem Gerät responsiven Hintergrundhierarchie entfernt.
+
+Über die Überarbeitung der UI hinaus bringt dieses Update ein brandneues, sicheres Download-Ökosystem, das entwickelt wurde, um Benutzer vor Drittanbieter-APKs zu schützen, zusammen mit leistungsstarken Edge-Routing-Funktionen wie einem integrierten URL-Shortener und dynamischen Open Graph-Metadaten für ein reichhaltigeres Social Sharing.
+
+* **Material 3 Expressive UI:** Das Designsystem wurde komplett überarbeitet, um den strengen Richtlinien von Material 3 zu entsprechen. Wir haben durchgehende tonale Oberflächen implementiert, veraltete Rahmen entfernt, die NotFound-Seite mit einem asymmetrischen Raster neu gestaltet und alle App-Shells für ein nahtloses, immersives Layout vereinheitlicht.
+* **Sichere App-Verteilung:** Ein dedizierter, lokalisierter Download-Bereich wurde eingeführt, der dynamische Überprüfungen der Hardwareanforderungen (wie ARCore- oder Magnetometer-Einschränkungen) und proaktive Sicherheitswarnungen bietet, um Benutzer von potenziell schädlichen Drittanbieter-App-Stores fernzuhalten.
+* **Flüssige Navigation & Layouts:** Framer Motion wurde für absolut reibungslose Ansichtsübergänge auf Mobilgeräten, Tablets und Desktops integriert. Die Suchleiste auf dem Tablet erweitert sich nun intelligent, um den Fokus zu maximieren, während die Desktop-Seitenleiste eine neue Dual-Scroll-Tracking-Architektur und einen dynamischen Footer-Ausgleich nutzt.
+* **Intelligentes Routing & SEO:** Ein benutzerdefinierter URL-Shortener über Cloudflare Pages für saubereres Link-Teilen (z. B. `/s/pc/c/...`) wurde bereitgestellt, die Umleitungsreihenfolgen für Spitzenleistung vollständig optimiert und die dynamische Generierung von Open Graph-Metadaten für präzise, detaillierte Link-Vorschauen auf sozialen Plattformen eingeführt.
+* **Kern & Leistung:** Die Event-Listener für die Fenstergrößenänderung wurden auf `requestAnimationFrame` umgestellt, um eine völlig reibungslose UI-Skalierung zu gewährleisten. Zudem wurden persistente globale DOM-Portale vorinitialisiert, um Rendering-Abstürze zu beseitigen, und CSS-Media-Queries umstrukturiert, um das kurzzeitige Aufblitzen unformatierter Inhalte (FOUC) bei Änderungen des Viewports vollständig zu verhindern.
+
 ## Version 4.4.0
 *(Veröffentlicht am 22. September 2026)*
 

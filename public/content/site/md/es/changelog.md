@@ -1,6 +1,19 @@
 # Historial de Versiones
 Siga la evolución del portafolio. Aquí encontrará un registro detallado de nuevas características, mejoras y correcciones para cada versión.
 
+## Versión 4.5.0
+*(Lanzada el 24 de septiembre de 2026)*
+
+La versión 4.5.0 presenta una evolución visual y estructural, adoptando plenamente el lenguaje de diseño Material 3 Expressive. Hemos eliminado el *glassmorphism* obsoleto y los degradados arbitrarios en favor de superficies geométricas planas y limpias, animaciones fluidas y una jerarquía de fondo unificada que responde en cualquier dispositivo.
+
+Más allá de la renovación de la UI, esta actualización ofrece un ecosistema de descargas completamente nuevo y seguro, diseñado para proteger a los usuarios frente a APKs de terceros, junto con potentes capacidades de enrutamiento perimetral (*edge-routing*), como un acortador de URL integrado y metadatos dinámicos de Open Graph para un intercambio social más enriquecedor.
+
+* **Material 3 Expressive UI:** Hemos renovado por completo el sistema de diseño para cumplir con las estrictas directrices de Material 3. Se implementaron superficies tonales sólidas, se eliminaron los bordes obsoletos, se rediseñó la página NotFound con una cuadrícula asimétrica y se unificaron todas las interfaces (*app shells*) para lograr un diseño fluido e inmersivo.
+* **Distribución Segura de Aplicaciones:** Lanzamos un entorno de descarga dedicado y localizado que incluye comprobaciones dinámicas de los requisitos de hardware (como restricciones de ARCore o del magnetómetro) y advertencias de seguridad proactivas, para alejar a los usuarios de tiendas de aplicaciones de terceros potencialmente maliciosas.
+* **Navegación y Diseños Fluidos:** Integramos Framer Motion para lograr transiciones de vista sumamente suaves en dispositivos móviles, tabletas y computadoras de escritorio. Ahora, la barra de búsqueda de la tableta se expande de manera inteligente para maximizar el enfoque, mientras que la barra lateral de escritorio utiliza una nueva arquitectura de seguimiento de doble desplazamiento y una compensación dinámica del pie de página.
+* **Enrutamiento Inteligente y SEO:** Implementamos un acortador de URL personalizado a través de Cloudflare Pages para compartir enlaces de forma más limpia (por ejemplo, `/s/pc/c/...`), optimizamos completamente los órdenes de redireccionamiento para lograr el máximo rendimiento e introdujimos la generación dinámica de metadatos de Open Graph para obtener vistas previas de enlaces precisas y ricas en las plataformas sociales.
+* **Núcleo y Rendimiento:** Cambiamos los detectores de eventos (*event listeners*) de cambio de tamaño de ventana a `requestAnimationFrame` para lograr un escalado de la UI perfectamente fluido; inicializamos previamente los portales DOM globales persistentes para eliminar los fallos de renderizado; y reestructuramos las consultas de medios (*media queries*) CSS para evitar por completo el destello de contenido sin estilo (FOUC) durante los cambios de la ventana gráfica (*viewport*).
+
 ## Versión 4.4.0
 *(Lanzado el 22 de septiembre de 2026)*
 
