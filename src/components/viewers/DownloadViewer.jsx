@@ -42,16 +42,38 @@ export default function DownloadViewer({ markdownContent, appConfig, onNavigate 
 
             <section className="download-hero-section">
                 <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8 }}
+                    className="download-hero-icon"
+                >
+                    <div className="download-icon-wrapper">
+                        <img
+                            src={appConfig?.appIcon}
+                            alt={appName}
+                            className="download-app-icon"
+                        />
+                    </div>
+                </motion.div>
+
+                <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6 }}
+                    transition={{ duration: 0.6, delay: 0.1 }}
                     className="download-hero-text"
                 >
                     <h1 className="download-hero-title">{title}</h1>
                     <p className="download-hero-subtitle">
                         {t.hero_subtitle ? t.hero_subtitle.replace('{appName}', appName) : ''}
                     </p>
+                </motion.div>
 
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    className="download-hero-actions"
+                >
                     <a
                         href={appConfig?.playStoreLink}
                         target="_blank"
@@ -67,21 +89,13 @@ export default function DownloadViewer({ markdownContent, appConfig, onNavigate 
                     </a>
                 </motion.div>
 
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.8, delay: 0.1 }}
-                    className="download-hero-visual"
-                >
-                    <div className="download-icon-wrapper">
-                        <img
-                            src={appConfig?.appIcon}
-                            alt={appName}
-                            className="download-app-icon"
-                        />
-                    </div>
-
-                    {latestVersion && (
+                {latestVersion && (
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.8, delay: 0.3 }}
+                        className="download-hero-version"
+                    >
                         <div
                             className="download-version-card"
                             onClick={() => onNavigate('changelog')}
@@ -97,8 +111,8 @@ export default function DownloadViewer({ markdownContent, appConfig, onNavigate 
                                 <span className="material-symbols-outlined">arrow_forward</span>
                             </div>
                         </div>
-                    )}
-                </motion.div>
+                    </motion.div>
+                )}
             </section>
 
             <motion.section
