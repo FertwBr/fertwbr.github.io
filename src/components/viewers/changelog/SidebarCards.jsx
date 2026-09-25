@@ -5,14 +5,12 @@ import React from 'react';
  * @param {React.ReactNode} props.children
  * @param {Function} [props.onClick]
  * @param {string} [props.className]
- * @param {Object} [props.style]
  * @returns {JSX.Element}
  */
-const SidebarBaseCard = ({children, onClick, className = '', style = {}}) => (
+const SidebarBaseCard = ({children, onClick, className = ''}) => (
     <div
         className={`sidebar-base-card ${onClick ? 'clickable' : ''} ${className}`}
         onClick={onClick}
-        style={{ width: '100%', boxSizing: 'border-box', ...style }}
     >
         {children}
     </div>
@@ -29,65 +27,26 @@ export const LatestReleaseCard = ({version, strings, link}) => {
     if (!version) return null;
 
     return (
-        <SidebarBaseCard
-            style={{
-                background: 'var(--md-sys-color-primary-container)',
-                border: '1px solid transparent'
-            }}
-        >
-            <div style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginBottom: '16px',
-                flexWrap: 'wrap',
-                gap: '8px'
-            }}>
-                <span style={{
-                    fontSize: '0.75rem',
-                    textTransform: 'uppercase',
-                    letterSpacing: '1px',
-                    color: 'var(--md-sys-color-on-primary-container)',
-                    fontWeight: 700,
-                    opacity: 0.8
-                }}>
-                    {strings.latest_release}
-                </span>
+        <SidebarBaseCard className="sidebar-primary-card">
+            <span className="sidebar-release-label">
+                {strings.latest_release}
+            </span>
 
-                <span className="version-badge" style={{
-                    background: 'var(--md-sys-color-on-primary-container)',
-                    color: 'var(--md-sys-color-primary-container)'
-                }}>
+            <div className="sidebar-release-version-row">
+                <h3 className="sidebar-release-version-number">
+                    {version.version.replace('Version ', '')}
+                </h3>
+                <span className="version-badge primary-badge">
                     {version.type}
                 </span>
             </div>
 
-            <h3 style={{
-                fontSize: '2rem',
-                margin: '0 0 8px 0',
-                lineHeight: 1.1,
-                wordBreak: 'break-word',
-                color: 'var(--md-sys-color-on-primary-container)',
-                fontWeight: 800
-            }}>
-                {version.version.replace('Version ', '')}
-            </h3>
+            <div className="sidebar-release-date">
+                {version.date}
+            </div>
 
-            <p style={{
-                fontSize: '0.9rem',
-                color: 'var(--md-sys-color-on-primary-container)',
-                marginBottom: '24px',
-                opacity: 0.9
-            }}>
-                {strings.released} {version.date}
-            </p>
-
-            <a href={link} target="_blank" rel="noreferrer" className="action-btn-primary" style={{
-                background: 'var(--md-sys-color-on-primary-container)',
-                color: 'var(--md-sys-color-primary-container)',
-                boxShadow: 'none'
-            }}>
-                <span style={{overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
+            <a href={link} target="_blank" rel="noreferrer" className="action-btn-primary no-shadow">
+                <span className="text-truncate">
                     {strings.update_now}
                 </span>
                 <span className="material-symbols-outlined">download</span>
@@ -103,34 +62,25 @@ export const LatestReleaseCard = ({version, strings, link}) => {
  * @returns {JSX.Element}
  */
 export const BetaProgramCard = ({strings, onNavigate}) => (
-    <SidebarBaseCard style={{ background: 'var(--md-sys-color-surface-container)' }}>
-        <div style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBottom: '12px',
-            gap: '8px'
-        }}>
-            <h4 style={{fontSize: '1.05rem', margin: 0, fontWeight: 700, color: 'var(--md-sys-color-on-surface)'}}>
+    <SidebarBaseCard>
+        <div className="sidebar-promo-header">
+            <h4 className="sidebar-promo-title">
                 {strings.title}
             </h4>
-            <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-tertiary)'}}>
+            <span className="material-symbols-outlined icon-tertiary">
                 science
             </span>
         </div>
 
-        <p style={{
-            fontSize: '0.9rem', color: 'var(--md-sys-color-on-surface-variant)',
-            marginBottom: '20px', lineHeight: 1.5
-        }}>
+        <p className="sidebar-promo-desc">
             {strings.subtitle}
         </p>
 
-        <button onClick={() => onNavigate && onNavigate('beta')} className="action-btn-outline" style={{ border: '1px solid var(--md-sys-color-tertiary)', color: 'var(--md-sys-color-tertiary)', cursor: 'pointer' }}>
-            <span style={{overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
+        <button onClick={() => onNavigate && onNavigate('beta')} className="beta-btn-outline cursor-pointer">
+            <span className="text-truncate">
                 {strings.cta}
             </span>
-            <span className="material-symbols-outlined" style={{fontSize: '18px'}}>
+            <span className="material-symbols-outlined icon-small">
                 arrow_forward
             </span>
         </button>
@@ -145,35 +95,26 @@ export const BetaProgramCard = ({strings, onNavigate}) => (
  * @returns {JSX.Element}
  */
 export const WearOSCard = ({strings, isAvailable, link}) => (
-    <SidebarBaseCard style={{ background: 'var(--md-sys-color-surface-container)' }}>
-        <div style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBottom: '12px',
-            gap: '8px'
-        }}>
-            <h4 style={{fontSize: '1.05rem', margin: 0, fontWeight: 700, color: 'var(--md-sys-color-on-surface)'}}>
+    <SidebarBaseCard>
+        <div className="sidebar-promo-header">
+            <h4 className="sidebar-promo-title">
                 {strings.title}
             </h4>
-            <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-on-surface-variant)'}}>
+            <span className="material-symbols-outlined icon-variant">
                 watch
             </span>
         </div>
 
-        <p style={{
-            fontSize: '0.9rem', color: 'var(--md-sys-color-on-surface-variant)',
-            marginBottom: '20px', lineHeight: 1.5
-        }}>
+        <p className="sidebar-promo-desc">
             {isAvailable ? strings.subtitle_available : strings.subtitle_coming}
         </p>
 
         {isAvailable ? (
             <a href={link} target="_blank" rel="noreferrer" className="action-btn-outline">
-                <span style={{overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
+                <span className="text-truncate">
                     {strings.cta}
                 </span>
-                <span className="material-symbols-outlined" style={{fontSize: '18px'}}>
+                <span className="material-symbols-outlined icon-small">
                     open_in_new
                 </span>
             </a>
@@ -192,31 +133,22 @@ export const WearOSCard = ({strings, isAvailable, link}) => (
  * @returns {JSX.Element}
  */
 export const PlusPromoCard = ({strings, onNavigate}) => (
-    <SidebarBaseCard style={{ background: 'var(--md-sys-color-surface-container)' }}>
-        <div style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBottom: '12px',
-            gap: '8px'
-        }}>
-            <h4 style={{fontSize: '1.05rem', margin: 0, fontWeight: 700, color: 'var(--md-sys-color-on-surface)'}}>
+    <SidebarBaseCard>
+        <div className="sidebar-promo-header">
+            <h4 className="sidebar-promo-title">
                 {strings.title}
             </h4>
-            <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-secondary)'}}>
+            <span className="material-symbols-outlined icon-secondary">
                 verified
             </span>
         </div>
 
-        <p style={{
-            fontSize: '0.9rem', color: 'var(--md-sys-color-on-surface-variant)',
-            marginBottom: '20px', lineHeight: 1.5
-        }}>
+        <p className="sidebar-promo-desc">
             {strings.subtitle}
         </p>
 
-        <button onClick={() => onNavigate && onNavigate('plus')} className="action-btn-outline" style={{ cursor: 'pointer' }}>
-            <span style={{overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
+        <button onClick={() => onNavigate && onNavigate('plus')} className="action-btn-outline cursor-pointer">
+            <span className="text-truncate">
                 {strings.cta}
             </span>
         </button>

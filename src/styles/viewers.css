@@ -676,6 +676,7 @@
     background: var(--md-sys-color-surface-container-low);
     border: 1px solid var(--md-sys-color-outline-variant);
     transition: background-color 0.2s ease, transform 0.2s cubic-bezier(0.2, 0, 0, 1);
+    box-sizing: border-box;
 }
 
 .sidebar-base-card.clickable {
@@ -1321,4 +1322,100 @@
 .roadmap-m3-table td strong {
     color: var(--md-sys-color-on-surface);
     font-weight: 700;
+}
+
+.text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.icon-small {
+    font-size: 18px;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.no-shadow {
+    box-shadow: none !important;
+}
+
+.primary-badge {
+    background: var(--md-sys-color-on-primary-container);
+    color: var(--md-sys-color-primary-container);
+}
+
+.sidebar-primary-card {
+    background: var(--md-sys-color-primary-container);
+    border: 1px solid transparent;
+}
+
+.sidebar-release-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--md-sys-color-on-primary-container);
+    opacity: 0.9;
+    margin-bottom: 8px;
+}
+
+.sidebar-release-version-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.sidebar-release-version-number {
+    font-size: clamp(2rem, 3vw, 2.5rem);
+    margin: 0;
+    line-height: 1;
+    color: var(--md-sys-color-on-primary-container);
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.sidebar-release-date {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--md-sys-color-on-primary-container);
+    opacity: 0.7;
+    margin-bottom: 24px;
+    font-weight: 500;
+}
+
+.sidebar-promo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    gap: 8px;
+}
+
+.sidebar-promo-title {
+    font-size: 1.05rem;
+    margin: 0;
+    font-weight: 700;
+    color: var(--md-sys-color-on-surface);
+}
+
+.sidebar-promo-desc {
+    font-size: 0.9rem;
+    color: var(--md-sys-color-on-surface-variant);
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.icon-tertiary {
+    color: var(--md-sys-color-tertiary);
+}
+
+.icon-secondary {
+    color: var(--md-sys-color-secondary);
+}
+
+.icon-variant {
+    color: var(--md-sys-color-on-surface-variant);
 }
