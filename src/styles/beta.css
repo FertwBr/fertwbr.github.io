@@ -1,6 +1,3 @@
-/* src/styles/beta.css */
-
-/* Oculta o título gigante e o subtítulo do ViewerHeader APENAS na página Beta */
 .beta-page-wrapper .viewer-title,
 .beta-page-wrapper .viewer-subtitle {
     display: none !important;
@@ -62,7 +59,6 @@
     border: 1px solid var(--md-sys-color-outline-variant);
 }
 
-/* Efeito de brilho sutil atrás da foto */
 .beta-photo-wrapper::before {
     content: '';
     position: absolute;
@@ -80,7 +76,6 @@
     display: block;
 }
 
-/* --- Seção de Updates Compacta --- */
 .beta-updates-section {
     background: var(--md-sys-color-surface-container-low);
     border: 1px solid var(--md-sys-color-outline-variant);
@@ -142,7 +137,6 @@
     overflow: hidden;
 }
 
-/* --- Benefícios Minimalistas --- */
 .beta-benefits-section {
     margin-bottom: 80px;
 }
@@ -178,7 +172,6 @@
     margin: 0;
 }
 
-/* --- Disclaimer --- */
 .beta-disclaimer {
     text-align: center;
     font-size: 0.8rem;
