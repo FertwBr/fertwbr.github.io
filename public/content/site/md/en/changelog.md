@@ -1,6 +1,19 @@
 # Version History
 Track the evolution of the portfolio. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 4.5.0
+*(Released September 24, 2026)*
+
+Version 4.5.0 introduces a visual and structural evolution, fully adopting the Material 3 Expressive design language. We've stripped away legacy glassmorphism and arbitrary gradients in favor of clean, flat geometric surfaces, fluid animations, and a unified background hierarchy and responsive on any device.
+
+Beyond the UI overhaul, this update brings a brand-new, secure download ecosystem designed to protect users against third-party APKs, alongside powerful edge-routing capabilities like a built-in URL shortener and dynamic Open Graph metadata for richer social sharing.
+
+* **Material 3 Expressive UI:** Completely revamped the design system to adhere to strict Material 3 guidelines. We've implemented solid tonal surfaces, removed legacy borders, redesigned the NotFound page with an asymmetric grid, and unified all app shells for a seamless, immersive layout.
+* **Secure App Distribution:** Launched a dedicated, localized download environment featuring dynamic hardware requirement checks (such as ARCore or Magnetometer constraints) and proactive security warnings to steer users away from potentially malicious third-party app stores.
+* **Fluid Navigation & Layouts:** Integrated Framer Motion for buttery-smooth view transitions across mobile, tablet, and desktop. The tablet search bar now intelligently expands to maximize focus, while the desktop sidebar utilizes a new dual-scroll tracking architecture and dynamic footer offsetting.
+* **Smart Routing & SEO:** Deployed a custom URL shortener via Cloudflare Pages for cleaner link sharing (e.g., `/s/pc/c/...`), fully optimized redirect orders for peak performance, and introduced dynamic Open Graph metadata generation for accurate, rich link previews across social platforms.
+* **Core & Performance:** Switched window resize event listeners to `requestAnimationFrame` for perfectly smooth UI scaling, pre-initialized persistent global DOM portals to eliminate rendering crashes, and restructured CSS media queries to completely prevent Flash of Unstyled Content (FOUC) during viewport changes.
+
 ## Version 4.4.0
 *(Released September 22, 2026)*
 
