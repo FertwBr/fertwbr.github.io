@@ -1,6 +1,52 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 2.0.0-Beta-7
+*(Released September 25, 2026)*
+
+This massive Beta release fundamentally transforms the Pixel Compass tracking architecture. We have introduced an advanced tracking ecosystem, transitioned to fully dynamic GPS waypoint navigation, and centralized our canvas rendering algorithms into a unified library. Furthermore, the Compass Editor has been reorganized to handle these new capabilities cleanly, and we've resolved critical layout persistence bugs for our foldable users.
+
+*Note: The highly anticipated dynamic compass sizing adjustments are currently in development and will arrive in a future update.*
+
+#### 📱 Phone
+
+* **Trackers & Indicators**: A brand-new tracking ecosystem mapped directly onto your compass dial. Controls for these trackers are universally accessible across the app, located in both the new "Trackers" tab of the Compass Editor and under the "Trackers & Indicators" category in Compass Settings.
+  * **Celestial Tracking (Sun & Moon)**: Integrated high-fidelity celestial tracking that projects the real-time azimuth and elevation of the Sun and Moon directly onto the compass perimeter. Includes dynamic vector icons that shift to reflect the current lunar phase and twilight events.
+  * **Intelligent Qibla Navigation**: Implemented a localized Great-Circle calculator to dynamically track the bearing to Mecca. We've built an intelligent banner system: existing users in eligible regions will see a discovery banner, while new users in those regions will have the feature auto-enabled during onboarding (FTUE) with a banner explaining that it can be disabled at any time.
+  * **GPS Waypoint Navigation (Plus Feature)**: Transitioned custom indicators from static degrees to a fully dynamic, real-world coordinate tracking engine. Plus users can now input specific Latitude and Longitude coordinates to calculate a real-time Great-Circle route to a destination. *(Note: This provides a straight-line geographical bearing and does not account for routing, topography, or elevation).*
+  * **Segmented GPS Input & Smart Clipboard**: To support the new Waypoint system, we engineered a highly advanced `GpsTextField` composite. It natively supports segmented inputs for Decimal Degrees (DD), Degrees and Decimal Minutes (DDM), and Degrees, Minutes, Seconds (DMS). We also introduced an intelligent clipboard parser that automatically detects, extracts, formats, and validates coordinates pasted directly from your clipboard.
+
+* **UI & UX Polish**: Streamlined customization workflows and expressive design updates.
+  * **Compass Editor Overhaul**: To cleanly accommodate the new tracking features, the Compass Editor panel has been decoupled and divided into three distinct, scrollable tabs: **Style**, **Dial**, and **Trackers**.
+  * **Smart Peripheral Clustering**: Engineered a dynamic repulsion algorithm (`PeripheralIndicatorCluster`) for the compass perimeter. If multiple tracking icons (Wind, Qibla, Moon, Custom) intersect or collide with cardinal text (N, S, E, W), the engine automatically clusters and displaces them along connected stems, guaranteeing pristine readability.
+
+* **Weather Dashboard & Foldables**: Powerful fixes for dual-profile layouts and weather UI enhancements.
+  * **Foldable Layout Synchronization**: Added a "Mirror Layouts" toggle inside the User Experience settings screen specifically for Foldable and Tablet users. You can now choose whether your compact (folded) and expanded (unfolded) screens share the exact same grid design, or remain entirely independent. An educational banner now appears in expanded viewports to explain this architecture.
+  * **Weather Block Persistence Fix**: Resolved a deeply rooted deserialization bug where adding multiple weather blocks of the exact same type (e.g., two precipitation grids) would cause one to be silently discarded upon exiting edit mode.
+  * **Precipitation Probability Fallback**: Updated the weather engine to intelligently default to a "Probability View" if active precipitation is detected but the actual liquid volume evaluates to zero, preventing the UI from appearing broken or empty.
+  * **Celestial Chart Icons**: Replaced generic arrows with custom, high-fidelity vector icons (`moonrise`, `moonset`, `twilight`, and `dusk`) across the Sun & Moon path charts and celestial weather blocks.
+
+* **Core & Architecture**: Structural reorganizations for UI state management and universal rendering.
+  * **Unified Canvas Engine**: Migrated the entire compass face, tick placement, and peripheral indicator rendering logic into the shared `uicommon` module. The phone and watch now draw from the exact same mathematical geometry interface (`CoreCompassShapeMetrics`).
+  * **Centralized Unit Conversions**: Centralized all degree, azimuth, and NATO Mil mathematical conversions into shared `TextFormatters` and `CompassMathUtils`. This completely eliminates redundant parsing logic and prevents formatting errors across both platforms.
+  * **Trackers Handler Loop**: Created `CompassTrackersHandler` to continuously orchestrate location flows, weather states, and a 60-second internal ticking coroutine to calculate celestial shifts and waypoint bearings without freezing the UI thread.
+
+#### ⌚ Wear OS
+
+* **Trackers & Limitations**: Bringing the new tracker engine to the watch face, with specific platform considerations.
+  * **Celestial & Qibla Navigation**: Inherits the exact same Great-Circle and celestial calculations as the mobile app. You can project Sun, Moon, and Mecca bearings directly onto your watch face.
+  * **Important Wear OS Limitations**: Please note that the Plus subscription features (including GPS Waypoints) are not yet available on Wear OS. Additionally, the advanced weather data pipeline is not yet bridged to the watch. Because of this, the **Wind tracker is currently non-functional**, and the **Sun/Moon trackers will not display dynamic phase or weather icons** until a future update.
+  * **Smart Peripheral Clustering**: Inherits the dynamic repulsion algorithm from the shared library. Watch face tracking icons will gracefully dodge cardinal letters (N, S, E, W) and cluster together on constrained displays.
+
+* **Settings & UI**: Streamlined customization workflows and proactive feedback.
+  * **Dedicated Tracker Settings**: Extracted all tracking toggles into a new, standalone `TrackerCustomizationScreen`. For maximum convenience, these controls are accessible from both the main Compass Settings and the visual Customization Screen.
+  * **Native Wear OS Remote Input**: To prepare for future GPS Waypoint integration, we deprecated the cumbersome rotational picker for custom coordinates. We implemented native Wear OS `RemoteInput` intents, allowing users to type or use voice-to-text to define coordinates with built-in format validation and persistent inline error handling.
+  * **Proactive Toast Warnings**: Implemented a centralized system for Toast messages. The watch will now actively intercept and warn you if you attempt to enable a tracker without meeting the proper prerequisites (e.g., missing Location permissions, Advanced Data disabled, or undefined target coordinates).
+
+* **Core & Architecture**: Structural reorganizations for UI state management and universal rendering.
+  * **Unified Canvas Engine**: Wear OS now directly consumes `drawUniversalCompassRose` and `PeripheralIndicatorMetrics` from the shared UI module, ensuring rendering parity with the mobile app while retaining watch-specific priority scaling (e.g., dynamically shrinking the compass to emphasize data arcs).
+  * **Centralized State Validation**: Shifted boolean checks for True North and Tracker enablement directly into the `WearMainViewModel`, preventing local UI layers from falling out of sync with actual hardware or permission states.
+
 ## Version 2.0.0-Beta-6.1
 *(Released September 22, 2026)*
 
