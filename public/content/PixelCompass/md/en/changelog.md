@@ -1,10 +1,58 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 2.0.0-Beta-8
+*(Released September 29, 2026)*
+
+This critical Beta release focuses on massive architectural upgrades, deeply refactored weather components, and crucial stability fixes. We have fundamentally restructured our weather engine, migrating the core fetching logic into our unified shared module. This not only resolves critical fetching loops and significantly accelerates UI loading times, but also paves the exact foundation required for advanced Wear OS weather integrations in the future.
+
+Visually, this update introduces highly adaptive, dynamic chart systems for Pressure and Solar data, smart layout routing for an array of new weather blocks, and a highly requested mathematical upgrade to a precision 16-point compass rose. Alongside exhaustive internationalization, robust edit-mode protections, and smarter widget lifecycles, Beta 8 delivers a highly polished and stable experience.
+
+#### 📱 Phone
+
+* **Dynamic Weather Blocks & UI**: A massive expansion of the dashboard's visual capabilities, featuring fully adaptive layouts and smart container routing.
+  * **Dynamic Pressure & Solar Charts**: Upgraded from static graphics to fully dynamic, responsive architectures. These charts now seamlessly adapt their scale, layout, and data density to fit various grid sizes (Small, Wide, Tall, Large, Extra-Large) and include full support for transparent and frosted backgrounds.
+  * **New Block Architectures**: Introduced structural rendering components and UI state mappers for Time, Clock, Humidity, Location, Cloud Cover, and Visibility blocks. *(Note: Cloud Cover, Visibility, and Wind Quality are currently integrated into the default design schemas and data mappers; active UI rendering for these specific metrics will arrive in a future update).*
+  * **Edit Mode Protections**: Implemented strict touch interception (`isEditMode`) across all newly added dynamic blocks. This ensures interactive elements (like nested smart cards) are safely disabled while the user is actively arranging their dashboard, preventing accidental taps.
+  * **Smart Typography & Clustering**: Replaced static layouts with adaptive `BoxWithConstraints` and `DynamicChipGrid` systems. Text, icons, and charts now automatically scale, stack vertically, or conditionally suppress secondary descriptions based on the exact millimeter of available screen real estate.
+  * **Peripheral Icon Contrast**: Fixed a clustering bug where stacked peripheral tracking indicators lost their contrast. Grouped icons now dynamically inherit a unified primary color tint, guaranteeing perfect legibility inside shared repulsion bubbles.
+
+* **Core & Architecture**: Foundational upgrades to data fetching, geographical mathematics, and sensor telemetry.
+  * **Decoupled Weather Engine**: We successfully extracted the `CoreWeatherHandler` and caching logic from the mobile app layer and migrated it entirely into the shared architecture module. By decoupling the UI from raw network execution, the dashboard now renders significantly faster, instantly consuming ready-state emissions.
+  * **16-Point Compass Rose**: Completely upgraded the core directional mathematics from an 8-point system to a high-precision 16-point compass rose. The center readout and dynamic UI formatters will now accurately display granular headings (e.g., NNE, SSW, WSW).
+  * **Hybrid GPS Altitude Tracking**: Engineered a proactive, barometer-less altitude tracking fallback system. Devices lacking dedicated hardware pressure sensors will now accurately track altitude changes using a mathematical GPS offset baseline captured at the exact moment of manual or API calibration.
+  * **Global Localization**: Pushed a massive i18n update, adding comprehensive string translations for the compass dial editor, foldable mirroring setups, custom trackers, Qibla banners, and all newly introduced weather metrics across all supported language locales.
+
+* **Fixes & Stability**: Deep systemic resolutions for application lifecycle and networking errors.
+  * **Infinite Fetch Loop Resolved**: Fixed a critical caching logic flaw where microscopic physical sensor fluctuations (or a missing reverse-geocoded location name) triggered endless API retry requests. The engine now utilizes strict state equality checks and localized boundary validation to instantly break the loop, eliminating API rate-limit exceptions and massive battery drain.
+  * **Widget Anti-Fatigue Recalibration**: The original widget cooldown mechanism was too aggressive. We reduced the lifecycle fatigue delays (e.g., Lifestyle insights dropped from 3 days to 24 hours, Observation insights from 2 days to 12 hours). Widgets will now feel significantly more "alive" and reactive to changing daily conditions, and a new temporal check ensures expired insights (like a Morning Greeting at 3 PM) are instantly flushed from the cache.
+  * **Network Timeout ANR Prevented**: Replaced unbounded Kotlin standard library URL reading with explicit `HttpURLConnection` wrappers enforcing strict 15-second timeouts. This prevents the application's IO thread pool from starving on poor network connections, completely eliminating silent `nativePollOnce` Application Not Responding (ANR) crashes.
+  * **Widget Deep Link Crash Fix**: Resolved a navigation crash where tapping a Glance Widget while the app was already in the background would aggressively nullify the intent before Jetpack Compose could read its arguments, breaking the routing tree.
+  * **Dynamic Card Proportions & Sizing**: Fixed critical layout distortion and boundary issues affecting the dynamic Insight and Condition smart cards.
+    * **Expressive Shape Symmetry**: Applied strict `aspectRatio(1f)` constraints to the icon surface containers within both cards. This guarantees that our dynamically generated expressive shapes maintain perfect mathematical symmetry and never stretch, squash, or skew, regardless of the viewport or container constraints.
+    * **Insight Card Bounding Fix**: Resolved a layout bug where the `PrecipitationInsightCard` inadvertently consumed the entire vertical space of large blocks due to a hardcoded `fillMaxSize()` modifier, which was crushing adjacent charts. The cards now smartly wrap their intrinsic content while retaining the ability to stretch dynamically only when explicit layout weights are assigned by the parent.
+    * **Component Modularization**: Decomposed the monolithic card structures (e.g., `ConditionSurfaceIconContainer`, `InsightTextColumn`) into scoped, highly reusable composables and unified the random shape generation logic via a centralized `ExpressiveShapeMapper` for absolute visual consistency across the dashboard.
+
+#### ⌚ Wear OS
+
+* **Core & Architecture**: Foundational upgrades to data fetching, geographical mathematics, and sensor telemetry.
+  * **Decoupled Weather Engine**: We successfully extracted the `CoreWeatherHandler` and caching logic from the mobile app layer and migrated it entirely into the shared architecture module. By decoupling the UI from raw network execution, the dashboard now renders significantly faster, instantly consuming ready-state emissions. *(Note: This shared architectural leap is the exact foundation required to bring the advanced weather dashboard to Wear OS in the future).*
+  * **16-Point Compass Rose**: Completely upgraded the core directional mathematics from an 8-point system to a high-precision 16-point compass rose. This precision upgrade automatically cascades down to the watch's center readouts, native Complications Services, and Wear OS Tiles (e.g., NNE, SSW, WSW).
+  * **Hybrid GPS Altitude Tracking**: Engineered a proactive, barometer-less altitude tracking fallback system. Watches lacking dedicated hardware pressure sensors will now accurately track altitude changes using a mathematical GPS offset baseline captured at the exact moment of manual or API calibration.
+
+* **UI & UX Polish**: Streamlining the wearable experience and optimizing render cycles.
+  * **Calibration UI Overhaul**: Deeply modularized the altitude calibration screens into discrete action and effect handlers. We implemented exhaustive UI state mapping and custom edge button layouts to explicitly support the new hybrid `API_GPS` and `MANUALLY_GPS` tracking modes.
+  * **Live Time Tickers**: Removed legacy inline coroutine delays on the Wear OS Compass Display, replacing them with a drift-free, highly optimized `LiveZonedDateTimeSecondTicker` for flawless periodic updates.
+
+* **Fixes & Stability**: Deep systemic resolutions for application lifecycle and networking errors.
+  * **Infinite Fetch Loop Resolved**: Fixed a critical caching logic flaw where microscopic physical sensor fluctuations triggered endless API retry requests. The engine now utilizes strict state equality checks and localized boundary validation to instantly break the loop, eliminating API rate-limit exceptions and battery drain.
+  * **Network Timeout ANR Prevented**: Replaced unbounded Kotlin standard library URL reading with explicit `HttpURLConnection` wrappers enforcing strict 15-second timeouts. This prevents the application's IO thread pool from starving on poor network connections, completely eliminating silent `nativePollOnce` Application Not Responding (ANR) crashes.
+
+
 ## Version 2.0.0-Beta-7
 *(Released September 25, 2026)*
 
-This massive Beta release fundamentally transforms the Pixel Compass tracking architecture. We have introduced an advanced tracking ecosystem, transitioned to fully dynamic GPS waypoint navigation, and centralized our canvas rendering algorithms into a unified library. Furthermore, the Compass Editor has been reorganized to handle these new capabilities cleanly, and we've resolved critical layout persistence bugs for our foldable users.
+This Beta release fundamentally transforms the Pixel Compass tracking architecture. We have introduced an advanced tracking ecosystem, transitioned to fully dynamic GPS waypoint navigation, and centralized our canvas rendering algorithms into a unified library. Furthermore, the Compass Editor has been reorganized to handle these new capabilities cleanly, and we've resolved critical layout persistence bugs for our foldable users.
 
 *Note: The highly anticipated dynamic compass sizing adjustments are currently in development and will arrive in a future update.*
 
