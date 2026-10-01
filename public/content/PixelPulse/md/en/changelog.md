@@ -1,6 +1,39 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.25.0
+*(Released October 1, 2026)*
+
+Based on your incredible feedback, we are proud to introduce a massive evolution to our core acoustic engine and smart monitoring systems. This stable release focuses on eliminating false positives, refining the user interface to accurately represent your real-world exposure, and introducing a brilliant distributed hardware fallback system between your devices.
+
+**Important Note on Recalibration:** Because we have completely overhauled our acoustic physics engine and measurement logic to be more accurate (introducing new hardware offsets and window compensation factors), a quick recalibration of your app is highly recommended. For the most precise results, we suggest calibrating alongside a physical decibel meter if you have one available.
+
+#### 📱 Phone
+* **Core & Performance: Proactive Acoustic Engine:** We have completely refactored the underlying acoustic physics calculation pipeline to ensure absolute precision.
+  * **Advanced Calibration Logic:** Introduced a 2.0x Hann window compensation factor and base hardware offsets to map digital audio signals to real-world decibels with much higher fidelity. (Don't forget to recalibrate!)
+* **New: Distributed Microphone Fallback:** A brand-new hardware management architecture that elegantly handles audio interruptions without skipping a beat.
+  * **Reactive Audio Focus:** If another app (like a phone call or voice note) takes priority over the microphone, our service will now gracefully pause, yield the hardware, and display a "Microphone Paused" notification. It will automatically resume monitoring the moment the microphone is free.
+* **Improvement: Smart Alert Configurations:** We've made the alert configuration system much smarter and dynamically responsive to your settings.
+  * **Paradox Prevention:** The app now natively calculates valid alert duration limits based on your active monitoring interval, physically preventing you from setting up mathematically impossible alerts.
+  * **Fluid UI Forms:** Upgraded the dynamic duration selection sheet with native vertical scrolling for a much smoother experience on all screen sizes.
+* **UI & UX Polish: Semantic Chart Insights:** Your exposure charts and metrics are now much smarter at identifying true patterns rather than forcing isolated peaks.
+  * **Accurate Trend Reporting:** When multiple days or weeks tie for the loudest/quietest periods, the app now semantically groups them using clear labels like "Stable" or "Multiple Periods", always prioritizing the most recent data.
+  * **Responsive Typography:** Fixed abrupt text truncation on extreme metric cards, implementing a graceful ellipsis strategy and scrolling marquee for long localized strings.
+* **Fixes & Stability: Health Alert Accuracy & Reliability:** Deep under-the-hood fixes to ensure your health notifications are perfectly timed and never cry wolf.
+  * **Eliminated False Positives:** Rebuilt the Acoustic Health Report Manager with strict confidence scoring. The app will no longer warn you about severe acoustic fatigue if the system temporarily paused background recording.
+  * **Flexible Cooldowns:** Health alerts now respect natural shifts in your daily routine, utilizing intelligent cooldown margins (e.g., 4 hours for acute danger, 16 hours for daily patterns) and separating morning sleep summaries from evening fatigue reports.
+  * **Network Stability:** Resolved a silent app freeze (ANR) caused by infinite network timeouts on poor or fluctuating internet connections.
+
+#### ⌚ Wear OS
+* **Core & Performance: Proactive Acoustic Engine (Shared):** The smartwatch inherits the massive acoustic physics overhaul from the mobile app for superior measurement precision.
+  * **Advanced Calibration Logic:** The new real-world decibel mapping logic and offset calculations are fully active on the Wear OS module.
+* **New: Distributed Microphone Fallback (Shared):** Your watch and phone now work together as a seamless, distributed safety net.
+  * **Bidirectional Emergency Sync:** If your phone's microphone becomes blocked by another app, your smartwatch can instantly intercept the emergency state and seamlessly take over continuous monitoring duties to ensure you are never left unprotected.
+* **Improvement: Smart Alert Configurations (Shared):** Alert parameters are now fully dynamic on the watch interface.
+  * **Auto-Correcting Intervals:** When updating your background monitoring interval directly from your wrist, the watch actively guards against setting paradoxes and automatically adjusts the duration thresholds to remain mathematically viable.
+* **UI & UX Polish: Semantic Chart Insights (Shared):** Complications and rows have been refined to prioritize readability on strict circular displays.
+  * **Optimized Circular Displays:** Successfully implemented semantic plateaus. If your exposure patterns are stable, the UI completely bypasses cluttered text wrappers to cleanly display a neutral icon and "Stable" label.
+
 ## Version 1.24.0
 *(Released September 16, 2026)*
 
