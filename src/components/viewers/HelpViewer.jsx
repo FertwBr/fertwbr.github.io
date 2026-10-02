@@ -108,7 +108,7 @@ export default function HelpViewer({markdownContent, strings, appConfig}) {
 
         window.addEventListener('scroll', handleScroll, {passive: true});
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [isFullScreenMode]);
+    }, []);
 
     const filteredSections = useMemo(() => {
         if (!searchQuery) return data.sections;
