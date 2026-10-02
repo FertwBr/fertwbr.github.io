@@ -128,11 +128,17 @@ Your sound data is sensitive, so our backups are encrypted by default. You canno
 
 ## Troubleshooting & FAQ {: data-toc-key="troubleshooting" }
 
--   **Background monitoring seems to stop working.**
-    -   Some phone manufacturers use aggressive battery-saving measures that can shut down background apps. To ensure reliable monitoring, please **disable Battery Optimization** for Pixel Pulse. The app will show a banner to guide you if it detects that optimization is active.
+### Why does it say "Microphone in use by another app"? {: data-toc-key="mic-blocked" }
+For privacy and security reasons, the Android operating system only allows one app to access the microphone at a time. If you are making a phone call, recording a voice message (e.g., on WhatsApp), or using the camera, Android will temporarily block Pixel Pulse from accessing the hardware.
+- **Manual Recording:** If you try to start a recording while the mic is blocked, you will see a warning. If you are already recording and another app takes over, Pixel Pulse will gracefully **pause** your recording to prevent data loss.
+- **Live & Continuous Sessions:** If a background session is running, the app will enter a "Waiting" state. It will silently monitor the hardware and automatically **resume** tracking as soon as your call or voice note is finished. You don't need to do anything!
+- **Is this an error?** No, this is standard Android behavior. However, if you are absolutely certain no other app is using the microphone and the issue persists, try restarting your device. If the problem continues, please send us feedback via the app!
 
--   **My readings seem inaccurate.**
-    -   For best results, point your device's primary microphone towards the sound source and ensure it is not covered. Use the **Calibration** feature to fine-tune the readings against a reference device.
+### Background monitoring seems to stop working. {: data-toc-key="background-stop" }
+Some phone manufacturers use aggressive battery-saving measures that can shut down background apps. To ensure reliable monitoring, please **disable Battery Optimization** for Pixel Pulse. The app will show a banner to guide you if it detects that optimization is active.
+
+### My readings seem inaccurate. {: data-toc-key="readings-inaccurate" }
+For best results, point your device's primary microphone towards the sound source and ensure it is not covered. Use the **Calibration** feature to fine-tune the readings against a reference device.
 
 ## Support & Feedback {: data-toc-key="support" }
 
