@@ -1,6 +1,19 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+
+
+## Version 1.25.1
+*(Released October 1, 2026)*
+
+This minor hotfix refines the baseline audio calibration offset introduced in the recent update to ensure more accurate out-of-the-box decibel readings.
+
+#### 📱 Phone
+* **Fixes & Stability: Acoustic Engine Calibration:** Adjusted the default baseline hardware offset (from 40.0 dB down to 20.0 dB) used during digital-to-SPL (Sound Pressure Level) audio conversions. This fine-tunes the default microphone sensitivity across both mobile and wearable devices, providing a much more accurate baseline reading before any manual user calibration is applied.
+
+#### ⌚ Wear OS
+* **Fixes & Stability: Acoustic Engine Calibration:** Adjusted the default baseline hardware offset (from 40.0 dB down to 20.0 dB) used during digital-to-SPL (Sound Pressure Level) audio conversions. This fine-tunes the default microphone sensitivity across both mobile and wearable devices, providing a much more accurate baseline reading before any manual user calibration is applied.
+
 ## Version 1.25.0
 *(Released October 1, 2026)*
 
