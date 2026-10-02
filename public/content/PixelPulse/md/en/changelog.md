@@ -1,7 +1,30 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.25.2
+*(Released October 2, 2026)*
 
+This hotfix focuses on making the app incredibly resilient against microphone interruptions. We've introduced a robust hardware polling system and entirely new visual states to keep you informed when other apps take control of your device's audio.
+
+#### 📱 Phone
+* **New: Smart Microphone Auto-Resume:** Added a highly intelligent background polling engine (`MicrophoneAvailabilityTester`). If an incoming phone call, voice note, or another app temporarily seizes the microphone during a live session, Pixel Pulse will now safely pause, wait patiently, and automatically resume recording the exact moment the hardware is freed—without losing your session data.
+* **UI & UX Polish: Blocked Hardware States:** We've completely redesigned the UI for blocked microphone scenarios.
+  * The main meter now renders a dynamic `MicBlockedState` empty screen with frosted glass overlays when the hardware is seized, completely suppressing flatlined charts and confusing "zero" readings.
+  * Added a contextual "Learn More" troubleshooting link that dynamically routes you directly to the relevant help documentation.
+  * Live foreground notifications will now dynamically shift to a neutral gray theme, substitute decibel readings with placeholders (`--`), and offer a manual "Resume" action button.
+* **Fixes & Stability: Health Alert Throttling:** We've fine-tuned the `HealthAlertEvaluator` to prevent notification fatigue.
+  * Implemented multi-tiered cooldowns: Insights are now governed by a strict 12-hour global cooldown and a 2-day specific category cooldown.
+  * These preferences are now synchronized to the database in a single batched transaction for better performance.
+* **Fixes & Stability: Deep Link Navigation:** Fixed a routing bug where tapping an exposure alert deep link would fail to parse the `contextTitle`, ensuring you are always dropped into the exact Insight Category you requested.
+
+#### ⌚ Wear OS
+* **Fixes & Stability: Microphone Conflict Handling:** The smartwatch now inherits the robust hardware management from the phone.
+  * If another watch app (like an assistant or call) blocks the microphone, your recording session will safely pause automatically.
+  * Live Wear OS notifications will seamlessly update their titles to reflect the paused state instead of showing frozen decibel data.
+* **UI & UX Polish: Adaptive Watch UI:** Introduced the `MicBlockedWearState` composable tailored specifically for circular watch faces.
+  * The blocked warning dynamically scales its typography and icons to perfectly fit micro-displays without clipping.
+  * Added a new "Learn More" button using `RemoteInteractionHelper` that instantly opens the troubleshooting guide on your paired smartphone with a clean confirmation dialog on your wrist.
+* **Under the Hood: Centralized Animation Specs:** Consolidated all Wear OS UI animations (padding, font scaling, entering/exiting readouts) into a unified `MeterAnimationSpecs` engine, ensuring buttery-smooth 60fps transitions during hardware state changes.
 
 ## Version 1.25.1
 *(Released October 1, 2026)*
