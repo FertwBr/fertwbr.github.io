@@ -1,8 +1,21 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.25.3
+*(Released October 4, 2026)*
+
+This minor patch resolves formatting issues for health notifications and fixes a visual synchronization bug on the Wear OS calibration screen.
+
+#### 📱 Phone
+* **Fixes & Stability: Health Notification Formatting:** Fixed a string formatting bug in the `PeriodicExposureAnalyzer`. High-risk daily exposure alerts now correctly include your peak decibel (`maxDb`) values in the notification text, providing you with exact data when warning you about dangerous sound levels.
+
+#### ⌚ Wear OS
+* **Fixes & Stability:**
+  * Health Notification Formatting: Fixed a string formatting bug in the `PeriodicExposureAnalyzer`. High-risk daily exposure alerts now correctly include your peak decibel (`maxDb`) values in the notification text, providing you with exact data when warning you about dangerous sound levels.
+  * Calibration Slider Synchronization:** Resolved a state-tracking bug on the smartwatch `CalibrationScreen`. The visual slider now properly updates and re-synchronizes its position if your calibration offset changes asynchronously or is reset, ensuring the UI always reflects your true hardware offset.
+
 ## Version 1.25.2
-*(Released October 2, 2026)*
+*(Released October 4, 2026)*
 
 This hotfix focuses on making the app incredibly resilient against microphone interruptions. We've introduced a robust hardware polling system and entirely new visual states to keep you informed when other apps take control of your device's audio.
 
@@ -27,7 +40,7 @@ This hotfix focuses on making the app incredibly resilient against microphone in
 * **Under the Hood: Centralized Animation Specs:** Consolidated all Wear OS UI animations (padding, font scaling, entering/exiting readouts) into a unified `MeterAnimationSpecs` engine, ensuring buttery-smooth 60fps transitions during hardware state changes.
 
 ## Version 1.25.1
-*(Released October 1, 2026)*
+*(Released October 2, 2026)*
 
 This minor hotfix refines the baseline audio calibration offset introduced in the recent update to ensure more accurate out-of-the-box decibel readings.
 
