@@ -1,6 +1,45 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 2.0.0-Beta-8.1
+*(Released October 02, 2026)*
+
+This beta introduces a massive structural overhaul to spatial UI boundaries, focusing heavily on responsive micro-layouts and Material 3 Expressive components. We have replaced legacy static panels with highly intelligent, adaptive components, including new interactive charting engines and a fully hemisphere-aware celestial logic system that natively maps astronomical accuracy to your precise latitude.
+
+Under the hood, this release fortifies the core state architecture. We've introduced strict emission guarantees and intelligent cache fallbacks to ensure weather data remains seamless and resilient during unexpected network drops or rate limit exceptions, preventing silent state failures across the application.
+
+#### 📱 Phone
+**Core & Architecture**: Structural enhancements to caching, network resilience, shared utilities, and UI state emissions.
+- **State Management & Data Layer**
+  - **Intelligent Weather Caching**: Overhauled fallback paths in `CoreWeatherHandler` to securely preserve and serve local cache data during network anomalies (`NoConnectivityException`, `RateLimitExceededException`). Enforced strict maximum cache staleness bounds (6 hours for current conditions, 24 hours for forecasts).
+  - **State Flow Emission Guarantee**: Appended an `emissionTimestamp` property to the `WeatherFetchResult` payload. This forcefully bypasses `isSameData` equality constraints, guaranteeing robust downstream StateFlow emissions even when the upstream weather payload remains unchanged.
+  - **Time Conversion Utility**: Added a `getLocalDateFromTimestamp` mapper inside the shared `TimeManager` to centralize highly precise epoch-to-LocalDate transformations dynamically mapped to the resolved target timezone.
+- **Location Orchestration**
+  - **Reactive Flow Mapping**: Wired full weather telemetry directly to location flow observations (`deviceSensorOrchestrator.currentLocation`), proactively triggering `attemptToLoadWeatherLocationData` the moment valid coordinates become available.
+
+**New Additions**: Brand new interactive charting components, celestial capabilities, and localized telemetry dialogs.
+- **Celestial Mechanics**
+  - **Hemisphere-Aware Logic Engine**: Integrated `isApparentPathRightToLeft` telemetry to dynamically invert apparent celestial paths, arc sweep angles, and event markers across all Sun and Moon charts. This guarantees mathematically accurate horizon and celestial rendering for users in the Southern Hemisphere.
+- **Interactive Weather Components**
+  - **Pressure Bar Charts**: Completely replaced the legacy pressure comparison panel with a robust `PressureBarChart`. This new engine features interactive gesture scrubbing, haptic feedback ticks on selection changes, dynamic tooltips via `drawAnnotatedDataLabel`, and animated bar loading sequences.
+  - **Contextual Weather Dialogs**: Introduced a unified `WeatherInfoDialog` framework. Badges across Wind and UV blocks are now interactive, revealing dynamically colored mini-cards detailing Beaufort Scale safety, Wind Gust speeds, exact Wind Direction mapping, and general UV Index explanations.
+
+**UI & UX Polish**: Deep refinements to edge-to-edge layout rendering, typography scaling, and spatial optimizations.
+- **Material 3 Expressive Design System**
+  - **Modular State Screens**: Completely refactored the Weather Error, GPS Disabled, and Permission Request screens using the new `ExpressiveStateLayout` framework. This injects scrollable grid padding natively and scales dynamic `CloudOff` and `GpsOff` M3 icons perfectly.
+  - **Edge-to-Edge Time Blocks**: Redesigned all time block variants for seamless edge-to-edge rendering, ripping out rigid constraints and adopting Material 3 Expressive typography rules (heavy weights, tight letter spacing, and compact `ExpressiveAmPmIndicator` views).
+- **Responsive Micro-Layouts**
+  - **Intelligent Spatial Bounds**: Conducted a massive spatial optimization across Wind, UV, Humidity, and Precipitation blocks. Enforced strict 1:1 aspect ratios (`.aspectRatio(1f)`) on icon surfaces, enabled text auto-hyphenation (`Hyphens.Auto`), and dynamically scaled layout proportions during `isCompact` state evaluations on narrow screens.
+  - **Specialized Constrained Charts**: Engineered spatial-aware chart variants (`WideHumidityForecastChart`, `TallHumidityForecastChart`) that natively compress horizontal labels and amplify vertical curve variances to sit flawlessly within highly restricted grid columns.
+
+**Fixes & Stability**: Crucial crash preventions, drawing glitch resolutions, and state guards.
+- **Crash Resolutions**
+  - **Deep Link Resource Fault**: Fixed a fatal `Resources$NotFoundException: Resource ID #0x0` triggered by external deep links (e.g., `showCard=PRECIPITATION`) opening Detail Panels while the app was force-stopped. Implemented a `DetailPanelSafeIcon` with a `CircularWavyProgressIndicator` loading fallback while dynamic drawables resolve.
+- **Rendering Fixes**
+  - **Precipitation Chart Glitch**: Eliminated a persistent 1-frame double-flash drawing bug in the `PrecipitationHybridForecastChart` by removing the redundant `AnimatedContent` transition wrapper and securely keying the drawing `Animatable` instance directly to the view state.
+- **State Consistency**
+  - **Infinite Loop Prevention**: Implemented strict state guards in `WeatherLocationHandler` to actively block redundant fallback weather refreshes if an `Error` or `Loading` state is already actively resolving in the UI.
+
 ## Version 2.0.0-Beta-8
 *(Released September 29, 2026)*
 
