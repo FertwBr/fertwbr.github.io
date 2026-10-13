@@ -1,6 +1,49 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 2.0.0 Beta 9
+*(Released October 6, 2026)*
+
+Welcome to Beta 9 of the 2.0.0 milestone. This update introduces three entirely new modular weather blocks to the forecast engine and a brand new Layout Priority architecture that lets users fundamentally customize the scale and emphasis of the compass interface across both Phone and Wear OS. Alongside these features, we've fortified the core widget sync engines and implemented rigorous timeout fallbacks for maximum offline resilience.
+
+#### 📱 Phone
+* **New: Advanced Weather Blocks:** Engineered full UI components, state mappers, and layout adapters for three new weather blocks: Visibility, Cloud Cover, and Dew Point.
+  * **Visibility Block:** Added adaptive premium layouts (Small through ExtraLarge) and free-tier variants, featuring a specialized `VisibilityForecastChart` with collision-aware labels and empty state handling.
+  * **Cloud Cover Block:** Introduced timeline charts with dynamic bar width sizing and local neighborhood bar height calculations to prevent visual crowding.
+  * **Dew Point Block:** Built the `DewPointHumidityChart` with animated Bezier curves and a dynamic gap gradient fill between dew point and humidity data, complete with interactive haptic scrubbing and annotated tooltips.
+* **New: Compass Layout Priority:** Implemented a new core customization engine allowing users to fundamentally alter the compass visual hierarchy.
+  * Added three selectable modes: **Balanced**, **Emphasize Arcs**, and **Emphasize Compass**.
+  * Built a premium `CompactPainterSegmentedRow` selector in the Compass Editor Panel for seamless switching.
+  * Integrated `ResolvedLayoutMetrics` to dynamically calculate and scale the compass rose, peripheral texts, action buttons, and corner radii in real-time based on the selected priority.
+* **Core & Performance: Glance Widget Sync Engine:** Resolved critical At a Glance sync freezes and state update failures.
+  * Implemented `scheduleImmediateUpdate()` on widget placement to guarantee instant data hydration.
+  * Isolated `updateAppWidgetState` within `EnvironmentSyncWorker` try-catch blocks to prevent single DataStore write collisions from aborting global widget redraws.
+  * Hardened hardware camera request fallbacks in `ToggleFlashlightAction` to ensure the UI state reliably resets and redraws upon failure.
+* **Core & Performance: Weather Engine Resilience:** Fortified network requests against packet loss and deadlock.
+  * Enforced a strict 15-second timeout on Firebase Cloud Functions, organically remapping timeouts to standard offline fallbacks instead of infinitely hanging.
+  * Bypassed the 10-minute network TTL cooldown when users manually trigger a forecast retry via UI interactions.
+  * Intercepted empty backend forecast payloads (HTTP 200 with null body) and forcefully routed them to `EmptyResponseBodyException` to prevent infinite loading deadlocks.
+* **Fixes & Stability: Altitude Engine:** Resolved critical barometric calculation drifting and sensor caching delays.
+  * Refactored the Barometric Formula to derive Sea Level Pressure (P0) rather than utilizing strictly local pressure, eliminating severe altitude drift at higher elevations.
+  * Implemented a 2.5-second `withTimeoutOrNull` lock during API calibration to actively await sleeping barometer sensors, preventing null caching and forcing stable pressure offsets over raw GPS.
+* **Global Localization: Comprehensive Translations:** Massively expanded international string support across the app.
+  * Added localized strings for all new weather info blocks (Wind Gusts, Beaufort Scale, UV Index, Dew Point) and specific visibility conditions (excellent, good, moderate, poor, very poor).
+  * Translated the new compass layout priority settings.
+  * Added localized error states including "extended details unavailable" and "tap to retry".
+
+#### ⌚ Wear OS
+* **New: Compass Layout Priority:** Brought the complete layout hierarchy customization directly to the wrist.
+  * Added a new `LayoutPrioritySelectionScreen` featuring a horizontal pager for previewing and applying the **Balanced**, **Emphasize Arcs**, and **Emphasize Compass** modes.
+  * Dynamically scales all Wear compass elements—including status icons, periphery typography, indicator metrics, and arc radii—using the shared `ResolvedLayoutMetrics` engine.
+* **Core & Performance: Sensor Orchestration:** Decoupled monolithic handlers for cleaner architecture.
+  * Split `WearLocationAndCalibrationHandler` into dedicated `WearLocationHandler` and `WearAltitudeCalibrationHandler` components for focused location and barometer streaming.
+* **Fixes & Stability: Altitude Engine:** Resolved critical barometric calculation drifting and sensor caching delays.
+  * Refactored the Barometric Formula to derive Sea Level Pressure (P0), eliminating severe altitude drift at higher elevations.
+  * Implemented a 2.5-second `withTimeoutOrNull` lock during API calibration to actively await sleeping barometer sensors, preventing null caching.
+* **Global Localization: Preview Labels & Weather Strings:**
+  * Added localized preview labels for layout coordinates (LAT, LON) and altitude (ALT, INC) to support the new wrist layout preview selections.
+  * Inherited all new weather metadata and visibility translation strings from the core shared modules.
+
 ## Version 2.0.0-Beta-8.1
 *(Released October 02, 2026)*
 
