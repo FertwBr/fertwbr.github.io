@@ -1,6 +1,46 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 2.0.0-Beta-10
+*(Released October 13, 2026)*
+
+Welcome to Beta 10 of the 2.0.0 milestone. This massive update lays the technical foundation for bringing Pixel Compass+ to Wear OS, introducing secure entitlement synchronization and unlocking real-time data for the watch's Sun, Moon, and Wind dial trackers. We have also engineered a highly secure offline JWT validation system to protect the app against piracy and unofficial modifications, alongside critical architectural fixes that resolve weather sync retry storms and ghost sensor leaks. *(Note: Wear OS Tiles, Complications, and dedicated weather screens are in active development and will arrive in a future update).*
+
+#### 📱 Phone
+* **New: Contextual Weather Visualizations:** Enhanced the Material Design data components with deeper visual context and responsive scaling.
+  * **Embedded Dialog Charts:** Upgraded the `WeatherInfoDialog` framework to support native graphical visualizations. The Dew Point and Wind information dialogs now feature fully rendered, embedded charts to provide immediate clarity on data trends.
+  * **Toggleable Legends & Layouts:** Added explicit, toggleable legends to the Dew Point and Wind charts. Replaced rigid vertical dividers with responsive spacers in Extra Large blocks, and reordered the `LargePressureDetailRow` for a more natural reading hierarchy.
+  * **Visibility & Solar Refinements:** Extracted visibility descriptions into a beautifully stylized `VisibilityInsightCard` with a semi-transparent background. Updated the `SolarIntensityBadge` to use dynamic `aspectRatio(1f)` constraints, ensuring perfect responsive scaling across all layout variants without overflow.
+* **Core & Architecture: Offline Security Engine (JWT):** A major leap forward in application security and anti-piracy measures.
+  * **Cryptographic Validation:** Implemented the `JwtOfflineValidator` featuring RS256 signature verification. This new engine locally verifies backend-signed JWTs, securing Pixel Compass+ features against unauthorized, modified, or pirated APKs, protecting user data from unofficial sources.
+  * **Silent Background Renewal:** Created the `SubscriptionCheckWorker` to silently renew the offline JWT token in the background. This ensures users who exclusively interact with home screen widgets maintain their plus entitlements without needing to open the main app.
+* **Core & Architecture: Weather Sync Resilience:** Fortified the synchronization engine against API rate limits and redundant network calls.
+  * **Global Error Cooldown:** Engineered a strict 60-second global cooldown (`ERROR_RETRY_COOLDOWN_MS`) system. This intercepts `RateLimitExceededException` errors and prevents the app's ViewModels and WorkManagers from triggering infinite "Retry Storms" against Firebase Functions.
+  * **Premium Fetch Policy:** Introduced a new `WATCH_PLUS` fetch policy. The engine now dynamically evaluates the user's subscription status to apply decreased TTL and tighter distance thresholds, delivering much faster and more accurate updates for premium smartwatch users.
+* **Fixes & Stability: Sensors & State Leaks:** Resolved critical battery drain issues and background rendering freezes.
+  * **Ghost Sensor Leak Fix:** Fixed a critical bug in `WeatherScreen` where `DisposableEffect` recompositions failed to unregister the active client, creating ghost sensor listeners that silently drained the battery and duplicated UI updates.
+  * **Singleton Orchestrator:** Annotated `DeviceSensorOrchestrator` as a `@Singleton` to resolve an architectural bug that spawned multiple polling instances, causing duplicate network requests.
+  * **Widget Freeze Tracing:** Injected verbose lifecycle and DataStore logging into `AtAGlanceWidget` and `PixelCompassWidget` to actively trace and resolve "black box" freezes caused by stale cache emissions.
+* **Global Localization: Expanded i18n:**
+  * Added comprehensive, region-specific string resources for license tiers (`free`, `plus`, `lifetime`, `legacy`), celestial calculators, and advanced geographic trackers across all supported languages.
+
+#### ⌚ Wear OS
+* **New: The Pixel Compass+ Experience:** Premium features officially make their debut on your wrist.
+  * **Flippable License Card:** Introduced the premium `WearFlippableLicenseCard`. Tap your subscription card to trigger a 3D Y-axis flip rotation featuring haptic feedback and dynamic, battery-efficient shimmer effects based on your active tier.
+  * **User Experience Screens:** Added a comprehensive suite of premium UI screens, including `UserExperienceScreen`, `PlusLockedScreen`, and detailed onboarding flows (`WelcomeNewPlus`, `WelcomeBackPlus`).
+  * **EdgeButton Migration:** Replaced legacy inline action buttons with ergonomic `EdgeButton` components across all subscription and welcome screens for improved Wear OS usability.
+* **New: Live Dial Trackers:** Empowering the compass dial with real-time environmental data.
+  * **Real-Time Celestial & Wind Data:** The Sun, Moon, and Wind trackers on the compass dial are no longer placeholders. They now consume live environmental data powered by the `CoreWeatherHandler` injected directly into the Wear OS module.
+  * **Premium Feature Gating:** Advanced tracking tools, including the live Wind direction display on the compass rose and Custom Bearing indicators, are now fully functional and exclusively gated behind the Plus feature guard.
+* **Core & Architecture: Phone-to-Watch Entitlement Sync:** Seamless cross-device subscription management.
+  * **Data Layer Synchronization:** Engineered the `PlusStatusSyncManager` and `WearableDataListenerService`. The watch now seamlessly and securely syncs your active purchase date, license tier, and cryptographic JWT authentication tokens directly from the companion phone app via the Google Play Services Wearable Data Layer.
+  * **Smart Background Polling:** Weather sync is now explicitly gated by UI visibility. The `setWeatherSyncActive` lifecycle event prevents unnecessary background data updates when compass screens are inactive, massively reducing battery drain.
+* **Fixes & Stability: Sync Resilience:**
+  * **Robust Error Handling:** Implemented a comprehensive `PlusSyncException` hierarchy with a strict 15-second timeout for phone-to-watch communication. Added granular, localized Toast feedback if the watch cannot reach the phone (e.g., Device Unreachable, Service Unavailable).
+* **Global Localization: Expanded i18n:**
+  * Added comprehensive, region-specific string resources for Plus features, synchronization statuses, feature locks, and detailed plan benefits across all supported smartwatch languages.
+
+
 ## Version 2.0.0 Beta 9
 *(Released October 6, 2026)*
 
