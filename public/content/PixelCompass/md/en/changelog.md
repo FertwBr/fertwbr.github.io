@@ -1,6 +1,24 @@
 # Version History
 Track the evolution of Pixel Compass. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 2.0.0 Beta 10.1
+*(Released October 15, 2026)*
+
+This patch release refines the adaptive layout behavior for the newly introduced Cloud Cover and Visibility weather blocks on mobile viewports, while resolving critical tier-synchronization race conditions and polishing the subscription benefits UI on Wear OS.
+
+#### 📱 Phone
+* **UI & UX Polish: Adaptive Weather Blocks:** Enhanced layout responsiveness and typography scaling for constrained grid sizes.
+  * **Visibility Blocks:** Added `BoxWithConstraints` checks (`isCompactTypography`) across Small, Wide, and Large visibility blocks to dynamically scale down display typography and enable marquee scrolling in tight viewports. Added compact mode support to `VisibilityInsightCard` to gracefully manage padding, spacer heights, and line limits.
+  * **Cloud Cover Blocks:** Implemented dynamic typography scaling in `SmallCloudCoverBlock` and `WideCloudCoverBlock`. Introduced an `isCollapsed` state in the Wide variant to conditionally hide condition description badges and prevent vertical clipping under strict height constraints.
+
+#### ⌚ Wear OS
+* **Fixes & Stability: Entitlement & Tier Mapping:** Resolved synchronization discrepancies and inaccurate feature lock indicators.
+  * **Plus Initialization Race Condition:** Fixed a cold-start bug where `UserExperienceScreen` temporarily displayed a locked state despite holding a valid JWT token. The UI now prioritizes the cryptographically verified `isPlusUser` boolean flag over raw string payloads during initial sync.
+  * **Legacy & Free Tier Corrections:** Updated `WearPlanBenefit` mappings to ensure Legacy users properly see all Plus features (such as the wind indicator, extended metrics, and sun/moon paths) as unlocked. Corrected the "Auto-healing altitude/barometer" benefit to accurately display as unlocked for Free tier users.
+* **UI & UX Polish: User Experience & License Card:** Refined the visual presentation of subscription tiers on circular displays.
+  * **Flippable License Card Redesign:** Modularized the `WearFlippableLicenseCard` architecture and redesigned the back face for Free tier users, replacing the upgrade prompt with a welcoming "Core Features" summary and a `Stars` icon.
+  * **Benefits List Refinements:** Updated `WearBenefitRow` to render authentic feature vector icons instead of generic checkmarks when unlocked, complete with single-line marquee scrolling for long titles. Adjusted bottom list padding (`48.dp`) to prevent content from clipping against the bottom `EdgeButton` and eliminated double-padding scroll inflation.
+
 ## Version 2.0.0-Beta-10
 *(Released October 13, 2026)*
 
