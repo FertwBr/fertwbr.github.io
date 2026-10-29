@@ -1,6 +1,32 @@
 # Version History
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
+## Version 1.26.0 Beta 2
+*(Released October 29, 2026)*
+
+Version 1.26.0 Beta 2 focuses on intelligent notification lifecycle management and hardened startup security. This update introduces context-aware expiration timeouts for health and exposure alerts across both platforms, ensuring your notification shade remains clutter-free and strictly relevant by automatically dismissing stale warnings at the OS level based on their severity and category.
+
+Additionally, on the phone side, we have fortified our integrity and security initialization pipeline. By synchronizing Firebase App Check registration during application creation and introducing lifecycle-aware Play Integrity recovery when returning to the foreground, the app now seamlessly recovers from transient verification drops without interrupting your experience.
+
+#### 📱 Phone
+
+* **New Additions**: Intelligent, context-aware lifecycle management for proactive notifications to prevent stale alarms and drawer clutter.
+  * **Automatic Notification Expiration Timeouts**: Enhanced `PixelPulseNotificationManager` by updating `showExposureAlert` and `showHealthInsightAlert` to accept a `timeoutMs` parameter and apply Android's native `setTimeoutAfter()` builder configuration. High-priority exposure alerts now default to a 1-hour auto-dismissal window so outdated environmental warnings do not linger after you have left the area.
+  * **Context-Aware Alert Evaluation**: Upgraded `HealthAlertEvaluator` with category- and risk-based timeout constants that dynamically calculate expiration durations upon alert dispatch. Danger alerts automatically expire after 2 hours, daily routine insights after 8 hours, and long-term trend summaries after 16 hours, keeping your notification tray timely and actionable.
+* **Core & Architecture**: Hardened security token initialization and build configuration updates for the Beta 2 release track.
+  * **Synchronous Firebase App Check Initialization**: Refactored `PixelPulseApplication` to execute `initializeFirebaseAppCheck()` synchronously during application creation. This guarantees that the security token provider is fully registered before any early network requests or billing interactions occur, preventing startup race conditions.
+  * **Debug Notification Timeout Alignment**: Updated debug notification triggers inside `DebugViewModel` to explicitly pass a 1-hour timeout duration (`1.hours.inWholeMilliseconds`) when invoking test exposure alerts and mock notifications, aligning internal testing tools with the new notification expiration architecture.
+* **Fixes & Stability**: Proactive lifecycle recovery mechanisms to resolve transient authentication and integrity check interruptions.
+  * **Foreground Play Integrity Recovery**: Resolved an issue where transient network drops could leave the app in an unverified state. Added `retryVerification()` in `PlayIntegrityManager` to reset verification states and request fresh integrity tokens on demand, and injected `AppLifecycleManager` into `MainViewModel` to observe foreground transitions—automatically triggering verification retries and forced purchase queries whenever the app returns to the foreground unverified.
+
+#### ⌚ Wear OS
+
+* **New Additions**: Intelligent, context-aware lifecycle management for proactive notifications to prevent stale alarms and drawer clutter on your wrist.
+  * **Automatic Notification Expiration Timeouts**: Enhanced `PixelPulseNotificationManager` by updating `showExposureAlert` and `showHealthInsightAlert` to accept a `timeoutMs` parameter and apply Android's native `setTimeoutAfter()` builder configuration. High-priority exposure alerts now default to a 1-hour auto-dismissal window so outdated environmental warnings do not linger after you have left the area.
+  * **Context-Aware Alert Evaluation**: Upgraded `HealthAlertEvaluator` with category- and risk-based timeout constants that dynamically calculate expiration durations upon alert dispatch. Danger alerts automatically expire after 2 hours, daily routine insights after 8 hours, and long-term trend summaries after 16 hours, keeping your notification tray timely and actionable.
+* **Fixes & Stability**: Diagnostic notification lifecycle fixes for Wear OS testing workflows.
+  * **Wear Debug Notification Expiration Fix**: Fixed an issue in `WearDebugViewModel` where high-priority debug notifications persisted indefinitely on Wear OS devices by explicitly passing a 1-hour expiration timeout (`timeoutMs`) upon dispatch.
+
 ## Version 1.26.0 Beta 1
 *(Released October 18, 2026)*
 
