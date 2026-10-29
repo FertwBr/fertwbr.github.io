@@ -2,7 +2,7 @@
 Track the evolution of Pixel Pulse. Here you'll find a detailed log of new features, improvements, and fixes for each version.
 
 ## Version 1.26.0 Beta 1
-*(Released October 29, 2026)*
+*(Released October 18, 2026)*
 
 Version 1.26.0 Beta 1 introduces a foundational security and architectural overhaul across the entire ecosystem. This release transitions the backend infrastructure from traditional REST APIs to a serverless Firebase architecture protected by Google Play Integrity, Firebase App Check, and local RS256 cryptographic JWT validation. By introducing automated background verification workers and tamper-resistant offline token evaluation, the app now strictly protects premium entitlements and application integrity against unauthorized modifications—all while guaranteeing seamless offline continuity and zero unnecessary battery drain for free-tier users.
 
